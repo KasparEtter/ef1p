@@ -1,0 +1,26 @@
+$body-padding-top: $navbar-height + $body-padding !default;
+
+@media screen {
+  body {
+    padding-top: $body-padding-top;
+    padding-bottom: $body-padding;
+  }
+
+  // Scroll to the right position with the correct scroll spy entry.
+  h1::before,
+  h2::before,
+  h3::before,
+  h4::before,
+  h5::before,
+  h6::before {
+    display: block;
+    height: $body-padding-top;
+    margin-top: -$body-padding-top;
+    visibility: hidden;
+    content: "";
+  }
+
+  div.container-fluid {
+    max-width: 1170px;
+  }
+}

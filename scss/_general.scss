@@ -1,0 +1,14 @@
+a {
+  cursor: pointer; // Necessary for links without href.
+}
+
+pre {
+  padding: 10px;
+  background-color: darken($body-bg, 5%) !important;
+  border-radius: $border-radius;
+}
+
+// https://css-tricks.com/flexbox-truncated-text/
+.col {
+  min-width: 0;
+}

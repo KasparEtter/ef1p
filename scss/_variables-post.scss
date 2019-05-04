@@ -1,0 +1,23 @@
+// The following variables are declared after Bootswatch
+// in order to rely on the colors of the corresponding theme.
+
+// These variables are copied without changes from Bootstrap because we already need them now:
+$body-color: $gray-900 !default; // Only set by the dark theme but not the light one.
+$component-active-bg: $primary !default;
+$input-btn-focus-width: .2rem !default;
+$input-btn-focus-color: rgba($component-active-bg, .25) !default;
+$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
+
+// Forms
+
+$input-color: $body-color !default;
+$custom-select-indicator-color: $body-color !default;
+
+$input-box-shadow: inset 0 -1px $primary !default;
+$input-focus-box-shadow: inset 0 -2px $link-color !default;
+$custom-control-indicator-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$custom-select-focus-box-shadow: $input-focus-box-shadow !default;
+
+// Dropdowns
+
+$dropdown-link-color: $body-color; // Cannot only be default as already set by Bootswatch.

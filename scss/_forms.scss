@@ -1,0 +1,39 @@
+// Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
+
+.form-control,
+.custom-select {
+  width: unset; // Instead of 100%.
+  box-shadow: $input-box-shadow; // Instead of `$enable-shadows: true;` because we want:
+  // https://github.com/twbs/bootstrap/blob/4ee2ae4ce07631cd108d4731242cb478ce5e63f2/scss/mixins/_forms.scss#L23
+  // https://github.com/twbs/bootstrap/blob/4ee2ae4ce07631cd108d4731242cb478ce5e63f2/scss/_custom-forms.scss#L39
+}
+
+.has-warning {
+  .form-control {
+    box-shadow: inset 0 -1px $warning;
+  }
+
+  .form-control:focus {
+    box-shadow: inset 0 -2px $warning;
+  }
+}
+
+.has-danger {
+  .form-control {
+    box-shadow: inset 0 -1px $danger;
+  }
+
+  .form-control:focus {
+    box-shadow: inset 0 -2px $danger;
+  }
+}
+
+.has-success {
+  .form-control {
+    box-shadow: inset 0 -1px $success;
+  }
+
+  .form-control:focus {
+    box-shadow: inset 0 -2px $success;
+  }
+}

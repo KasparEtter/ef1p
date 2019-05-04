@@ -1,0 +1,62 @@
+// The following variables are declared before Bootswatch.
+
+// Uncomment the following line to serve the font locally:
+// $web-font-path: "../fonts/lato/lato.css" !default;
+
+// Padding
+
+$grid-gutter-width: 30px !default; // Unchanged but already required here.
+
+$body-padding: $grid-gutter-width / 2 !default; // Custom variable not used by others.
+
+// Text
+
+$font-size-base: 1rem !default; // Unchanged but already required here.
+
+// Links
+
+$link-hover-decoration: none !default;
+
+// Headlines
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.5 !default;
+$h4-font-size: $font-size-base * 1.25 !default;
+$h5-font-size: $font-size-base !default;
+$h6-font-size: $font-size-base !default;
+
+// Navbar
+
+$navbar-padding-x: 0 !default;
+$navbar-padding-y: 0 !default;
+
+$navbar-height: 60px !default; // Custom variable not used by others.
+
+$navbar-icon: url("../images/logo.svg") !default; // Custom variable not used by others.
+$navbar-icon-size: 26px !default; // Custom variable not used by others.
+
+// Forms
+
+$input-padding-y: .25rem !default;
+$input-padding-x: 0 !default;
+$input-padding-x-sm: 0 !default;
+$input-padding-x-lg: 0 !default;
+
+$input-bg: transparent !default;
+$input-disabled-bg: transparent !default;
+
+$input-border-color: transparent !default;
+$input-border-width: 0 !default;
+
+$input-border-radius: 0 !default;
+$input-border-radius-sm: 0 !default;
+$input-border-radius-lg: 0 !default;
+
+$input-focus-border-color: transparent !default;
+
+$custom-control-indicator-bg: #fff !default;
+$custom-control-indicator-box-shadow: none !default;
+$custom-control-indicator-border-width: 1px !default;
+
+$custom-select-border-radius: 0 !default;
