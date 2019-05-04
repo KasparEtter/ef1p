@@ -1,0 +1,25 @@
+{
+    "fenced-code-language": false,
+    "first-header-h1": false,
+    "first-line-h1": false,
+    "line-length": false,
+    "no-duplicate-heading": {
+        "siblings_only": true
+    },
+    "no-inline-html": {
+        "allowed_elements": [
+            "p",
+            "div",
+            "script"
+        ]
+    },
+    "no-trailing-punctuation": {
+        "punctuation": ",;"
+    },
+    "proper-names": {
+        "names": [
+            "Bitcoin",
+            "Ethereum"
+        ]
+    }
+}
