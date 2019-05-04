@@ -1,0 +1,30 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        // https://github.com/palantir/tslint/blob/master/src/configs/recommended.ts
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    // https://palantir.github.io/tslint/rules/
+    "rules": {
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "interface-name": [true, "never-prefix"],
+        "interface-over-type-literal": [false],
+        "max-classes-per-file": false,
+        "max-line-length": [false],
+        "member-ordering": [false],
+        "no-console": [true, "log"],
+        "no-shadowed-variable": [false],
+        "object-literal-sort-keys": [false],
+        "quotemark": [true, "single", "jsx-double", "avoid-escape"],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "always",
+                "singleline": "never",
+                "esSpecCompliant": true
+            }
+        ]
+    },
+    "rulesDirectory": []
+}
