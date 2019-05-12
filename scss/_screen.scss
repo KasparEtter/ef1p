@@ -3,7 +3,7 @@ $body-padding-top: $navbar-height + $body-padding !default;
 @media screen {
   body {
     padding-top: $body-padding-top;
-    padding-bottom: $body-padding;
+    padding-bottom: calc(100vh - #{$body-padding-top} - #{$line-height-base} * 1rem - 1rem);
   }
 
   // Scroll to the right position with the correct scroll spy entry.
