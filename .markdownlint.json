@@ -8,9 +8,10 @@
     },
     "no-inline-html": {
         "allowed_elements": [
-            "p",
+            "a",
+            "i",
             "div",
-            "script"
+            "span"
         ]
     },
     "no-trailing-punctuation": {
