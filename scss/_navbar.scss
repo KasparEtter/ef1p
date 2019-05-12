@@ -1,4 +1,6 @@
 nav.navbar {
+  user-select: none;
+
   > div.container-fluid {
     padding: 0;
   }

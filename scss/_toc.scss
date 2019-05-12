@@ -9,6 +9,7 @@ div#toc-column {
 
 nav#toc {
   position: fixed;
+  user-select: none;
 
   a {
     width: $toc-width;
