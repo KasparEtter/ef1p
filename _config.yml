@@ -2,7 +2,6 @@
 # 'bundle exec jekyll serve'. If you change this file, you have to restart the server process.
 
 title: Explained from First Principles
-title_shorter: Explained from 1st Principles
 description: Explained from First Principles explains complex topics from first principles.
 url: https://explained-from-first-principles.com
 email: contact@ef1p.com

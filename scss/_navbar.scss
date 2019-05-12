@@ -14,7 +14,7 @@ nav.navbar {
   }
 
   button {
-    margin: 0 $body-padding !important;
+    margin: 0 $body-padding 0 0 !important;
   }
 
   li.dropdown.show > a {
@@ -71,16 +71,27 @@ nav.navbar {
   }
 }
 
+$navbar-toggler-width: 56px !default;
+
 @include media-breakpoint-down(md) {
-  nav.navbar ul.navbar-nav {
-    a.nav-link {
-      height: unset;
-      padding: ($body-padding / 3) $body-padding !important;
+  nav.navbar {
+    a.navbar-brand div {
+      max-width: calc(100vw - 4 * #{$body-padding} - #{$navbar-toggler-width} - #{$navbar-icon-size});
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    div.dropdown-menu {
-      border-width: 0;
-      border-radius: 0;
+    ul.navbar-nav {
+      a.nav-link {
+        height: unset;
+        padding: ($body-padding / 3) $body-padding !important;
+      }
+
+      div.dropdown-menu {
+        border-width: 0;
+        border-radius: 0;
+      }
     }
   }
 }
