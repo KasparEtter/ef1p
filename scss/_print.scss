@@ -1,9 +1,6 @@
 @media print {
-  body {
+  body,
+  a {
     color: #000;
-  }
-
-  div#toc-column {
-    display: none;
   }
 }
