@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" integrity="sha384-AJ82o1PQz2xMlVWjJ+IdPSfyCVS/nJeYbLcpPhm/cEPrewaEdaYkaG6LCsquvogf" crossorigin="anonymous">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js" integrity="sha384-l+e8/kt7mRYg7RUc/i3MsNwDJlWxkWkFDX10LF/iNglZLT96GBMAPrbaH2GP2lQy" crossorigin="anonymous"></script>
+<script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "{{ site.data.color.primary }}",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "{{ site.data.color.secondary }}",
+                    "text": "{{ site.data.color.primary }}"
+                }
+            },
+            "theme": "edgeless",
+            "content": {
+                "message": "I use Google Analytics with its cookies to measure how you interact with my website.",
+                "dismiss": "Got it!",
+                "link": "Learn more and how to opt-out.",
+                "href": "https://support.google.com/analytics/answer/6004245"
+            }
+        });
+    });
+</script>
