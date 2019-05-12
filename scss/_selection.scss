@@ -1,0 +1,4 @@
+::selection {
+  color: $body-color;
+  background-color: rgba($link-color, .99); // Opacity value necessary due to browser override.
+}
