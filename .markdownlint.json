@@ -1,4 +1,5 @@
 {
+    "blanks-around-lists": false,
     "fenced-code-language": false,
     "first-header-h1": false,
     "first-line-h1": false,
