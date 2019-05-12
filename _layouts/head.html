@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>{% if page.layout == "article" %}{{ page.title }} {% endif %}{{ site.title }}</title>
+        <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | escape | truncate: 160 }}">
+
+        <script>
+            const themes = {
+                dark: "{{ '/assets/styles/dark.min.css' | relative_url }}",
+                light: "{{ '/assets/styles/light.min.css' | relative_url }}"
+            };
+        </script>
+        <script src="{{ '/assets/scripts/internal/styling.min.js' | relative_url }}"></script>
+
+    {% if jekyll.environment == 'production' %}
+        <script defer src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js" integrity="sha384-OGf04BRlCdmgZXHhCupHT3BIkznbahjfhX8DKSIEXyU9PvSO0/8iMiiVJPcA5vi7" crossorigin="anonymous"></script>
+        <script defer src="https://unpkg.com/react@16.8.6/umd/react.production.min.js" integrity="sha384-qn+ML/QkkJxqn4LLs1zjaKxlTg2Bl/6yU/xBTJAgxkmNGc6kMZyeskAG0a7eJBR1" crossorigin="anonymous"></script>
+        <script defer src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js" integrity="sha384-85IMG5rvmoDsmMeWK/qUU4kwnYXVpC+o9hoHMLi4bpNR+gMEiPLrvkZCgsr7WWgV" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk=" crossorigin="anonymous"></script>
+        {% if site.google_analytics_id %}
+            {% include google-analytics.html %}
+            {% include cookie-consent.html %}
+        {% endif %}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    {% else %}
+        <script defer src="{{ '/assets/scripts/external/jquery.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/popper.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/bootstrap.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/react.production.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/react-dom.production.min.js' | relative_url }}"></script>
+        <script src="{{ '/assets/scripts/external/anchor.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/internal/anchors.min.js' | relative_url }}"></script>
+        <link rel="stylesheet" href="{{ '/assets/fonts/fontawesome/css/all.min.css' | relative_url }}">
+    {% endif %}
+
+        <script defer src="{{ '/assets/scripts/internal/scrolling.min.js' | relative_url }}"></script>
+
+    {% if page.script %}
+        <script defer src="{{ '/assets/scripts/internal/' | append: page.script | append: '.min.js' | relative_url }}"></script>
+    {% endif %}
+
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | relative_url }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicons/favicon-32x32.png' | relative_url }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
+        <link rel="manifest" href="{{ '/assets/favicons/site.webmanifest' | relative_url }}">
+        <link rel="mask-icon" href="{{ '/assets/favicons/safari-pinned-tab.svg' | relative_url }}" color="#375a7f">
+        <link rel="shortcut icon" href="{{ '/assets/favicons/favicon.ico' | relative_url }}">
+        <meta name="msapplication-config" content="{{ '/assets/favicons/browserconfig.xml' | relative_url }}">
+        <meta name="msapplication-TileColor" content="#375a7f">
+        <meta name="theme-color" content="#375a7f">
+
+        <base target="_blank">
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+
+        {{ content }}
+
+        <script>
+            anchors.options = {
+                visible: 'touch',
+                titleText: 'Click to directly link to this section.',
+            };
+            anchors.add();
+        </script>
+
+    </body>
+</html>

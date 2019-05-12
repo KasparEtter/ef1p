@@ -1,0 +1,37 @@
+---
+layout: toc
+---
+
+<h1 id="top">{{ page.title | escape }}</h1>
+<p class="lead">{{ site.title | escape }}</p>
+
+<p class="article-meta">
+    This <a href="{{ site.github_repository | append: '/blob/master/' | append: page.path }}">article</a>
+    {% if page.script %}
+        and its <a href="{{ site.github_repository | append: '/blob/master' | append: page.dir | append: 'scripts.tsx' }}">code</a> were
+    {% else %}
+        was
+    {% endif %}
+    first published on {{ page.published | date: site.date_format }}
+    {% if page.modified %}
+        and last modified on {{ page.modified | date: site.date_format }}
+        (see all <a href="{{ site.github_repository | append: '/commits/master/' | append: page.path }}">changes</a>)
+    {% endif %}
+    .
+</p>
+
+<p class="article-disclaimer">
+    If you are visiting this website for the first time,
+    then please first read the <a href="{% link index.md %}">front page</a>.
+    I explain there the intention of this blog
+    and how to be best make use of it.
+    With regard to your privacy,
+    all personal information is stored locally in your browser
+    except in case of Google Analytics (and the mailing list).
+    While the content on this page is meant to be well-informed,
+    you take or omit actions based on it at your own risk.
+    In no event shall I as the author be liable
+    for any damages arising from advice on this website.
+</p>
+
+{{ content }}

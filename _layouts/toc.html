@@ -1,0 +1,27 @@
+---
+layout: navbar
+---
+
+{% comment %}
+<h2 data-toc-text="Short Text">Longer Text</h2>
+<h2 data-toc-skip>Heading is Skipped in TOC</h2>
+{% endcomment %}
+
+<div class="row flex-nowrap">
+    <div id="toc-column" class="d-print-none">
+        <nav id="toc" data-toggle="toc"></nav>
+        <button id="toc-toggler" class="navbar-toggler" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="col">
+        {{ content }}
+        <hr class="d-print-none">
+        <div id="signup" class="d-print-none">
+            To be informed about new articles, follow this blog on
+            <a href="https://twitter.com/{{ site.twitter_handle }}">Twitter</a>
+            or subscribe to its mailing list:
+            {% include mailing-list-signup.html %}
+        </div>
+    </div>
+</div>

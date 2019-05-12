@@ -1,0 +1,37 @@
+---
+layout: head
+---
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ site.baseurl }}{% link index.md %}" target="_self">{{ site.title }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+            {% for category in site.data.categories %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" title="{{ category.description }}"><i class="fas fa-{{ category.icon }}"></i>{{ category.name }}</a>
+                    <div class="dropdown-menu">
+                        {% assign articles = site.pages | where: "category", category.name | sort: "published" %}{% for article in articles %}
+                            <a class="dropdown-item{% if article.url == page.url %} active{% endif %}" href="{{ article.url | relative_url }}" target="_self">{% if article.icon %}<i class="fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a id="theme-toggler" class="nav-link" data-toggle="collapse" data-target="#navbar.show" title="Toggle the design theme."><i class="fas fa-adjust"></i><span id="theme-toggler-text"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    {{ content }}
+</div>
