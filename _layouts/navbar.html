@@ -4,7 +4,10 @@ layout: head
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ site.baseurl }}{% link index.md %}" target="_self">{{ site.title }}</a>
+        <a class="navbar-brand" href="{{ site.baseurl }}{% link index.md %}" target="_self">
+            <span class="d-sm-none">{{ site.title_shorter }}</span>
+            <span class="d-none d-sm-inline">{{ site.title }}</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
