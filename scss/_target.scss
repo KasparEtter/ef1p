@@ -1,0 +1,10 @@
+:target {
+  animation-name: target-fade;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes target-fade {
+  from { color: $link-color; }
+  to { color: $body-color; }
+}
