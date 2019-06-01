@@ -37,6 +37,8 @@ $(() => {
     const handleLinkClick = (event: JQuery.TriggeredEvent) => {
         if (scrollIfAnchor(event.target.getAttribute('href'), true)) {
             event.preventDefault();
+        } else {
+            event.target.setAttribute('target', '_blank');
         }
     };
 
