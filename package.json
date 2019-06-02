@@ -36,7 +36,7 @@
         "css-prefix": "npm-run-all --parallel css-prefix-dark css-prefix-light",
         "css-prefix-dark": "postcss --use autoprefixer --replace 'assets/styles/dark.css'",
         "css-prefix-light": "postcss --use autoprefixer --replace 'assets/styles/light.css'",
-        "css-watch": "watch 'npm run css' scss",
+        "css-watch": "watch 'npm run css-build' scss",
         "css-with-map": "npm-run-all css-compile-with-map css-prefix css-minify-with-map",
         "lint": "npm-run-all --parallel css-lint md-lint ts-lint",
         "logo-convert": "rsvg-convert -w 1000 -o assets/images/logo.png assets/images/logo.svg",
