@@ -3,7 +3,8 @@
 $heading-margin-top-to-text-factor: 1.5; // Custom variable only used in this file.
 $heading-margin-top-to-heading-factor: 1; // Custom variable only used in this file.
 
-h1 {
+h1,
+header {
   counter-reset: h2;
 }
 

@@ -8,12 +8,14 @@ pre {
   border-radius: $border-radius;
 }
 
+footer {
+  padding-top: calc(#{$hr-margin-y} - 8px);
+  margin-top: $hr-margin-y;
+  user-select: none;
+  border-top: $hr-border-width $hr-border-color solid;
+}
+
 // https://css-tricks.com/flexbox-truncated-text/
 .col {
   min-width: 0;
-}
-
-div#signup {
-  margin-top: -8px;
-  user-select: none;
 }
