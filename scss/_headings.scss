@@ -1,0 +1,80 @@
+// Automatic heading numbering inspired by http://philarcher.org/diary/2013/headingnumbers/.
+
+$heading-margin-top-to-text-factor: 1.5; // Custom variable only used in this file.
+$heading-margin-top-to-heading-factor: 1; // Custom variable only used in this file.
+
+h1 {
+  counter-reset: h2;
+}
+
+h2,
+h3,
+h4 {
+  padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
+}
+
+h2 {
+  margin-top: calc(#{$h2-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  counter-reset: h3;
+
+  &::before {
+    content: counter(h2) ". ";
+    counter-increment: h2;
+  }
+}
+
+h3 {
+  margin-top: calc(#{$h3-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  counter-reset: h4;
+
+  &::before {
+    content: counter(h2) "." counter(h3) ". ";
+    counter-increment: h3;
+  }
+}
+
+h4 {
+  margin-top: calc(#{$h4-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+
+  &::before {
+    content: counter(h2) "." counter(h3) "." counter(h4) ". ";
+    counter-increment: h4;
+  }
+}
+
+h1 + h2,
+p.lead + h2 {
+  margin-top: calc(#{$h2-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
+h2 + h3 {
+  margin-top: calc(#{$h3-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
+h3 + h4 {
+  margin-top: calc(#{$h4-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
+hr + h2 {
+  margin-top: -$body-padding-top;
+}
+
+p.lead {
+  margin-top: -7px;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child {
+  margin-top: 0;
+}
+
+h2.nocount::before,
+h3.nocount::before,
+h4.nocount::before,
+h5.nocount::before,
+h6.nocount::before {
+  content: "";
+  counter-increment: none;
+}

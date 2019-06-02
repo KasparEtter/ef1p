@@ -3,12 +3,6 @@
 // Uncomment the following line to serve the font locally:
 // $web-font-path: "../fonts/lato/lato.css" !default;
 
-// Padding
-
-$grid-gutter-width: 30px !default; // Unchanged but already required here.
-
-$body-padding: $grid-gutter-width / 2 !default; // Custom variable not used by others.
-
 // Text
 
 $font-size-base: 1rem !default; // Unchanged but already required here.
@@ -19,7 +13,7 @@ $hr-margin-y: 2rem !default;
 
 $link-hover-decoration: none !default;
 
-// Headlines
+// Headings
 
 $h1-font-size: $font-size-base * 2.5 !default;
 $h2-font-size: $font-size-base * 2 !default;
@@ -37,6 +31,13 @@ $navbar-height: 60px !default; // Custom variable not used by others.
 
 $navbar-icon: url("../images/logo.svg") !default; // Custom variable not used by others.
 $navbar-icon-size: 26px !default; // Custom variable not used by others.
+
+// Padding
+
+$grid-gutter-width: 30px !default; // Unchanged but already required here.
+
+$body-padding: $grid-gutter-width / 2 !default; // Custom variable not used by others.
+$body-padding-top: $navbar-height + $body-padding !default; // Custom variable not used by others.
 
 // Forms
 
