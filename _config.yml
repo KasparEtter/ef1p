@@ -9,17 +9,11 @@ author: Kaspar Etter
 permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
+github_repository: https://github.com/KasparEtter/ef1p
 google_analytics_id: UA-135908849-1
-google_analytics_integrity: sha384-BCU4CQej9bXQB6TMm2c6xLfEIyUYMT/YSODyNOp1pOKbC5oaFlsLE4zz5lsMtD3t
-# The integrity is determined by using https://www.srihash.org/ with
-# https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}.
-
-twitter_handle: ExplainedFrom1P
-
 mailchimp_action: https://explained-from-first-principles.us20.list-manage.com/subscribe/post?u=f2f847e1901ae4d294dea09da&amp;id=b2f0275e5b
 mailchimp_hidden: b_f2f847e1901ae4d294dea09da_b2f0275e5b
-
-github_repository: https://github.com/KasparEtter/ef1p
+twitter_handle: ExplainedFrom1P
 
 # https://github.com/jekyll/jekyll/issues/7478
 theme: null
