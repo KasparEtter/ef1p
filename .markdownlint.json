@@ -20,8 +20,10 @@
     },
     "proper-names": {
         "names": [
-            "Bitcoin",
             "Ethereum"
         ]
+    },
+    "single-h1": {
+        "front_matter_title": ""
     }
 }
