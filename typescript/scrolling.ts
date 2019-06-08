@@ -3,6 +3,10 @@
 $(() => {
     const originalTitle = document.title;
 
+    const getTitle = (href: string) => {
+        return originalTitle + ' at ' + $(href).text();
+    };
+
     const scrollIfAnchor = (href: string | null, pushToHistory: boolean = false) => {
         if (!href || !/^#[^ ]+$/.test(href)) {
             return false;
@@ -19,7 +23,7 @@ $(() => {
         }
 
         if (pushToHistory && window.history && window.history.pushState) {
-            document.title = originalTitle + ' at ' + href;
+            document.title = getTitle(href);
             window.history.pushState(null, document.title, window.location.pathname + href);
         }
 
@@ -45,7 +49,7 @@ $(() => {
     // Inspired by https://stackoverflow.com/a/48694139.
     if (window.history && window.history.replaceState) {
         $(window).on('activate.bs.scrollspy', (_, data: { relatedTarget: string }) => {
-            document.title = originalTitle + ' at ' + data.relatedTarget;
+            document.title = getTitle(data.relatedTarget);
             window.history.replaceState(null, document.title, data.relatedTarget);
         });
     }
