@@ -14,12 +14,9 @@ layout: toc
             {% else %}
                 was
             {% endif %}
-            first published on {{ page.published | date: site.date_format }}
-            {% if page.modified %}
-                and last modified on {{ page.modified | date: site.date_format }}
-                (see all <a href="{{ site.github_repository | append: '/commits/master/' | append: page.path }}">changes</a>)
-            {% endif %}
-            .
+            first published on {{ page.published | date: site.date_format }}{% if page.modified %}
+            and last modified on {{ page.modified | date: site.date_format }}
+            (see all <a href="{{ site.github_repository | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
         </p>
 
         <p class="article-disclaimer">
