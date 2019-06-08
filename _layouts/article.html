@@ -17,6 +17,9 @@ layout: toc
             first published on {{ page.published | date: site.date_format }}{% if page.modified %}
             and last modified on {{ page.modified | date: site.date_format }}
             (see all <a href="{{ site.github_repository | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
+            {% assign length = page.url | size | minus: 1 %}
+            Its short URL is
+            <a href="https://{{ site.short_url }}{{ page.url | slice: 0, length }}">{{ site.short_url }}{{ page.url | slice: 0, length }}</a>.
         </p>
 
         <p class="article-disclaimer">
