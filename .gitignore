@@ -1,3 +1,5 @@
 /_site
+/.bundle
 /.stylelintcache
 /node_modules
+/vendor
