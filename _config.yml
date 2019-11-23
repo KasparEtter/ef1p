@@ -23,7 +23,7 @@ plugins:
   - jemoji
 
 emoji:
-  src: "https://github.githubassets.com/images/icons"
+  src: https://github.githubassets.com/images/icons
 
 exclude:
   - "*.json"
@@ -31,14 +31,18 @@ exclude:
   - "*.ts"
   - "*.tsx"
   - "*.txt"
-  - "scss"
-  - "typescript"
-  - "node_modules"
-  - "CNAME"
-  - "Gemfile"
-  - "Gemfile.lock"
-  - "README.md"
-  - "webpack.config.js"
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+  - scss
+  - typescript
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - webpack.config.js
 
 defaults:
   - scope:
