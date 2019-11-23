@@ -18,7 +18,7 @@ const updateTheme = () => {
 const updateToggler = () => {
     const togglerElement = document.getElementById('theme-toggler-text') as HTMLSpanElement | null;
     if (togglerElement) {
-        togglerElement.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        togglerElement.textContent = theme === 'dark' ? 'Light' : 'Dark';
     }
 };
 
