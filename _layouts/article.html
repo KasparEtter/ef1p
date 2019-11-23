@@ -5,7 +5,7 @@ layout: toc
 <article>
     <header>
         <h1 id="top">{{ page.title | escape }}</h1>
-        <p class="lead">{{ site.title | escape }}</p>
+        <p class="lead">{{ site.title | escape | downcase }}</p>
 
         <p class="article-meta">
             This <a href="{{ site.github_repository | append: '/blob/master/' | append: page.path }}">article</a>
