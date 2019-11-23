@@ -1,6 +1,7 @@
 ---
 layout: toc
 title: Index
+regenerate: true
 ---
 
 # {{ site.title }}
