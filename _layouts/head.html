@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <title>{% if page.layout == "article" %}{{ page.title }} {% endif %}{{ site.title }}</title>
-        <meta name="description" content="{{ page.teaser | default: site.description | strip_html | normalize_whitespace | escape | truncate: 160 }}">
+        {% capture title %}{% if page.layout == "article" %}{{ page.title }} {{ site.title | downcase }}{% else %}{{ site.title }}{% endif %}{% endcapture %}
+        {% assign description = page.teaser | default: site.description | escape %}
+        <title>{{ title }}</title>
+        <meta name="description" content="{{ description }}">
         <meta name="author" content="{{ site.author }}">
 
-        <meta property="og:title" content="{% if page.layout == "article" %}{{ page.title }} {% endif %}{{ site.title }}">
-        <meta property="og:description" content="{{ page.teaser | default: site.description | strip_html | normalize_whitespace | escape | truncate: 160 }}">
+        <meta property="og:title" content="{{ title }}">
+        <meta property="og:description" content="{{ description }}">
         {% if page.image %}<meta property="og:image" content="{{ page.image }}">
         {% endif %}<meta property="og:url" content="{{ site.url }}{{ page.url }}">
         <meta property="og:site_name" content="{{ site.title }}">
