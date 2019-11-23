@@ -1,5 +1,6 @@
 /_site
 /.bundle
+/.jekyll-metadata
 /.stylelintcache
 /node_modules
 /vendor
