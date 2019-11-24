@@ -125,12 +125,18 @@ arrows:
     - sign-out-alt
     - sort
     - sort-alpha-down
+    - sort-alpha-down-alt
     - sort-alpha-up
+    - sort-alpha-up-alt
     - sort-amount-down
+    - sort-amount-down-alt
     - sort-amount-up
+    - sort-amount-up-alt
     - sort-down
     - sort-numeric-down
+    - sort-numeric-down-alt
     - sort-numeric-up
+    - sort-numeric-up-alt
     - sort-up
     - sync
     - sync-alt
@@ -167,6 +173,7 @@ audio-video:
     - pause
     - pause-circle
     - phone-volume
+    - photo-video
     - play
     - play-circle
     - podcast
@@ -181,6 +188,7 @@ audio-video:
     - stop-circle
     - sync
     - sync-alt
+    - tv
     - undo
     - undo-alt
     - video
@@ -279,6 +287,8 @@ business:
     - address-card
     - archive
     - balance-scale
+    - balance-scale-left
+    - balance-scale-right
     - birthday-cake
     - book
     - briefcase
@@ -330,8 +340,10 @@ business:
     - pencil-alt
     - percent
     - phone
+    - phone-alt
     - phone-slash
     - phone-square
+    - phone-square-alt
     - phone-volume
     - print
     - project-diagram
@@ -395,8 +407,10 @@ chat:
     - comment-slash
     - comments
     - frown
+    - icons
     - meh
     - phone
+    - phone-alt
     - phone-slash
     - poo
     - quote-left
@@ -424,9 +438,11 @@ childhood:
     - baby
     - baby-carriage
     - bath
+    - biking
     - birthday-cake
     - cookie
     - cookie-bite
+    - gamepad
     - ice-cream
     - mitten
     - robot
@@ -437,6 +453,8 @@ childhood:
 clothing:
   icons:
     - graduation-cap
+    - hat-cowboy
+    - hat-cowboy-side
     - hat-wizard
     - mitten
     - shoe-prints
@@ -506,12 +524,15 @@ communication:
     - mobile-alt
     - paper-plane
     - phone
+    - phone-alt
     - phone-slash
     - phone-square
+    - phone-square-alt
     - phone-volume
     - rss
     - rss-square
     - tty
+    - voicemail
     - wifi
   label: Communication
 computers:
@@ -528,6 +549,7 @@ computers:
     - microchip
     - mobile
     - mobile-alt
+    - mouse
     - plug
     - power-off
     - print
@@ -626,6 +648,7 @@ design:
     - fill
     - fill-drip
     - highlighter
+    - icons
     - layer-group
     - magic
     - marker
@@ -660,6 +683,9 @@ editors:
     - align-left
     - align-right
     - bold
+    - border-all
+    - border-none
+    - border-style
     - clipboard
     - clone
     - columns
@@ -674,6 +700,7 @@ editors:
     - heading
     - highlighter
     - i-cursor
+    - icons
     - indent
     - italic
     - link
@@ -697,10 +724,12 @@ editors:
     - quote-right
     - redo
     - redo-alt
+    - remove-format
     - reply
     - reply-all
     - screwdriver
     - share
+    - spell-check
     - strikethrough
     - subscript
     - superscript
@@ -831,12 +860,15 @@ files:
     - folder
     - folder-open
     - paste
+    - photo-video
     - save
     - sticky-note
   label: Files
 finance:
   icons:
     - balance-scale
+    - balance-scale-left
+    - balance-scale-right
     - book
     - cash-register
     - chart-line
@@ -865,6 +897,7 @@ finance:
 fitness:
   icons:
     - bicycle
+    - biking
     - burn
     - fire-alt
     - heart
@@ -935,7 +968,6 @@ games:
     - ghost
     - headset
     - heart
-    - nintendo-switch
     - playstation
     - puzzle-piece
     - steam
@@ -1096,6 +1128,7 @@ household:
     - door-closed
     - door-open
     - dungeon
+    - fan
     - shower
     - toilet-paper
     - tv
@@ -1120,6 +1153,7 @@ images:
     - id-card
     - image
     - images
+    - photo-video
     - portrait
     - sliders-h
     - tint
@@ -1250,12 +1284,18 @@ interfaces:
     - smile
     - sort
     - sort-alpha-down
+    - sort-alpha-down-alt
     - sort-alpha-up
+    - sort-alpha-up-alt
     - sort-amount-down
+    - sort-amount-down-alt
     - sort-amount-up
+    - sort-amount-up-alt
     - sort-down
     - sort-numeric-down
+    - sort-numeric-down-alt
     - sort-numeric-up
+    - sort-numeric-up-alt
     - sort-up
     - star
     - star-half
@@ -1305,6 +1345,8 @@ maps:
     - ambulance
     - anchor
     - balance-scale
+    - balance-scale-left
+    - balance-scale-right
     - bath
     - bed
     - beer
@@ -1376,7 +1418,9 @@ maps:
     - parking
     - paw
     - phone
+    - phone-alt
     - phone-square
+    - phone-square-alt
     - phone-volume
     - plane
     - plug
@@ -1470,6 +1514,7 @@ mathematics:
     - subscript
     - superscript
     - times
+    - wave-square
   label: Mathematics
 medical:
   icons:
@@ -1555,9 +1600,14 @@ music:
     - guitar
     - headphones
     - headphones-alt
+    - microphone
+    - microphone-alt
+    - microphone-alt-slash
+    - microphone-slash
     - music
     - napster
     - play
+    - record-vinyl
     - sliders-h
     - soundcloud
     - spotify
@@ -1574,6 +1624,8 @@ objects:
     - award
     - baby-carriage
     - balance-scale
+    - balance-scale-left
+    - balance-scale-right
     - bath
     - bed
     - beer
@@ -1722,6 +1774,7 @@ objects:
     - pen-nib
     - pencil-alt
     - phone
+    - phone-alt
     - plane
     - plug
     - print
@@ -1871,6 +1924,8 @@ political:
   icons:
     - award
     - balance-scale
+    - balance-scale-left
+    - balance-scale-right
     - bullhorn
     - check-double
     - democrat
@@ -2041,10 +2096,12 @@ social:
     - envelope
     - hashtag
     - heart
+    - icons
     - image
     - images
     - map-marker
     - map-marker-alt
+    - photo-video
     - poll
     - poll-h
     - retweet
@@ -2073,6 +2130,7 @@ spinners:
     - compass
     - crosshairs
     - dharmachakra
+    - fan
     - haykal
     - life-ring
     - palette
@@ -2090,6 +2148,7 @@ sports:
   icons:
     - baseball-ball
     - basketball-ball
+    - biking
     - bowling-ball
     - dumbbell
     - football-ball
@@ -2097,10 +2156,12 @@ sports:
     - golf-ball
     - hockey-puck
     - quidditch
+    - running
     - skating
     - skiing
     - skiing-nordic
     - snowboarding
+    - swimmer
     - table-tennis
     - volleyball-ball
   label: Sports
@@ -2167,6 +2228,7 @@ status:
     - minus-square
     - parking
     - phone
+    - phone-alt
     - phone-slash
     - plus
     - plus-circle
@@ -2212,6 +2274,7 @@ status:
 summer:
   icons:
     - anchor
+    - biking
     - fish
     - hotdog
     - ice-cream
@@ -2229,11 +2292,14 @@ toggle:
     - check-circle
     - circle
     - dot-circle
+    - microphone
+    - microphone-slash
     - star
     - star-half
     - star-half-alt
     - toggle-off
     - toggle-on
+    - wifi
   label: Toggle
 travel:
   icons:
@@ -2270,6 +2336,7 @@ travel:
     - swimming-pool
     - taxi
     - tram
+    - tv
     - umbrella-beach
     - wine-glass
     - wine-glass-alt
@@ -2281,6 +2348,7 @@ users-people:
     - address-card
     - baby
     - bed
+    - biking
     - blind
     - chalkboard-teacher
     - child

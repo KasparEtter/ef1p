@@ -410,6 +410,25 @@ Please note that
 in order for the rebuilt scripts to take effect
 you also have to run `npm run md-watch`.
 
+### Libraries
+
+If you want to update the external JavaScript libraries in `assets/scripts/external/`,
+which are imported in `_layouts/head.html`,
+you have to download them manually from the following links:
+
+- [jQuery](https://code.jquery.com) (and the [map file](https://jquery.com/download/#jquery))
+- [Popper.js](https://cdnjs.com/libraries/popper.js) (take the [UMD](https://github.com/popperjs/popper.js#dist-targets) target at the bottom)
+- [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/#bootstrapcdn) (check in the navbar that you are viewing the latest version)
+- [Bootstrap TOC](https://afeld.github.io/bootstrap-toc/#usage)
+- [React](https://reactjs.org/docs/cdn-links.html) (or execute `npm run react-update` to copy the files from `node_modules`)
+- [AnchorJS](https://cdnjs.com/libraries/anchor-js)
+- [Font Awesome](https://fontawesome.com/download) (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
+
+In order to use the same library versions for local development as for remote production,
+you also have to update the [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) links
+and the [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) hashes,
+which you can generate at [www.srihash.org](https://www.srihash.org).
+
 ### Favicons
 
 The favicons stored in `assets/favicons` were generated with [RealFaviconGenerator](https://realfavicongenerator.net).
