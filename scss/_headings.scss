@@ -1,17 +1,20 @@
 // Automatic heading numbering inspired by http://philarcher.org/diary/2013/headingnumbers/.
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
+  cursor: pointer;
+}
+
 $heading-margin-top-to-text-factor: 1.5; // Custom variable only used in this file.
 $heading-margin-top-to-heading-factor: 1; // Custom variable only used in this file.
 
 h1,
 header {
   counter-reset: h2;
-}
-
-h2,
-h3,
-h4 {
-  padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
 }
 
 h2 {
@@ -43,6 +46,14 @@ h4 {
   }
 }
 
+h5 {
+  margin-top: calc(#{$h5-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
+h6 {
+  margin-top: calc(#{$h6-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
 h1 + h2,
 p.lead + h2 {
   margin-top: calc(#{$h2-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
@@ -56,6 +67,14 @@ h3 + h4 {
   margin-top: calc(#{$h4-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
 }
 
+h4 + h5 {
+  margin-top: calc(#{$h5-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
+h5 + h6 {
+  margin-top: calc(#{$h6-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+}
+
 hr + h2 {
   margin-top: -$body-padding-top;
 }
@@ -67,10 +86,13 @@ p.lead {
 h1:first-child,
 h2:first-child,
 h3:first-child,
-h4:first-child {
+h4:first-child,
+h5:first-child,
+h6:first-child {
   margin-top: 0;
 }
 
+h1.nocount::before,
 h2.nocount::before,
 h3.nocount::before,
 h4.nocount::before,
