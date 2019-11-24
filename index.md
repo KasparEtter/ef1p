@@ -20,7 +20,7 @@ regenerate: true
 
 ### License
 
-<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Explained from First Principles</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 ## Privacy
 
