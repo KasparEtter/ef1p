@@ -39,7 +39,7 @@
         "css-watch": "watch 'npm run css-build' scss",
         "css-with-map": "npm-run-all css-compile-with-map css-prefix css-minify-with-map",
         "lint": "npm-run-all --parallel css-lint md-lint ts-lint",
-        "logo-convert": "rsvg-convert -w 1000 -o assets/images/logo.png assets/images/logo.svg",
+        "logo-convert": "rsvg-convert -w 1000 -o assets/images/logo.png assets/images/logo.svg && rsvg-convert -w 200 -o assets/images/logo-small.png assets/images/logo.svg",
         "md-build": "bundle exec jekyll build",
         "md-lint": "markdownlint --ignore node_modules .",
         "md-watch": "bundle exec jekyll serve --incremental --livereload --host=0.0.0.0",
