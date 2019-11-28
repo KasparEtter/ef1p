@@ -15,7 +15,7 @@ layout: head
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" title="{{ category.description }}"><i class="fas fa-{{ category.icon }}"></i>{{ category.name }}</a>
                     <div class="dropdown-menu">
-                        {% assign articles = site.pages | where: "category", category.name | sort: "published" %}{% for article in articles %}
+                        {% assign articles = site.pages | where: "category", category.name | where_exp: "article", "article.published" | sort: "published" %}{% for article in articles %}
                             <a class="dropdown-item{% if article.url == page.url %} active{% endif %}" href="{{ article.url | relative_url }}" target="_self">{% if article.icon %}<i class="fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}</a>
                         {% endfor %}
                     </div>

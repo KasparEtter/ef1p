@@ -7,6 +7,7 @@ url: https://explained-from-first-principles.com
 short_url: ef1p.com
 email: contact@ef1p.com
 author: Kaspar Etter
+lang: en
 permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
@@ -16,7 +17,7 @@ mailchimp_action: https://explained-from-first-principles.us20.list-manage.com/s
 mailchimp_hidden: b_f2f847e1901ae4d294dea09da_b2f0275e5b
 twitter_handle: ExplainedFrom1P
 
-# https://github.com/jekyll/jekyll/issues/7478
+# Hack to suppress a Jekyll issue with styles: https://github.com/jekyll/jekyll/issues/7478
 theme: null
 
 plugins:

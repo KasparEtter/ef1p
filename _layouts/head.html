@@ -4,29 +4,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% capture title %}{% if page.layout == "article" %}{{ page.title }} {{ site.title | downcase }}{% else %}{{ site.title }}{% endif %}{% endcapture %}
-        {% assign description = page.teaser | default: site.description | escape %}
         <title>{{ title }}</title>
+        {% assign description = page.teaser | default: site.description | escape %}
         <meta name="description" content="{{ description }}">
         <meta name="author" content="{{ site.author }}">
 
         <meta property="og:title" content="{{ title }}">
-        <meta property="og:description" content="{{ description }}">
-        {% if page.image %}<meta property="og:image" content="{{ page.image }}">
-        {% endif %}<meta property="og:url" content="{{ site.url }}{{ page.url }}">
-        <meta property="og:site_name" content="{{ site.title }}">
-
-    {% if page.layout == "article" %}
+        <meta property="og:description" content="{{ description }}">{% if page.image %}
+        <meta property="og:image" content="{{ page.image }}">{% endif %}
+        <meta property="og:url" content="{{ page.url | absolute_url }}">
+        <meta property="og:site_name" content="{{ site.title }}">{% if page.layout == "article" %}
         <meta property="og:type" content="article">
-        <meta property="article:published_time" content="{{ page.published }}">
-        {% if page.modified %}<meta property="article:modified_time" content="{{ page.modified }}">
-        {% endif %}<meta property="article:author" content="{{ site.author }}">
-        <meta property="article:section" content="{{ page.category }}">
-    {% else %}
-        <meta property="og:type" content="website">
-    {% endif %}
+        <meta property="article:published_time" content="{{ page.published }}">{% if page.modified %}
+        <meta property="article:modified_time" content="{{ page.modified }}">{% endif %}
+        <meta property="article:author" content="{{ site.author }}">
+        <meta property="article:section" content="{{ page.category }}">{% else %}
+        <meta property="og:type" content="website">{% endif %}
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@{{ site.twitter_handle }}">
+
+        <link type="application/atom+xml" rel="alternate" href="{{ site.url }}{{ site.baseurl }}{% link feed.xml %}" title="Explained from First Principles" />
 
         <script>
             const themes = {
@@ -35,7 +33,6 @@
             };
         </script>
         <script src="{{ '/assets/scripts/internal/styling.min.js' | relative_url }}"></script>
-
     {% if jekyll.environment == 'production' %}
         <script defer src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
@@ -60,19 +57,17 @@
         <script defer src="{{ '/assets/scripts/internal/anchors.min.js' | relative_url }}"></script>
         <link rel="stylesheet" href="{{ '/assets/fonts/fontawesome/css/all.min.css' | relative_url }}">
     {% endif %}
-
         <script defer src="{{ '/assets/scripts/internal/scrolling.min.js' | relative_url }}"></script>
-
     {% if page.script %}
         <script defer src="{{ '/assets/scripts/internal/' | append: page.script | append: '.min.js' | relative_url }}"></script>
     {% endif %}
-
         <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | relative_url }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicons/favicon-32x32.png' | relative_url }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
         <link rel="manifest" href="{{ '/assets/favicons/site.webmanifest' | relative_url }}">
         <link rel="mask-icon" href="{{ '/assets/favicons/safari-pinned-tab.svg' | relative_url }}" color="#375a7f">
         <link rel="shortcut icon" href="{{ '/assets/favicons/favicon.ico' | relative_url }}">
+        
         <meta name="msapplication-config" content="{{ '/assets/favicons/browserconfig.xml' | relative_url }}">
         <meta name="msapplication-TileColor" content="#375a7f">
         <meta name="theme-color" content="#375a7f">

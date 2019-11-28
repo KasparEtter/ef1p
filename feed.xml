@@ -1,0 +1,30 @@
+---
+layout: null
+# Adapted from https://raw.githubusercontent.com/jekyll/jekyll-feed/master/lib/jekyll-feed/feed.xml
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"{% if site.lang %} xml:lang="{{ site.lang }}"{% endif %}>
+  <link href="{{ page.url | absolute_url }}" rel="self" type="application/atom+xml" />
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" {% if site.lang %}hreflang="{{ site.lang }}" {% endif %}/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ page.url | absolute_url }}</id>{% if site.title %}
+  <title>{{ site.title | xml_escape }}</title>{% endif %}{% if site.description %}
+  <subtitle>{{ site.description | xml_escape }}</subtitle>{% endif %}{% if site.author %}
+  <author>
+    <name>{{ site.author | xml_escape }}</name>{% if site.email %}
+    <email>{{ site.email | xml_escape }}</email>{% endif %}
+  </author>{% endif %}{% assign posts = site.pages | where_exp: "article", "article.category" | where_exp: "article", "article.published" | sort: "published" | reverse %}
+  {% for post in posts %}
+  <entry{% if post.lang %} xml:lang="{{ post.lang }}"{% endif %}>{% capture title %}{{ post.title }} {{ site.title | downcase }}{% endcapture %}
+    <title>{{ title | xml_escape }}</title>
+    <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ title | escape }}" />
+    <published>{{ post.published | date_to_xmlschema }}</published>
+    <updated>{{ post.modified | default: post.published | date_to_xmlschema }}</updated>
+    <id>{{ post.url | absolute_url }}</id>{% if post.category %}
+    <category term="{{ post.category | escape }}" />{% endif %}{% if post.teaser %}
+    <summary>{{ post.teaser | xml_escape }}</summary>{% endif %}{% if post.image %}
+    <media:thumbnail url="{{ post.image | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />
+    <media:content medium="image" url="{{ post.image | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />{% endif %}
+  </entry>
+  {% endfor %}
+</feed>

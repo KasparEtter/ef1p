@@ -15,7 +15,7 @@ regenerate: true
 
 ### Articles
 
-{% assign articles = site.pages | where_exp: "article", "article.category" | sort: "published" %}{% for article in articles %}
+{% assign articles = site.pages | where_exp: "article", "article.category" | where_exp: "article", "article.published" | sort: "published" %}{% for article in articles %}
 * {{ article.published }}: [{% if article.icon %}<i class="fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}]({{ article.url | relative_url }}){% endfor %}
 
 ### License
