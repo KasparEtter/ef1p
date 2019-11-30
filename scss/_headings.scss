@@ -9,6 +9,11 @@ h6 {
   cursor: pointer;
 }
 
+h1 {
+  padding-top: $body-padding-top;
+  margin-top: -$body-padding-top;
+}
+
 $heading-margin-top-to-text-factor: 1.5; // Custom variable only used in this file.
 $heading-margin-top-to-heading-factor: 1; // Custom variable only used in this file.
 
@@ -83,7 +88,6 @@ p.lead {
   margin-top: -7px;
 }
 
-h1:first-child,
 h2:first-child,
 h3:first-child,
 h4:first-child,
@@ -92,12 +96,9 @@ h6:first-child {
   margin-top: 0;
 }
 
-h1.nocount::before,
 h2.nocount::before,
 h3.nocount::before,
-h4.nocount::before,
-h5.nocount::before,
-h6.nocount::before {
+h4.nocount::before {
   content: "";
   counter-increment: none;
 }
