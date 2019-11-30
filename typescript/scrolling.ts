@@ -55,8 +55,19 @@ $(() => {
         });
     }
 
+    // Removing the anchor above the first H2 element. Custom solution because no event is triggered in this case:
+    // https://github.com/twbs/bootstrap/blob/d7203bac3b935ae414ddb77a15bab44aa5394b88/js/src/scrollspy.js#L235-L239
+    const firstH2OffsetY = ($('h2').offset() || { top: 0 }).top - 10; // Offset needed to compensate for scrollspy.
+    const handleWindowScroll = () => {
+        if (window.scrollY < firstH2OffsetY && location.hash) {
+            document.title = originalTitle;
+            window.history.replaceState(null, document.title, location.pathname);
+        }
+    };
+
     scrollToCurrentAnchor();
     $(window).on('hashchange', scrollToCurrentAnchor);
+    $(window).on('scroll', handleWindowScroll);
     $('body').on('click', 'a', handleLinkClick);
 
     /* Toggling the table of contents on small screens. */
