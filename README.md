@@ -444,16 +444,19 @@ npm run logo-convert
 
 Articles can have the following variables in their [front matter](https://jekyllrb.com/docs/front-matter/):
 
-- `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation.
+- `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
 - `title`: The title of the article as used at the top of the article and in the navigation.
 - `category`: The name of the [category](_data/categories.yml) to which the article belongs.
 - `published`: The date when the article was first published as YYYY-MM-DD.
   Omit this variable if the article shall not yet be added to the navigation.
 - `modified`: The date when the article was last modified as YYYY-MM-DD.
   Omit this variable if the article has not been modified since its publication.
-- `image`: The path to the image that shall be used when the article is shared on social media.
+- `image`: The path from the root of this repository to the image
+  that shall be used when the article is shared on social media.
   The image should be 1200 x 630 or larger and less than 1 MB in size.
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
+
+You can check the preview of an article with Twitter's [card validator](https://cards-dev.twitter.com/validator).
 
 ## Contributions
 
