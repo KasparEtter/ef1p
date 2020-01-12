@@ -40,7 +40,7 @@
         <script defer src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js" integrity="sha384-OGf04BRlCdmgZXHhCupHT3BIkznbahjfhX8DKSIEXyU9PvSO0/8iMiiVJPcA5vi7" crossorigin="anonymous"></script>
         <script defer src="https://unpkg.com/react@16.12.0/umd/react.production.min.js" integrity="sha384-3LaF+GDeugL4KEmnsbb+HuxO42PMnX+W5VYrAF98SHC8Wq47T6D7WpBckxQuazOA" crossorigin="anonymous"></script>
         <script defer src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js" integrity="sha384-04YC4/4bnGBjX66zkPM2372a4vmHIXVxQwIjLC/NWcMnEAcfYLASjt3cizYDmWBJ" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk=" crossorigin="anonymous"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk=" crossorigin="anonymous"></script>
         {% if site.google_analytics_id %}
             {% include google-analytics.html %}
             {% include cookie-consent.html %}
@@ -53,7 +53,7 @@
         <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/external/react.production.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/external/react-dom.production.min.js' | relative_url }}"></script>
-        <script src="{{ '/assets/scripts/external/anchor.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/anchor.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/internal/anchors.min.js' | relative_url }}"></script>
         <link rel="stylesheet" href="{{ '/assets/fonts/fontawesome/css/all.min.css' | relative_url }}">
     {% endif %}
@@ -75,14 +75,6 @@
     <body data-spy="scroll" data-target="#toc">
 
         {{ content }}
-
-        <script>
-            anchors.options = {
-                visible: 'touch',
-                titleText: 'Click to directly link to this section.',
-            };
-            anchors.add();
-        </script>
 
     </body>
 </html>

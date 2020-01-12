@@ -82,25 +82,34 @@ $(() => {
     $('#toc a').on('click', hideTocIfShown);
     $('#toc-toggler').on('click', () => $('#toc').toggleClass('shown'));
 
-    /* Jumping to next header when clicking one. */
+    /* Jumping to next heading when clicking one. */
 
-    const jumpToNextHeader = (event: JQuery.TriggeredEvent) => {
-        const target: HTMLElement = event.target;
-        // Exclude the anchors added by AnchorJS.
-        if (target.tagName.charAt(0) === 'H') {
-            const headerLevel = parseInt(target.tagName.charAt(1), 10);
-            let nextElement = target.nextElementSibling;
-            while (nextElement !== null) {
-                if (nextElement.tagName.charAt(0) === 'H') {
-                    if (parseInt(nextElement.tagName.charAt(1), 10) <= headerLevel) {
-                        scrollIfAnchor('#' + nextElement.id, true);
-                        break;
-                    }
+    const jumpToNextHeading = (event: JQuery.TriggeredEvent) => {
+        const targetSpan: HTMLElement = event.target;
+        const targetHeading = targetSpan.parentElement!;
+        const headingLevel = parseInt(targetHeading.tagName.charAt(1), 10);
+        let nextElement = targetHeading.nextElementSibling;
+        while (nextElement !== null) {
+            if (nextElement.tagName.charAt(0) === 'H') {
+                if (parseInt(nextElement.tagName.charAt(1), 10) <= headingLevel) {
+                    scrollIfAnchor('#' + nextElement.id, true);
+                    break;
                 }
-                nextElement = nextElement.nextElementSibling;
             }
+            nextElement = nextElement.nextElementSibling;
         }
     };
 
-    $('h2, h3, h4, h5, h6').on('click', jumpToNextHeader);
+    // Register the click handler only on the text instead of the whole heading by wrapping it.
+    // Please note that this has to be done before adding the anchors to get the right contents.
+    $('h2, h3, h4, h5, h6').contents().wrap('<span/>').parent().on('click', jumpToNextHeading);
+
+    // Add the anchors with AnchorJS. As no IDs need to be added, this instruction can be ignored:
+    // https://www.bryanbraun.com/anchorjs/#dont-run-it-too-late
+    anchors.options = {
+        visible: 'touch',
+        titleText: 'Click to directly link to this section.',
+    } as any; // titleText was introduced in AnchorJS 4.2.0 and is not yet typed by DefinitelyTyped:
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/anchor-js/index.d.ts
+    anchors.add();
 });
