@@ -5,7 +5,7 @@
 		"ios": {
 			"pictureAspect": "backgroundAndMargin",
 			"backgroundColor": "#375a7f",
-			"margin": "39%",
+			"margin": "25%",
 			"assets": {
 				"ios6AndPriorIcons": false,
 				"ios7AndLaterIcons": false,
@@ -30,7 +30,7 @@
 		},
 		"androidChrome": {
 			"pictureAspect": "backgroundAndMargin",
-			"margin": "35%",
+			"margin": "25%",
 			"backgroundColor": "#375a7f",
 			"themeColor": "#375a7f",
 			"manifest": {
