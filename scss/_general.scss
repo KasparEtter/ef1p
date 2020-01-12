@@ -1,3 +1,7 @@
+body {
+  word-wrap: break-word;
+}
+
 a {
   cursor: pointer; // Necessary for links without href.
 }

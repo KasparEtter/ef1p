@@ -12,6 +12,12 @@ $input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color
 
 $hr-border-color: $body-color !default;
 
+// Navbar
+
+// Revert: https://github.com/thomaspark/bootswatch/commit/75794debc6c40ef7c511bc4e04fd6cddf1a78c27
+$navbar-dark-color: $white; // Cannot only be default as already set by Bootswatch.
+$navbar-dark-hover-color: $success; // Cannot only be default as already set by Bootswatch.
+
 // Forms
 
 $input-color: $body-color !default;
