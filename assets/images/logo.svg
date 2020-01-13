@@ -1,7 +1,7 @@
 <svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
     <desc>Explained from First Principles Logo</desc>
     <mask id="mask">
-        <circle cx="300" cy="300" r="300" fill="white"/>
+        <rect x="0" y="0" width="600" height="600" fill="white"/>
         <line x1="200" y1="200" x2="200" y2="400" stroke-width="150" stroke-linecap="round" stroke="black"/>
         <circle cx="400" cy="400" r="75" fill="black"/>
     </mask>

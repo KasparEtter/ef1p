@@ -1,7 +1,9 @@
+// Run this script with `npm run logo-generate`.
 import fs = require('fs');
 
 const color = '#375A7F';
 
+const square = false;
 const inverted = false;
 const background = false;
 
@@ -15,13 +17,16 @@ const padding = radius / 3;
 const svg = `<svg width="${ size }" height="${ size }" xmlns="http://www.w3.org/2000/svg">
     <desc>Explained from First Principles Logo</desc>
     ${ background ?
-        `<rect fill="${ color }" width="${ size }" height="${ size }" x="0" y="0" />
+        `<rect x="0" y="0" width="${ size }" height="${ size }" fill="${ inverted ? 'white' : color }"/>
     ` : ``}<mask id="mask">
-        <circle cx="${ center }" cy="${ center }" r="${ center - border }" fill="white"/>
+        <rect x="0" y="0" width="${ size }" height="${ size }" fill="white"/>
         <line x1="${ center - padding - radius }" y1="${ center - padding - radius }" x2="${ center - padding - radius }" y2="${ center + padding + radius }" stroke-width="${ radius * 2 }" stroke-linecap="round" stroke="black"/>
         <circle cx="${ center + padding + radius }" cy="${ center + padding + radius }" r="${ radius }" fill="black"/>
     </mask>
-    <circle cx="${ center }" cy="${ center }" r="${ center - border }" fill="${ inverted ? color : 'white' }" mask="url(#mask)"/>
+    ${ square ?
+        `<rect x="0" y="0" width="${ size }" height="${ size }" fill="${ inverted ? color : 'white' }" mask="url(#mask)"/>` :
+        `<circle cx="${ center }" cy="${ center }" r="${ center - border }" fill="${ inverted ? color : 'white' }" mask="url(#mask)"/>`
+    }
 </svg>
 `;
 
