@@ -109,7 +109,6 @@ $(() => {
     anchors.options = {
         visible: 'touch',
         titleText: 'Click to directly link to this section.',
-    } as any; // titleText was introduced in AnchorJS 4.2.0 and is not yet typed by DefinitelyTyped:
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/anchor-js/index.d.ts
+    };
     anchors.add();
 });
