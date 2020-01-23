@@ -6,6 +6,22 @@ a {
   cursor: pointer; // Necessary for links without href.
 }
 
+a {
+  color: $info;
+
+  @include hover() {
+    color: darken($info, 15%);
+  }
+}
+
+a[href^=\#] {
+  color: $success;
+
+  @include hover() {
+    color: darken($success, 15%);
+  }
+}
+
 pre {
   padding: 10px;
   background-color: darken($body-bg, 5%) !important;

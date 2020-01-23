@@ -9,6 +9,7 @@ h6 {
 
   span {
     cursor: pointer;
+    margin-right: 0.375em; // Add the margin here instead of the anchor in order to center the scaling.
   }
 }
 
@@ -99,9 +100,31 @@ h6:first-child {
   margin-top: 0;
 }
 
+h2::before,
+h3::before,
+h4::before {
+  user-select: text;
+}
+
 h2.nocount::before,
 h3.nocount::before,
 h4.nocount::before {
   content: "";
   counter-increment: none;
+}
+
+.anchorjs-link {
+  padding-left: 0 !important; // Remove the padding here in order to center the scaling.
+}
+
+@keyframes scale {
+  from { transform: scale(1); }
+  to { transform: scale(4); }
+}
+
+.scale {
+  display: inline-block;
+  animation-name: scale;
+  animation-duration: 0.2s;
+  animation-timing-function: linear;
 }

@@ -1,6 +1,7 @@
 @media print {
   body,
-  a {
+  a,
+  a[href^=\#] {
     color: #000;
   }
 }
