@@ -473,6 +473,7 @@ The most important third party projects used by this website are:
 - [Ruby](https://www.ruby-lang.org)
 - [Jekyll](https://jekyllrb.com)
 - [Bootstrap](https://getbootstrap.com)
+- [Darkly Theme](https://bootswatch.com/darkly/)
 - [Flatly Theme](https://bootswatch.com/flatly/)
 - [npm](https://www.npmjs.com)
 - [React](https://reactjs.org)
