@@ -1,10 +1,15 @@
+import { copyToClipboard } from './clipboard';
+
+// See https://www.sitepoint.com/css3-animation-javascript-event-handlers/:
+const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+
 $(() => {
     /* Animated scrolling to anchor with updating window title and browser history. */
 
     const originalTitle = document.title;
 
-    const getTitle = (href: string) => {
-        return originalTitle + ' at ' + $(href).text();
+    const getTitle = (href: string | HTMLElement) => {
+        return originalTitle + ' at ' + $(href as any).text();
     };
 
     // Scrolling inspired by http://jsfiddle.net/ianclark001/rkocah23/.
@@ -38,37 +43,67 @@ $(() => {
             event.preventDefault();
         }
     };
+    scrollToCurrentAnchor();
+    $(window).on('hashchange', scrollToCurrentAnchor);
 
     const handleLinkClick = (event: JQuery.TriggeredEvent) => {
-        if (scrollIfAnchor(event.target.getAttribute('href'), true)) {
+        const href: string | undefined = event.target.getAttribute('href');
+        if (href === undefined) {
+            return;
+        }
+        const target = $(event.target);
+        if (target.hasClass('anchorjs-link')) {
+            event.preventDefault();
+            const address = location.origin + location.pathname + href;
+            if (copyToClipboard(address)) {
+                target.addClass('scale').one(animationEnd, () => target.removeClass('scale'));
+            }
+        } else if (scrollIfAnchor(href, true)) {
             event.preventDefault();
         } else {
             event.target.setAttribute('target', '_blank');
         }
     };
-
-    // Registration inspired by https://stackoverflow.com/a/48694139.
-    if (window.history && window.history.replaceState) {
-        $(window).on('activate.bs.scrollspy', (_, data: { relatedTarget: string }) => {
-            document.title = getTitle(data.relatedTarget);
-            window.history.replaceState(null, document.title, data.relatedTarget);
-        });
-    }
-
-    // Removing the anchor above the first H2 element. Custom solution because no event is triggered in this case:
-    // https://github.com/twbs/bootstrap/blob/d7203bac3b935ae414ddb77a15bab44aa5394b88/js/src/scrollspy.js#L235-L239
-    const firstH2OffsetY = ($('h2').offset() || { top: 0 }).top - 10; // Offset needed to compensate for scrollspy.
-    const handleWindowScroll = () => {
-        if (window.scrollY < firstH2OffsetY && location.hash) {
-            document.title = originalTitle;
-            window.history.replaceState(null, document.title, location.pathname);
-        }
-    };
-
-    scrollToCurrentAnchor();
-    $(window).on('hashchange', scrollToCurrentAnchor);
-    $(window).on('scroll', handleWindowScroll);
     $('body').on('click', 'a', handleLinkClick);
+
+    if (window.history && window.history.replaceState) {
+        interface Heading {
+            offset: number;
+            element: HTMLElement;
+        }
+
+        const headings: Heading[] = [];
+        let currentHeading: HTMLElement | undefined;
+
+        // If elements are dynamically shown or hidden, this indexing would have to be refreshed.
+        $('h2, h3, h4, h5, h6').each((_, element) => {
+            const offset = $(element).offset();
+            if (offset) {
+                headings.push({ offset: offset.top - 11, element }); // Offset needed to match scrollspy.
+            }
+        });
+
+        const handleWindowScroll = () => {
+            for (let i = headings.length - 1; i >= 0; i--) {
+                const heading = headings[i];
+                if (window.scrollY > heading.offset) {
+                    if (currentHeading !== heading.element) {
+                        currentHeading = heading.element;
+                        document.title = getTitle(heading.element);
+                        window.history.replaceState(null, document.title, '#' + heading.element.id);
+                    }
+                    return;
+                }
+            }
+            if (location.hash) {
+                currentHeading = undefined;
+                document.title = originalTitle;
+                window.history.replaceState(null, document.title, location.pathname);
+            }
+        };
+
+        $(window).on('scroll', handleWindowScroll);
+    }
 
     /* Toggling the table of contents on small screens. */
 
@@ -108,7 +143,7 @@ $(() => {
     // https://www.bryanbraun.com/anchorjs/#dont-run-it-too-late
     anchors.options = {
         visible: 'touch',
-        titleText: 'Click to directly link to this section.',
+        titleText: 'Click to copy the link to this section.',
     };
     anchors.add();
 });
