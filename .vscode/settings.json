@@ -1,0 +1,29 @@
+{
+    "cSpell.words": [
+        "anchorjs",
+        "animationend",
+        "blockchains",
+        "bootswatch",
+        "endcapture",
+        "endfor",
+        "etter",
+        "favicons",
+        "fontawesome",
+        "gemfile",
+        "kaspar",
+        "librsvg",
+        "mailchimp",
+        "markdownlint",
+        "module",
+        "oanimationend",
+        "scrollspy",
+        "srihash",
+        "stylelint",
+        "stylelintrc",
+        "subresource"
+    ],
+    "search.exclude": {
+        "/assets": true,
+        "/package-lock.json": true
+    }
+}

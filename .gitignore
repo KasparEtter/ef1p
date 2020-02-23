@@ -3,4 +3,5 @@
 /.jekyll-metadata
 /.stylelintcache
 /node_modules
+/theme.html
 /vendor
