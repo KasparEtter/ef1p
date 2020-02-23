@@ -1,6 +1,6 @@
 import { copyToClipboard } from './clipboard';
 
-// See https://www.sitepoint.com/css3-animation-javascript-event-handlers/:
+// See https://www.sitepoint.com/css3-animation-javascript-event-handlers/ (oanimationend is Opera):
 const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
 $(() => {
@@ -72,21 +72,29 @@ $(() => {
             element: HTMLElement;
         }
 
-        const headings: Heading[] = [];
+        let headings: Heading[];
+
+        const refreshOffsets = () => {
+            headings = [];
+            $('h2, h3, h4, h5, h6').each((_, element) => {
+                const offset = $(element).offset();
+                if (offset) {
+                    headings.push({ offset: offset.top - 11, element }); // Offset needed to match scrollspy.
+                }
+            });
+        };
+
+        let bodyHeight: number = 0;
         let currentHeading: HTMLElement | undefined;
 
-        // If elements are dynamically shown or hidden, this indexing would have to be refreshed.
-        $('h2, h3, h4, h5, h6').each((_, element) => {
-            const offset = $(element).offset();
-            if (offset) {
-                headings.push({ offset: offset.top - 11, element }); // Offset needed to match scrollspy.
-            }
-        });
-
         const handleWindowScroll = () => {
+            if (bodyHeight !== document.body.scrollHeight) {
+                bodyHeight = document.body.scrollHeight;
+                refreshOffsets();
+            }
             for (let i = headings.length - 1; i >= 0; i--) {
                 const heading = headings[i];
-                if (window.scrollY > heading.offset) {
+                if (window.pageYOffset > heading.offset) {
                     if (currentHeading !== heading.element) {
                         currentHeading = heading.element;
                         document.title = getTitle(heading.element);
@@ -146,4 +154,8 @@ $(() => {
         titleText: 'Click to copy the link to this section.',
     };
     anchors.add();
+    $('a.anchorjs-link').attr('tabindex', -1);
+
+    // Prevent the anchor and summary elements from becoming focused when clicked.
+    $('a, summary').on('click', function() { $(this).blur(); });
 });
