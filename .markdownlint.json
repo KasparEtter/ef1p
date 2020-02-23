@@ -11,8 +11,10 @@
         "allowed_elements": [
             "a",
             "i",
+            "details",
             "div",
-            "span"
+            "span",
+            "summary"
         ]
     },
     "no-trailing-punctuation": {
