@@ -53,6 +53,10 @@ nav.navbar {
       color: $navbar-dark-color;
     }
 
+    &:focus {
+      color: $link-color;
+    }
+
     &::before {
       position: absolute;
       top: 0;

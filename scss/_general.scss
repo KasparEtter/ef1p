@@ -2,8 +2,18 @@ body {
   word-wrap: break-word;
 }
 
+a, summary {
+  &:focus {
+    outline: none;
+  }
+}
+
 a {
   cursor: pointer; // Necessary for links without href.
+
+  &:focus {
+    text-decoration: underline;
+  }
 }
 
 a {
@@ -19,6 +29,21 @@ a[href^=\#] {
 
   @include hover() {
     color: darken($success, 15%);
+  }
+}
+
+summary {
+  > :first-child {
+    display: inline-block;
+  }
+
+  &:hover,
+  &:focus {
+    color: $link-color;
+
+    > * {
+      color: $body-color;
+    }
   }
 }
 

@@ -20,7 +20,8 @@
         "srihash",
         "stylelint",
         "stylelintrc",
-        "subresource"
+        "subresource",
+        "tabindex"
     ],
     "search.exclude": {
         "/assets": true,
