@@ -47,6 +47,7 @@
         "md-watch": "bundle exec jekyll serve --incremental --livereload --host=0.0.0.0",
         "react-update": "cp node_modules/react/umd/react.production.min.js node_modules/react-dom/umd/react-dom.production.min.js assets/scripts/external/",
         "sort-package": "sort-package-json",
+        "start": "npm run watch",
         "test": "echo 'Error: no test specified' && exit 1",
         "ts-build": "webpack",
         "ts-lint": "tslint --exclude 'node_modules/**/*' --exclude '_site/**/*' '**/*.ts?(x)'",
