@@ -5,6 +5,26 @@ This repository contains the website
 which is built with [Jekyll](https://jekyllrb.com)
 and published with [GitHub Pages](https://pages.github.com).
 
+## Contents
+
+This document has the following sections:
+- [Setup](#setup) with [requirements](#requirements)
+  and [instructions](#instructions) to serve this website
+- [Development](#development) with [requirements](#requirements-1)
+  and [dependencies](#dependencies) to [build](#build), [lint](#lint), and [watch](#watch)
+  the source files with instructions to do the same just for:
+  - [Articles](#articles) for the Markdown files ending in `.md` using Jekyll
+  - [Styles](#styles) for the Sass files ending in `.scss` in the `scss` folder
+  - [Scripts](#scripts) for the TypeScript files ending in `.ts` or `.tsx`
+  - [Libraries](#libraries) to update the external JavaScript libraries in the `<head>`
+  - [Favicons](#favicons) to generate the favicons in `assets/favicons`
+- [Documentation](#documentation) of custom features and common patterns:
+  - [Articles](#articles-1) lists the available front matter attributes
+  - [Markdown](#markdown) describes how to embed HTML in Markdown files
+- [About](#about) section with information on [how to contribute](#contributions),
+  [used dependencies](#dependencies-1), [copyright owner](#copyright),
+  [chosen license](#license), and how to [contact me](#contact).
+
 ## Setup
 
 ### Requirements
@@ -190,7 +210,7 @@ The articles, scripts and styles need to be rebuilt after making changes to them
 
 #### Node.js
 
-Install [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com).
+Install [Node.js](https://nodejs.org) with [npm](https://www.npmjs.com).
 
 You can check whether Node.js and npm are already installed with:
 
@@ -416,13 +436,18 @@ If you want to update the external JavaScript libraries in `assets/scripts/exter
 which are imported in `_layouts/head.html`,
 you have to download them manually from the following links:
 
-- [jQuery](https://code.jquery.com) (and the [map file](https://jquery.com/download/#jquery))
-- [Popper.js](https://cdnjs.com/libraries/popper.js) (take the [UMD](https://github.com/popperjs/popper.js#dist-targets) target at the bottom)
-- [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/#bootstrapcdn) (check in the navbar that you are viewing the latest version)
+- [jQuery](https://code.jquery.com)
+  (and the [map file](https://jquery.com/download/#jquery))
+- [Popper.js](https://cdnjs.com/libraries/popper.js)
+  (take the [UMD](https://github.com/popperjs/popper.js#dist-targets) target at the bottom)
+- [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/#bootstrapcdn)
+  (check in the navbar that you are viewing the latest version)
 - [Bootstrap TOC](https://afeld.github.io/bootstrap-toc/#usage)
-- [React](https://reactjs.org/docs/cdn-links.html) (or execute `npm run react-update` to copy the files from `node_modules`)
+- [React](https://reactjs.org/docs/cdn-links.html)
+  (or execute `npm run react-update` to copy the files from `node_modules`)
 - [AnchorJS](https://cdnjs.com/libraries/anchor-js)
-- [Font Awesome](https://fontawesome.com/download) (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
+- [Font Awesome](https://fontawesome.com/download)
+  (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
 
 In order to use the same library versions for local development as for remote production,
 you also have to update the [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) links
@@ -440,7 +465,9 @@ brew install librsvg
 npm run logo-convert
 ```
 
-## Articles
+## Documentation
+
+### Articles
 
 Articles can have the following variables in their [front matter](https://jekyllrb.com/docs/front-matter/):
 
@@ -458,7 +485,33 @@ Articles can have the following variables in their [front matter](https://jekyll
 
 You can check the preview of an article with Twitter's [card validator](https://cards-dev.twitter.com/validator).
 
-## Contributions
+### Markdown
+
+You can use HTML in [Markdown](https://guides.github.com/features/mastering-markdown/).
+If you want the content of an HTML tag to be processed as Markdown as well,
+you have to use `markdown="1"` as an attribute.
+
+For example, this is how you can declare a collapsed
+[details](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) section
+with a [summary](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary),
+where the content is still rendered using Markdown.
+
+```xml
+<details markdown="1">
+<summary markdown="1">
+
+Summary
+
+</summary>
+
+Details.
+
+</details>
+```
+
+## About
+
+### Contributions
 
 Please [open an issue](https://github.com/KasparEtter/ef1p/issues/new)
 if you found a typographical error, a factual inaccuracy or a logical fallacy.
@@ -466,7 +519,7 @@ Please also let me know if an explanation is difficult to follow.
 You are welcome to suggest interesting topics for me to write about.
 However, unless I explicitly asked for it, I will not accept any pull requests.
 
-## Dependencies
+### Dependencies
 
 The most important third party projects used by this website are:
 
@@ -485,18 +538,18 @@ The most important third party projects used by this website are:
 
 More dependencies are listed in [package.json](package.json) and [Gemfile](Gemfile).
 
-## Copyright
+### Copyright
 
 The copyright for the content of this repository,
 excluding the aforementioned dependencies,
 belongs to [Kaspar Etter](https://www.kasparetter.com).
 
-## License
+### License
 
 The content of this repository,
 excluding the aforementioned dependencies,
 is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
-## Contact
+### Contact
 
 Please do not hesitate to [contact me](mailto:contact@ef1p.com).
