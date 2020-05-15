@@ -2,29 +2,66 @@ body {
   word-wrap: break-word;
 }
 
-a, summary {
+article {
+  margin-bottom: -$paragraph-margin-bottom;
+  overflow-x: hidden;
+
+  img,
+  figure,
+  svg.figure {
+    @extend .d-block;
+    @extend .mx-auto;
+    @extend .img-fluid;
+
+    margin-top: $spacer * 1.5;
+    margin-bottom: $spacer * 1.5;
+  }
+
+  img {
+    @extend .rounded;
+  }
+
+  figure {
+    img,
+    svg.figure {
+      margin-bottom: $paragraph-margin-bottom;
+    }
+
+    figcaption {
+      @extend .figure-caption;
+      @extend .text-center;
+    }
+  }
+}
+
+footer {
+  padding-top: calc(#{$hr-margin-y} - 8px);
+  margin-top: $hr-margin-y;
+  user-select: none;
+  border-top: $hr-border-width $hr-border-color solid;
+}
+
+a,
+summary {
   &:focus {
     outline: none;
   }
 }
 
 a {
+  color: $info;
   cursor: pointer; // Necessary for links without href.
+
+  @include hover() {
+    color: darken($info, 15%);
+  }
 
   &:focus {
     text-decoration: underline;
   }
 }
 
-a {
-  color: $info;
-
-  @include hover() {
-    color: darken($info, 15%);
-  }
-}
-
-a[href^=\#] {
+a[href^="#"] {
   color: $success;
 
   @include hover() {
@@ -32,10 +69,22 @@ a[href^=\#] {
   }
 }
 
-summary {
-  > :first-child {
-    display: inline-block;
+details {
+  padding: $paragraph-margin-bottom;
+  background-color: $jumbotron-bg;
+  border-radius: $border-radius;
+
+  > *:last-child {
+    margin-bottom: 0;
   }
+}
+
+details[open] summary {
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+summary {
+  font-weight: bold;
 
   &:hover,
   &:focus {
@@ -53,11 +102,20 @@ pre {
   border-radius: $border-radius;
 }
 
-footer {
-  padding-top: calc(#{$hr-margin-y} - 8px);
-  margin-top: $hr-margin-y;
-  user-select: none;
-  border-top: $hr-border-width $hr-border-color solid;
+abbr[title] {
+  text-decoration: none;
+}
+
+table {
+  @extend .table;
+
+  width: auto;
+  margin: auto;
+
+  td,
+  th {
+    padding: .3rem .6rem;
+  }
 }
 
 // https://css-tricks.com/flexbox-truncated-text/
