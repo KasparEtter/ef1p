@@ -156,6 +156,35 @@ $(() => {
     anchors.add();
     $('a.anchorjs-link').attr('tabindex', -1);
 
+    // Allow the reader to download embedded SVG figures.
+    const downloadAsPNG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="fas fa-file-image"></i>Download as a pixel image (PNG)');
+    const downloadAsSVG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="fas fa-file-code"></i>Download as a vector graphic (SVG)');
+    const downloadMenu = $('<div>').addClass(['dropdown-menu']).append(downloadAsPNG, downloadAsSVG).appendTo('body');
+
+    function showDownloadMenu(this: any, event: JQuery.MouseEventBase) {
+        const name = $(this).data('name');
+        downloadAsPNG.attr('href', 'generated/' + name + '.png');
+        downloadAsSVG.attr('href', 'generated/' + name + '.svg');
+        downloadMenu.css({ left: event.pageX, top: event.pageY }).show();
+        event.preventDefault();
+    }
+
+    const hideDownloadMenu = () => {
+        downloadMenu.hide();
+    }
+
+    // https://github.com/bryanbraun/anchorjs/blob/e084f4c8c70e620cbd65290c279c6c55ed6233eb/anchor.js#L51-L53
+    // @ts-ignore
+    const isTouchDevice = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+
+    if (isTouchDevice) {
+        $('svg.figure').dblclick(showDownloadMenu);
+    } else {
+        $('svg.figure').contextmenu(showDownloadMenu);
+    }
+
+    $(document).on('click', hideDownloadMenu);
+
     // Prevent the anchor and summary elements from becoming focused when clicked.
     $('a, summary').on('click', function() { $(this).blur(); });
 });

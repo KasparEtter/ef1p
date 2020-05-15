@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 /**
  * Array with the keys of the given type.
  */
-export type KeysOf<T> = Array<keyof T>;
+export type KeysOf<T> = (keyof T)[];
 
 /**
  * Constrains a type to objects without allowing functions.
