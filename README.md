@@ -20,7 +20,12 @@ This document has the following sections:
   - [Favicons](#favicons) to generate the favicons in `assets/favicons`
 - [Documentation](#documentation) of custom features and common patterns:
   - [Articles](#articles-1) lists the available front matter attributes
-  - [Markdown](#markdown) describes how to embed HTML in Markdown files
+  - [Markdown](#markdown) documents various advanced Markdown features
+  - [Images](#images) describes how to scale and embed images in articles
+  - [Graphics](#graphics) explains how to generate and embed SVG graphics
+  - [Math](#math) shows how to write both inline as well as block math
+  - [PDF](#pdf) details how to generate a PDF of an article with a script
+  - [Timestamp](#timestamp) summarizes how to create and verify timestamps
 - [About](#about) section with information on [how to contribute](#contributions),
   [used dependencies](#dependencies-1), [copyright owner](#copyright),
   [chosen license](#license), and how to [contact me](#contact).
@@ -165,8 +170,13 @@ gem install bundler
 Install all Ruby dependencies with:
 
 ```bash
-bundle install --path vendor/bundle
+bundle config set path 'vendor/bundle'
+bundle install
 ```
+
+You have to execute the first line only once.
+The configuration is then stored in `.bundle/config`.
+This file is intentionally not under version control.
 
 In order to run the [same versions](https://pages.github.com/versions/)
 as the [GitHub Pages](https://pages.github.com) server,
@@ -349,6 +359,13 @@ you can run the following script:
 npm run md-watch
 ```
 
+Please note that all errors by the script `md-watch` are ignored using `2>/dev/null`.
+If you run into problems,
+don't forget to remove this suppression for debugging.
+I decided to do this in order to get rid of the following issues outside of my control:
+- `vendor/bundle/ruby/2.7.0/gems/jekyll-3.8.5/lib/jekyll/convertible.rb:41: warning: Using the last argument as keyword parameters is deprecated`
+- `ERROR: directory is already being watched!` for directories in `node_modules/puppeteer/` (see [this page](https://github.com/guard/listen/wiki/Duplicate-directory-errors) for more information).
+
 ### Styles
 
 #### Build
@@ -448,6 +465,10 @@ you have to download them manually from the following links:
 - [AnchorJS](https://cdnjs.com/libraries/anchor-js)
 - [Font Awesome](https://fontawesome.com/download)
   (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
+- [KaTeX](https://katex.org/docs/browser.html)
+  with [copy-tex](https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex)
+  and [mathtex-script-type](https://github.com/KaTeX/KaTeX/tree/master/contrib/mathtex-script-type)
+  extensions
 
 In order to use the same library versions for local development as for remote production,
 you also have to update the [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) links
@@ -461,7 +482,6 @@ The favicons stored in `assets/favicons` were generated with [RealFaviconGenerat
 You can convert the logo in `assets/images` from SVG to PNG with:
 
 ```bash
-brew install librsvg
 npm run logo-convert
 ```
 
@@ -473,7 +493,9 @@ Articles can have the following variables in their [front matter](https://jekyll
 
 - `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
 - `title`: The title of the article as used at the top of the article and in the navigation.
+- `script`: The name of the script to be included from `/assets/scripts/internal/{{script}}.min.js`.
 - `category`: The name of the [category](_data/categories.yml) to which the article belongs.
+- `author`: The author of the article so that this information is included in timestamps of the file.
 - `published`: The date when the article was first published as YYYY-MM-DD.
   Omit this variable if the article shall not yet be added to the navigation.
 - `modified`: The date when the article was last modified as YYYY-MM-DD.
@@ -482,32 +504,276 @@ Articles can have the following variables in their [front matter](https://jekyll
   that shall be used when the article is shared on social media.
   The image should be 1200 x 630 or larger and less than 1 MB in size.
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
+- `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
 You can check the preview of an article with Twitter's [card validator](https://cards-dev.twitter.com/validator).
 
 ### Markdown
 
-You can use HTML in [Markdown](https://guides.github.com/features/mastering-markdown/).
+[Markdown](https://guides.github.com/features/mastering-markdown/)
+is converted by [kramdown](https://kramdown.gettalong.org/index.html).
+according to [this syntax specification](https://kramdown.gettalong.org/syntax.html).
+
+#### Comments
+
+```markdown
+{::comment}
+This text is ignored by kramdown.
+{:/comment}
+```
+
+```liquid
+{% comment %}
+This text is ignored by Liquid.
+{% endcomment %}
+```
+
+#### Footnotes
+
+```markdown
+This statement requires a source.[^label]
+
+[^label]: This can be written anywhere.
+```
+
+#### Abbreviations
+
+```markdown
+You can use an abbreviation like HTML anywhere and then provide a definition anywhere.
+
+*[HTML]: Hyper Text Markup Language
+```
+
+#### Horizontal rules
+
+```markdown
+---
+```
+
+#### Description list
+
+You can declare a [description list](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl) like this:
+
+```markdown
+Term
+: Description
+```
+
+This is transformed into:
+
+```html
+<dl>
+  <dt>Term</dt>
+  <dd>Description</dd>
+</dl>
+```
+
+#### Table
+
+```markdown
+{:.table .table-sm}
+| Default aligned | Left aligned | Center aligned | Right aligned
+|-|:-|:-:|-:
+| First body | Second cell | Third cell | Fourth cell
+| Second line | a | b | c
+| Third line | 1 | 2 | 3
+|---
+| Second body
+| Second line
+|===
+| Footer row
+```
+
+See [Bootstrap](https://getbootstrap.com/docs/4.5/content/tables/) for styling options.
+
+#### HTML blocks
+
+You can use [HTML blocks](https://kramdown.gettalong.org/syntax.html#html-blocks) in Markdown.
 If you want the content of an HTML tag to be processed as Markdown as well,
-you have to use `markdown="1"` as an attribute.
+you have to use `markdown="1"` as an attribute
+in order to parse its content with the default mechanism.
+You can also use `markdown="block"` or `markdown="span"`
+if you want the content of the tag to be parsed explicitly as a block or span level element.
+
+#### Details element
 
 For example, this is how you can declare a collapsed
 [details](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) section
 with a [summary](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary),
 where the content is still rendered using Markdown.
 
-```xml
-<details markdown="1">
-<summary markdown="1">
+```html
+<details markdown="block">
+<summary markdown="span">
 
-Summary
+Summary with *Markdown*.
 
 </summary>
 
-Details.
+Details with *Markdown*.
 
 </details>
 ```
+
+#### Header IDs
+
+You can provide the header ID yourself if you want:
+
+```markdown
+# Hello {#id}
+```
+
+#### Attributes
+
+You can use [attribute lists](https://kramdown.gettalong.org/syntax.html#inline-attribute-lists)
+to add attributes to the generated HTML elements:
+
+```markdown
+{:#my-id .first-class .second-class attribute="value"}
+```
+
+Classes are appended to the current value of the `class` attribute.
+Attributes provided as name-value pairs,
+on the other hand,
+replace previous attributes with the same name.
+
+You can apply the attributes to [block elements](https://kramdown.gettalong.org/syntax.html#block-ials)
+by putting the list on a separate line directly before or after the block element:
+
+```markdown
+This is a paragraph.
+{:.class-of-paragraph}
+```
+
+You can apply the attributes to [span elements](https://kramdown.gettalong.org/syntax.html#span-ials)
+by putting the list directly after the span element with no space in between:
+
+```markdown
+A [link](test.html){:rel='something'} and some **tools**{:.tools}.
+```
+
+If you want to re-use the same attributes,
+you can declare an [attribute list definition](https://kramdown.gettalong.org/syntax.html#attribute-list-definitions):
+
+```markdown
+{:ref-name: #my-id .my-class}
+{:other: ref-name #id-of-other .another-class title="Example"}
+```
+
+#### Table of contents
+
+```markdown
+## Potentially very long title
+{:data-toc-text="Short title"}
+
+## Title omitted from the table of contents
+{:data-toc-skip=""}
+```
+
+### Images
+
+#### Simple image
+
+```markdown
+![Name of the image](image.png)
+```
+
+#### Image with caption
+
+```markdown
+{% include figure.html source="source.png" caption="Caption." %}
+```
+
+#### Image in various sizes
+
+The following command scales the given image to 500, 1000 and 2000 pixels in a subfolder named `generated`.
+
+```bash
+npm run img-scale article/screenshot.png
+```
+
+A [`srcset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset)
+with the various sizes is generated when you add `scaled="true"` to the `include` statement.
+
+```markdown
+{% include figure.html source="screenshot.png" caption="Caption." scaled="true" %}
+```
+
+The `caption` is optional and can be skipped.
+
+### Graphics
+
+#### Generate SVG
+
+```bash
+npm run svg-build article file
+```
+
+Please note that the file has to be provided without the `.ts` suffix.
+
+#### Watch SVG generator
+
+```bash
+npm run svg-watch article file
+```
+
+Please note that the file has to be provided without the `.ts` suffix.
+
+#### Embed SVG directly
+
+```markdown
+{% include_relative generated/example.embedded.svg %}
+```
+
+#### Embed SVG with caption
+
+```markdown
+<figure>
+    {% include_relative generated/example.embedded.svg %}
+    <figcaption>Caption.</figcaption>
+</figure>
+```
+
+### Math
+
+```markdown
+You can write both inline math such as $$f(x) = x^2$$ as well as block math:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+```
+
+Check out the list of [supported functions](https://katex.org/docs/supported.html) with tons of examples.
+
+Don't forget to add the following front matter at the beginning of the article:
+
+```yaml
+math: true
+```
+
+### PDF
+
+The following command generates a PDF of the given article with [Puppeteer](https://github.com/puppeteer/puppeteer):
+
+```bash
+npm run pdf-generate article
+```
+
+Please make sure that you are serving the website (e.g. with `npm start`)
+at `http://localhost:4000/` before calling the above script.
+The script runs [headless Chromium](https://developers.google.com/web/updates/2017/04/headless-chrome)
+to [generate the PDF](https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF).
+
+### Timestamp
+
+```bash
+npm run ots-stamp article/index.md article/generated/YYYY-MM-DD\ Article\ explained\ from\ first\ principles.pdf
+```
+
+You can then display, verify or upgrade the timestamp
+with `npm run ots-info`, `npm run ots-verify` or `npm run ots-stamp`
+using the generated `*.ots` files as arguments.
 
 ## About
 
