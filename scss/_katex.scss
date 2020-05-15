@@ -1,0 +1,10 @@
+.katex,
+.katex-display {
+  user-select: all;
+}
+
+.katex-display {
+  padding: 1px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
