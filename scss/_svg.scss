@@ -1,3 +1,47 @@
-svg {
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-line-through {
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
+}
+
+svg.figure {
   fill: currentColor;
+  stroke: currentColor;
+
+  text {
+    stroke-opacity: 0;
+  }
+
+  line,
+  rect,
+  circle,
+  ellipse,
+  polygon,
+  polyline,
+  path {
+    fill-opacity: 0;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  marker > path {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+
+  marker > circle {
+    fill-opacity: 1;
+    stroke-width: 1px;
+  }
+
+  @each $color, $value in $theme-colors {
+    .#{$color} {
+      fill: $value;
+      stroke: $value;
+    }
+  }
 }
