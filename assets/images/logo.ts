@@ -1,5 +1,5 @@
 // Run this script with `npm run logo-generate`.
-import fs = require('fs');
+import fs from 'fs';
 
 const color = '#375A7F';
 
@@ -15,7 +15,7 @@ const radius = circle / 8;
 const padding = radius / 3;
 
 const svg = `<svg width="${ size }" height="${ size }" xmlns="http://www.w3.org/2000/svg">
-    <desc>Explained from First Principles Logo</desc>
+    <title>Explained from First Principles Logo</title>
     ${ background ?
         `<rect x="0" y="0" width="${ size }" height="${ size }" fill="${ inverted ? 'white' : color }"/>
     ` : ``}<mask id="mask">
