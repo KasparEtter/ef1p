@@ -7,4 +7,90 @@
   div.container-fluid {
     max-width: 1170px;
   }
+
+  sup[id^="fnref"],
+  a.footnote,
+  div.footnotes li {
+    padding-top: $body-padding-top; // Scroll to the right position.
+    margin-top: -$body-padding-top;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
+
+    span {
+      margin-right: .375em; // Add the margin here instead of the anchor in order to center the scaling.
+      cursor: pointer;
+    }
+  }
+
+  h1 {
+    padding-top: $body-padding-top;
+    margin-top: -$body-padding-top;
+  }
+
+  h2 {
+    margin-top: calc(#{$h2-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h3 {
+    margin-top: calc(#{$h3-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h4 {
+    margin-top: calc(#{$h4-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h5 {
+    margin-top: calc(#{$h5-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h6 {
+    margin-top: calc(#{$h6-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h1 + h2,
+  p.lead + h2 {
+    margin-top: calc(#{$h2-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h2 + h3 {
+    margin-top: calc(#{$h3-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h3 + h4 {
+    margin-top: calc(#{$h4-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h4 + h5 {
+    margin-top: calc(#{$h5-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  h5 + h6 {
+    margin-top: calc(#{$h6-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
+  }
+
+  hr + h2 {
+    margin-top: -$body-padding-top;
+  }
+
+  .anchorjs-link {
+    padding-left: 0 !important; // Remove the padding here in order to center the scaling.
+  }
+
+  @keyframes scale {
+    from { transform: scale(1); }
+    to { transform: scale(4); }
+  }
+
+  .scale {
+    display: inline-block;
+    animation-name: scale;
+    animation-duration: .2s;
+    animation-timing-function: linear;
+  }
 }
