@@ -1,0 +1,4 @@
+# https://github.com/DavidAnson/vscode-markdownlint#markdownlintignore
+/_site
+/node_modules
+/vendor
