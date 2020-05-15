@@ -1,7 +1,38 @@
 @media print {
   body,
+  details,
+  pre {
+    background-color: transparent !important;
+  }
+
+  details,
+  pre {
+    border: 1px solid #000;
+  }
+
+  body,
+  table,
+  .table,
   a,
-  a[href^=\#] {
+  a[href^="#"],
+  .figure-caption,
+  article figure figcaption {
     color: #000;
+  }
+
+  a[href^="#"] {
+    text-decoration: underline dashed;
+  }
+
+  div.container-fluid {
+    padding: 0;
+  }
+
+  abbr[title]::after {
+    content: none;
+  }
+
+  a.anchorjs-link {
+    display: none;
   }
 }
