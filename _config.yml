@@ -11,20 +11,18 @@ lang: en
 permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
-github_repository: https://github.com/KasparEtter/ef1p
 google_analytics_id: UA-135908849-1
 mailchimp_action: https://explained-from-first-principles.us20.list-manage.com/subscribe/post?u=f2f847e1901ae4d294dea09da&amp;id=b2f0275e5b
 mailchimp_hidden: b_f2f847e1901ae4d294dea09da_b2f0275e5b
 twitter_handle: ExplainedFrom1P
 
+# https://jekyllrb.com/docs/configuration/markdown/
+markdown: kramdown
+kramdown:
+  footnote_backlink: '&#8593;'
+
 # Hack to suppress a Jekyll issue with styles: https://github.com/jekyll/jekyll/issues/7478
 theme: null
-
-plugins:
-  - jemoji
-
-emoji:
-  src: https://github.githubassets.com/images/icons
 
 exclude:
   - "*.json"
@@ -39,10 +37,7 @@ exclude:
   - README.md
   - scss
   - typescript
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+  - vendor
   - webpack.config.js
 
 defaults:
