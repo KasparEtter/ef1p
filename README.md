@@ -511,7 +511,7 @@ You can check the preview of an article with Twitter's [card validator](https://
 ### Markdown
 
 [Markdown](https://guides.github.com/features/mastering-markdown/)
-is converted by [kramdown](https://kramdown.gettalong.org/index.html).
+is converted by [kramdown](https://kramdown.gettalong.org/index.html)
 according to [this syntax specification](https://kramdown.gettalong.org/syntax.html).
 
 #### Comments
@@ -571,7 +571,6 @@ This is transformed into:
 #### Table
 
 ```markdown
-{:.table .table-sm}
 | Default aligned | Left aligned | Center aligned | Right aligned
 |-|:-|:-:|-:
 | First body | Second cell | Third cell | Fourth cell
@@ -620,7 +619,7 @@ Details with *Markdown*.
 You can provide the header ID yourself if you want:
 
 ```markdown
-# Hello {#id}
+## Title {#my-id}
 ```
 
 #### Attributes
