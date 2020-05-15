@@ -8,18 +8,18 @@ layout: toc
         <p class="lead">{{ site.title | escape | downcase }}</p>
 
         <p class="article-meta">
-            This <a href="{{ site.github_repository | append: '/blob/master/' | append: page.path }}">article</a>
-            {% if page.script %}
-                and its <a href="{{ site.github_repository | append: '/blob/master' | append: page.dir | append: 'scripts.tsx' }}">code</a> were
-            {% else %}
-                was
-            {% endif %}
+            This <a href="{{ site.github.repository_url | append: '/blob/master/' | append: page.path }}">article</a>{% if page.script %}
+            and its <a href="{{ site.github.repository_url | append: '/blob/master' | append: page.dir | append: 'scripts.tsx' }}">code</a> were{% else %}
+            was{% endif %}
             first published on {{ page.published | date: site.date_format }}{% if page.modified %}
             and last modified on {{ page.modified | date: site.date_format }}
-            (see all <a href="{{ site.github_repository | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
-            {% assign length = page.url | size | minus: 1 %}
+            (see all <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
+            {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
             Its short URL is
-            <a href="https://{{ site.short_url }}{{ page.url | slice: 0, length }}">{{ site.short_url }}{{ page.url | slice: 0, length }}</a>.
+            <a href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
+            {% capture pdf %}{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
+            You can also download the article as a
+            <a href="{{ pdf | relative_url }}">PDF</a>.
         </p>
 
         <p class="article-disclaimer">
