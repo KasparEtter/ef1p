@@ -3,11 +3,12 @@
         "allowJs": true,
         "alwaysStrict": true,
         "checkJs": true,
+        "esModuleInterop": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "jsxFactory": "createElement",
-        "module": "esnext",
+        "module": "CommonJS",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -20,12 +21,17 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
-        "target": "es6",
+        "target": "ES6",
+        "typeRoots": ["./node_modules/@types/"],
     },
     "exclude": [
         "./_site/**/*",
         "./assets/**/*",
         "./node_modules/**/*",
+        "./vendor/**/*",
         "./webpack.config.js",
-    ]
+    ],
+    "ts-node": {
+        "transpileOnly": true,
+    },
 }
