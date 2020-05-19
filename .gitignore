@@ -3,5 +3,6 @@
 /.jekyll-metadata
 /.stylelintcache
 /node_modules
+/playground
 /theme.html
 /vendor
