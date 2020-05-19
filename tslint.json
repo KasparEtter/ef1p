@@ -16,6 +16,7 @@
         "no-console": [true, "log"],
         "no-shadowed-variable": [false],
         "object-literal-sort-keys": [false],
+        "ordered-imports": true,
         "quotemark": [true, "single", "jsx-double", "avoid-escape"],
         "trailing-comma": [
             true,
