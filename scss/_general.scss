@@ -71,6 +71,7 @@ a[href^="#"] {
 
 details {
   padding: $paragraph-margin-bottom;
+  margin-bottom: $paragraph-margin-bottom;
   background-color: $jumbotron-bg;
   border-radius: $border-radius;
 
