@@ -32,4 +32,15 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
             + ` rx="${radius.x}" ry="${radius.y}">`
             + `${this.children(prefix)}</ellipse>\n`;
     }
+
+    public pointTo(other: Point): Point {
+        const vector = other.subtract(this.props.center);
+        // https://math.stackexchange.com/questions/432902/how-to-get-the-radius-of-an-ellipse-at-a-specific-angle-by-knowing-its-semi-majo
+        const angle = Math.atan(vector.y / vector.x);
+        const {x, y} = this.props.radius;
+        const xSin = x * Math.sin(angle);
+        const yCos = y * Math.cos(angle);
+        const r = x * y / Math.sqrt(xSin * xSin + yCos * yCos);
+        return this.props.center.add(vector.normalize(r));
+    }
 }

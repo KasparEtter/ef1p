@@ -33,4 +33,8 @@ export class Circle extends CenterTextElement<CircleProps> {
             + ` r="${radius}">`
             + `${this.children(prefix)}</circle>\n`;
     }
+
+    public pointTo(other: Point): Point {
+        return other.subtract(this.props.center).normalize(this.props.radius);
+    }
 }

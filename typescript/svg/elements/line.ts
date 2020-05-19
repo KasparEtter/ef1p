@@ -138,3 +138,14 @@ export function ConnectionLine(
     const marker = 'end';
     return new Line({ start, end, marker, ...props });
 }
+
+export function DiagonalLine(
+    startElement: Circle | Ellipse,
+    endElement: Circle | Ellipse,
+    props: Omit<LineProps, 'start' | 'end'> = {},
+): Line {
+    const start = startElement.pointTo(endElement.center());
+    const end = endElement.pointTo(startElement.center());
+    const marker = 'end';
+    return new Line({ start, end, marker, ...props });
+}
