@@ -23,8 +23,11 @@
     padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
 
     span {
-      margin-right: .375em; // Add the margin here instead of the anchor in order to center the scaling.
       cursor: pointer;
+    }
+
+    span:last-of-type {
+      margin-right: .375em; // Add the margin here instead of the anchor in order to center the scaling.
     }
   }
 
