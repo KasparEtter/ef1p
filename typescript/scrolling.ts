@@ -187,4 +187,9 @@ $(() => {
 
     // Prevent the anchor and summary elements from becoming focused when clicked.
     $('a, summary').on('click', function() { $(this).blur(); });
+
+    // Support abbreviations on touch devices.
+    if (isTouchDevice) {
+        $('abbr').on('click', function() { alert($(this).text() + ': ' + $(this).attr('title')); });
+    }
 });
