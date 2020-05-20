@@ -7,6 +7,7 @@ module.exports = {
 
     // https://webpack.js.org/concepts/entry-points/
     entry: {
+        katex: "./typescript/scripts/katex.ts",
         links: "./typescript/scripts/links.ts",
         ready: "./typescript/scripts/ready.ts",
         theme: "./typescript/scripts/theme.ts",
