@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { restoreObject, storeObject } from './storage';
-import { ObjectButNotFunction } from './types';
+
+import { restoreObject, storeObject } from '../utility/storage';
+import { ObjectButNotFunction } from '../utility/types';
 
 /**
  * This class allows components to share a common state.

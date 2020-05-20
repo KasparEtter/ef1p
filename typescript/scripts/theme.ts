@@ -1,4 +1,4 @@
-import { restoreObject, storeObject } from './storage';
+import { restoreObject, storeObject } from '../utility/storage';
 
 declare const themes: {
     dark: string;

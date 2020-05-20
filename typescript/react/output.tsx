@@ -1,8 +1,8 @@
 import { createElement, Fragment } from 'react';
 
+import { KeysOf } from '../utility/types';
 import { Argument, Entry, isArgument, SomeEntries } from './entry';
 import { StateWithTerminal } from './terminal';
-import { KeysOf } from './types';
 
 export const shortForm: Entry = {
     name: 'Short Form',

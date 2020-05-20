@@ -1,8 +1,8 @@
 import { Component, createElement, Fragment, MouseEvent } from 'react';
 
-import { copyToClipboard } from './clipboard';
+import { copyToClipboard } from '../utility/clipboard';
+import { Children } from '../utility/types';
 import { Entry } from './entry';
-import { Children } from './types';
 
 export const Code = ({ children }: Children) => <pre>{children}</pre>;
 

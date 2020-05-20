@@ -1,9 +1,9 @@
-import { copyToClipboard } from './clipboard';
+import { copyToClipboard } from '../utility/clipboard';
 
 // See https://www.sitepoint.com/css3-animation-javascript-event-handlers/ (oanimationend is Opera):
 const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-$(() => {
+$(document).ready(() => {
     /* Animated scrolling to anchor with updating window title and browser history. */
 
     const originalTitle = document.title;

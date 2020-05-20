@@ -1,8 +1,8 @@
 import { ChangeEvent, Component, createElement, MouseEvent } from 'react';
 
+import { KeysOf } from '../utility/types';
 import { SomeEntries } from './entry';
 import { Store } from './store';
-import { KeysOf } from './types';
 
 export class RawInput<State extends { [key: string]: boolean | string }> extends Component<{ store: Store<State> } & State & SomeEntries<State>> {
     private readonly handleChange = (event: ChangeEvent<HTMLInputElement>) => {

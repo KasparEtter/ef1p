@@ -1,7 +1,7 @@
 import { Component, ComponentType, createElement, ReactNode } from 'react';
 
+import { ObjectButNotFunction } from '../utility/types';
 import { Store } from './store';
-import { ObjectButNotFunction } from './types';
 
 function getDisplayName(component: ComponentType<any>): string {
     return component.displayName || (component as any).name || 'Component';

@@ -1,4 +1,4 @@
-import { KeysOf } from './types';
+import { KeysOf } from '../utility/types';
 
 export interface Entry {
     name: string;
