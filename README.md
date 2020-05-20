@@ -727,9 +727,13 @@ Please note that the file has to be provided without the `.ts` suffix.
 #### Embed SVG with caption
 
 ```markdown
-<figure>
-    {% include_relative generated/example.embedded.svg %}
-    <figcaption>Caption.</figcaption>
+<figure markdown="1">
+{% include_relative generated/example.embedded.svg %}
+<figcaption markdown="1">
+
+Caption.
+
+</figcaption>
 </figure>
 ```
 
