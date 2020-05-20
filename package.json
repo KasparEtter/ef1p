@@ -69,6 +69,7 @@
     "devDependencies": {
         "@types/anchor-js": "^4.2.0",
         "@types/jquery": "^3.3.38",
+        "@types/katex": "^0.11.0",
         "@types/node": "^13.13.5",
         "@types/puppeteer": "^2.1.0",
         "@types/react": "^16.9.35",
@@ -79,6 +80,7 @@
         "bootswatch": "^4.4.1",
         "clean-css-cli": "^4.3.0",
         "jquery": "^3.5.1",
+        "katex": "^0.11.1",
         "madge": "^3.9.0",
         "markdownlint-cli": "^0.23.0",
         "node-sass": "^4.14.1",
