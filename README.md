@@ -604,13 +604,9 @@ where the content is still rendered using Markdown.
 ```html
 <details markdown="block">
 <summary markdown="span">
-
 Summary with *Markdown*.
-
 </summary>
-
 Details with *Markdown*.
-
 </details>
 ```
 
@@ -680,22 +676,26 @@ you can declare an [attribute list definition](https://kramdown.gettalong.org/sy
 #### Image with caption
 
 ```markdown
-{% include figure.html source="source.png" caption="Caption." %}
+{% include figure.md source="source.png" caption="Caption with *Markdown*." %}
 ```
+
+The `caption` string can span several lines.
+You just need to escape all quotation marks in it.
+It will be rendered with `markdown="span"` as a single paragraph.
 
 #### Image in various sizes
 
 The following command scales the given image to 500, 1000 and 2000 pixels in a subfolder named `generated`.
 
 ```bash
-npm run img-scale article/screenshot.png
+npm run img-scale article/source.png
 ```
 
 A [`srcset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset)
 with the various sizes is generated when you add `scaled="true"` to the `include` statement.
 
 ```markdown
-{% include figure.html source="screenshot.png" caption="Caption." scaled="true" %}
+{% include figure.md source="source.png" caption="Caption with *Markdown*." scaled="true" %}
 ```
 
 The `caption` is optional and can be skipped.
@@ -727,12 +727,10 @@ Please note that the file has to be provided without the `.ts` suffix.
 #### Embed SVG with caption
 
 ```markdown
-<figure markdown="1">
+<figure markdown="block">
 {% include_relative generated/example.embedded.svg %}
-<figcaption markdown="1">
-
-Caption.
-
+<figcaption markdown="span">
+Caption with *Markdown*.
 </figcaption>
 </figure>
 ```

@@ -7,6 +7,7 @@
     "first-header-h1": false,
     "first-line-h1": false,
     "line-length": false,
+    "no-bare-urls": false,
     "no-duplicate-heading": {
         "siblings_only": true
     },
@@ -18,10 +19,12 @@
             "div",
             "figure",
             "figcaption",
+            "img",
             "span",
             "summary"
         ]
     },
+    "no-multiple-blanks": false,
     "no-trailing-punctuation": {
         "punctuation": ",;"
     },
