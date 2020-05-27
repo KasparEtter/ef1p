@@ -134,44 +134,29 @@ export const style = `<style>
             text-decoration: none;
         }
 
-        .primary {
-            fill: #2C3E50;
-            stroke: #2C3E50;
-        }
-
-        .secondary {
-            fill: #95a5a6;
-            stroke: #95a5a6;
-        }
-
-        .success {
-            fill: #18BC9C;
-            stroke: #18BC9C;
-        }
-
-        .info {
+        .blue {
             fill: #3498DB;
             stroke: #3498DB;
         }
 
-        .warning {
-            fill: #F39C12;
-            stroke: #F39C12;
+        .green {
+            fill: #18BC9C;
+            stroke: #18BC9C;
         }
 
-        .danger {
+        .red {
             fill: #E74C3C;
             stroke: #E74C3C;
         }
 
-        .light {
-            fill: #ecf0f1;
-            stroke: #ecf0f1;
+        .orange {
+            fill: #F39C12;
+            stroke: #F39C12;
         }
 
-        .dark {
-            fill: #7b8a8b;
-            stroke: #7b8a8b;
+        .grey {
+            fill: #95a5a6;
+            stroke: #95a5a6;
         }
     </style>
 

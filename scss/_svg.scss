@@ -7,7 +7,21 @@
   text-decoration-thickness: 2px;
 }
 
+$svg-colors: () !default;
+$svg-colors: map-merge(
+  (
+    "blue":    $cyan,
+    "green":   $green,
+    "red":     $red,
+    "orange":  $yellow,
+    "grey":    $gray-600,
+  ),
+  $svg-colors
+);
+
 svg.figure {
+  user-select: none;
+
   fill: currentColor;
   stroke: currentColor;
 
@@ -38,7 +52,7 @@ svg.figure {
     stroke-width: 1px;
   }
 
-  @each $color, $value in $theme-colors {
+  @each $color, $value in $svg-colors {
     .#{$color} {
       fill: $value;
       stroke: $value;

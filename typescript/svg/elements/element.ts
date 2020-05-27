@@ -27,11 +27,8 @@ export abstract class AnimationElement<P = {}> extends Element<P> {}
 
 // ElementWithChildren
 
-// Most important colors: info (blue), success (green), and danger (red).
-export type Color = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'light' | 'dark';
-
-// This list of colors is needed to generate an end-o
-export const colors: (Color | undefined)[] = [undefined, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'];
+export const colors = [undefined, 'blue', 'green', 'red', 'orange', 'grey'] as const;
+export type Color = typeof colors[number];
 
 export function colorSuffix(color?: Color) {
     return color ? '-' + color : '';
