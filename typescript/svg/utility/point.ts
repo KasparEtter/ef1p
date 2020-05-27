@@ -117,3 +117,5 @@ export class Point {
 export function P(x: number, y: number): Point {
     return new Point(x, y);
 }
+
+export const zeroPoint = new Point(0, 0);
