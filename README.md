@@ -685,11 +685,11 @@ It will be rendered with `markdown="span"` as a single paragraph.
 
 #### Image in various sizes
 
-The following command scales the given image to 500, 1000 and 2000 pixels in a subfolder named `generated`.
-
-```bash
-npm run img-scale article/source.png
-```
+Images in the `images` subfolder of articles are automatically scaled to 500, 1000 and 2000 pixels
+and stored in the subfolder `generated`
+when running `npm run build`, `npm run watch`, or `npm start`.
+If you only want to build or watch these images,
+you can execute `npm run img-build` or `npm run img-watch` instead.
 
 A [`srcset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset)
 with the various sizes is generated when you add `scaled="true"` to the `include` statement.
@@ -702,21 +702,13 @@ The `caption` is optional and can be skipped.
 
 ### Graphics
 
-#### Generate SVG
+#### Generate SVGs
 
-```bash
-npm run svg-build article file
-```
-
-Please note that the file has to be provided without the `.ts` suffix.
-
-#### Watch SVG generator
-
-```bash
-npm run svg-watch article file
-```
-
-Please note that the file has to be provided without the `.ts` suffix.
+`npm run svg-build` builds all SVGs
+which end with `.svg.ts`
+in the `graphics` subfolder of articles.
+You can also watch all SVG-related TypeScript files with `npm run svg-watch`.
+These scripts are also included in `npm run build` and `npm run watch` respectively.
 
 #### Embed SVG directly
 
@@ -775,6 +767,8 @@ npm run ots-stamp article/index.md article/generated/YYYY-MM-DD\ Article\ explai
 You can then display, verify or upgrade the timestamp
 with `npm run ots-info`, `npm run ots-verify` or `npm run ots-stamp`
 using the generated `*.ots` files as arguments.
+
+You can generate the PDF and the timestamps in one step with `npm run prepare-publication article`.
 
 ## About
 
