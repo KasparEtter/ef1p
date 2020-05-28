@@ -15,20 +15,24 @@ if (!directory) {
     // https://github.com/puppeteer/puppeteer/blob/v3.0.4/docs/api.md#pagegotourl-options
     await page.goto(`http://localhost:4000/${directory}/`, { waitUntil: 'load' });
 
-    const title = await page.evaluate(() => {
-        return document.title;
-    });
-    await page.evaluate(() => {
+    const [title, published, modified] = await page.evaluate(() => {
         // Expand all details elements.
         $('details').attr('open', '');
 
         // Remove the 'srcset' attribute on all images.
         // https://stackoverflow.com/a/61807077/12917821
         $('img[srcset]').removeAttr('srcset');
+
+        return [
+            document.title,
+            $('meta[property="article:published_time"]').attr('content'),
+            $('meta[property="article:modified_time"]').attr('content'),
+        ];
     });
+    const date = modified ?? published ?? new Date().toISOString().substring(0, 10);
+
     // Wait for higher quality images to be loaded.
     await new Promise(resolve => setTimeout(resolve, 500));
-    const date = new Date().toISOString().substring(0, 10);
 
     fs.mkdirSync(`${directory}/generated`, { recursive: true });
 
