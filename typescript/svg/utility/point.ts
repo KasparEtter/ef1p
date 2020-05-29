@@ -98,6 +98,25 @@ export class Point {
     }
 
     /**
+     * Returns the point at the given distance and angle from this point.
+     */
+    public point(distance: number, angle: number): Point {
+        return new Point(this.x + Math.cos(angle) * distance, this.y + Math.sin(angle) * distance);
+    }
+
+    /**
+     * Creates the given number of evenly spaced points in a circle with the given radius around this point.
+     */
+    public radial(radius: number, amount: number, offsetAngle: number = 0): Point[] {
+        const angle = Math.PI * 2 / amount;
+        const points: Point[] = new Array(amount);
+        for (let i = 0; i < amount; i++) {
+            points[i] = this.point(radius, offsetAngle + i * angle);
+        }
+        return points;
+    }
+
+    /**
      * Rotates this vector by 90 degrees.
      */
     public rotate(side: LineSide): Point {
