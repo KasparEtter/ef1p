@@ -35,7 +35,7 @@ export class Box {
         return new Box(this.topLeft.subtract(that), this.bottomRight.add(that));
     }
 
-    public point(side: BoxSide): Point {
+    public pointAt(side: BoxSide): Point {
         const center = this.topLeft.center(this.bottomRight);
         switch (side) {
             case 'top':

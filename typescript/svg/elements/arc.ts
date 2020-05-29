@@ -208,8 +208,8 @@ export function ConnectionArc(
     endSide: BoxSide,
     props: Omit<ArcProps, 'start' | 'startSide' | 'end' | 'endSide'> = {},
 ): Arc {
-    const start = startElement.boundingBox().point(startSide);
-    const end = endElement.boundingBox().point(endSide);
+    const start = startElement.boundingBox().pointAt(startSide);
+    const end = endElement.boundingBox().pointAt(endSide);
     const marker = 'end';
     return new Arc({ start, startSide, end, endSide, marker, ...props });
 }

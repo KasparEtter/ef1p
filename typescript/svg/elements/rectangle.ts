@@ -1,7 +1,7 @@
 import { Box } from '../utility/box';
 import { Point } from '../utility/point';
 
-import { cornerRadiusDefault, textMargin } from './constants';
+import { defaultCornerRadius, textMargin } from './constants';
 import { VisualElement, VisualElementProps } from './element';
 import { Text, TextProps } from './text';
 
@@ -29,7 +29,7 @@ export class Rectangle extends VisualElement<RectangleProps> {
     protected _encode(prefix: string, {
         position,
         size,
-        cornerRadius = cornerRadiusDefault,
+        cornerRadius = defaultCornerRadius,
     }: RectangleProps): string {
         position = position.round3();
         size = size.round3();

@@ -4,7 +4,7 @@ import { Color } from '../elements/element';
 import { Group } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
-import { SVG } from '../elements/svg';
+import { printSVG } from '../elements/svg';
 import { estimateSize, estimateWidth, Text } from '../elements/text';
 
 export interface Message {
@@ -34,7 +34,7 @@ export function printProtocol(
     const entityGroups = entities.map((entity, index) => {
         const rectangle = new Rectangle({ position: P(index * textWidth - size.x / 2, 0), size });
         const label = rectangle.text(entity);
-        const bottom = rectangle.boundingBox().point('bottom').addY(1);
+        const bottom = rectangle.boundingBox().pointAt('bottom').addY(1);
         const line = new Line({ start: bottom, end: bottom.addY(overallTime * textHeight + textOffset) });
         return new Group({ children: [rectangle, label, line] })
     });
@@ -54,5 +54,5 @@ export function printProtocol(
         });
         return new Group({ children: [line, text] })
     });
-    new SVG({ children: [...entityGroups, ...messageGroups] }).print();
+    printSVG(...entityGroups, ...messageGroups);
 }

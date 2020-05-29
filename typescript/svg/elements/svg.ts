@@ -1,10 +1,7 @@
 import path from 'path';
 
-import { Point } from '../utility/point';
-
-import { colors, colorSuffix, indentation, StructuralElement, StructuralElementProps } from './element';
-
-export const strokeMargin = new Point(1.5, 1.5);
+import { strokeMargin } from './constants';
+import { colors, colorSuffix, ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
 
 interface SVGProps extends StructuralElementProps {
     title?: string;
@@ -74,6 +71,10 @@ export class SVG extends StructuralElement<SVGProps> {
         // tslint:disable-next-line: no-console
         console.log(this.toString());
     }
+}
+
+export function printSVG(...children: ElementWithChildren<any, any>[]): void {
+    new SVG({ children }).print();
 }
 
 export const style = `<style>
