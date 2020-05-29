@@ -90,10 +90,6 @@ summary {
   &:hover,
   &:focus {
     color: $link-color;
-
-    > * {
-      color: $body-color;
-    }
   }
 }
 
@@ -105,6 +101,11 @@ pre {
 
 abbr[title] {
   text-decoration: none;
+  font-variant: none;
+
+  &:hover {
+    color: $link-color;
+  }
 }
 
 table {
