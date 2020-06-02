@@ -1,53 +1,12 @@
 import { BoundingBox, Box, BoxSide } from '../utility/box';
+import { lineToTextDistance } from '../utility/constants';
+import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { LineSide, Point } from '../utility/point';
 
 import { Circle } from './circle';
-import { Color, colorSuffix, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 import { Ellipse } from './ellipse';
 import { Alignment, HorizontalAlignment, Text, TextProps, VerticalAlignment } from './text';
-
-export type Marker = 'start' | 'mid' | 'end';
-export const lineToTextDistance = 14;
-
-export function markerAttributes(length: () => number, marker?: Marker | Marker[], color?: Color, midMarker: boolean = false): string {
-    let result = '';
-    if (marker !== undefined) {
-        if (!Array.isArray(marker)) {
-            marker = [ marker ];
-        }
-        const arrow = `"url(#arrow${colorSuffix(color)})"`;
-        const circle = `"url(#circle${colorSuffix(color)})"`;
-        let arrowCounter = 0;
-
-        if (marker.includes('start')) {
-            result += ' marker-start=' + arrow;
-            arrowCounter++;
-        } else if (marker.includes('mid')) {
-            result += ' marker-start=' + circle;
-        }
-
-        if (midMarker && marker.includes('mid')) {
-            result += ' marker-mid=' + circle;
-        }
-
-        if (marker.includes('end')) {
-            result += ' marker-end=' + arrow;
-            arrowCounter++;
-        } else if (marker.includes('mid')) {
-            result += ' marker-end=' + circle;
-        }
-
-        if (arrowCounter > 0) {
-            const pixels = 7; // Should be between 4 and 10. (For a stroke width of 4, 10 was a good value.)
-            const reducedLength = Math.round(length()) - arrowCounter * pixels;
-            result += ` stroke-dasharray="${reducedLength}"`;
-            if (marker.includes('start')) {
-                result += ` stroke-dashoffset="${2 * reducedLength - pixels}"`; // Safari doesn't support negative dash offsets.
-            }
-        }
-    }
-    return result;
-}
 
 export function determineAlignment(offset: Point): Alignment {
     const absoluteOffset = offset.absolute();
@@ -133,9 +92,9 @@ export function ConnectionLine(
     endSide: BoxSide,
     props: Omit<LineProps, 'start' | 'end'> = {},
 ): Line {
-    const start = startElement.boundingBox().pointAt(startSide);
-    const end = endElement.boundingBox().pointAt(endSide);
-    const marker = 'end';
+    const marker = props.marker ?? 'end';
+    const start = startElement.boundingBox().pointAt(startSide, markerOffset(marker, 'start'));
+    const end = endElement.boundingBox().pointAt(endSide, markerOffset(marker, 'end'));
     return new Line({ start, end, marker, ...props });
 }
 
@@ -144,8 +103,8 @@ export function DiagonalLine(
     endElement: Circle | Ellipse,
     props: Omit<LineProps, 'start' | 'end'> = {},
 ): Line {
-    const start = startElement.pointTowards(endElement.center());
-    const end = endElement.pointTowards(startElement.center());
-    const marker = 'end';
+    const marker = props.marker ?? 'end';
+    const start = startElement.pointTowards(endElement.center(), markerOffset(marker, 'start'));
+    const end = endElement.pointTowards(startElement.center(), markerOffset(marker, 'end'));
     return new Line({ start, end, marker, ...props });
 }

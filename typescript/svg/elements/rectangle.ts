@@ -1,7 +1,7 @@
 import { Box } from '../utility/box';
+import { defaultCornerRadius, textMargin } from '../utility/constants';
 import { Point } from '../utility/point';
 
-import { defaultCornerRadius, textMargin } from './constants';
 import { VisualElement, VisualElementProps } from './element';
 import { Text, TextProps } from './text';
 

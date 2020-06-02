@@ -1,4 +1,5 @@
 import { Box } from '../utility/box';
+import { Color } from '../utility/color';
 import { Point } from '../utility/point';
 
 export const indentation = '    ';
@@ -26,13 +27,6 @@ export abstract class Element<P = object> {
 export abstract class AnimationElement<P = {}> extends Element<P> {}
 
 // ElementWithChildren
-
-export const colors = [undefined, 'blue', 'green', 'red', 'orange', 'grey'] as const;
-export type Color = typeof colors[number];
-
-export function colorSuffix(color?: Color) {
-    return color ? '-' + color : '';
-}
 
 export interface ElementWithChildrenProps<C extends Element> {
     id?: string;

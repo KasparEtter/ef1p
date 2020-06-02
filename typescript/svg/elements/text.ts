@@ -1,7 +1,9 @@
+import { normalizeToArray } from '../../utility/functions';
+
 import { Box } from '../utility/box';
+import { doubleTextMargin } from '../utility/constants';
 import { Point } from '../utility/point';
 
-import { doubleTextMargin } from './constants';
 import { indentation, VisualElement, VisualElementProps } from './element';
 
 // If you use any of the following functions, which return a tspan, pass the result as an array to the text element
@@ -114,9 +116,7 @@ export class Text extends VisualElement<TextProps> {
         horizontalAlignment = 'left',
         verticalAlignment = 'top',
     }: TextProps): string {
-        if (!Array.isArray(text)) {
-            text = [text];
-        }
+        text = normalizeToArray(text);
         position = position.round3();
         let result = prefix + `<text` + this.attributes()
             + ` x="${position.x}"`

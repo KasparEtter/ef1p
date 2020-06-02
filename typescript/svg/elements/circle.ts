@@ -1,4 +1,5 @@
 import { Box } from '../utility/box';
+import { strokeRadius } from '../utility/constants';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
@@ -34,8 +35,8 @@ export class Circle extends CenterTextElement<CircleProps> {
             + `${this.children(prefix)}</circle>\n`;
     }
 
-    public pointTowards(other: Point): Point {
+    public pointTowards(target: Point, offset: number = strokeRadius): Point {
         const { center, radius } = this.props;
-        return center.add(other.subtract(center).normalize(radius));
+        return center.add(target.subtract(center).normalize(radius + offset));
     }
 }

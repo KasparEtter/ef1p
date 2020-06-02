@@ -1,8 +1,8 @@
 import { Box } from '../utility/box';
+import { Marker, markerAttributes } from '../utility/marker';
 import { Point } from '../utility/point';
 
 import { VisualElement, VisualElementProps } from './element';
-import { Marker, markerAttributes } from './line';
 
 export interface PolylineProps extends VisualElementProps {
     points: Point[];

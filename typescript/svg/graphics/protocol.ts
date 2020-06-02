@@ -1,6 +1,7 @@
+import { Color } from '../utility/color';
+import { strokeRadius } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
 
-import { Color } from '../elements/element';
 import { Group } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
@@ -34,7 +35,7 @@ export function printProtocol(
     const entityGroups = entities.map((entity, index) => {
         const rectangle = new Rectangle({ position: P(index * textWidth - size.x / 2, 0), size });
         const label = rectangle.text(entity);
-        const bottom = rectangle.boundingBox().pointAt('bottom').addY(1);
+        const bottom = rectangle.boundingBox().pointAt('bottom');
         const line = new Line({ start: bottom, end: bottom.addY(overallTime * textHeight + textOffset) });
         return new Group({ children: [rectangle, label, line] })
     });
@@ -44,7 +45,7 @@ export function printProtocol(
         const start = P(message.from * textWidth, y);
         const end = P(message.to * textWidth, y + (message.latency ?? 0) * textHeight);
         time += timeIncrement(message);
-        const line = new Line({ start, end, marker: ['mid', 'end'], color: message.color });
+        const line = new Line({ start, end, marker: ['middle', 'end'], color: message.color }).shorten(0, strokeRadius);
         const text = new Text({
             position: line.center().subtractY(textOffset * (1 + (message.latency ?? 0) / 2)).add(message.textOffset ?? zeroPoint),
             text: message.text,

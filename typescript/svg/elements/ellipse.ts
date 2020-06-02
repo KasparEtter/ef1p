@@ -1,4 +1,5 @@
 import { Box } from '../utility/box';
+import { strokeRadius } from '../utility/constants';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
@@ -33,7 +34,7 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
             + `${this.children(prefix)}</ellipse>\n`;
     }
 
-    public pointTowards(other: Point): Point {
+    public pointTowards(other: Point, offset: number = strokeRadius): Point {
         const { center, radius } = this.props;
         const vector = other.subtract(center);
         // https://math.stackexchange.com/questions/432902/how-to-get-the-radius-of-an-ellipse-at-a-specific-angle-by-knowing-its-semi-majo
@@ -42,6 +43,6 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
         const xSin = x * Math.sin(angle);
         const yCos = y * Math.cos(angle);
         const r = x * y / Math.sqrt(xSin * xSin + yCos * yCos);
-        return center.add(vector.normalize(r));
+        return center.add(vector.normalize(r + offset));
     }
 }

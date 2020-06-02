@@ -1,3 +1,4 @@
+import { strokeRadius } from './constants';
 import { Point } from './point';
 
 export type BoxSide = 'top' | 'right' | 'bottom' | 'left';
@@ -35,17 +36,17 @@ export class Box {
         return new Box(this.topLeft.subtract(that), this.bottomRight.add(that));
     }
 
-    public pointAt(side: BoxSide): Point {
+    public pointAt(side: BoxSide, offset: number = strokeRadius): Point {
         const center = this.topLeft.center(this.bottomRight);
         switch (side) {
             case 'top':
-                return new Point(center.x, this.topLeft.y);
+                return new Point(center.x, this.topLeft.y - offset);
             case 'right':
-                return new Point(this.bottomRight.x, center.y);
+                return new Point(this.bottomRight.x + offset, center.y);
             case 'bottom':
-                return new Point(center.x, this.bottomRight.y);
+                return new Point(center.x, this.bottomRight.y + offset);
             case 'left':
-                return new Point(this.topLeft.x, center.y);
+                return new Point(this.topLeft.x - offset, center.y);
         }
     }
 

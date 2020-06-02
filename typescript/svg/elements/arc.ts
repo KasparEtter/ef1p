@@ -1,8 +1,10 @@
 import { BoundingBox, Box, BoxSide, opposite } from '../utility/box';
+import { lineToTextDistance } from '../utility/constants';
+import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
 import { VisualElement, VisualElementProps } from './element';
-import { determineAlignment, lineToTextDistance, Marker, markerAttributes } from './line';
+import { determineAlignment } from './line';
 import { Text, TextProps } from './text';
 
 export interface ArcProps extends VisualElementProps {
@@ -208,8 +210,9 @@ export function ConnectionArc(
     endSide: BoxSide,
     props: Omit<ArcProps, 'start' | 'startSide' | 'end' | 'endSide'> = {},
 ): Arc {
-    const start = startElement.boundingBox().pointAt(startSide);
-    const end = endElement.boundingBox().pointAt(endSide);
-    const marker = 'end';
+    const marker = props.marker ?? 'end';
+    const specialCase = startSide === endSide && marker.includes('middle'); // Make sure not to break the arc's invariant.
+    const start = startElement.boundingBox().pointAt(startSide, specialCase ? 0 : markerOffset(marker, 'start'));
+    const end = endElement.boundingBox().pointAt(endSide, specialCase ? 0 : markerOffset(marker, 'end'));
     return new Arc({ start, startSide, end, endSide, marker, ...props });
 }

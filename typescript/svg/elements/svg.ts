@@ -1,7 +1,9 @@
 import path from 'path';
 
-import { strokeMargin } from './constants';
-import { colors, colorSuffix, ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
+import { colors, colorSuffix } from '../utility/color';
+import { strokeMargin } from '../utility/constants';
+
+import { ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
 
 interface SVGProps extends StructuralElementProps {
     title?: string;
