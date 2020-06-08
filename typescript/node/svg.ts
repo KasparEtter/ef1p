@@ -1,4 +1,4 @@
-import { exec, ExecException } from 'child_process';
+import { exec } from 'child_process';
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
@@ -8,7 +8,7 @@ glob('*/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error
         console.error('The globbing failed with the following error:', error);
         return;
     }
-    const files = matches.map(match => {
+    let files = matches.map(match => {
         const parts = match.split(path.sep);
         return {
             article: parts[0],
@@ -19,12 +19,7 @@ glob('*/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error
     });
     // Generate the last modified graphic first.
     files.sort((a, b) => b.date - a.date);
-
-    function logError(error: ExecException | null) {
-        if (error) {
-            console.error('The SVG generation failed with the following error:', error);
-        }
-    }
+    files = files.slice(0); // Improve performance by generating just the last modified SVG with `slice(0, 1)`.
 
     const articles = new Set<string>();
     files.forEach(file => {
@@ -32,13 +27,21 @@ glob('*/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error
             fs.mkdirSync(file.article + '/generated', { recursive: true });
             articles.add(file.article);
         }
-        exec(`node_modules/.bin/ts-node "${file.path}" embedded > "${file.article}/generated/${file.graphic}.embedded.svg"`, logError);
-    });
-    files.forEach(file => {
-        exec(`node_modules/.bin/ts-node "${file.path}" > "${file.article}/generated/${file.graphic}.svg"`, error => {
-            logError(error);
-            if (error === null) {
-                exec(`node_modules/.bin/svgexport "${file.article}/generated/${file.graphic}.svg" "${file.article}/generated/${file.graphic}.png" 2000:`, logError);
+        exec(`node_modules/.bin/ts-node "${file.path}" embedded > "${file.article}/generated/${file.graphic}.embedded.svg"`, error => {
+            if (error) {
+                console.error('The embedded SVG generation failed with the following error:', error);
+            } else {
+                exec(`node_modules/.bin/ts-node "${file.path}" > "${file.article}/generated/${file.graphic}.svg"`, error => {
+                    if (error) {
+                        console.error('The SVG generation failed with the following error:', error);
+                    } else {
+                        exec(`node_modules/.bin/svgexport "${file.article}/generated/${file.graphic}.svg" "${file.article}/generated/${file.graphic}.png" 2000:`, error => {
+                            if (error) {
+                                console.error('The PNG generation failed with the following error:', error);
+                            }
+                        });
+                    }
+                });
             }
         });
     });
