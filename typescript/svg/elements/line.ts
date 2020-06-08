@@ -68,10 +68,11 @@ export class Line extends VisualElement<LineProps> {
     public text(
         text: string | string[],
         side: LineSide = 'left',
+        distance: number = lineToTextDistance,
         // Horizontal and vertical alignment are intentionally not excluded because the defaults should be overridable.
         props: Omit<TextProps, 'position' | 'text'> = {},
     ): Text {
-        const offset = this.vector().rotate(side).normalize(lineToTextDistance);
+        const offset = this.vector().rotate(side).normalize(distance);
         const position = this.center().add(offset);
         const color = this.props.color;
         return new Text({ position, text, ...determineAlignment(offset), color, ...props });
@@ -82,6 +83,17 @@ export class Line extends VisualElement<LineProps> {
         const start = this.props.start.add(vector.normalize(startOffset));
         const end = this.props.end.subtract(vector.normalize(endOffset));
         return new Line({ ...this.props, start, end }); // Overriding old start and end properties.
+    }
+
+    public cross(radius: number = 10): Line[] {
+        const center = this.center();
+        const vector = this.vector();
+        const angle = Math.atan(vector.y / vector.x);
+        const step = Math.PI / 4;
+        return [
+            new Line({ start: center.point(radius, angle + step * 1), end: center.point(radius, angle + step * 5), color: this.props.color }),
+            new Line({ start: center.point(radius, angle + step * 3), end: center.point(radius, angle + step * 7), color: this.props.color }),
+        ]
     }
 }
 
