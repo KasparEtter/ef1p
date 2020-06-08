@@ -1,8 +1,10 @@
-import { Box } from '../utility/box';
-import { Marker, markerAttributes } from '../utility/marker';
+import { Box, BoxSide } from '../utility/box';
+import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
+import { Circle } from './circle';
 import { VisualElement, VisualElementProps } from './element';
+import { Ellipse } from './ellipse';
 
 export interface PolylineProps extends VisualElementProps {
     points: Point[];
@@ -41,4 +43,36 @@ export class Polyline extends VisualElement<PolylineProps> {
             + markerAttributes(this.length.bind(this), marker, color, true)
             + `>${this.children(prefix)}</polyline>\n`;
     }
+}
+
+export function ConnectionPolyline(
+    startElement: VisualElement,
+    startSide: BoxSide,
+    endElement: VisualElement,
+    endSide: BoxSide,
+    intermediatePoints: Point[],
+    props: Omit<PolylineProps, 'points'> = {},
+): Polyline {
+    if (intermediatePoints.length < 1) {
+        throw Error(`A polyline requires at least one intermediate point.`);
+    }
+    const marker = props.marker ?? 'end';
+    const start = startElement.boundingBox().pointAt(startSide, markerOffset(marker, 'start'));
+    const end = endElement.boundingBox().pointAt(endSide, markerOffset(marker, 'end'));
+    return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
+}
+
+export function DiagonalPolyline(
+    startElement: Circle | Ellipse,
+    endElement: Circle | Ellipse,
+    intermediatePoints: Point[],
+    props: Omit<PolylineProps, 'points'> = {},
+): Polyline {
+    if (intermediatePoints.length < 1) {
+        throw Error(`A polyline requires at least one intermediate point.`);
+    }
+    const marker = props.marker ?? 'end';
+    const start = startElement.pointTowards(intermediatePoints[0], markerOffset(marker, 'start'));
+    const end = endElement.pointTowards(intermediatePoints[intermediatePoints.length - 1], markerOffset(marker, 'end'));
+    return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
 }
