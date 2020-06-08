@@ -10,11 +10,15 @@
 $svg-colors: () !default;
 $svg-colors: map-merge(
   (
-    "blue":    $cyan,
-    "green":   $green,
-    "red":     $red,
-    "orange":  $yellow,
-    "grey":    $gray-600,
+    "blue":   $blue,
+    "purple": $purple,
+    "pink":   $pink,
+    "red":    $red,
+    "orange": $orange,
+    "yellow": $yellow,
+    "green":  $green,
+    "brown":  $brown,
+    "gray":   $gray,
   ),
   $svg-colors
 );
@@ -40,6 +44,11 @@ svg.figure {
     stroke-width: 3px;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+
+  .angular {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
   }
 
   marker > path {

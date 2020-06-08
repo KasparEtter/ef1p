@@ -100,8 +100,8 @@ pre {
 }
 
 abbr[title] {
-  text-decoration: none;
   font-variant: none;
+  text-decoration: none;
 
   &:hover {
     color: $link-color;

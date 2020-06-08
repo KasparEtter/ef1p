@@ -1,5 +1,16 @@
-export const colors = [undefined, 'blue', 'green', 'red', 'orange', 'grey'] as const;
-export type Color = typeof colors[number];
+export const colors = {
+    blue:   '#3498db',
+    purple: '#6b38ca',
+    pink:   '#e91e7c',
+    red:    '#f12812',
+    orange: '#fd7e14',
+    yellow: '#ffc107',
+    green:  '#00bc8c',
+    brown:  '#9b7c55',
+    gray:   '#808080',
+};
+
+export type Color = keyof typeof colors;
 
 export function colorSuffix(color?: Color) {
     return color ? '-' + color : '';

@@ -84,7 +84,7 @@ export class RawInput<State extends { [key: string]: boolean | string }> extends
                         validate && validate(value as string) &&
                         <span
                             style={{
-                                color: '#E74C3C',
+                                color: '#e74c3c',
                                 marginLeft: '10px',
                             }}
                         >

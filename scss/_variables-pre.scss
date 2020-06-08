@@ -3,6 +3,25 @@
 // Uncomment the following line to serve the font locally:
 // $web-font-path: "../fonts/lato/lato.css" !default;
 
+// Color
+
+$blue:   #3498db !default;
+$purple: #6b38ca !default;
+$pink:   #e91e7c !default;
+$red:    #f12812 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green:  #00bc8c !default;
+$brown:  #9b7c55 !default;
+$gray:   #808080 !default;
+
+$primary:   #375a7f !default;
+$secondary: $gray !default;
+$success:   $green !default;
+$info:      $blue !default;
+$warning:   $orange !default;
+$danger:    $red !default;
+
 // Text
 
 $font-size-base: 1rem !default; // Unchanged but already required here.

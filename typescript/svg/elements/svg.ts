@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { colors, colorSuffix } from '../utility/color';
-import { strokeMargin } from '../utility/constants';
+import { Color, colors, colorSuffix } from '../utility/color';
+import { strokeRadiusMargin } from '../utility/constants';
 
 import { ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
 
@@ -18,7 +18,7 @@ export class SVG extends StructuralElement<SVGProps> {
         embedded = process.argv[2] === 'embedded',
     }: SVGProps): string {
         const name = path.basename(process.argv[1], '.ts');
-        const box = this.boundingBox().addMargin(strokeMargin);
+        const box = this.boundingBox().addMargin(strokeRadiusMargin);
         const size = box.size();
 
         let result = prefix + `<svg`
@@ -53,12 +53,10 @@ export class SVG extends StructuralElement<SVGProps> {
         }
 
         result += prefix + indentation + `<defs>\n`;
-        for (const color of colors) {
+        for (const color of [undefined, ...Object.keys(colors)] as (Color | undefined)[]) {
             result += prefix + indentation + indentation + `<marker id="arrow${colorSuffix(color)}" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">\n`;
             result += prefix + indentation + indentation + indentation + `<path d="M0,0 L1,2 L0,4 L4,2 Z"${color ? ' class="' + color + '"' : ''} />\n`;
             result += prefix + indentation + indentation + `</marker>\n`;
-        }
-        for (const color of colors) {
             result += prefix + indentation + indentation + `<marker id="circle${colorSuffix(color)}" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">\n`;
             result += prefix + indentation + indentation + indentation + `<circle cx="1.5" cy="1.5" r="1"${color ? ' class="' + color + '"' : ''} />\n`;
             result += prefix + indentation + indentation + `</marker>\n`;
@@ -102,6 +100,11 @@ export const style = `<style>
             stroke-linejoin: round;
         }
 
+        .angular {
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
         marker > path {
             fill-opacity: 1;
             stroke-opacity: 0;
@@ -133,34 +136,14 @@ export const style = `<style>
         }
 
         a {
-            color: #18BC9C;
+            color: #3498db;
             text-decoration: none;
         }
-
-        .blue {
-            fill: #3498DB;
-            stroke: #3498DB;
+` + Object.entries(colors).map(color => `
+        .${color[0]} {
+            fill: ${color[1]};
+            stroke: ${color[1]};
         }
-
-        .green {
-            fill: #18BC9C;
-            stroke: #18BC9C;
-        }
-
-        .red {
-            fill: #E74C3C;
-            stroke: #E74C3C;
-        }
-
-        .orange {
-            fill: #F39C12;
-            stroke: #F39C12;
-        }
-
-        .grey {
-            fill: #95a5a6;
-            stroke: #95a5a6;
-        }
-    </style>
+`).join('') + `    </style>
 
 `;
