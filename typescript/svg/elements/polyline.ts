@@ -18,7 +18,7 @@ export class Polyline extends VisualElement<PolylineProps> {
         super(props);
 
         if (props.points.length < 3) {
-            throw Error(`A polyline requires at least three points.`);
+            throw Error('A polyline requires at least three points.');
         }
     }
 
@@ -54,7 +54,7 @@ export function ConnectionPolyline(
     props: Omit<PolylineProps, 'points'> = {},
 ): Polyline {
     if (intermediatePoints.length < 1) {
-        throw Error(`A polyline requires at least one intermediate point.`);
+        throw Error('A polyline requires at least one intermediate point.');
     }
     const marker = props.marker ?? 'end';
     const start = startElement.boundingBox().pointAt(startSide, markerOffset(marker, 'start'));
@@ -69,7 +69,7 @@ export function DiagonalPolyline(
     props: Omit<PolylineProps, 'points'> = {},
 ): Polyline {
     if (intermediatePoints.length < 1) {
-        throw Error(`A polyline requires at least one intermediate point.`);
+        throw Error('A polyline requires at least one intermediate point.');
     }
     const marker = props.marker ?? 'end';
     const start = startElement.pointTowards(intermediatePoints[0], markerOffset(marker, 'start'));

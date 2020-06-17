@@ -1,3 +1,5 @@
+import { Color } from '../../utility/color';
+
 import { BoundingBox, Box, BoxSide } from '../utility/box';
 import { lineToTextDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
@@ -78,6 +80,12 @@ export class Line extends VisualElement<LineProps> {
         return new Text({ position, text, ...determineAlignment(offset), color, ...props });
     }
 
+    public move(vector: Point): Line {
+        const start = this.props.start.add(vector);
+        const end = this.props.end.add(vector);
+        return new Line({ ...this.props, start, end }); // Overriding old start and end properties.
+    }
+
     public shorten(startOffset: number, endOffset: number = startOffset): Line {
         const vector = this.vector();
         const start = this.props.start.add(vector.normalize(startOffset));
@@ -85,14 +93,14 @@ export class Line extends VisualElement<LineProps> {
         return new Line({ ...this.props, start, end }); // Overriding old start and end properties.
     }
 
-    public cross(radius: number = 10): Line[] {
+    public cross(radius: number = 10, color: Color | undefined = this.props.color): Line[] {
         const center = this.center();
         const vector = this.vector();
         const angle = Math.atan(vector.y / vector.x);
         const step = Math.PI / 4;
         return [
-            new Line({ start: center.point(radius, angle + step * 1), end: center.point(radius, angle + step * 5), color: this.props.color }),
-            new Line({ start: center.point(radius, angle + step * 3), end: center.point(radius, angle + step * 7), color: this.props.color }),
+            new Line({ start: center.point(radius, angle + step * 1), end: center.point(radius, angle + step * 5), color }),
+            new Line({ start: center.point(radius, angle + step * 3), end: center.point(radius, angle + step * 7), color }),
         ]
     }
 }

@@ -1,6 +1,7 @@
 import path from 'path';
 
-import { Color, colors, colorSuffix } from '../utility/color';
+import { Color, colors, colorSuffix } from '../../utility/color';
+
 import { strokeRadiusMargin } from '../utility/constants';
 
 import { ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
@@ -129,6 +130,18 @@ export const style = `<style>
 
         .text-line-through {
             text-decoration: line-through;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-lowercase {
+            text-transform: lowercase;
+        }
+
+        .text-capitalize {
+            text-transform: capitalize;
         }
 
         .small {

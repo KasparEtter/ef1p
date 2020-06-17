@@ -1,6 +1,6 @@
+import { Color, colorSuffix } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
 
-import { Color, colorSuffix } from './color';
 import { strokeRadius } from './constants';
 
 export type Marker = 'start' | 'middle' | 'end';

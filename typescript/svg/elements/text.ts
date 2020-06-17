@@ -29,6 +29,20 @@ export function small(text: string) {
     return `<tspan class="small">${text}</tspan>`;
 }
 
+// The following methods are useful to circumvent kramdown's replacement of abbreviations
+// (see https://github.com/gettalong/kramdown/issues/671 for more information).
+export function uppercase(text: string) {
+    return `<tspan class="text-uppercase">${text}</tspan>`;
+}
+
+export function lowercase(text: string) {
+    return `<tspan class="text-lowercase">${text}</tspan>`;
+}
+
+export function capitalize(text: string) {
+    return `<tspan class="text-capitalize">${text}</tspan>`;
+}
+
 // Links are not correctly styled on Safari and iOS.
 export function href(text: string, url: string) {
     return `<a href="${url}">${text}</a>`;

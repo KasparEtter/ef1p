@@ -1,4 +1,5 @@
-import { Color } from '../utility/color';
+import { Color } from '../../utility/color';
+
 import { strokeRadius } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
 

@@ -1,5 +1,6 @@
+import { Color } from '../../utility/color';
+
 import { Box } from '../utility/box';
-import { Color } from '../utility/color';
 import { Point } from '../utility/point';
 
 export const indentation = '    ';
@@ -46,10 +47,10 @@ export abstract class ElementWithChildren<C extends Element, P extends ElementWi
 
     protected attributes(): string {
         const props = this.props;
-        const classes: string[] = props.classes ?? [];
+        let classes: string[] = props.classes ?? [];
         const color: Color | undefined = props.color;
         if (color) {
-            classes.unshift(color);
+            classes = [color, ...classes]; // classes.unshift(color) would modify the property itself.
         }
         return (props.id ? ` id="${props.id}"` : '')
             + (props.style ? ` style="${props.style}"` : '')
@@ -73,7 +74,7 @@ export abstract class ElementWithChildren<C extends Element, P extends ElementWi
 
 export interface VisualElementProps extends ElementWithChildrenProps<AnimationElement> {}
 
-export abstract class VisualElement<P extends VisualElementProps = {}> extends ElementWithChildren<AnimationElement, P> {
+export abstract class VisualElement<P extends VisualElementProps = VisualElementProps> extends ElementWithChildren<AnimationElement, P> {
     public center(): Point {
         return this.boundingBox().center();
     }
