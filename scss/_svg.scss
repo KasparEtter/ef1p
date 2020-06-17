@@ -23,6 +23,12 @@ $svg-colors: map-merge(
   $svg-colors
 );
 
+@each $color, $value in $svg-colors {
+  .text-#{$color} {
+    color: $value;
+  }
+}
+
 svg.figure {
   user-select: none;
 

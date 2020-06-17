@@ -32,6 +32,35 @@ article {
       @extend .text-center;
     }
   }
+
+  p + ol,
+  p + ul {
+    margin-top: -$paragraph-margin-bottom;
+  }
+
+  ol,
+  ul {
+    padding-left: 20px;
+  }
+
+  ol li {
+    padding-left: 4px;
+  }
+
+  table {
+    @extend .table;
+
+    width: auto;
+    margin-top: 1.5 * $paragraph-margin-bottom;
+    margin-right: auto;
+    margin-bottom: $paragraph-margin-bottom;
+    margin-left: auto;
+
+    td,
+    th {
+      padding: .3rem .6rem;
+    }
+  }
 }
 
 footer {
@@ -105,18 +134,6 @@ abbr[title] {
 
   &:hover {
     color: $link-color;
-  }
-}
-
-table {
-  @extend .table;
-
-  width: auto;
-  margin: auto;
-
-  td,
-  th {
-    padding: .3rem .6rem;
   }
 }
 

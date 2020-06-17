@@ -1,0 +1,38 @@
+.command,
+.copy-hint,
+.static-output,
+.dynamic-output {
+  padding: 2px 5px;
+  margin: -2px -5px;
+  border-radius: 4px;
+}
+
+.static-output:hover {
+  background-color: $blue;
+}
+
+.dynamic-output:hover {
+  background-color: $green;
+}
+
+.command {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.copied-command {
+  background-color: $yellow;
+
+  .static-output:hover,
+  .dynamic-output:hover  {
+    background-color: transparent;
+  }
+}
+
+.copy-hint {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  background-color: $orange;
+}
