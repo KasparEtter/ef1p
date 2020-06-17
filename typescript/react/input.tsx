@@ -1,107 +1,166 @@
-import { ChangeEvent, Component, createElement, MouseEvent } from 'react';
+import { ChangeEvent, Component, createElement } from 'react';
 
+import { normalizeToArray, normalizeToValue } from '../utility/functions';
 import { KeysOf } from '../utility/types';
-import { SomeEntries } from './entry';
-import { Store } from './store';
 
-export class RawInput<State extends { [key: string]: boolean | string }> extends Component<{ store: Store<State> } & State & SomeEntries<State>> {
-    private readonly handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+import { CustomInput } from './custom';
+import { DynamicEntry, inputTypesWithHistory, numberInputTypes, ProvidedDynamicEntries, StateWithOnlyValues } from './entry';
+import { ProvidedStore } from './share';
+import { clear, isValueWithHistory, next, previous, setValue, Value, ValueType } from './value';
+
+export interface RawInputProps {
+    skipLabels?: boolean; // Default: false.
+    inlineForm?: boolean; // Default: false.
+}
+
+export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<State> & ProvidedDynamicEntries<State> & RawInputProps> {
+    private readonly triggerChange = (key: string) => {
+        this.props.store.updateComponents();
+        const onChange = this.props.entries[key]!.onChange;
+        normalizeToArray(onChange).forEach(handler => handler());
+    }
+
+    private readonly onChange = (event: Event | ChangeEvent<any>) => {
+        const target = event.target as HTMLInputElement;
         const key = target.name;
-        this.props.store.setState({ [key]: value } as Partial<State>);
-        const onChange = this.props.entries[key]!.onChange;
-        if (onChange) {
-            onChange();
+        // I don't know why I have to invert the checkbox value here.
+        // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
+        // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
+        const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
+        const validate = this.props.entries[key]!.validate;
+        if (validate) {
+            const error = validate(value as string);
+            if (error) {
+                this.props.store.state[key].error = error;
+                this.props.store.updateComponents();
+                return;
+            }
+        }
+        setValue(this.props.store.state[key], value);
+        this.triggerChange(key);
+    }
+
+    private readonly onInput = (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        const value = target.value;
+        const key = target.name;
+        this.props.store.state[key].input = value;
+        this.props.store.state[key].error = false;
+        this.props.store.updateComponents();
+    }
+
+    private readonly onPrevious = (event: KeyboardEvent) => {
+        const target = event.target as HTMLInputElement;
+        if (previous(this.props.store.state[target.name])) {
+            this.triggerChange(target.name);
         }
     }
 
-    private readonly handleReset = (event: MouseEvent<HTMLButtonElement>) => {
-        const key = event.currentTarget.name;
-        const defaultValue = this.props.entries[key]!.defaultValue;
-        this.props.store.setState({
-            [key]: typeof defaultValue === 'function' ? defaultValue() : defaultValue,
-        } as Partial<State>);
-        const onChange = this.props.entries[key]!.onChange;
-        if (onChange) {
-            onChange();
+    private readonly onNext = (event: KeyboardEvent) => {
+        const target = event.target as HTMLInputElement;
+        if (next(this.props.store.state[target.name])) {
+            this.triggerChange(target.name);
         }
     }
+
+    private readonly onClear = (event: KeyboardEvent) => {
+        const target = event.target as HTMLInputElement;
+        if (clear(this.props.store.state[target.name])) {
+            this.props.store.updateComponents();
+        }
+    }
+
+    private readonly randomID = '-' + Math.random().toString(36).substr(2, 8);
 
     public render() {
         const entries = this.props.entries;
-        return <div
-            className="form-group"
-        >
-            {(Object.keys(entries) as KeysOf<State>).map(key => {
-                const name = key as string;
-                const entry = entries[key]!;
-                const value = this.props[key];
-                const validate = entry.validate;
-                return <div
-                    key={name}
+        const maxLabelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
+        return <div className={this.props.inlineForm ? 'd-inline' : 'form-group'}>
+            {(Object.keys(entries) as KeysOf<State>).map(rawKey => {
+                const key = '' + rawKey;
+                const entry = entries[key] as DynamicEntry<ValueType>;
+                const value = this.props.store.state[key] as Value<ValueType>;
+                const disabled = entry.disabled ? entry.disabled() : false;
+                const history = inputTypesWithHistory.includes(entry.inputType);
+                return <label
+                    key={key}
+                    title={entry.description}
                 >
-                    <span
-                        title={entry.description}
-                        style={{
-                            display: 'inline-block',
-                            width: '100px',
-                            height: '30px',
-                        }}
-                    >
-                        {entry.name}:
-                    </span>
                     {
-                        entry.type === 'boolean' &&
+                        !this.props.skipLabels &&
                         <span
-                            className="custom-control custom-checkbox d-inline"
+                            className="label"
+                            style={this.props.inlineForm ? {} : { width: (maxLabelWidth + 10) + 'px' }}
                         >
-                            <input
-                                id={name}
-                                name={name}
+                            {entry.name}:
+                        </span>
+                    }{
+                        (entry.inputType === 'checkbox' || entry.inputType === 'switch') &&
+                        <span className={`custom-control custom-${entry.inputType} d-inline`}>
+                            <CustomInput
+                                name={key}
                                 type="checkbox"
-                                checked={value as boolean}
-                                onChange={this.handleChange}
                                 className="custom-control-input"
+                                checked={value.input as boolean}
+                                disabled={disabled}
+                                onChange={this.onChange}
                             />
-                            <label
-                                htmlFor={name}
-                                className="custom-control-label"
-                            >
-                            </label>
+                            <span className="custom-control-label"></span>
                         </span>
-                    }
-                    {
-                        entry.type === 'string' &&
-                        <input
-                            name={name}
-                            value={value as string}
-                            onChange={this.handleChange}
-                            className="form-control d-inline"
-                        />
-                    }
-                    {
-                        validate && validate(value as string) &&
-                        <span
-                            style={{
-                                color: '#e74c3c',
-                                marginLeft: '10px',
-                            }}
+                    }{
+                        entry.inputType === 'select' &&
+                        <select
+                            name={key}
+                            className="custom-select"
+                            onChange={this.onChange}
                         >
-                            {validate(value as string)}
+                            {entry.selectOptions && Object.entries(entry.selectOptions).map(
+                                ([key, text]) => <option value={key} selected={key === value.input}>{text}</option>,
+                            )}
+                        </select>
+                    }{ // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
+                        entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' &&
+                        <span className="d-inline-block">
+                            <CustomInput
+                                name={key}
+                                type={entry.inputType}
+                                autoComplete="off"
+                                autoCorrect="off"
+                                autoCapitalize="off"
+                                spellCheck="false"
+                                className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (value.error ? ' is-invalid' : '')}
+                                value={value.input as string | number}
+                                min={entry.minValue as string | number | undefined}
+                                max={entry.maxValue as string | number | undefined}
+                                step={entry.stepValue as string | number | undefined}
+                                disabled={disabled}
+                                onChange={this.onChange}
+                                onInput={this.onInput}
+                                onPrevious={this.onPrevious}
+                                onNext={this.onNext}
+                                onClear={this.onClear}
+                                list={history ? key + this.randomID : undefined}
+                                style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
+                            />
+                            {
+                                history &&
+                                <datalist id={key + this.randomID}>
+                                    {isValueWithHistory(value) &&
+                                    value.history.concat(entry.suggestedValues ? normalizeToValue(entry.suggestedValues) : []).filter(
+                                        option => option !== value.input,
+                                    ).map(
+                                        option => <option value={'' + option}/>,
+                                    )}
+                                </datalist>
+                            }{
+                                value.error &&
+                                <div className="invalid-feedback">
+                                    {value.error}
+                                </div>
+                            }
                         </span>
                     }
-                    <button
-                        name={name}
-                        onClick={this.handleReset}
-                        className="btn btn-primary btn-sm"
-                        style={{
-                            marginLeft: '10px',
-                        }}
-                    >
-                        Reset
-                    </button>
-                </div>;
+                </label>;
             })}
         </div>;
     }

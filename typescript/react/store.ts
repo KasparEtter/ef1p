@@ -24,7 +24,7 @@ export class Store<State extends ObjectButNotFunction> {
         this.components.splice(index, 1);
     }
 
-    private updateComponents(): void {
+    public updateComponents(): void {
         for (const component of this.components) {
             component.forceUpdate();
         }
@@ -56,8 +56,8 @@ export class PersistedStore<State extends ObjectButNotFunction> extends Store<St
         super(restoreObject(name) as State || state);
     }
 
-    public setState(partialState: Partial<State>): void {
-        super.setState(partialState);
+    public updateComponents(): void {
+        super.updateComponents();
         storeObject(this.name, this.state);
     }
 }

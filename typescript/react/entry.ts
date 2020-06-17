@@ -1,37 +1,81 @@
+import { Color } from '../utility/color';
 import { KeysOf } from '../utility/types';
 
-export interface Entry {
+import { newValue, newValueWithHistory, Value, ValueType } from './value';
+
+/**
+ * Static entries can only be used to output information to the user.
+ */
+export interface Entry<T extends ValueType> {
     name: string;
     description: string;
-    type: 'boolean' | 'string' | string[];
-    defaultValue: boolean | string | (() => boolean | string);
-    suggestedValues?: string[];
-    validate?: (value: string) => string | false;
-    onChange?: () => void;
+    defaultValue: T;
+    outputColor?: Color;
 }
 
-export interface Argument extends Entry {
-    longForm: string;
-    shortForm?: string;
-}
-
-export function isArgument(entry: Entry | Argument): entry is Argument {
-    return (entry as Argument).longForm !== undefined;
-}
-
-export type Entries<State> = {
-    [key in keyof State]: Entry | Argument;
+export type Entries = {
+    [key: string]: Entry<any>;
 };
 
-export type SomeEntries<State> = {
-    entries: Partial<Entries<State>>;
+export interface ProvidedEntries {
+    // Entries cannot be an array as we need the keys to access the associated state.
+    // This also mean that you cannot have the same entry more than once in the same output.
+    entries: Entries;
+}
+
+export const booleanInputTypes = ['checkbox', 'switch'] as const;
+export type BooleanInputType = typeof booleanInputTypes[number];
+
+export const numberInputTypes = ['number', 'range'] as const;
+export type NumberInputType = typeof numberInputTypes[number];
+
+export const stringInputTypes = ['text', 'select', 'password', 'date', 'color'] as const;
+export type StringInputType = typeof stringInputTypes[number];
+
+export type InputType = BooleanInputType | NumberInputType | StringInputType;
+
+/**
+ * 'text' and 'number' maintain a history.
+ */
+export const inputTypesWithHistory: InputType[] = ['text', 'number'];
+
+/**
+ * Dynamic entries can be input by the user and thus have an associated state.
+ */
+export interface DynamicEntry<T extends ValueType> extends Entry<T> {
+    inputType: InputType;
+    labelWidth: number; // In pixels.
+    inputWidth?: number; // In pixels.
+    minValue?: T;
+    maxValue?: T;
+    stepValue?: T;
+    suggestedValues?: T[] | (() => T[]); // Added to the datalist but not the history.
+    selectOptions?: Record<string, string>; // Only relevant for 'select' inputs.
+    disabled?: () => boolean;
+    validate?: (value: T) => (string | false);
+    onChange?: () => void | (() => void)[]; // Can be used to trigger, for example, API requests.
+}
+
+export function isDynamicEntry<T extends ValueType>(entry: Entry<T>): entry is DynamicEntry<T> {
+    return (entry as DynamicEntry<T>).inputType !== undefined;
+}
+
+export interface StateWithOnlyValues {
+    [key: string]: Value<any>;
+}
+
+export type DynamicEntries<State extends StateWithOnlyValues> = {
+    [key in keyof State]: DynamicEntry<any>;
 };
 
-export function getDefaultValues<State>(entries: Entries<State>): State {
-    const state: { [key in keyof State]?: boolean | string } = {};
+export interface ProvidedDynamicEntries<State extends StateWithOnlyValues> {
+    entries: Partial<DynamicEntries<State>>;
+}
+
+export function getDefaultValues<State extends StateWithOnlyValues>(entries: DynamicEntries<State>): State {
+    const state: StateWithOnlyValues = {};
     for (const key of Object.keys(entries) as KeysOf<State>) {
-        const defaultValue = entries[key].defaultValue;
-        state[key] = typeof defaultValue === 'function' ? defaultValue() : defaultValue;
+        state[key as string] = (inputTypesWithHistory.includes(entries[key].inputType) ? newValueWithHistory : newValue)(entries[key].defaultValue);
     }
     return state as State;
 }

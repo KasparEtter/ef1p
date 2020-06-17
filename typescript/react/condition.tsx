@@ -1,13 +1,13 @@
 import { createElement, Fragment } from 'react';
 
-import { Children, KeysOf } from '../utility/types';
-import { SomeEntries } from './entry';
+import { KeysOf } from '../utility/types';
 
-export function RawCondition<State>(props: Readonly<State & SomeEntries<State> & Children>) {
+import { ProvidedDynamicEntries, StateWithOnlyValues } from './entry';
+import { ProvidedStore } from './share';
+import { Children } from './utility';
+
+export function RawCondition<State extends StateWithOnlyValues>(props: Readonly<ProvidedStore<State> & ProvidedDynamicEntries<State> & Children>) {
     return <Fragment>
-        {
-            (Object.keys(props.entries) as KeysOf<State>).every(key => !!props[key]) &&
-            props.children
-        }
+        {(Object.keys(props.entries) as KeysOf<State>).every(key => !!props.store.state[key].value) && props.children}
     </Fragment>;
 }
