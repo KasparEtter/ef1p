@@ -50,15 +50,24 @@ article {
   table {
     @extend .table;
 
-    width: auto;
-    margin-top: 1.5 * $paragraph-margin-bottom;
+    display: block;
+    max-width: fit-content;
+
+    margin: $paragraph-margin-bottom;
     margin-right: auto;
     margin-bottom: $paragraph-margin-bottom;
     margin-left: auto;
 
+    overflow-x: auto;
+    white-space: nowrap;
+
     td,
     th {
       padding: .3rem .6rem;
+    }
+
+    th {
+      border-top: 0;
     }
   }
 }
@@ -104,7 +113,8 @@ details {
   background-color: $jumbotron-bg;
   border-radius: $border-radius;
 
-  > *:last-child {
+  > :last-child,
+  > :last-child > :last-child {
     margin-bottom: 0;
   }
 }

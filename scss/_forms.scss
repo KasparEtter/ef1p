@@ -1,19 +1,34 @@
 // Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
 
-label {
-  display: inline;
+.block-form {
+  margin-bottom: $paragraph-margin-bottom;
+}
 
-  span.label {
-    display: inline-block;
+.inline-form {
+  display: inline;
+}
+
+.vertical-form {
+  label {
+    display: block;
   }
 }
 
-div.form-group label {
-  display: block;
+.horizontal-form {
+  label {
+    display: inline-block;
+    margin-right: 16px;
+  }
 }
 
-div.invalid-feedback {
+.label {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.invalid-feedback {
   position: absolute;
+  width: unset;
   margin-top: -16px;
 }
 

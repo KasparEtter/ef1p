@@ -2,9 +2,21 @@
 .copy-hint,
 .static-output,
 .dynamic-output {
-  padding: 2px 5px;
-  margin: -2px -5px;
+  padding: 1px 3px;
+  margin: -1px -3px;
   border-radius: 4px;
+}
+
+pre,
+code {
+  .command,
+  .copy-hint,
+  .static-output,
+  .dynamic-output {
+    padding: 2px 4px;
+    margin: -2px -4px;
+    border-radius: 4px;
+  }
 }
 
 .static-output:hover {
