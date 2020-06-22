@@ -12,6 +12,10 @@ export const colors = {
 
 export type Color = keyof typeof colors;
 
-export function colorSuffix(color?: Color) {
+export function colorSuffix(color?: Color): string {
     return color ? '-' + color : '';
+}
+
+export function textColor(color?: Color, prefix: string = ''): string {
+    return color ? prefix + 'text-' + color : '';
 }

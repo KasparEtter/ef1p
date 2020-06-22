@@ -53,7 +53,7 @@ export interface DynamicEntry<T extends ValueType> extends Entry<T> {
     selectOptions?: Record<string, string>; // Only relevant for 'select' inputs.
     disabled?: () => boolean;
     validate?: (value: T) => (string | false);
-    onChange?: () => void | (() => void)[]; // Can be used to trigger, for example, API requests.
+    onChange?: () => any | (() => any)[]; // Can be used to trigger, for example, API requests.
 }
 
 export function isDynamicEntry<T extends ValueType>(entry: Entry<T>): entry is DynamicEntry<T> {

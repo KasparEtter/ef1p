@@ -9,8 +9,9 @@ import { ProvidedStore } from './share';
 import { clear, isValueWithHistory, next, previous, setValue, Value, ValueType } from './value';
 
 export interface RawInputProps {
-    skipLabels?: boolean; // Default: false.
-    inlineForm?: boolean; // Default: false.
+    noLabels?: boolean; // Default: false.
+    inline?: boolean; // Default: false.
+    horizontal?: boolean; // Default: false.
 }
 
 export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<State> & ProvidedDynamicEntries<State> & RawInputProps> {
@@ -75,7 +76,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     public render() {
         const entries = this.props.entries;
         const maxLabelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
-        return <div className={this.props.inlineForm ? 'd-inline' : 'form-group'}>
+        return <div className={
+            (this.props.inline ? 'inline-form' : 'block-form') + ' ' +
+            (this.props.horizontal ? 'horizontal-form' : 'vertical-form')
+        }>
             {(Object.keys(entries) as KeysOf<State>).map(rawKey => {
                 const key = '' + rawKey;
                 const entry = entries[key] as DynamicEntry<ValueType>;
@@ -87,10 +91,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                     title={entry.description}
                 >
                     {
-                        !this.props.skipLabels &&
+                        !this.props.noLabels &&
                         <span
                             className="label"
-                            style={this.props.inlineForm ? {} : { width: (maxLabelWidth + 10) + 'px' }}
+                            style={this.props.horizontal ? {} : { width: maxLabelWidth + 'px' }}
                         >
                             {entry.name}:
                         </span>
@@ -146,7 +150,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                 history &&
                                 <datalist id={key + this.randomID}>
                                     {isValueWithHistory(value) &&
-                                    value.history.concat(entry.suggestedValues ? normalizeToValue(entry.suggestedValues) : []).filter(
+                                    (entry.suggestedValues ? normalizeToValue(entry.suggestedValues) : []).concat(value.history).reverse().filter(
                                         option => option !== value.input,
                                     ).map(
                                         option => <option value={'' + option}/>,

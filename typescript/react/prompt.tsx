@@ -1,5 +1,7 @@
 import { createElement } from 'react';
 
+import { textColor } from '../utility/color';
+
 import { Command } from './command';
 import { DynamicEntry, StateWithOnlyValues } from './entry';
 import { ProvidedStore } from './share';
@@ -24,7 +26,7 @@ export function RawPrompt<State extends StateWithPrompt>({ store, children }: Pr
     return <div className="position-relative">
         <span
             title={prompt.name + ': ' + prompt.description}
-            className={'dynamic-output' + (prompt.outputColor ? ' text-' + prompt.outputColor : '')}
+            className={'dynamic-output' + textColor(prompt.outputColor, ' ')}
         >
             {store.state.prompt.value}
         </span>
