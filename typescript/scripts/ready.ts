@@ -76,7 +76,7 @@ $(document).ready(() => {
 
         const refreshOffsets = () => {
             headings = [];
-            $('h2, h3, h4, h5, h6').each((_, element) => {
+            $('h2, h3, h4, h5, h6, summary').each((_, element) => {
                 const offset = $(element).offset();
                 if (offset) {
                     headings.push({ offset: offset.top - 11, element }); // Offset needed to match scrollspy.
@@ -146,6 +146,7 @@ $(document).ready(() => {
     // Register the click handler only on the text instead of the whole heading by wrapping it.
     // Please note that this has to be done before adding the anchors to get the right contents.
     $('h2, h3, h4, h5, h6').contents().wrap('<span/>').parent().on('click', jumpToNextHeading);
+    $('summary').contents().wrap('<span/>');
 
     // Add the anchors with AnchorJS. As no IDs need to be added, this instruction can be ignored:
     // https://www.bryanbraun.com/anchorjs/#dont-run-it-too-late
@@ -153,7 +154,7 @@ $(document).ready(() => {
         visible: 'touch',
         titleText: 'Click to copy the link to this section.',
     };
-    anchors.add();
+    anchors.add('h2, h3, h4, h5, h6, summary');
     $('a.anchorjs-link').attr('tabindex', -1);
 
     // Allow the reader to download embedded SVG figures.

@@ -15,6 +15,18 @@
     margin-top: -$body-padding-top;
   }
 
+  // I tried to apply this to the details element with `border-top: $body-padding-top transparent;` and `background-clip: padding-box`
+  // instead of `padding-top: $body-padding-top` but could not figure out how to retain `border-radius: $border-radius`.
+  // As a consequence, the ID attribute now has to be applied on the summary instead of the details element.
+  summary {
+    padding-top: calc(#{$body-padding-top} + #{$paragraph-margin-bottom});
+    margin-top: calc(-#{$body-padding-top} - #{$paragraph-margin-bottom});
+
+    span:last-of-type {
+      margin-right: .2em; // Add the margin here instead of the anchor in order to center the scaling.
+    }
+  }
+
   h2,
   h3,
   h4,
@@ -27,7 +39,7 @@
     }
 
     span:last-of-type {
-      margin-right: .375em; // Add the margin here instead of the anchor in order to center the scaling.
+      margin-right: .3em; // Add the margin here instead of the anchor in order to center the scaling.
     }
   }
 

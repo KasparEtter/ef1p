@@ -4,8 +4,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  padding-top: 0;
+h6,
+summary {
+  padding-top: $paragraph-margin-bottom;
+}
+
+summary {
+  margin-top: -$paragraph-margin-bottom;
 }
 
 h1 {
@@ -21,7 +26,7 @@ header {
 }
 
 h2 {
-  margin-top: $h2-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom;
+  margin-top: $h2-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
   counter-reset: h3;
 
   &::before {
@@ -31,7 +36,7 @@ h2 {
 }
 
 h3 {
-  margin-top: $h3-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom;
+  margin-top: $h3-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
   counter-reset: h4;
 
   &::before {
@@ -41,7 +46,7 @@ h3 {
 }
 
 h4 {
-  margin-top: $h4-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom;
+  margin-top: $h4-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
 
   &::before {
     content: counter(h2) "." counter(h3) "." counter(h4) ". ";
@@ -50,33 +55,33 @@ h4 {
 }
 
 h5 {
-  margin-top: $h5-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom;
+  margin-top: $h5-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
   font-style: italic;
 }
 
 h6 {
-  margin-top: $h6-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom;
+  margin-top: $h6-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
 }
 
 h1 + h2,
 p.lead + h2 {
-  margin-top: $h2-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom;
+  margin-top: $h2-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
 }
 
 h2 + h3 {
-  margin-top: $h3-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom;
+  margin-top: $h3-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
 }
 
 h3 + h4 {
-  margin-top: $h4-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom;
+  margin-top: $h4-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
 }
 
 h4 + h5 {
-  margin-top: $h5-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom;
+  margin-top: $h5-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
 }
 
 h5 + h6 {
-  margin-top: $h6-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom;
+  margin-top: $h6-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
 }
 
 hr + h2 {
