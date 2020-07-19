@@ -67,7 +67,7 @@ export function shareStore<SharedState extends ObjectButNotFunction, ProvidedPro
  * export { HOC as Counter };
  * ```
  */
-export function shareState<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}, Meta = undefined>(
+export function shareState<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}, Meta = any>(
     store: Store<SharedState, Meta>,
 ) {
     return function decorator(
