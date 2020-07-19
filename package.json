@@ -57,6 +57,7 @@
         "pdf-generate": "ts-node typescript/node/pdf.ts",
         "prepare-publication": "prepublish() { npm run pdf-generate \"$1\"; npm run ots-stamp \"$1/index.md\"; find \"$1/generated\" -name '*.pdf' -exec npm run ots-stamp {} +; }; prepublish",
         "react-update": "cp node_modules/react/umd/react.production.min.js node_modules/react-dom/umd/react-dom.production.min.js assets/scripts/external/",
+        "serve": "bundle exec jekyll serve --host=0.0.0.0",
         "sort-package": "sort-package-json",
         "start": "npm run watch",
         "svg-build": "ts-node typescript/node/svg.ts",
