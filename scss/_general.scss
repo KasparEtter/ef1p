@@ -5,7 +5,7 @@ body {
 
 article {
   margin-bottom: -$paragraph-margin-bottom;
-  overflow-x: hidden;
+  overflow-x: visible;
 
   img,
   figure,
@@ -54,10 +54,7 @@ article {
     display: block;
     max-width: fit-content;
 
-    margin: $paragraph-margin-bottom;
-    margin-right: auto;
-    margin-bottom: $paragraph-margin-bottom;
-    margin-left: auto;
+    margin: $paragraph-margin-bottom auto;
 
     overflow-x: auto;
     white-space: nowrap;
@@ -108,6 +105,14 @@ a[href^="#"] {
   }
 }
 
+a:not([href]) {
+  color: $pink;
+
+  @include hover() {
+    color: darken($pink, 15%);
+  }
+}
+
 details {
   padding: $paragraph-margin-bottom;
   margin-bottom: $paragraph-margin-bottom;
@@ -116,7 +121,7 @@ details {
 
   > :last-child,
   > :last-child > :last-child {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 }
 
@@ -151,4 +156,21 @@ abbr[title] {
 // https://css-tricks.com/flexbox-truncated-text/
 .col {
   min-width: 0;
+}
+
+.table-title {
+  margin-bottom: $paragraph-margin-bottom / 2;
+  font-weight: bold;
+  text-align: center;
+}
+
+.table-title + * {
+  margin-top: 0;
+}
+
+.table-with-vertical-border-after-column-2 {
+  td:nth-child(2),
+  th:nth-child(2) {
+    border-right: (2 * $table-border-width) solid $table-border-color;
+  }
 }

@@ -27,6 +27,10 @@ code {
   background-color: $green;
 }
 
+.dynamic-output-pointer .dynamic-output {
+  cursor: pointer;
+}
+
 .command {
   font-weight: bold;
   cursor: pointer;

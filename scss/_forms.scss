@@ -1,27 +1,45 @@
 // Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
 
-.block-form {
+div.block-form {
   margin-bottom: $paragraph-margin-bottom;
-}
 
-.inline-form {
-  display: inline;
-}
-
-.vertical-form {
-  label {
-    display: block;
+  label,
+  .label {
+    margin-bottom: $label-margin-bottom;
   }
 }
 
-.horizontal-form {
-  label {
+div.inline-form {
+  display: inline;
+
+  label,
+  .label {
+    margin-bottom: 0;
+  }
+}
+
+div.vertical-form {
+  label,
+  .label {
+    display: block;
+    max-width: fit-content;
+    min-height: 28px;
+  }
+}
+
+div.horizontal-form {
+  label,
+  .label {
     display: inline-block;
     margin-right: 16px;
   }
+
+  &.block-form {
+    margin-bottom: $paragraph-margin-bottom - $label-margin-bottom; // Margin doesn't collapse with inline-block labels.
+  }
 }
 
-.label {
+.label-text {
   display: inline-block;
   margin-right: 8px;
 }
@@ -46,8 +64,8 @@
 }
 
 select.custom-select {
-  position: relative;
-  top: -2px;
+  margin-top: 1px;
+  vertical-align: baseline;
 }
 
 input.custom-color {
@@ -55,8 +73,32 @@ input.custom-color {
   width: 60px;
   height: 20px;
   padding: 0;
+  margin-top: 4px;
   background-color: transparent;
   border: 0;
+}
+
+input.custom-range {
+  padding-top: 12px;
+  margin-top: -3px;
+}
+
+span.range-value {
+  margin-left: 8px;
+}
+
+span.custom-checkbox,
+span.custom-switch {
+  display: inline-block;
+  padding-top: 6px;
+  margin-top: -4px;
+}
+
+.btn-icon {
+  i.fas {
+    width: unset;
+    margin-right: 0;
+  }
 }
 
 .is-invalid {
