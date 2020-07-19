@@ -7,22 +7,22 @@ function getDisplayName(component: ComponentType<any>): string {
     return component.displayName || (component as any).name || 'Component';
 }
 
-export interface ProvidedStore<SharedState extends ObjectButNotFunction> {
-    store: Store<SharedState>;
+export interface ProvidedStore<SharedState extends ObjectButNotFunction, Meta = undefined> {
+    store: Store<SharedState, Meta>;
 }
 
 /**
  * Shares a store among all instances of the wrapped component.
  * This allows the wrapped component to update the shared state.
  */
-export function shareStore<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}>(
-    store: Store<SharedState>,
+export function shareStore<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}, Meta = undefined>(
+    store: Store<SharedState, Meta>,
 ) {
     return function decorator(
-        WrappedComponent: ComponentType<ProvidedStore<SharedState> & ProvidedProps>,
+        WrappedComponent: ComponentType<ProvidedStore<SharedState, Meta> & ProvidedProps>,
     ) {
         return class Share extends Component<ProvidedProps> {
-            public static displayName = `Share(${getDisplayName(WrappedComponent)})`;
+            public static displayName = `ShareStore(${getDisplayName(WrappedComponent)})`;
 
             public componentDidMount(): void {
                 store.subscribe(this);
@@ -67,14 +67,14 @@ export function shareStore<SharedState extends ObjectButNotFunction, ProvidedPro
  * export { HOC as Counter };
  * ```
  */
-export function shareState<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}>(
-    store: Store<SharedState>,
+export function shareState<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}, Meta = undefined>(
+    store: Store<SharedState, Meta>,
 ) {
     return function decorator(
         WrappedComponent: ComponentType<SharedState & ProvidedProps>,
     ) {
         return class Share extends Component<ProvidedProps & Partial<SharedState>> {
-            public static displayName = `Share(${getDisplayName(WrappedComponent)})`;
+            public static displayName = `ShareState(${getDisplayName(WrappedComponent)})`;
 
             public componentDidMount(): void {
                 store.subscribe(this);

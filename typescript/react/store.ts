@@ -6,7 +6,7 @@ import { ObjectButNotFunction } from '../utility/types';
 /**
  * This class allows components to share a common state.
  */
-export class Store<State extends ObjectButNotFunction> {
+export class Store<State extends ObjectButNotFunction, Meta = undefined> {
     private components: Component[] = [];
 
     /**
@@ -24,7 +24,10 @@ export class Store<State extends ObjectButNotFunction> {
         this.components.splice(index, 1);
     }
 
-    public updateComponents(): void {
+    /**
+     * Call this method after changing the state directly without using the setState method.
+     */
+    public update(): void {
         for (const component of this.components) {
             component.forceUpdate();
         }
@@ -32,8 +35,9 @@ export class Store<State extends ObjectButNotFunction> {
 
     /**
      * Creates a new store with the given initial state.
+     * The meta property can be used to pass around additional information.
      */
-    public constructor(public readonly state: Readonly<State>) {}
+    public constructor(public readonly state: State, public readonly meta: Meta) {}
 
     /**
      * Sets the state of this store and updates the subscribed components.
@@ -41,23 +45,24 @@ export class Store<State extends ObjectButNotFunction> {
      */
     public setState(partialState: Partial<State>): void {
         Object.assign(this.state, partialState);
-        this.updateComponents();
+        this.update();
     }
 }
 
 /**
  * This class persists the state shared among components.
  */
-export class PersistedStore<State extends ObjectButNotFunction> extends Store<State> {
+export class PersistedStore<State extends ObjectButNotFunction, Meta = undefined> extends Store<State, Meta> {
     /**
-     * Creates a new persisted store with the given default state or the state with the given name.
+     * Creates a new persisted store with the given default state or the state restored with the given identifier.
+     * The meta property can be used to pass around additional information. It is not persisted.
      */
-    public constructor(state: Readonly<State>, private readonly name: string) {
-        super(restoreObject(name) as State || state);
+    public constructor(defaultState: State, meta: Meta, private readonly identifier: string) {
+        super({ ...defaultState, ...restoreObject(identifier) as State }, meta);
     }
 
-    public updateComponents(): void {
-        super.updateComponents();
-        storeObject(this.name, this.state);
+    public update(): void {
+        super.update();
+        storeObject(this.identifier, this.state);
     }
 }

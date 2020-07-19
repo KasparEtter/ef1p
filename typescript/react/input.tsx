@@ -1,73 +1,49 @@
 import { ChangeEvent, Component, createElement } from 'react';
 
 import { normalizeToArray, normalizeToValue } from '../utility/functions';
-import { KeysOf } from '../utility/types';
 
 import { CustomInput } from './custom';
-import { DynamicEntry, inputTypesWithHistory, numberInputTypes, ProvidedDynamicEntries, StateWithOnlyValues } from './entry';
+import { AllEntries, clearState, DynamicEntry, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
 import { ProvidedStore } from './share';
-import { clear, isValueWithHistory, next, previous, setValue, Value, ValueType } from './value';
 
 export interface RawInputProps {
+    noHistory?: boolean; // Default: false.
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
     horizontal?: boolean; // Default: false.
 }
 
-export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<State> & ProvidedDynamicEntries<State> & RawInputProps> {
-    private readonly triggerChange = (key: string) => {
-        this.props.store.updateComponents();
-        const onChange = this.props.entries[key]!.onChange;
-        normalizeToArray(onChange).forEach(handler => handler());
-    }
-
+export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps> {
     private readonly onChange = (event: Event | ChangeEvent<any>) => {
         const target = event.target as HTMLInputElement;
-        const key = target.name;
+        const key: keyof State = target.name;
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
         // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
         const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
-        const validate = this.props.entries[key]!.validate;
-        if (validate) {
-            const error = validate(value as string);
-            if (error) {
-                this.props.store.state[key].error = error;
-                this.props.store.updateComponents();
-                return;
-            }
-        }
-        setValue(this.props.store.state[key], value);
-        this.triggerChange(key);
+        setState(this.props.store, { [key]: value } as Partial<State>);
     }
 
     private readonly onInput = (event: Event) => {
         const target = event.target as HTMLInputElement;
-        const value = target.value;
-        const key = target.name;
-        this.props.store.state[key].input = value;
-        this.props.store.state[key].error = false;
-        this.props.store.updateComponents();
+        const value = numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value;
+        const key: keyof State = target.name;
+        this.props.store.state.inputs[key] = value as any;
+        this.props.store.state.errors[key] = false;
+        this.props.store.update();
     }
 
-    private readonly onPrevious = (event: KeyboardEvent) => {
-        const target = event.target as HTMLInputElement;
-        if (previous(this.props.store.state[target.name])) {
-            this.triggerChange(target.name);
-        }
+    private readonly onPrevious = () => {
+        previousState(this.props.store);
     }
 
-    private readonly onNext = (event: KeyboardEvent) => {
-        const target = event.target as HTMLInputElement;
-        if (next(this.props.store.state[target.name])) {
-            this.triggerChange(target.name);
-        }
+    private readonly onNext = () => {
+        nextState(this.props.store);
     }
 
-    private readonly onClear = (event: KeyboardEvent) => {
-        const target = event.target as HTMLInputElement;
-        if (clear(this.props.store.state[target.name])) {
-            this.props.store.updateComponents();
+    private readonly onClear = () => {
+        if (confirm('Are you sure you want to erase the history of entered values?')) {
+            clearState(this.props.store);
         }
     }
 
@@ -80,10 +56,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
             (this.props.inline ? 'inline-form' : 'block-form') + ' ' +
             (this.props.horizontal ? 'horizontal-form' : 'vertical-form')
         }>
-            {(Object.keys(entries) as KeysOf<State>).map(rawKey => {
-                const key = '' + rawKey;
+            {(Object.keys(entries)).map(key => {
                 const entry = entries[key] as DynamicEntry<ValueType>;
-                const value = this.props.store.state[key] as Value<ValueType>;
+                const input = this.props.store.state.inputs[key];
+                const error = this.props.store.state.errors[key];
                 const disabled = entry.disabled ? entry.disabled() : false;
                 const history = inputTypesWithHistory.includes(entry.inputType);
                 return <label
@@ -93,19 +69,19 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                     {
                         !this.props.noLabels &&
                         <span
-                            className="label"
+                            className="label-text"
                             style={this.props.horizontal ? {} : { width: maxLabelWidth + 'px' }}
                         >
                             {entry.name}:
                         </span>
                     }{
                         (entry.inputType === 'checkbox' || entry.inputType === 'switch') &&
-                        <span className={`custom-control custom-${entry.inputType} d-inline`}>
+                        <span className={`custom-control custom-${entry.inputType}`}>
                             <CustomInput
                                 name={key}
                                 type="checkbox"
                                 className="custom-control-input"
-                                checked={value.input as boolean}
+                                checked={input as boolean}
                                 disabled={disabled}
                                 onChange={this.onChange}
                             />
@@ -119,7 +95,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                             onChange={this.onChange}
                         >
                             {entry.selectOptions && Object.entries(entry.selectOptions).map(
-                                ([key, text]) => <option value={key} selected={key === value.input}>{text}</option>,
+                                ([key, text]) => <option value={key} selected={key === input}>{text}</option>,
                             )}
                         </select>
                     }{ // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
@@ -132,40 +108,49 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                 autoCorrect="off"
                                 autoCapitalize="off"
                                 spellCheck="false"
-                                className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (value.error ? ' is-invalid' : '')}
-                                value={value.input as string | number}
+                                className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (error ? ' is-invalid' : '')}
+                                value={input as string | number}
                                 min={entry.minValue as string | number | undefined}
                                 max={entry.maxValue as string | number | undefined}
                                 step={entry.stepValue as string | number | undefined}
                                 disabled={disabled}
                                 onChange={this.onChange}
                                 onInput={this.onInput}
-                                onPrevious={this.onPrevious}
-                                onNext={this.onNext}
-                                onClear={this.onClear}
                                 list={history ? key + this.randomID : undefined}
                                 style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                             />
                             {
                                 history &&
                                 <datalist id={key + this.randomID}>
-                                    {isValueWithHistory(value) &&
-                                    (entry.suggestedValues ? normalizeToValue(entry.suggestedValues) : []).concat(value.history).reverse().filter(
-                                        option => option !== value.input,
+                                    {normalizeToArray(normalizeToValue(entry.suggestedValues)).concat(
+                                        this.props.store.state.states.map(object => object[key]),
+                                    ).reverse().filter(
+                                        (option, index, self) => option !== input && self.indexOf(option) === index,
                                     ).map(
                                         option => <option value={'' + option}/>,
                                     )}
                                 </datalist>
                             }{
-                                value.error &&
+                                error &&
                                 <div className="invalid-feedback">
-                                    {value.error}
+                                    {error}
                                 </div>
                             }
                         </span>
+                    }{
+                        entry.inputType === 'range' &&
+                        <span className="range-value">{input}</span>
                     }
                 </label>;
             })}
+            {
+                !this.props.noHistory &&
+                <div className="label btn-icon btn-group btn-group-sm" role="group" aria-label="Walk through the history of values.">
+                    <button type="button" className="btn btn-primary" onClick={this.onPrevious} disabled={this.props.store.state.index === 0} title="Go back to the previous set of values."><i className="fas fa-undo-alt"></i></button>
+                    <button type="button" className="btn btn-primary" onClick={this.onClear} disabled={this.props.store.state.states.length === 1} title="Erase the history of entered values."><i className="fas fa-trash-alt"></i></button>
+                    <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={this.props.store.state.index === this.props.store.state.states.length - 1} title="Advance to the next set of values."><i className="fas fa-redo-alt"></i></button>
+                </div>
+            }
         </div>;
     }
 }

@@ -3,10 +3,9 @@ import { createElement } from 'react';
 import { textColor } from '../utility/color';
 
 import { Command } from './command';
-import { DynamicEntry, StateWithOnlyValues } from './entry';
+import { AllEntries, DynamicEntry, getCurrentState, PersistedState, StateWithOnlyValues } from './entry';
 import { ProvidedStore } from './share';
 import { Children } from './utility';
-import { ValueWithHistory } from './value';
 
 export const prompt: DynamicEntry<string> = {
     name: 'Prompt',
@@ -19,16 +18,16 @@ export const prompt: DynamicEntry<string> = {
 };
 
 export interface StateWithPrompt extends StateWithOnlyValues {
-    prompt: ValueWithHistory<string>;
+    prompt: string;
 }
 
-export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<State> & Children) {
+export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children) {
     return <div className="position-relative">
         <span
             title={prompt.name + ': ' + prompt.description}
             className={'dynamic-output' + textColor(prompt.outputColor, ' ')}
         >
-            {store.state.prompt.value}
+            {getCurrentState(store).prompt}
         </span>
         {' '}
         <Command>

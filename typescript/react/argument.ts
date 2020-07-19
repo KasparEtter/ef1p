@@ -1,5 +1,4 @@
-import { DynamicEntry, Entry, StateWithOnlyValues } from './entry';
-import { Value, ValueType } from './value';
+import { DynamicEntry, Entry, StateWithOnlyValues, ValueType } from './entry';
 
 export interface Argument<T extends ValueType> extends Entry<T> {
     longForm: string;
@@ -21,5 +20,5 @@ export const shortForm: DynamicEntry<boolean> = {
 };
 
 export interface StateWithArguments extends StateWithOnlyValues {
-    shortForm: Value<boolean>;
+    shortForm: boolean;
 }
