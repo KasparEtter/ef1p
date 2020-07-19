@@ -603,7 +603,7 @@ where the content is still rendered using Markdown.
 
 ```html
 <details markdown="block">
-<summary markdown="span">
+<summary markdown="span" id="appropriate-id">
 Summary with *Markdown*.
 </summary>
 Details with *Markdown*.
