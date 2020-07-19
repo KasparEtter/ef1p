@@ -186,8 +186,8 @@ $(document).ready(() => {
 
     $(document).on('click', hideDownloadMenu);
 
-    // Prevent the anchor and summary elements from becoming focused when clicked.
-    $('a, summary').on('click', function() { $(this).blur(); });
+    // Prevent the following elements from becoming focused when clicked.
+    $('a, button, summary').on('click', function() { $(this).blur(); });
 
     // Support abbreviations on touch devices.
     if (isTouchDevice) {
