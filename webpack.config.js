@@ -11,6 +11,9 @@ module.exports = {
         links: "./typescript/scripts/links.ts",
         ready: "./typescript/scripts/ready.ts",
         theme: "./typescript/scripts/theme.ts",
+
+        internet: "./internet/script.tsx",
+        tools: "./tools/script.tsx",
     },
 
     output: {
