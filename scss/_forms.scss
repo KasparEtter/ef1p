@@ -83,8 +83,8 @@ input.custom-color {
 }
 
 input.custom-range {
-  padding-top: 12px;
-  margin-top: -3px;
+  padding-top: 10px;
+  margin-top: -1px;
 }
 
 span.range-value {
@@ -96,6 +96,10 @@ span.custom-switch {
   display: inline-block;
   padding-top: 6px;
   margin-top: -4px;
+
+  span.custom-control-label {
+    display: inline-block;
+  }
 }
 
 .btn-icon {
