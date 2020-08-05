@@ -48,6 +48,15 @@ article {
     padding-left: 4px;
   }
 
+  ul.spaced,
+  ol.spaced {
+    margin-top: 0;
+
+    li {
+      margin-top: $paragraph-margin-bottom;
+    }
+  }
+
   table {
     @extend .table;
 
@@ -71,10 +80,10 @@ article {
 }
 
 footer {
-  padding-top: calc(#{$hr-margin-y} - 8px);
+  padding-top: $hr-margin-y;
   margin-top: $hr-margin-y;
   user-select: none;
-  border-top: $hr-border-width $hr-border-color solid;
+  border-top: $hr-border-width solid $hr-border-color;
 }
 
 a,
@@ -111,6 +120,10 @@ a:not([href]) {
   @include hover() {
     color: darken($pink, 15%);
   }
+}
+
+a.btn {
+  color: inherit !important;
 }
 
 details {
