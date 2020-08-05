@@ -57,7 +57,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
             <span
                 className="dynamic-output"
                 title="The port number of the server process."
-            >{port ?? '80'}</span>
+            >{port ?? (protocol === 'http' ? '80' : '443')}</span>
         </Prompt>
         <div className="position-relative">
             <Command>
@@ -72,7 +72,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                 <span
                     className="static-output"
                     title="The used version of the HTTP protocol."
-                >HTTP/1.1</span>
+                >HTTP/1.0</span>
             </Command>
         </div>
         <div className="position-relative">
