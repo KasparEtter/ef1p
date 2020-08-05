@@ -18,7 +18,7 @@ export class SVG extends StructuralElement<SVGProps> {
         description,
         embedded = process.argv[2] === 'embedded',
     }: SVGProps): string {
-        const name = path.basename(process.argv[1], '.ts');
+        const name = path.basename(process.argv[1], '.svg.ts');
         const box = this.boundingBox().addMargin(strokeRadiusMargin);
         const size = box.size();
 
@@ -46,7 +46,6 @@ export class SVG extends StructuralElement<SVGProps> {
             result += prefix + indentation + indentation + indentation + `<rdf:Description rdf:about="">\n`;
             result += prefix + indentation + indentation + indentation + indentation + `<schema:author rdf:resource="https://www.kasparetter.com/"/>\n`;
             result += prefix + indentation + indentation + indentation + indentation + `<schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>\n`;
-            result += prefix + indentation + indentation + indentation + indentation + `<schema:dateModified>${new Date().toISOString().slice(0, 16) + 'Z'}</schema:dateModified>\n`;
             result += prefix + indentation + indentation + indentation + `</rdf:Description>\n`;
             result += prefix + indentation + indentation + `</rdf:RDF>\n`;
             result += prefix + indentation + `</metadata>\n\n`;

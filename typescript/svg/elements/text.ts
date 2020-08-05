@@ -150,7 +150,7 @@ export class Text extends VisualElement<TextProps> {
                 break;
         }
         for (const line of text) {
-            result += prefix + indentation + `<tspan x="${position.x}" y="${y}">${line}</tspan>\n`;
+            result += prefix + indentation + `<tspan x="${position.x}" y="${Math.round(y * 1000) / 1000}">${line}</tspan>\n`;
             y += lineHeight;
         }
         result += prefix + this.children(prefix) + `</text>\n`;

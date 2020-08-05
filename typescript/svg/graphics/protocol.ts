@@ -3,7 +3,7 @@ import { Color } from '../../utility/color';
 import { strokeRadius } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
 
-import { Group } from '../elements/group';
+import { G } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
@@ -38,7 +38,7 @@ export function printProtocol(
         const label = rectangle.text(entity);
         const bottom = rectangle.boundingBox().pointAt('bottom');
         const line = new Line({ start: bottom, end: bottom.addY(overallTime * textHeight + textOffset) });
-        return new Group({ children: [rectangle, label, line] })
+        return G(rectangle, label, line);
     });
     let time = 1;
     const messageGroups = messages.map(message => {
@@ -54,7 +54,7 @@ export function printProtocol(
             verticalAlignment: 'bottom',
             color: message.color,
         });
-        return new Group({ children: [line, text] })
+        return G(line, text);
     });
     printSVG(...entityGroups, ...messageGroups);
 }
