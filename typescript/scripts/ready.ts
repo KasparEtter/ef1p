@@ -47,21 +47,22 @@ $(document).ready(() => {
     $(window).on('hashchange', scrollToCurrentAnchor);
 
     const handleLinkClick = (event: JQuery.TriggeredEvent) => {
-        const href: string | undefined = event.target.getAttribute('href');
-        if (href === undefined) {
+        const target = event.target.closest('a') as HTMLAnchorElement;
+        const href = target.getAttribute('href');
+        if (href === null) {
             return;
         }
-        const target = $(event.target);
-        if (target.hasClass('anchorjs-link')) {
+        const jQueryTarget = $(target) as JQuery<HTMLAnchorElement>;
+        if (jQueryTarget.hasClass('anchorjs-link')) {
             event.preventDefault();
             const address = location.origin + location.pathname + href;
             if (copyToClipboard(address)) {
-                target.addClass('scale').one(animationEnd, () => target.removeClass('scale'));
+                jQueryTarget.addClass('scale').one(animationEnd, () => jQueryTarget.removeClass('scale'));
             }
         } else if (scrollIfAnchor(href, true)) {
             event.preventDefault();
         } else {
-            event.target.setAttribute('target', '_blank');
+            target.setAttribute('target', '_blank');
         }
     };
     $('body').on('click', 'a', handleLinkClick);
@@ -128,18 +129,17 @@ $(document).ready(() => {
     /* Jumping to next heading when clicking one. */
 
     const jumpToNextHeading = (event: JQuery.TriggeredEvent) => {
-        const targetSpan: HTMLElement = event.target;
-        const targetHeading = targetSpan.parentElement!;
-        const headingLevel = parseInt(targetHeading.tagName.charAt(1), 10);
-        let nextElement = targetHeading.nextElementSibling;
-        while (nextElement !== null) {
-            if (nextElement.tagName.charAt(0) === 'H') {
-                if (parseInt(nextElement.tagName.charAt(1), 10) <= headingLevel) {
-                    scrollIfAnchor('#' + nextElement.id, true);
+        const target = event.target.closest('h2, h3, h4, h5, h6') as HTMLHeadingElement;
+        const level = parseInt(target.tagName.charAt(1), 10);
+        let element = target.nextElementSibling;
+        while (element !== null) {
+            if (element.tagName.charAt(0) === 'H') {
+                if (parseInt(element.tagName.charAt(1), 10) <= level) {
+                    scrollIfAnchor('#' + element.id, true);
                     break;
                 }
             }
-            nextElement = nextElement.nextElementSibling;
+            element = element.nextElementSibling;
         }
     };
 
@@ -193,4 +193,6 @@ $(document).ready(() => {
     if (isTouchDevice) {
         $('abbr').on('click', function() { alert($(this).text() + ': ' + $(this).attr('title')); });
     }
+
+    console.log('Hi there, are you curious about how this website works? You find all the code at https://github.com/KasparEtter/ef1p. If you have any questions, just ask.');
 });
