@@ -10,12 +10,19 @@ layout: navbar
         </button>
     </div>
     <div class="col">
-        {{ content }}
-        <footer class="d-print-none">
-            To be informed about new articles, follow this blog on
-            <a href="https://twitter.com/{{ site.twitter_handle }}">Twitter</a>
-            or subscribe to its mailing list:
-            {% include mailing-list-signup.html %}
-        </footer>
+        <article>
+            {{ content }}
+            <footer class="d-print-none">
+                To be informed about new articles, follow this blog on
+                <a href="https://twitter.com/{{ site.twitter_handle }}">Twitter</a>,
+                join its <a href="{{ site.telegram_channel }}">Telegram channel</a>,
+                or subscribe to its <a href="{% link feed.xml %}">news feed</a>
+                via <a href="https://support.mozilla.org/en-US/kb/how-subscribe-news-feeds-and-blogs">RSS/Atom</a>.
+            </footer>
+            <footer class="d-none d-print-block">
+                The copyright of this article and its graphics belong to {{ page.author | default: site.author }}.
+                You can share this article in any form as long as you give proper attribution.
+            </footer>
+        </article>
     </div>
 </div>

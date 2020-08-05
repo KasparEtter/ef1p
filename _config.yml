@@ -12,8 +12,7 @@ permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
 google_analytics_id: UA-135908849-1
-mailchimp_action: https://explained-from-first-principles.us20.list-manage.com/subscribe/post?u=f2f847e1901ae4d294dea09da&amp;id=b2f0275e5b
-mailchimp_hidden: b_f2f847e1901ae4d294dea09da_b2f0275e5b
+telegram_channel: https://t.me/ExplainedFromFirstPrinciples
 twitter_handle: ExplainedFrom1P
 
 # https://jekyllrb.com/docs/configuration/markdown/

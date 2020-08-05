@@ -2,42 +2,39 @@
 layout: toc
 ---
 
-<article>
-    <header>
-        <h1 id="top">{{ page.title | escape }}</h1>
-        <p class="lead">{{ site.title | escape | downcase }}</p>
+<header>
+    <h1 id="top">{{ page.title | escape }}</h1>
+    <p class="lead">{{ site.title | escape | downcase }}</p>
 
-        <p class="article-meta">
-            This <a href="{{ site.github.repository_url | append: '/blob/master/' | append: page.path }}">article</a>{% if page.script %}
-            and its <a href="{{ site.github.repository_url | append: '/blob/master' | append: page.dir | append: 'scripts.tsx' }}">code</a> were{% else %}
-            was{% endif %}
-            first published on {{ page.published | date: site.date_format }}{% if page.modified %}
-            and last modified on {{ page.modified | date: site.date_format }}
-            (see all <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
-            {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
-            Its short URL is
-            <a href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
-            {% capture pdf %}{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
-            You can also download the article as a
-            <a href="{{ pdf | relative_url }}">PDF</a>.
-        </p>
+    <p class="article-meta">
+        This <a href="{{ site.github.repository_url | append: '/blob/master/' | append: page.path }}">article</a>{% if page.script %}
+        and its <a href="{{ site.github.repository_url | append: '/blob/master' | append: page.dir | append: 'script.tsx' }}">code</a> were{% else %}
+        was{% endif %}
+        first published on {{ page.published | date: site.date_format }}{% if page.modified %}
+        and last modified on {{ page.modified | date: site.date_format }}
+        (see all <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
+        {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
+        Its short URL is
+        <a href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
+        {% capture pdf %}{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
+        You can also download the article as a
+        <a href="{{ pdf | relative_url }}">PDF</a>.
+    </p>
 
-        <p class="article-disclaimer">
-            If you are visiting this website for the first time,
-            then please read the <a href="{% link index.md %}">front page</a> first.
-            I explain there the intention of this blog
-            and how to best make use of it.
-            With regard to your privacy,
-            all personal information is stored locally in your browser
-            except in case of Google Analytics and the mailing list.
-            While I researched the content on this page thoroughly,
-            you take or omit actions based on it at your own risk.
-            In no event shall I as the author be liable
-            for any damages arising from advice on this website
-            or pages I linked to.
-        </p>
-    </header>
+    <p class="article-disclaimer">
+        If you are visiting this website for the first time,
+        then please first read the <a href="{% link index.md %}">front page</a>,
+        where I explain the intention of this blog
+        and how to best make use of it.
+        As far as your privacy is concerned,
+        all data entered on this page is stored locally in your browser
+        unless noted otherwise.
+        While I researched the content on this page thoroughly,
+        you take or omit actions based on it at your own risk.
+        In no event shall I as the author be liable
+        for any damages arising from information or advice
+        on this website or on referenced websites.
+    </p>
+</header>
 
-    {{ content }}
-
-</article>
+{{ content }}
