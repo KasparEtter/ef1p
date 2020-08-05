@@ -14,14 +14,22 @@ export interface RawInputProps {
 }
 
 export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps> {
-    private readonly onChange = (event: Event | ChangeEvent<any>) => {
+    private readonly handle = (event: Event | ChangeEvent<any>, forceUpdate: boolean) => {
         const target = event.target as HTMLInputElement;
         const key: keyof State = target.name;
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
         // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
         const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
-        setState(this.props.store, { [key]: value } as Partial<State>);
+        setState(this.props.store, { [key]: value } as Partial<State>, forceUpdate);
+    }
+
+    private readonly onChange = (event: Event | ChangeEvent<any>) => {
+        this.handle(event, false);
+    }
+
+    private readonly onEnter = (event: Event | ChangeEvent<any>) => {
+        this.handle(event, true);
     }
 
     private readonly onInput = (event: Event) => {
@@ -42,7 +50,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     }
 
     private readonly onClear = () => {
-        if (confirm('Are you sure you want to erase the history of entered values?')) {
+        if (confirm(`Are you sure you want to erase the history of ${this.props.store.state.states.length} entered values?`)) {
             clearState(this.props.store);
         }
     }
@@ -92,6 +100,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         <select
                             name={key}
                             className="custom-select"
+                            disabled={disabled}
                             onChange={this.onChange}
                         >
                             {entry.selectOptions && Object.entries(entry.selectOptions).map(
@@ -116,6 +125,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                 disabled={disabled}
                                 onChange={this.onChange}
                                 onInput={this.onInput}
+                                onEnter={this.onEnter}
                                 list={history ? key + this.randomID : undefined}
                                 style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                             />

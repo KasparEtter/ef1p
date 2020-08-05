@@ -15,7 +15,11 @@ export function getUniqueKey(): number {
 }
 
 export function join(elements: JSX.Element[], separator: JSX.Element = <Fragment> </Fragment>): JSX.Element {
-    return elements.reduce((accumulator, element) => <Fragment>{accumulator}{separator}{element}</Fragment>);
+    if (elements.length > 0) {
+        return elements.reduce((accumulator, element) => <Fragment>{accumulator}{separator}{element}</Fragment>);
+    } else {
+        return <Fragment></Fragment>;
+    }
 }
 
 export function inject(elementId: string, element: FunctionComponentElement<any>): void {

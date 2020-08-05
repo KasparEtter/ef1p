@@ -2,7 +2,6 @@ import { Color } from '../utility/color';
 import { KeysOf } from '../utility/types';
 
 import { Store } from './store';
-import { Callback } from './utility';
 
 export type ValueType = boolean | number | string;
 
@@ -56,7 +55,7 @@ export interface DynamicEntry<T extends ValueType> extends Entry<T> {
     readonly selectOptions?: Record<string, string>; // Only relevant for 'select' inputs.
     readonly disabled?: () => boolean;
     readonly validate?: (value: T) => (string | false);
-    readonly onChange?: Callback; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
+    readonly onChange?: (newValue: T) => any; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
 }
 
 export function isDynamicEntry<T extends ValueType>(entry: Entry<T>): entry is DynamicEntry<T> {
@@ -115,7 +114,7 @@ export function getDefaultPersistedState<State extends StateWithOnlyValues>(entr
 
 export interface AllEntries<State extends StateWithOnlyValues> {
     readonly entries: DynamicEntries<State>;
-    readonly onChange?: Callback;
+    readonly onChange?: (newState: State) => any;
 }
 
 export function getCurrentState<State extends StateWithOnlyValues>(store: Store<PersistedState<State>, AllEntries<State>>): State {
@@ -125,6 +124,7 @@ export function getCurrentState<State extends StateWithOnlyValues>(store: Store<
 export function setState<State extends StateWithOnlyValues>(
     store: Store<PersistedState<State>, AllEntries<State>>,
     state: Partial<State>,
+    forceUpdate: boolean = true,
 ): void {
     const inputs = { ...store.state.inputs, ...state };
     store.state.inputs = inputs;
@@ -148,9 +148,11 @@ export function setState<State extends StateWithOnlyValues>(
         }
         store.update();
         for (const key of changed) {
-            entries[key].onChange?.();
+            entries[key].onChange?.(inputs[key]);
         }
-        store.meta.onChange?.(); // The change callback is called intentionally even if no value changed.
+        if (changed.length > 0 || forceUpdate) {
+            store.meta.onChange?.(inputs);
+        }
     } else {
         store.update();
     }
@@ -173,10 +175,10 @@ function changeState<State extends StateWithOnlyValues>(
     store.update();
     for (const key of Object.keys(entries) as KeysOf<State>) {
         if (nextState[key] !== previousState[key]) {
-            entries[key].onChange?.();
+            entries[key].onChange?.(nextState[key]);
         }
     }
-    store.meta.onChange?.();
+    store.meta.onChange?.(nextState);
 }
 
 export function previousState<State extends StateWithOnlyValues>(

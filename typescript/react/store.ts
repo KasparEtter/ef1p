@@ -37,7 +37,7 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined> {
      * Creates a new store with the given initial state.
      * The meta property can be used to pass around additional information.
      */
-    public constructor(public readonly state: State, public readonly meta: Meta) {}
+    public constructor(public state: State, public readonly meta: Meta) {}
 
     /**
      * Sets the state of this store and updates the subscribed components.

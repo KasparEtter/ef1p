@@ -3,7 +3,7 @@ import { createElement, Fragment } from 'react';
 import { textColor } from '../utility/color';
 
 import { isArgument } from './argument';
-import { AllEntries, getCurrentState, InputType, isDynamicEntry, PersistedState, ProvidedEntries, StateWithOnlyValues } from './entry';
+import { AllEntries, getCurrentState, InputType, isDynamicEntry, PersistedState, ProvidedEntries } from './entry';
 import { ProvidedStore } from './share';
 
 export interface RawOutputProps {
@@ -20,7 +20,7 @@ export function escapeValue(value: string): string {
  * Outputs the value of all provided entries.
  * Please note that falsy values are skipped.
  */
-export function RawOutput(props: Readonly<Partial<ProvidedStore<PersistedState<StateWithOnlyValues>, AllEntries<StateWithOnlyValues>>> & ProvidedEntries & RawOutputProps>): JSX.Element {
+export function RawOutput(props: Readonly<Partial<ProvidedStore<PersistedState<any>, AllEntries<any>>> & ProvidedEntries & RawOutputProps>): JSX.Element {
     const separator = props.separator ?? ' ';
     return <Fragment>
         {Object.entries(props.entries).map(([key, entry], index) => {
