@@ -2,7 +2,7 @@ import { createElement, Fragment } from 'react';
 
 import { copyToClipboard } from '../../utility/clipboard';
 
-import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, StateWithOnlyValues } from '../../react/entry';
+import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
 import { RawInput, RawInputProps } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
 import { PersistedStore, Store } from '../../react/store';
@@ -50,8 +50,8 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
 const ipInfoResponseStore = new Store<IpInfoResponseState>({}, undefined);
 const IpInfoResponseParagraph = shareState<IpInfoResponseState>(ipInfoResponseStore)(RawIpInfoResponseParagraph);
 
-function updateIpInfoResponseParagraph(): void {
-    getIpInfo(getCurrentState(store).ipAddress)
+function updateIpInfoResponseParagraph({ ipAddress }: State): void {
+    getIpInfo(ipAddress)
     .then(response => ipInfoResponseStore.setState({ response, error: false }))
     .catch(_ => ipInfoResponseStore.setState({ error: true }));
 }
@@ -76,6 +76,10 @@ const entries: DynamicEntries<State> = {
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
 const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps, AllEntries<State>>(store)(RawInput);
+
+export function setIpInfoInput(ipAddress: string): void {
+    setState(store, { ipAddress });
+}
 
 export const ipWidget = <Fragment>
     <Input entries={{ ipAddress }} horizontal />
