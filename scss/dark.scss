@@ -7,6 +7,18 @@ $body-bg: #1e1d1f !default;
 @import "../node_modules/bootswatch/dist/darkly/bootswatch";
 @import "custom";
 
+@media screen {
+  .light-theme-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  .dark-theme-only {
+    display: none !important;
+  }
+}
+
 // Syntax Highlighting
 @import "external/monokai";
 // Build a custom theme at http://jwarby.github.io/jekyll-pygments-themes/builder.html.

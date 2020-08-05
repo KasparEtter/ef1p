@@ -5,6 +5,10 @@
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";
 @import "custom";
 
+.dark-theme-only {
+  display: none !important;
+}
+
 // Syntax Highlighting
 @import "external/borland";
 // Build a custom theme at http://jwarby.github.io/jekyll-pygments-themes/builder.html.
