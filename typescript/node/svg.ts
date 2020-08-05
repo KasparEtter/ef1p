@@ -3,7 +3,7 @@ import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
 
-glob('*/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error, matches) => {
+glob('**/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error, matches) => {
     if (error) {
         console.error('The globbing failed with the following error:', error);
         return;
@@ -11,8 +11,8 @@ glob('*/graphics/*.svg.ts', { nodir: true, nonull: false, strict: true }, (error
     let files = matches.map(match => {
         const parts = match.split(path.sep);
         return {
-            article: parts[0],
-            graphic: parts[2].slice(0, -7),
+            article: parts[1] === 'graphics' ? parts[0] : '.',
+            graphic: (parts[1] === 'graphics' ? parts[2] : parts[1]).slice(0, -7),
             path: match,
             date: fs.statSync(match).mtimeMs,
         };
