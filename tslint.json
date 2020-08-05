@@ -13,7 +13,7 @@
         "max-classes-per-file": false,
         "max-line-length": [false],
         "member-ordering": [false],
-        "no-console": [true, "log"],
+        "no-console": [false],
         "no-shadowed-variable": [false],
         "object-literal-sort-keys": [false],
         "ordered-imports": true,

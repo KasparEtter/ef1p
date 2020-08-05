@@ -21,8 +21,11 @@
             "figure",
             "figcaption",
             "img",
+            "s",
             "span",
-            "summary"
+            "sub",
+            "summary",
+            "sup"
         ]
     },
     "no-multiple-blanks": false,

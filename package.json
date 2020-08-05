@@ -61,10 +61,10 @@
         "sort-package": "sort-package-json",
         "start": "npm run watch",
         "svg-build": "ts-node typescript/node/svg.ts",
-        "svg-watch": "watch-run -p '*/graphics/*.ts,typescript/svg/**/*.ts' npm run svg-build",
+        "svg-watch": "watch-run -p '**/graphics/*.ts,typescript/svg/**/*.ts' npm run svg-build",
         "test": "echo 'Error: no test specified' && exit 1",
         "ts-build": "webpack",
-        "ts-circular": "madge --warning --circular --extensions ts ./typescript/",
+        "ts-circular": "madge --warning --circular --extensions ts --exclude scripts/katex.ts ./typescript/",
         "ts-lint": "tslint --exclude 'node_modules/**/*' --exclude '_site/**/*' '**/*.ts?(x)'",
         "ts-watch": "webpack --watch",
         "watch": "npm-run-all --parallel css-watch-dark img-watch md-watch svg-watch ts-watch"
