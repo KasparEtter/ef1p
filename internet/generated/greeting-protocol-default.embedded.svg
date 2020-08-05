@@ -1,0 +1,117 @@
+<svg id="figure-greeting-protocol-default" class="figure" data-name="greeting-protocol-default" width="294.15" height="294" viewBox="-30.625 -1.5 294.15 294" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="blue" />
+        </marker>
+        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
+        </marker>
+        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="purple" />
+        </marker>
+        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
+        </marker>
+        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="pink" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="red" />
+        </marker>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="orange" />
+        </marker>
+        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
+        </marker>
+        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="green" />
+        </marker>
+        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
+        </marker>
+        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="brown" />
+        </marker>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="gray" />
+        </marker>
+    </defs>
+
+    <g>
+        <rect x="-29.125" y="0" width="58.25" height="39.5" rx="8" ry="8"></rect>
+        <text x="0" y="19.75" text-anchor="middle">
+            <tspan x="0" y="25.65">Alice</tspan>
+        </text>
+        <line x1="0" y1="41" x2="0" y2="291"></line>
+    </g>
+    <g>
+        <rect x="203.775" y="0" width="58.25" height="39.5" rx="8" ry="8"></rect>
+        <text x="232.9" y="19.75" text-anchor="middle">
+            <tspan x="232.9" y="25.65">Bob</tspan>
+        </text>
+        <line x1="232.9" y1="41" x2="232.9" y2="291"></line>
+    </g>
+    <g>
+        <line x1="0" y1="79.5" x2="231.4" y2="79.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="115.7" y="69.5" text-anchor="middle">
+            <tspan x="115.7" y="69.5">Hi Bob!</tspan>
+        </text>
+    </g>
+    <g>
+        <line x1="232.9" y1="119.5" x2="1.5" y2="119.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="117.2" y="109.5" text-anchor="middle">
+            <tspan x="117.2" y="109.5">Hi Alice!</tspan>
+        </text>
+    </g>
+    <g>
+        <line x1="0" y1="159.5" x2="231.4" y2="159.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="115.7" y="149.5" text-anchor="middle">
+            <tspan x="115.7" y="149.5">How are you?</tspan>
+        </text>
+    </g>
+    <g>
+        <line x1="232.9" y1="199.5" x2="1.5" y2="199.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="117.2" y="189.5" text-anchor="middle">
+            <tspan x="117.2" y="189.5">Good.</tspan>
+        </text>
+    </g>
+    <g>
+        <line x1="232.9" y1="239.5" x2="1.5" y2="239.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="117.2" y="229.5" text-anchor="middle">
+            <tspan x="117.2" y="229.5">What about you?</tspan>
+        </text>
+    </g>
+    <g>
+        <line x1="0" y1="279.5" x2="231.4" y2="279.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="224"></line>
+        <text x="115.7" y="269.5" text-anchor="middle">
+            <tspan x="115.7" y="269.5">I'm fine, thanks.</tspan>
+        </text>
+    </g>
+</svg>
+

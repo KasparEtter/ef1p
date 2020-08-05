@@ -1,0 +1,94 @@
+<svg id="figure-operating-system" class="figure" data-name="operating-system" width="643" height="123" viewBox="-1.5 -1.5 643 123" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="blue" />
+        </marker>
+        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
+        </marker>
+        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="purple" />
+        </marker>
+        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
+        </marker>
+        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="pink" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="red" />
+        </marker>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="orange" />
+        </marker>
+        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
+        </marker>
+        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="green" />
+        </marker>
+        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
+        </marker>
+        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="brown" />
+        </marker>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="gray" />
+        </marker>
+    </defs>
+
+    <rect x="0" y="0" width="640" height="40" rx="0" ry="0"></rect>
+    <text x="12" y="20" text-anchor="start">
+        <tspan x="12" y="25.9"><tspan class="font-weight-bold">Application process</tspan></tspan>
+    </text>
+    <rect x="0" y="40" width="640" height="40" rx="0" ry="0"></rect>
+    <text x="12" y="60" text-anchor="start">
+        <tspan x="12" y="65.9"><tspan class="font-weight-bold">Operating system</tspan></tspan>
+    </text>
+    <rect x="0" y="80" width="640" height="40" rx="0" ry="0"></rect>
+    <text x="12" y="100" text-anchor="start">
+        <tspan x="12" y="105.9"><tspan class="font-weight-bold">Network interface</tspan></tspan>
+    </text>
+    <line class="green" x1="175" y1="20" x2="175" y2="60" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
+    <text class="green" x="189" y="40" text-anchor="start">
+        <tspan x="189" y="34.9">Please forward to me</tspan>
+        <tspan x="189" y="56.9">all traffic on port 25</tspan>
+    </text>
+    <line class="green" x1="357" y1="100" x2="357" y2="60" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
+    <text class="green" x="371" y="80" text-anchor="start">
+        <tspan x="371" y="74.9">I received a new</tspan>
+        <tspan x="371" y="96.9">packet on port 25</tspan>
+    </text>
+    <line class="green" x1="510" y1="60" x2="510" y2="20" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
+    <text class="green" x="524" y="40" text-anchor="start">
+        <tspan x="524" y="34.9">I have a new</tspan>
+        <tspan x="524" y="56.9">packet for you</tspan>
+    </text>
+</svg>
+

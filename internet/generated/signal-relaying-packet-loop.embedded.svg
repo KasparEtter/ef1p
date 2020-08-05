@@ -1,0 +1,98 @@
+<svg id="figure-signal-relaying-packet-loop" class="figure" data-name="signal-relaying-packet-loop" width="278.7495690809652" height="278.74956908096533" viewBox="-100.6384387633061 -110.22887932375065 278.7495690809652 278.74956908096533" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="blue" />
+        </marker>
+        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
+        </marker>
+        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="purple" />
+        </marker>
+        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
+        </marker>
+        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="pink" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="red" />
+        </marker>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="orange" />
+        </marker>
+        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
+        </marker>
+        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="green" />
+        </marker>
+        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
+        </marker>
+        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="brown" />
+        </marker>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="gray" />
+        </marker>
+    </defs>
+
+    <line class="yellow" x1="-8.75" y1="-15.155" x2="-39.25" y2="-67.983"></line>
+    <line class="yellow" x1="105.103" y1="-37.221" x2="148.237" y2="-80.355"></line>
+    <line class="yellow" x1="105.103" y1="-12.472" x2="148.237" y2="30.661"></line>
+    <line class="yellow" x1="84.786" y1="63.353" x2="143.707" y2="47.565"></line>
+    <line class="yellow" x1="76.632" y1="83.038" x2="107.132" y2="135.865"></line>
+    <line class="yellow" x1="55.508" y1="80.257" x2="12.374" y2="123.39"></line>
+    <line class="orange" x1="-67.983" y1="39.25" x2="-15.155" y2="8.75" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="16.904" y1="-4.529" x2="75.825" y2="-20.317" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="88.2" y1="-7.943" x2="72.412" y2="50.979" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="55.508" y1="55.508" x2="12.374" y2="12.374" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <text class="orange" x="-50.569" y="8.412" text-anchor="middle">
+        <tspan x="-50.569" y="14.312">■</tspan>
+    </text>
+    <text class="orange" x="41.706" y="-29.81" text-anchor="middle">
+        <tspan x="41.706" y="-23.91">■</tspan>
+    </text>
+    <text class="orange" x="97.692" y="26.177" text-anchor="middle">
+        <tspan x="97.692" y="32.077">■</tspan>
+    </text>
+    <text class="orange" x="21.213" y="46.669" text-anchor="middle">
+        <tspan x="21.213" y="52.569">■</tspan>
+    </text>
+    <circle class="green" cx="-83.138" cy="48" r="16"></circle>
+    <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
+    <circle class="green" cx="160.611" cy="-92.729" r="16"></circle>
+    <circle class="green" cx="160.611" cy="43.036" r="16"></circle>
+    <circle class="green" cx="115.882" cy="151.021" r="16"></circle>
+    <circle class="green" cx="0" cy="135.765" r="16"></circle>
+    <circle class="blue" cx="0" cy="0" r="16"></circle>
+    <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
+    <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
+</svg>
+

@@ -1,0 +1,277 @@
+<svg width="576" height="392.5" viewBox="-1.5 -6.5 576 392.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://www.kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            fill: black;
+            stroke: black;
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 3px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .angular {
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        marker > circle {
+            fill-opacity: 1;
+            stroke-width: 1px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .font-italic {
+            font-style: italic;
+        }
+
+        .text-underline {
+            text-decoration: underline;
+        }
+
+        .text-line-through {
+            text-decoration: line-through;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-lowercase {
+            text-transform: lowercase;
+        }
+
+        .text-capitalize {
+            text-transform: capitalize;
+        }
+
+        .small {
+            font-size: 80%;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .blue {
+            fill: #3498db;
+            stroke: #3498db;
+        }
+
+        .purple {
+            fill: #6b38ca;
+            stroke: #6b38ca;
+        }
+
+        .pink {
+            fill: #e91e7c;
+            stroke: #e91e7c;
+        }
+
+        .red {
+            fill: #f12812;
+            stroke: #f12812;
+        }
+
+        .orange {
+            fill: #fd7e14;
+            stroke: #fd7e14;
+        }
+
+        .yellow {
+            fill: #ffc107;
+            stroke: #ffc107;
+        }
+
+        .green {
+            fill: #00bc8c;
+            stroke: #00bc8c;
+        }
+
+        .brown {
+            fill: #9b7c55;
+            stroke: #9b7c55;
+        }
+
+        .gray {
+            fill: #808080;
+            stroke: #808080;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="blue" />
+        </marker>
+        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
+        </marker>
+        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="purple" />
+        </marker>
+        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
+        </marker>
+        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="pink" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="red" />
+        </marker>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="orange" />
+        </marker>
+        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
+        </marker>
+        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="green" />
+        </marker>
+        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
+        </marker>
+        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="brown" />
+        </marker>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="gray" />
+        </marker>
+    </defs>
+
+    <text class="yellow" x="0" y="40" text-anchor="start">
+        <tspan x="0" y="45.9">Application layer</tspan>
+    </text>
+    <text class="orange" x="0" y="120" text-anchor="start">
+        <tspan x="0" y="125.9">Security layer</tspan>
+    </text>
+    <text class="red" x="0" y="200" text-anchor="start">
+        <tspan x="0" y="205.9">Transport layer</tspan>
+    </text>
+    <text class="pink" x="0" y="280" text-anchor="start">
+        <tspan x="0" y="285.9">Network layer</tspan>
+    </text>
+    <text class="purple" x="0" y="360" text-anchor="start">
+        <tspan x="0" y="365.9">Link layer</tspan>
+    </text>
+    <text x="180" y="0" text-anchor="middle">
+        <tspan x="180" y="5.9">Sender</tspan>
+    </text>
+    <text x="360" y="0" text-anchor="middle">
+        <tspan x="360" y="5.9">Router</tspan>
+    </text>
+    <text x="540" y="0" text-anchor="middle">
+        <tspan x="540" y="5.9">Recipient</tspan>
+    </text>
+    <rect class="yellow angular" x="175.5" y="35.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="yellow angular" x="175.5" y="115.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="170.5" y="110.5" width="19" height="19" rx="0" ry="0"></rect>
+    <line class="yellow" x1="180" y1="54" x2="180" y2="101" marker-end="url(#arrow-yellow)" stroke-dasharray="40"></line>
+    <rect class="yellow angular" x="175.5" y="195.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="170.5" y="190.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="165.5" y="185.5" width="29" height="29" rx="0" ry="0"></rect>
+    <line class="orange" x1="180" y1="139" x2="180" y2="176" marker-end="url(#arrow-orange)" stroke-dasharray="30"></line>
+    <rect class="yellow angular" x="175.5" y="275.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="170.5" y="270.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="165.5" y="265.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="160.5" y="260.5" width="39" height="39" rx="0" ry="0"></rect>
+    <line class="red" x1="180" y1="224" x2="180" y2="251" marker-end="url(#arrow-red)" stroke-dasharray="20"></line>
+    <rect class="yellow angular" x="175.5" y="355.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="170.5" y="350.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="165.5" y="345.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="160.5" y="340.5" width="39" height="39" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="155.5" y="335.5" width="49" height="49" rx="0" ry="0"></rect>
+    <line class="pink" x1="180" y1="309" x2="180" y2="326" marker-end="url(#arrow-pink)" stroke-dasharray="10"></line>
+    <rect class="yellow angular" x="315.5" y="355.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="310.5" y="350.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="305.5" y="345.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="300.5" y="340.5" width="39" height="39" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="295.5" y="335.5" width="49" height="49" rx="0" ry="0"></rect>
+    <line class="purple" x1="214" y1="360" x2="286" y2="360" marker-end="url(#arrow-purple)" stroke-dasharray="65"></line>
+    <rect class="yellow angular" x="355.5" y="275.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="350.5" y="270.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="345.5" y="265.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="340.5" y="260.5" width="39" height="39" rx="0" ry="0"></rect>
+    <line class="purple" x1="326.171" y1="328.909" x2="353.829" y2="306.091" marker-end="url(#arrow-purple)" stroke-dasharray="29"></line>
+    <rect class="yellow angular" x="395.5" y="355.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="390.5" y="350.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="385.5" y="345.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="380.5" y="340.5" width="39" height="39" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="375.5" y="335.5" width="49" height="49" rx="0" ry="0"></rect>
+    <line class="pink" x1="366.171" y1="306.091" x2="393.829" y2="328.909" marker-end="url(#arrow-pink)" stroke-dasharray="29"></line>
+    <rect class="yellow angular" x="535.5" y="355.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="530.5" y="350.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="525.5" y="345.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="520.5" y="340.5" width="39" height="39" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="515.5" y="335.5" width="49" height="49" rx="0" ry="0"></rect>
+    <line class="purple" x1="434" y1="360" x2="506" y2="360" marker-end="url(#arrow-purple)" stroke-dasharray="65"></line>
+    <rect class="yellow angular" x="535.5" y="275.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="530.5" y="270.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="525.5" y="265.5" width="29" height="29" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="520.5" y="260.5" width="39" height="39" rx="0" ry="0"></rect>
+    <line class="purple" x1="540" y1="326" x2="540" y2="309" marker-end="url(#arrow-purple)" stroke-dasharray="10"></line>
+    <rect class="yellow angular" x="535.5" y="195.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="530.5" y="190.5" width="19" height="19" rx="0" ry="0"></rect>
+    <rect class="red angular" x="525.5" y="185.5" width="29" height="29" rx="0" ry="0"></rect>
+    <line class="pink" x1="540" y1="251" x2="540" y2="224" marker-end="url(#arrow-pink)" stroke-dasharray="20"></line>
+    <rect class="yellow angular" x="535.5" y="115.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="530.5" y="110.5" width="19" height="19" rx="0" ry="0"></rect>
+    <line class="red" x1="540" y1="176" x2="540" y2="139" marker-end="url(#arrow-red)" stroke-dasharray="30"></line>
+    <rect class="yellow angular" x="535.5" y="35.5" width="9" height="9" rx="0" ry="0"></rect>
+    <line class="orange" x1="540" y1="101" x2="540" y2="54" marker-end="url(#arrow-orange)" stroke-dasharray="40"></line>
+</svg>
+
