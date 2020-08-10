@@ -20,6 +20,10 @@ export class Box {
         }
     }
 
+    public round3(): Box {
+        return new Box(this.topLeft.round3(), this.bottomRight.round3());
+    }
+
     public size(): Point {
         return this.bottomRight.subtract(this.topLeft);
     }

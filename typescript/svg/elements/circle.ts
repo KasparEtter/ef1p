@@ -1,6 +1,7 @@
 import { Box } from '../utility/box';
 import { strokeRadius } from '../utility/constants';
 import { Point } from '../utility/point';
+import { round3 } from '../utility/rounding';
 
 import { CenterTextElement } from './center';
 import { VisualElementProps } from './element';
@@ -28,7 +29,7 @@ export class Circle extends CenterTextElement<CircleProps> {
 
     protected _encode(prefix: string, { center, radius }: CircleProps): string {
         center = center.round3();
-        radius = Math.round(radius * 1000) / 1000;
+        radius = round3(radius);
         return prefix + `<circle${this.attributes()}`
             + ` cx="${center.x}" cy="${center.y}"`
             + ` r="${radius}">`

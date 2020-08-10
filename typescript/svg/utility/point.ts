@@ -1,3 +1,5 @@
+import { round3 } from './rounding';
+
 export type LineSide = 'left' | 'right';
 
 export class Point {
@@ -19,7 +21,7 @@ export class Point {
     }
 
     public round3(): Point {
-        return new Point(Math.round(this.x * 1000) / 1000, Math.round(this.y * 1000) / 1000);
+        return new Point(round3(this.x), round3(this.y));
     }
 
     public absolute(): Point {

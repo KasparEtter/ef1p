@@ -3,6 +3,7 @@ import { normalizeToArray } from '../../utility/functions';
 import { Box } from '../utility/box';
 import { doubleTextMargin } from '../utility/constants';
 import { Point } from '../utility/point';
+import { round3 } from '../utility/rounding';
 
 import { indentation, VisualElement, VisualElementProps } from './element';
 
@@ -150,7 +151,7 @@ export class Text extends VisualElement<TextProps> {
                 break;
         }
         for (const line of text) {
-            result += prefix + indentation + `<tspan x="${position.x}" y="${Math.round(y * 1000) / 1000}">${line}</tspan>\n`;
+            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${line}</tspan>\n`;
             y += lineHeight;
         }
         result += prefix + this.children(prefix) + `</text>\n`;
