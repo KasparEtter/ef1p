@@ -13,12 +13,15 @@
         @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
 
         svg {
-            fill: black;
-            stroke: black;
             font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
+        }
+
+        svg {
+            fill: black;
+            stroke: black;
         }
 
         text {
@@ -27,14 +30,9 @@
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3px;
+            stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
-        }
-
-        .angular {
-            stroke-linecap: square;
-            stroke-linejoin: miter;
         }
 
         marker > path {
@@ -42,154 +40,19 @@
             stroke-opacity: 0;
         }
 
-        marker > circle {
-            fill-opacity: 1;
-            stroke-width: 1px;
-        }
-
         .font-weight-bold {
             font-weight: bold;
-        }
-
-        .font-italic {
-            font-style: italic;
-        }
-
-        .text-underline {
-            text-decoration: underline;
-        }
-
-        .text-line-through {
-            text-decoration: line-through;
-        }
-
-        .text-uppercase {
-            text-transform: uppercase;
-        }
-
-        .text-lowercase {
-            text-transform: lowercase;
-        }
-
-        .text-capitalize {
-            text-transform: capitalize;
-        }
-
-        .small {
-            font-size: 80%;
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .blue {
-            fill: #3498db;
-            stroke: #3498db;
-        }
-
-        .purple {
-            fill: #6b38ca;
-            stroke: #6b38ca;
-        }
-
-        .pink {
-            fill: #e91e7c;
-            stroke: #e91e7c;
-        }
-
-        .red {
-            fill: #f12812;
-            stroke: #f12812;
-        }
-
-        .orange {
-            fill: #fd7e14;
-            stroke: #fd7e14;
-        }
-
-        .yellow {
-            fill: #ffc107;
-            stroke: #ffc107;
         }
 
         .green {
             fill: #00bc8c;
             stroke: #00bc8c;
         }
-
-        .brown {
-            fill: #9b7c55;
-            stroke: #9b7c55;
-        }
-
-        .gray {
-            fill: #808080;
-            stroke: #808080;
-        }
     </style>
 
     <defs>
-        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
-        </marker>
-        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" />
-        </marker>
-        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
-        </marker>
-        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="blue" />
-        </marker>
-        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
-        </marker>
-        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="purple" />
-        </marker>
-        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
-        </marker>
-        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="pink" />
-        </marker>
-        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
-        </marker>
-        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="red" />
-        </marker>
-        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
-        </marker>
-        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="orange" />
-        </marker>
-        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
-        </marker>
-        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
-        </marker>
         <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
             <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
-        </marker>
-        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="green" />
-        </marker>
-        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
-        </marker>
-        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="brown" />
-        </marker>
-        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
-        </marker>
-        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="gray" />
         </marker>
     </defs>
 
@@ -220,5 +83,5 @@
         <tspan x="524" y="34.9">I have a new</tspan>
         <tspan x="524" y="56.9">packet for you</tspan>
     </text>
-</svg>
 
+</svg>

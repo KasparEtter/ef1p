@@ -1,4 +1,4 @@
-<svg width="278.749" height="278.75" viewBox="-100.638 -110.229 278.749 278.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="684.9490000000001" height="358.61199999999997" viewBox="-303.738 -150.16 684.9490000000001 358.61199999999997" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: white;
+            stroke: white;
         }
 
         text {
@@ -38,6 +38,11 @@
         marker > path {
             fill-opacity: 1;
             stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
         }
 
         .blue {
@@ -67,27 +72,26 @@
         </marker>
     </defs>
 
+    <rect class="filled" x="-303.738" y="-150.16" width="684.9490000000001" height="358.61199999999997" style="fill: #1e1d1f;"></rect>
+
     <line class="yellow" x1="-8.75" y1="-15.155" x2="-39.25" y2="-67.983"></line>
-    <line class="yellow" x1="12.374" y1="12.374" x2="55.508" y2="55.508"></line>
+    <line class="yellow" x1="16.904" y1="-4.529" x2="75.825" y2="-20.317"></line>
+    <line class="yellow" x1="88.2" y1="-7.943" x2="72.412" y2="50.979"></line>
     <line class="yellow" x1="105.103" y1="-37.221" x2="148.237" y2="-80.355"></line>
     <line class="yellow" x1="105.103" y1="-12.472" x2="148.237" y2="30.661"></line>
     <line class="yellow" x1="76.632" y1="83.038" x2="107.132" y2="135.865"></line>
     <line class="yellow" x1="55.508" y1="80.257" x2="12.374" y2="123.39"></line>
-    <line class="orange" x1="143.707" y1="47.565" x2="84.786" y2="63.353" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <line class="orange" x1="72.412" y1="50.979" x2="88.2" y2="-7.943" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <line class="orange" x1="75.825" y1="-20.317" x2="16.904" y2="-4.529" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <line class="orange" x1="-15.155" y1="8.75" x2="-67.983" y2="39.25" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <text class="orange" x="109.588" y="38.072" text-anchor="middle">
-        <tspan x="109.588" y="43.972">■</tspan>
-    </text>
-    <text class="orange" x="62.919" y="16.859" text-anchor="middle">
-        <tspan x="62.919" y="22.759">■</tspan>
-    </text>
-    <text class="orange" x="41.706" y="-29.81" text-anchor="middle">
-        <tspan x="41.706" y="-23.91">■</tspan>
-    </text>
+    <line class="orange" x1="-67.983" y1="39.25" x2="-15.155" y2="8.75" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="12.374" y1="12.374" x2="55.508" y2="55.508" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="84.786" y1="63.353" x2="143.707" y2="47.565" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
     <text class="orange" x="-50.569" y="8.412" text-anchor="middle">
         <tspan x="-50.569" y="14.312">■</tspan>
+    </text>
+    <text class="orange" x="46.669" y="21.213" text-anchor="middle">
+        <tspan x="46.669" y="27.113">■</tspan>
+    </text>
+    <text class="orange" x="109.588" y="38.072" text-anchor="middle">
+        <tspan x="109.588" y="43.972">■</tspan>
     </text>
     <circle class="green" cx="-83.138" cy="48" r="16"></circle>
     <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
@@ -98,5 +102,12 @@
     <circle class="blue" cx="0" cy="0" r="16"></circle>
     <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
     <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
+
+    <mask id="mask">
+        <rect class="filled" x="-263.807" y="128.59" width="39.931" height="39.931" style="fill: white;"></rect>
+        <line x1="-250.496" y1="141.901" x2="-250.496" y2="155.211" style="stroke-width: 9.982; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="-237.186" cy="155.211" r="4.991" style="fill: black;"></circle>
+    </mask>
+    <circle class="filled" cx="-243.841" cy="148.556" r="19.966" style="fill: white;" mask="url(#mask)"/>
 
 </svg>
