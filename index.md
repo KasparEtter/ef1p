@@ -3,7 +3,7 @@ layout: toc
 title: Index
 regenerate: true
 author: Kaspar Etter
-image: generated/focus.png
+image: generated/focus.thumbnail.png
 ---
 
 # {{ site.title }}
