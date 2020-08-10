@@ -8,7 +8,7 @@ import { shareState, shareStore } from '../../react/share';
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
-import { setIpInfoInput } from '../ip/widget';
+import { setIpInfoInput } from '../ip/tool';
 
 import { DnsRecord, DnsResponse, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from './api';
 
@@ -394,7 +394,7 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
 }
 
-export const dnsWidget = <Fragment>
+export const dnsTool = <Fragment>
     <Input entries={{ domainName, recordType, dnssecOk }} horizontal/>
     <DnsResponseTable/>
 </Fragment>;

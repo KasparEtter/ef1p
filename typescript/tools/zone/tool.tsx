@@ -7,7 +7,7 @@ import { PersistedStore, Store } from '../../react/store';
 import { join } from '../../react/utility';
 
 import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../dns/api';
-import { setDnsResolverInputs } from '../dns/widget';
+import { setDnsResolverInputs } from '../dns/tool';
 
 interface Row {
     name: string;
@@ -171,7 +171,7 @@ export function setZoneWalkerInputFields(startDomain: string, resultLimit?: numb
     setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });
 }
 
-export const zoneWidget = <Fragment>
+export const zoneTool = <Fragment>
     <Input entries={{ startDomain, resultLimit }} horizontal />
     <ZoneWalkerResponseTable/>
 </Fragment>;

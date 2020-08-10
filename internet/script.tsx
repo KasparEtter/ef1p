@@ -1,14 +1,14 @@
 import { bind, inject } from '../typescript/react/utility';
 
-import { dnsWidget, setDnsResolverInputs } from '../typescript/widgets/dns/widget';
-import { httpWidget } from '../typescript/widgets/http/widget';
-import { ipWidget } from '../typescript/widgets/ip/widget';
-import { setZoneWalkerInputFields, zoneWidget } from '../typescript/widgets/zone/widget';
+import { dnsTool, setDnsResolverInputs } from '../typescript/tools/dns/tool';
+import { httpTool } from '../typescript/tools/http/tool';
+import { ipTool } from '../typescript/tools/ip/tool';
+import { setZoneWalkerInputFields, zoneTool } from '../typescript/tools/zone/tool';
 
-inject('tool-ip-info', ipWidget);
-inject('tool-http-cli', httpWidget);
-inject('tool-dns-resolver', dnsWidget);
-inject('tool-zone-walker', zoneWidget);
+inject('tool-ip-info', ipTool);
+inject('tool-http-cli', httpTool);
+inject('tool-dns-resolver', dnsTool);
+inject('tool-zone-walker', zoneTool);
 
 bind('dns-query-example-a', 'onclick', () => setDnsResolverInputs('ef1p.com', 'A', false));
 bind('dns-query-example-aaaa', 'onclick', () => setDnsResolverInputs('google.com', 'AAAA', false));

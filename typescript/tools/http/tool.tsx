@@ -96,7 +96,7 @@ const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & 
 const Prompt = shareStore<PersistedState<State>, Children, AllEntries<State>>(store)(RawPrompt);
 const HttpCommand = shareState<PersistedState<State>>(store)(RawHttpCommand);
 
-export const httpWidget = <Fragment>
+export const httpTool = <Fragment>
     <Input entries={{ webAddress }} horizontal />
     <HttpCommand/>
 </Fragment>;

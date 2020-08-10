@@ -1,9 +1,9 @@
 import { inject } from '../typescript/react/utility';
 
-import { dnsWidget } from '../typescript/widgets/dns/widget';
-import { ipWidget } from '../typescript/widgets/ip/widget';
-import { zoneWidget } from '../typescript/widgets/zone/widget';
+import { dnsTool } from '../typescript/tools/dns/tool';
+import { ipTool } from '../typescript/tools/ip/tool';
+import { zoneTool } from '../typescript/tools/zone/tool';
 
-inject('tool-ip-info', ipWidget);
-inject('tool-dns-resolver', dnsWidget);
-inject('tool-zone-walker', zoneWidget);
+inject('tool-ip-info', ipTool);
+inject('tool-dns-resolver', dnsTool);
+inject('tool-zone-walker', zoneTool);

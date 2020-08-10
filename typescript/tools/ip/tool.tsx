@@ -81,7 +81,7 @@ export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });
 }
 
-export const ipWidget = <Fragment>
+export const ipTool = <Fragment>
     <Input entries={{ ipAddress }} horizontal />
     <IpInfoResponseParagraph/>
 </Fragment>;
