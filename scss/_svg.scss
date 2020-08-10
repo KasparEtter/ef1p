@@ -47,11 +47,17 @@ svg.figure {
   polyline,
   path {
     fill-opacity: 0;
-    stroke-width: 3px;
+    stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
+  .filled {
+    fill-opacity: 1;
+    stroke-width: 0;
+  }
+
+  // Don't round corners.
   .angular {
     stroke-linecap: square;
     stroke-linejoin: miter;
@@ -64,7 +70,7 @@ svg.figure {
 
   marker > circle {
     fill-opacity: 1;
-    stroke-width: 1px;
+    stroke-width: 1;
   }
 
   @each $color, $value in $svg-colors {
