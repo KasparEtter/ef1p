@@ -3,6 +3,8 @@ import path from 'path';
 import { Color, colors, colorSuffix } from '../../utility/color';
 
 import { strokeRadiusMargin } from '../utility/constants';
+import { P } from '../utility/point';
+import { round3 } from '../utility/rounding';
 
 import { ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
 
@@ -10,17 +12,41 @@ interface SVGProps extends StructuralElementProps {
     title?: string;
     description?: string;
     embedded?: boolean;
+    thumbnail?: boolean;
 }
+
+const thumbnailRatio = 1.91;
+const thumbnailMargin = 0.075;
 
 export class SVG extends StructuralElement<SVGProps> {
     protected _encode(prefix: string, {
         title,
         description,
         embedded = process.argv[2] === 'embedded',
+        thumbnail = process.argv[2] === 'thumbnail',
     }: SVGProps): string {
         const name = path.basename(process.argv[1], '.svg.ts');
-        const box = this.boundingBox().addMargin(strokeRadiusMargin);
-        const size = box.size();
+        let box = this.boundingBox().addMargin(strokeRadiusMargin).round3();
+        let size = box.size();
+        let margin = 0;
+
+        if (thumbnail) {
+            const originalRatio = size.x / size.y;
+            if (originalRatio < thumbnailRatio) {
+                // The picture is too high.
+                const dy = size.y * thumbnailMargin * thumbnailRatio;
+                const dx = ((size.y + 2 * dy) * thumbnailRatio - size.x) / 2;
+                box = box.addMargin(P(dx, dy)).round3();
+                margin = dy;
+            } else {
+                // The picture is too wide.
+                const dx = size.x * thumbnailMargin;
+                const dy = ((size.x + 2 * dx) / thumbnailRatio - size.y) / 2;
+                box = box.addMargin(P(dx, dy)).round3();
+                margin = dx;
+            }
+            size = box.size();
+        }
 
         let result = prefix + `<svg`
             + (embedded ? ` id="figure-${name}"` : '')
@@ -63,12 +89,35 @@ export class SVG extends StructuralElement<SVGProps> {
         }
         result += prefix + indentation + `</defs>\n`;
 
-        result += this.children(prefix) + `</svg>\n`;
+        if (thumbnail) {
+            result += `\n` + prefix + indentation + `<rect class="filled" x="${box.topLeft.x}" y="${box.topLeft.y}" width="${ size.x }" height="${ size.y }" style="fill: #1e1d1f;"></rect>\n`;
+        }
+
+        result += this.children(prefix);
+
+        if (thumbnail) {
+            const size = round3(margin);
+            const center = round3(size / 2);
+            const radius = round3(size / 8);
+            const padding = round3(radius / 3);
+            const x = round3(box.topLeft.x + size);
+            const y = round3(box.bottomRight.y - 2 * size);
+            const cx = round3(x + center);
+            const cy = round3(y + center);
+            result += `\n`;
+            result += prefix + indentation + `<mask id="mask">\n`;
+            result += prefix + indentation + indentation + `<rect class="filled" x="${x}" y="${y}" width="${size}" height="${size}" style="fill: white;"></rect>\n`;
+            result += prefix + indentation + indentation + `<line x1="${cx - padding - radius}" y1="${cy - padding - radius}" x2="${cx - padding - radius}" y2="${cy + padding + radius}" style="stroke-width: ${radius * 2}; stroke-linecap: round; stroke: black;"></line>\n`;
+            result += prefix + indentation + indentation + `<circle class="filled" cx="${cx + padding + radius}" cy="${cy + padding + radius}" r="${radius}" style="fill: black;"></circle>\n`;
+            result += prefix + indentation + `</mask>\n`;
+            result += prefix + indentation + `<circle class="filled" cx="${cx}" cy="${cy}" r="${center}" style="fill: white;" mask="url(#mask)"/>\n`; // #375A7F
+        }
+
+        result += `</svg>\n`;
         return result;
     }
 
     public print() {
-        // tslint:disable-next-line: no-console
         console.log(this.toString());
     }
 }
@@ -95,9 +144,14 @@ export const style = `<style>
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3px;
+            stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
         }
 
         .angular {
@@ -112,7 +166,7 @@ export const style = `<style>
 
         marker > circle {
             fill-opacity: 1;
-            stroke-width: 1px;
+            stroke-width: 1;
         }
 
         .font-weight-bold {
