@@ -398,3 +398,14 @@ export const dnsTool = <Fragment>
     <Input entries={{ domainName, recordType, dnssecOk }} horizontal/>
     <DnsResponseTable/>
 </Fragment>;
+
+export function bindDnsQueries() {
+    Array.from(document.getElementsByClassName('dns-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+        const { domain, type, dnssec } = element.dataset;
+        if (domain === undefined || !Object.keys(recordTypes).includes(type!) || !['true', 'false'].includes(dnssec!)) {
+            console.error('The data attributes of the following element are invalid:', element);
+        } else {
+            element.addEventListener('click', () => setDnsResolverInputs(domain, type as RecordType, dnssec === 'true'));
+        }
+    });
+}

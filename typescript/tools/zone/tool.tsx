@@ -175,3 +175,14 @@ export const zoneTool = <Fragment>
     <Input entries={{ startDomain, resultLimit }} horizontal />
     <ZoneWalkerResponseTable/>
 </Fragment>;
+
+export function bindZoneWalks() {
+    Array.from(document.getElementsByClassName('zone-walk') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+        const domain = element.dataset.domain;
+        if (domain === undefined) {
+            console.error('The data attributes of the following element are invalid:', element);
+        } else {
+            element.addEventListener('click', () => setZoneWalkerInputFields(domain, 25));
+        }
+    });
+}
