@@ -304,16 +304,20 @@ function RawDnsResponseTable({ response, error }: Readonly<DnsResponseState>): J
             {
                 response.status !== 0 &&
                 <p className="text-center">{responseStatusCodes[response.status] ?? 'The response has a status code which is not supported by this tool.'}</p>
-            }{
+            }
+            {
                 response.status === 0 && response.authority.length > 0 &&
                 <p className="table-title">Answer section</p>
-            }{
+            }
+            {
                 response.status === 0 && response.answer.length === 0 &&
                 <p className="text-center">No records found for this domain name and record type.</p>
-            }{
+            }
+            {
                 response.answer.length > 0 &&
                 turnRecordsIntoTable(response.answer)
-            }{
+            }
+            {
                 response.authority.length > 0 &&
                 <Fragment>
                     <p className="table-title">Authority section</p>
@@ -343,12 +347,12 @@ function updateDnsResponseTable({ domainName, recordType, dnssecOk }: State): vo
 }
 
 const domainName: DynamicEntry<string> = {
-    name: 'Domain name',
+    name: 'Domain',
     description: 'The domain name you are interested in.',
     defaultValue: 'ef1p.com',
     inputType: 'text',
-    labelWidth: 101,
-    inputWidth: 210,
+    labelWidth: 60,
+    inputWidth: 248,
     validate: value =>
         value === '' && 'The domain name may not be empty.' || // Redundant to the regular expression, just a more specific error message.
         value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
@@ -359,11 +363,11 @@ const domainName: DynamicEntry<string> = {
 };
 
 const recordType: DynamicEntry<string> = {
-    name: 'Record type',
+    name: 'Type',
     description: 'The DNS record type you want to query.',
     defaultValue: 'A',
     inputType: 'select',
-    labelWidth: 89,
+    labelWidth: 38,
     selectOptions: recordTypes,
 };
 
@@ -395,7 +399,7 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
 }
 
 export const dnsTool = <Fragment>
-    <Input entries={{ domainName, recordType, dnssecOk }} horizontal/>
+    <Input entries={{ domainName, recordType, dnssecOk }} horizontal submit="Query"/>
     <DnsResponseTable/>
 </Fragment>;
 

@@ -39,7 +39,8 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
     const [, protocol, domain, port, path] = /^(http|https):\/\/([a-z0-9-\.]+)(?::(\d+))?(\/.*)?$/i.exec(webAddress)!;
     return <CodeBlock>
         <Prompt>
-            {protocol === 'http' ?
+            {
+                protocol === 'http' ?
                 <span
                     className="static-output"
                     title="A common command to open a TCP channel to the specified server."
@@ -48,7 +49,8 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                     className="static-output"
                     title="A common command with some options to open a TLS channel to the specified server."
                 >openssl s_client -connect</span>
-            }{' '}
+            }
+            {' '}
             <span
                 className="dynamic-output"
                 title="The domain name of the server, which is resolved to an IP address using DNS."

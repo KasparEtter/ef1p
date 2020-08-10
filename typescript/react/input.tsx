@@ -3,7 +3,7 @@ import { ChangeEvent, Component, createElement } from 'react';
 import { normalizeToArray, normalizeToValue } from '../utility/functions';
 
 import { CustomInput } from './custom';
-import { AllEntries, clearState, DynamicEntry, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
+import { AllEntries, clearState, DynamicEntry, getCurrentState, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
 import { ProvidedStore } from './share';
 
 export interface RawInputProps {
@@ -11,6 +11,7 @@ export interface RawInputProps {
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
     horizontal?: boolean; // Default: false.
+    submit?: string; // Defaults to no button.
 }
 
 export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps> {
@@ -41,6 +42,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         this.props.store.update();
     }
 
+    private readonly onSubmit = () => {
+        this.props.store.meta.onChange?.(getCurrentState(this.props.store));
+    }
+
     private readonly onPrevious = () => {
         previousState(this.props.store);
     }
@@ -60,6 +65,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     public render() {
         const entries = this.props.entries;
         const maxLabelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
+        const errors = !Object.values(this.props.store.state.errors).every(error => !error);
         return <div className={
             (this.props.inline ? 'inline-form' : 'block-form') + ' ' +
             (this.props.horizontal ? 'horizontal-form' : 'vertical-form')
@@ -82,7 +88,8 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         >
                             {entry.name}:
                         </span>
-                    }{
+                    }
+                    {
                         (entry.inputType === 'checkbox' || entry.inputType === 'switch') &&
                         <span className={`custom-control custom-${entry.inputType}`}>
                             <CustomInput
@@ -95,7 +102,8 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                             />
                             <span className="custom-control-label"></span>
                         </span>
-                    }{
+                    }
+                    {
                         entry.inputType === 'select' &&
                         <select
                             name={key}
@@ -107,7 +115,8 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                 ([key, text]) => <option value={key} selected={key === input}>{text}</option>,
                             )}
                         </select>
-                    }{ // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
+                    }
+                    { // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
                         entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' &&
                         <span className="d-inline-block">
                             <CustomInput
@@ -140,19 +149,25 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                         option => <option value={'' + option}/>,
                                     )}
                                 </datalist>
-                            }{
+                            }
+                            {
                                 error &&
                                 <div className="invalid-feedback">
                                     {error}
                                 </div>
                             }
                         </span>
-                    }{
+                    }
+                    {
                         entry.inputType === 'range' &&
                         <span className="range-value">{input}</span>
                     }
                 </label>;
             })}
+            {
+                this.props.submit && this.props.store.meta.onChange &&
+                <button type="button" className="label btn btn-sm btn-primary" onClick={this.onSubmit} disabled={errors} title={errors ? 'Make sure that there are no errors.' : 'Submit the input fields.'}>{this.props.submit}</button>
+            }
             {
                 !this.props.noHistory &&
                 <div className="label btn-icon btn-group btn-group-sm" role="group" aria-label="Walk through the history of values.">
