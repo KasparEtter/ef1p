@@ -1,16 +1,27 @@
 import { Color, colorSuffix } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
 
+import { Collector } from '../elements/element';
+
 import { strokeRadius } from './constants';
 
 export type Marker = 'start' | 'middle' | 'end';
 
-export function markerOffset(marker: undefined | Marker | Marker[], side: Exclude<Marker, 'middle'>): number {
+export function markerOffset(
+    marker: undefined | Marker | Marker[],
+    side: Exclude<Marker, 'middle'>,
+): number {
     marker = normalizeToArray(marker);
     return marker.includes('middle') && !marker.includes(side) ? 0 : strokeRadius;
 }
 
-export function markerAttributes(length: () => number, marker?: Marker | Marker[], color?: Color, midMarker: boolean = false): string {
+export function markerAttributes(
+    collector: Collector,
+    length: () => number,
+    marker?: Marker | Marker[],
+    color?: Color,
+    midMarker: boolean = false,
+): string {
     let result = '';
     marker = normalizeToArray(marker);
     if (marker.length > 0) {
@@ -20,20 +31,25 @@ export function markerAttributes(length: () => number, marker?: Marker | Marker[
 
         if (marker.includes('start')) {
             result += ' marker-start=' + arrow;
+            collector.arrows.add(color);
             arrowCounter++;
         } else if (marker.includes('middle')) {
             result += ' marker-start=' + circle;
+            collector.circles.add(color);
         }
 
         if (midMarker && marker.includes('middle')) {
             result += ' marker-mid=' + circle;
+            collector.circles.add(color);
         }
 
         if (marker.includes('end')) {
             result += ' marker-end=' + arrow;
+            collector.arrows.add(color);
             arrowCounter++;
         } else if (marker.includes('middle')) {
             result += ' marker-end=' + circle;
+            collector.circles.add(color);
         }
 
         if (arrowCounter > 0) {

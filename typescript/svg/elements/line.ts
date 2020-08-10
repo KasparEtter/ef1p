@@ -6,9 +6,9 @@ import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { LineSide, Point } from '../utility/point';
 
 import { Circle } from './circle';
-import { VisualElement, VisualElementProps } from './element';
+import { Collector, VisualElement, VisualElementProps } from './element';
 import { Ellipse } from './ellipse';
-import { Alignment, HorizontalAlignment, Text, TextProps, VerticalAlignment } from './text';
+import { Alignment, HorizontalAlignment, Text, TextLine, TextProps, VerticalAlignment } from './text';
 
 export function determineAlignment(offset: Point): Alignment {
     const absoluteOffset = offset.absolute();
@@ -50,7 +50,7 @@ export class Line extends VisualElement<LineProps> {
         return BoundingBox(start, end);
     }
 
-    protected _encode(prefix: string, {
+    protected _encode(collector: Collector, prefix: string, {
         start,
         end,
         marker,
@@ -58,17 +58,18 @@ export class Line extends VisualElement<LineProps> {
     }: LineProps): string {
         start = start.round3();
         end = end.round3();
-        return prefix + `<line${this.attributes()}`
+        collector.elements.add('line');
+        return prefix + `<line${this.attributes(collector)}`
             + ` x1="${start.x}"`
             + ` y1="${start.y}"`
             + ` x2="${end.x}"`
             + ` y2="${end.y}"`
-            + markerAttributes(this.length.bind(this), marker, color)
-            + `>${this.children(prefix)}</line>\n`;
+            + markerAttributes(collector, this.length.bind(this), marker, color)
+            + `>${this.children(collector, prefix)}</line>\n`;
     }
 
     public text(
-        text: string | string[],
+        text: TextLine | TextLine[],
         side: LineSide = 'left',
         distance: number = lineToTextDistance,
         // Horizontal and vertical alignment are intentionally not excluded because the defaults should be overridable.

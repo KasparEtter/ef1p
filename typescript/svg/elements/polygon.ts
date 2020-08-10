@@ -2,7 +2,7 @@ import { Box } from '../utility/box';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
-import { VisualElementProps } from './element';
+import { Collector, VisualElementProps } from './element';
 
 export interface PolygonProps extends VisualElementProps {
     points: Point[];
@@ -25,9 +25,10 @@ export class Polygon extends CenterTextElement<PolygonProps> {
         return new Box(min, max);
     }
 
-    protected _encode(prefix: string, { points }: PolygonProps): string {
-        return prefix + `<polygon${this.attributes()}`
+    protected _encode(collector: Collector, prefix: string, { points }: PolygonProps): string {
+        collector.elements.add('polygon');
+        return prefix + `<polygon${this.attributes(collector)}`
             + ` points="${points.map(point => point.round3().encode()).join(' ')}">`
-            + `${this.children(prefix)}</polygon>\n`;
+            + `${this.children(collector, prefix)}</polygon>\n`;
     }
 }

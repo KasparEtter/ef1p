@@ -5,49 +5,88 @@ import { doubleTextMargin } from '../utility/constants';
 import { Point } from '../utility/point';
 import { round3 } from '../utility/rounding';
 
-import { indentation, VisualElement, VisualElementProps } from './element';
+import { AnimationElement, Collector, indentation, VisualElement, VisualElementProps } from './element';
 
-// If you use any of the following functions, which return a tspan, pass the result as an array to the text element
-// in order to trigger the Safari-compatible rendering by nesting it inside another, explicitly positioned tspan.
-
-export function bold(text: string) {
-    return `<tspan class="font-weight-bold">${text}</tspan>`;
+export interface TspanProps {
+    text: string;
+    className: string;
 }
 
-export function italic(text: string) {
-    return `<tspan class="font-italic">${text}</tspan>`;
+// Tspans are not actually animation elements but they also don't have a bounding box.
+export class Tspan extends AnimationElement {
+    public constructor(props: Readonly<TspanProps>) {
+        super(props);
+    }
+
+    protected _encode(collector: Collector, _: string, {
+        text,
+        className,
+    }: TspanProps): string {
+        collector.classes.add(className);
+        return `<tspan class="${className}">${text}</tspan>`;
+    }
 }
 
-export function underline(text: string) {
-    return `<tspan class="text-underline">${text}</tspan>`;
+export function bold(text: string): Tspan {
+    return new Tspan({ text, className: 'font-weight-bold' });
 }
 
-export function lineThrough(text: string) {
-    return `<tspan class="text-line-through">${text}</tspan>`;
+export function italic(text: string): Tspan {
+    return new Tspan({ text, className: 'font-italic' });
 }
 
-export function small(text: string) {
-    return `<tspan class="small">${text}</tspan>`;
+export function underline(text: string): Tspan {
+    return new Tspan({ text, className: 'text-underline' });
+}
+
+export function lineThrough(text: string): Tspan {
+    return new Tspan({ text, className: 'text-line-through' });
+}
+
+export function small(text: string): Tspan {
+    return new Tspan({ text, className: 'small' });
 }
 
 // The following methods are useful to circumvent kramdown's replacement of abbreviations
 // (see https://github.com/gettalong/kramdown/issues/671 for more information).
-export function uppercase(text: string) {
-    return `<tspan class="text-uppercase">${text}</tspan>`;
+export function uppercase(text: string): Tspan {
+    return new Tspan({ text, className: 'text-uppercase' });
 }
 
-export function lowercase(text: string) {
-    return `<tspan class="text-lowercase">${text}</tspan>`;
+export function lowercase(text: string): Tspan {
+    return new Tspan({ text, className: 'text-lowercase' });
 }
 
-export function capitalize(text: string) {
-    return `<tspan class="text-capitalize">${text}</tspan>`;
+export function capitalize(text: string): Tspan {
+    return new Tspan({ text, className: 'text-capitalize' });
+}
+
+export interface AnchorProps {
+    text: string;
+    url: string;
+}
+
+// Anchors are not actually animation elements but they also don't have a bounding box.
+export class Anchor extends AnimationElement {
+    public constructor(props: Readonly<AnchorProps>) {
+        super(props);
+    }
+
+    protected _encode(collector: Collector, _: string, {
+        text,
+        url,
+    }: AnchorProps): string {
+        collector.elements.add('a');
+        return `<a href="${url}">${text}</a>`;
+    }
 }
 
 // Links are not correctly styled on Safari and iOS.
-export function href(text: string, url: string) {
-    return `<a href="${url}">${text}</a>`;
+export function href(text: string, url: string): Anchor {
+    return new Anchor({ text, url });
 }
+
+export type TextLine = string | Tspan | Anchor;
 
 export type TextStyle = 'bold' | 'italic' | 'small'; // For now only those that affect the width.
 
@@ -105,15 +144,13 @@ export function translateVerticalAlignment(value: VerticalAlignment): string {
 
 export interface TextProps extends VisualElementProps {
     position: Point;
-    text: string | string[];
+    text: TextLine | TextLine[];
     horizontalAlignment?: HorizontalAlignment;
     verticalAlignment?: VerticalAlignment;
 }
 
 export class Text extends VisualElement<TextProps> {
-    public constructor(
-        props: Readonly<TextProps>,
-    ) {
+    public constructor(props: Readonly<TextProps>) {
         super(props);
 
         if (Array.isArray(props.text) && props.text.length === 0) {
@@ -125,7 +162,7 @@ export class Text extends VisualElement<TextProps> {
         return new Box(position, position);
     }
 
-    protected _encode(prefix: string, {
+    protected _encode(collector: Collector, prefix: string, {
         position,
         text,
         horizontalAlignment = 'left',
@@ -133,7 +170,8 @@ export class Text extends VisualElement<TextProps> {
     }: TextProps): string {
         text = normalizeToArray(text);
         position = position.round3();
-        let result = prefix + `<text` + this.attributes()
+        collector.elements.add('text');
+        let result = prefix + `<text` + this.attributes(collector)
             + ` x="${position.x}"`
             + ` y="${position.y}"`
             + ` text-anchor="${translateHorizontalAlignment(horizontalAlignment)}">\n`;
@@ -150,11 +188,12 @@ export class Text extends VisualElement<TextProps> {
                 y = position.y - (text.length - 1) * lineHeight;
                 break;
         }
+        collector.elements.add('tspan');
         for (const line of text) {
-            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${line}</tspan>\n`;
+            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${typeof line === 'string' ? line : line.encode(collector, prefix)}</tspan>\n`;
             y += lineHeight;
         }
-        result += prefix + this.children(prefix) + `</text>\n`;
+        result += prefix + this.children(collector, prefix) + `</text>\n`;
         return result;
     }
 }

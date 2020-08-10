@@ -3,9 +3,9 @@ import { lineToTextDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
-import { VisualElement, VisualElementProps } from './element';
+import { Collector, VisualElement, VisualElementProps } from './element';
 import { determineAlignment } from './line';
-import { Text, TextProps } from './text';
+import { Text, TextLine, TextProps } from './text';
 
 export interface ArcProps extends VisualElementProps {
     start: Point;
@@ -123,16 +123,17 @@ export class Arc extends VisualElement<ArcProps> {
         }
     }
 
-    protected _encode(prefix: string, { start, end, marker, color }: ArcProps): string {
+    protected _encode(collector: Collector, prefix: string, { start, end, marker, color }: ArcProps): string {
         const {x, y} = this.radius().round3(); // This rounding (and numeric imprecision) could introduce problems in case of half ellipses.
-        return prefix + `<path${this.attributes()}`
+        collector.elements.add('path');
+        return prefix + `<path${this.attributes(collector)}`
             + ` d="M ${start.round3().encode()} A ${x} ${y} 0 0 ${this.rotation()} ${end.encode()}"`
-            + markerAttributes(this.length.bind(this), marker, color)
-            + `>${this.children(prefix)}</path>\n`;
+            + markerAttributes(collector, this.length.bind(this), marker, color)
+            + `>${this.children(collector, prefix)}</path>\n`;
     }
 
     public text(
-        text: string | string[],
+        text: TextLine | TextLine[],
         side: ArcSide,
         props: Omit<TextProps, 'position' | 'text' | 'horizontalAlignment' | 'verticalAlignment'> = {},
     ): Text {

@@ -3,7 +3,7 @@ import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
 import { Circle } from './circle';
-import { VisualElement, VisualElementProps } from './element';
+import { Collector, VisualElement, VisualElementProps } from './element';
 import { Ellipse } from './ellipse';
 
 export interface PolylineProps extends VisualElementProps {
@@ -37,11 +37,12 @@ export class Polyline extends VisualElement<PolylineProps> {
         return new Box(min, max);
     }
 
-    protected _encode(prefix: string, { points, marker, color }: PolylineProps): string {
-        return prefix + `<polyline${this.attributes()}`
+    protected _encode(collector: Collector, prefix: string, { points, marker, color }: PolylineProps): string {
+        collector.elements.add('polyline');
+        return prefix + `<polyline${this.attributes(collector)}`
             + ` points="${points.map(point => point.round3().encode()).join(' ')}"`
-            + markerAttributes(this.length.bind(this), marker, color, true)
-            + `>${this.children(prefix)}</polyline>\n`;
+            + markerAttributes(collector, this.length.bind(this), marker, color, true)
+            + `>${this.children(collector, prefix)}</polyline>\n`;
     }
 }
 

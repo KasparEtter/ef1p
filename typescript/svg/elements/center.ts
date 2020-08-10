@@ -1,9 +1,9 @@
 import { VisualElement, VisualElementProps } from './element';
-import { Text, TextProps } from './text';
+import { Text, TextLine, TextProps } from './text';
 
 export abstract class CenterTextElement<P extends VisualElementProps> extends VisualElement<P> {
     public text(
-        text: string | string[],
+        text: TextLine | TextLine[],
         props: Omit<TextProps, 'position' | 'text' | 'horizontalAlignment' | 'verticalAlignment'> = {},
     ): Text {
         const position = this.center();

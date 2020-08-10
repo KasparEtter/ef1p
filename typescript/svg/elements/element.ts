@@ -5,21 +5,37 @@ import { Point } from '../utility/point';
 
 export const indentation = '    ';
 
+export interface Collector {
+    theme: 'light' | 'dark';
+    elements: Set<string>;
+    classes: Set<string>;
+    circles: Set<Color | undefined>;
+    arrows: Set<Color | undefined>;
+}
+
+function createEmptyCollector(): Collector {
+    return {
+        theme: 'light',
+        elements: new Set(),
+        classes: new Set(),
+        circles: new Set(),
+        arrows: new Set(),
+    };
+}
+
 // Element
 
 export abstract class Element<P = object> {
-    public constructor(
-        public readonly props: Readonly<P>,
-    ) {}
+    public constructor(public readonly props: Readonly<P>) {}
 
-    protected abstract _encode(prefix: string, props: Readonly<P>): string;
+    protected abstract _encode(collector: Collector, prefix: string, props: Readonly<P>): string;
 
-    public encode(prefix: string): string {
-        return this._encode(prefix, this.props);
+    public encode(collector: Collector, prefix: string): string {
+        return this._encode(collector, prefix, this.props);
     }
 
     public toString(): string {
-        return this.encode('');
+        return this.encode(createEmptyCollector(), '');
     }
 }
 
@@ -45,25 +61,26 @@ export abstract class ElementWithChildren<C extends Element, P extends ElementWi
         return this._boundingBox(this.props);
     }
 
-    protected attributes(): string {
+    protected attributes(collector: Collector): string {
         const props = this.props;
         let classes: string[] = props.classes ?? [];
         const color: Color | undefined = props.color;
         if (color) {
             classes = [color, ...classes]; // classes.unshift(color) would modify the property itself.
         }
+        classes.forEach(className => collector.classes.add(className));
         return (props.id ? ` id="${props.id}"` : '')
             + (props.style ? ` style="${props.style}"` : '')
             + (classes.length > 0 ? ` class="${classes.join(' ')}"` : '')
             + (props.transform ? ` transform="${props.transform}"` : '');
     }
 
-    protected children(prefix: string): string {
+    protected children(collector: Collector, prefix: string): string {
         const children = this.props.children;
         let result = '';
         if (children) {
             result += '\n';
-            children.forEach(child => result += child.encode(prefix + indentation));
+            children.forEach(child => result += child.encode(collector, prefix + indentation));
             result += prefix;
         }
         return result;
@@ -87,9 +104,7 @@ export interface StructuralElementProps extends ElementWithChildrenProps<Element
 }
 
 export abstract class StructuralElement<P extends StructuralElementProps> extends ElementWithChildren<ElementWithChildren<any, any>, P> {
-    public constructor(
-        props: Readonly<P>,
-    ) {
+    public constructor(props: Readonly<P>) {
         super(props);
 
         if (props.children.length === 0) {

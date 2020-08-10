@@ -4,7 +4,7 @@ import { Point } from '../utility/point';
 import { round3 } from '../utility/rounding';
 
 import { CenterTextElement } from './center';
-import { VisualElementProps } from './element';
+import { Collector, VisualElementProps } from './element';
 
 export interface CircleProps extends VisualElementProps {
     center: Point;
@@ -27,13 +27,14 @@ export class Circle extends CenterTextElement<CircleProps> {
         return new Box(center.subtract(vector), center.add(vector));
     }
 
-    protected _encode(prefix: string, { center, radius }: CircleProps): string {
+    protected _encode(collector: Collector, prefix: string, { center, radius }: CircleProps): string {
         center = center.round3();
         radius = round3(radius);
-        return prefix + `<circle${this.attributes()}`
+        collector.elements.add('circle');
+        return prefix + `<circle${this.attributes(collector)}`
             + ` cx="${center.x}" cy="${center.y}"`
             + ` r="${radius}">`
-            + `${this.children(prefix)}</circle>\n`;
+            + `${this.children(collector, prefix)}</circle>\n`;
     }
 
     public pointTowards(target: Point, offset: number = strokeRadius): Point {

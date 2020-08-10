@@ -1,8 +1,9 @@
-import { ElementWithChildren, StructuralElement, StructuralElementProps } from './element';
+import { Collector, ElementWithChildren, StructuralElement, StructuralElementProps } from './element';
 
 export class Group extends StructuralElement<StructuralElementProps> {
-    protected _encode(prefix: string): string {
-        return prefix + `<g${this.attributes()}>${this.children(prefix)}</g>\n`;
+    protected _encode(collector: Collector, prefix: string): string {
+        collector.elements.add('g');
+        return prefix + `<g${this.attributes(collector)}>${this.children(collector, prefix)}</g>\n`;
     }
 }
 

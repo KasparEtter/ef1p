@@ -4,9 +4,9 @@ import { Box } from '../utility/box';
 import { defaultCornerRadius, textMargin } from '../utility/constants';
 import { Point } from '../utility/point';
 
-import { VisualElement, VisualElementProps } from './element';
+import { Collector, VisualElement, VisualElementProps } from './element';
 import { Line } from './line';
-import { Text, TextProps } from './text';
+import { Text, TextLine, TextProps } from './text';
 
 export interface RectangleProps extends VisualElementProps {
     position: Point;
@@ -29,22 +29,23 @@ export class Rectangle extends VisualElement<RectangleProps> {
         return new Box(position, position.add(size));
     }
 
-    protected _encode(prefix: string, {
+    protected _encode(collector: Collector, prefix: string, {
         position,
         size,
         cornerRadius = defaultCornerRadius,
     }: RectangleProps): string {
         position = position.round3();
         size = size.round3();
-        return prefix + `<rect${this.attributes()}`
+        collector.elements.add('rect');
+        return prefix + `<rect${this.attributes(collector)}`
             + ` x="${position.x}" y="${position.y}"`
             + ` width="${size.x}" height="${size.y}"`
             + ` rx="${cornerRadius}" ry="${cornerRadius}">`
-            + `${this.children(prefix)}</rect>\n`;
+            + `${this.children(collector, prefix)}</rect>\n`;
     }
 
     public text(
-        text: string | string[],
+        text: TextLine | TextLine[],
         props: Omit<TextProps, 'position' | 'text'> = {},
         margin: Point = textMargin,
     ): Text {

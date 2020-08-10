@@ -3,7 +3,7 @@ import { strokeRadius } from '../utility/constants';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
-import { VisualElementProps } from './element';
+import { Collector, VisualElementProps } from './element';
 
 export interface EllipseProps extends VisualElementProps {
     center: Point;
@@ -25,13 +25,14 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
         return new Box(center.subtract(radius), center.add(radius));
     }
 
-    protected _encode(prefix: string, { center, radius }: EllipseProps): string {
+    protected _encode(collector: Collector, prefix: string, { center, radius }: EllipseProps): string {
         center = center.round3();
         radius = radius.round3();
-        return prefix + `<ellipse${this.attributes()}`
+        collector.elements.add('ellipse');
+        return prefix + `<ellipse${this.attributes(collector)}`
             + ` cx="${center.x}" cy="${center.y}"`
             + ` rx="${radius.x}" ry="${radius.y}">`
-            + `${this.children(prefix)}</ellipse>\n`;
+            + `${this.children(collector, prefix)}</ellipse>\n`;
     }
 
     public pointTowards(other: Point, offset: number = strokeRadius): Point {
