@@ -2,7 +2,7 @@
 layout: toc
 title: Tools
 script: tools
-image: /internet/generated/client-server.png
+image: /internet/generated/client-server.thumbnail.png
 teaser: Play around with IP geolocation and DNS resolution.
 ---
 
