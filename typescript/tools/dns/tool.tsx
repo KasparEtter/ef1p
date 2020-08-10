@@ -29,6 +29,10 @@ function parseTimeToLive(ttl: number): string {
     }
 }
 
+export function getReverseLookupDomain(ipAddress: string): string {
+    return ipAddress.split('.').reverse().join('.') + '.in-addr.arpa';
+}
+
 const dnskeyFlags: { [key: string]: string | undefined } = {
     '0': 'The DNS public key in this record may not be used to verify RRSIG records.',
     '256': 'The DNS public key in this record can be used to verify RRSIG records. It is marked as a zone-signing key (ZSK).',
@@ -106,7 +110,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         regexp: /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
         fields: [{
             title: (_, record) => `The IPv4 address of ${record.name} Click to do a reverse lookup. Right click to geolocate the IP address.`,
-            onClick: field => setDnsResolverInputs(field.split('.').reverse().join('.') + '.in-addr.arpa', 'PTR'),
+            onClick: field => setDnsResolverInputs(getReverseLookupDomain(field), 'PTR'),
             onContextMenu: field => { setIpInfoInput(field); window.location.hash = '#tool-ip-info'; },
         }],
     },

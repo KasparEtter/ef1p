@@ -7,6 +7,8 @@ import { RawInput, RawInputProps } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
 import { PersistedStore, Store } from '../../react/store';
 
+import { getReverseLookupDomain, setDnsResolverInputs } from '../dns/tool';
+
 import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from './api';
 
 interface IpInfoResponseState {
@@ -19,21 +21,27 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
         return <p>Could not retrieve information about this IP address. Make sure you have your adblocker disabled for this site.</p>;
     } else if (response) {
         if (isSuccessfulIpInfoResponse(response)) {
+            const address = <span
+                className="dynamic-output"
+                title="Click to copy. Right click to do a reverse lookup."
+                onClick={_ => copyToClipboard(response.ip)}
+                onContextMenu={event => {
+                    setDnsResolverInputs(getReverseLookupDomain(response.ip), 'PTR');
+                    window.location.hash = '#tool-dns-resolver';
+                    event.preventDefault();
+                }}
+            >{response.ip}</span>;
             const location = <a href={`https://www.google.com/maps/@${response.loc},14z`}>{response.city} ({response.country})</a>;
             const provider = response.org.replace(/^AS\d+/, '');
             if (getCurrentState(store).ipAddress === '') {
                 return <p className="dynamic-output-pointer">
-                    Your IP address is <span
-                        className="dynamic-output"
-                        title="Click to copy."
-                        onClick={_ => copyToClipboard(response.ip)}
-                    >{response.ip}</span>.
+                    Your IP address is {address}.
                     You're currently in {location},
                     using the network of {provider}.
                 </p>;
             } else {
-                return <p>
-                    The device with this IP address is likely located in {location}.
+                return <p className="dynamic-output-pointer">
+                    The device with the IP address {address} is likely located in {location}.
                     The network is operated by {provider}.
                 </p>;
             }
