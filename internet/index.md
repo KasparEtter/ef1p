@@ -5,19 +5,11 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-image: /internet/generated/signal-relaying-packet-request.png
-teaser: Learn the difference between the Internet and the Web in this introductory article.
+modified: 2020-08-10
+image: /internet/generated/signal-relaying-packet-request.thumbnail.png
+teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
 ---
-
-This article is intended for everyone
-who doesn't know the difference between
-the [Internet](https://en.wikipedia.org/wiki/Internet)
-and the [Web](https://en.wikipedia.org/wiki/World_Wide_Web).
-If you make it to the end of this page,
-you will have a better understanding
-of this critical infrastructure,
-which you likely use for hours every day.
 
 Due to the nature of the topic,
 this article contains a lot of acronyms.
@@ -2757,11 +2749,6 @@ of important milestones in the area of network technologies and standards – an
 Important milestones in the history of [telecommunication](https://en.wikipedia.org/wiki/Telecommunication) and the Internet.
 </figcaption>
 </figure>
-
-So what exactly is the difference between the Internet and the Web?
-The Internet is the communication infrastructure,
-which connects devices around the globe with each other.
-The Web is just one of many services that run on top of it.
 
 ---
 

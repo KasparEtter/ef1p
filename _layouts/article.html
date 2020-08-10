@@ -12,7 +12,7 @@ layout: toc
         was{% endif %}
         first published on {{ page.published | date: site.date_format }}{% if page.modified %}
         and last modified on {{ page.modified | date: site.date_format }}
-        (see all <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">changes</a>){% endif %}.
+        (see <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">all changes</a>){% endif %}.
         {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
         Its short URL is
         <a href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
