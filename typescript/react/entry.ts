@@ -51,6 +51,7 @@ export interface DynamicEntry<T extends ValueType> extends Entry<T> {
     readonly minValue?: T;
     readonly maxValue?: T;
     readonly stepValue?: T;
+    readonly placeholder?: string;
     readonly suggestedValues?: T[] | (() => T[]); // Added to the datalist but not the history.
     readonly selectOptions?: Record<string, string>; // Only relevant for 'select' inputs.
     readonly disabled?: () => boolean;

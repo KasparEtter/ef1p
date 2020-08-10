@@ -131,6 +131,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                                 min={entry.minValue as string | number | undefined}
                                 max={entry.maxValue as string | number | undefined}
                                 step={entry.stepValue as string | number | undefined}
+                                placeholder={entry.placeholder}
                                 disabled={disabled}
                                 onChange={this.onChange}
                                 onInput={this.onInput}

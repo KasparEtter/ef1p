@@ -62,7 +62,8 @@ const ipAddress: DynamicEntry<string> = {
     defaultValue: '',
     inputType: 'text',
     labelWidth: 95,
-    inputWidth: 145,
+    inputWidth: 170, // 145 without placeholder.
+    placeholder: 'defaults to your address',
     validate: value => value !== '' && !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value) && 'Please enter an IPv4 address or leave the field empty.',
 };
 
