@@ -1,67 +1,4 @@
-<svg id="figure-focus" class="figure" data-name="focus" width="423" height="123" viewBox="-61.5 -61.5 423 123" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
-
-    <defs>
-        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
-        </marker>
-        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" />
-        </marker>
-        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
-        </marker>
-        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="blue" />
-        </marker>
-        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
-        </marker>
-        <marker id="circle-purple" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="purple" />
-        </marker>
-        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
-        </marker>
-        <marker id="circle-pink" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="pink" />
-        </marker>
-        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
-        </marker>
-        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="red" />
-        </marker>
-        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
-        </marker>
-        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="orange" />
-        </marker>
-        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
-        </marker>
-        <marker id="circle-yellow" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="yellow" />
-        </marker>
-        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
-        </marker>
-        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="green" />
-        </marker>
-        <marker id="arrow-brown" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="brown" />
-        </marker>
-        <marker id="circle-brown" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="brown" />
-        </marker>
-        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
-        </marker>
-        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="gray" />
-        </marker>
-    </defs>
+<svg id="figure-focus" class="figure" data-name="focus" width="423" height="191" viewBox="-61.5 -61.5 423 191" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <g>
         <circle class="yellow" cx="0" cy="0" r="60"></circle>
@@ -72,20 +9,20 @@
         </text>
     </g>
     <g>
-        <circle class="orange" cx="150" cy="0" r="60"></circle>
-        <text class="orange" x="150" y="0" text-anchor="middle">
-            <tspan x="150" y="-16.1"><tspan class="small">Newspapers</tspan></tspan>
-            <tspan x="150" y="5.9"><tspan class="small">cover</tspan></tspan>
-            <tspan x="150" y="27.9"><tspan class="font-weight-bold">events</tspan></tspan>
+        <circle class="orange" cx="150" cy="34" r="60"></circle>
+        <text class="orange" x="150" y="34" text-anchor="middle">
+            <tspan x="150" y="17.9"><tspan class="small">Newspapers</tspan></tspan>
+            <tspan x="150" y="39.9"><tspan class="small">cover</tspan></tspan>
+            <tspan x="150" y="61.9"><tspan class="font-weight-bold">events</tspan></tspan>
         </text>
     </g>
     <g>
-        <circle class="red" cx="300" cy="0" r="60"></circle>
-        <text class="red" x="300" y="0" text-anchor="middle">
-            <tspan x="300" y="-16.1"><tspan class="small">This blog</tspan></tspan>
-            <tspan x="300" y="5.9"><tspan class="small">covers</tspan></tspan>
-            <tspan x="300" y="27.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
+        <circle class="red" cx="300" cy="68" r="60"></circle>
+        <text class="red" x="300" y="68" text-anchor="middle">
+            <tspan x="300" y="51.9"><tspan class="small">This blog</tspan></tspan>
+            <tspan x="300" y="73.9"><tspan class="small">covers</tspan></tspan>
+            <tspan x="300" y="95.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
         </text>
     </g>
-</svg>
 
+</svg>

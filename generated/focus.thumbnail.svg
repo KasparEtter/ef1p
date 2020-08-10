@@ -1,4 +1,4 @@
-<svg width="423" height="191" viewBox="-61.5 -61.5 423 191" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="486.45000000000005" height="254.68599999999998" viewBox="-93.225 -93.343 486.45000000000005 254.68599999999998" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: white;
+            stroke: white;
         }
 
         text {
@@ -33,6 +33,11 @@
             stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
         }
 
         .font-weight-bold {
@@ -59,6 +64,8 @@
         }
     </style>
 
+    <rect class="filled" x="-93.225" y="-93.343" width="486.45000000000005" height="254.68599999999998" style="fill: #1e1d1f;"></rect>
+
     <g>
         <circle class="yellow" cx="0" cy="0" r="60"></circle>
         <text class="yellow" x="0" y="0" text-anchor="middle">
@@ -83,5 +90,12 @@
             <tspan x="300" y="95.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
         </text>
     </g>
+
+    <mask id="mask">
+        <rect class="filled" x="-61.5" y="97.893" width="31.725" height="31.725" style="fill: white;"></rect>
+        <line x1="-50.925" y1="108.468" x2="-50.925" y2="119.044" style="stroke-width: 7.932; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="-40.349" cy="119.044" r="3.966" style="fill: black;"></circle>
+    </mask>
+    <circle class="filled" cx="-45.637" cy="113.756" r="15.863" style="fill: white;" mask="url(#mask)"/>
 
 </svg>
