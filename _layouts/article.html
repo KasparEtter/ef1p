@@ -14,11 +14,11 @@ layout: toc
         and last modified on {{ page.modified | date: site.date_format }}
         (see <a href="{{ site.github.repository_url | append: '/commits/master/' | append: page.path }}">all changes</a>){% endif %}.
         {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
-        Its short URL is
-        <a href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
+        Its short link is
+        <a id="short-link" href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
         {% capture pdf %}{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
-        You can also download the article as a
-        <a href="{{ pdf | relative_url }}">PDF</a>.
+        You can also <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a>
+        for printing or offline reading.
     </p>
 
     <p class="article-disclaimer">

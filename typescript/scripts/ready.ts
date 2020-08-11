@@ -57,7 +57,13 @@ $(document).ready(() => {
             event.preventDefault();
             const address = location.origin + location.pathname + href;
             if (copyToClipboard(address)) {
-                jQueryTarget.addClass('scale').one(animationEnd, () => jQueryTarget.removeClass('scale'));
+                jQueryTarget.addClass('scale4').one(animationEnd, () => jQueryTarget.removeClass('scale4'));
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        event_category: 'anchors',
+                        event_label: href,
+                    });
+                }
             }
         } else if (scrollIfAnchor(href, true)) {
             event.preventDefault();
@@ -130,6 +136,12 @@ $(document).ready(() => {
 
     const jumpToNextHeading = (event: JQuery.TriggeredEvent) => {
         const target = event.target.closest('h2, h3, h4, h5, h6') as HTMLHeadingElement;
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'skip', {
+                event_category: 'sections',
+                event_label: target.id,
+            });
+        }
         const level = parseInt(target.tagName.charAt(1), 10);
         let element = target.nextElementSibling;
         while (element !== null) {
@@ -146,7 +158,19 @@ $(document).ready(() => {
     // Register the click handler only on the text instead of the whole heading by wrapping it.
     // Please note that this has to be done before adding the anchors to get the right contents.
     $('h2, h3, h4, h5, h6').contents().wrap('<span/>').parent().on('click', jumpToNextHeading);
-    $('summary').contents().wrap('<span/>');
+    $('summary').contents().wrap('<span/>'); // Only needed for the margin to the anchor link.
+
+    // Track opening and closing of information boxes.
+    $('summary').on('click', event => {
+        if (typeof gtag !== 'undefined') {
+            const summary = event.target.closest('summary');
+            const details = summary?.closest('details');
+            gtag('event', details?.open ? 'close' : 'open', {
+                event_category: 'boxes',
+                event_label: summary?.id ?? 'unknown',
+            });
+        }
+    });
 
     // Add the anchors with AnchorJS. As no IDs need to be added, this instruction can be ignored:
     // https://www.bryanbraun.com/anchorjs/#dont-run-it-too-late
@@ -193,6 +217,34 @@ $(document).ready(() => {
     if (isTouchDevice) {
         $('abbr').on('click', function() { alert($(this).text() + ': ' + $(this).attr('title')); });
     }
+
+    // Copy the short link to the clipboard.
+    $('#short-link').on('click', event => {
+        const target = event.target as HTMLAnchorElement;
+        if (copyToClipboard(target.href)) {
+            event.preventDefault();
+            const jQueryTarget = $(target);
+            jQueryTarget.addClass('scale2').one(animationEnd, () => jQueryTarget.removeClass('scale2'));
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'copy', {
+                    event_category: 'addresses',
+                    event_label: target.href,
+                });
+            }
+        }
+    });
+
+    // Track the number of PDF downloads.
+    $('#pdf-download').on('click contextmenu', event => {
+        const target = event.target as HTMLAnchorElement;
+        console.log(target.href);
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'download', {
+                event_category: 'articles',
+                event_label: target.href,
+            });
+        }
+    });
 
     console.log('Hi there, are you curious about how this website works? You find all the code at https://github.com/KasparEtter/ef1p. If you have any questions, just ask.');
 });

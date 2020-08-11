@@ -63,6 +63,7 @@
         "svg-build": "ts-node typescript/node/svg.ts",
         "svg-watch": "watch-run -p '**/graphics/*.ts,typescript/svg/**/*.ts' npm run svg-build",
         "test": "echo 'Error: no test specified' && exit 1",
+        "thumbnail": "ts-node typescript/node/thumbnail.ts",
         "ts-build": "webpack",
         "ts-circular": "madge --warning --circular --extensions ts --exclude scripts/katex.ts ./typescript/",
         "ts-lint": "tslint --exclude 'node_modules/**/*' --exclude '_site/**/*' '**/*.ts?(x)'",
@@ -73,6 +74,7 @@
     "devDependencies": {
         "@types/anchor-js": "4.2.0",
         "@types/glob": "7.1.2",
+        "@types/gtag.js": "0.0.3",
         "@types/jquery": "3.3.38",
         "@types/katex": "0.11.0",
         "@types/node": "14.0.13",

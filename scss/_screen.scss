@@ -98,15 +98,28 @@
     padding-left: 0 !important; // Remove the padding here in order to center the scaling.
   }
 
-  @keyframes scale {
+  .scale2,
+  .scale4 {
+    display: inline-block;
+    animation-duration: .2s;
+    animation-timing-function: linear;
+  }
+
+  @keyframes scale2 {
+    from { transform: scale(1); }
+    to { transform: scale(2); }
+  }
+
+  .scale2 {
+    animation-name: scale2;
+  }
+
+  @keyframes scale4 {
     from { transform: scale(1); }
     to { transform: scale(4); }
   }
 
-  .scale {
-    display: inline-block;
-    animation-name: scale;
-    animation-duration: .2s;
-    animation-timing-function: linear;
+  .scale4 {
+    animation-name: scale4;
   }
 }

@@ -1,7 +1,7 @@
 import { Color } from '../utility/color';
 import { KeysOf } from '../utility/types';
 
-import { Store } from './store';
+import { PersistedStore, Store } from './store';
 
 export type ValueType = boolean | number | string;
 
@@ -153,6 +153,12 @@ export function setState<State extends StateWithOnlyValues>(
         }
         if (changed.length > 0 || forceUpdate) {
             store.meta.onChange?.(inputs);
+        }
+        if (changed.length > 0 && typeof gtag !== 'undefined') {
+            gtag('event', 'state', {
+                event_category: 'tools',
+                event_label: (store as PersistedStore<PersistedState<State>, AllEntries<State>>).identifier ?? 'unknown',
+            });
         }
     } else {
         store.update();

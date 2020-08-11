@@ -252,12 +252,14 @@ If you don't want the entered values to be persisted across sessions in the firs
 then open the article in the [private mode](https://en.wikipedia.org/wiki/Private_browsing)
 of your web browser.
 
-### PDF download
+### Article download
 
 Each article can be downloaded as a PDF for printing or offline reading.
 You find the download link at the very top of the corresponding article.
 The printing feature of your browser also works, of course,
 but I cannot ensure that the article will be formatted nicely this way.
+Additionally, only the open information boxes will be printed
+if you export the article yourself.
 
 ### Graphics export
 

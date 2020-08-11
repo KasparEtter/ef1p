@@ -57,7 +57,7 @@ export class PersistedStore<State extends ObjectButNotFunction, Meta = undefined
      * Creates a new persisted store with the given default state or the state restored with the given identifier.
      * The meta property can be used to pass around additional information. It is not persisted.
      */
-    public constructor(defaultState: State, meta: Meta, private readonly identifier: string) {
+    public constructor(defaultState: State, meta: Meta, public readonly identifier: string) {
         super({ ...defaultState, ...restoreObject(identifier) as State }, meta);
     }
 
