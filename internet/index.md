@@ -265,7 +265,7 @@ The technical term for the structure of a network is [topology](https://en.wikip
 Different arrangements of nodes and links lead to different characteristics of the resulting network.
 
 
-### Fully connected
+### Fully connected network
 
 A network is said to be fully connected
 if every node has a direct link to every other node:
@@ -281,7 +281,7 @@ In graph theory, such a layout is known as a [complete graph](https://en.wikiped
 Fully connected networks scale badly
 as the number of links grows quadratically with the number of nodes.
 (You might have encountered the formula for the number of links before:
-n * (n – 1) / 2, with n being the number of nodes in the network.)
+n × (n – 1) / 2, with n being the number of nodes in the network.)
 As a consequence, this topology is impractical for larger networks.
 
 
@@ -1139,6 +1139,167 @@ If you leave the field empty, the IP address from which you are visiting this we
 </details>
 
 <details markdown="block">
+<summary markdown="span" id="network-performance">
+Network performance
+</summary>
+
+The [performance of a network](https://en.wikipedia.org/wiki/Network_performance)
+is assessed based on the following measures:
+- **[Bandwidth](https://en.wikipedia.org/wiki/Bandwidth_(computing))**
+  indicates how much data can be transferred in one direction per a given amount of time.
+  Unlike memory, which is measured in [bytes](#number-encoding),
+  bandwidth is usually measured in [bits per second](https://en.wikipedia.org/wiki/Bits_per_second)
+  (written as bit/s or bps).
+  As always, multiples of the unit can be denoted with the appropriate
+  [prefix](https://en.wikipedia.org/wiki/Unit_prefix)
+  such as M for mega (10<sup>6</sup>) in Mbit/s or Mbps.
+- **[Latency](https://en.wikipedia.org/wiki/Latency_(engineering))**
+  indicates how long it takes for a single bit to reach the recipient.
+  Latency is usually determined by sending a tiny message to the recipient
+  and measuring the time until a tiny response is received.
+  The result is called the [round-trip time (RTT)](https://en.wikipedia.org/wiki/Round-trip_delay)
+  to that particular destination,
+  which includes the [one-way delay (OWD)](https://en.wikipedia.org/wiki/End-to-end_delay)
+  in both directions and the time it took the recipient to process the request.
+  (See the next two boxes for more information on this.)
+- **[Jitter](https://en.wikipedia.org/wiki/Jitter)**
+  is the undesired variation in the latency of a signal.
+  On the link layer, such a deviation from the periodic
+  [clock signal](https://en.wikipedia.org/wiki/Clock_signal)
+  is caused by the properties of the physical medium.
+  The term is sometimes also used to refer to
+  [variation in packet delay](https://en.wikipedia.org/wiki/Packet_delay_variation).
+- The **[bit error rate](https://en.wikipedia.org/wiki/Bit_error_rate)**
+  indicates the percentage of bits that are flipped during the data transfer.
+  As mentioned earlier, [data corruption](#data-corruption)
+  has to be detected and corrected by network protocols.
+
+The term **[throughput](https://en.wikipedia.org/wiki/Throughput)**
+is sometimes used interchangeably with bandwidth.
+Other times it is used to refer to the actual rate
+at which useful data is being transferred.
+The effective throughput is lower than the maximum bandwidth
+due to the overhead of protocol headers,
+packet loss and retransmission,
+congestion in the network,
+as well as the delay for acknowledgements by the recipient.
+More bandwidth doesn't reduce the latency of Internet communication,
+which is the crucial factor for applications such as
+[algorithmic trading](https://en.wikipedia.org/wiki/Algorithmic_trading)
+and [online gaming](https://en.wikipedia.org/wiki/Online_game),
+where latency is called [lag](https://en.wikipedia.org/wiki/Lag).
+The design of a protocol impacts its performance:
+The more messages that need to be exchanged in a session,
+the less throughput you get over long distances
+due to the many round-trip times.
+
+You can measure the speed of your Internet connection
+with tools such as [speedtest.net](https://www.speedtest.net/).
+A high download speed is important for watching high-definition videos
+and downloading large files such as computer games and software updates.
+A high upload speed is important for participating in video calls
+and uploading large files such as videos or hundreds of pictures.
+As a rule of thumb,
+you can divide the number of megabits per second by ten
+to get a rough estimate for actual megabytes per second
+due to the aforementioned overhead.
+Please keep in mind that Internet communication is routed over many links
+and that any of the links (including the Wi-Fi link to your own router)
+can limit the overall performance.
+For example, if a server you interact with has a slow connection or is very busy,
+then paying more for a faster Internet at your end won't improve the situation.
+
+</details>
+
+<details markdown="block">
+<summary markdown="span" id="propagation-delay">
+Propagation delay
+</summary>
+
+The physical limit for how fast a signal can travel
+is the [speed of light](https://en.wikipedia.org/wiki/Speed_of_light) in vacuum,
+which is roughly 300'000 km/s (or 3 × 10<sup>8</sup> m/s).
+It takes light 67 ms to travel half around the Earth
+and 119 ms to travel from [geostationary orbit](https://en.wikipedia.org/wiki/Geostationary_orbit) to Earth.
+While this doesn't sound like a lot,
+[propagation delay](https://en.wikipedia.org/wiki/Propagation_delay)
+is a real problem for applications where latency matters,
+especially because a signal often has to travel back and forth to be useful.
+(One party typically reacts to information received from another party,
+which takes a full round-trip time to reach the other party again.)
+The speed at which electromagnetic waves travel through a medium
+is slower than the speed of light in vacuum.
+The speed of a light pulse through an [optical fiber](https://en.wikipedia.org/wiki/Optical_fiber)
+is ⅔ of the speed of light in vacuum, i.e. 2.0 × 10<sup>8</sup> m/s.
+A change of electrical voltage travels slightly faster through
+a [copper wire](https://en.wikipedia.org/wiki/Copper_wire)
+at 2.3 × 10<sup>8</sup> m/s.
+When costs allow,
+optical fibers are still [often preferred](https://networkengineering.stackexchange.com/a/16440)
+over copper wire because they provide higher bandwidth
+over longer distances with less interference
+before the signal needs to be amplified.
+It is to be seen whether [satellite constellations](https://en.wikipedia.org/wiki/Satellite_constellation)
+in [low Earth orbit](https://en.wikipedia.org/wiki/Low_Earth_orbit)
+such as [Starlink](https://en.wikipedia.org/wiki/Starlink),
+which is currently being built by [SpaceX](https://en.wikipedia.org/wiki/SpaceX),
+will be able to provide lower latency transcontinental connections
+by using [laser communication in space](https://en.wikipedia.org/wiki/Laser_communication_in_space).
+If they succeed, the financial industry will happily pay whatever it costs to use it.
+
+</details>
+
+<details markdown="block">
+<summary markdown="span" id="internet-control-message-protocol">
+Internet Control Message Protocol (ICMP)
+</summary>
+
+The [Internet Control Message Protocol (ICMP)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)
+is used by routers to send error messages to the sender of a packet,
+for example when a host could not be reached
+or when a packet exceeds its [time to live](https://en.wikipedia.org/wiki/Time_to_live).
+ICMP messages are attached to an [IP header](https://en.wikipedia.org/wiki/IPv4#Header),
+in which the [IP protocol number](https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers)
+is set to 1 according to [RFC 792](https://tools.ietf.org/html/rfc792).
+ICMP complements the Internet Protocol on the network layer.
+It has various [message types](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages),
+with two of them being commonly used to determine the round-trip time to a network destination.
+The network utility to do so is called [ping](https://en.wikipedia.org/wiki/Ping_(networking_utility)).
+It sends several echo requests and waits for the echo replies
+before reporting statistics on packet loss and round-trip times:
+
+<figure markdown="block">
+
+```
+$ ping -c 5 example.com
+PING example.com (93.184.216.34): 56 data bytes
+64 bytes from 93.184.216.34: icmp_seq=0 ttl=50 time=87.363 ms
+64 bytes from 93.184.216.34: icmp_seq=1 ttl=50 time=88.107 ms
+64 bytes from 93.184.216.34: icmp_seq=2 ttl=50 time=87.196 ms
+64 bytes from 93.184.216.34: icmp_seq=3 ttl=50 time=88.546 ms
+64 bytes from 93.184.216.34: icmp_seq=4 ttl=50 time=87.811 ms
+
+--- example.com ping statistics ---
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 87.196/87.805/88.546/0.491 ms
+```
+
+<figcaption markdown="span">
+Pinging the example.com server five times from my
+[command-line interface](https://en.wikipedia.org/wiki/Command-line_interface).
+The average round-trip time is around 88 ms.<br>
+The first line consists of the command and options that I entered,
+all the subsequent lines are output by the ping utility.<br>
+Round-trip times within the same geographical area are typically below 10 ms,
+whereas it takes around 80 to 100 ms<br>
+to the US East Coast and around 150 to 170 ms to the US West Coast and back
+from my place in central Europe.
+</figcaption>
+</figure>
+
+</details>
+
+<details markdown="block">
 <summary markdown="span" id="dynamic-host-configuration-protocol">
 Dynamic Host Configuration Protocol (DHCP)
 </summary>
@@ -1604,7 +1765,8 @@ this is what it provides:
   While the client could also present a public-key certificate,
   the client is more commonly authenticated on the [application layer](#application-layer)
   (for example with a username and a password).
-- **Content confidentiality**: The content of the conversation is encrypted with
+- **Content confidentiality**: The content of the conversation is
+  [encrypted](https://en.wikipedia.org/wiki/Encryption) with
   [symmetric-key cryptography](https://en.wikipedia.org/wiki/Symmetric-key_algorithm).
   The [shared key](https://en.wikipedia.org/wiki/Shared_secret)
   is [generated](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
@@ -1636,6 +1798,7 @@ this is what it provides:
   that it communicated the statements inside a TLS connection.
   This is because message authentication codes are [symmetric](https://en.wikipedia.org/wiki/Message_authentication_code#Security),
   i.e. whoever can verify them can also generate them.
+{:.spaced}
 
 By the way, TLS requires reliable communication
 and thus uses [TCP](#transmission-control-protocol) on the [transport layer](#transport-layer).
@@ -1680,6 +1843,7 @@ Digital signature schemes consist of three
   only the person who knows the private key can produce the signature.
 - **Verification**: Anyone who has the message, the signature, and the signer's public key
   can verify that the signature was generated by the person knowing the corresponding private key.
+{:.spaced}
 
 As you can see from these algorithms,
 digital signatures rely on a different
@@ -1782,6 +1946,7 @@ There are two different paradigms for issuing public-key certificates:
   belongs to the *Wikimedia Foundation* as the subject of the certificate.
   If we check the list of root CAs,
   we see that *DigiCert High Assurance EV Root CA* is indeed among them:
+{:.spaced}
 
 {% include figure.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>(In case you are wondering, this list contains 165 root CAs on my Mac.)" scaled="true" themed="true" limited-width-on-print="true" %}
 
@@ -2759,6 +2924,7 @@ and for supporting me in this project! ❤️
 *[ARP]: Address Resolution Protocol
 *[ARPANET]: Advanced Research Projects Agency Network
 *[ASCII]: American Standard Code for Information Interchange
+*[bps]: bits per second
 *[CA]: Certification Authority
 *[CAs]: Certification Authorities
 *[CDN]: Content Delivery Network
@@ -2783,6 +2949,7 @@ and for supporting me in this project! ❤️
 *[IANA]: Internet Assigned Numbers Authority
 *[IBM]: International Business Machines Corporation
 *[ICANN]: Internet Corporation for Assigned Names and Numbers
+*[ICMP]: Internet Control Message Protocol
 *[IEEE]: Institute of Electrical and Electronics Engineers
 *[IETF]: Internet Engineering Task Force
 *[IMAP]: Internet Message Access Protocol
@@ -2800,13 +2967,17 @@ and for supporting me in this project! ❤️
 *[KSK]: Key-Signing Key
 *[KSKs]: Key-Signing Keys
 *[MAC]: Media Access Control
+*[Mbit]: megabits (one million bits)
+*[Mbps]: megabits per second
 *[MERIT]: Michigan Educational Research Information Triad
 *[MITM]: Man-In-The-Middle Attack
+*[ms]: milliseconds
 *[MS-DOS]: Microsoft Disk Operating System
 *[MTU]: Maximum Transmission Unit
 *[NAT]: Network Address Translation
 *[NPL]: National Physical Laboratory in the UK
 *[OS]: Operating System
+*[OWD]: One-Way Delay
 *[PC]: Personal Computer
 *[PKI]: Public Key Infrastructure
 *[POP]: Post Office Protocol
@@ -2816,6 +2987,7 @@ and for supporting me in this project! ❤️
 *[RR]: Resource Record
 *[RRset]: Resource Record Set
 *[RSA]: Rivest–Shamir–Adleman, a public-key cryptosystem
+*[RTT]: Round-Trip Time
 *[SHA]: Secure Hash Algorithm
 *[SMTP]: Simple Mail Transfer Protocol
 *[SMTPS]: Simple Mail Transfer Protocol Secure
