@@ -223,8 +223,11 @@ Other times,
 such boxes contain background information
 which is too technical for a general audience.
 In either case,
-you might miss out on funny little details
+you might miss out on interesting little details
 if you don't open them.
+However, if an article already feels too long or advanced to you,
+I suggest that you simply skip all closed boxes
+when you read the article for the first time.
 
 </details>
 
