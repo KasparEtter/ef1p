@@ -5,6 +5,7 @@ $body-bg: #1e1d1f !default;
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/darkly/bootswatch";
+$pre-bg: darken($body-bg, 5%) !default;
 @import "custom";
 
 @media screen {

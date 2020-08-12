@@ -52,7 +52,7 @@ article {
   ol.spaced {
     margin-top: 0;
 
-    li {
+    & > li {
       margin-top: $paragraph-margin-bottom;
     }
   }
@@ -153,7 +153,7 @@ summary {
 
 pre {
   padding: 10px;
-  background-color: darken($body-bg, 5%) !important;
+  background-color: $pre-bg !important;
   border-radius: $border-radius;
 }
 
