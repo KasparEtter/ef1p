@@ -356,7 +356,7 @@ const domainName: DynamicEntry<string> = {
     defaultValue: 'ef1p.com',
     inputType: 'text',
     labelWidth: 60,
-    inputWidth: 248,
+    inputWidth: 263,
     validate: value =>
         value === '' && 'The domain name may not be empty.' || // Redundant to the regular expression, just a more specific error message.
         value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.

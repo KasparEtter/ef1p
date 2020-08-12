@@ -1,6 +1,6 @@
 // Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
 
-div.block-form {
+.block-form {
   margin-bottom: $paragraph-margin-bottom;
 
   label,
@@ -9,7 +9,7 @@ div.block-form {
   }
 }
 
-div.inline-form {
+.inline-form {
   display: inline;
 
   label,
@@ -18,7 +18,7 @@ div.inline-form {
   }
 }
 
-div.vertical-form {
+.vertical-form {
   label,
   .label {
     display: block;
@@ -31,11 +31,15 @@ div.vertical-form {
   }
 }
 
-div.horizontal-form {
+.horizontal-form {
   label,
   .label {
     display: inline-block;
-    margin-right: 16px;
+    margin-right: 18px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   &.block-form {
@@ -67,12 +71,12 @@ div.horizontal-form {
   }
 }
 
-select.custom-select {
+.custom-select {
   margin-top: 1px;
   vertical-align: baseline;
 }
 
-input.custom-color {
+.custom-color {
   display: block;
   width: 60px;
   height: 20px;
@@ -82,22 +86,23 @@ input.custom-color {
   border: 0;
 }
 
-input.custom-range {
+.custom-range {
   padding-top: 10px;
   margin-top: -1px;
 }
 
-span.range-value {
+.range-value {
   margin-left: 8px;
 }
 
-span.custom-checkbox,
-span.custom-switch {
+.custom-checkbox,
+.custom-switch {
   display: inline-block;
   padding-top: 6px;
   margin-top: -4px;
+  margin-right: -8px;
 
-  span.custom-control-label {
+  .custom-control-label {
     display: inline-block;
   }
 }
