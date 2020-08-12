@@ -5,7 +5,7 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-10
+modified: 2020-08-12
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
@@ -64,7 +64,7 @@ whereby the recipient responds to the requests of the initiator.
 Please note that this is only the case for one-to-one protocols,
 in which each message is intended for a single recipient.
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="broadcasting-and-information-security">
 Broadcasting and information security
 </summary>
@@ -682,9 +682,78 @@ As we've seen throughout this introduction,
 a lot of things can go wrong in computer networks.
 In the following sections, we'll have a closer look on how protocols
 compensate for the deficiencies of the underlying network.
-Before we do so, we should talk about some technical aspects first.
+Before we do so, we should first talk about standardization.
 
-<details markdown="block" open>
+<details markdown="block">
+<summary markdown="span" id="request-for-comments">
+Request for Comments (RFC)
+</summary>
+
+When several parties communicate with each other,
+it's important that they agree on a common standard.
+Standards need to be proposed, discussed, published,
+and updated to changing circumstances.
+I'm not aware of any laws that impose specific networking standards
+outside of governmental agencies.
+The Internet is an open architecture
+and technology-wise you're free to do pretty much anything you want.
+This doesn't mean, though, that others will play along.
+If different companies shall adopt the same standards to improve interoperability,
+it's very useful to have independent working groups,
+in which proposed standards are discussed and approved.
+For Internet-related standards,
+such an open platform is provided by the
+[Internet Engineering Task Force (IETF)](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)
+with organizational and financial support from the
+[Internet Society (ISOC)](https://en.wikipedia.org/wiki/Internet_Society).
+Workshop participants and managers are typically employed by large tech companies,
+which want to shape future standards.
+
+The IETF publishes its official documents as
+[Requests for Comments (RFCs)](https://en.wikipedia.org/wiki/Request_for_Comments).
+This name was originally chosen to avoid a commanding appearance and to encourage discussions.
+In the meantime, early versions of potential RFCs are published as
+[Internet Drafts](https://en.wikipedia.org/wiki/Internet_Draft)
+and RFCs are only approved after several rounds of peer review.
+RFCs are numbered sequentially and, once published,
+they are no longer modified.
+If a document needs to be revised,
+a new RFC with a new number is published.
+An RFC can supersede earlier RFCs,
+which are then obsoleted by the new RFC.
+Sometimes, RFCs are written after the documented technique has already gained popularity.
+Even though the most important Internet protocols are specified in RFCs,
+their conception and style is much more pragmatic than similar documents of other
+[standards organizations](https://en.wikipedia.org/wiki/Standards_organization).
+The [first RFC](https://tools.ietf.org/html/rfc1) was published in 1969.
+Since then, [almost 9'000 RFCs](https://tools.ietf.org/rfc/index) have been published.
+Not all RFCs define [new standards](https://en.wikipedia.org/wiki/Request_for_Comments#%22Standards_Track%22),
+some are just [informational](https://en.wikipedia.org/wiki/Request_for_Comments#%22Informational%22),
+some describe an [experimental proposal](https://en.wikipedia.org/wiki/Request_for_Comments#%22Experimental%22),
+and others simply document the [best current practice](https://en.wikipedia.org/wiki/Request_for_Comments#%22Best_Current_Practice%22).
+
+</details>
+
+
+### Link layer
+
+Protocols on the [link layer](https://en.wikipedia.org/wiki/Link_layer)
+take care of delivering a packet over a direct link between two nodes.
+Examples of such protocols are [Ethernet](https://en.wikipedia.org/wiki/Ethernet) and [Wi-Fi](https://en.wikipedia.org/wiki/Wi-Fi).
+Link layer protocols are designed to handle the intricacies of the underlying physical medium and signal.
+This can be an electric signal over a copper wire,
+light over an optical fiber or an electromagnetic wave through space.
+The node on the other hand of the link (typically a router)
+removes the headers of the link layer,
+determines on the network layer on which link to forward the packet,
+and then wraps the packet according to the protocol spoken on that link.
+Link layer protocols typically detect [bit errors](https://en.wikipedia.org/wiki/Bit_error)
+caused by noise, interference, distortion and faulty synchronization.
+If several devices want to send a packet over the same medium at the same time,
+the signals collide and the packets have to be retransmitted
+after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponential_backoff).
+
+<details markdown="block">
 <summary markdown="span" id="number-encoding">
 Number encoding
 </summary>
@@ -790,205 +859,6 @@ is the same for signed and unsigned integers.
 are even more complicated and beyond the scope of this article.
 
 </details>
-
-<details markdown="block" open>
-<summary markdown="span" id="text-encoding">
-Text encoding
-</summary>
-
-Similar to numbers, human language is also encoded with symbols.
-By assigning meaning to specific combinations of symbols,
-which we call "words",
-we can encode a large vocabulary with relatively few symbols.
-In computing, the symbols which make up a text are called
-[characters](https://en.wikipedia.org/wiki/Character_(computing)).
-In English text, each character is either
-a [letter](https://en.wikipedia.org/wiki/Letter_(alphabet)),
-a [digit](https://en.wikipedia.org/wiki/Numerical_digit),
-a [punctuation mark](https://en.wikipedia.org/wiki/Punctuation),
-or a [control character](https://en.wikipedia.org/wiki/Control_character).
-Control characters are used to structure a text without being printed themselves.
-So-called [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character)
-such as [space](https://en.wikipedia.org/wiki/Space_(punctuation)),
-[tab](https://en.wikipedia.org/wiki/Tab_key#Tab_characters),
-and [newline](https://en.wikipedia.org/wiki/Newline)
-fall in this category.
-Other examples of control characters are
-[backspace](https://en.wikipedia.org/wiki/Backspace),
-[escape](https://en.wikipedia.org/wiki/Escape_character),
-a character to indicate [the end of a transmission](https://en.wikipedia.org/wiki/End-of-Transmission_character),
-and a character to indicate [the end of a string](https://en.wikipedia.org/wiki/Null-terminated_string).
-(A [string](https://en.wikipedia.org/wiki/String_(computer_science))
-is just a sequence of characters in memory.)
-
-In order to uniquely identify them,
-a so-called [code point](https://en.wikipedia.org/wiki/Code_point)
-is assigned to each character.
-A code point is just a number,
-which itself needs to be encoded
-in order to store or transmit text.
-In order to understand each other,
-two or more parties need to agree on a common
-[character encoding](https://en.wikipedia.org/wiki/Character_encoding).
-After the [Morse code](https://en.wikipedia.org/wiki/Morse_code)
-for [telegraphs](https://en.wikipedia.org/wiki/Electrical_telegraph),
-the [American Standard Code for Information Interchange (ASCII)](https://en.wikipedia.org/wiki/ASCII),
-which was developed in the 1960s,
-became the first widely adopted character encoding for computers.
-Based on the [English alphabet](https://en.wikipedia.org/wiki/English_alphabet),
-ASCII specifies 128 characters and how they are encoded as seven-bit integers.
-It is basically [just a table](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
-mapping characters to their code points and vice versa.
-Since it's easier to reserve a whole byte for each character,
-the eighth bit made it possible to [extend ASCII](https://en.wikipedia.org/wiki/Extended_ASCII)
-with 128 additional characters.
-Many companies used this for
-[proprietary extensions](https://en.wikipedia.org/wiki/Extended_ASCII#Proprietary_extensions),
-before the [International Organization for Standardization (ISO)](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
-published in 1987 [ISO 8859](https://en.wikipedia.org/wiki/ISO/IEC_8859),
-which standardized character sets for
-[Western European languages](https://en.wikipedia.org/wiki/ISO/IEC_8859-1),
-[Eastern European languages](https://en.wikipedia.org/wiki/ISO_8859-2),
-and others.
-
-The character encodings defined by ISO 8859 still have the problem
-that they are not compatible with each other.
-Since character encodings are typically used for whole documents
-including websites and not just parts of them,
-you cannot use characters from different sets in the same document.
-Additionally, each document has to be accompanied with the used character encoding
-as part of its [metadata](https://en.wikipedia.org/wiki/Metadata)
-because none of the encodings will ever be in a position to supersede them all
-(at least as a widely accepted default encoding).
-[Unicode](https://en.wikipedia.org/wiki/Unicode),
-which is maintained by the California-based
-[Unicode Consortium](https://en.wikipedia.org/wiki/Unicode_Consortium),
-unifies different character sets
-by providing a unique code point for every imaginable character.
-Unicode specifies different encodings for these code points,
-which are known as [Unicode Transformation Formats (UTF)](https://en.wikipedia.org/wiki/Unicode#UTF).
-The most popular ones are [UTF-8](https://en.wikipedia.org/wiki/UTF-8),
-which uses one to four bytes for each code point
-and maximizes compatibility with ASCII,
-and [UTF-16](https://en.wikipedia.org/wiki/UTF-16),
-which uses one or two 16-bit units per code point.
-
-A communication protocol has to specify
-how text and numbers in messages are encoded
-or at least how the recipient is informed about the used encoding.
-As we will see later in this article and in future articles,
-many application layer protocols are
-[text-based](https://en.wikipedia.org/wiki/Text-based_protocol),
-which means that the transmitted messages can be meaningfully displayed in a text editor.
-This is in contrast to [binary protocols](https://en.wikipedia.org/wiki/Binary_protocol),
-whose messages are difficult to read for humans without specialized analysis software.
-As we just learned, text is also encoded with binary numbers
-and text editors can be considered as specialized software.
-The real difference between the two categories of protocols is
-that text-based protocols delimit different pieces of information
-with a certain character such as a newline or colon at that position,
-whereas binary protocols often define specific lengths in bytes for each
-[field](https://en.wikipedia.org/wiki/Field_(computer_science))
-or prefix a field with its length in bytes.
-The advantage of binary protocols is
-that they can directly incorporate arbitrary data,
-whereas the data in text-based protocols needs to be
-[escaped](https://en.wikipedia.org/wiki/Escape_character)
-in order to ensure that the delimiting character does not occur within a field.
-If, for example, different headers are separated by a newline,
-then none of the headers may contain a newline character.
-If they do, the newline character needs to be replaced
-with the appropriate [escape sequence](https://en.wikipedia.org/wiki/Escape_sequence)
-as defined by the protocol.
-A common escape sequence for a newline character is `\n`.
-Alternatively, the whole data could be re-encoded with a certain set of characters.
-This is required when arbitrary data needs to be encoded
-where only text is permitted or reliably supported.
-This is the case for [email attachments](https://en.wikipedia.org/wiki/Email_attachment)
-because email originally only supported 7-bit ASCII.
-If you attach a picture to an email, for example,
-then the picture is split into chunks of 6 bits
-and each chunk is encoded with one of 64 characters.
-This encoding is called [Base64](https://en.wikipedia.org/wiki/Base64)
-and it needs to be reverted by the recipient
-in order to display the picture.
-(Base64 uses the characters `A` – `Z`, `a` – `z`, `0` – `9`, `+`, and `/`
-(26 + 26 + 10 + 2 = 64).)
-Since binary protocols require no such transformation
-and often skip the labels for fields
-or abbreviate them to a single number,
-they are more concise and efficient than text-based protocols.
-
-</details>
-
-<details markdown="block" open>
-<summary markdown="span" id="request-for-comments">
-Request for Comments (RFC)
-</summary>
-
-When several parties communicate with each other,
-it's important that they agree on a common standard.
-Standards need to be proposed, discussed, published,
-and updated to changing circumstances.
-I'm not aware of any laws that impose specific networking standards
-outside of governmental agencies.
-The Internet is an open architecture
-and technology-wise you're free to do pretty much anything you want.
-This doesn't mean, though, that others will play along.
-If different companies shall adopt the same standards to improve interoperability,
-it's very useful to have independent working groups,
-in which proposed standards are discussed and approved.
-For Internet-related standards,
-such an open platform is provided by the
-[Internet Engineering Task Force (IETF)](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)
-with organizational and financial support from the
-[Internet Society (ISOC)](https://en.wikipedia.org/wiki/Internet_Society).
-Workshop participants and managers are typically employed by large tech companies,
-which want to shape future standards.
-
-The IETF publishes its official documents as
-[Requests for Comments (RFCs)](https://en.wikipedia.org/wiki/Request_for_Comments).
-This name was originally chosen to avoid a commanding appearance and to encourage discussions.
-In the meantime, early versions of potential RFCs are published as
-[Internet Drafts](https://en.wikipedia.org/wiki/Internet_Draft)
-and RFCs are only approved after several rounds of peer review.
-RFCs are numbered sequentially and, once published,
-they are no longer modified.
-If a document needs to be revised,
-a new RFC with a new number is published.
-An RFC can supersede earlier RFCs,
-which are then obsoleted by the new RFC.
-Sometimes, RFCs are written after the documented technique has already gained popularity.
-Even though the most important Internet protocols are specified in RFCs,
-their conception and style is much more pragmatic than similar documents of other
-[standards organizations](https://en.wikipedia.org/wiki/Standards_organization).
-The [first RFC](https://tools.ietf.org/html/rfc1) was published in 1969.
-Since then, [almost 9'000 RFCs](https://tools.ietf.org/rfc/index) have been published.
-Not all RFCs define [new standards](https://en.wikipedia.org/wiki/Request_for_Comments#%22Standards_Track%22),
-some are just [informational](https://en.wikipedia.org/wiki/Request_for_Comments#%22Informational%22),
-some describe an [experimental proposal](https://en.wikipedia.org/wiki/Request_for_Comments#%22Experimental%22),
-and others simply document the [best current practice](https://en.wikipedia.org/wiki/Request_for_Comments#%22Best_Current_Practice%22).
-
-</details>
-
-
-### Link layer
-
-Protocols on the [link layer](https://en.wikipedia.org/wiki/Link_layer)
-take care of delivering a packet over a direct link between two nodes.
-Examples of such protocols are [Ethernet](https://en.wikipedia.org/wiki/Ethernet) and [Wi-Fi](https://en.wikipedia.org/wiki/Wi-Fi).
-Link layer protocols are designed to handle the intricacies of the underlying physical medium and signal.
-This can be an electric signal over a copper wire,
-light over an optical fiber or an electromagnetic wave through space.
-The node on the other hand of the link (typically a router)
-removes the headers of the link layer,
-determines on the network layer on which link to forward the packet,
-and then wraps the packet according to the protocol spoken on that link.
-Link layer protocols typically detect [bit errors](https://en.wikipedia.org/wiki/Bit_error)
-caused by noise, interference, distortion and faulty synchronization.
-If several devices want to send a packet over the same medium at the same time,
-the signals collide and the packets have to be retransmitted
-after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponential_backoff).
 
 <details markdown="block">
 <summary markdown="span" id="media-access-control-address">
@@ -1105,7 +975,7 @@ the transition has been [steady but slow](https://en.wikipedia.org/wiki/IPv6_dep
 Since virtually all Internet services including email servers are still available under IPv4,
 we'll mostly ignore the existence of IPv6 in the rest of this article.
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="ip-geolocation">
 IP geolocation
 </summary>
@@ -1191,7 +1061,7 @@ where latency is called [lag](https://en.wikipedia.org/wiki/Lag).
 The design of a protocol impacts its performance:
 The more messages that need to be exchanged in a session,
 the less throughput you get over long distances
-due to the many round-trip times.
+due to the many round trips.
 
 You can measure the speed of your Internet connection
 with tools such as [speedtest.net](https://www.speedtest.net/).
@@ -1226,7 +1096,7 @@ While this doesn't sound like a lot,
 is a real problem for applications where latency matters,
 especially because a signal often has to travel back and forth to be useful.
 (One party typically reacts to information received from another party,
-which takes a full round-trip time to reach the other party again.)
+which takes a full round trip to reach the other party again.)
 The speed at which electromagnetic waves travel through a medium
 is slower than the speed of light in vacuum.
 The speed of a light pulse through an [optical fiber](https://en.wikipedia.org/wiki/Optical_fiber)
@@ -1494,7 +1364,7 @@ This feature is called [congestion control](https://en.wikipedia.org/wiki/TCP_co
 
 </details>
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="ip-address-spoofing">
 IP address spoofing
 </summary>
@@ -1805,7 +1675,7 @@ and thus uses [TCP](#transmission-control-protocol) on the [transport layer](#tr
 
 </details>
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="digital-signatures">
 Digital signatures
 </summary>
@@ -1860,7 +1730,7 @@ which brings us to the next topic: public-key infrastructure.
 
 </details>
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="public-key-infrastructure">
 Public-key infrastructure (PKI)
 </summary>
@@ -1979,8 +1849,8 @@ for retrieving email,
 and the [File Transfer Protocol (FTP)](https://en.wikipedia.org/wiki/File_Transfer_Protocol)
 for, as you can probably guess, transferring files.
 What all of these protocols have in common is
-that they all use a [text-based format](#text-encoding),
-which makes them [human-readable](https://en.wikipedia.org/wiki/Human-readable_medium),
+that they all use a text-based format
+(see [the next box](#text-encoding)),
 that they all run over [TCP](#transmission-control-protocol),
 and that they all have a secure variant running over [TLS](#transport-layer-security),
 namely [HTTPS](https://en.wikipedia.org/wiki/HTTPS),
@@ -1991,7 +1861,138 @@ This is the beauty of modularization:
 Application layer protocols can reuse the same protocols below,
 while the protocols below don't need to know anything about the protocols above.
 
-<details markdown="block" open>
+<details markdown="block">
+<summary markdown="span" id="text-encoding">
+Text encoding
+</summary>
+
+Similar to [numbers](#number-encoding),
+human language is also encoded with symbols.
+By assigning meaning to specific combinations of symbols,
+which we call "words",
+we can encode a large vocabulary with relatively few symbols.
+In computing, the symbols which make up a text are called
+[characters](https://en.wikipedia.org/wiki/Character_(computing)).
+In English text, each character is either
+a [letter](https://en.wikipedia.org/wiki/Letter_(alphabet)),
+a [digit](https://en.wikipedia.org/wiki/Numerical_digit),
+a [punctuation mark](https://en.wikipedia.org/wiki/Punctuation),
+or a [control character](https://en.wikipedia.org/wiki/Control_character).
+Control characters are used to structure a text without being printed themselves.
+So-called [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character)
+such as [space](https://en.wikipedia.org/wiki/Space_(punctuation)),
+[tab](https://en.wikipedia.org/wiki/Tab_key#Tab_characters),
+and [newline](https://en.wikipedia.org/wiki/Newline)
+fall in this category.
+Other examples of control characters are
+[backspace](https://en.wikipedia.org/wiki/Backspace),
+[escape](https://en.wikipedia.org/wiki/Escape_character),
+a character to indicate [the end of a transmission](https://en.wikipedia.org/wiki/End-of-Transmission_character),
+and a character to indicate [the end of a string](https://en.wikipedia.org/wiki/Null-terminated_string).
+(A [string](https://en.wikipedia.org/wiki/String_(computer_science))
+is just a sequence of characters in memory.)
+
+In order to uniquely identify them,
+a so-called [code point](https://en.wikipedia.org/wiki/Code_point)
+is assigned to each character.
+A code point is just a number,
+which itself needs to be encoded
+in order to store or transmit text.
+In order to understand each other,
+two or more parties need to agree on a common
+[character encoding](https://en.wikipedia.org/wiki/Character_encoding).
+After the [Morse code](https://en.wikipedia.org/wiki/Morse_code)
+for [telegraphs](https://en.wikipedia.org/wiki/Electrical_telegraph),
+the [American Standard Code for Information Interchange (ASCII)](https://en.wikipedia.org/wiki/ASCII),
+which was developed in the 1960s,
+became the first widely adopted character encoding for computers.
+Based on the [English alphabet](https://en.wikipedia.org/wiki/English_alphabet),
+ASCII specifies 128 characters and how they are encoded as seven-bit integers.
+It is basically [just a table](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+mapping characters to their code points and vice versa.
+Since it's easier to reserve a whole byte for each character,
+the eighth bit made it possible to [extend ASCII](https://en.wikipedia.org/wiki/Extended_ASCII)
+with 128 additional characters.
+Many companies used this for
+[proprietary extensions](https://en.wikipedia.org/wiki/Extended_ASCII#Proprietary_extensions),
+before the [International Organization for Standardization (ISO)](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+published in 1987 [ISO 8859](https://en.wikipedia.org/wiki/ISO/IEC_8859),
+which standardized character sets for
+[Western European languages](https://en.wikipedia.org/wiki/ISO/IEC_8859-1),
+[Eastern European languages](https://en.wikipedia.org/wiki/ISO_8859-2),
+and others.
+
+The character encodings defined by ISO 8859 still have the problem
+that they are not compatible with each other.
+Since character encodings are typically used for whole documents
+including websites and not just parts of them,
+you cannot use characters from different sets in the same document.
+Additionally, each document has to be accompanied with the used character encoding
+as part of its [metadata](https://en.wikipedia.org/wiki/Metadata)
+because none of the encodings will ever be in a position to supersede them all
+(at least as a widely accepted default encoding).
+[Unicode](https://en.wikipedia.org/wiki/Unicode),
+which is maintained by the California-based
+[Unicode Consortium](https://en.wikipedia.org/wiki/Unicode_Consortium),
+unifies different character sets
+by providing a unique code point for every imaginable character.
+Unicode specifies different encodings for these code points,
+which are known as [Unicode Transformation Formats (UTF)](https://en.wikipedia.org/wiki/Unicode#UTF).
+The most popular ones are [UTF-8](https://en.wikipedia.org/wiki/UTF-8),
+which uses one to four bytes for each code point
+and maximizes compatibility with ASCII,
+and [UTF-16](https://en.wikipedia.org/wiki/UTF-16),
+which uses one or two 16-bit units per code point.
+
+A communication protocol has to specify
+how text and numbers in messages are encoded
+or at least how the recipient is informed about the used encoding.
+As mentioned above,
+many application layer protocols are
+[text-based](https://en.wikipedia.org/wiki/Text-based_protocol),
+which means that the transmitted messages can be meaningfully displayed in a text editor.
+This is in contrast to [binary protocols](https://en.wikipedia.org/wiki/Binary_protocol),
+whose messages are difficult to read for humans without specialized analysis software.
+As we just learned, text is also encoded with binary numbers
+and text editors can be considered as specialized software.
+The real difference between the two categories of protocols is
+that text-based protocols delimit different pieces of information
+with a certain character such as a newline or colon at that position,
+whereas binary protocols often define specific lengths in bytes for each
+[field](https://en.wikipedia.org/wiki/Field_(computer_science))
+or prefix a field with its length in bytes.
+The advantage of binary protocols is
+that they can directly incorporate arbitrary data,
+whereas the data in text-based protocols needs to be
+[escaped](https://en.wikipedia.org/wiki/Escape_character)
+in order to ensure that the delimiting character does not occur within a field.
+If, for example, different headers are separated by a newline,
+then none of the headers may contain a newline character.
+If they do, the newline character needs to be replaced
+with the appropriate [escape sequence](https://en.wikipedia.org/wiki/Escape_sequence)
+as defined by the protocol.
+A common escape sequence for a newline character is `\n`.
+Alternatively, the whole data could be re-encoded with a certain set of characters.
+This is required when arbitrary data needs to be encoded
+where only text is permitted or reliably supported.
+This is the case for [email attachments](https://en.wikipedia.org/wiki/Email_attachment)
+because email originally only supported 7-bit ASCII.
+If you attach a picture to an email, for example,
+then the picture is split into chunks of 6 bits
+and each chunk is encoded with one of 64 characters.
+This encoding is called [Base64](https://en.wikipedia.org/wiki/Base64)
+and it needs to be reverted by the recipient
+in order to display the picture.
+(Base64 uses the characters `A` – `Z`, `a` – `z`, `0` – `9`, `+`, and `/`
+(26 + 26 + 10 + 2 = 64).)
+Since binary protocols require no such transformation
+and often skip the labels for fields
+or abbreviate them to a single number,
+they are more concise and efficient than text-based protocols.
+
+</details>
+
+<details markdown="block">
 <summary markdown="span" id="hypertext-transfer-protocol">
 HyperText Transfer Protocol (HTTP)
 </summary>
@@ -2143,7 +2144,7 @@ and don't forget to enter an empty line to finish the header.
 
 </details>
 
-<details markdown="block" open>
+<details markdown="block">
 <summary markdown="span" id="domain-name-system">
 Domain Name System (DNS)
 </summary>
@@ -2221,12 +2222,16 @@ A domain name can resolve to [several IP addresses](https://en.wikipedia.org/wik
 which distributes requests among several servers
 and allows clients to connect to a different server
 if they cannot reach one of them.
+This indirection of first having to look up
+the IP address of the server you want to connect to
+also has the advantage that a server can be replaced
+without having to notify its users about the new address.
 
 DNS specifies a binary encoding for requests and responses.
 If the response is small enough to fit into a single packet
 (see the [maximum transmission unit](#maximum-transmission-unit)),
 DNS uses the [User Datagram Protocol (UDP)](#user-datagram-protocol)
-in order to avoid the additional [round trips](https://en.wikipedia.org/wiki/Round-trip_delay_time)
+in order to avoid the additional [round trips](#network-performance)
 required by the [Transmission Control Protocol (TCP)](#transmission-control-protocol)
 for the channel setup.
 If the request or response packet is lost,
@@ -2267,7 +2272,7 @@ you get additional explanations and options
 (such as doing a reverse lookup of an IPv4 address).
 The DNSSEC option and the record types
 which are not in the above table
-will be introduced in the [next box](#domain-name-system-security-extensions).
+will be introduced in [the next box](#domain-name-system-security-extensions).
 And if you just want to play around with the tools in this article,
 I also published them separately at [ef1p.com/tools](/tools/).
 
