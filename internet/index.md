@@ -992,10 +992,10 @@ after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponenti
 
 <details markdown="block">
 <summary markdown="span" id="media-access-control-address">
-Media Access Control (MAC) address
+Media access control (MAC) address
 </summary>
 
-The [Media Access Control (MAC) address](https://en.wikipedia.org/wiki/MAC_address)
+The [media access control (MAC) address](https://en.wikipedia.org/wiki/MAC_address)
 is commonly used as the [network address](#network-addresses) on the link layer.
 It is a 48-bit number, which is typically displayed as six pairs of
 [hexadecimal digits](#number-encoding).
@@ -1710,7 +1710,7 @@ If the firewall rules are imposed by someone else such as a network administrato
 users might resort to [tunneling](https://en.wikipedia.org/wiki/Tunneling_protocol#Circumventing_firewall_policy)
 their traffic via an approved protocol.
 
-{% include figure.md source="firewall-settings.png" caption="The firewall tab in the Security & Privacy preferences of macOS." scaled="true" themed="true" limited-width-on-print="true" %}
+{% include figure.md source="firewall-settings.png" caption="The firewall tab in the security and privacy preferences of macOS. Make sure that you have this setting enabled!" scaled="true" themed="true" limited-width-on-print="true" %}
 </details>
 
 ### Security layer
@@ -1862,7 +1862,7 @@ which brings us to the next topic: public-key infrastructure.
 
 <details markdown="block" open>
 <summary markdown="span" id="public-key-infrastructure">
-Public-Key Infrastructure (PKI)
+Public-key infrastructure (PKI)
 </summary>
 
 How do you know that someone took responsibility
