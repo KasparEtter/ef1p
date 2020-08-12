@@ -1636,7 +1636,7 @@ this is what it provides:
   the client is more commonly authenticated on the [application layer](#application-layer)
   (for example with a username and a password).
 - **Content confidentiality**: The content of the conversation is
-  [encrypted](https://en.wikipedia.org/wiki/Encryption) with
+  [encrypted](https://en.wikipedia.org/wiki/Encryption) in transit with
   [symmetric-key cryptography](https://en.wikipedia.org/wiki/Symmetric-key_algorithm).
   The [shared key](https://en.wikipedia.org/wiki/Shared_secret)
   is [generated](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
@@ -2022,7 +2022,7 @@ both HTTP requests and responses continue with
 an empty line,
 and an optional [message body](https://en.wikipedia.org/wiki/HTTP_message_body).
 If you request a file,
-the body of the request is empty,
+the body of the request is usually empty,
 whereas the body of the response contains the file
 (assuming the request was successful).
 If, on the other hand, you submit data
