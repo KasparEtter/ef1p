@@ -506,7 +506,14 @@ Articles can have the following variables in their [front matter](https://jekyll
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
 - `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
-You can check the preview of an article with Twitter's [card validator](https://cards-dev.twitter.com/validator).
+### Preview
+
+You can refresh the cached preview of an article
+on [Twitter](https://cards-dev.twitter.com/validator),
+[Facebook](https://developers.facebook.com/tools/debug/),
+and [LinkedIn](https://www.linkedin.com/post-inspector/inspect/).
+In case of Telegram, you need to send the URL to the
+[@webpagebot](https://telegram.me/webpagebot).
 
 ### Markdown
 
