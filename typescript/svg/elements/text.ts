@@ -7,86 +7,80 @@ import { round3 } from '../utility/rounding';
 
 import { AnimationElement, Collector, indentation, VisualElement, VisualElementProps } from './element';
 
-export interface TspanProps {
-    text: string;
-    className: string;
-}
+export class Tspan {
+    public constructor(private readonly text: TextLine, private readonly className: string) {}
 
-// Tspans are not actually animation elements but they also don't have a bounding box.
-export class Tspan extends AnimationElement {
-    public constructor(props: Readonly<TspanProps>) {
-        super(props);
-    }
-
-    protected _encode(collector: Collector, _: string, {
-        text,
-        className,
-    }: TspanProps): string {
-        collector.classes.add(className);
-        return `<tspan class="${className}">${text}</tspan>`;
+    public encode(collector: Collector): string {
+        collector.classes.add(this.className);
+        return `<tspan class="${this.className}">${encode(this.text, collector)}</tspan>`;
     }
 }
 
-export function bold(text: string): Tspan {
-    return new Tspan({ text, className: 'font-weight-bold' });
+export function bold(text: TextLine): Tspan {
+    return new Tspan(text, 'font-weight-bold');
 }
 
-export function italic(text: string): Tspan {
-    return new Tspan({ text, className: 'font-italic' });
+export function italic(text: TextLine): Tspan {
+    return new Tspan(text, 'font-italic');
 }
 
-export function underline(text: string): Tspan {
-    return new Tspan({ text, className: 'text-underline' });
+export function underline(text: TextLine): Tspan {
+    return new Tspan(text, 'text-underline');
 }
 
-export function lineThrough(text: string): Tspan {
-    return new Tspan({ text, className: 'text-line-through' });
+export function lineThrough(text: TextLine): Tspan {
+    return new Tspan(text, 'text-line-through');
 }
 
-export function small(text: string): Tspan {
-    return new Tspan({ text, className: 'small' });
+export function small(text: TextLine): Tspan {
+    return new Tspan(text, 'small');
 }
 
 // The following methods are useful to circumvent kramdown's replacement of abbreviations
 // (see https://github.com/gettalong/kramdown/issues/671 for more information).
-export function uppercase(text: string): Tspan {
-    return new Tspan({ text, className: 'text-uppercase' });
+export function uppercase(text: TextLine): Tspan {
+    return new Tspan(text, 'text-uppercase');
 }
 
-export function lowercase(text: string): Tspan {
-    return new Tspan({ text, className: 'text-lowercase' });
+export function lowercase(text: TextLine): Tspan {
+    return new Tspan(text, 'text-lowercase');
 }
 
-export function capitalize(text: string): Tspan {
-    return new Tspan({ text, className: 'text-capitalize' });
+export function capitalize(text: TextLine): Tspan {
+    return new Tspan(text, 'text-capitalize');
 }
 
-export interface AnchorProps {
-    text: string;
-    url: string;
-}
+export class Anchor {
+    public constructor(private readonly text: TextLine, private readonly url: string) {}
 
-// Anchors are not actually animation elements but they also don't have a bounding box.
-export class Anchor extends AnimationElement {
-    public constructor(props: Readonly<AnchorProps>) {
-        super(props);
-    }
-
-    protected _encode(collector: Collector, _: string, {
-        text,
-        url,
-    }: AnchorProps): string {
+    public encode(collector: Collector): string {
         collector.elements.add('a');
-        return `<a href="${url}">${text}</a>`;
+        return `<a href="${this.url}">${encode(this.text, collector)}</a>`;
     }
 }
 
 // Links are not correctly styled on Safari and iOS.
-export function href(text: string, url: string): Anchor {
-    return new Anchor({ text, url });
+export function href(text: TextLine, url: string): Anchor {
+    return new Anchor(text, url);
 }
 
-export type TextLine = string | Tspan | Anchor;
+export class CombinedText {
+    public constructor(private readonly texts: TextLine[]) {}
+
+    public encode(collector: Collector): string {
+        return this.texts.map(text => encode(text, collector)).join('');
+    }
+}
+
+export function T(...texts: TextLine[]): CombinedText {
+    return new CombinedText(texts);
+}
+
+export type TextLine = string | Tspan | Anchor | CombinedText;
+
+function encode(line: TextLine, collector: Collector): string {
+    return typeof line === 'string' ? line : line.encode(collector);
+}
 
 export type TextStyle = 'bold' | 'italic' | 'small'; // For now only those that affect the width.
 
@@ -190,7 +184,7 @@ export class Text extends VisualElement<TextProps> {
         }
         collector.elements.add('tspan');
         for (const line of text) {
-            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${typeof line === 'string' ? line : line.encode(collector, prefix)}</tspan>\n`;
+            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${encode(line, collector)}</tspan>\n`;
             y += lineHeight;
         }
         result += prefix + this.children(collector, prefix) + `</text>\n`;
