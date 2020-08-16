@@ -20,12 +20,13 @@ This document has the following sections:
   - [Favicons](#favicons) to generate the favicons in `assets/favicons`
 - [Documentation](#documentation) of custom features and common patterns:
   - [Articles](#articles-1) lists the available front matter attributes
+  - [Preview](#preview) refers to websites to refresh cached previews
   - [Markdown](#markdown) documents various advanced Markdown features
   - [Images](#images) describes how to scale and embed images in articles
   - [Graphics](#graphics) explains how to generate and embed SVG graphics
   - [Math](#math) shows how to write both inline as well as block math
   - [PDF](#pdf) details how to generate a PDF of an article with a script
-  - [Timestamp](#timestamp) summarizes how to create and verify timestamps
+  - [Timestamps](#timestamps) summarizes how to create and verify timestamps
 - [About](#about) section with information on [how to contribute](#contributions),
   [used dependencies](#dependencies-1), [copyright owner](#copyright),
   [chosen license](#license), and how to [contact me](#contact).
@@ -757,25 +758,29 @@ math: true
 The following command generates a PDF of the given article with [Puppeteer](https://github.com/puppeteer/puppeteer):
 
 ```bash
-npm run pdf-generate article
+npm run pdf-generate <article>
 ```
 
-Please make sure that you are serving the website (e.g. with `npm start`)
+Make sure that you are serving the website (e.g. with `npm start`)
 at `http://localhost:4000/` before calling the above script.
+Replace `<article>` with the name of the article's directory.
 The script runs [headless Chromium](https://developers.google.com/web/updates/2017/04/headless-chrome)
 to [generate the PDF](https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF).
 
-### Timestamp
+### Timestamps
+
+Generate, verify, and upgrade timestamps using [OpenTimestamps](https://opentimestamps.org/) with the following commands:
 
 ```bash
-npm run ots-stamp article/index.md article/generated/YYYY-MM-DD\ Article\ explained\ from\ first\ principles.pdf
+npm run ots-remove <article>
+npm run ots-stamp <article>
+npm run ots-info <article>
+npm run ots-verify <article>
+npm run ots-upgrade <article>
+npm run ots-remove-bak <article>
 ```
 
-You can then display, verify or upgrade the timestamp
-with `npm run ots-info`, `npm run ots-verify` or `npm run ots-stamp`
-using the generated `*.ots` files as arguments.
-
-You can generate the PDF and the timestamps in one step with `npm run prepare-publication article`.
+Make sure that the [PDF](#pdf) has already been generated before calling the second command.
 
 ## About
 

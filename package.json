@@ -50,12 +50,13 @@
         "md-build": "bundle exec jekyll build",
         "md-lint": "markdownlint .",
         "md-watch": "bundle exec jekyll serve --incremental --livereload --host=0.0.0.0 2>/dev/null",
-        "ots-stamp": "ots-cli.js stamp",
-        "ots-info": "ots-cli.js info",
-        "ots-verify": "ots-cli.js verify",
-        "ots-upgrade": "ots-cli.js upgrade",
+        "ots-info": "info() { ots-cli.js info \"$1/index.md.ots\"; find \"$1/generated\" -name '*.pdf.ots' -exec ots-cli.js info {} +; }; info",
+        "ots-remove": "remove() { rm \"$1/index.md.ots\"; find \"$1/generated\" -name '*.pdf.ots' -exec rm {} +; }; remove",
+        "ots-remove-bak": "removebak() { rm \"$1/index.md.ots.bak\"; find \"$1/generated\" -name '*.pdf.ots.bak' -exec rm {} +; }; removebak",
+        "ots-stamp": "stamp() { ots-cli.js stamp \"$1/index.md\"; find \"$1/generated\" -name '*.pdf' -exec ots-cli.js stamp {} +; }; stamp",
+        "ots-upgrade": "upgrade() { ots-cli.js upgrade \"$1/index.md.ots\"; find \"$1/generated\" -name '*.pdf.ots' -exec ots-cli.js upgrade {} +; }; upgrade",
+        "ots-verify": "verify() { ots-cli.js verify \"$1/index.md.ots\"; find \"$1/generated\" -name '*.pdf.ots' -exec ots-cli.js verify {} +; }; verify",
         "pdf-generate": "ts-node typescript/node/pdf.ts",
-        "prepare-publication": "prepublish() { npm run pdf-generate \"$1\"; npm run ots-stamp \"$1/index.md\"; find \"$1/generated\" -name '*.pdf' -exec npm run ots-stamp {} +; }; prepublish",
         "react-update": "cp node_modules/react/umd/react.production.min.js node_modules/react-dom/umd/react-dom.production.min.js assets/scripts/external/",
         "serve": "bundle exec jekyll serve --host=0.0.0.0",
         "sort-package": "sort-package-json",
@@ -68,7 +69,7 @@
         "ts-circular": "madge --warning --circular --extensions ts --exclude scripts/katex.ts ./typescript/",
         "ts-lint": "tslint --exclude 'node_modules/**/*' --exclude '_site/**/*' '**/*.ts?(x)'",
         "ts-watch": "webpack --watch",
-        "watch": "npm-run-all --parallel css-watch-dark img-watch md-watch svg-watch ts-watch"
+        "watch": "npm-run-all --parallel css-watch img-watch md-watch svg-watch ts-watch"
     },
     "dependencies": {},
     "devDependencies": {
