@@ -1,6 +1,6 @@
 ---
 layout: toc
-title: Index
+title: Explained from First Principles
 regenerate: true
 author: Kaspar Etter
 image: generated/focus.thumbnail.png

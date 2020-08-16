@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        {% capture title %}{% if page.layout == "article" %}{{ page.title }} {{ site.title | downcase }}{% else %}{{ site.title }}{% endif %}{% endcapture %}
+        {% capture title %}{% if page.layout == "article" %}{{ page.title }} {{ site.title | downcase }}{% else %}{{ page.title | default: site.title }}{% endif %}{% endcapture %}
         <title>{{ title }}</title>
         {% assign description = page.teaser | default: site.description | escape %}
         <meta name="description" content="{{ description }}">
