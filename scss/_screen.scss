@@ -8,20 +8,7 @@
     max-width: 1170px;
   }
 
-  sup[id^="fnref"],
-  a.footnote,
-  div.footnotes li {
-    padding-top: $body-padding-top; // Scroll to the right position.
-    margin-top: -$body-padding-top;
-  }
-
-  // I tried to apply this to the details element with `border-top: $body-padding-top transparent;` and `background-clip: padding-box`
-  // instead of `padding-top: $body-padding-top` but could not figure out how to retain `border-radius: $border-radius`.
-  // As a consequence, the ID attribute now has to be applied on the summary instead of the details element.
   summary {
-    padding-top: calc(#{$body-padding-top} + #{$paragraph-margin-bottom});
-    margin-top: calc(-#{$body-padding-top} - #{$paragraph-margin-bottom});
-
     span:last-of-type {
       margin-right: .2em; // Add the margin here instead of the anchor in order to center the scaling.
     }
@@ -32,8 +19,6 @@
   h4,
   h5,
   h6 {
-    padding-top: $body-padding-top; // Scroll to the right position with the correct scroll spy entry.
-
     span {
       cursor: pointer;
     }
@@ -41,57 +26,6 @@
     span:last-of-type {
       margin-right: .3em; // Add the margin here instead of the anchor in order to center the scaling.
     }
-  }
-
-  h1,
-  .scroll-target {
-    padding-top: $body-padding-top;
-    margin-top: -$body-padding-top;
-  }
-
-  h2 {
-    margin-top: calc(#{$h2-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h3 {
-    margin-top: calc(#{$h3-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h4 {
-    margin-top: calc(#{$h4-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h5 {
-    margin-top: calc(#{$h5-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h6 {
-    margin-top: calc(#{$h6-font-size * $heading-margin-top-to-text-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h1 + h2,
-  p.lead + h2 {
-    margin-top: calc(#{$h2-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h2 + h3 {
-    margin-top: calc(#{$h3-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h3 + h4 {
-    margin-top: calc(#{$h4-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h4 + h5 {
-    margin-top: calc(#{$h5-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  h5 + h6 {
-    margin-top: calc(#{$h6-font-size * $heading-margin-top-to-heading-factor - $paragraph-margin-bottom} - #{$body-padding-top});
-  }
-
-  hr + h2 {
-    margin-top: -$body-padding-top;
   }
 
   .anchorjs-link {

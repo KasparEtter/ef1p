@@ -1005,7 +1005,7 @@ If you don't mind revealing to [ipinfo.io](https://ipinfo.io/) that you are read
 then go ahead and enter an IPv4 address of interest in the following field.
 If you leave the field empty, the IP address from which you are visiting this website is used.
 
-<div id="tool-ip-info" class="scroll-target"></div>
+<div id="tool-ip-info"></div>
 </details>
 
 <details markdown="block">
@@ -2134,7 +2134,7 @@ The following tool generates what you have to enter in your command-line interfa
 based on the provided web address:
 
 <figure markdown="block">
-<div id="tool-http-cli" class="scroll-target"></div>
+<div id="tool-http-cli"></div>
 <figcaption markdown="span">
 How to make an HTTP request from the command line.
 Click on any line to copy it
@@ -2276,7 +2276,7 @@ will be introduced in [the next box](#domain-name-system-security-extensions).
 And if you just want to play around with the tools in this article,
 I also published them separately at [ef1p.com/tools](/tools/).
 
-<div id="tool-dns-resolver" class="scroll-target"></div>
+<div id="tool-dns-resolver"></div>
 
 </details>
 
@@ -2586,7 +2586,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   I found works completely differently),
   I built one for you
   (using the same [Google API](https://developers.google.com/speed/public-dns/docs/doh/json)):
-  <div id="tool-zone-walker" class="scroll-target"></div>
+  <div id="tool-zone-walker"></div>
   Unfortunately, not many domains have DNSSEC records
   and most of them which do use `NSEC3` rather than `NSEC`.
   It's therefore not easy to find domains to feed into this tool.

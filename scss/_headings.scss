@@ -1,32 +1,19 @@
 // Automatic heading numbering inspired by http://philarcher.org/diary/2013/headingnumbers/.
 
-h2,
-h3,
-h4,
-h5,
-h6,
-summary {
-  padding-top: $paragraph-margin-bottom;
-}
-
-summary {
-  margin-top: -$paragraph-margin-bottom;
-}
-
 h1 {
   margin-top: 0;
 }
-
-$heading-margin-top-to-text-factor: 1.5; // Custom variable only used in this file and _screen.scss.
-$heading-margin-top-to-heading-factor: 1; // Custom variable only used in this file and _screen.scss.
 
 h1,
 header {
   counter-reset: h2;
 }
 
+$heading-margin-top-to-text-factor: 1.3; // Custom variable only used in this file.
+$heading-margin-top-to-heading-factor: 0.8; // Custom variable only used in this file.
+
 h2 {
-  margin-top: $h2-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h2-font-size * $heading-margin-top-to-text-factor;
   counter-reset: h3;
 
   &::before {
@@ -36,7 +23,7 @@ h2 {
 }
 
 h3 {
-  margin-top: $h3-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h3-font-size * $heading-margin-top-to-text-factor;
   counter-reset: h4;
 
   &::before {
@@ -46,7 +33,7 @@ h3 {
 }
 
 h4 {
-  margin-top: $h4-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h4-font-size * $heading-margin-top-to-text-factor;
 
   &::before {
     content: counter(h2) "." counter(h3) "." counter(h4) ". ";
@@ -55,33 +42,33 @@ h4 {
 }
 
 h5 {
-  margin-top: $h5-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h5-font-size * $heading-margin-top-to-text-factor;
   font-style: italic;
 }
 
 h6 {
-  margin-top: $h6-font-size * $heading-margin-top-to-text-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h6-font-size * $heading-margin-top-to-text-factor;
 }
 
 h1 + h2,
 p.lead + h2 {
-  margin-top: $h2-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h2-font-size * $heading-margin-top-to-heading-factor;
 }
 
 h2 + h3 {
-  margin-top: $h3-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h3-font-size * $heading-margin-top-to-heading-factor;
 }
 
 h3 + h4 {
-  margin-top: $h4-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h4-font-size * $heading-margin-top-to-heading-factor;
 }
 
 h4 + h5 {
-  margin-top: $h5-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h5-font-size * $heading-margin-top-to-heading-factor;
 }
 
 h5 + h6 {
-  margin-top: $h6-font-size * $heading-margin-top-to-heading-factor - 2 * $paragraph-margin-bottom;
+  margin-top: $h6-font-size * $heading-margin-top-to-heading-factor;
 }
 
 hr + h2 {

@@ -12,12 +12,12 @@ The tools on this page are explained in [this article](/internet/).
 
 ## IP geolocation
 
-<div id="tool-ip-info" class="scroll-target"></div>
+<div id="tool-ip-info"></div>
 
 ## DNS resolver
 
-<div id="tool-dns-resolver" class="scroll-target"></div>
+<div id="tool-dns-resolver"></div>
 
 ## Zone walker
 
-<div id="tool-zone-walker" class="scroll-target"></div>
+<div id="tool-zone-walker"></div>

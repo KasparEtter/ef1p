@@ -33,7 +33,7 @@ $(document).ready(() => {
             window.history.pushState(null, document.title, window.location.pathname + href);
         }
 
-        $('html, body').animate({ scrollTop: offset.top });
+        $('html, body').animate({ scrollTop: offset.top - 75 });
 
         return true;
     };
@@ -86,7 +86,7 @@ $(document).ready(() => {
             $('h2, h3, h4, h5, h6, summary').each((_, element) => {
                 const offset = $(element).offset();
                 if (offset) {
-                    headings.push({ offset: offset.top - 11, element }); // Offset needed to match scrollspy.
+                    headings.push({ offset: offset.top - 85, element });
                 }
             });
         };
