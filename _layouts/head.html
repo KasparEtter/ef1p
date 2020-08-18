@@ -67,12 +67,15 @@
     {% if page.script %}
         <script defer src="{{ '/assets/scripts/internal/' | append: page.script | append: '.min.js' | relative_url }}?v=1"></script>
     {% endif %}
+        <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicons/favicon.svg' | relative_url }}">
+        <link rel="alternate icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
+        <link rel="alternate icon" type="image/png" sizes="32x32" href="{{ '/assets/favicons/favicon-32x32.png' | relative_url }}">
+        <link rel="alternate icon" type="image/png" sizes="200x200" href="{{ '/assets/favicons/favicon-200x200.png' | relative_url }}">{% comment %}
+        <!-- https://stackoverflow.com/questions/63429240/chromium-seems-to-display-ico-instead-of-svg-favicon -->
+        <link rel="alternate icon" type="image/x-icon" href="{{ '/assets/favicons/favicon.ico' | relative_url }}">{% endcomment %}
         <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | relative_url }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicons/favicon-32x32.png' | relative_url }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
         <link rel="manifest" href="{{ '/assets/favicons/site.webmanifest' | relative_url }}">
         <link rel="mask-icon" href="{{ '/assets/favicons/safari-pinned-tab.svg' | relative_url }}" color="#375a7f">
-        <link rel="shortcut icon" href="{{ '/assets/favicons/favicon.ico' | relative_url }}">
         
         <meta name="msapplication-config" content="{{ '/assets/favicons/browserconfig.xml' | relative_url }}">
         <meta name="msapplication-TileColor" content="#375a7f">
