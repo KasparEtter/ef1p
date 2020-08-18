@@ -1,13 +1,19 @@
 @media print {
   body,
   details,
-  pre {
+  pre,
+  .custom-card {
     background-color: transparent !important;
   }
 
   details,
-  pre {
+  pre,
+  .custom-card {
     border: 1px solid #000;
+  }
+
+  .custom-card {
+    text-decoration: none !important;
   }
 
   footer,
@@ -40,12 +46,17 @@
   table,
   .table,
   a,
+  a:hover,
   a[href^="#"],
+  a[href^="#"]:hover,
   .figure-caption,
   article figure figcaption,
   .form-control,
   .form-control:focus,
-  .custom-select {
+  .custom-select,
+  .custom-card,
+  .custom-card:hover,
+  .custom-card-date {
     color: #000;
   }
 

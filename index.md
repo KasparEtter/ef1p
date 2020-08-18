@@ -30,18 +30,24 @@ of technical concepts and scientific theories.
 
 ### Articles
 
-{% assign articles = site.pages | where_exp: "article", "article.category" | where_exp: "article", "article.published" | sort: "published" | reverse %}
-{% if articles.size > 0 %}
 The following articles have been published on this blog:
 
+{% assign articles = site.pages | where_exp: "article", "article.category" | where_exp: "article", "article.published" | sort: "published" | reverse %}
+<div class="custom-row">
 {% for article in articles %}
-- {{ article.published }}: [{% if article.icon %}<i class="fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}]({{ article.url | relative_url }}){% endfor %}
+  <div class="custom-column">
+    <a class="custom-card" href="{{ article.url | relative_url }}">
+      <div class="custom-card-image">
 
-{% else %}
-No articles have been published so far.
-Check again later
-or subscribe to the mailing list at the bottom of this page to stay informed.
-{% endif %}
+{% include_relative {{ article.image | replace: ".thumbnail.png", ".embedded.svg" }} %}
+      </div>
+      <div class="custom-card-title">{{ article.title }}</div>
+      <div class="custom-card-text">{{ article.teaser }}</div>
+      <div class="custom-card-date">{{ article.published | date: site.date_format }}</div>
+    </a>
+  </div>
+{% endfor %}
+</div>
 
 ### Categories
 
@@ -96,7 +102,7 @@ If you disagree with my conclusions,
 then write a rebuttal.
 If your rebuttal contributes to a civilized debate,
 I will consider adding a link to it.
-I strive to make my arguments free from
+I endeavor to make my arguments free from
 [logical fallacies](https://en.wikipedia.org/wiki/Formal_fallacy) and
 [cognitive biases](https://en.wikipedia.org/wiki/Cognitive_bias),
 but my rationality — unlike my curiosity — is also bounded.

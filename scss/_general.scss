@@ -10,11 +10,9 @@ article {
   figure,
   svg.figure {
     @extend .d-block;
-    @extend .mx-auto;
     @extend .img-fluid;
 
-    margin-top: $spacer * 1.5;
-    margin-bottom: $spacer * 1.5;
+    margin: $spacer * 1.5 auto;
   }
 
   img {
@@ -168,6 +166,92 @@ abbr[title] {
 // https://css-tricks.com/flexbox-truncated-text/
 .col {
   min-width: 0;
+}
+
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$paragraph-margin-bottom / 2;
+}
+
+.custom-column {
+  padding: $paragraph-margin-bottom / 2;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .custom-column {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-column {
+    width: 33.333333%;
+  }
+}
+
+.custom-card {
+  display: block;
+  width: 100%;
+  border: 1px solid $table-border-color;
+  @extend .rounded;
+  color: $body-color;
+
+  &:hover {
+    color: $body-color;
+  }
+}
+
+.custom-card-image {
+  position: relative;
+  width: 100%;
+  padding-top: 52.356%;
+  height: 0;
+  overflow: hidden;
+
+  svg.figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: $paragraph-margin-bottom;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.custom-card-title,
+.custom-card-text,
+.custom-card-date {
+  margin: ($paragraph-margin-bottom / 2) $paragraph-margin-bottom;
+}
+
+.custom-card-title {
+  font-size: $font-size-base * 1.25;
+}
+
+.custom-card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 576px) {
+  .custom-card-text {
+    -webkit-line-clamp: 3;
+    height: 72px;
+  }
+}
+
+.custom-card-date {
+  padding-bottom: $paragraph-margin-bottom;
+  margin-bottom: 0;
+  font-size: $font-size-base / 1.25;
 }
 
 .table-title {
