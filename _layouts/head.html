@@ -28,8 +28,8 @@
 
         <script>
             const themes = {
-                dark: "{{ '/assets/styles/dark.min.css?v=2' | relative_url }}",
-                light: "{{ '/assets/styles/light.min.css?v=2' | relative_url }}"
+                dark: "{{ '/assets/styles/dark.min.css?v=3' | relative_url }}",
+                light: "{{ '/assets/styles/light.min.css?v=3' | relative_url }}"
             };
         </script>
         <script src="{{ '/assets/scripts/internal/theme.min.js' | relative_url }}?v=1"></script>
@@ -65,7 +65,7 @@
     {% endif %}
         <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=2"></script>
     {% if page.script %}
-        <script defer src="{{ '/assets/scripts/internal/' | append: page.script | append: '.min.js' | relative_url }}?v=1"></script>
+        <script defer src="{{ '/assets/scripts/internal/' | append: page.script | append: '.min.js' | relative_url }}?v=2"></script>
     {% endif %}
         <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicons/favicon.svg' | relative_url }}">
         <link rel="alternate icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
