@@ -618,6 +618,13 @@ Details with *Markdown*.
 </details>
 ```
 
+If the information box shall be open by default,
+then add the `open` attribute to the `details` tag:
+
+```html
+<details markdown="block" open>
+```
+
 #### Header IDs
 
 You can provide the header ID yourself if you want:
