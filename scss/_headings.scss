@@ -10,7 +10,7 @@ header {
 }
 
 $heading-margin-top-to-text-factor: 1.3; // Custom variable only used in this file.
-$heading-margin-top-to-heading-factor: 0.8; // Custom variable only used in this file.
+$heading-margin-top-to-heading-factor: .8; // Custom variable only used in this file.
 
 h2 {
   margin-top: $h2-font-size * $heading-margin-top-to-text-factor;

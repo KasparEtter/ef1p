@@ -5,10 +5,12 @@
     "rules": {
         "declaration-no-important": null,
         "font-weight-notation": "named-where-possible",
+        "property-no-vendor-prefix": null,
         "scss/dollar-variable-default": null,
         "selector-max-compound-selectors": null,
         "selector-max-type": null,
         "selector-max-id": null,
-        "selector-no-qualifying-type": null
+        "selector-no-qualifying-type": null,
+        "value-no-vendor-prefix": null
     }
 }
