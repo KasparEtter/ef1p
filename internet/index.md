@@ -5,17 +5,33 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-12
+modified: 2020-08-24
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
 ---
 
+<details markdown="block" open>
+<summary markdown="span" id="preface">
+Preface
+</summary>
+
+I wrote this article to introduce the Internet to a non-technical audience.
+In order to get everyone on board,
+I first explain basic concepts such as
+[communication protocols](#communication-protocol),
+[network topologies](#network-topologies),
+and [signal routing](#signal-routing).
+The section about [Internet layers](#internet-layers) becomes increasingly technical
+and peaks with a deep dive into [DNSSEC](#domain-name-system-security-extensions).
+If the beginning is too elementary for you,
+then just skip ahead to more interesting sections.
+
 Due to the nature of the topic,
 this article contains a lot of acronyms.
 Many of them are [three-letter acronyms](https://en.wikipedia.org/wiki/Three-letter_acronym)
 (TLA for short),
-while some are longer,
+but some are longer,
 making them extended three-letter acronyms
 (or ETLA for short).
 While I introduce most of the acronyms before using them,
@@ -26,6 +42,8 @@ you need to touch the acronym instead.)
 
 Let's get right into it:
 What is a protocol?
+
+</details>
 
 
 ## Communication protocol
@@ -213,10 +231,10 @@ the [semantics](https://en.wikipedia.org/wiki/Semantics) (the meaning),
 and the order of the messages,
 a protocol should also specify how to handle anomalies like the above.
 Ambiguity in a standard
-(or willful deviation thereof)
+(or willful deviation therefrom)
 can lead to incompatibilities between different implementations.
 In combination with a lack of established standards in many areas,
-leading to uncoordinated efforts by various parties,
+which often leads to uncoordinated efforts by various parties,
 incompatibilities are quite common in computer systems,
 unfortunately.
 This causes a lot of frustration for users and programmers,
@@ -338,7 +356,7 @@ A mesh network with six nodes, three routers, and ten links.
 
 In this graph, any of the three routers can go down
 and communication is still possible between the nodes
-that are not only connected to the unavailable router.
+that are connected not only to the unavailable router.
 There are also five links that can break one at a time
 while leaving all nodes indirectly connected with each other.
 Such a partially connected network allows for a flexible tradeoff
@@ -398,10 +416,11 @@ it also has several addresses.
 
 ### Routing tables
 
-The process of selecting a path between two nodes across a network is called [routing](https://en.wikipedia.org/wiki/Routing).
+The process of selecting a path between two nodes across a network
+is called [routing](https://en.wikipedia.org/wiki/Routing).
 Routers are the nodes which perform the routing.
-In order to know on which link to forward the communication for which node,
-they maintain a so-called [routing table](https://en.wikipedia.org/wiki/Routing_table):
+They maintain a [routing table](https://en.wikipedia.org/wiki/Routing_table)
+so they know on which link to forward the communication for each node:
 
 <figure markdown="block">
 
@@ -466,7 +485,7 @@ according to the above routing table.
 
 Routers and the physical links between them can fail at any time,
 for example because a network cable is demolished by nearby construction work.
-On the other side, new nodes and connections are added to communication networks all the time.
+On the other hand, new nodes and connections are added to communication networks all the time.
 Therefore, the routing tables of routers need to be updated continuously.
 Instead of updating them manually,
 routers communicate changes with each other using a [routing protocol](https://en.wikipedia.org/wiki/Routing_protocol).
@@ -539,8 +558,8 @@ and a [payload](https://en.wikipedia.org/wiki/Payload_(computing)).
 The header contains information for the delivery of the packet
 such as the [network address](#network-addresses) of the sender and the recipient.
 Each router has a queue for incoming packets
-and then forwards each packet according to its [routing](#routing-tables)
-respectively [forwarding table](#forwarding-tables).
+and then forwards each packet according to its [routing table](#routing-tables)
+(or more precisely, its [forwarding table](#forwarding-tables)).
 Apart from these tables,
 packet-switching routers do not keep any state.
 In particular, no channels are opened or closed on the routing level.
@@ -569,7 +588,7 @@ it could happen that packets get stuck in an infinite loop:
 <figure markdown="block">
 {% include_relative generated/signal-relaying-packet-loop.embedded.svg %}
 <figcaption markdown="span">
-A packet travels in a circle, for example because it cannot be delivered.
+A packet travels in a circle because of an error in one of the routing tables.
 </figcaption>
 </figure>
 
@@ -680,7 +699,8 @@ As long as all the chunks are recombined on the recipient side,
 the protocol above can be ignorant about such a process.
 As we've seen throughout this introduction,
 a lot of things can go wrong in computer networks.
-In the following sections, we'll have a closer look on how protocols
+In the following subsections,
+we'll have a closer look on how protocols
 compensate for the deficiencies of the underlying network.
 Before we do so, we should first talk about standardization.
 
@@ -743,7 +763,7 @@ Examples of such protocols are [Ethernet](https://en.wikipedia.org/wiki/Ethernet
 Link layer protocols are designed to handle the intricacies of the underlying physical medium and signal.
 This can be an electric signal over a copper wire,
 light over an optical fiber or an electromagnetic wave through space.
-The node on the other hand of the link (typically a router)
+The node on the other end of the link (typically a router)
 removes the headers of the link layer,
 determines on the network layer on which link to forward the packet,
 and then wraps the packet according to the protocol spoken on that link.
@@ -758,19 +778,19 @@ after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponenti
 Number encoding
 </summary>
 
-Numbers are used to quantify the amount of something.
-Just as quantities, all numbers can be compared to one another.
-(This property is called [connexity](https://en.wikipedia.org/wiki/Connex_relation)
-and we're only talking about [real numbers](https://en.wikipedia.org/wiki/Real_number) here.)
-Since every number is either bigger than, smaller than, or equal to any other number,
-numbers can be thought of as a [point on a line](https://en.wikipedia.org/wiki/Number_line).
+Numbers are used to quantify the amount of something,
+and just like you can have only more, less, or an equal amount of a quantity,
+a number must be either larger than, less than, or equal to any other number
+(as long as we talk about [real numbers](https://en.wikipedia.org/wiki/Real_number) only).
+Numbers can therefore be thought of as [points on a line](https://en.wikipedia.org/wiki/Number_line).
 (More formally, the [binary relation](https://en.wikipedia.org/wiki/Binary_relation)
 "smaller than or equal to" is a [total order](https://en.wikipedia.org/wiki/Total_order)
-on the set of real numbers because it is not just connex but also
+on the set of real numbers because it is not just
+[connex](https://en.wikipedia.org/wiki/Connex_relation) but also
 [transitive](https://en.wikipedia.org/wiki/Transitive_relation) and
 [antisymmetric](https://en.wikipedia.org/wiki/Antisymmetric_relation).)
 While numbers as concepts exist independently of the human mind
-(assuming [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism)),
+(if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism)),
 we need a way to express numbers when thinking, speaking and writing about them.
 We do so by assigning labels and symbols to them
 according to a [numeral system](https://en.wikipedia.org/wiki/Numeral_system).
@@ -890,7 +910,7 @@ When I talked about [network topologies](#star-network),
 I simply called relaying nodes "routers",
 but there are actually [three types of them](https://askleo.com/whats_the_difference_between_a_hub_a_switch_and_a_router/):
 - A [hub](https://en.wikipedia.org/wiki/Ethernet_hub)
-  simply relays all incoming packets on all other links.
+  simply relays all incoming packets to all other links.
 - A [switch](https://en.wikipedia.org/wiki/Network_switch)
   remembers which MAC address it encountered on which of its links
   and forwards incoming packets only to their intended recipients.
@@ -1016,7 +1036,7 @@ Network performance
 The [performance of a network](https://en.wikipedia.org/wiki/Network_performance)
 is assessed based on the following measures:
 - **[Bandwidth](https://en.wikipedia.org/wiki/Bandwidth_(computing))**
-  indicates how much data can be transferred in one direction per a given amount of time.
+  indicates how much data can be transferred in one direction in a given amount of time.
   Unlike memory, which is measured in [bytes](#number-encoding),
   bandwidth is usually measured in [bits per second](https://en.wikipedia.org/wiki/Bits_per_second)
   (written as bit/s or bps).
@@ -1089,14 +1109,14 @@ Propagation delay
 The physical limit for how fast a signal can travel
 is the [speed of light](https://en.wikipedia.org/wiki/Speed_of_light) in vacuum,
 which is roughly 300'000 km/s (or 3 × 10<sup>8</sup> m/s).
-It takes light 67 ms to travel half around the Earth
+It takes light 67 ms to travel halfway around the Earth
 and 119 ms to travel from [geostationary orbit](https://en.wikipedia.org/wiki/Geostationary_orbit) to Earth.
 While this doesn't sound like a lot,
 [propagation delay](https://en.wikipedia.org/wiki/Propagation_delay)
 is a real problem for applications where latency matters,
 especially because a signal often has to travel back and forth to be useful.
 (One party typically reacts to information received from another party,
-which takes a full round trip to reach the other party again.)
+hence it takes a full round trip for the reaction to reach the first party again.)
 The speed at which electromagnetic waves travel through a medium
 is slower than the speed of light in vacuum.
 The speed of a light pulse through an [optical fiber](https://en.wikipedia.org/wiki/Optical_fiber)
@@ -1104,8 +1124,8 @@ is ⅔ of the speed of light in vacuum, i.e. 2.0 × 10<sup>8</sup> m/s.
 A change of electrical voltage travels slightly faster through
 a [copper wire](https://en.wikipedia.org/wiki/Copper_wire)
 at 2.3 × 10<sup>8</sup> m/s.
-When costs allow,
-optical fibers are still [often preferred](https://networkengineering.stackexchange.com/a/16440)
+When costs allow it,
+optical fibers are [often preferred](https://networkengineering.stackexchange.com/a/16440)
 over copper wire because they provide higher bandwidth
 over longer distances with less interference
 before the signal needs to be amplified.
@@ -1287,7 +1307,7 @@ An application process registers the port 25 at the operating system and then re
 #### Client-server model
 
 A [server](https://en.wikipedia.org/wiki/Server_(computing)) is just a process
-registered at the operating system to handle incoming traffic on a certain port.
+registered with the operating system to handle incoming traffic on a certain port.
 It does this to provide a certain service,
 which is then requested by so-called [clients](https://en.wikipedia.org/wiki/Client_(computing)).
 This is called the [client-server model](https://en.wikipedia.org/wiki/Client%E2%80%93server_model),
@@ -1327,7 +1347,7 @@ Transmission Control Protocol (TCP)
 
 The problem with packet-switched networks such as the Internet is
 that packets can get lost, arrive out of order and with an arbitrary delay.
-For many applications it is desirable, though,
+However, it is desirable for many applications
 that what the receiver receives is exactly what the sender sent.
 So how can we get reliable, in-order transfer of data over an unreliable network?
 This is achieved by the [Transmission Control Protocol (TCP)](https://en.wikipedia.org/wiki/Transmission_Control_Protocol),
@@ -1514,7 +1534,7 @@ Server on your personal computer
 </summary>
 
 I said [above](#client-server-model) that
-a server is just a process registered at the operating system
+a server is just a process registered with the operating system
 to handle incoming traffic on a certain port.
 In particular, no special hardware is required;
 you can easily run a server on your personal computer.
@@ -2245,16 +2265,16 @@ besides the one which resolves a domain name to an IPv4 address:
 
 | Acronym | Name | Value | Example
 |-
-| A | IPv4 address record | A single IPv4 address. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com" data-type="A" data-dnssec="false" title="Look up the A record of ef1p.com.">Example</a>
-| AAAA | IPv6 address record | A single IPv6 address. | <a class="dns-query" href="#tool-dns-resolver" data-domain="google.com" data-type="AAAA" data-dnssec="false" title="Look up the AAAA record of google.com.">Example</a>
-| CAA | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a class="dns-query" href="#tool-dns-resolver" data-domain="wikipedia.org" data-type="CAA" data-dnssec="false" title="Look up the CAA records of wikipedia.org.">Example</a>
-| CNAME | Canonical name record | Another domain name to continue the lookup with. | <a class="dns-query" href="#tool-dns-resolver" data-domain="www.facebook.com" data-type="CNAME" data-dnssec="false" title="Look up the CNAME record of www.facebook.com.">Example</a>
-| MX | Mail exchange record | The server to deliver the mail for the queried domain to. | <a class="dns-query" href="#tool-dns-resolver" data-domain="gmail.com" data-type="MX" data-dnssec="false" title="Look up the MX records of gmail.com.">Example</a>
-| NS | Name server record | The authoritative name server of the queried domain. | <a class="dns-query" href="#tool-dns-resolver" data-domain="youtube.com" data-type="NS" data-dnssec="false" title="Look up the NS records of youtube.com.">Example</a>
-| PTR | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a class="dns-query" href="#tool-dns-resolver" data-domain="47.224.172.17.in-addr.arpa" data-type="PTR" data-dnssec="false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">Example</a>
-| SOA | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a class="dns-query" href="#tool-dns-resolver" data-domain="amazon.com" data-type="SOA" data-dnssec="false" title="Look up the SOA record of amazon.com.">Example</a>
-| SRV | Service record | The port number and domain name of the queried service. | <a class="dns-query" href="#tool-dns-resolver" data-domain="_submission._tcp.gmail.com" data-type="SRV" data-dnssec="false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">Example</a>
-| TXT | Text record | Arbitrary text used in place of introducing a new record type. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com" data-type="TXT" data-dnssec="false" title="Look up the TXT records of ef1p.com.">Example</a>
+| A | IPv4 address record | A single IPv4 address. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com" data-type="A" data-dnssec="false" title="Look up the A record of ef1p.com.">↗</a>
+| AAAA | IPv6 address record | A single IPv6 address. | <a class="dns-query" href="#tool-dns-resolver" data-domain="google.com" data-type="AAAA" data-dnssec="false" title="Look up the AAAA record of google.com.">↗</a>
+| CAA | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a class="dns-query" href="#tool-dns-resolver" data-domain="wikipedia.org" data-type="CAA" data-dnssec="false" title="Look up the CAA records of wikipedia.org.">↗</a>
+| CNAME | Canonical name record | Another domain name to continue the lookup with. | <a class="dns-query" href="#tool-dns-resolver" data-domain="www.facebook.com" data-type="CNAME" data-dnssec="false" title="Look up the CNAME record of www.facebook.com.">↗</a>
+| MX | Mail exchange record | The server to deliver the mail for the queried domain to. | <a class="dns-query" href="#tool-dns-resolver" data-domain="gmail.com" data-type="MX" data-dnssec="false" title="Look up the MX records of gmail.com.">↗</a>
+| NS | Name server record | The authoritative name server of the queried domain. | <a class="dns-query" href="#tool-dns-resolver" data-domain="youtube.com" data-type="NS" data-dnssec="false" title="Look up the NS records of youtube.com.">↗</a>
+| PTR | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a class="dns-query" href="#tool-dns-resolver" data-domain="47.224.172.17.in-addr.arpa" data-type="PTR" data-dnssec="false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">↗</a>
+| SOA | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a class="dns-query" href="#tool-dns-resolver" data-domain="amazon.com" data-type="SOA" data-dnssec="false" title="Look up the SOA record of amazon.com.">↗</a>
+| SRV | Service record | The port number and domain name of the queried service. | <a class="dns-query" href="#tool-dns-resolver" data-domain="_submission._tcp.gmail.com" data-type="SRV" data-dnssec="false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">↗</a>
+| TXT | Text record | Arbitrary text used in place of introducing a new record type. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com" data-type="TXT" data-dnssec="false" title="Look up the TXT records of ef1p.com.">↗</a>
 
 <figcaption markdown="span">
 Some of the more common [DNS record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types).
@@ -2310,7 +2330,7 @@ becomes much harder as the attacker has to guess the correct timing of the respo
 the correct DNS query ID used to match answers to questions,
 as well as the correct [source port](#port-numbers) from which the query was sent.
 For this reason, DNS queries should always be sent from a random source port
-and also [NAT servers](#network-address-translation) should choose external ports unpredictably.)
+and also [NAT routers](#network-address-translation) should choose external ports unpredictably.)
 Since DNS is often used to determine the destination address of requests,
 a successful attack on the DNS resolution of your computer
 allows the attacker to redirect all your Internet traffic through servers that they control.
@@ -2359,7 +2379,7 @@ it will answer that `com` belongs to a different DNS zone
 and provides you with the addresses of the authoritative name servers of that zone.
 If you query one of those name servers for `ef1p.com.`,
 it will tell you again that other name servers are responsible for this domain.
-You can query all these name servers with the tool at the end of the previous section:
+You can query all these name servers with the tool at the end of the previous box:
 <a class="dns-query" href="#tool-dns-resolver" data-domain="." data-type="NS" data-dnssec="false">the root name servers</a>,
 <a class="dns-query" href="#tool-dns-resolver" data-domain="com." data-type="NS" data-dnssec="false">the .com name servers</a>,
 and <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com." data-type="NS" data-dnssec="false">the ef1p.com name servers</a>.
@@ -2426,16 +2446,16 @@ DNSSEC introduced the following DNS record types:
 
 <figure markdown="block">
 
-| Acronym | Name | Value | Example
+| Acronym | Name | Value |
 |-
-| DNSKEY | DNS public key record | The public key used to sign the resource records of the queried domain. | <a class="dns-query" href="#tool-dns-resolver" data-domain="." data-type="DNSKEY" data-dnssec="true" title="Look up the DNSKEY records of the root zone.">Example</a>
-| DS | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="com." data-type="DS" data-dnssec="true" title="Look up the DS record for the com zone signed by the root zone.">Example</a>
-| RRSIG | Resource record signature | A digital signature on the queried set of resource records. | <a class="dns-query" href="#tool-dns-resolver" data-domain="." data-type="RRSIG" data-dnssec="true" title="Look up the various RRSIG records of the root domain.">Example</a>
-| NSEC | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a class="dns-query" href="#tool-dns-resolver" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">Example</a>
-| NSEC3 | NSEC version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a class="dns-query" href="#tool-dns-resolver" data-domain="com." data-type="A" data-dnssec="true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">Example</a>
-| NSEC3PARAM | NSEC3 parameters | Used only by authoritative name servers to generate the NSEC3 records. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com." data-type="NSEC3PARAM" data-dnssec="true" title="Look up the NSEC3PARAM record of ef1p.com.">Example</a>
-| CDS | Child copy of DS | Used by the child zone to update its DS record in the parent zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="switch.ch." data-type="CDS" data-dnssec="true" title="Look up the CDS record of switch.ch.">Example</a>
-| CDNSKEY | Child copy of DNSKEY | Used by the child zone to update its DS record in the parent zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="switch.ch." data-type="TYPE60" data-dnssec="true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">Example</a>
+| DNSKEY | DNS public key record | The public key used to sign the resource records of the queried domain. | <a class="dns-query" href="#tool-dns-resolver" data-domain="." data-type="DNSKEY" data-dnssec="true" title="Look up the DNSKEY records of the root zone.">↗</a>
+| DS | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="com." data-type="DS" data-dnssec="true" title="Look up the DS record for the com zone signed by the root zone.">↗</a>
+| RRSIG | Resource record signature | A digital signature on the queried set of resource records. | <a class="dns-query" href="#tool-dns-resolver" data-domain="." data-type="RRSIG" data-dnssec="true" title="Look up the various RRSIG records of the root domain.">↗</a>
+| NSEC | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a class="dns-query" href="#tool-dns-resolver" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">↗</a>
+| NSEC3 | NSEC version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a class="dns-query" href="#tool-dns-resolver" data-domain="com." data-type="A" data-dnssec="true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">↗</a>
+| NSEC3PARAM | NSEC3 parameters | Used by authoritative name servers to generate the NSEC3 records. | <a class="dns-query" href="#tool-dns-resolver" data-domain="ef1p.com." data-type="NSEC3PARAM" data-dnssec="true" title="Look up the NSEC3PARAM record of ef1p.com.">↗</a>
+| CDS | Child copy of DS | Used by the child zone to update its DS record in the parent zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="switch.ch." data-type="CDS" data-dnssec="true" title="Look up the CDS record of switch.ch.">↗</a>
+| CDNSKEY | Child copy of DNSKEY | Used by the child zone to update its DS record in the parent zone. | <a class="dns-query" href="#tool-dns-resolver" data-domain="switch.ch." data-type="TYPE60" data-dnssec="true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">↗</a>
 
 <figcaption markdown="span">
 The [DNS record types introduced for DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Resource_records)
