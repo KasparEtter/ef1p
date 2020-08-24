@@ -106,7 +106,7 @@ function normalizeRecord(record: GoogleDnsRecord): DnsRecord {
     const name = record.name;
     const type = recordTypesById[record.type] ?? record.type;
     const live = record.TTL;
-    const data = (type === 'SPF' || type === 'TXT') ? record.data.slice(1, -1).replace('""', '') : record.data;
+    const data = (type === 'SPF' || type === 'TXT') ? record.data.slice(1, -1).replace(/""/g, '') : record.data;
     return { name, type, ttl: live, data };
 }
 

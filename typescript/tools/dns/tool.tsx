@@ -282,7 +282,7 @@ function parseDnsData(record: DnsRecord): JSX.Element {
 }
 
 function turnRecordsIntoTable(records: DnsRecord[]): JSX.Element {
-    return <table className="dynamic-output-pointer">
+    return <table className="text-nowrap dynamic-output-pointer">
         <thead>
             <th>Domain name</th>
             <th>Time to live</th>
