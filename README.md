@@ -468,7 +468,7 @@ you have to download them manually from the following links:
   (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
 - [KaTeX](https://katex.org/docs/browser.html)
   with [copy-tex](https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex)
-  and [mathtex-script-type](https://github.com/KaTeX/KaTeX/tree/master/contrib/mathtex-script-type)
+  and [auto-render](https://github.com/KaTeX/KaTeX/tree/master/contrib/auto-render)
   extensions
 
 In order to use the same library versions for local development as for remote production,
