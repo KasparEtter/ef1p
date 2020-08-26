@@ -1590,7 +1590,7 @@ A [firewall](https://en.wikipedia.org/wiki/Firewall_(computing))
 permits or denies network traffic based on configured rules.
 The goal is to protect the local network or machine from outside threats.
 In order to compromise your system,
-an attacker needs to find a whole in the firewall
+an attacker needs to find a hole in the firewall
 and a vulnerability in a particular application.
 Having multiple layers of security controls is known as
 [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)).
