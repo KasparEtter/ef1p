@@ -5,7 +5,7 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-24
+modified: 2020-08-27
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
@@ -634,8 +634,8 @@ with only [best-effort delivery](https://en.wikipedia.org/wiki/Best-effort_deliv
 This means that the Internet provides no guarantees about whether and in what time a packet is delivered.
 [Internet service providers (ISP)](https://en.wikipedia.org/wiki/Internet_service_provider)
 provide access to the Internet for businesses and private individuals.
-They maintain proprietary computer networks for their customers,
-which are themselves interconnected through [international backbones](https://en.wikipedia.org/wiki/Internet_backbone).
+They maintain proprietary computer networks for their customers
+and are themselves interconnected through [international backbones](https://en.wikipedia.org/wiki/Internet_backbone).
 The big achievement of the Internet is making individual networks interoperable
 through the [Internet Protocol (IP)](https://en.wikipedia.org/wiki/Internet_Protocol).
 
@@ -697,7 +697,7 @@ Secondly, a protocol can split a payload into smaller chunks and transfer them s
 It can even ask the sender to retransmit a certain chunk.
 As long as all the chunks are recombined on the recipient side,
 the protocol above can be ignorant about such a process.
-As we've seen throughout this introduction,
+As we've seen in the sections above,
 a lot of things can go wrong in computer networks.
 In the following subsections,
 we'll have a closer look on how protocols
@@ -990,10 +990,8 @@ the [Internet Protocol version 6 (IPv6)](https://en.wikipedia.org/wiki/IPv6) has
 IPv6 uses 128-bit addresses,
 which are represented as eight groups of four hexadecimal digits
 with the groups separated by colons.
-As IPv6 is not interoperable with IPv4,
-the transition has been [steady but slow](https://en.wikipedia.org/wiki/IPv6_deployment).
-Since virtually all Internet services including email servers are still available under IPv4,
-we'll mostly ignore the existence of IPv6 in the rest of this article.
+As IPv6 isn't interoperable with IPv4,
+the transition has been [slow but steady](https://en.wikipedia.org/wiki/IPv6_deployment).
 
 <details markdown="block">
 <summary markdown="span" id="ip-geolocation">
@@ -1358,7 +1356,7 @@ TCP connections are handled by the communication endpoints
 without the involvement of the routers in between.
 In order to provide reliable data transfer,
 both the sending and the receiving process temporarily store
-both outgoing and incoming packets in so-called [buffers](https://en.wikipedia.org/wiki/Data_buffer).
+outgoing and incoming packets in [buffers](https://en.wikipedia.org/wiki/Data_buffer).
 In each direction of communication,
 the packets are enumerated with the so-called sequence number.
 For each packet that is being transferred,
@@ -2922,7 +2920,7 @@ of important milestones in the area of network technologies and standards – an
 | 1982 | The US Department of Defense makes IP the [only approved protocol on ARPANET](https://en.wikipedia.org/wiki/Internet_protocol_suite#Adoption).
 | 1982 | First definition of the [Simple Mail Transfer Protocol (SMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) for email in [RFC 821](https://tools.ietf.org/html/rfc821).
 | 1983 | Creation of the [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System) as specified in [RFC 882](https://tools.ietf.org/html/rfc882) and [RFC 883](https://tools.ietf.org/html/rfc883).
-| 1984 | First version of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from mailbox ([RFC 918](https://tools.ietf.org/html/rfc918)).
+| 1984 | First version of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from a mailbox ([RFC 918](https://tools.ietf.org/html/rfc918)).
 | 1985 | [First commercial registration](https://en.wikipedia.org/wiki/Domain_name#Domain_name_registration) of a domain name in the `.com` [top-level domain](https://en.wikipedia.org/wiki/Top-level_domain).
 | 1986 | Design of the [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol), documented in [RFC 1064](https://tools.ietf.org/html/rfc1064).
 | 1990 | Invention of the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web) by [Tim Berners-Lee](https://en.wikipedia.org/wiki/Sir_Timothy_John_Berners-Lee) at [CERN](https://en.wikipedia.org/wiki/CERN) in Switzerland,<br>which includes the [HyperText Transfer Protocol (HTTP)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), the [HyperText Markup<br>Language (HTML)](https://en.wikipedia.org/wiki/Hypertext_Markup_Language), the [Uniform Resource Locator (URL)](https://en.wikipedia.org/wiki/Uniform_resource_locator), a [web server](https://en.wikipedia.org/wiki/Web_server), and a [browser](https://en.wikipedia.org/wiki/Web_browser).
