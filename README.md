@@ -691,7 +691,7 @@ you can declare an [attribute list definition](https://kramdown.gettalong.org/sy
 #### Image with caption
 
 ```markdown
-{% include figure.md source="source.png" caption="Caption with *Markdown*." %}
+{% include image.md source="source.png" caption="Caption with *Markdown*." %}
 ```
 
 The `caption` string can span several lines.
@@ -700,7 +700,9 @@ It will be rendered with `markdown="span"` as a single paragraph.
 
 #### Image in various sizes
 
-Images in the `images` subfolder of articles are automatically scaled to 500, 1000 and 2000 pixels
+Images in the `images` subfolder of articles
+that end on `.scaled.[jpeg|jpg|png]`
+are automatically scaled to a width of 500, 1000 and 2000 pixels
 and stored in the subfolder `generated`
 when running `npm run build`, `npm run watch`, or `npm start`.
 If you only want to build or watch these images,
@@ -710,10 +712,25 @@ A [`srcset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/s
 with the various sizes is generated when you add `scaled="true"` to the `include` statement.
 
 ```markdown
-{% include figure.md source="source.png" caption="Caption with *Markdown*." scaled="true" %}
+{% include image.md source="source.png" caption="Caption with *Markdown*." scaled="true" %}
 ```
 
+This example requires that `images/source.scaled.png` exists.
 The `caption` is optional and can be skipped.
+
+#### Dark and light images
+
+If you want to provide a different image for the dark and the light theme,
+you can add `themed="true"` to the `include` statement.
+Please note that the light image is used for printing and the [PDF](#pdf) export.
+
+```markdown
+{% include image.md source="source.png" caption="Caption with *Markdown*." themed="true" %}
+```
+
+This example requires that `images/source.dark.png` and `images/source.light.png` exist.
+You can combine this feature with the above scaling option,
+in which case `images/source.dark.scaled.png` and `images/source.light.scaled.png` must exist.
 
 ### Graphics
 
@@ -742,6 +759,15 @@ Caption with *Markdown*.
 </figure>
 ```
 
+#### Generate thumbnail
+
+If you want to use an SVG image for the social media preview,
+you can generate a dark and properly scaled PNG with:
+
+```bash
+npm run thumbnail <article>/graphics/<name>.svg.ts
+```
+
 ### Math
 
 ```markdown
@@ -765,7 +791,7 @@ math: true
 The following command generates a PDF of the given article with [Puppeteer](https://github.com/puppeteer/puppeteer):
 
 ```bash
-npm run pdf-generate <article>
+npm run export <article>
 ```
 
 Make sure that you are serving the website (e.g. with `npm start`)

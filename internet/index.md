@@ -940,7 +940,7 @@ If a packet is larger than the MTU,
 it is split into smaller fragments by the network layer.
 If the network drops any of the fragments,
 then the entire packet is lost.
-{% include figure.md source="mac-address.png" caption="This is how the MAC address and the MTU appear in the Wi-Fi preferences of macOS." scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="mac-address.png" caption="This is how the MAC address and the MTU appear in the Wi-Fi preferences of macOS." scaled="true" themed="true" %}
 
 </details>
 
@@ -1203,7 +1203,7 @@ your device can request an IP address from the router of the network using the
 [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol).
 DHCP is an [application layer](#application-layer) protocol.
 
-{% include figure.md source="dhcp-configuration.png" caption="The DHCP configuration in the Wi-Fi preferences of macOS. Have a look at [NAT](#network-address-translation) for more information about the IP address." scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="dhcp-configuration.png" caption="The DHCP configuration in the Wi-Fi preferences of macOS. Have a look at [NAT](#network-address-translation) for more information about the IP address." scaled="true" themed="true" %}
 
 </details>
 
@@ -1600,7 +1600,7 @@ If the firewall rules are imposed by someone else such as a network administrato
 users might resort to [tunneling](https://en.wikipedia.org/wiki/Tunneling_protocol#Circumventing_firewall_policy)
 their traffic via an approved protocol.
 
-{% include figure.md source="firewall-settings.png" caption="The firewall tab in the security and privacy preferences of macOS. Make sure that you have this setting enabled!" scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="firewall-settings.png" caption="The firewall tab in the security and privacy preferences of macOS. Make sure that you have this setting enabled!" scaled="true" themed="true" %}
 </details>
 
 ### Security layer
@@ -1796,7 +1796,7 @@ A widely adopted format for public-key certificates is
 which is also used in TLS.
 X.509 certificates are often displayed as follows:
 
-{% include figure.md source="digital-certificate.png" caption="The public-key certificate of [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) as displayed by Chrome on macOS." scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="digital-certificate.png" caption="The public-key certificate of [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) as displayed by Chrome on macOS." scaled="true" themed="true" %}
 
 There are two different paradigms for issuing public-key certificates:
 - **[Web of trust](https://en.wikipedia.org/wiki/Web_of_trust)**:
@@ -1838,7 +1838,7 @@ There are two different paradigms for issuing public-key certificates:
   we see that *DigiCert High Assurance EV Root CA* is indeed among them:
 {:.spaced}
 
-{% include figure.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>(In case you are wondering, this list contains 165 root CAs on my Mac.)" scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>(In case you are wondering, this list contains 165 root CAs on my Mac.)" scaled="true" themed="true" %}
 
 As [described above](#transport-layer-security),
 the server sends its certificate to the client during the TLS handshake.
@@ -2137,7 +2137,7 @@ Every modern browser includes powerful
 [developer tools](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools),
 with which you can inspect the requests it made:
 
-{% include figure.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details such as its request method and the IP address with the port number of the server on the right." scaled="true" themed="true" limited-width-on-print="true" %}
+{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details such as its request method and the IP address with the port number of the server on the right." scaled="true" themed="true" %}
 
 If you are familiar with the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface)
 of your operating system,
