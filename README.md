@@ -762,10 +762,12 @@ Caption with *Markdown*.
 #### Generate thumbnail
 
 If you want to use an SVG image for the social media preview,
-you can generate a dark and properly scaled PNG with:
+you can generate a dark and properly scaled PNG
+by adding the graphic to the script at `typescript/node/thumbnail.ts`.
+You can then run this script with:
 
 ```bash
-npm run thumbnail <article>/graphics/<name>.svg.ts
+npm run thumbnail
 ```
 
 ### Math
