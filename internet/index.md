@@ -5,7 +5,7 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-27
+modified: 2020-08-28
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
@@ -18,7 +18,7 @@ Preface
 
 I wrote this article to introduce the Internet to a non-technical audience.
 In order to get everyone on board,
-I first explain basic concepts such as
+I first explain basic concepts, such as
 [communication protocols](#communication-protocol),
 [network topologies](#network-topologies),
 and [signal routing](#signal-routing).
@@ -29,16 +29,14 @@ then just skip ahead to more interesting sections.
 
 Due to the nature of the topic,
 this article contains a lot of acronyms.
-Many of them are [three-letter acronyms](https://en.wikipedia.org/wiki/Three-letter_acronym)
-(TLA for short),
+Many of them are [three-letter acronyms (TLA)](https://en.wikipedia.org/wiki/Three-letter_acronym),
 but some are longer,
-making them extended three-letter acronyms
-(or ETLA for short).
+which makes them extended three-letter acronyms (ETLA).
 While I introduce most of the acronyms before using them,
-you can simply hover over a TLA or ETLA with your mouse
+you can simply hover over a TLA or an ETLA with your mouse
 if you forgot what they stand for.
-(If you are reading this on a touch device,
-you need to touch the acronym instead.)
+If you are reading this on a touch device,
+you have to touch the acronym instead.
 
 Let's get right into it:
 What is a protocol?
@@ -53,12 +51,10 @@ What is a protocol?
 
 A [communication protocol](https://en.wikipedia.org/wiki/Communication_protocol)
 specifies how two parties can exchange information for a specific purpose.
-In particular,
-it determines which messages are to be transmitted in what order.
+In particular, it determines which messages are to be transmitted in what order.
 If the two parties are computers,
 a formal, well-defined protocol is easiest to implement.
-In order to illustrate what is going on,
-however,
+In order to illustrate what is going on, however,
 let's first look at an informal protocol,
 also known as [etiquette](https://en.wikipedia.org/wiki/Etiquette),
 which we're all too familiar with:
@@ -231,8 +227,8 @@ the [semantics](https://en.wikipedia.org/wiki/Semantics) (the meaning),
 and the order of the messages,
 a protocol should also specify how to handle anomalies like the above.
 Ambiguity in a standard
-(or willful deviation therefrom)
-can lead to incompatibilities between different implementations.
+and willful deviation therefrom
+result in incompatibilities between different implementations.
 In combination with a lack of established standards in many areas,
 which often leads to uncoordinated efforts by various parties,
 incompatibilities are quite common in computer systems,
@@ -298,8 +294,8 @@ A fully connected network with five nodes and ten links.
 In graph theory, such a layout is known as a [complete graph](https://en.wikipedia.org/wiki/Complete_graph).
 Fully connected networks scale badly
 as the number of links grows quadratically with the number of nodes.
-(You might have encountered the formula for the number of links before:
-n × (n – 1) / 2, with n being the number of nodes in the network.)
+You might have encountered the formula for the number of links before:
+n × (n – 1) / 2, with n being the number of nodes in the network.
 As a consequence, this topology is impractical for larger networks.
 
 
@@ -312,7 +308,7 @@ the number of links scales linearly with the number of nodes.
 In other words,
 if you double the number of nodes,
 you also double the number of links.
-(In a fully connected network, you would have quadrupled the number of links.)
+In a fully connected network, you would have quadrupled the number of links.
 For now, we call the newly introduced node a [router](https://en.wikipedia.org/wiki/Router_(computing)).
 As we will see [later on](#hubs-switches-and-routers),
 such a relaying node is called differently
@@ -363,11 +359,11 @@ Such a partially connected network allows for a flexible tradeoff
 between [redundancy](https://en.wikipedia.org/wiki/Redundancy_(engineering))
 and [scalability](https://en.wikipedia.org/wiki/Scalability).
 It is therefore usually the preferred network topology.
-(The node marked with an asterisk is connected to two routers
+Furthermore, the node marked with an asterisk is connected to two routers
 in order to increase its availability.
 Because of higher costs,
-this is usually only done for [critical systems](https://en.wikipedia.org/wiki/Critical_system)
-such as very important servers.)
+this is usually only done for [critical systems](https://en.wikipedia.org/wiki/Critical_system),
+which provide crucial services.
 
 
 ## Signal routing
@@ -378,8 +374,8 @@ such as very important servers.)
 Unlike in a fully connected network,
 where each node can simply pick the right link to reach the desired node,
 a network with relay nodes requires that nodes can address each other.
-Even if a router relays each signal on all of its links to other nodes
-(making it a [hub](#hubs-switches-and-routers) instead of a router),
+Even if a router relays each signal on all of its links to other nodes,
+which would make it a [hub](#hubs-switches-and-routers) instead of a router,
 the nodes still need a way to figure out
 whether they were the intended recipient of a message.
 This problem can be solved by assigning a unique identifier to each node in the network
@@ -400,17 +396,17 @@ For the sake of simplicity, I no longer draw the arrow tips on links.
 </figure>
 
 We're all familiar with hierarchical addresses such as
-[postal codes](https://en.wikipedia.org/wiki/Postal_code)
-(known as [ZIP Code](https://en.wikipedia.org/wiki/ZIP_Code) in the United States)
-or [telephone numbers](https://en.wikipedia.org/wiki/Telephone_number) with their
+[postal codes](https://en.wikipedia.org/wiki/Postal_code),
+which are known as [ZIP Codes](https://en.wikipedia.org/wiki/ZIP_Code) in the United States,
+and [telephone numbers](https://en.wikipedia.org/wiki/Telephone_number) with their
 [country calling codes](https://en.wikipedia.org/wiki/List_of_country_calling_codes).
 Strictly speaking, the address denotes the network link of a node and not the node itself.
 This can be seen in the node on the right,
 which is known as B2 to router B
 and as C1 to router C.
 In other words,
-if a node belongs to several so-called [subnetworks](https://en.wikipedia.org/wiki/Subnetwork)
-(such as B and C in this example),
+if a node belongs to several so-called [subnetworks](https://en.wikipedia.org/wiki/Subnetwork),
+such as B and C in this example,
 it also has several addresses.
 
 
@@ -444,10 +440,10 @@ to forward all communications for node A2 on link 2.
 It doesn't matter on which link router A receives such communications.
 The router also keeps track of how costly each route is.
 The cost can either be in terms of [network delay](https://en.wikipedia.org/wiki/Network_delay)
-or the economic cost of the transmission
-(what different providers charge each other).
+or the economic cost of the transmission,
+based on what providers charge each other.
 In this example, router A forwards all communications for nodes starting with C on link 4
-because the associated cost is lower than the cost for link 3 (via router B).
+because the associated cost is lower than the cost for link 3 via router B.
 
 <details markdown="block">
 <summary markdown="span" id="forwarding-tables">
@@ -555,11 +551,11 @@ the data to transfer is split into chunks.
 These chunks are called [packets](https://en.wikipedia.org/wiki/Network_packet)
 and consist of a [header](https://en.wikipedia.org/wiki/Header_(computing))
 and a [payload](https://en.wikipedia.org/wiki/Payload_(computing)).
-The header contains information for the delivery of the packet
+The header contains information for the delivery of the packet,
 such as the [network address](#network-addresses) of the sender and the recipient.
 Each router has a queue for incoming packets
 and then forwards each packet according to its [routing table](#routing-tables)
-(or more precisely, its [forwarding table](#forwarding-tables)).
+or, more precisely, its [forwarding table](#forwarding-tables).
 Apart from these tables,
 packet-switching routers do not keep any state.
 In particular, no channels are opened or closed on the routing level.
@@ -628,7 +624,7 @@ the one of the source and the one of the destination.
 ## Internet layers
 
 The [Internet](https://en.wikipedia.org/wiki/Internet) is a global network of computer networks.
-(The term literally means "[between](https://en.wiktionary.org/wiki/inter-) networks".)
+Its name means "[between](https://en.wiktionary.org/wiki/inter-) networks".
 It is a [packet-switched](#packet-switching) [mesh network](#mesh-network)
 with only [best-effort delivery](https://en.wikipedia.org/wiki/Best-effort_delivery).
 This means that the Internet provides no guarantees about whether and in what time a packet is delivered.
@@ -673,8 +669,8 @@ Before we dive into the lowest layer,
 we first need to understand what "building on the layer below" means.
 [Digital data](https://en.wikipedia.org/wiki/Digital_data)
 can be copied perfectly from one memory location to another.
-The implementation of a specific protocol receives a chunk of data from the layer above (the payload)
-and wraps it with the information required to fulfill its purpose (in the so-called header).
+The implementation of a specific protocol receives a chunk of data known as the payload from the layer above
+and wraps it with the information required to fulfill its purpose in the so-called header.
 The payload and header then become the payload for the layer below,
 where another protocol specifies a new set of headers to be added.
 Each of these wrappings is undone by the respective protocol on the recipient side.
@@ -763,7 +759,7 @@ Examples of such protocols are [Ethernet](https://en.wikipedia.org/wiki/Ethernet
 Link layer protocols are designed to handle the intricacies of the underlying physical medium and signal.
 This can be an electric signal over a copper wire,
 light over an optical fiber or an electromagnetic wave through space.
-The node on the other end of the link (typically a router)
+The node on the other end of the link, typically a router,
 removes the headers of the link layer,
 determines on the network layer on which link to forward the packet,
 and then wraps the packet according to the protocol spoken on that link.
@@ -781,16 +777,10 @@ Number encoding
 Numbers are used to quantify the amount of something,
 and just like you can have only more, less, or an equal amount of a quantity,
 a number must be either larger than, less than, or equal to any other number
-(as long as we talk about [real numbers](https://en.wikipedia.org/wiki/Real_number) only).
+– as long as we talk about [real numbers](https://en.wikipedia.org/wiki/Real_number) only.
 Numbers can therefore be thought of as [points on a line](https://en.wikipedia.org/wiki/Number_line).
-(More formally, the [binary relation](https://en.wikipedia.org/wiki/Binary_relation)
-"smaller than or equal to" is a [total order](https://en.wikipedia.org/wiki/Total_order)
-on the set of real numbers because it is not just
-[connex](https://en.wikipedia.org/wiki/Connex_relation) but also
-[transitive](https://en.wikipedia.org/wiki/Transitive_relation) and
-[antisymmetric](https://en.wikipedia.org/wiki/Antisymmetric_relation).)
 While numbers as concepts exist independently of the human mind
-(if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism)),
+if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism),
 we need a way to express numbers when thinking, speaking and writing about them.
 We do so by assigning labels and symbols to them
 according to a [numeral system](https://en.wikipedia.org/wiki/Numeral_system).
@@ -800,9 +790,8 @@ To make this possible, we have to assign meaning to the
 [order](https://en.wikipedia.org/wiki/Sign-value_notation),
 [position](https://en.wikipedia.org/wiki/Positional_notation), and/or
 [repetition](https://en.wikipedia.org/wiki/Unary_numeral_system) of symbols.
-Since only the positional notation is relevant nowadays
-(as long as we ignore [tally marks](https://en.wikipedia.org/wiki/Tally_marks)),
-we'll focus on that.
+With the exception of [tally marks](https://en.wikipedia.org/wiki/Tally_marks),
+only the positional notation is relevant nowadays.
 
 In positional notation, you have an ordered list of symbols,
 representing the values from zero to the length of the list minus one.
@@ -845,7 +834,7 @@ each bit is multiplied by two raised to the power of its position.
 
 Virtually all modern computers use the binary numeral system
 because each bit can be encoded as the presence or absence
-of a [physical phenomenon](https://en.wikipedia.org/wiki/Bit#Physical_representation)
+of a [physical phenomenon](https://en.wikipedia.org/wiki/Bit#Physical_representation),
 such as [voltage](https://en.wikipedia.org/wiki/Voltage) or
 [electric current](https://en.wikipedia.org/wiki/Electric_current).
 This makes [operations on binary numbers](https://en.wikipedia.org/wiki/Binary_number#Binary_arithmetic)
@@ -924,7 +913,9 @@ but there are actually [three types of them](https://askleo.com/whats_the_differ
   Your Wi-Fi router, for example, routes packets within your local network
   but also between your local network and the network of your Internet service provider.
   As we will cover in the [next subsection](#network-layer),
-  it also provides important services such as [DHCP](#dynamic-host-configuration-protocol) and [NAT](#network-address-translation).
+  it also provides important services,
+  such as [DHCP](#dynamic-host-configuration-protocol)
+  and [NAT](#network-address-translation).
 
 </details>
 
@@ -1005,7 +996,8 @@ In order to facilitate the routing of packets,
 they get assigned an [IP address range](https://en.wikipedia.org/wiki/Subnetwork) for their regional network.
 This allows companies to build databases that map IP addresses to their geographical location.
 Unless you use a [Virtual Private Network (VPN)](https://en.wikipedia.org/wiki/Virtual_private_network)
-or an [overlay network](https://en.wikipedia.org/wiki/Overlay_network) for anonymous communication such as [Tor](https://www.torproject.org/),
+or an [overlay network](https://en.wikipedia.org/wiki/Overlay_network) for anonymous communication,
+such as [Tor](https://www.torproject.org/),
 you reveal your approximate location to every server you communicate with.
 Websites such as [streaming platforms](https://en.wikipedia.org/wiki/Streaming_service_provider)
 use this information to restrict the content available to you
@@ -1036,10 +1028,10 @@ is assessed based on the following measures:
 - **[Bandwidth](https://en.wikipedia.org/wiki/Bandwidth_(computing))**
   indicates how much data can be transferred in one direction in a given amount of time.
   Unlike memory, which is measured in [bytes](#number-encoding),
-  bandwidth is usually measured in [bits per second](https://en.wikipedia.org/wiki/Bits_per_second)
-  (written as bit/s or bps).
+  bandwidth is usually measured in [bits per second](https://en.wikipedia.org/wiki/Bits_per_second),
+  which is written as bit/s or bps.
   As always, multiples of the unit can be denoted with the appropriate
-  [prefix](https://en.wikipedia.org/wiki/Unit_prefix)
+  [prefix](https://en.wikipedia.org/wiki/Unit_prefix),
   such as M for mega (10<sup>6</sup>) in Mbit/s or Mbps.
 - **[Latency](https://en.wikipedia.org/wiki/Latency_(engineering))**
   indicates how long it takes for a single bit to reach the recipient.
@@ -1049,7 +1041,7 @@ is assessed based on the following measures:
   to that particular destination,
   which includes the [one-way delay (OWD)](https://en.wikipedia.org/wiki/End-to-end_delay)
   in both directions and the time it took the recipient to process the request.
-  (See the next two boxes for more information on this.)
+  Have a look at the next two boxes for more information on this.
 - **[Jitter](https://en.wikipedia.org/wiki/Jitter)**
   is the undesired variation in the latency of a signal.
   On the link layer, such a deviation from the periodic
@@ -1084,15 +1076,15 @@ due to the many round trips.
 You can measure the speed of your Internet connection
 with tools such as [speedtest.net](https://www.speedtest.net/).
 A high download speed is important for watching high-definition videos
-and downloading large files such as computer games and software updates.
+and downloading large files, such as computer games and software updates.
 A high upload speed is important for participating in video calls
-and uploading large files such as videos or hundreds of pictures.
+and uploading large files, such as videos or hundreds of pictures.
 As a rule of thumb,
 you can divide the number of megabits per second by ten
 to get a rough estimate for actual megabytes per second
 due to the aforementioned overhead.
 Please keep in mind that Internet communication is routed over many links
-and that any of the links (including the Wi-Fi link to your own router)
+and that any of the links, including the Wi-Fi link to your own router,
 can limit the overall performance.
 For example, if a server you interact with has a slow connection or is very busy,
 then paying more for a faster Internet at your end won't improve the situation.
@@ -1106,15 +1098,15 @@ Propagation delay
 
 The physical limit for how fast a signal can travel
 is the [speed of light](https://en.wikipedia.org/wiki/Speed_of_light) in vacuum,
-which is roughly 300'000 km/s (or 3 × 10<sup>8</sup> m/s).
+which is roughly 300'000 km/s or 3 × 10<sup>8</sup> m/s.
 It takes light 67 ms to travel halfway around the Earth
 and 119 ms to travel from [geostationary orbit](https://en.wikipedia.org/wiki/Geostationary_orbit) to Earth.
 While this doesn't sound like a lot,
 [propagation delay](https://en.wikipedia.org/wiki/Propagation_delay)
 is a real problem for applications where latency matters,
 especially because a signal often has to travel back and forth to be useful.
-(One party typically reacts to information received from another party,
-hence it takes a full round trip for the reaction to reach the first party again.)
+One party typically reacts to information received from another party,
+hence it takes a full round trip for the reaction to reach the first party again.
 The speed at which electromagnetic waves travel through a medium
 is slower than the speed of light in vacuum.
 The speed of a light pulse through an [optical fiber](https://en.wikipedia.org/wiki/Optical_fiber)
@@ -1128,7 +1120,7 @@ over copper wire because they provide higher bandwidth
 over longer distances with less interference
 before the signal needs to be amplified.
 It is to be seen whether [satellite constellations](https://en.wikipedia.org/wiki/Satellite_constellation)
-in [low Earth orbit](https://en.wikipedia.org/wiki/Low_Earth_orbit)
+in [low Earth orbit](https://en.wikipedia.org/wiki/Low_Earth_orbit),
 such as [Starlink](https://en.wikipedia.org/wiki/Starlink),
 which is currently being built by [SpaceX](https://en.wikipedia.org/wiki/SpaceX),
 will be able to provide lower latency transcontinental connections
@@ -1231,18 +1223,18 @@ Before we can discuss the [transport layer](https://en.wikipedia.org/wiki/Transp
 we first need to talk about [operating systems (OS)](https://en.wikipedia.org/wiki/Operating_system).
 The job of an operating system is to manage the
 [hardware](https://en.wikipedia.org/wiki/Computer_hardware) of a computer.
-Its hardware includes [processors](https://en.wikipedia.org/wiki/Processor_(computing))
-(such as the [central processing unit (CPU)](https://en.wikipedia.org/wiki/Central_processing_unit)
-and the [graphics processing unit (GPU)](https://en.wikipedia.org/wiki/Graphics_processing_unit)),
-[memory](https://en.wikipedia.org/wiki/Computer_memory)
-(such as [volatile memory](https://en.wikipedia.org/wiki/Volatile_memory)
+Its hardware includes [processors](https://en.wikipedia.org/wiki/Processor_(computing)),
+such as the [central processing unit (CPU)](https://en.wikipedia.org/wiki/Central_processing_unit)
+and the [graphics processing unit (GPU)](https://en.wikipedia.org/wiki/Graphics_processing_unit),
+[memory](https://en.wikipedia.org/wiki/Computer_memory),
+such as [volatile memory](https://en.wikipedia.org/wiki/Volatile_memory)
 and [non-volatile memory](https://en.wikipedia.org/wiki/Non-volatile_memory)
-like your [solid-state drive (SSD)](https://en.wikipedia.org/wiki/Solid-state_drive)),
-[input/output (I/O) devices](https://en.wikipedia.org/wiki/Input/output)
-(such as [keyboard](https://en.wikipedia.org/wiki/Computer_keyboard)
+like your [solid-state drive (SSD)](https://en.wikipedia.org/wiki/Solid-state_drive),
+[input/output (I/O) devices](https://en.wikipedia.org/wiki/Input/output),
+such as [keyboard](https://en.wikipedia.org/wiki/Computer_keyboard)
 and [mouse](https://en.wikipedia.org/wiki/Computer_mouse) for input,
 [monitor](https://en.wikipedia.org/wiki/Computer_monitor)
-and [speakers](https://en.wikipedia.org/wiki/Computer_speakers) for output),
+and [speakers](https://en.wikipedia.org/wiki/Computer_speakers) for output,
 as well as [network interface controllers (NIC)](https://en.wikipedia.org/wiki/Network_interface_controller)
 to communicate with other devices on the same network.
 
@@ -1343,7 +1335,7 @@ namely from the client initiating the communication to the server.
 Transmission Control Protocol (TCP)
 </summary>
 
-The problem with packet-switched networks such as the Internet is
+The problem with packet-switched networks, such as the Internet, is
 that packets can get lost, arrive out of order and with an arbitrary delay.
 However, it is desirable for many applications
 that what the receiver receives is exactly what the sender sent.
@@ -1447,7 +1439,7 @@ encoding only the source and destination port numbers together with a length fie
 in [its header](https://en.wikipedia.org/wiki/User_Datagram_Protocol#UDP_datagram_structure).
 It provides none of the other features of TCP,
 thereby prioritizing fast delivery over reliability.
-This is useful for streaming real-time data such as a phone or video call over the Internet.
+This is useful for streaming real-time data, such as a phone or video call, over the Internet.
 While the quality of the call deteriorates if too many packets are lost or delayed,
 there's no point in insisting on having them delivered as they cannot be played back later.
 As there is no connection setup and thus no need for a handshake,
@@ -1594,7 +1586,8 @@ Having multiple layers of security controls is known as
 [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)).
 Depending on the firewall and the configured rules,
 packets are inspected and filtered on the network, transport, or application layer.
-If the firewall rules are imposed by someone else such as a network administrator or the government,
+If the firewall rules are imposed by someone else,
+such as a network administrator or the government,
 users might resort to [tunneling](https://en.wikipedia.org/wiki/Tunneling_protocol#Circumventing_firewall_policy)
 their traffic via an approved protocol.
 
@@ -1608,7 +1601,8 @@ This means that any router can read and alter the messages that pass through it.
 Since the network determines the route of the packets rather than you as a sender,
 you have no control over which companies and nations are involved in delivering them.
 The lack of confidentiality is especially problematic
-when using the Wi-Fi in a public space such as a restaurant or an airport
+when using the Wi-Fi in a public space,
+such as a restaurant or an airport,
 because your device simply connects to the [wireless access point](https://en.wikipedia.org/wiki/Wireless_access_point)
 of a [given network](https://en.wikipedia.org/wiki/Service_set_(802.11_network)#SSID) with the best signal.
 Since your device has no way to authenticate the network,
@@ -1651,8 +1645,8 @@ this is what it provides:
   without the communication being intercepted by a
   [man in the middle (MITM)](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
   While the client could also present a public-key certificate,
-  the client is more commonly authenticated on the [application layer](#application-layer)
-  (for example with a username and a password).
+  the client is more commonly authenticated on the [application layer](#application-layer),
+  for example with a username and a password.
 - **Content confidentiality**: The content of the conversation is
   [encrypted](https://en.wikipedia.org/wiki/Encryption) in transit with
   [symmetric-key cryptography](https://en.wikipedia.org/wiki/Symmetric-key_algorithm).
@@ -1669,17 +1663,17 @@ this is what it provides:
   - the rough amount of data that was transferred in each direction,
   - and the [name of the server](https://security.stackexchange.com/a/7706/228462)
     because the server sends its certificate in plaintext to the client.
-    (Additionally, the client likely did an unencrypted [DNS query](#domain-name-system) beforehand;
+    Additionally, the client likely did an unencrypted [DNS query](#domain-name-system) beforehand;
     the attacker can perform a [reverse DNS lookup](https://en.wikipedia.org/wiki/Reverse_DNS_lookup) of the server's IP address;
-    and the client might indicate the desired host name to the server so that the server knows which certificate to send back.)
+    and the client might indicate the desired host name to the server so that the server knows which certificate to send back.
 - **Message authentication**: Each transmitted message is [authenticated](https://en.wikipedia.org/wiki/Message_authentication)
   with a so-called [message authentication code](https://en.wikipedia.org/wiki/Message_authentication_code).
   This allows each party to verify that all messages were sent by the other party
   and that the messages were not modified in transit.
-  (Please note that encryption alone usually does not guarantee
+  Encryption alone usually does not guarantee
   the [integrity](https://en.wikipedia.org/wiki/Data_integrity)
   of the encrypted data because encryption generally does not protect against
-  [malleability](https://en.wikipedia.org/wiki/Malleability_(cryptography)).)
+  [malleability](https://en.wikipedia.org/wiki/Malleability_(cryptography)).
   What TLS [does not provide](https://security.stackexchange.com/questions/103645/does-ssl-tls-provide-non-repudiation-service),
   however, is [non-repudiation](https://en.wikipedia.org/wiki/Non-repudiation).
   Or put another way: A party can plausibly dispute
@@ -1703,10 +1697,10 @@ that they are easy for the author to produce
 but hard for others to forge.
 Since digital information can be duplicated and appended without degradation,
 a [digital signature](https://en.wikipedia.org/wiki/Digital_signature)
-has to depend on the signed content,
-whereas a handwritten signature always looks the same.
-(Handwritten signatures are bound to the content
-by the piece of paper they both appear on.)
+has to depend on the signed content.
+Handwritten signatures, on the other hand,
+are bound to the content simply by being on the same piece of paper.
+
 Digital signature schemes consist of three
 [algorithms](https://en.wikipedia.org/wiki/Algorithm):
 - **Key generation**: First, the signer chooses a random private key,
@@ -1738,13 +1732,15 @@ digital signatures rely on a different
 [authentication factor](https://en.wikipedia.org/wiki/Authentication#Authentication_factors)
 than handwritten signatures.
 While the security of handwritten signatures relies on something the signer does with their fine motor skills,
-the security of digital signatures relies on something the signer knows respectively has.
-(In theory, a private key is a piece of information and thus knowledge.
+the security of digital signatures relies on something the signer knows or rather has.
+In theory, a private key is a piece of information and thus knowledge.
 In practice, however, a private key is usually too big to remember
-and thus rather a piece of data that the user has.)
-Both types of signatures require that
-the signer assumes responsibility for the signed statements,
-which brings us to the next topic: public-key infrastructure.
+and thus rather a piece of data that the user has.
+Since the private key is not inherent to the signer
+but rather chosen by the signer,
+digital signatures require that
+the signer assumes responsibility for the signed statements.
+This brings us to the next topic: public-key infrastructure.
 
 </details>
 
@@ -1773,7 +1769,7 @@ who met that someone before.
 For example, if you met Alice at some point
 and received her public key directly from her,
 you can authenticate Bob over an untrusted network
-if Alice met Bob and confirms to you (and everyone else)
+if Alice met Bob and confirms to you and everyone else
 that a specific public key indeed belongs to Bob.
 Whether Alice sends the signed statement with this content directly to you
 or whether Bob presents this signed statement during the conversation with him,
@@ -1815,7 +1811,7 @@ There are two different paradigms for issuing public-key certificates:
   manufacturers deliver their devices or operating systems
   with a [preinstalled list](https://en.wikipedia.org/wiki/Public_key_certificate#Root_programs)
   of trusted third parties to their customers.
-  (An employer might replace or extend this list on corporate devices.)
+  An employer might replace or extend this list on corporate devices.
   These trusted third parties are called certification authorities (CAs).
   While users can add and remove CAs on their own devices,
   they rarely do this – and I don't recommend to mess with this list either,
@@ -1836,7 +1832,7 @@ There are two different paradigms for issuing public-key certificates:
   we see that *DigiCert High Assurance EV Root CA* is indeed among them:
 {:.spaced}
 
-{% include image.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>(In case you are wondering, this list contains 165 root CAs on my Mac.)" scaled="true" themed="true" %}
+{% include image.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>In case you are wondering, this list contains 165 root CAs on my Mac." scaled="true" themed="true" %}
 
 As [described above](#transport-layer-security),
 the server sends its certificate to the client during the TLS handshake.
@@ -1845,8 +1841,8 @@ the client has all the information needed to authenticate the server.
 This means that CAs don't have to be reachable over the Internet,
 which is good for the security of their signing keys
 but also good for the reliability of the Internet.
-There is a lot more to public-key certificates
-such as expiration and [revocation](https://en.wikipedia.org/wiki/Certificate_revocation_list)
+There is a lot more to public-key certificates,
+such as expiration and [revocation](https://en.wikipedia.org/wiki/Certificate_revocation_list),
 but these aspects are beyond the scope of this article.
 
 </details>
@@ -1897,10 +1893,10 @@ a [digit](https://en.wikipedia.org/wiki/Numerical_digit),
 a [punctuation mark](https://en.wikipedia.org/wiki/Punctuation),
 or a [control character](https://en.wikipedia.org/wiki/Control_character).
 Control characters are used to structure a text without being printed themselves.
-So-called [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character)
+So-called [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character),
 such as [space](https://en.wikipedia.org/wiki/Space_(punctuation)),
 [tab](https://en.wikipedia.org/wiki/Tab_key#Tab_characters),
-and [newline](https://en.wikipedia.org/wiki/Newline)
+and [newline](https://en.wikipedia.org/wiki/Newline),
 fall in this category.
 Other examples of control characters are
 [backspace](https://en.wikipedia.org/wiki/Backspace),
@@ -1948,7 +1944,7 @@ you cannot use characters from different sets in the same document.
 Additionally, each document has to be accompanied with the used character encoding
 as part of its [metadata](https://en.wikipedia.org/wiki/Metadata)
 because none of the encodings will ever be in a position to supersede them all
-(at least as a widely accepted default encoding).
+as a widely accepted default encoding.
 [Unicode](https://en.wikipedia.org/wiki/Unicode),
 which is maintained by the California-based
 [Unicode Consortium](https://en.wikipedia.org/wiki/Unicode_Consortium),
@@ -1975,7 +1971,7 @@ As we just learned, text is also encoded with binary numbers
 and text editors can be considered as specialized software.
 The real difference between the two categories of protocols is
 that text-based protocols delimit different pieces of information
-with a certain character such as a newline or colon at that position,
+with a certain character, such as a newline or a colon, at that position,
 whereas binary protocols often define specific lengths in bytes for each
 [field](https://en.wikipedia.org/wiki/Field_(computer_science))
 or prefix a field with its length in bytes.
@@ -2001,8 +1997,8 @@ and each chunk is encoded with one of 64 characters.
 This encoding is called [Base64](https://en.wikipedia.org/wiki/Base64)
 and it needs to be reverted by the recipient
 in order to display the picture.
-(Base64 uses the characters `A` – `Z`, `a` – `z`, `0` – `9`, `+`, and `/`
-(26 + 26 + 10 + 2 = 64).)
+Base64 uses the characters `A` – `Z`, `a` – `z`, `0` – `9`, `+`, and `/`
+(26 + 26 + 10 + 2 = 64).
 Since binary protocols require no such transformation
 and often skip the labels for fields
 or abbreviate them to a single number,
@@ -2017,7 +2013,8 @@ HyperText Transfer Protocol (HTTP)
 
 In order for you to read this article,
 your [browser](https://en.wikipedia.org/wiki/Web_browser) fetched this page from a
-[web server](https://en.wikipedia.org/wiki/Web_server) via HTTP (respectively HTTPS).
+[web server](https://en.wikipedia.org/wiki/Web_server) via HTTP over TLS,
+which is known as HTTPS.
 Given the popularity of the Web,
 HTTP is one of the most widely used application layer protocols.
 If we ignore newer versions of the protocol and rarely used features,
@@ -2025,10 +2022,11 @@ HTTP is a fairly simple protocol and thus an excellent first example.
 HTTP works according to the [client-server model](#client-server-model):
 The client sends a request and the server sends back a response.
 The first line of the request specifies the so-called
-[method](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)
-(basically whether the request is about retrieving (`GET`) or submitting (`POST`) data),
+[method](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods),
 the [resource](https://en.wikipedia.org/wiki/Web_resource) to retrieve or submit to,
 and the protocol version.
+The method simply specifies whether the request is about
+retrieving (`GET`) or submitting (`POST`) data.
 The first line of the response includes the
 [status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes),
 which indicates whether the request was successful
@@ -2036,15 +2034,15 @@ and, if not, what went wrong.
 While the first line is different,
 both HTTP requests and responses continue with
 [header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
-(with each field on a separate line formatted as `key: value`),
 an empty line,
 and an optional [message body](https://en.wikipedia.org/wiki/HTTP_message_body).
+Each header field is formatted as `key: value` on a separate line.
 If you request a file,
 the body of the request is usually empty,
-whereas the body of the response contains the file
-(assuming the request was successful).
-If, on the other hand, you submit data
-(such as your username and password in a login form),
+whereas the body of the response contains the file,
+assuming that the request was successful.
+If, on the other hand, you submit data,
+such as your username and password in a login form,
 the request contains this data in its body,
 whereas the body of the response could be empty,
 for example, when your browser is being redirected to a different page.
@@ -2118,9 +2116,9 @@ HTML stands for [HyperText Markup Language](https://en.wikipedia.org/wiki/HTML)
 and is the document format of the Web.
 The browser parses the HTML document
 and displays it as a website.
-(`<p>` stands for a paragraph, which is then closed by `</p>`.
+`<p>` stands for a paragraph, which is then closed by `</p>`.
 The other so-called [tags](https://en.wikipedia.org/wiki/HTML#Markup)
-in the example above should be self-explanatory.)
+in the example above should be self-explanatory.
 Usually, a website references other files from its HTML,
 such as [styles](https://en.wikipedia.org/wiki/Cascading_Style_Sheets),
 [scripts](https://en.wikipedia.org/wiki/JavaScript),
@@ -2135,7 +2133,7 @@ Every modern browser includes powerful
 [developer tools](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools),
 with which you can inspect the requests it made:
 
-{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details such as its request method and the IP address with the port number of the server on the right." scaled="true" themed="true" %}
+{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details, such as its request method and the IP address with the port number of the server, on the right." scaled="true" themed="true" %}
 
 If you are familiar with the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface)
 of your operating system,
@@ -2198,11 +2196,11 @@ The top-level domain of this domain name is [com](https://en.wikipedia.org/wiki/
 The registry operator for `.com` is [Verisign](https://en.wikipedia.org/wiki/Verisign).
 The domain name registrar I have chosen to register my domains is [Gandi](https://en.wikipedia.org/wiki/Gandi).
 I pay them 13 Euros every year just so that I can keep this domain name.
-(In order to avoid ambiguity,
+In order to avoid ambiguity,
 a [fully qualified domain name (FQDN)](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
-is sometimes written with a trailing dot (such as `ef1p.com.`).
+is sometimes written with a trailing dot, such as `ef1p.com.`.
 Otherwise, the label might just refer to a [subdomain](https://en.wikipedia.org/wiki/Subdomain).
-Don't let this confuse you in the DNS playground below.)
+Don't let this confuse you in the DNS playground below.
 
 From a technical point of view,
 DNS acts as a [distributed database](https://en.wikipedia.org/wiki/Distributed_database),
@@ -2218,7 +2216,7 @@ and it allows other machines in the same network to look up the information fast
 Caching is also important to distribute the load more evenly among name servers,
 which improves the scalability of the Domain Name System.
 Each record specifies how long it can be cached,
-which limits how out-dated the answer to a query can be.
+which limits how outdated the answer to a query can be.
 This expiration period is called [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live)
 and a common value for this is one hour.
 This means that if you change a DNS record with such a TTL value,
@@ -2286,12 +2284,12 @@ I use an [API by Google](https://developers.google.com/speed/public-dns/docs/doh
 to query what you enter.
 Try it with any domain name you are interested in.
 If you hover with your mouse over the data,
-you get additional explanations and options
-(such as doing a reverse lookup of an IPv4 address).
+you get additional explanations and options,
+such as doing a reverse lookup of an IPv4 address.
 The DNSSEC option and the record types
 which are not in the above table
 will be introduced in [the next box](#domain-name-system-security-extensions).
-And if you just want to play around with the tools in this article,
+If you just want to play around with the tools in this article without scrolling,
 I also published them separately at [ef1p.com/tools](/tools/).
 
 <div id="tool-dns-resolver"></div>
@@ -2313,7 +2311,7 @@ thereby [poisoning the cache](https://en.wikipedia.org/wiki/DNS_spoofing)
 of [DNS resolvers](https://en.wikipedia.org/wiki/Domain_Name_System#DNS_resolvers).
 Additionally, an attacker who can modify your network traffic
 can also replace the actual response from a name server with a malicious one
-because neither UDP nor IP authenticate the transmitted data.
+because neither UDP nor IP authenticates the transmitted data.
 To make things even worse,
 an attacker might not even have to modify your network traffic.
 As long as the attacker [sees your DNS query](#broadcasting-and-information-security)
@@ -2322,29 +2320,29 @@ they can simply respond faster than the queried name server.
 Since UDP is a connectionless protocol without a handshake,
 the source IP address of the response can easily be [spoofed](#ip-address-spoofing)
 so that it seems as if the response was indeed sent from the queried name server.
-(If the attacker does not see the query because they are on a non-involved network,
+If the attacker does not see the query because they are on a non-involved network,
 such a [race attack](https://en.wikipedia.org/wiki/DNS_spoofing#Prevention_and_mitigation)
 becomes much harder as the attacker has to guess the correct timing of the response,
 the correct DNS query ID used to match answers to questions,
 as well as the correct [source port](#port-numbers) from which the query was sent.
 For this reason, DNS queries should always be sent from a random source port
-and also [NAT routers](#network-address-translation) should choose external ports unpredictably.)
+and also [NAT routers](#network-address-translation) should choose external ports unpredictably.
 Since DNS is often used to determine the destination address of requests,
 a successful attack on the DNS resolution of your computer
 allows the attacker to redirect all your Internet traffic through servers that they control.
 The only thing that can limit the damage they can do is [TLS](#transport-layer-security)
 with valid [public-key certificates](#public-key-infrastructure)
-(or a protocol with similar security properties on the application layer).
+or another protocol with similar security properties on the application layer.
 This also requires that the user does not simply dismiss invalid certificate warnings.
 Luckily, such warnings are quite intimidating in most browsers by now
 and can no longer be dismissed with a single click.
-([Google Chrome](https://www.google.com/chrome/) plays it safe
-and won't connect to a web server with an invalid certificate at all.)
+[Google Chrome](https://www.google.com/chrome/) plays it safe
+and won't connect to a web server with an invalid certificate at all.
 If you don't know what I'm talking about,
 visit [this page](https://untrusted-root.badssl.com/)
 in order to get such a warning.
-(There is no risk in visiting that page
-as long as you abort and don't modify your security settings.)
+There is no risk in visiting this page
+as long as you abort and don't modify your security settings.
 
 The [Domain Name System Security Extensions (DNSSEC)](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)
 solves the aforementioned problem
@@ -2357,24 +2355,24 @@ DNSSEC introduces new types of resource records
 (as defined in [RFC 4034](https://tools.ietf.org/html/rfc4034))
 and [backward-compatible](https://en.wikipedia.org/wiki/Backward_compatibility)
 modifications to the communication protocol
-(as defined [RFC 4035](https://tools.ietf.org/html/rfc4035)).
+(as defined in [RFC 4035](https://tools.ietf.org/html/rfc4035)).
 Before we can discuss these extensions,
 we first need to understand
 that the Domain Name System is split into [administrative zones](https://en.wikipedia.org/wiki/DNS_zone),
 each of which is managed by a single entity.
-Each such entity runs name servers (or lets a company run them on its behalf),
+Each such entity runs name servers or lets a company run them on its behalf,
 which return the authoritative answer for the domains in its zone.
 DNS has a single and thus centralized [root zone](https://en.wikipedia.org/wiki/DNS_root_zone),
 which is managed by the [Internet Assigned Numbers Authority (IANA)](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority),
 a subsidiary of the [Internet Corporation for Assigned Names and Numbers (ICANN)](https://en.wikipedia.org/wiki/ICANN),
 but operated by [Verisign](https://en.wikipedia.org/wiki/Verisign).
 The root domain is denoted by the empty label,
-but it is usually written (and queried) as a single period (`.`).
+but it is usually written and queried as a single period: `.`.
 If you query a [root name server](https://en.wikipedia.org/wiki/Root_name_server)
-for a domain such as `ef1p.com.`
-(written with a trailing period because `com` is a subdomain of the root domain with the empty label),
+for a domain such as `ef1p.com.`,
+written with a trailing period because `com` is a subdomain of the root domain with the empty label,
 it will answer that `com` belongs to a different DNS zone
-and provides you with the addresses of the authoritative name servers of that zone.
+and provide you with the addresses of the authoritative name servers of that zone.
 If you query one of those name servers for `ef1p.com.`,
 it will tell you again that other name servers are responsible for this domain.
 You can query all these name servers with the tool at the end of the previous box:
@@ -2385,7 +2383,7 @@ Somewhat confusingly, the name servers are listed with a domain name rather than
 In order to avoid the [circular dependency](https://en.wikipedia.org/wiki/Circular_dependency)
 that [you already need to have used DNS in order to use DNS](https://en.wikipedia.org/wiki/DNS_root_zone#Initialization_of_DNS_service),
 DNS clients have to be delivered not only with the domain names of the root name servers but also with their IP addresses.
-(This is usually accomplished with a [file like this](https://www.internic.net/zones/named.cache).)
+This is usually accomplished with a [file like this](https://www.internic.net/zones/named.cache).
 As long as they can reach one of the root name servers,
 it will tell them the IP address of any name server it refers them to as well.
 This is accomplished with so-called [glue records](https://en.wikipedia.org/wiki/Domain_Name_System#Circular_dependencies_and_glue_records),
@@ -2395,7 +2393,7 @@ because Google does all the recursive resolution for us.
 If you are familiar with a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface),
 you can use the [dig command](https://en.wikipedia.org/wiki/Dig_(command)) to check this:
 `dig net @a.root-servers.net.` returns in the authority section of the DNS answer
-that the name server for `net.` is `a.gtld-servers.net.` (among others)
+that the name server for `net.` is `a.gtld-servers.net.` among others
 and in the additional section of the DNS answer
 that the IPv4 address of `a.gtld-servers.net.` is `192.5.6.30`.
 (The authority section indicates the
@@ -2407,12 +2405,12 @@ that are related to the query
 but which the client didn't yet ask for.)
 While for a domain name such as `ef1p.com.`
 each subdomain starts its own zone as we have just seen,
-I would declare any further subdomains such as `www.ef1p.com.`
+I would declare any further subdomains, such as `www.ef1p.com.`,
 in the same zone as `ef1p.com.`.
 Since I'm the administrator of my zone,
-I can do this without involving any other party
-(except [gandi.net](https://www.gandi.net/en),
-which operates the name servers on my behalf)
+I can do this without involving any party
+other than [gandi.net](https://www.gandi.net/en),
+which operates the name servers on my behalf,
 thanks to the hierarchical and distributed nature of DNS.
 
 Coming back to DNSSEC after this little detour,
@@ -2471,10 +2469,10 @@ A zone lists both types of keys with `DNSKEY` records.
 The parent zone lists the [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function)
 of the key-signing key in a `DS` record.
 (A hash is the result of a [one-way function](https://en.wikipedia.org/wiki/One-way_function),
-which maps inputs of arbitrary size to outputs of a fixed size and is infeasible to invert.
+which maps inputs of arbitrary size to outputs of a fixed size and is infeasible to invert.)
 By using only the hash of a key instead of the key itself,
 the parent zone has to store less data because the hash is shorter.
-And of course, we're only talking about [public keys](#digital-signatures) here.)
+And of course, we're only talking about [public keys](#digital-signatures) here.
 The key-signing key is then used to sign one or more zone-signing keys.
 The signature, which covers all `DNSKEY` records,
 is published in an `RRSIG` record with the same domain name.
@@ -2486,8 +2484,8 @@ unlike in the case of key-signing keys,
 the parent zone is not involved.
 The algorithms that can be used to sign records are listed
 [on Wikipedia](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Algorithms)
-(and, more authoritatively, [by IANA](https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml)).
-(The hash algorithms for `DS` records are [listed here](https://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml).)
+and, more authoritatively, [by IANA](https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml).
+The supported hash algorithms for `DS` records are [listed here](https://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml).
 
 As mentioned above, the key-signing key of the root zone acts as the trust anchor for DNSSEC.
 Its hash is published [on the website of IANA](https://www.iana.org/dnssec/files)
@@ -2512,7 +2510,7 @@ I can also recommend you to read this [first-hand account](https://www.cloudflar
 
 For performance and security reasons,
 DNSSEC has been designed so that the resource records in a zone can be signed before being served by a name server.
-This allows the records to be signed on an [air-gapped computer](https://en.wikipedia.org/wiki/Air_gap_(networking))
+This allows the records to be signed on an [air-gapped computer](https://en.wikipedia.org/wiki/Air_gap_(networking)),
 such as an HSM, which never needs to be connected to the Internet and is thus never exposed to network-based attacks.
 As far as performance is concerned, name servers don't have to perform cryptographic operations for each request,
 which means that fewer machines can serve more requests.
@@ -2538,8 +2536,8 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   However, due to the above design decision,
   DNSSEC signatures cannot depend on fresh data from the client.
   Since the potentially precomputed signatures stay the same for many requests
-  and DNSSEC doesn't authenticate anything else in the response
-  (such as the DNS packet itself including its header),
+  and DNSSEC doesn't authenticate anything else in the response,
+  such as the DNS packet itself including its header,
   an attacker can replay outdated DNS records including their DNSSEC signatures.
   In order to limit the period during which DNS records can be replayed,
   `RRSIG` records include an expiration date,
@@ -2555,8 +2553,8 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   (The limit of 63 characters is imposed by [RFC 1035](https://tools.ietf.org/html/rfc1035)
   because the DNS protocol encodes the length of a label with a [6-bit number](https://stackoverflow.com/a/19341879/12917821).)
   This makes it impossible to generate and sign negative responses for all nonexistent subdomains in advance.
-  (A generic negative response, which doesn't depend on the queried domain name, doesn't work
-  because an attacker could replay such a response even when the queried domain does exist.)
+  A generic negative response, which doesn't depend on the queried domain name, doesn't work
+  because an attacker could replay such a response even when the queried domain does exist.
   Instead of mentioning the nonexistent domain in the response,
   DNSSEC achieves [authenticated denial of existence](https://tools.ietf.org/id/draft-gieben-auth-denial-of-existence-dns-01.html)
   by returning that no subdomain exists in a given range,
@@ -2570,7 +2568,9 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   Since `nonexistent.example.com.` comes after `example.com.` and before `www.example.com.`
   in the alphabetically sorted list of subdomains in that zone,
   we now know for sure that this domain does not exist.
-  Please note that `example.com.` is not just at the beginning of this list but also at the end.
+  The base domain of the zone,
+  which is `example.com.` in our example,
+  is not just at the beginning of this list but also at its end.
   If you click on `www.example.com.` in the data column of the `NSEC` record
   in order to <a class="dns-query" href="#tool-dns-resolver" data-domain="www.example.com." data-type="NSEC" data-dnssec="true">query its `NSEC` record</a>,
   you see that the next domain after `www.example.com.` is `example.com.`.
@@ -2590,7 +2590,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   Since the resolver knows that the root zone has DNSSEC enabled,
   the attacker would have to be able to deny the existence of a `DS` record in an authenticated zone,
   which they cannot do thanks to the mechanism described in this paragraph.
-  (Your zone can only have DNSSEC enabled if all the zones above it have DNSSEC enabled.)
+  In practice, your zone can only have DNSSEC enabled if all the zones above it have DNSSEC enabled.
 - **Zone walking**: `NSEC` records create a new problem, though.
   By querying the `NSEC` record of the respective subsequent domain,
   you can enumerate all the domains in a zone,
@@ -2601,10 +2601,10 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   you previously had to guess the names of subdomains.
   Since I couldn't find a tool to walk a DNS zone online
   (the [closest one](https://hackertarget.com/find-dns-host-records/)
-  I found works completely differently),
-  I built one for you
-  (using the same [Google API](https://developers.google.com/speed/public-dns/docs/doh/json)):
-  <div id="tool-zone-walker"></div>
+  I could find works completely differently),
+  I built one for you,
+  using the same [Google API](https://developers.google.com/speed/public-dns/docs/doh/json) as before:
+  <div id="tool-zone-walker" class="mt-3"></div>
   Unfortunately, not many domains have DNSSEC records
   and most of them which do use `NSEC3` rather than `NSEC`.
   It's therefore not easy to find domains to feed into this tool.
@@ -2662,17 +2662,17 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   [opt-out flag](https://tools.ietf.org/html/rfc5155#section-3.1.2.1).
   By skipping all subzones that don't deploy DNSSEC,
   the size of a zone can be reduced as fewer `NSEC3` records are required.
-  While easily guessable subdomains such as `www` or `mail` have to be considered public anyway,
+  While easily guessable subdomains, such as `www` or `mail`, have to be considered public anyway,
   `NSEC3` protects the resource records of subdomains with more random names reasonably well.
-  (The DNS query still has to include the actual domain name and not its hash.
+  Please note that the DNS query still has to include the actual domain name and not its hash.
   By just learning the hash of a subdomain,
-  you don't yet know the domain name to query.)
+  you don't yet know the domain name to query.
   However, it's still relatively easy to figure out the overall number of domain names in a zone
   by probing the name server with names that hash to a range
   for which you haven't seen an `NSEC3` record yet.
-  (Hash functions make it hard to find an input that hashes to a specific output,
+  Hash functions only make it hard to find an input that hashes to a specific output,
   but if the output just has to land in a certain range,
-  then the bigger the range, the easier the problem.)
+  then the bigger the range, the easier the problem.
   Even if you introduce additional dummy `NSEC3` records,
   you still leak an upper limit of domain names in the zone.
 - **Wildcard expansion**: Last but not least,
@@ -2682,13 +2682,13 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   that it is returned
   whenever the queried domain name doesn't exist in the zone.
   For example, if an ordinary record is declared at `mail.example.com.`
-  and a wildcard record is declared at `*.example.com.`
-  (with `*` being the [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character)),
+  and a wildcard record is declared at `*.example.com.`,
+  with `*` being the [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character),
   then a query for `mail.example.com.` will return the former record
   and a query for `anything-else.example.com.` will return the latter.
   The wildcard can only be used as the leftmost DNS label
-  and cannot be combined with other characters on that level
-  (i.e. neither `mail.*.example.com.` nor `mail*.example.com.` are wildcard records).
+  and cannot be combined with other characters on that level.
+  Thus, neither `mail.*.example.com.` nor `mail*.example.com.` is a wildcard record.
   For a wildcard record to match,
   the domain name may not exist on the level of the wildcard.
   The above wildcard record matches `anything.else.example.com.`
@@ -2716,11 +2716,11 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   the returned `A` record is accompanied
   by an `RRSIG` record with a label count of 2.
   This tells the validator to verify the signature for `*.example.com.`.
-  (If the label count was 3, it would be `*.else.example.com.`.)
+  If the label count was 3, it would have been `*.else.example.com.`.
   Equally importantly, we need to ensure
   that this wildcard `RRSIG` record cannot be replayed
-  for domain names that do exist
-  (such as `mail.example.com.` in our example).
+  for domain names that do exist,
+  such as `mail.example.com.` in our example.
   For this reason, DNSSEC mandates
   that wildcard `RRSIG` records are only valid
   if an `NSEC` or an `NSEC3` record proves
@@ -2757,8 +2757,8 @@ If you play around with the [above tool](#tool-dns-resolver),
 you will note that none of the big tech companies protect their DNS records with DNSSEC.
 We can [only speculate](https://security.stackexchange.com/a/231507/228462)
 about why these companies are reluctant to deploy DNSSEC.
-(If you work at a large company and know the reasoning,
-please [let me know](mailto:contact@ef1p.com).)
+If you work at a large company and know the reasoning,
+please [let me know](mailto:contact@ef1p.com).
 Personally, I can think of the following reasons:
 - **Dynamic answers**: Large companies with a lot of incoming traffic
   provide different DNS answers for different DNS resolvers.
@@ -2775,7 +2775,7 @@ Personally, I can think of the following reasons:
   (`1e100` is the scientific notation for one [googol](https://en.wikipedia.org/wiki/Googol).)
   The problem with DNSSEC is that not individual resource records (RR) are signed
   but rather all the returned resource records of the same type together.
-  (This is why you encounter the acronym RRset a lot in technical documents.)
+  This is why you encounter the acronym RRset a lot in technical documents.
   If you combine resource records for answers dynamically based on the availability of servers,
   then your name server has to sign them on the fly
   and thus needs access to the private key of your zone.
@@ -2805,8 +2805,8 @@ Personally, I can think of the following reasons:
   due to a lack of support by your registrar,
   your registrar still needs to provide a form
   to submit your `DS` record to the parent zone.
-  (Registrants only have a business relationship with their registrar,
-  which is itself accredited by the registry operating the top-level domain.)
+  Remember that registrants only have a business relationship with their registrar,
+  which is itself accredited by the registry operating the top-level domain.
   The involvement of so many different parties is likely the main reason
   why as of June 2019 still [only around 1%](https://taejoong.github.io/pubs/publications/spencer-2019-dnssec.pdf)
   of domains under `.com`, `.net`, and `.org` have a `DNSKEY` record published.
@@ -2816,7 +2816,7 @@ Personally, I can think of the following reasons:
   As you probably have learned by now,
   all shortcomings of DNS are addressed by introducing new record types
   and these two RFCs are no different.
-  The former RFC introduces the record types `CDS` and `CDNSKEY` (with the `C` standing for child),
+  The former RFC introduces the record types `CDS` and `CDNSKEY`, where the `C` stands for child,
   with which the child zone can indicate to the parent zone the desired content of the `DS` record.
   This requires that the operator of the parent zone regularly polls for these records
   and that DNSSEC is already deployed in the child zone
@@ -2837,8 +2837,8 @@ Personally, I can think of the following reasons:
   thanks to new standards such as the `CDS` record and better administration tools,
   it's initially something more that a domain administrator has to learn and worry about,
   which doesn't favor fast adoption.
-  (The only reason why `ef1p.com` has DNSSEC enabled is
-  because [Gandi takes care of everything](https://docs.gandi.net/en/domain_names/advanced_users/dnssec.html).)
+  The only reason why `ef1p.com` has DNSSEC enabled is
+  because [Gandi takes care of everything](https://docs.gandi.net/en/domain_names/advanced_users/dnssec.html).
 - **Technical dissatisfaction**: There is also technical criticism of DNSSEC.
   As already mentioned, DNSSEC doesn't provide confidentiality.
   Everyone with access to your network traffic
@@ -2850,7 +2850,8 @@ Personally, I can think of the following reasons:
   achieves confidentiality in the local network.
   The name server you connect to,
   which is typically operated by your Internet service provider or another company,
-  still learns the queried domain name (and can therefore cache the retrieved records).<br>
+  still learns the queried domain name,
+  which also allows it to cache the retrieved records.<br>
   Another common misconception about DNSSEC is
   that TLS with public-key certificates already ensures
   that you are connected to the right server.
@@ -2865,8 +2866,8 @@ Personally, I can think of the following reasons:
   and not all DNS records are used to establish TLS connections.
   For example, `TXT` records are used extensively for
   [email authentication](https://en.wikipedia.org/wiki/Email_authentication).
-  While email providers such as [gmail.com](https://gmail.com),
-  [yahoo.com](https://yahoo.com), and [outlook.com](https://outlook.com)
+  While email providers, such as [gmail.com](https://gmail.com),
+  [yahoo.com](https://yahoo.com), and [outlook.com](https://outlook.com),
   all have such records,
   none of them protect the integrity of these records with DNSSEC.<br>
   DNSSEC is also criticized for its centralized trust model.
@@ -2920,7 +2921,7 @@ of important milestones in the area of network technologies and standards – an
 | 1982 | The US Department of Defense makes IP the [only approved protocol on ARPANET](https://en.wikipedia.org/wiki/Internet_protocol_suite#Adoption).
 | 1982 | First definition of the [Simple Mail Transfer Protocol (SMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) for email in [RFC 821](https://tools.ietf.org/html/rfc821).
 | 1983 | Creation of the [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System) as specified in [RFC 882](https://tools.ietf.org/html/rfc882) and [RFC 883](https://tools.ietf.org/html/rfc883).
-| 1984 | First version of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from a mailbox ([RFC 918](https://tools.ietf.org/html/rfc918)).
+| 1984 | Version 1 of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from a mailbox ([RFC 918](https://tools.ietf.org/html/rfc918)).
 | 1985 | [First commercial registration](https://en.wikipedia.org/wiki/Domain_name#Domain_name_registration) of a domain name in the `.com` [top-level domain](https://en.wikipedia.org/wiki/Top-level_domain).
 | 1986 | Design of the [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol), documented in [RFC 1064](https://tools.ietf.org/html/rfc1064).
 | 1990 | Invention of the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web) by [Tim Berners-Lee](https://en.wikipedia.org/wiki/Sir_Timothy_John_Berners-Lee) at [CERN](https://en.wikipedia.org/wiki/CERN) in Switzerland,<br>which includes the [HyperText Transfer Protocol (HTTP)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), the [HyperText Markup<br>Language (HTML)](https://en.wikipedia.org/wiki/Hypertext_Markup_Language), the [Uniform Resource Locator (URL)](https://en.wikipedia.org/wiki/Uniform_resource_locator), a [web server](https://en.wikipedia.org/wiki/Web_server), and a [browser](https://en.wikipedia.org/wiki/Web_browser).
