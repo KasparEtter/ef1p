@@ -1718,6 +1718,15 @@ Digital signature schemes consist of three
   [integer factorization](https://en.wikipedia.org/wiki/Integer_factorization).
   While the former can be computed efficiently,
   the latter becomes exceedingly hard for large numbers.
+{:.spaced}
+
+<figure markdown="block">
+{% include_relative generated/private-and-public-key.embedded.svg %}
+<figcaption markdown="span">
+The public key can be derived from the private key, but not vice versa.
+</figcaption>
+</figure>
+
 - **Signing**: The signer then computes the signature for a given message
   using the private key generated in the previous step.
   The signature is also just a number or a tuple of several numbers.
