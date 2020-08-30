@@ -624,7 +624,7 @@ the one of the source and the one of the destination.
 ## Internet layers
 
 The [Internet](https://en.wikipedia.org/wiki/Internet) is a global network of computer networks.
-Its name means "[between](https://en.wiktionary.org/wiki/inter-) networks".
+Its name simply means "[between](https://en.wiktionary.org/wiki/inter-) networks".
 It is a [packet-switched](#packet-switching) [mesh network](#mesh-network)
 with only [best-effort delivery](https://en.wikipedia.org/wiki/Best-effort_delivery).
 This means that the Internet provides no guarantees about whether and in what time a packet is delivered.
@@ -669,7 +669,7 @@ Before we dive into the lowest layer,
 we first need to understand what "building on the layer below" means.
 [Digital data](https://en.wikipedia.org/wiki/Digital_data)
 can be copied perfectly from one memory location to another.
-The implementation of a specific protocol receives a chunk of data known as the payload from the layer above
+The implementation of a specific protocol receives a chunk of data, known as the payload, from the layer above
 and wraps it with the information required to fulfill its purpose in the so-called header.
 The payload and header then become the payload for the layer below,
 where another protocol specifies a new set of headers to be added.
@@ -777,10 +777,10 @@ Number encoding
 Numbers are used to quantify the amount of something,
 and just like you can have only more, less, or an equal amount of a quantity,
 a number must be either larger than, less than, or equal to any other number
-– as long as we talk about [real numbers](https://en.wikipedia.org/wiki/Real_number) only.
+(as long as we talk about [real numbers](https://en.wikipedia.org/wiki/Real_number) only).
 Numbers can therefore be thought of as [points on a line](https://en.wikipedia.org/wiki/Number_line).
 While numbers as concepts exist independently of the human mind
-if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism),
+(if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism)),
 we need a way to express numbers when thinking, speaking and writing about them.
 We do so by assigning labels and symbols to them
 according to a [numeral system](https://en.wikipedia.org/wiki/Numeral_system).
@@ -1778,7 +1778,7 @@ who met that someone before.
 For example, if you met Alice at some point
 and received her public key directly from her,
 you can authenticate Bob over an untrusted network
-if Alice met Bob and confirms to you and everyone else
+if Alice met Bob and confirms to you (and everyone else)
 that a specific public key indeed belongs to Bob.
 Whether Alice sends the signed statement with this content directly to you
 or whether Bob presents this signed statement during the conversation with him,
@@ -2030,12 +2030,13 @@ If we ignore newer versions of the protocol and rarely used features,
 HTTP is a fairly simple protocol and thus an excellent first example.
 HTTP works according to the [client-server model](#client-server-model):
 The client sends a request and the server sends back a response.
-The first line of the request specifies the so-called
-[method](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods),
-the [resource](https://en.wikipedia.org/wiki/Web_resource) to retrieve or submit to,
-and the protocol version.
-The method simply specifies whether the request is about
+The first line of the request starts with the
+[request method](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods),
+which specifies whether the request is about
 retrieving (`GET`) or submitting (`POST`) data.
+The request method is followed by
+the [resource](https://en.wikipedia.org/wiki/Web_resource) to retrieve or submit to
+and the protocol version.
 The first line of the response includes the
 [status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes),
 which indicates whether the request was successful
@@ -2043,13 +2044,13 @@ and, if not, what went wrong.
 While the first line is different,
 both HTTP requests and responses continue with
 [header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
+(formatted as `key: value` on separate lines),
 an empty line,
 and an optional [message body](https://en.wikipedia.org/wiki/HTTP_message_body).
-Each header field is formatted as `key: value` on a separate line.
 If you request a file,
 the body of the request is usually empty,
-whereas the body of the response contains the file,
-assuming that the request was successful.
+whereas the body of the response contains the file
+(assuming that the request was successful).
 If, on the other hand, you submit data,
 such as your username and password in a login form,
 the request contains this data in its body,
@@ -2369,7 +2370,7 @@ Before we can discuss these extensions,
 we first need to understand
 that the Domain Name System is split into [administrative zones](https://en.wikipedia.org/wiki/DNS_zone),
 each of which is managed by a single entity.
-Each such entity runs name servers or lets a company run them on its behalf,
+Each such entity runs name servers (or lets a company run them on its behalf),
 which return the authoritative answer for the domains in its zone.
 DNS has a single and thus centralized [root zone](https://en.wikipedia.org/wiki/DNS_root_zone),
 which is managed by the [Internet Assigned Numbers Authority (IANA)](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority),
@@ -2378,8 +2379,8 @@ but operated by [Verisign](https://en.wikipedia.org/wiki/Verisign).
 The root domain is denoted by the empty label,
 but it is usually written and queried as a single period: `.`.
 If you query a [root name server](https://en.wikipedia.org/wiki/Root_name_server)
-for a domain such as `ef1p.com.`,
-written with a trailing period because `com` is a subdomain of the root domain with the empty label,
+for a domain such as `ef1p.com.`
+(written with a trailing period because `com` is a subdomain of the root domain with the empty label),
 it will answer that `com` belongs to a different DNS zone
 and provide you with the addresses of the authoritative name servers of that zone.
 If you query one of those name servers for `ef1p.com.`,
@@ -2402,7 +2403,7 @@ because Google does all the recursive resolution for us.
 If you are familiar with a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface),
 you can use the [dig command](https://en.wikipedia.org/wiki/Dig_(command)) to check this:
 `dig net @a.root-servers.net.` returns in the authority section of the DNS answer
-that the name server for `net.` is `a.gtld-servers.net.` among others
+that the name server for `net.` is `a.gtld-servers.net.` (among others)
 and in the additional section of the DNS answer
 that the IPv4 address of `a.gtld-servers.net.` is `192.5.6.30`.
 (The authority section indicates the
@@ -2784,7 +2785,7 @@ Personally, I can think of the following reasons:
   (`1e100` is the scientific notation for one [googol](https://en.wikipedia.org/wiki/Googol).)
   The problem with DNSSEC is that not individual resource records (RR) are signed
   but rather all the returned resource records of the same type together.
-  This is why you encounter the acronym RRset a lot in technical documents.
+  (This is why you encounter the acronym RRset a lot in technical documents.)
   If you combine resource records for answers dynamically based on the availability of servers,
   then your name server has to sign them on the fly
   and thus needs access to the private key of your zone.
@@ -2825,7 +2826,7 @@ Personally, I can think of the following reasons:
   As you probably have learned by now,
   all shortcomings of DNS are addressed by introducing new record types
   and these two RFCs are no different.
-  The former RFC introduces the record types `CDS` and `CDNSKEY`, where the `C` stands for child,
+  The former RFC introduces the record types `CDS` and `CDNSKEY` (where the `C` stands for child),
   with which the child zone can indicate to the parent zone the desired content of the `DS` record.
   This requires that the operator of the parent zone regularly polls for these records
   and that DNSSEC is already deployed in the child zone
