@@ -5,7 +5,7 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-28
+modified: 2020-08-30
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
@@ -606,7 +606,7 @@ than the capacity of a circuit-switched network,
 too much [traffic](https://en.wikipedia.org/wiki/Network_traffic) on the network
 leads to [congestion](https://en.wikipedia.org/wiki/Network_congestion).
 
-<details markdown="block" open>
+<details markdown="block" class="avoid-break-inside" open>
 <summary markdown="span" id="source-and-destination-addresses">
 Source and destination addresses
 </summary>
@@ -935,7 +935,7 @@ then the entire packet is lost.
 
 </details>
 
-<details markdown="block">
+<details markdown="block" class="avoid-break-inside">
 <summary markdown="span" id="ip-over-avian-carriers">
 IP over Avian Carriers (IPoAC)
 </summary>
@@ -1197,7 +1197,7 @@ DHCP is an [application layer](#application-layer) protocol.
 
 </details>
 
-<details markdown="block">
+<details markdown="block" class="avoid-break-inside">
 <summary markdown="span" id="address-resolution-protocol">
 Address Resolution Protocol (ARP)
 </summary>
@@ -2257,7 +2257,7 @@ DNS requests are served on [port](#port-numbers) 53.
 There are other types of resource records
 besides the one which resolves a domain name to an IPv4 address:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Acronym | Name | Value | Example
 |-
@@ -2440,7 +2440,7 @@ Let's have a look at some technical aspects of DNSSEC next.
 
 DNSSEC introduced the following DNS record types:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Acronym | Name | Value |
 |-
@@ -2897,10 +2897,10 @@ Keep up your curiosity! 🤓
 There are many nice articles about the
 [history of the Internet](https://en.wikipedia.org/wiki/History_of_the_Internet)
 and there's no point in replicating their content here.
-Instead, I would like to give you a rough timeline
-of important milestones in the area of network technologies and standards – and beyond:
-
-<figure markdown="block">
+Instead, I would like to give you a timeline
+of important milestones in the history of
+[telecommunication](https://en.wikipedia.org/wiki/History_of_telecommunication)
+and [computing](https://en.wikipedia.org/wiki/History_of_computing_hardware):
 
 | Year | Description
 |-
@@ -2933,11 +2933,6 @@ of important milestones in the area of network technologies and standards – an
 | 2007 | [Apple](https://en.wikipedia.org/wiki/Apple_Inc.) launches the [iPhone](https://en.wikipedia.org/wiki/IPhone) with the [iOS](https://en.wikipedia.org/wiki/IOS) operating system one year before [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
 | 2010 | Deployment of DNSSEC [in the root zone](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Deployment_at_the_DNS_root), eliminating intermediary [trust anchors](https://en.wikipedia.org/wiki/Trust_anchor).
 | 2018 | The [UN](https://en.wikipedia.org/wiki/International_Telecommunication_Union) estimates that [more than half](https://www.itu.int/en/ITU-D/Statistics/Documents/facts/FactsFigures2019.pdf) of the global population uses the Internet.
-
-<figcaption markdown="span">
-Important milestones in the history of [telecommunication](https://en.wikipedia.org/wiki/Telecommunication) and the Internet.
-</figcaption>
-</figure>
 
 ---
 
