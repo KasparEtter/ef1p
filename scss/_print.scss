@@ -38,7 +38,7 @@
   }
 
   figure.limited-width-on-print img {
-    max-width: 870px;
+    max-width: 720px;
   }
 
   body,
@@ -134,5 +134,38 @@
         border: 1px solid #000;
       }
     }
+  }
+
+  // 'avoid' in 'break-after' and 'break-before' is not yet supported in Chrome,
+  // unfortunately: https://www.chromestatus.com/feature/5630943616303104
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  summary {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  figure {
+    break-inside: avoid;
+  }
+
+  summary {
+    break-before: avoid;
+  }
+
+  details {
+    break-before: auto;
+  }
+
+  .allow-break-inside {
+    break-inside: auto;
+  }
+
+  .avoid-break-inside {
+    break-inside: avoid;
   }
 }
