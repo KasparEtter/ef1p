@@ -1,50 +1,71 @@
+import { report } from '../utility/analytics';
 import { copyToClipboard } from '../utility/clipboard';
 
 // See https://www.sitepoint.com/css3-animation-javascript-event-handlers/ (oanimationend is Opera):
 const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-$(document).ready(() => {
+// If the hash ends with one of the following endings, remove the ending.
+const endings = ['.', ',', ':', '?', '!', ')', '.)', '?)', '!)'];
+function sanitize(hash: string): string {
+    for (const ending of endings) {
+        if (hash.endsWith(ending)) {
+            report('notfound', 'ending', window.location.pathname + hash);
+            return hash.slice(0, -ending.length);
+        }
+    }
+    return hash;
+}
+
+jQuery(() => {
     /* Animated scrolling to anchor with updating window title and browser history. */
 
     const originalTitle = document.title;
 
-    const getTitle = (href: string | HTMLElement) => {
-        return originalTitle + ' at ' + $(href as any).text();
+    const getTitle = (hashOrElement: string | HTMLElement) => {
+        return originalTitle + ' at ' + $(hashOrElement as any).text();
     };
 
     // Scrolling inspired by http://jsfiddle.net/ianclark001/rkocah23/.
-    const scrollIfAnchor = (href: string | null, pushToHistory: boolean = false) => {
+    const scrollIfAnchor = (href: string | null, source: 'load' | 'hash' | 'link' | 'jump') => {
         if (!href || !/^#[^ ]+$/.test(href)) {
             return false;
         }
 
-        const match = document.getElementById(href.slice(1));
-        if (!match) {
+        const hash = source === 'load' ? sanitize(href) : href;
+        const url = window.location.pathname + hash;
+        const target = document.getElementById(hash.slice(1));
+        if (!target) {
+            report('notfound', 'anchor', url);
             return false;
         }
+        report('target', source, url);
 
-        const offset = $(match).offset();
+        if (target.tagName === 'SUMMARY') {
+            (target.parentElement as HTMLDetailsElement).open = true;
+        }
+
+        const offset = $(target).offset();
         if (!offset) {
             return false;
         }
 
-        if (pushToHistory && window.history && window.history.pushState) {
-            document.title = getTitle(href);
-            window.history.pushState(null, document.title, window.location.pathname + href);
+        if (source !== 'load' && window.history && window.history.pushState) {
+            document.title = getTitle(hash);
+            window.history.pushState(null, document.title, url);
         }
 
         $('html, body').animate({ scrollTop: offset.top - 75 });
 
         return true;
     };
+    scrollIfAnchor(window.location.hash, 'load');
 
-    const scrollToCurrentAnchor = (event?: JQuery.Event) => {
-        if (scrollIfAnchor(window.location.hash) && event) {
+    const handleHashChange = (event: JQuery.Event) => {
+        if (scrollIfAnchor(window.location.hash, 'hash')) {
             event.preventDefault();
         }
     };
-    scrollToCurrentAnchor();
-    $(window).on('hashchange', scrollToCurrentAnchor);
+    $(window).on('hashchange', handleHashChange);
 
     const handleLinkClick = (event: JQuery.TriggeredEvent) => {
         const target = event.target.closest('a') as HTMLAnchorElement;
@@ -55,20 +76,16 @@ $(document).ready(() => {
         const jQueryTarget = $(target) as JQuery<HTMLAnchorElement>;
         if (jQueryTarget.hasClass('anchorjs-link')) {
             event.preventDefault();
-            const address = location.origin + location.pathname + href;
+            const address = window.location.origin + window.location.pathname + href;
             if (copyToClipboard(address)) {
                 jQueryTarget.addClass('scale4').one(animationEnd, () => jQueryTarget.removeClass('scale4'));
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'click', {
-                        event_category: 'anchors',
-                        event_label: href,
-                    });
-                }
+                report('anchors', 'click', window.location.pathname + href);
             }
-        } else if (scrollIfAnchor(href, true)) {
+        } else if (scrollIfAnchor(href, 'link')) {
             event.preventDefault();
         } else {
             target.setAttribute('target', '_blank');
+            report('links', 'visit', href);
         }
     };
     $('body').on('click', 'a', handleLinkClick);
@@ -135,23 +152,20 @@ $(document).ready(() => {
     /* Jumping to next heading when clicking one. */
 
     const jumpToNextHeading = (event: JQuery.TriggeredEvent) => {
-        const target = event.target.closest('h2, h3, h4, h5, h6') as HTMLHeadingElement;
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'skip', {
-                event_category: 'sections',
-                event_label: target.id,
-            });
-        }
-        const level = parseInt(target.tagName.charAt(1), 10);
-        let element = target.nextElementSibling;
-        while (element !== null) {
-            if (element.tagName.charAt(0) === 'H') {
-                if (parseInt(element.tagName.charAt(1), 10) <= level) {
-                    scrollIfAnchor('#' + element.id, true);
-                    break;
+        if (event.target.tagName === 'SPAN') {
+            const target = event.target.closest('h2, h3, h4, h5, h6') as HTMLHeadingElement;
+            report('sections', 'skip', window.location.pathname + '#' + target.id);
+            const level = parseInt(target.tagName.charAt(1), 10);
+            let element = target.nextElementSibling;
+            while (element !== null) {
+                if (['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(element.tagName)) {
+                    if (parseInt(element.tagName.charAt(1), 10) <= level) {
+                        scrollIfAnchor('#' + element.id, 'jump');
+                        break;
+                    }
                 }
+                element = element.nextElementSibling;
             }
-            element = element.nextElementSibling;
         }
     };
 
@@ -162,14 +176,11 @@ $(document).ready(() => {
 
     // Track opening and closing of information boxes.
     $('summary').on('click', event => {
-        if (typeof gtag !== 'undefined') {
-            const summary = event.target.closest('summary');
-            const details = summary?.closest('details');
-            gtag('event', details?.open ? 'close' : 'open', {
-                event_category: 'boxes',
-                event_label: summary?.id ?? 'unknown',
-            });
-        }
+        const summary = event.target.closest('summary');
+        const details = summary?.closest('details');
+        const action = details ? (details.open ? 'close' : 'open') : 'unknown';
+        const label = summary ? window.location.pathname + '#' + summary.id : 'unknown';
+        report('boxes', action, label);
     });
 
     // Add the anchors with AnchorJS. As no IDs need to be added, this instruction can be ignored:
@@ -225,12 +236,7 @@ $(document).ready(() => {
             event.preventDefault();
             const jQueryTarget = $(target);
             jQueryTarget.addClass('scale2').one(animationEnd, () => jQueryTarget.removeClass('scale2'));
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'copy', {
-                    event_category: 'addresses',
-                    event_label: target.href,
-                });
-            }
+            report('addresses', 'copy', target.href);
         }
     });
 
@@ -238,12 +244,7 @@ $(document).ready(() => {
     $('#pdf-download').on('click contextmenu', event => {
         const target = event.target as HTMLAnchorElement;
         console.log(target.href);
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'download', {
-                event_category: 'articles',
-                event_label: target.href,
-            });
-        }
+        report('articles', 'download', target.href);
     });
 
     console.log('Hi there, are you curious about how this website works? You find all the code at https://github.com/KasparEtter/ef1p. If you have any questions, just ask.');

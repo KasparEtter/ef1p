@@ -1,3 +1,4 @@
+import { report } from '../utility/analytics';
 import { Color } from '../utility/color';
 import { KeysOf } from '../utility/types';
 
@@ -154,11 +155,9 @@ export function setState<State extends StateWithOnlyValues>(
         if (changed.length > 0 || forceUpdate) {
             store.meta.onChange?.(inputs);
         }
-        if (changed.length > 0 && typeof gtag !== 'undefined') {
-            gtag('event', 'state', {
-                event_category: 'tools',
-                event_label: (store as PersistedStore<PersistedState<State>, AllEntries<State>>).identifier ?? 'unknown',
-            });
+        if (changed.length > 0) {
+            const label = (store as PersistedStore<PersistedState<State>, AllEntries<State>>).identifier ?? 'unknown';
+            report('tools', 'state', label);
         }
     } else {
         store.update();
