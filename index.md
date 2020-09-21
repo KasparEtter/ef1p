@@ -123,7 +123,7 @@ Anything that I cannot explain properly
 because I don't understand it properly,
 I omit from my articles.
 If a topic or section does not interest you,
-you should skip it rather than wasting your time.
+you should skip it rather than waste your time.
 I put a lot of thought into the structure of the articles
 to make the sections as easy to skim, skip, and digest as possible.
 
@@ -321,7 +321,7 @@ you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
   If you hate being tracked,
   you can deactivate this [in your browser](https://tools.google.com/dlpage/gaoptout).
 - I announce new articles on [Twitter](https://twitter.com) and [Telegram](https://telegram.org).
-  If you don't like these companies, then don't use their service.
+  If you don't like these companies, then don't use their services.
 - This site is hosted with [GitHub Pages](https://pages.github.com),
   which means that [Microsoft](https://news.microsoft.com/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/)
   also learns when and from where this blog is being accessed.
