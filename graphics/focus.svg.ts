@@ -7,9 +7,9 @@ import { G } from '../typescript/svg/elements/group';
 import { printSVG } from '../typescript/svg/elements/svg';
 import { bold, small, TextLine } from '../typescript/svg/elements/text';
 
-const radius = 60;
-const verticalGap = 34;
-const horizontalGap = radius * 2.5;
+const radius = 56;
+const verticalGap = 28;
+const horizontalGap = radius * 2.35;
 
 const content: TextLine[][] = [
     ['Tabloids', 'cover', 'people'],

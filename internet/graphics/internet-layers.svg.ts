@@ -14,9 +14,9 @@ const colors: Color[] = ['yellow', 'orange', 'red', 'pink', 'purple'];
 const layers = ['Application layer', 'Security layer', 'Transport layer', 'Network layer', 'Link layer'];
 const entities = ['Sender', 'Router', 'Recipient'];
 
-const columnDistance = 180;
-const rowDistance = 80;
-const offsetTop = 40;
+const columnDistance = 150;
+const rowDistance = 75;
+const offsetTop = 35;
 
 const elements = new Array<VisualElement>();
 elements.push(new InvisiblePoint({ point: P(3 * columnDistance + 33, -5) }));
@@ -25,7 +25,7 @@ const cornerRadius = 0;
 const classes = ['angular'];
 const squareSize = P(9, 9);
 const halfSquareSize = squareSize.divide(2);
-const squareGap = P(5, 5);
+const squareGap = P(4.5, 4.5);
 const doubleSquareGap = squareGap.multiply(2);
 
 let previousSquare: Rectangle | undefined;
