@@ -214,7 +214,7 @@ const staticStyles: Style[] = [
         selector: 'line, rect, circle, ellipse, polygon, polyline, path',
         properties: {
             'fill-opacity': '0',
-            'stroke-width': '3',
+            'stroke-width': '2.5',
             'stroke-linecap': 'round',
             'stroke-linejoin': 'round',
         },

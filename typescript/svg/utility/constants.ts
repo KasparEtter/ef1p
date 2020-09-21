@@ -1,6 +1,6 @@
 import { Point } from './point';
 
-export const strokeWidth = 3;
+export const strokeWidth = 2.5;
 export const strokeWidthMargin = new Point(strokeWidth, strokeWidth);
 export const strokeRadius = strokeWidth / 2;
 export const strokeRadiusMargin = new Point(strokeRadius, strokeRadius);
