@@ -28,12 +28,3 @@ Each title takes you to where the respective tool is explained.
 ### [Zone walker](/internet/#domain-name-system-security-extensions)
 
 <div id="tool-zone-walker"></div>
-
-
-## [Email](/email/)
-
-### [Mail client autoconfiguration](/email/#autoconfiguration)
-
-### [Mail client configuration database](/email/#configuration-database)
-
-### [Incoming mail server address resolution](/email/#address-resolution)
