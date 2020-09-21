@@ -1,4 +1,4 @@
-import { round3 } from './rounding';
+import { round3 } from './math';
 
 export type LineSide = 'left' | 'right';
 
@@ -124,6 +124,13 @@ export class Point {
     public rotate(side: LineSide): Point {
         const factor = side === 'right' ? 1 : -1; // The y-axis points downwards.
         return new Point(-this.y * factor, this.x * factor);
+    }
+
+    /**
+     * Returns the angle of this vector.
+     */
+    public angle(): number {
+        return Math.atan(this.y / this.x);
     }
 
     public encode(): string {

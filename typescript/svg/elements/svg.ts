@@ -1,10 +1,10 @@
 import path from 'path';
 
-import { Color, colors, colorSuffix } from '../../utility/color';
+import { colors, colorSuffix } from '../../utility/color';
 
 import { strokeRadiusMargin } from '../utility/constants';
+import { round3 } from '../utility/math';
 import { P } from '../utility/point';
-import { round3 as roundOutput } from '../utility/rounding';
 
 import { Collector, ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
 
@@ -120,19 +120,19 @@ export class SVG extends StructuralElement<SVGProps> {
         result += children;
 
         if (thumbnail) {
-            const size = roundOutput(margin);
-            const center = roundOutput(size / 2);
-            const radius = roundOutput(size / 8);
-            const padding = roundOutput(radius / 3);
-            const x = roundOutput(box.topLeft.x + size);
-            const y = roundOutput(box.bottomRight.y - 2 * size);
-            const cx = roundOutput(x + center);
-            const cy = roundOutput(y + center);
+            const size = round3(margin);
+            const center = round3(size / 2);
+            const radius = round3(size / 8);
+            const padding = round3(radius / 3);
+            const x = round3(box.topLeft.x + size);
+            const y = round3(box.bottomRight.y - 2 * size);
+            const cx = round3(x + center);
+            const cy = round3(y + center);
             result += `\n`;
             result += prefix + indentation + `<mask id="mask">\n`;
             result += prefix + indentation + indentation + `<rect class="filled" x="${x}" y="${y}" width="${size}" height="${size}" style="fill: white;"></rect>\n`;
-            result += prefix + indentation + indentation + `<line x1="${roundOutput(cx - padding - radius)}" y1="${roundOutput(cy - padding - radius)}" x2="${roundOutput(cx - padding - radius)}" y2="${roundOutput(cy + padding + radius)}" style="stroke-width: ${roundOutput(radius * 2)}; stroke-linecap: round; stroke: black;"></line>\n`;
-            result += prefix + indentation + indentation + `<circle class="filled" cx="${roundOutput(cx + padding + radius)}" cy="${roundOutput(cy + padding + radius)}" r="${radius}" style="fill: black;"></circle>\n`;
+            result += prefix + indentation + indentation + `<line x1="${round3(cx - padding - radius)}" y1="${round3(cy - padding - radius)}" x2="${round3(cx - padding - radius)}" y2="${round3(cy + padding + radius)}" style="stroke-width: ${round3(radius * 2)}; stroke-linecap: round; stroke: black;"></line>\n`;
+            result += prefix + indentation + indentation + `<circle class="filled" cx="${round3(cx + padding + radius)}" cy="${round3(cy + padding + radius)}" r="${radius}" style="fill: black;"></circle>\n`;
             result += prefix + indentation + `</mask>\n`;
             result += prefix + indentation + `<circle class="filled" cx="${cx}" cy="${cy}" r="${center}" style="fill: white;" mask="url(#mask)"/>\n`; // #375A7F
         }

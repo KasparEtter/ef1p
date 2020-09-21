@@ -1,7 +1,7 @@
 import { Box } from '../utility/box';
 import { strokeRadius } from '../utility/constants';
+import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
-import { round3 } from '../utility/rounding';
 
 import { CenterTextElement } from './center';
 import { Collector, VisualElementProps } from './element';

@@ -2,10 +2,10 @@ import { normalizeToArray } from '../../utility/functions';
 
 import { Box } from '../utility/box';
 import { doubleTextMargin } from '../utility/constants';
+import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
-import { round3 } from '../utility/rounding';
 
-import { AnimationElement, Collector, indentation, VisualElement, VisualElementProps } from './element';
+import { Collector, indentation, VisualElement, VisualElementProps } from './element';
 
 export class Tspan {
     public constructor(private readonly text: TextLine, private readonly className: string) {}

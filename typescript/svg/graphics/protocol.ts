@@ -2,6 +2,7 @@ import { Color } from '../../utility/color';
 
 import { strokeRadius } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
+import { rotate } from '../utility/transform';
 
 import { G } from '../elements/group';
 import { Line } from '../elements/line';
@@ -47,12 +48,15 @@ export function printProtocol(
         const end = P(message.to * textWidth, y + (message.latency ?? 0) * textHeight);
         time += timeIncrement(message);
         const line = new Line({ start, end, marker: ['middle', 'end'], color: message.color }).shorten(0, strokeRadius);
+        const position = line.center().subtractY(textOffset).add(message.textOffset ?? zeroPoint);
+        const transform = message.latency ? rotate(end.subtract(start), position) : undefined;
         const text = new Text({
-            position: line.center().subtractY(textOffset * (1 + (message.latency ?? 0) / 2)).add(message.textOffset ?? zeroPoint),
+            position,
             text: message.text,
             horizontalAlignment: 'center',
             verticalAlignment: 'bottom',
             color: message.color,
+            transform,
         });
         return G(line, text);
     });
