@@ -1,12 +1,12 @@
 export const colors = {
-    blue:   '#3498db',
-    purple: '#6b38ca',
-    pink:   '#e91e7c',
-    red:    '#f12812',
-    orange: '#fd7e14',
-    yellow: '#ffc107',
-    green:  '#00bc8c',
-    brown:  '#9b7c55',
+    blue:   '#0066cc',
+    purple: '#bf00e6',
+    pink:   '#e60073',
+    red:    '#e60000',
+    orange: '#e66000',
+    yellow: '#e6ac00',
+    green:  '#009973',
+    brown:  '#86592d',
     gray:   '#808080',
 };
 

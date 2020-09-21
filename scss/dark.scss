@@ -1,11 +1,23 @@
-$body-bg: #1e1d1f !default;
+$blue:   hsl(210, 100%, 65%) !default;
+$purple: hsl(290, 100%, 60%) !default;
+$pink:   hsl(330, 100%, 60%) !default;
+$red:    hsl(0, 100%, 60%) !default;
+$orange: hsl(25, 100%, 60%) !default;
+$yellow: hsl(45, 100%, 60%) !default;
+$green:  hsl(165, 100%, 40%) !default;
+$brown:  hsl(30, 50%, 50%) !default;
+$gray:   hsl(0, 0%, 60%) !default;
+
+$body-bg: hsl(280, 5%, 10%) !default;
+$pre-bg: darken($body-bg, 5%) !default;
+$jumbotron-bg: hsl(280, 5%, 15%) !default;
+$select-color: hsl(45, 100%, 20%) !default;
 
 @import "variables-pre";
 @import "../node_modules/bootswatch/dist/darkly/variables";
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/darkly/bootswatch";
-$pre-bg: darken($body-bg, 5%) !default;
 @import "custom";
 
 @media screen {

@@ -94,7 +94,7 @@ a {
   cursor: pointer; // Necessary for links without href.
 
   @include hover() {
-    color: darken($info, 15%);
+    color: darken($info, 19%);
   }
 
   &:focus {
@@ -106,7 +106,7 @@ a[href^="#"] {
   color: $success;
 
   @include hover() {
-    color: darken($success, 15%);
+    color: darken($success, 10%);
   }
 }
 
@@ -114,12 +114,16 @@ a:not([href]) {
   color: $pink;
 
   @include hover() {
-    color: darken($pink, 15%);
+    color: darken($pink, 10%);
   }
 }
 
 a.btn {
   color: inherit !important;
+}
+
+::selection {
+  background-color: rgba($select-color, .99); // Opacity value necessary due to browser override.
 }
 
 details {

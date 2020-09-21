@@ -5,22 +5,14 @@
 
 // Color
 
-$blue:   #3498db !default;
-$purple: #6b38ca !default;
-$pink:   #e91e7c !default;
-$red:    #f12812 !default;
-$orange: #fd7e14 !default;
-$yellow: #ffc107 !default;
-$green:  #00bc8c !default;
-$brown:  #9b7c55 !default;
-$gray:   #808080 !default;
-
-$primary:   #375a7f !default;
+$primary:   hsl(210, 80%, 25%) !default;
 $secondary: $gray !default;
 $success:   $green !default;
 $info:      $blue !default;
 $warning:   $orange !default;
 $danger:    $red !default;
+
+$figure-caption-color: $gray;
 
 // Text
 
