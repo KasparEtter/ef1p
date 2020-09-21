@@ -5,7 +5,7 @@ script: internet
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2020-08-30
+modified: 2020-09-21
 image: /internet/generated/signal-relaying-packet-request.thumbnail.png
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 math: false
@@ -431,6 +431,7 @@ so they know on which link to forward the communication for each node:
 
 <figcaption markdown="span">
 The routing table for router A.<br>
+It contains all the destinations to be reached.<br>
 The links are numbered according to the above graphic.
 </figcaption>
 </figure>
@@ -590,7 +591,7 @@ A packet travels in a circle because of an error in one of the routing tables.
 
 In order to avoid wasting network resources,
 the header of a packet also contains a counter,
-which is decreased by one by every router it passes.
+which is decreased by one every time it passes a router.
 If this counter reaches zero before the packet arrives at its destination,
 then the router discards the packet rather than forwarding it.
 Such a counter limits the lifespan of a packet by limiting the number of hops it can take
@@ -611,7 +612,7 @@ leads to [congestion](https://en.wikipedia.org/wiki/Network_congestion).
 Source and destination addresses
 </summary>
 
-Because routers keep no state regarding the route that a packet took,
+Because routers keep no records regarding the route that a packet took,
 the response from the recipient has to include the address of the original sender.
 In other words, the sender has to disclose its own address to the recipient
 in order to be able to get a response.
