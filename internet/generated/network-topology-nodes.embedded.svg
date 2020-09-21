@@ -1,4 +1,4 @@
-<svg id="figure-network-topology-nodes" class="figure" data-name="network-topology-nodes" width="163" height="35" viewBox="-17.5 -17.5 163 35" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-network-topology-nodes" class="figure" data-name="network-topology-nodes" width="162.5" height="34.5" viewBox="-17.25 -17.25 162.5 34.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <defs>
         <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
@@ -6,7 +6,7 @@
         </marker>
     </defs>
 
-    <line class="yellow" x1="17.5" y1="0" x2="110.5" y2="0" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="79" stroke-dashoffset="151"></line>
+    <line class="yellow" x1="17.25" y1="0" x2="110.75" y2="0" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="80" stroke-dashoffset="153"></line>
     <circle class="green" cx="0" cy="0" r="16"></circle>
     <circle class="green" cx="128" cy="0" r="16"></circle>
 

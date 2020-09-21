@@ -1,4 +1,4 @@
-<svg width="278.749" height="278.75" viewBox="-100.638 -110.229 278.749 278.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="278.249" height="278.25" viewBox="-100.388 -109.979 278.249 278.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -18,13 +18,13 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: #000000;
+            stroke: #000000;
         }
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -40,23 +40,23 @@
         }
 
         .blue {
-            fill: #3498db;
-            stroke: #3498db;
+            fill: #0066CC;
+            stroke: #0066CC;
         }
 
         .orange {
-            fill: #fd7e14;
-            stroke: #fd7e14;
+            fill: #E66000;
+            stroke: #E66000;
         }
 
         .yellow {
-            fill: #ffc107;
-            stroke: #ffc107;
+            fill: #E6AC00;
+            stroke: #E6AC00;
         }
 
         .green {
-            fill: #00bc8c;
-            stroke: #00bc8c;
+            fill: #009973;
+            stroke: #009973;
         }
     </style>
 
@@ -69,13 +69,13 @@
         </marker>
     </defs>
 
-    <line class="yellow" x1="-8.75" y1="-15.155" x2="-39.25" y2="-67.983"></line>
-    <line class="yellow" x1="16.904" y1="-4.529" x2="75.825" y2="-20.317"></line>
-    <line class="yellow" x1="88.2" y1="-7.943" x2="72.412" y2="50.979"></line>
-    <line class="yellow" x1="105.103" y1="-37.221" x2="148.237" y2="-80.355"></line>
-    <line class="yellow" x1="105.103" y1="-12.472" x2="148.237" y2="30.661"></line>
-    <line class="yellow" x1="76.632" y1="83.038" x2="107.132" y2="135.865"></line>
-    <line class="yellow" x1="55.508" y1="80.257" x2="12.374" y2="123.39"></line>
+    <line class="yellow" x1="-8.625" y1="-14.939" x2="-39.375" y2="-68.2"></line>
+    <line class="yellow" x1="16.662" y1="-4.465" x2="76.067" y2="-20.382"></line>
+    <line class="yellow" x1="88.264" y1="-8.184" x2="72.347" y2="51.22"></line>
+    <line class="yellow" x1="104.926" y1="-37.044" x2="148.414" y2="-80.531"></line>
+    <line class="yellow" x1="104.926" y1="-12.649" x2="148.414" y2="30.838"></line>
+    <line class="yellow" x1="76.507" y1="82.821" x2="107.257" y2="136.082"></line>
+    <line class="yellow" x1="55.685" y1="80.08" x2="12.198" y2="123.567"></line>
     <circle class="green" cx="-83.138" cy="48" r="16"></circle>
     <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
     <circle class="green" cx="160.611" cy="-92.729" r="16"></circle>
@@ -85,6 +85,6 @@
     <circle class="blue" cx="0" cy="0" r="16"></circle>
     <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
     <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
-    <polyline class="orange" points="-67.983,39.25 0,0 67.882,67.882 143.707,47.565" marker-start="url(#arrow-orange)" marker-mid="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="239" stroke-dashoffset="471"></polyline>
+    <polyline class="orange" points="-68.2,39.375 0,0 67.882,67.882 143.949,47.5" marker-start="url(#arrow-orange)" marker-mid="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="240" stroke-dashoffset="473"></polyline>
 
 </svg>

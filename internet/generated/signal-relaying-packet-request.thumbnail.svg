@@ -1,4 +1,4 @@
-<svg width="684.9490000000001" height="358.61199999999997" viewBox="-303.738 -150.16 684.9490000000001 358.61199999999997" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="683.721" height="357.96799999999996" viewBox="-303.124 -149.838 683.721 357.96799999999996" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: white;
-            stroke: white;
+            fill: #FFFFFF;
+            stroke: #FFFFFF;
         }
 
         text {
@@ -30,7 +30,7 @@
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -46,23 +46,23 @@
         }
 
         .blue {
-            fill: #3498db;
-            stroke: #3498db;
+            fill: #4DA6FF;
+            stroke: #4DA6FF;
         }
 
         .orange {
-            fill: #fd7e14;
-            stroke: #fd7e14;
+            fill: #FF8833;
+            stroke: #FF8833;
         }
 
         .yellow {
-            fill: #ffc107;
-            stroke: #ffc107;
+            fill: #FFCC33;
+            stroke: #FFCC33;
         }
 
         .green {
-            fill: #00bc8c;
-            stroke: #00bc8c;
+            fill: #00CC99;
+            stroke: #00CC99;
         }
     </style>
 
@@ -72,18 +72,18 @@
         </marker>
     </defs>
 
-    <rect class="filled" x="-303.738" y="-150.16" width="684.9490000000001" height="358.61199999999997" style="fill: #1e1d1f;"></rect>
+    <rect class="filled" x="-303.124" y="-149.838" width="683.721" height="357.96799999999996" style="fill: #1A181B;"></rect>
 
-    <line class="yellow" x1="-8.75" y1="-15.155" x2="-39.25" y2="-67.983"></line>
-    <line class="yellow" x1="16.904" y1="-4.529" x2="75.825" y2="-20.317"></line>
-    <line class="yellow" x1="88.2" y1="-7.943" x2="72.412" y2="50.979"></line>
-    <line class="yellow" x1="105.103" y1="-37.221" x2="148.237" y2="-80.355"></line>
-    <line class="yellow" x1="105.103" y1="-12.472" x2="148.237" y2="30.661"></line>
-    <line class="yellow" x1="76.632" y1="83.038" x2="107.132" y2="135.865"></line>
-    <line class="yellow" x1="55.508" y1="80.257" x2="12.374" y2="123.39"></line>
-    <line class="orange" x1="-67.983" y1="39.25" x2="-15.155" y2="8.75" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <line class="orange" x1="12.374" y1="12.374" x2="55.508" y2="55.508" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
-    <line class="orange" x1="84.786" y1="63.353" x2="143.707" y2="47.565" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="yellow" x1="-8.625" y1="-14.939" x2="-39.375" y2="-68.2"></line>
+    <line class="yellow" x1="16.662" y1="-4.465" x2="76.067" y2="-20.382"></line>
+    <line class="yellow" x1="88.264" y1="-8.184" x2="72.347" y2="51.22"></line>
+    <line class="yellow" x1="104.926" y1="-37.044" x2="148.414" y2="-80.531"></line>
+    <line class="yellow" x1="104.926" y1="-12.649" x2="148.414" y2="30.838"></line>
+    <line class="yellow" x1="76.507" y1="82.821" x2="107.257" y2="136.082"></line>
+    <line class="yellow" x1="55.685" y1="80.08" x2="12.198" y2="123.567"></line>
+    <line class="orange" x1="-68.2" y1="39.375" x2="-14.939" y2="8.625" marker-end="url(#arrow-orange)" stroke-dasharray="54"></line>
+    <line class="orange" x1="12.198" y1="12.198" x2="55.685" y2="55.685" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="84.544" y1="63.418" x2="143.949" y2="47.5" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
     <text class="orange" x="-50.569" y="8.412" text-anchor="middle">
         <tspan x="-50.569" y="14.312">■</tspan>
     </text>
@@ -104,10 +104,10 @@
     <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
 
     <mask id="mask">
-        <rect class="filled" x="-263.807" y="128.59" width="39.931" height="39.931" style="fill: white;"></rect>
-        <line x1="-250.496" y1="141.901" x2="-250.496" y2="155.211" style="stroke-width: 9.982; stroke-linecap: round; stroke: black;"></line>
-        <circle class="filled" cx="-237.186" cy="155.211" r="4.991" style="fill: black;"></circle>
+        <rect class="filled" x="-263.265" y="128.412" width="39.859" height="39.859" style="fill: white;"></rect>
+        <line x1="-249.978" y1="141.699" x2="-249.978" y2="154.985" style="stroke-width: 9.964; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="-236.692" cy="154.985" r="4.982" style="fill: black;"></circle>
     </mask>
-    <circle class="filled" cx="-243.841" cy="148.556" r="19.966" style="fill: white;" mask="url(#mask)"/>
+    <circle class="filled" cx="-243.335" cy="148.342" r="19.93" style="fill: white;" mask="url(#mask)"/>
 
 </svg>

@@ -1,4 +1,4 @@
-<svg width="163" height="35" viewBox="-17.5 -17.5 163 35" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="162.5" height="34.5" viewBox="-17.25 -17.25 162.5 34.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -18,13 +18,13 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: #000000;
+            stroke: #000000;
         }
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -35,13 +35,13 @@
         }
 
         .yellow {
-            fill: #ffc107;
-            stroke: #ffc107;
+            fill: #E6AC00;
+            stroke: #E6AC00;
         }
 
         .green {
-            fill: #00bc8c;
-            stroke: #00bc8c;
+            fill: #009973;
+            stroke: #009973;
         }
     </style>
 
@@ -51,7 +51,7 @@
         </marker>
     </defs>
 
-    <line class="yellow" x1="17.5" y1="0" x2="110.5" y2="0" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="79" stroke-dashoffset="151"></line>
+    <line class="yellow" x1="17.25" y1="0" x2="110.75" y2="0" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="80" stroke-dashoffset="153"></line>
     <circle class="green" cx="0" cy="0" r="16"></circle>
     <circle class="green" cx="128" cy="0" r="16"></circle>
 

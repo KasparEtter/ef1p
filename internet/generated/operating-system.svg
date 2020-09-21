@@ -1,4 +1,4 @@
-<svg width="643" height="123" viewBox="-1.5 -1.5 643 123" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="642.5" height="122.5" viewBox="-1.25 -1.25 642.5 122.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: #000000;
+            stroke: #000000;
         }
 
         text {
@@ -30,7 +30,7 @@
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -45,8 +45,8 @@
         }
 
         .green {
-            fill: #00bc8c;
-            stroke: #00bc8c;
+            fill: #009973;
+            stroke: #009973;
         }
     </style>
 

@@ -1,4 +1,4 @@
-<svg width="309.448" height="162.016" viewBox="-21.681 -59.758 309.448 162.016" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="308.874" height="161.714" viewBox="-21.394 -59.607 308.874 161.714" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: white;
-            stroke: white;
+            fill: #FFFFFF;
+            stroke: #FFFFFF;
         }
 
         text {
@@ -30,7 +30,7 @@
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -50,13 +50,13 @@
         }
 
         .blue {
-            fill: #3498db;
-            stroke: #3498db;
+            fill: #4DA6FF;
+            stroke: #4DA6FF;
         }
 
         .green {
-            fill: #00bc8c;
-            stroke: #00bc8c;
+            fill: #00CC99;
+            stroke: #00CC99;
         }
     </style>
 
@@ -69,13 +69,13 @@
         </marker>
     </defs>
 
-    <rect class="filled" x="-21.681" y="-59.758" width="309.448" height="162.016" style="fill: #1e1d1f;"></rect>
+    <rect class="filled" x="-21.394" y="-59.607" width="308.874" height="161.714" style="fill: #1A181B;"></rect>
 
-    <line class="blue" x1="67.586" y1="13.75" x2="198.5" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="124"></line>
+    <line class="blue" x1="67.336" y1="13.75" x2="198.75" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="124"></line>
     <text class="blue" x="133.043" y="3.75" text-anchor="middle">
         <tspan x="133.043" y="3.75">Request</tspan>
     </text>
-    <line class="green" x1="198.5" y1="25.75" x2="67.586" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="124"></line>
+    <line class="green" x1="198.75" y1="25.75" x2="67.336" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="124"></line>
     <text class="green" x="133.043" y="35.75" text-anchor="middle">
         <tspan x="133.043" y="47.25">Response</tspan>
     </text>
@@ -89,10 +89,10 @@
     </text>
 
     <mask id="mask">
-        <rect class="filled" x="-1.5" y="61.896" width="20.181" height="20.181" style="fill: white;"></rect>
-        <line x1="5.227" y1="68.623" x2="5.227" y2="75.351" style="stroke-width: 5.046; stroke-linecap: round; stroke: black;"></line>
-        <circle class="filled" cx="11.955" cy="75.351" r="2.523" style="fill: black;"></circle>
+        <rect class="filled" x="-1.25" y="61.819" width="20.144" height="20.144" style="fill: white;"></rect>
+        <line x1="5.465" y1="68.534" x2="5.465" y2="75.248" style="stroke-width: 5.036; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="12.179" cy="75.248" r="2.518" style="fill: black;"></circle>
     </mask>
-    <circle class="filled" cx="8.591" cy="71.987" r="10.091" style="fill: white;" mask="url(#mask)"/>
+    <circle class="filled" cx="8.822" cy="71.891" r="10.072" style="fill: white;" mask="url(#mask)"/>
 
 </svg>
