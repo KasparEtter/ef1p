@@ -94,7 +94,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
 }
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries }, 'http');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
 const Prompt = shareStore<PersistedState<State>, Children, AllEntries<State>>(store)(RawPrompt);
 const HttpCommand = shareState<PersistedState<State>>(store)(RawHttpCommand);
 

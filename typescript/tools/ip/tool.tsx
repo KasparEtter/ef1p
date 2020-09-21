@@ -84,7 +84,7 @@ const entries: DynamicEntries<State> = {
 };
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
 
 export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });

@@ -6,15 +6,16 @@ import { CustomInput } from './custom';
 import { AllEntries, clearState, DynamicEntry, getCurrentState, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
 import { ProvidedStore } from './share';
 
-export interface RawInputProps {
+export interface RawInputProps<State extends StateWithOnlyValues> {
     noHistory?: boolean; // Default: false.
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
     horizontal?: boolean; // Default: false.
     submit?: string; // Defaults to no button.
+    onSubmit?: (newState: State) => any;
 }
 
-export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps> {
+export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps<State>> {
     private readonly handle = (event: Event | ChangeEvent<any>, forceUpdate: boolean) => {
         const target = event.target as HTMLInputElement;
         const key: keyof State = target.name;
@@ -31,6 +32,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
 
     private readonly onEnter = (event: Event | ChangeEvent<any>) => {
         this.handle(event, true);
+        this.props.onSubmit?.(getCurrentState(this.props.store));
     }
 
     private readonly onInput = (event: Event) => {
@@ -43,7 +45,9 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     }
 
     private readonly onSubmit = () => {
-        this.props.store.meta.onChange?.(getCurrentState(this.props.store));
+        const state = getCurrentState(this.props.store);
+        this.props.store.meta.onChange?.(state);
+        this.props.onSubmit?.(state);
     }
 
     private readonly onPrevious = () => {
@@ -166,7 +170,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                 </label>;
             })}
             {
-                this.props.submit && this.props.store.meta.onChange &&
+                this.props.submit && (this.props.store.meta.onChange || this.props.onSubmit) &&
                 <button type="button" className="label btn btn-sm btn-primary" onClick={this.onSubmit} disabled={errors} title={errors ? 'Make sure that there are no errors.' : 'Submit the input fields.'}>{this.props.submit}</button>
             }
             {

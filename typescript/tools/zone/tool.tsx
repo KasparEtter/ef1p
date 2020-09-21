@@ -68,6 +68,11 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
 const zoneWalkerResponseStore = new Store<ZoneWalkerResponseState>({ rows: [] }, undefined);
 const ZoneWalkerResponseTable = shareState<ZoneWalkerResponseState>(zoneWalkerResponseStore)(RawZoneWalkerResponseTable);
 
+function resetResponseTable(): void {
+    zoneWalkerResponseStore.state = { rows: [] };
+    zoneWalkerResponseStore.update();
+}
+
 function appendAsteriskToFirstLabel(domainName: string): string {
     const labels = domainName.split('.');
     labels[0] += '*';
@@ -84,7 +89,7 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
     if (currentDomain.includes('*')) {
         currentDomain = currentDomain.replace('*', '');
     }
-    zoneWalkerResponseStore.state = { rows: [] };
+    resetResponseTable();
     let counter = 0;
     while (true) {
         const response = await resolveDomainName(currentDomainForQuery, 'NSEC', true);
@@ -164,15 +169,15 @@ const entries: DynamicEntries<State> = {
     resultLimit,
 };
 
-const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: walkZone }, 'zone');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps, AllEntries<State>>(store)(RawInput);
+const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: resetResponseTable }, 'zone');
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
 
 export function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
     setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });
 }
 
 export const zoneTool = <Fragment>
-    <Input entries={{ startDomain, resultLimit }} horizontal submit="Walk" />
+    <Input entries={{ startDomain, resultLimit }} horizontal submit="Walk" onSubmit={walkZone} />
     <ZoneWalkerResponseTable/>
 </Fragment>;
 

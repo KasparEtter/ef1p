@@ -396,7 +396,7 @@ const entries: DynamicEntries<State> = {
 };
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateDnsResponseTable }, 'dns');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
