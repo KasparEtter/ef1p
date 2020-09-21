@@ -1,44 +1,20 @@
-// Automatic heading numbering inspired by http://philarcher.org/diary/2013/headingnumbers/.
-
 h1 {
   margin-top: 0;
 }
 
-h1,
-header {
-  counter-reset: h2;
-}
-
-$heading-margin-top-to-text-factor: 1.3; // Custom variable only used in this file.
+$heading-margin-top-to-text-factor: 1.4; // Custom variable only used in this file.
 $heading-margin-top-to-heading-factor: .8; // Custom variable only used in this file.
 
 h2 {
   margin-top: $h2-font-size * $heading-margin-top-to-text-factor;
-  counter-reset: h3;
-
-  &::before {
-    content: counter(h2) ". ";
-    counter-increment: h2;
-  }
 }
 
 h3 {
   margin-top: $h3-font-size * $heading-margin-top-to-text-factor;
-  counter-reset: h4;
-
-  &::before {
-    content: counter(h2) "." counter(h3) ". ";
-    counter-increment: h3;
-  }
 }
 
 h4 {
   margin-top: $h4-font-size * $heading-margin-top-to-text-factor;
-
-  &::before {
-    content: counter(h2) "." counter(h3) "." counter(h4) ". ";
-    counter-increment: h4;
-  }
 }
 
 h5 {
@@ -77,17 +53,4 @@ hr + h2 {
 
 p.lead {
   margin-top: -7px;
-}
-
-h2::before,
-h3::before,
-h4::before {
-  user-select: text;
-}
-
-h2.nocount::before,
-h3.nocount::before,
-h4.nocount::before {
-  content: "";
-  counter-increment: none;
 }
