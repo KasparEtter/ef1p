@@ -3,21 +3,37 @@ layout: toc
 title: Tools
 script: tools
 image: /internet/generated/client-server.thumbnail.png
-teaser: Play around with IP geolocation and DNS resolution.
+teaser: Play around with the various tools on this website.
 ---
 
 # Tools
 
-The tools on this page are explained in [this article](/internet/).
+Each title takes you to where the respective tool is explained.
 
-## IP geolocation
+
+## [Internet](/internet/)
+
+### [IP geolocation](/internet/#ip-geolocation)
 
 <div id="tool-ip-info"></div>
 
-## DNS resolver
+### [HTTP requester](/internet/#hypertext-transfer-protocol)
+
+<div id="tool-http-cli"></div>
+
+### [DNS resolver](/internet/#domain-name-system)
 
 <div id="tool-dns-resolver"></div>
 
-## Zone walker
+### [Zone walker](/internet/#domain-name-system-security-extensions)
 
 <div id="tool-zone-walker"></div>
+
+
+## [Email](/email/)
+
+### [Mail client autoconfiguration](/email/#autoconfiguration)
+
+### [Mail client configuration database](/email/#configuration-database)
+
+### [Incoming mail server address resolution](/email/#address-resolution)
