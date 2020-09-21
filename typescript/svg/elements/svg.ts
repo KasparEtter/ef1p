@@ -2,11 +2,11 @@ import path from 'path';
 
 import { colors, colorSuffix } from '../../utility/color';
 
-import { strokeRadiusMargin } from '../utility/constants';
+import { strokeRadiusMargin, strokeWidth } from '../utility/constants';
 import { round3 } from '../utility/math';
 import { P } from '../utility/point';
 
-import { Collector, ElementWithChildren, indentation, StructuralElement, StructuralElementProps } from './element';
+import { Collector, ElementWithChildren, indentation, StructuralElement, StructuralElementProps, Theme } from './element';
 
 interface SVGProps extends StructuralElementProps {
     title?: string;
@@ -114,7 +114,7 @@ export class SVG extends StructuralElement<SVGProps> {
 
         if (thumbnail) {
             result += `\n`;
-            result += prefix + indentation + `<rect class="filled" x="${box.topLeft.x}" y="${box.topLeft.y}" width="${ size.x }" height="${ size.y }" style="fill: #1e1d1f;"></rect>\n`;
+            result += prefix + indentation + `<rect class="filled" x="${box.topLeft.x}" y="${box.topLeft.y}" width="${size.x}" height="${size.y}" style="fill: ${colors.background.dark};"></rect>\n`;
         }
 
         result += children;
@@ -134,7 +134,7 @@ export class SVG extends StructuralElement<SVGProps> {
             result += prefix + indentation + indentation + `<line x1="${round3(cx - padding - radius)}" y1="${round3(cy - padding - radius)}" x2="${round3(cx - padding - radius)}" y2="${round3(cy + padding + radius)}" style="stroke-width: ${round3(radius * 2)}; stroke-linecap: round; stroke: black;"></line>\n`;
             result += prefix + indentation + indentation + `<circle class="filled" cx="${round3(cx + padding + radius)}" cy="${round3(cy + padding + radius)}" r="${radius}" style="fill: black;"></circle>\n`;
             result += prefix + indentation + `</mask>\n`;
-            result += prefix + indentation + `<circle class="filled" cx="${cx}" cy="${cy}" r="${center}" style="fill: white;" mask="url(#mask)"/>\n`; // #375A7F
+            result += prefix + indentation + `<circle class="filled" cx="${cx}" cy="${cy}" r="${center}" style="fill: white;" mask="url(#mask)"/>\n`;
         }
 
         result += `\n</svg>`;
@@ -175,16 +175,16 @@ const staticStyles: Style[] = [
         filter: collector => collector.theme === 'light',
         selector: 'svg',
         properties: {
-            'fill': 'black',
-            'stroke': 'black',
+            'fill': colors.text.light,
+            'stroke': colors.text.light,
         },
     },
     {
         filter: collector => collector.theme === 'dark',
         selector: 'svg',
         properties: {
-            'fill': 'white',
-            'stroke': 'white',
+            'fill': colors.text.dark,
+            'stroke': colors.text.dark,
         },
     },
     {
@@ -195,10 +195,18 @@ const staticStyles: Style[] = [
         },
     },
     {
-        filter: collector => collector.elements.has('a'),
+        filter: collector => collector.elements.has('a') && collector.theme === 'light',
         selector: 'a',
         properties: {
-            'color': '#3498db',
+            'color': colors.blue.light,
+            'text-decoration': 'none',
+        },
+    },
+    {
+        filter: collector => collector.elements.has('a') && collector.theme === 'dark',
+        selector: 'a',
+        properties: {
+            'color': colors.blue.dark,
             'text-decoration': 'none',
         },
     },
@@ -214,7 +222,7 @@ const staticStyles: Style[] = [
         selector: 'line, rect, circle, ellipse, polygon, polyline, path',
         properties: {
             'fill-opacity': '0',
-            'stroke-width': '2.5',
+            'stroke-width': strokeWidth.toString(),
             'stroke-linecap': 'round',
             'stroke-linejoin': 'round',
         },
@@ -309,11 +317,15 @@ const staticStyles: Style[] = [
     },
 ];
 
-const styles: Style[] = staticStyles.concat(Object.entries(colors).map(color => ({
-    filter: collector => collector.classes.has(color[0]),
-    selector: '.' + color[0],
-    properties: {
-        'fill': color[1],
-        'stroke': color[1],
-    },
-})));
+function mapColors(theme: Theme): Style[] {
+    return Object.entries(colors).map(color => ({
+        filter: collector => collector.theme === theme && collector.classes.has(color[0]),
+        selector: '.' + color[0],
+        properties: {
+            'fill': color[1][theme],
+            'stroke': color[1][theme],
+        },
+    } as Style));
+}
+
+const styles: Style[] = staticStyles.concat(mapColors('dark')).concat(mapColors('light'));

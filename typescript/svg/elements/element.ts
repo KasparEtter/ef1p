@@ -5,8 +5,10 @@ import { Point } from '../utility/point';
 
 export const indentation = '    ';
 
+export type Theme = 'dark' | 'light';
+
 export interface Collector {
-    theme: 'light' | 'dark';
+    theme: Theme;
     elements: Set<string>;
     classes: Set<string>;
     circles: Set<Color | undefined>;
