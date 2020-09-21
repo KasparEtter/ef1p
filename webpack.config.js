@@ -11,6 +11,7 @@ module.exports = {
         ready: "./typescript/scripts/ready.ts",
         theme: "./typescript/scripts/theme.ts",
 
+        404: "./404.ts",
         internet: "./internet/script.tsx",
         tools: "./tools/script.tsx",
     },
