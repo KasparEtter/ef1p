@@ -1,4 +1,4 @@
-<svg width="423" height="191" viewBox="-61.5 -61.5 423 191" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="377.7" height="170.5" viewBox="-57.25 -57.25 377.7 170.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -20,8 +20,8 @@
         }
 
         svg {
-            fill: black;
-            stroke: black;
+            fill: #000000;
+            stroke: #000000;
         }
 
         text {
@@ -30,7 +30,7 @@
 
         line, rect, circle, ellipse, polygon, polyline, path {
             fill-opacity: 0;
-            stroke-width: 3;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -44,23 +44,23 @@
         }
 
         .red {
-            fill: #f12812;
-            stroke: #f12812;
+            fill: #E60000;
+            stroke: #E60000;
         }
 
         .orange {
-            fill: #fd7e14;
-            stroke: #fd7e14;
+            fill: #E66000;
+            stroke: #E66000;
         }
 
         .yellow {
-            fill: #ffc107;
-            stroke: #ffc107;
+            fill: #E6AC00;
+            stroke: #E6AC00;
         }
     </style>
 
     <g>
-        <circle class="yellow" cx="0" cy="0" r="60"></circle>
+        <circle class="yellow" cx="0" cy="0" r="56"></circle>
         <text class="yellow" x="0" y="0" text-anchor="middle">
             <tspan x="0" y="-16.1"><tspan class="small">Tabloids</tspan></tspan>
             <tspan x="0" y="5.9"><tspan class="small">cover</tspan></tspan>
@@ -68,19 +68,19 @@
         </text>
     </g>
     <g>
-        <circle class="orange" cx="150" cy="34" r="60"></circle>
-        <text class="orange" x="150" y="34" text-anchor="middle">
-            <tspan x="150" y="17.9"><tspan class="small">Newspapers</tspan></tspan>
-            <tspan x="150" y="39.9"><tspan class="small">cover</tspan></tspan>
-            <tspan x="150" y="61.9"><tspan class="font-weight-bold">events</tspan></tspan>
+        <circle class="orange" cx="131.6" cy="28" r="56"></circle>
+        <text class="orange" x="131.6" y="28" text-anchor="middle">
+            <tspan x="131.6" y="11.9"><tspan class="small">Newspapers</tspan></tspan>
+            <tspan x="131.6" y="33.9"><tspan class="small">cover</tspan></tspan>
+            <tspan x="131.6" y="55.9"><tspan class="font-weight-bold">events</tspan></tspan>
         </text>
     </g>
     <g>
-        <circle class="red" cx="300" cy="68" r="60"></circle>
-        <text class="red" x="300" y="68" text-anchor="middle">
-            <tspan x="300" y="51.9"><tspan class="small">This blog</tspan></tspan>
-            <tspan x="300" y="73.9"><tspan class="small">covers</tspan></tspan>
-            <tspan x="300" y="95.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
+        <circle class="red" cx="263.2" cy="56" r="56"></circle>
+        <text class="red" x="263.2" y="56" text-anchor="middle">
+            <tspan x="263.2" y="39.9"><tspan class="small">This blog</tspan></tspan>
+            <tspan x="263.2" y="61.9"><tspan class="small">covers</tspan></tspan>
+            <tspan x="263.2" y="83.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
         </text>
     </g>
 
