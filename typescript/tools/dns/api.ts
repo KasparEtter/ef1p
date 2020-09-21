@@ -110,7 +110,7 @@ function normalizeRecord(record: GoogleDnsRecord): DnsRecord {
     return { name, type, ttl: live, data };
 }
 
-export async function resolveDomainName(domainName: string, recordType: RecordType, dnssecOk: boolean): Promise<DnsResponse> {
+export async function resolveDomainName(domainName: string, recordType: RecordType, dnssecOk: boolean = false): Promise<DnsResponse> {
     const parameters = {
         name: domainName,
         type: recordType,

@@ -31,6 +31,16 @@ export function removeFromArrayAll<T>(array: T[], value: T): boolean {
     return found;
 }
 
+export function replaceFirstInPlace<T>(array: T[], oldValue: T, newValue: T): boolean {
+    const index = array.indexOf(oldValue);
+    if (index !== -1) {
+        array[index] = newValue;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // https://codereview.stackexchange.com/a/202442
 export function filterUndefined<T>(ts: (T | undefined)[]): T[] {
     return ts.filter((t: T | undefined): t is T => t !== undefined)

@@ -1,4 +1,4 @@
-import { bind, inject } from '../typescript/react/utility';
+import { inject } from '../typescript/react/utility';
 
 import { bindDnsQueries, dnsTool } from '../typescript/tools/dns/tool';
 import { httpTool } from '../typescript/tools/http/tool';
