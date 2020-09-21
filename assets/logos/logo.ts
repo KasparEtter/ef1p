@@ -1,7 +1,7 @@
-// Run this script with `npm run logo-generate`.
+// Run this script with `npm run logo-build`.
 import fs from 'fs';
 
-const color = '#375A7F';
+const color = '#0D4073';
 
 const square = false;
 const inverted = false;
@@ -30,4 +30,4 @@ const svg = `<svg width="${ size }" height="${ size }" xmlns="http://www.w3.org/
 </svg>
 `;
 
-fs.writeFileSync('assets/images/logo.svg', svg);
+fs.writeFileSync('assets/logos/logo.svg', svg);
