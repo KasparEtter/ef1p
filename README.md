@@ -614,7 +614,9 @@ where the content is still rendered using Markdown.
 <summary markdown="span" id="appropriate-id">
 Summary with *Markdown*.
 </summary>
+
 Details with *Markdown*.
+
 </details>
 ```
 
