@@ -2380,7 +2380,7 @@ The root domain is denoted by the empty label,
 but it is usually written and queried as a single period: `.`.
 If you query a [root name server](https://en.wikipedia.org/wiki/Root_name_server)
 for a domain such as `ef1p.com.`
-(written with a trailing period because `com` is a subdomain of the root domain with the empty label),
+(written with a trailing dot because `com` is a subdomain of the root domain with the empty label),
 it will answer that `com` belongs to a different DNS zone
 and provide you with the addresses of the authoritative name servers of that zone.
 If you query one of those name servers for `ef1p.com.`,
@@ -2557,7 +2557,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
 - **Denial of existence**: How can you be sure that a domain name doesn't exist
   or doesn't have the queried record type
   without requiring the authoritative name server to sign such a statement on the fly?
-  Since each label of a domain name (the part between two periods) can be up to 63 characters long,
+  Since each label of a domain name (the part between two dots) can be up to 63 characters long,
   a domain can have more direct subdomains than there are
   [atoms in the observable universe](https://en.wikipedia.org/wiki/Observable_universe#Matter_content%E2%80%94number_of_atoms).
   (The limit of 63 characters is imposed by [RFC 1035](https://tools.ietf.org/html/rfc1035)
