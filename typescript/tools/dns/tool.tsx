@@ -1,6 +1,7 @@
 import { createElement, Fragment } from 'react';
 
 import { toLocalDateWithTime } from '../../utility/date';
+import { Dictionary } from '../../utility/types';
 
 import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
 import { RawInput, RawInputProps } from '../../react/input';
@@ -33,7 +34,7 @@ export function getReverseLookupDomain(ipAddress: string): string {
     return ipAddress.split('.').reverse().join('.') + '.in-addr.arpa';
 }
 
-const dnskeyFlags: { [key: string]: string | undefined } = {
+const dnskeyFlags: Dictionary = {
     '0': 'The DNS public key in this record may not be used to verify RRSIG records.',
     '256': 'The DNS public key in this record can be used to verify RRSIG records. It is marked as a zone-signing key (ZSK).',
     '257': 'The DNS public key in this record can be used to verify RRSIG records. It is marked as a key-signing key (KSK).',
@@ -41,7 +42,7 @@ const dnskeyFlags: { [key: string]: string | undefined } = {
 
 const dnskeyFlagsDefault = 'This record uses flags which are not supported by this tool.';
 
-const dnskeyAlgorithms: { [key: string]: string | undefined } = {
+const dnskeyAlgorithms: Dictionary = {
     '0': 'This value asks the parent zone to disable DNSSEC for this child zone. It can only be used in CDS and CDNSKEY records. See the section 4 of RFC 8078 for more information.',
     '8': 'This record contains an RSA public key whose private key is used to sign the SHA-256 hash of a message.',
     '13': 'This record contains an ECDSA public key whose private key is used to sign the SHA-256 hash of a message.',
@@ -52,7 +53,7 @@ const dnskeyAlgorithms: { [key: string]: string | undefined } = {
 
 const dnskeyAlgorithmsDefault = 'This record contains a public key whose algorithm is either not known to this tool or not recommended.';
 
-const dnskeyAlgorithmsShort: { [key: string]: string | undefined } = {
+const dnskeyAlgorithmsShort: Dictionary = {
     '8': 'RSA/SHA-256',
     '13': 'ECDSA/SHA-256',
     '14': 'ECDSA/SHA-384',
@@ -60,7 +61,7 @@ const dnskeyAlgorithmsShort: { [key: string]: string | undefined } = {
     '16': 'Ed448',
 };
 
-const dsDigests: { [key: string]: string | undefined } = {
+const dsDigests: Dictionary = {
     '1': 'SHA-1',
     '2': 'SHA-256',
     '3': 'GOST R 34.10-2001',
@@ -344,10 +345,13 @@ function RawDnsResponseTable({ response, error }: Readonly<DnsResponseState>): J
 const dnsResponseStore = new Store<DnsResponseState>({}, undefined);
 const DnsResponseTable = shareState<DnsResponseState>(dnsResponseStore)(RawDnsResponseTable);
 
-function updateDnsResponseTable({ domainName, recordType, dnssecOk }: State): void {
-    resolveDomainName(domainName, recordType as RecordType, dnssecOk)
-    .then(response => dnsResponseStore.setState({ response, error: undefined }))
-    .catch(error => dnsResponseStore.setState({ error: error.message }));
+async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: State): Promise<void> {
+    try {
+        const response = await resolveDomainName(domainName, recordType as RecordType, dnssecOk);
+        dnsResponseStore.setState({ response, error: undefined });
+    } catch (error) {
+        dnsResponseStore.setState({ error: error.message });
+    }
 }
 
 const domainName: DynamicEntry<string> = {
