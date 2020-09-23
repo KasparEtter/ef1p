@@ -1,7 +1,7 @@
 import { createElement, Fragment } from 'react';
 
 import { CodeBlock } from '../../react/code';
-import { Command } from '../../react/command';
+import { ClickToCopy } from '../../react/copy';
 import { AllEntries, DynamicEntries, DynamicEntry, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries } from '../../react/entry';
 import { RawInput, RawInputProps } from '../../react/input';
 import { prompt, RawPrompt, StateWithPrompt } from '../../react/prompt';
@@ -61,8 +61,8 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                 title="The port number of the server process."
             >{port ?? (protocol === 'http' ? '80' : '443')}</span>
         </Prompt>
-        <div className="position-relative">
-            <Command>
+        <div>
+            <ClickToCopy>
                 <span
                     className="static-output"
                     title="The HTTP request method to retrieve a document."
@@ -75,10 +75,10 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                     className="static-output"
                     title="The used version of the HTTP protocol."
                 >HTTP/1.0</span>
-            </Command>
+            </ClickToCopy>
         </div>
-        <div className="position-relative">
-            <Command>
+        <div>
+            <ClickToCopy>
                 <span
                     className="static-output"
                     title="The host header allows the server to serve multiple websites from the same IP address and port number."
@@ -87,7 +87,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                     className="dynamic-output"
                     title="The domain name of the web server."
                 >{domain}</span>
-            </Command>
+            </ClickToCopy>
         </div>
         <br/>
     </CodeBlock>;

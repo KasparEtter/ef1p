@@ -16,7 +16,7 @@ layout: toc
         {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
         If you like the article,
         please share it with your friends on social media:
-        <a id="short-link" href="https://{{ site.short_url }}{{ article }}">{{ site.short_url }}{{ article }}</a>.
+        <a id="short-link" href="https://{{ site.short_url }}{{ article }}" title="Click to copy.">{{ site.short_url }}{{ article }}</a>.
         {% capture pdf %}{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
         You can also <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a>
         for offline reading or printing.

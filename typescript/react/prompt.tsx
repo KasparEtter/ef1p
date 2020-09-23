@@ -2,7 +2,7 @@ import { createElement } from 'react';
 
 import { textColor } from '../utility/color';
 
-import { Command } from './command';
+import { ClickToCopy } from './copy';
 import { AllEntries, DynamicEntry, getCurrentState, PersistedState, StateWithOnlyValues } from './entry';
 import { ProvidedStore } from './share';
 import { Children } from './utility';
@@ -21,8 +21,8 @@ export interface StateWithPrompt extends StateWithOnlyValues {
     prompt: string;
 }
 
-export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children) {
-    return <div className="position-relative">
+export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children): JSX.Element {
+    return <div className="prompt">
         <span
             title={prompt.name + ': ' + prompt.description}
             className={'dynamic-output' + textColor(prompt.outputColor, ' ')}
@@ -30,8 +30,8 @@ export function RawPrompt<State extends StateWithPrompt>({ store, children }: Pr
             {getCurrentState(store).prompt}
         </span>
         {' '}
-        <Command>
+        <ClickToCopy>
             {children}
-        </Command>
+        </ClickToCopy>
     </div>;
 }
