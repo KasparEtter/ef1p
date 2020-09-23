@@ -1,3 +1,5 @@
+import { fetchWithError } from '../../utility/fetch';
+
 const token = 'ba0234c01f79d3';
 const endpoint = 'https://ipinfo.io/';
 
@@ -25,17 +27,6 @@ export function isSuccessfulIpInfoResponse(response: IpInfoResponse): response i
 }
 
 export async function getIpInfo(ipAddress?: string): Promise<IpInfoResponse> {
-    return fetch(endpoint + (ipAddress ?? 'json') + '?token=' + token, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'omit',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(`Could not retrieve information about this IP address. The response status was ${response.status}.`);
-        }
-        return response.json();
-    });
+    const response = await fetchWithError(endpoint + (ipAddress ?? 'json') + '?token=' + token);
+    return response.json();
 }

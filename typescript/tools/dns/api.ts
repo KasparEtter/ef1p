@@ -1,3 +1,4 @@
+import { fetchWithError } from '../../utility/fetch';
 import { normalizeToArray } from '../../utility/functions';
 
 // https://en.wikipedia.org/wiki/List_of_DNS_record_types
@@ -116,27 +117,25 @@ export async function resolveDomainName(domainName: string, recordType: RecordTy
         type: recordType,
         do: dnssecOk.toString(),
     };
-    return fetch(endpoint + new URLSearchParams(parameters).toString(), {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'omit',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(`The response status was ${response.status}.`);
-        }
-        return response.json() as Promise<GoogleDnsResponse>;
-    }).then(response => {
-        const status = response.Status;
-        const type = recordTypesById[response.Question[0].type];
-        if (type === undefined) {
-            throw new Error(`Unsupported record type ${response.Question[0].type}.`);
-        }
-        const question = { name: response.Question[0].name, type };
-        const answer = normalizeToArray(response.Answer).map(normalizeRecord);
-        const authority = normalizeToArray(response.Authority).map(normalizeRecord);
-        return { status, question, answer, authority };
-    });
+    const response = await fetchWithError(endpoint + new URLSearchParams(parameters).toString());
+    const json: GoogleDnsResponse = await response.json();
+    const status = json.Status;
+    const type = recordTypesById[json.Question[0].type];
+    if (type === undefined) {
+        throw new Error(`Unsupported record type ${json.Question[0].type}.`);
+    }
+    const question = { name: json.Question[0].name, type };
+    const answer = normalizeToArray(json.Answer).map(normalizeRecord);
+    const authority = normalizeToArray(json.Authority).map(normalizeRecord);
+    return { status, question, answer, authority };
+}
+
+export async function getDataOfFirstRecord(domainName: string, recordType: RecordType): Promise<string> {
+    const response = await resolveDomainName(domainName, recordType);
+    const records = response.answer.filter(record => record.type === recordType);
+    if (records.length > 0) {
+        return records[0].data;
+    } else {
+        throw new Error(`Domain ${domainName} has no record of type ${recordType}.`);
+    }
 }
