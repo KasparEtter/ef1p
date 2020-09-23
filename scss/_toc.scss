@@ -4,7 +4,6 @@ div#toc-column {
   @include make-col-ready();
   flex-shrink: 0;
   width: $toc-width + $grid-gutter-width;
-  margin-top: 2px;
 }
 
 nav#toc {

@@ -1,0 +1,16 @@
+.table-title {
+  margin-bottom: $paragraph-margin-bottom / 2;
+  font-weight: bold;
+  text-align: center;
+}
+
+.table-title + * {
+  margin-top: 0;
+}
+
+.table-with-vertical-border-after-column-2 {
+  td:nth-child(2),
+  th:nth-child(2) {
+    border-right: (2 * $table-border-width) solid $table-border-color;
+  }
+}

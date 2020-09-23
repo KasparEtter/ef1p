@@ -31,24 +31,10 @@ code {
   cursor: pointer;
 }
 
-.command {
+.prompt {
   font-weight: bold;
+}
+
+.click-to-copy {
   cursor: pointer;
-}
-
-.copied-command {
-  background-color: $yellow;
-
-  .static-output:hover,
-  .dynamic-output:hover  {
-    background-color: transparent;
-  }
-}
-
-.copy-hint {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  background-color: $orange;
 }

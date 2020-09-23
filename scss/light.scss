@@ -17,7 +17,7 @@ $select-color: hsl(45, 100%, 80%) !default;
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";
-@import "custom";
+@import "all";
 
 .dark-theme-only {
   display: none !important;

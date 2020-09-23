@@ -1,0 +1,33 @@
+a {
+  color: $info;
+  cursor: pointer; // Necessary for links without href.
+
+  @include hover() {
+    color: darken($info, 19%);
+  }
+
+  &:focus {
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+a[href^="#"] {
+  color: $success;
+
+  @include hover() {
+    color: darken($success, 10%);
+  }
+}
+
+a:not([href]) {
+  color: $pink;
+
+  @include hover() {
+    color: darken($pink, 10%);
+  }
+}
+
+a.btn {
+  color: inherit !important;
+}

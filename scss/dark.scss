@@ -18,7 +18,7 @@ $select-color: hsl(45, 100%, 20%) !default;
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/darkly/bootswatch";
-@import "custom";
+@import "all";
 
 @media screen {
   .light-theme-only {

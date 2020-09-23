@@ -1,0 +1,25 @@
+details {
+  padding: $paragraph-margin-bottom;
+  margin-bottom: $paragraph-margin-bottom;
+  background-color: $jumbotron-bg;
+  border-radius: $border-radius;
+
+  > :last-child,
+  > :last-child > :last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+details[open] summary {
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+summary {
+  font-weight: bold;
+
+  &:hover,
+  &:focus {
+    color: $link-color;
+    outline: none;
+  }
+}
