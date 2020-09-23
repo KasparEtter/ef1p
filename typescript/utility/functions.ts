@@ -45,3 +45,7 @@ export function replaceFirstInPlace<T>(array: T[], oldValue: T, newValue: T): bo
 export function filterUndefined<T>(ts: (T | undefined)[]): T[] {
     return ts.filter((t: T | undefined): t is T => t !== undefined)
 }
+
+export function flatten<T>(array: T[][]): T[] {
+    return array.reduce((flat, next) => flat.concat(next), []);
+}

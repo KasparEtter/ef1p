@@ -125,14 +125,14 @@ export function getCurrentState<State extends StateWithOnlyValues>(store: Store<
 
 export function setState<State extends StateWithOnlyValues>(
     store: Store<PersistedState<State>, AllEntries<State>>,
-    state: Partial<State>,
-    forceUpdate: boolean = true,
+    partialNewState: Partial<State>,
+    callOnChangeEvenWhenNoChange: boolean = false,
 ): void {
-    const inputs = { ...store.state.inputs, ...state };
+    const inputs = { ...store.state.inputs, ...partialNewState };
     store.state.inputs = inputs;
     const entries = store.meta.entries;
-    for (const key of Object.keys(state) as KeysOf<State>) {
-        store.state.errors[key] = entries[key].validate?.(state[key] as string);
+    for (const key of Object.keys(partialNewState) as KeysOf<State>) {
+        store.state.errors[key] = entries[key].validate?.(partialNewState[key] as string);
     }
     if (Object.values(store.state.errors).every(error => !error)) {
         const changed: (keyof State)[] = [];
@@ -152,7 +152,7 @@ export function setState<State extends StateWithOnlyValues>(
         for (const key of changed) {
             entries[key].onChange?.(inputs[key]);
         }
-        if (changed.length > 0 || forceUpdate) {
+        if (changed.length > 0 || callOnChangeEvenWhenNoChange) {
             store.meta.onChange?.(inputs);
         }
         if (changed.length > 0) {

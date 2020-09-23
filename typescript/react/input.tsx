@@ -16,14 +16,14 @@ export interface RawInputProps<State extends StateWithOnlyValues> {
 }
 
 export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps<State>> {
-    private readonly handle = (event: Event | ChangeEvent<any>, forceUpdate: boolean) => {
+    private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
         const target = event.target as HTMLInputElement;
         const key: keyof State = target.name;
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
         // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
         const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
-        setState(this.props.store, { [key]: value } as Partial<State>, forceUpdate);
+        setState(this.props.store, { [key]: value } as Partial<State>, callOnChangeEvenWhenNoChange);
     }
 
     private readonly onChange = (event: Event | ChangeEvent<any>) => {

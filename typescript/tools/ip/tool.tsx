@@ -58,10 +58,13 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
 const ipInfoResponseStore = new Store<IpInfoResponseState>({}, undefined);
 const IpInfoResponseParagraph = shareState<IpInfoResponseState>(ipInfoResponseStore)(RawIpInfoResponseParagraph);
 
-function updateIpInfoResponseParagraph({ ipAddress }: State): void {
-    getIpInfo(ipAddress)
-    .then(response => ipInfoResponseStore.setState({ response, error: false }))
-    .catch(_ => ipInfoResponseStore.setState({ error: true }));
+async function updateIpInfoResponseParagraph({ ipAddress }: State): Promise<void> {
+    try {
+        const response = await getIpInfo(ipAddress);
+        ipInfoResponseStore.setState({ response, error: false });
+    } catch (_) {
+        ipInfoResponseStore.setState({ error: true });
+    }
 }
 
 const ipAddress: DynamicEntry<string> = {
