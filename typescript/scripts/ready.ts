@@ -1,8 +1,5 @@
 import { report } from '../utility/analytics';
-import { copyToClipboard } from '../utility/clipboard';
-
-// See https://www.sitepoint.com/css3-animation-javascript-event-handlers/ (oanimationend is Opera):
-const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+import { copyToClipboardWithAnimation } from '../utility/animation';
 
 // If the hash ends with one of the following endings, remove the ending.
 const endings = ['.', ',', ':', '?', '!', ')', '.)', '?)', '!)'];
@@ -73,12 +70,10 @@ jQuery(() => {
         if (href === null) {
             return;
         }
-        const jQueryTarget = $(target) as JQuery<HTMLAnchorElement>;
-        if (jQueryTarget.hasClass('anchorjs-link')) {
+        if (target.classList.contains('anchorjs-link')) {
             event.preventDefault();
             const address = window.location.origin + window.location.pathname + href;
-            if (copyToClipboard(address)) {
-                jQueryTarget.addClass('scale4').one(animationEnd, () => jQueryTarget.removeClass('scale4'));
+            if (copyToClipboardWithAnimation(address, target, 'scale4')) {
                 report('anchors', 'click', window.location.pathname + href);
             }
         } else if (scrollIfAnchor(href, 'link')) {
@@ -232,10 +227,8 @@ jQuery(() => {
     // Copy the short link to the clipboard.
     $('#short-link').on('click', event => {
         const target = event.target as HTMLAnchorElement;
-        if (copyToClipboard(target.href)) {
+        if (copyToClipboardWithAnimation(target.href, target)) {
             event.preventDefault();
-            const jQueryTarget = $(target);
-            jQueryTarget.addClass('scale2').one(animationEnd, () => jQueryTarget.removeClass('scale2'));
             report('addresses', 'copy', target.href);
         }
     });
