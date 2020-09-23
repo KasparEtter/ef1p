@@ -54,7 +54,7 @@ The following articles have been published on this blog:
 The topics on this blog fall into one of the following categories:
 
 {% for category in site.data.categories %}
-- <i class="fas fa-{{ category.icon }}"></i>{{ category.name }}: {{ category.description }}{% endfor %}
+- <i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}: {{ category.description }}{% endfor %}
 
 ### Ambition
 

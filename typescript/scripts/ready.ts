@@ -193,8 +193,8 @@ jQuery(() => {
     $('a.anchorjs-link').attr('tabindex', -1);
 
     // Allow the reader to download embedded SVG figures.
-    const downloadAsPNG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="fas fa-file-image"></i>Download as a pixel image (PNG)');
-    const downloadAsSVG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="fas fa-file-code"></i>Download as a vector graphic (SVG)');
+    const downloadAsPNG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="icon-left fas fa-file-image"></i>Download as a pixel image (PNG)');
+    const downloadAsSVG = $('<a>').addClass(['dropdown-item']).attr('download', '').html('<i class="icon-left fas fa-file-code"></i>Download as a vector graphic (SVG)');
     const downloadMenu = $('<div>').addClass(['dropdown-menu']).append(downloadAsPNG, downloadAsSVG).appendTo('body');
 
     function showDownloadMenu(this: any, event: JQuery.MouseEventBase) {

@@ -58,7 +58,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
             nextQuery &&
             <p className="text-center">
                 <a href="#tool-zone-walker" className="btn btn-sm btn-primary" onClick={() => setZoneWalkerInputFields(nextQuery)}>
-                    <i className="fas fa-arrow-alt-circle-right"></i>Continue
+                    <i className="icon-left fas fa-arrow-alt-circle-right"></i>Continue
                 </a>
             </p>
         }
@@ -69,8 +69,7 @@ const zoneWalkerResponseStore = new Store<ZoneWalkerResponseState>({ rows: [] },
 const ZoneWalkerResponseTable = shareState<ZoneWalkerResponseState>(zoneWalkerResponseStore)(RawZoneWalkerResponseTable);
 
 function resetResponseTable(): void {
-    zoneWalkerResponseStore.state = { rows: [] };
-    zoneWalkerResponseStore.update();
+    zoneWalkerResponseStore.setState({ rows: [], message: undefined, nextQuery: undefined });
 }
 
 function appendAsteriskToFirstLabel(domainName: string): string {
@@ -103,8 +102,7 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
                 currentDomainForQuery = appendAsteriskToFirstLabel(currentDomain);
                 continue;
             }
-            zoneWalkerResponseStore.state.message = 'Could not find an NSEC record for ' + currentDomain;
-            zoneWalkerResponseStore.update();
+            zoneWalkerResponseStore.setState({ message: 'Could not find an NSEC record for ' + currentDomain });
             return;
         }
         const types = nsecRecords[0].data.split(' ');
@@ -116,17 +114,15 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
         }
         zoneWalkerResponseStore.state.rows.push({ name: currentDomain, types });
         if (currentDomain.endsWith(nextDomain)) {
-            zoneWalkerResponseStore.state.message = 'You reached the end of the zone ' + nextDomain;
-            zoneWalkerResponseStore.update();
+            zoneWalkerResponseStore.setState({ message: 'You reached the end of the zone ' + nextDomain });
             return;
         }
         counter++;
         if (counter === resultLimit) {
-            zoneWalkerResponseStore.state.nextQuery = currentDomainForQuery;
-            zoneWalkerResponseStore.update();
+            zoneWalkerResponseStore.setState({ nextQuery: currentDomainForQuery });
             return;
         }
-        zoneWalkerResponseStore.update();
+        zoneWalkerResponseStore.update(); // Needed for the above push to rows.
         currentDomain = nextDomain;
         currentDomainForQuery = currentDomain;
     }
