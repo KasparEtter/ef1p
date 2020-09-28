@@ -18,7 +18,13 @@ module.exports = {
 
     output: {
         filename: "[name].min.js",
-        path: __dirname + "/assets/scripts/internal"
+        path: __dirname + "/assets/scripts/internal",
+    },
+
+    // Set both to 'deterministic' once webpack 5 is used.
+    optimization: {
+        chunkIds: 'named',
+        moduleIds: 'named',
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -26,13 +32,13 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".jsx"]
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
 
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            { test: /\.tsx?$/, loader: "ts-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             // { test: /\.js$/, enforce: "pre", loader: "source-map-loader" },
@@ -44,12 +50,11 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: {
-        "katex": "katex",
         "react": "React",
-        "react-dom": "ReactDOM"
+        "react-dom": "ReactDOM",
     },
 
     plugins: [
-        new WebpackBuildNotifierPlugin()
+        new WebpackBuildNotifierPlugin(),
     ],
 };
