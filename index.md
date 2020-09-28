@@ -203,6 +203,10 @@ to advance to the next section of the same or a higher level.
 
 Articles contain boxes with additional information,
 which you can open and close by clicking on their title.
+If you want to expand all boxes,
+you can click on "Expand" in the navigation bar.
+This is useful for including all boxes
+when searching for a phrase on a page.
 
 <details markdown="block" open>
 <summary markdown="span" id="recommended-reading">
@@ -250,7 +254,7 @@ In order to revisit earlier examples later on,
 the values you enter are stored
 [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
 You can go back and forth through the history of values
-by clicking on the corresponding button.
+by clicking on the corresponding buttons.
 The values are persisted across sessions:
 If you close the browser window
 and then open the article again,
