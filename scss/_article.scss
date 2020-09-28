@@ -44,7 +44,7 @@ article {
   ol.spaced {
     margin-top: 0;
 
-    & > li {
+    > li {
       margin-top: $paragraph-margin-bottom;
     }
   }
