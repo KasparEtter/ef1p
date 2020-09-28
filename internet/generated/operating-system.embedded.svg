@@ -1,11 +1,5 @@
 <svg id="figure-operating-system" class="figure" data-name="operating-system" width="642.5" height="122.5" viewBox="-1.25 -1.25 642.5 122.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
-        </marker>
-    </defs>
-
     <rect x="0" y="0" width="640" height="40" rx="0" ry="0"></rect>
     <text x="12" y="20" text-anchor="start">
         <tspan x="12" y="25.9"><tspan class="font-weight-bold">Application process</tspan></tspan>

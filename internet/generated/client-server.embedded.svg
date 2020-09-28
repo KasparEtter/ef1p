@@ -1,14 +1,5 @@
 <svg id="figure-client-server" class="figure" data-name="client-server" width="268.586" height="58" viewBox="-1.25 -7.75 268.586 58" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
-        </marker>
-        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
-        </marker>
-    </defs>
-
     <line class="blue" x1="67.336" y1="13.75" x2="198.75" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="124"></line>
     <text class="blue" x="133.043" y="3.75" text-anchor="middle">
         <tspan x="133.043" y="3.75">Request</tspan>

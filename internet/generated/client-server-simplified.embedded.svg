@@ -1,11 +1,5 @@
 <svg id="figure-client-server-simplified" class="figure" data-name="client-server-simplified" width="268.586" height="42" viewBox="-1.25 -1.25 268.586 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
-        </marker>
-    </defs>
-
     <line x1="67.336" y1="19.75" x2="198.75" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="124"></line>
     <rect x="0" y="0" width="66.086" height="39.5" rx="8" ry="8"></rect>
     <text x="33.043" y="19.75" text-anchor="middle">

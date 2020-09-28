@@ -1,11 +1,5 @@
 <svg id="figure-network-topology-star" class="figure" data-name="network-topology-star" width="217.102" height="208.166" viewBox="-108.551 -113.25 217.102 208.166" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
-        </marker>
-    </defs>
-
     <line class="yellow" x1="46.288" y1="63.71" x2="10.139" y2="13.956" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="48" stroke-dashoffset="89"></line>
     <line class="yellow" x1="-46.288" y1="63.71" x2="-10.139" y2="13.956" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="48" stroke-dashoffset="89"></line>
     <line class="yellow" x1="-74.896" y1="-24.335" x2="-16.406" y2="-5.331" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="48" stroke-dashoffset="89"></line>

@@ -1,23 +1,5 @@
 <svg id="figure-internet-layers" class="figure" data-name="internet-layers" width="485.5" height="365" viewBox="-1.25 -6.25 485.5 365" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
-        </marker>
-        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
-        </marker>
-        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
-        </marker>
-        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
-        </marker>
-        <marker id="arrow-purple" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="purple" />
-        </marker>
-    </defs>
-
     <text class="yellow" x="0" y="35" text-anchor="start">
         <tspan x="0" y="40.9">Application layer</tspan>
     </text>

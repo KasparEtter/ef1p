@@ -1,14 +1,5 @@
 <svg id="figure-private-and-public-key" class="figure" data-name="private-and-public-key" width="305.975" height="57" viewBox="-1.25 -8.75 305.975 57" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
-        </marker>
-        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
-        </marker>
-    </defs>
-
     <line class="green" x1="102.408" y1="13.75" x2="201.067" y2="13.75" marker-end="url(#arrow-green)" stroke-dasharray="92"></line>
     <text class="green" x="151.738" y="3.75" text-anchor="middle">
         <tspan x="151.738" y="3.75">Efficient</tspan>

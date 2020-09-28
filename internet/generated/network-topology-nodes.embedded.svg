@@ -1,11 +1,5 @@
 <svg id="figure-network-topology-nodes" class="figure" data-name="network-topology-nodes" width="162.5" height="34.5" viewBox="-17.25 -17.25 162.5 34.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-yellow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="yellow" />
-        </marker>
-    </defs>
-
     <line class="yellow" x1="17.25" y1="0" x2="110.75" y2="0" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="80" stroke-dashoffset="153"></line>
     <circle class="green" cx="0" cy="0" r="16"></circle>
     <circle class="green" cx="128" cy="0" r="16"></circle>

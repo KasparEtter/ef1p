@@ -1,11 +1,5 @@
 <svg id="figure-signal-relaying-packet-response" class="figure" data-name="signal-relaying-packet-response" width="278.249" height="278.25" viewBox="-100.388 -109.979 278.249 278.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
-        </marker>
-    </defs>
-
     <line class="yellow" x1="-8.625" y1="-14.939" x2="-39.375" y2="-68.2"></line>
     <line class="yellow" x1="12.198" y1="12.198" x2="55.685" y2="55.685"></line>
     <line class="yellow" x1="104.926" y1="-37.044" x2="148.414" y2="-80.531"></line>

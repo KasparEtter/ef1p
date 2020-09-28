@@ -1,20 +1,5 @@
 <svg id="figure-greeting-protocol-latency" class="figure" data-name="greeting-protocol-latency" width="293.65" height="373.25" viewBox="-30.375 -1.25 293.65 373.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <defs>
-        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
-        </marker>
-        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
-        </marker>
-        <marker id="circle" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" />
-        </marker>
-        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
-            <circle cx="1.5" cy="1.5" r="1" class="blue" />
-        </marker>
-    </defs>
-
     <g>
         <rect x="-29.125" y="0" width="58.25" height="39.5" rx="8" ry="8"></rect>
         <text x="0" y="19.75" text-anchor="middle">
