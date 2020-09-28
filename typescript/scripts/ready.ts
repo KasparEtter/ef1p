@@ -209,9 +209,9 @@ jQuery(() => {
     const isTouchDevice = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
 
     if (isTouchDevice) {
-        $('svg.figure').dblclick(showDownloadMenu);
+        $('figure svg.figure').dblclick(showDownloadMenu);
     } else {
-        $('svg.figure').contextmenu(showDownloadMenu);
+        $('figure svg.figure').contextmenu(showDownloadMenu);
     }
 
     $(document).on('click', hideDownloadMenu);
@@ -223,6 +223,12 @@ jQuery(() => {
     if (isTouchDevice) {
         $('abbr').on('click', function() { alert($(this).text() + ': ' + $(this).attr('title')); });
     }
+
+    // Expand all information boxes.
+    $('#details-expander').on('click', _ => {
+        $('details').attr('open', '');
+        report('boxes', 'open-all', window.location.pathname);
+    });
 
     // Copy the short link to the clipboard.
     $('#short-link').on('click', event => {
