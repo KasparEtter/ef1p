@@ -1,8 +1,7 @@
 import { Color, colorSuffix } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
 
-import { Collector } from '../elements/element';
-
+import { Collector } from './collector';
 import { strokeRadius } from './constants';
 
 export type Marker = 'start' | 'middle' | 'end';

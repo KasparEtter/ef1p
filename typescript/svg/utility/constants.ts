@@ -1,5 +1,7 @@
 import { Point } from './point';
 
+export const indentation = '    ';
+
 export const strokeWidth = 2.5;
 export const strokeWidthMargin = new Point(strokeWidth, strokeWidth);
 export const strokeRadius = strokeWidth / 2;

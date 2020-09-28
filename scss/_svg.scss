@@ -7,6 +7,10 @@
   text-decoration-thickness: 2px;
 }
 
+.large {
+  font-size: 160%;
+}
+
 $svg-colors: () !default;
 $svg-colors: map-merge(
   (
@@ -79,4 +83,9 @@ svg.figure {
       stroke: $value;
     }
   }
+}
+
+#svg-definitions {
+  position: absolute;
+  z-index: -1;
 }

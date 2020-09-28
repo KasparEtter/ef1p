@@ -1,11 +1,12 @@
 import { normalizeToArray } from '../../utility/functions';
 
 import { Box } from '../utility/box';
-import { doubleTextMargin } from '../utility/constants';
+import { Collector } from '../utility/collector';
+import { doubleTextMargin, indentation } from '../utility/constants';
 import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
 
-import { Collector, indentation, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 
 export class Tspan {
     public constructor(private readonly text: TextLine, private readonly className: string) {}
@@ -34,6 +35,10 @@ export function lineThrough(text: TextLine): Tspan {
 
 export function small(text: TextLine): Tspan {
     return new Tspan(text, 'small');
+}
+
+export function large(text: TextLine): Tspan {
+    return new Tspan(text, 'large');
 }
 
 // The following methods are useful to circumvent kramdown's replacement of abbreviations
@@ -82,13 +87,14 @@ function encode(line: TextLine, collector: Collector): string {
     return typeof line === 'string' ? line : line.encode(collector);
 }
 
-export type TextStyle = 'bold' | 'italic' | 'small'; // For now only those that affect the width.
+export type TextStyle = 'bold' | 'italic' | 'small' | 'large'; // For now only those that affect the width.
 
 export function determineMultiplier(style?: TextStyle): number {
     switch (style) {
         case 'bold': return 1.024;
         case 'italic': return 0.933;
         case 'small': return 0.8;
+        case 'large': return 2;
         default: return 1;
     }
 }

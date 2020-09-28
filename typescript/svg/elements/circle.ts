@@ -1,10 +1,11 @@
 import { Box } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { strokeRadius } from '../utility/constants';
 import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
-import { Collector, VisualElementProps } from './element';
+import { VisualElementProps } from './element';
 
 export interface CircleProps extends VisualElementProps {
     center: Point;

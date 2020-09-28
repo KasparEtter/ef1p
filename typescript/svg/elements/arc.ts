@@ -1,9 +1,10 @@
 import { BoundingBox, Box, BoxSide, opposite } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { lineToTextDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
-import { Collector, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 import { determineAlignment } from './line';
 import { Text, TextLine, TextProps } from './text';
 

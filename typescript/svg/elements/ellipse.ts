@@ -1,9 +1,10 @@
 import { Box } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { strokeRadius } from '../utility/constants';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
-import { Collector, VisualElementProps } from './element';
+import { VisualElementProps } from './element';
 
 export interface EllipseProps extends VisualElementProps {
     center: Point;

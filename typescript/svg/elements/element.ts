@@ -1,29 +1,9 @@
 import { Color } from '../../utility/color';
 
 import { Box } from '../utility/box';
+import { Collector, createEmptyCollector } from '../utility/collector';
+import { indentation } from '../utility/constants';
 import { Point } from '../utility/point';
-
-export const indentation = '    ';
-
-export type Theme = 'dark' | 'light';
-
-export interface Collector {
-    theme: Theme;
-    elements: Set<string>;
-    classes: Set<string>;
-    circles: Set<Color | undefined>;
-    arrows: Set<Color | undefined>;
-}
-
-function createEmptyCollector(): Collector {
-    return {
-        theme: 'light',
-        elements: new Set(),
-        classes: new Set(),
-        circles: new Set(),
-        arrows: new Set(),
-    };
-}
 
 // Element
 

@@ -34,7 +34,7 @@ export function RawOutput(props: Readonly<Partial<ProvidedStore<PersistedState<a
                     {index > 0 && separator}
                     <span
                         title={entry.name + ': ' + entry.description + details}
-                        className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + textColor(entry.outputColor, ' ')}
+                        className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + textColor(entry.outputColor)}
                     >
                         {isArgument(entry) && (
                             // The following line errors if the state of the provided store has no 'shortForm' property for arguments:

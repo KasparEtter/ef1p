@@ -25,7 +25,7 @@ export function RawPrompt<State extends StateWithPrompt>({ store, children }: Pr
     return <div className="prompt">
         <span
             title={prompt.name + ': ' + prompt.description}
-            className={'dynamic-output' + textColor(prompt.outputColor, ' ')}
+            className={'dynamic-output' + textColor(prompt.outputColor)}
         >
             {getCurrentState(store).prompt}
         </span>

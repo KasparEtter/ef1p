@@ -11,7 +11,10 @@ layout: navbar
     </div>
     <div class="col">
         <article>
-            {{ content }}
+
+{% include generated/definitions.svg %}
+{{ content }}
+
             <footer class="d-print-none">
                 To be informed about new articles, follow this blog on
                 <a href="https://twitter.com/{{ site.twitter_handle }}">Twitter</a>,

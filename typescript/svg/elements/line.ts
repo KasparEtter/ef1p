@@ -1,12 +1,13 @@
 import { Color } from '../../utility/color';
 
 import { BoundingBox, Box, BoxSide } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { lineToTextDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { LineSide, Point } from '../utility/point';
 
 import { Circle } from './circle';
-import { Collector, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 import { Ellipse } from './ellipse';
 import { Alignment, HorizontalAlignment, Text, TextLine, TextProps, VerticalAlignment } from './text';
 

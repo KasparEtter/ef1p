@@ -1,8 +1,9 @@
 import { Box } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { Point } from '../utility/point';
 
 import { CenterTextElement } from './center';
-import { Collector, VisualElementProps } from './element';
+import { VisualElementProps } from './element';
 
 export interface PolygonProps extends VisualElementProps {
     points: Point[];

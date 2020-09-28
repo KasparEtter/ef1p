@@ -1,9 +1,10 @@
 import { Box, BoxSide } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
 import { Circle } from './circle';
-import { Collector, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 import { Ellipse } from './ellipse';
 
 export interface PolylineProps extends VisualElementProps {

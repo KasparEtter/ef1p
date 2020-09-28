@@ -1,10 +1,11 @@
 import { Color } from '../../utility/color';
 
 import { Box } from '../utility/box';
+import { Collector } from '../utility/collector';
 import { defaultCornerRadius, textMargin } from '../utility/constants';
 import { Point } from '../utility/point';
 
-import { Collector, VisualElement, VisualElementProps } from './element';
+import { VisualElement, VisualElementProps } from './element';
 import { Line } from './line';
 import { Text, TextLine, TextProps } from './text';
 

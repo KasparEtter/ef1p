@@ -1,12 +1,14 @@
 import path from 'path';
 
-import { colors, colorSuffix } from '../../utility/color';
+import { colors, Theme } from '../../utility/color';
 
-import { strokeRadiusMargin, strokeWidth } from '../utility/constants';
+import { Collector } from '../utility/collector';
+import { indentation, strokeRadiusMargin, strokeWidth } from '../utility/constants';
+import { getArrowMarkers, getCircleMarkers } from '../utility/definitions';
 import { round3 } from '../utility/math';
 import { P } from '../utility/point';
 
-import { Collector, ElementWithChildren, indentation, StructuralElement, StructuralElementProps, Theme } from './element';
+import { ElementWithChildren, StructuralElement, StructuralElementProps } from './element';
 
 interface SVGProps extends StructuralElementProps {
     title?: string;
@@ -68,6 +70,7 @@ export class SVG extends StructuralElement<SVGProps> {
             result += prefix + indentation + `<desc>${description}</desc>\n`;
         }
 
+        // Children add what they need to the collector.
         const children = this.children(collector, prefix);
 
         if (!embedded) {
@@ -80,6 +83,7 @@ export class SVG extends StructuralElement<SVGProps> {
             result += prefix + indentation + indentation + indentation + `</rdf:Description>\n`;
             result += prefix + indentation + indentation + `</rdf:RDF>\n`;
             result += prefix + indentation + `</metadata>\n\n`;
+
             result += prefix + indentation + `<style>`;
             styles.filter(style => style.filter(collector)).forEach(style => {
                 result += `\n`;
@@ -94,22 +98,14 @@ export class SVG extends StructuralElement<SVGProps> {
                 result += `\n`;
             });
             result += prefix + indentation + `</style>\n`;
-        }
 
-        if (collector.arrows.size > 0 || collector.circles.size > 0) {
-            result += `\n`;
-            result += prefix + indentation + `<defs>\n`;
-            for (const color of collector.arrows) {
-                result += prefix + indentation + indentation + `<marker id="arrow${colorSuffix(color)}" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">\n`;
-                result += prefix + indentation + indentation + indentation + `<path d="M0,0 L1,2 L0,4 L4,2 Z"${color ? ` class="${color}"` : ''} />\n`;
-                result += prefix + indentation + indentation + `</marker>\n`;
+            if (collector.arrows.size > 0 || collector.circles.size > 0) {
+                result += `\n`;
+                result += prefix + indentation + `<defs>\n`;
+                result += getArrowMarkers(collector.arrows, prefix + indentation + indentation);
+                result += getCircleMarkers(collector.circles, prefix + indentation + indentation);
+                result += prefix + indentation + `</defs>\n`;
             }
-            for (const color of collector.circles) {
-                result += prefix + indentation + indentation + `<marker id="circle${colorSuffix(color)}" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">\n`;
-                result += prefix + indentation + indentation + indentation + `<circle cx="1.5" cy="1.5" r="1"${color ? ` class="${color}"` : ''} />\n`;
-                result += prefix + indentation + indentation + `</marker>\n`;
-            }
-            result += prefix + indentation + `</defs>\n`;
         }
 
         if (thumbnail) {
@@ -313,6 +309,13 @@ const staticStyles: Style[] = [
         selector: '.small',
         properties: {
             'font-size': '80%',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('large'),
+        selector: '.large',
+        properties: {
+            'font-size': '160%',
         },
     },
 ];
