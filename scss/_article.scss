@@ -78,6 +78,11 @@ article {
     }
   }
 
+  blockquote {
+    padding-left: $paragraph-margin-bottom / 2;
+    border-left: 2px solid $body-color;
+  }
+
   footer {
     padding-top: $hr-margin-y;
     margin-top: $hr-margin-y;
