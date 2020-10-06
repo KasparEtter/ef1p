@@ -3,9 +3,9 @@ import { P, zeroPoint } from '../../typescript/svg/utility/point';
 import { ConnectionLine } from '../../typescript/svg/elements/line';
 import { Rectangle } from '../../typescript/svg/elements/rectangle';
 import { printSVG } from '../../typescript/svg/elements/svg';
-import { bold, estimateSize } from '../../typescript/svg/elements/text';
+import { bold, estimateSizeWithMargin } from '../../typescript/svg/elements/text';
 
-const size = estimateSize('Server', 'bold');
+const size = estimateSizeWithMargin(bold('Server'));
 
 const clientRectangle = new Rectangle({ position: zeroPoint, size });
 const clientText = clientRectangle.text(bold('Client'));

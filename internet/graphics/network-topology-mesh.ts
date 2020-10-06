@@ -1,4 +1,4 @@
-import { lineToTextDistance } from '../../typescript/svg/utility/constants';
+import { textToLineDistance } from '../../typescript/svg/utility/constants';
 import { zeroPoint } from '../../typescript/svg/utility/point';
 
 import { Circle } from '../../typescript/svg/elements/circle';
@@ -47,4 +47,4 @@ export const links = linkPairs.map(pair => DiagonalLine(pair[0], pair[1], linePr
 
 export const relayLabels = ['A', 'B', 'C'].map((text, index) => relays[index].text(text));
 export const nodeLabels = ['A1', 'A2', 'B1', ['B2', '', '', 'C1'], 'C2', 'C3'].map((text, index) => nodes[index].text(text));
-export const linkLabels = ['1', '2', '3', '4'].map((text, index) => links[index].text(small(text), index < 2 ? 'right' : 'left', lineToTextDistance, { horizontalAlignment: 'center', verticalAlignment: 'center' }));
+export const linkLabels = ['1', '2', '3', '4'].map((text, index) => links[index].text(small(text), index < 2 ? 'right' : 'left', textToLineDistance, { horizontalAlignment: 'center', verticalAlignment: 'center' }));

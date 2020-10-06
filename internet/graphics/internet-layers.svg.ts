@@ -4,7 +4,6 @@ import { BoxSide } from '../../typescript/svg/utility/box';
 import { P, Point } from '../../typescript/svg/utility/point';
 
 import { VisualElement } from '../../typescript/svg/elements/element';
-import { InvisiblePoint } from '../../typescript/svg/elements/invisible';
 import { ConnectionLine } from '../../typescript/svg/elements/line';
 import { Rectangle } from '../../typescript/svg/elements/rectangle';
 import { printSVG } from '../../typescript/svg/elements/svg';
@@ -18,15 +17,14 @@ const columnDistance = 150;
 const rowDistance = 75;
 const offsetTop = 35;
 
-const elements = new Array<VisualElement>();
-elements.push(new InvisiblePoint({ point: P(3 * columnDistance + 33, -5) }));
-
 const cornerRadius = 0;
-const classes = ['angular'];
+const classes = 'angular';
 const squareSize = P(9, 9);
 const halfSquareSize = squareSize.divide(2);
 const squareGap = P(4.5, 4.5);
 const doubleSquareGap = squareGap.multiply(2);
+
+const elements = new Array<VisualElement>();
 
 let previousSquare: Rectangle | undefined;
 let previousCenter: Point | undefined;
