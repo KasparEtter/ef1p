@@ -1,6 +1,6 @@
 import { Color } from '../../utility/color';
 
-import { strokeRadius } from '../utility/constants';
+import { doubleTextMargin, getTextHeight, strokeRadius } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
 import { rotate } from '../utility/transform';
 
@@ -8,7 +8,7 @@ import { G } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
-import { estimateSizeWithMargin, estimateWidth, Text } from '../elements/text';
+import { bold, estimateWidth, Text } from '../elements/text';
 
 export interface Message {
     from: number;
@@ -27,15 +27,15 @@ function timeIncrement(message: Message): number {
 export function printProtocol(
     entities: string[],
     messages: Message[],
+    distance: number = 238,
 ): void {
-    const size = entities.reduce((size, entity) => size.max(estimateSizeWithMargin(entity)), zeroPoint);
-    const texts = messages.map(message => message.text);
-    const textWidth = estimateWidth(texts) * 2;
+    const boldEntities = entities.map(bold);
+    const size = P(estimateWidth(boldEntities), getTextHeight(1)).add(doubleTextMargin);
     const textHeight = 40;
     const textOffset = 10;
     const overallTime = messages.reduce((time, message) => time + timeIncrement(message), 0);
-    const entityGroups = entities.map((entity, index) => {
-        const rectangle = new Rectangle({ position: P(index * textWidth - size.x / 2, 0), size });
+    const entityGroups = boldEntities.map((entity, index) => {
+        const rectangle = new Rectangle({ position: P(index * distance - size.x / 2, 0), size });
         const label = rectangle.text(entity);
         const bottom = rectangle.boundingBox().pointAt('bottom');
         const line = new Line({ start: bottom, end: bottom.addY(overallTime * textHeight + textOffset) });
@@ -44,8 +44,8 @@ export function printProtocol(
     let time = 1;
     const messageGroups = messages.map(message => {
         const y = size.y + time * textHeight;
-        const start = P(message.from * textWidth, y);
-        const end = P(message.to * textWidth, y + (message.latency ?? 0) * textHeight);
+        const start = P(message.from * distance, y);
+        const end = P(message.to * distance, y + (message.latency ?? 0) * textHeight);
         time += timeIncrement(message);
         const line = new Line({ start, end, marker: ['middle', 'end'], color: message.color }).shorten(0, strokeRadius);
         const position = line.center().subtractY(textOffset).add(message.textOffset ?? zeroPoint);
