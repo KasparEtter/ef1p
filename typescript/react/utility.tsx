@@ -2,10 +2,25 @@ import { createElement, Fragment, FunctionComponentElement, ReactNode } from 're
 import { render } from 'react-dom';
 
 /**
- * Declares children to be combined with other properties.
+ * Declares the children attribute to be combined with other properties.
  */
 export interface Children {
     children: ReactNode;
+}
+
+/**
+ * Declares the title attribute to be combined with other properties.
+ */
+export interface Title {
+    title: string;
+}
+
+/**
+ * Declares the onClick and onContextMenu attributes to be combined with other properties.
+ */
+export interface ClickHandler {
+    onClick?: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+    onContextMenu?: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
 
 let keyCounter = 0;
