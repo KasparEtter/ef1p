@@ -1,12 +1,12 @@
-import { ChangeEvent, Component, createElement } from 'react';
+import { ChangeEvent, Component, createElement, MouseEvent } from 'react';
 
-import { normalizeToArray, normalizeToValue } from '../utility/functions';
+import { normalizeToValue } from '../utility/functions';
 
-import { CustomInput } from './custom';
+import { CustomInput, CustomTextarea } from './custom';
 import { AllEntries, clearState, DynamicEntry, getCurrentState, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
 import { ProvidedStore } from './share';
 
-export interface RawInputProps<State extends StateWithOnlyValues> {
+export interface InputProps<State extends StateWithOnlyValues> {
     noHistory?: boolean; // Default: false.
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
@@ -15,9 +15,9 @@ export interface RawInputProps<State extends StateWithOnlyValues> {
     onSubmit?: (newState: State) => any;
 }
 
-export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & RawInputProps<State>> {
+export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & InputProps<State>> {
     private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
-        const target = event.target as HTMLInputElement;
+        const target = event.currentTarget as HTMLInputElement;
         const key: keyof State = target.name;
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
@@ -30,18 +30,33 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         this.handle(event, false);
     }
 
-    private readonly onEnter = (event: Event | ChangeEvent<any>) => {
+    private readonly onEnter = (event: Event) => {
         this.handle(event, true);
         this.props.onSubmit?.(getCurrentState(this.props.store));
     }
 
     private readonly onInput = (event: Event) => {
-        const target = event.target as HTMLInputElement;
+        const target = event.currentTarget as HTMLInputElement;
         const value = numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value;
         const key: keyof State = target.name;
         this.props.store.state.inputs[key] = value as any;
         this.props.store.state.errors[key] = false;
         this.props.store.update();
+    }
+
+    private readonly onDetermine = async (event: MouseEvent<HTMLButtonElement>) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const key: keyof State = target.name;
+        const entry: DynamicEntry<any, State> = this.props.entries[key]!;
+        const state = getCurrentState(this.props.store);
+        const [value, error] = await entry.determine!(state);
+        if (error !== undefined) {
+            this.props.store.state.inputs[key] = value;
+            this.props.store.state.errors[key] = false;
+            this.props.store.update();
+        } else {
+            setState(this.props.store, { [key]: value } as Partial<State>);
+        }
     }
 
     private readonly onSubmit = () => {
@@ -66,8 +81,9 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
 
     private readonly randomID = '-' + Math.random().toString(36).substr(2, 8);
 
-    public render() {
+    public render(): JSX.Element {
         const entries = this.props.entries;
+        const state = getCurrentState(this.props.store);
         const maxLabelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
         const errors = !Object.values(this.props.store.state.errors).every(error => !error);
         return <div className={
@@ -75,10 +91,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
             (this.props.horizontal ? 'horizontal-form' : 'vertical-form')
         }>
             {(Object.keys(entries)).map(key => {
-                const entry = entries[key] as DynamicEntry<ValueType>;
+                const entry = entries[key] as DynamicEntry<ValueType, State>;
                 const input = this.props.store.state.inputs[key];
                 const error = this.props.store.state.errors[key];
-                const disabled = entry.disabled ? entry.disabled() : false;
+                const disabled = entry.disabled ? entry.disabled(state) : false;
                 const history = inputTypesWithHistory.includes(entry.inputType);
                 return <label
                     key={key}
@@ -87,7 +103,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                     {
                         !this.props.noLabels &&
                         <span
-                            className="label-text"
+                            className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '')}
                             style={this.props.horizontal ? {} : { width: maxLabelWidth + 'px' }}
                         >
                             {entry.name}:
@@ -115,13 +131,39 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                             disabled={disabled}
                             onChange={this.onChange}
                         >
-                            {entry.selectOptions && Object.entries(entry.selectOptions).map(
+                            {entry.selectOptions && Object.entries(normalizeToValue(entry.selectOptions, state)).map(
                                 ([key, text]) => <option value={key} selected={key === input}>{text}</option>,
                             )}
                         </select>
                     }
+                    {
+                        entry.inputType === 'textarea' &&
+                        <span className="d-inline-block">
+                            <CustomTextarea
+                                name={key}
+                                className={'form-control' + (error ? ' is-invalid' : '')}
+                                autoComplete="off"
+                                autoCorrect="off"
+                                autoCapitalize="off"
+                                spellCheck="false"
+                                placeholder={entry.placeholder}
+                                disabled={disabled}
+                                onChange={this.onChange}
+                                onInput={this.onInput}
+                                value={input as string}
+                                rows={6}
+                                style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
+                            />
+                            {
+                                error &&
+                                <div className="invalid-feedback">
+                                    {error}
+                                </div>
+                            }
+                        </span>
+                    }
                     { // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
-                        entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' &&
+                        entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' && entry.inputType !== 'textarea' &&
                         <span className="d-inline-block">
                             <CustomInput
                                 name={key}
@@ -146,7 +188,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                             {
                                 history &&
                                 <datalist id={key + this.randomID}>
-                                    {normalizeToArray(normalizeToValue(entry.suggestedValues)).concat(
+                                    {normalizeToValue(entry.suggestedValues ?? [], state).concat(
                                         this.props.store.state.states.map(object => object[key]),
                                     ).reverse().filter(
                                         (option, index, self) => option !== input && self.indexOf(option) === index,
@@ -166,6 +208,10 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                     {
                         entry.inputType === 'range' &&
                         <span className="range-value">{input}</span>
+                    }
+                    {
+                        entry.determine &&
+                        <button name={key} type="button" className="btn btn-primary btn-sm ml-2" onClick={this.onDetermine} title="Determine a suitable value.">Determine</button>
                     }
                 </label>;
             })}

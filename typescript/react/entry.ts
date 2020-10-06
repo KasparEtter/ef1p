@@ -1,6 +1,7 @@
 import { report } from '../utility/analytics';
 import { Color } from '../utility/color';
-import { KeysOf } from '../utility/types';
+import { normalizeToValue } from '../utility/functions';
+import { Function, KeysOf, ValueOrFunction } from '../utility/types';
 
 import { PersistedStore, Store } from './store';
 
@@ -32,7 +33,7 @@ export type BooleanInputType = typeof booleanInputTypes[number];
 export const numberInputTypes = ['number', 'range'] as const;
 export type NumberInputType = typeof numberInputTypes[number];
 
-export const stringInputTypes = ['text', 'select', 'password', 'date', 'color'] as const;
+export const stringInputTypes = ['text', 'textarea', 'select', 'password', 'date', 'color'] as const;
 export type StringInputType = typeof stringInputTypes[number];
 
 export type InputType = BooleanInputType | NumberInputType | StringInputType;
@@ -45,7 +46,7 @@ export const inputTypesWithHistory: InputType[] = ['text', 'number'];
 /**
  * Dynamic entries can be input by the user and thus have an associated state.
  */
-export interface DynamicEntry<T extends ValueType> extends Entry<T> {
+export interface DynamicEntry<T extends ValueType, State extends StateWithOnlyValues = {}> extends Entry<T> {
     readonly inputType: InputType;
     readonly labelWidth: number; // In pixels.
     readonly inputWidth?: number; // In pixels.
@@ -53,11 +54,12 @@ export interface DynamicEntry<T extends ValueType> extends Entry<T> {
     readonly maxValue?: T;
     readonly stepValue?: T;
     readonly placeholder?: string;
-    readonly suggestedValues?: T[] | (() => T[]); // Added to the datalist but not the history.
-    readonly selectOptions?: Record<string, string>; // Only relevant for 'select' inputs.
-    readonly disabled?: () => boolean;
+    readonly suggestedValues?: ValueOrFunction<T[], State>; // Added to the datalist but not the history.
+    readonly selectOptions?: ValueOrFunction<Record<string, string>, State>; // Only relevant for 'select' inputs.
+    readonly disabled?: Function<boolean, State>;
     readonly validate?: (value: T) => (string | false);
     readonly onChange?: (newValue: T) => any; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
+    readonly determine?: Function<Promise<[T?, string?]>, State>;
 }
 
 export function isDynamicEntry<T extends ValueType>(entry: Entry<T>): entry is DynamicEntry<T> {
@@ -70,7 +72,7 @@ export interface StateWithOnlyValues {
 }
 
 export type DynamicEntries<State extends StateWithOnlyValues> = {
-    readonly [key in keyof State]: DynamicEntry<any>;
+    readonly [key in keyof State]: DynamicEntry<any, State>;
 };
 
 export interface ProvidedDynamicEntries<State extends StateWithOnlyValues> {
@@ -145,6 +147,22 @@ export function setState<State extends StateWithOnlyValues>(
             }
         }
         if (changed.length > 0) {
+            // Go through all the select entries and change their value
+            // if it's no longer in the list of select options when computed with the new state.
+            for (const key of Object.keys(entries) as KeysOf<State>) {
+                if (entries[key].inputType === 'select') {
+                    const newSelectOptions = Object.keys(normalizeToValue(entries[key].selectOptions!, inputs));
+                    if (newSelectOptions.length === 0) {
+                        throw new Error('There should always be at least one option to select.');
+                    }
+                    if (!newSelectOptions.includes(inputs[key] as string)) {
+                        store.state.inputs[key] = newSelectOptions[0] as any;
+                        inputs[key] = newSelectOptions[0] as any;
+                        changed.push(key);
+                    }
+                }
+            }
+            // Insert the new state into the array of states.
             store.state.index += 1;
             store.state.states.splice(store.state.index, 0, { ...inputs });
         }
