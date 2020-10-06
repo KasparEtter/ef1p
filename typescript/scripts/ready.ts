@@ -227,7 +227,17 @@ jQuery(() => {
     // Expand all information boxes.
     $('#details-expander').on('click', _ => {
         $('details').attr('open', '');
+        $('#details-expander').addClass('d-none');
+        $('#details-collapser').removeClass('d-none');
         report('boxes', 'open-all', window.location.pathname);
+    });
+
+    // Collapse all information boxes.
+    $('#details-collapser').on('click', _ => {
+        $('details').removeAttr('open');
+        $('#details-collapser').addClass('d-none');
+        $('#details-expander').removeClass('d-none');
+        report('boxes', 'close-all', window.location.pathname);
     });
 
     // Copy the short link to the clipboard.
