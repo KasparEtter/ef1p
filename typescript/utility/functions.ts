@@ -1,5 +1,7 @@
-export function normalizeToValue<T>(argument: T | (() => T)): T {
-    return typeof argument === 'function' ? (argument as () => T)() : argument;
+import { NotFunction, ValueOrFunction } from './types';
+
+export function normalizeToValue<T extends NotFunction, I = void>(argument: ValueOrFunction<T, I>, input: I): T {
+    return typeof argument === 'function' ? argument(input) : argument;
 }
 
 export function normalizeToArray<T>(argument: undefined | T | T[]): T[] {
