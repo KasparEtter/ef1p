@@ -2,3 +2,9 @@ body {
   overflow-x: hidden;
   word-wrap: break-word;
 }
+
+// https://css-tricks.com/flexbox-truncated-text/
+// Otherwise the width of the article can expand beyond the container.
+.col {
+  min-width: 0;
+}
