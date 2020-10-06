@@ -10,6 +10,7 @@ export abstract class CenterTextElement<P extends VisualElementProps> extends Vi
         const horizontalAlignment = 'center';
         const verticalAlignment = 'center';
         const color = this.props.color;
-        return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ...props });
+        const ignoreForClipping = true;
+        return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ignoreForClipping, ...props });
     }
 }

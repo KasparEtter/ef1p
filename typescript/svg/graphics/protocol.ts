@@ -8,7 +8,7 @@ import { G } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
-import { estimateSize, estimateWidth, Text } from '../elements/text';
+import { estimateSizeWithMargin, estimateWidth, Text } from '../elements/text';
 
 export interface Message {
     from: number;
@@ -28,7 +28,7 @@ export function printProtocol(
     entities: string[],
     messages: Message[],
 ): void {
-    const size = entities.reduce((size, entity) => size.max(estimateSize(entity)), zeroPoint);
+    const size = entities.reduce((size, entity) => size.max(estimateSizeWithMargin(entity)), zeroPoint);
     const texts = messages.map(message => message.text);
     const textWidth = estimateWidth(texts) * 2;
     const textHeight = 40;

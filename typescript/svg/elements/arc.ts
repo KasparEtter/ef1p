@@ -1,6 +1,6 @@
 import { BoundingBox, Box, BoxSide, opposite } from '../utility/box';
 import { Collector } from '../utility/collector';
-import { lineToTextDistance } from '../utility/constants';
+import { textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { Point } from '../utility/point';
 
@@ -195,7 +195,7 @@ export class Arc extends VisualElement<ArcProps> {
         }
 
         // Determine the position on the desired arc side.
-        let offset = vector.normalize(lineToTextDistance);
+        let offset = vector.normalize(textToLineDistance);
         if (side === 'inside') {
             offset = offset.invert();
         }

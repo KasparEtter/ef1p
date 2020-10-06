@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../../assets/styles/light.min.css">
+        <style>
+            body {
+                padding-top: 0;
+            }
+
+            text {
+              white-space: pre;
+              /* font-weight: bold; */
+              /* font-style: italic; */
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <svg id="svg" class="figure" width="1650" height="1920" viewBox="0 0 1650 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <p>
+            <script>
+                let totalWidth = 0;
+                const precision = 100000;
+                const repetitions = 100;
+                const svg = document.getElementById('svg');
+                for (let i = 32; i <= 126; i++) {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', 0);
+                    text.setAttribute('y', (i - 31) * 20);
+                    const character = String.fromCharCode(i);
+                    text.textContent = character.repeat(repetitions);
+                    svg.appendChild(text);
+                    const width = text.getBoundingClientRect().width;
+                    const escape = character === '\'' || character === '\\';
+                    document.writeln(`'${escape ? '\\' : ''}${character}': ${Math.round(width / repetitions * precision) / precision},<br>`);
+                    if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
+                        totalWidth += width;
+                    }
+                }
+                // The following can be used to determine the multiplier for bold and italics:
+                document.writeln(`<br>Aggregated width of all upper- and lowercase alphabet characters: ${totalWidth / repetitions}<br>`);
+            </script>
+        </p>
+    </body>
+</html>

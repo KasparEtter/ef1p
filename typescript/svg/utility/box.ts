@@ -62,3 +62,14 @@ export class Box {
 export function BoundingBox(point1: Point, point2: Point): Box {
     return new Box(point1.min(point2), point1.max(point2));
 }
+
+export function EncompassAll(boxes: Box[]): Box {
+    if (boxes.length === 0) {
+        throw Error(`At least one box has to be provided.`);
+    }
+    let box = boxes[0];
+    for (let i = 1; i < boxes.length; i++) {
+        box = box.encompass(boxes[i]);
+    }
+    return box;
+}

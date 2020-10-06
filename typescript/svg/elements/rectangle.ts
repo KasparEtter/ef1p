@@ -80,7 +80,8 @@ export class Rectangle extends VisualElement<RectangleProps> {
         }
         const position = new Point(x, y);
         const color = this.props.color;
-        return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ...props });
+        const ignoreForClipping = true;
+        return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ignoreForClipping, ...props });
     }
 
     public cross(shorten: number = 0, color: Color | undefined = this.props.color): Line[] {

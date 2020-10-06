@@ -2,7 +2,7 @@ import { Color } from '../../utility/color';
 
 import { BoundingBox, Box, BoxSide } from '../utility/box';
 import { Collector } from '../utility/collector';
-import { lineToTextDistance } from '../utility/constants';
+import { textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { LineSide, Point } from '../utility/point';
 
@@ -72,7 +72,7 @@ export class Line extends VisualElement<LineProps> {
     public text(
         text: TextLine | TextLine[],
         side: LineSide = 'left',
-        distance: number = lineToTextDistance,
+        distance: number = textToLineDistance,
         // Horizontal and vertical alignment are intentionally not excluded because the defaults should be overridable.
         props: Omit<TextProps, 'position' | 'text'> = {},
     ): Text {

@@ -28,7 +28,11 @@ export class SVG extends StructuralElement<SVGProps> {
         thumbnail = process.argv[2] === 'thumbnail',
     }: SVGProps): string {
         const name = path.basename(process.argv[1], '.svg.ts');
-        let box = this.boundingBox().addMargin(strokeRadiusMargin).round3();
+        const clippingBox = this.clippingBox();
+        if (clippingBox === undefined) {
+            throw Error(`The clipping box of the SVG is undefined.`);
+        }
+        let box = clippingBox.addMargin(strokeRadiusMargin).round3();
         let size = box.size();
         let margin = 0;
 
@@ -302,6 +306,13 @@ const staticStyles: Style[] = [
         selector: '.text-capitalize',
         properties: {
             'text-transform': 'capitalize',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('preserve-whitespace'),
+        selector: '.preserve-whitespace',
+        properties: {
+            'white-space': 'pre',
         },
     },
     {

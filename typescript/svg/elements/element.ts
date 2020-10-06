@@ -1,6 +1,7 @@
 import { Color } from '../../utility/color';
+import { filterUndefined, normalizeToArray } from '../../utility/functions';
 
-import { Box } from '../utility/box';
+import { Box, EncompassAll } from '../utility/box';
 import { Collector, createEmptyCollector } from '../utility/collector';
 import { indentation } from '../utility/constants';
 import { Point } from '../utility/point';
@@ -31,21 +32,32 @@ export interface ElementWithChildrenProps<C extends Element> {
     id?: string;
     color?: Color;
     style?: string;
-    classes?: string[];
-    transform?: string;
+    classes?: string | string[];
     children?: C[];
+    transform?: string; // Transformations don't affect the bounding box!
+    ignoreForClipping?: boolean; // Set to true to ignore the bounding box for clipping.
 }
 
 export abstract class ElementWithChildren<C extends Element, P extends ElementWithChildrenProps<C>> extends Element<P> {
     protected abstract _boundingBox(props: Readonly<P>): Box;
 
+    /**
+     * Returns the bounding box of this element ignoring any transformations.
+     */
     public boundingBox(): Box {
         return this._boundingBox(this.props);
     }
 
+    /**
+     * Returns the optional clipping box of this element ignoring any transformations.
+     */
+    public clippingBox(): Box | undefined {
+        return this.props.ignoreForClipping ? undefined : this.boundingBox();
+    }
+
     protected attributes(collector: Collector): string {
         const props = this.props;
-        let classes: string[] = props.classes ?? [];
+        let classes: string[] = normalizeToArray(props.classes);
         const color: Color | undefined = props.color;
         if (color) {
             classes = [color, ...classes]; // classes.unshift(color) would modify the property itself.
@@ -95,10 +107,11 @@ export abstract class StructuralElement<P extends StructuralElementProps> extend
     }
 
     protected _boundingBox({ children }: P): Box {
-        let boundingBox = children[0].boundingBox();
-        for (let i = 1; i < children.length; i++) {
-            boundingBox = children[i].boundingBox().encompass(boundingBox);
-        }
-        return boundingBox;
+        return EncompassAll(children.map(child => child.boundingBox()));
+    }
+
+    public clippingBox(): Box | undefined {
+        const boxes = filterUndefined(this.props.children.map(child => child.clippingBox()));
+        return boxes.length === 0 ? undefined : EncompassAll(boxes);
     }
 }
