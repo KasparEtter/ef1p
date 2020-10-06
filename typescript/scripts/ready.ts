@@ -73,7 +73,7 @@ jQuery(() => {
         if (target.classList.contains('anchorjs-link')) {
             event.preventDefault();
             const address = window.location.origin + window.location.pathname + href;
-            if (copyToClipboardWithAnimation(address, target, 'scale4')) {
+            if (copyToClipboardWithAnimation(address, target, 'scale400')) {
                 report('anchors', 'click', window.location.pathname + href);
             }
         } else if (scrollIfAnchor(href, 'link')) {

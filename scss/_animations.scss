@@ -1,24 +1,34 @@
-.scale2,
-.scale4 {
+.scale150,
+.scale200,
+.scale400 {
   display: inline-block;
   animation-duration: .2s;
   animation-timing-function: linear;
 }
 
-@keyframes scale2 {
+@keyframes scale150 {
+  from { transform: scale(1); }
+  to { transform: scale(1.5); }
+}
+
+.scale150 {
+  animation-name: scale150;
+}
+
+@keyframes scale200 {
   from { transform: scale(1); }
   to { transform: scale(2); }
 }
 
-.scale2 {
-  animation-name: scale2;
+.scale200 {
+  animation-name: scale200;
 }
 
-@keyframes scale4 {
+@keyframes scale400 {
   from { transform: scale(1); }
   to { transform: scale(4); }
 }
 
-.scale4 {
-  animation-name: scale4;
+.scale400 {
+  animation-name: scale400;
 }
