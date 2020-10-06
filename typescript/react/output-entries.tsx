@@ -1,12 +1,13 @@
 import { createElement, Fragment } from 'react';
 
 import { textColor } from '../utility/color';
+import { normalizeToValue } from '../utility/functions';
 
 import { isArgument } from './argument';
-import { AllEntries, getCurrentState, InputType, isDynamicEntry, PersistedState, ProvidedEntries } from './entry';
+import { AllEntries, getCurrentState, InputType, isDynamicEntry, PersistedState, ProvidedEntries, StateWithOnlyValues } from './entry';
 import { ProvidedStore } from './share';
 
-export interface RawOutputProps {
+export interface OutputEntriesProps {
     separator?: string; // Single space by default.
     noEscaping?: boolean; // False by default.
 }
@@ -20,13 +21,14 @@ export function escapeValue(value: string): string {
  * Outputs the value of all provided entries.
  * Please note that falsy values are skipped.
  */
-export function RawOutput(props: Readonly<Partial<ProvidedStore<PersistedState<any>, AllEntries<any>>> & ProvidedEntries & RawOutputProps>): JSX.Element {
+export function RawOutputEntries<State extends StateWithOnlyValues>(props: Readonly<Partial<ProvidedStore<PersistedState<State>, AllEntries<State>>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
     const separator = props.separator ?? ' ';
     return <Fragment>
         {Object.entries(props.entries).map(([key, entry], index) => {
             // The following line errors if no store is provided for dynamic entries or the key does not exist:
-            const value: InputType = isDynamicEntry(entry) ? getCurrentState(props.store!)[key] : entry.defaultValue;
-            const details = isDynamicEntry(entry) && entry.inputType === 'select' && entry.selectOptions ? ` (${entry.selectOptions[value]})` : '';
+            const state = getCurrentState(props.store!);
+            const value: InputType = isDynamicEntry(entry) ? state[key] : entry.defaultValue;
+            const details = isDynamicEntry(entry) && entry.inputType === 'select' && entry.selectOptions ? ` (${normalizeToValue(entry.selectOptions, state)[value]})` : '';
             return value &&
                 <Fragment
                     key={key as string}
