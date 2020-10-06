@@ -2,6 +2,8 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import glob from 'glob';
 
+import { sleep } from '../utility/functions';
+
 export interface File {
     /**
      * The path to the input directory ends without a path separator.
@@ -38,7 +40,7 @@ export interface File {
 export function scan(
     inputDirectory: string,
     fileSuffix: string,
-    callback: (file: File) => void,
+    callback: (file: File) => any,
 ): void {
     glob(`**${inputDirectory}*${fileSuffix}`, { nodir: true, nonull: false, strict: true }, (error, paths) => {
         if (error) {
@@ -71,15 +73,33 @@ export function scan(
     });
 }
 
+const startSeparator = '\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n\n';
+const endSeparator = '\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n';
+
+function logCommandWithError(command: string, error: string): void {
+    console.error(startSeparator + 'Command: ' + command + '\n\n' + error + endSeparator);
+}
+
+let counter = 0;
+
 /**
  * This function wraps the 'exec' function from 'child_process'.
  * It logs the command and only calls the callback if there was no error.
  */
-export function execute(command: string, callback?: () => any): void {
+export async function execute(command: string, callback?: () => any, limit?: number): Promise<void> {
+    if (limit !== undefined) {
+        while (counter >= limit) {
+            await sleep(2000);
+        }
+    }
+    counter++;
     console.log(command);
-    exec(command, error => {
+    exec(command, (error, _, stderr) => {
+        counter--;
         if (error) {
-            console.error('The following error occurred:', error);
+            logCommandWithError(command, error.message);
+        } else if (stderr) {
+            logCommandWithError(command, stderr);
         } else {
             callback?.();
         }

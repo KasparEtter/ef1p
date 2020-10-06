@@ -49,3 +49,7 @@ export function filterUndefined<T>(ts: (T | undefined)[]): T[] {
 export function flatten<T>(array: T[][]): T[] {
     return array.reduce((flat, next) => flat.concat(next), []);
 }
+
+export function sleep(ms: number): Promise<unknown> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

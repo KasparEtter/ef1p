@@ -9,9 +9,12 @@ function callback(file: File): void {
     const path = file.pathToInputDirectory + outputDirectory + name;
     execute(`node_modules/.bin/ts-node "${file.path}" embedded > "${path}.embedded.svg"`,
         () => execute(`node_modules/.bin/ts-node "${file.path}" > "${path}.svg"`,
-            () => execute(`node_modules/.bin/svgexport "${path}.svg" "${path}.png" 2000:`),
+            () => execute(`node_modules/.bin/svgexport "${path}.svg" "${path}.png" 2000:`, undefined, 6),
         ),
     );
 }
+
+// The following environment variable didn't solve the problem:
+// process.env.SVGEXPORT_TIMEOUT = '120'; // in seconds
 
 scan(inputDirectory, fileSuffix, callback);
