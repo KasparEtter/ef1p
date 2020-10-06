@@ -2,12 +2,14 @@ import { createElement, Fragment } from 'react';
 
 import { copyToClipboard } from '../../utility/clipboard';
 
+import { DynamicOutput } from '../../react/code';
 import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
-import { RawInput, RawInputProps } from '../../react/input';
+import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
 import { PersistedStore, Store } from '../../react/store';
 
-import { getReverseLookupDomain, setDnsResolverInputs } from '../dns/tool';
+import { getReverseLookupDomain } from '../dns/api';
+import { setDnsResolverInputs } from '../dns/tool';
 
 import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from './api';
 
@@ -21,8 +23,7 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
         return <p>Could not retrieve information about this IP address. Make sure you have your adblocker disabled for this site.</p>;
     } else if (response) {
         if (isSuccessfulIpInfoResponse(response)) {
-            const address = <span
-                className="dynamic-output"
+            const address = <DynamicOutput
                 title="Click to copy. Right click to do a reverse lookup."
                 onClick={_ => copyToClipboard(response.ip)}
                 onContextMenu={event => {
@@ -30,7 +31,9 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
                     window.location.hash = '#tool-dns-resolver';
                     event.preventDefault();
                 }}
-            >{response.ip}</span>;
+            >
+                {response.ip}
+            </DynamicOutput>;
             const location = <a href={`https://www.google.com/maps/@${response.loc},14z`}>{response.city} ({response.country})</a>;
             const provider = response.org.replace(/^AS\d+/, '');
             if (getCurrentState(store).ipAddress === '') {
@@ -87,7 +90,7 @@ const entries: DynamicEntries<State> = {
 };
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
 
 export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });

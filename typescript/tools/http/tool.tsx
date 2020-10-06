@@ -1,9 +1,9 @@
 import { createElement, Fragment } from 'react';
 
-import { CodeBlock } from '../../react/code';
+import { CodeBlock, DynamicOutput, StaticOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { AllEntries, DynamicEntries, DynamicEntry, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries } from '../../react/entry';
-import { RawInput, RawInputProps } from '../../react/input';
+import { InputProps, RawInput } from '../../react/input';
 import { prompt, RawPrompt, StateWithPrompt } from '../../react/prompt';
 import { shareState, shareStore } from '../../react/share';
 import { PersistedStore } from '../../react/store';
@@ -41,52 +41,43 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
         <Prompt>
             {
                 protocol === 'http' ?
-                <span
-                    className="static-output"
-                    title="A common command to open a TCP channel to the specified server."
-                >telnet</span> :
-                <span
-                    className="static-output"
-                    title="A common command with some options to open a TLS channel to the specified server."
-                >openssl s_client -connect</span>
+                <StaticOutput title="A common command to open a TCP channel to the specified server.">
+                    telnet
+                </StaticOutput> :
+                <StaticOutput title="A common command with some options to open a TLS channel to the specified server.">
+                    openssl s_client -connect
+                </StaticOutput>
             }
             {' '}
-            <span
-                className="dynamic-output"
-                title="The domain name of the server, which is resolved to an IP address using DNS."
-            >{domain}</span>
+            <DynamicOutput title="The domain name of the server, which is resolved to an IP address using DNS.">
+                {domain}
+            </DynamicOutput>
             {protocol === 'http' ? ' ' : ':'}
-            <span
-                className="dynamic-output"
-                title="The port number of the server process."
-            >{port ?? (protocol === 'http' ? '80' : '443')}</span>
+            <DynamicOutput title="The port number of the server process.">
+                {port ?? (protocol === 'http' ? '80' : '443')}
+            </DynamicOutput>
         </Prompt>
         <div>
             <ClickToCopy>
-                <span
-                    className="static-output"
-                    title="The HTTP request method to retrieve a document."
-                >GET</span>{' '}
-                <span
-                    className="dynamic-output"
-                    title="The path of the resource which is requested."
-                >{path ?? '/'}</span>{' '}
-                <span
-                    className="static-output"
-                    title="The used version of the HTTP protocol."
-                >HTTP/1.0</span>
+                <StaticOutput title="The HTTP request method to retrieve a document.">
+                    GET
+                </StaticOutput>{' '}
+                <DynamicOutput title="The path of the resource which is requested.">
+                    {path ?? '/'}
+                </DynamicOutput>{' '}
+                <StaticOutput title="The used version of the HTTP protocol.">
+                    HTTP/1.0
+                </StaticOutput>
             </ClickToCopy>
         </div>
         <div>
             <ClickToCopy>
-                <span
-                    className="static-output"
-                    title="The host header allows the server to serve multiple websites from the same IP address and port number."
-                >Host:</span>{' '}
-                <span
-                    className="dynamic-output"
-                    title="The domain name of the web server."
-                >{domain}</span>
+                <StaticOutput title="The host header allows the server to serve multiple websites from the same IP address and port number.">
+                    Host:
+                </StaticOutput>{' '}
+                <DynamicOutput title="The domain name of the web server.">
+                    {domain}
+                </DynamicOutput>
             </ClickToCopy>
         </div>
         <br/>
@@ -94,7 +85,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
 }
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries }, 'http');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
 const Prompt = shareStore<PersistedState<State>, Children, AllEntries<State>>(store)(RawPrompt);
 const HttpCommand = shareState<PersistedState<State>>(store)(RawHttpCommand);
 
