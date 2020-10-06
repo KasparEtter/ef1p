@@ -1,5 +1,7 @@
-import { fetchWithError } from '../../utility/fetch';
+import { fetchWithErrorAndTimeout } from '../../utility/fetch';
 import { normalizeToArray } from '../../utility/functions';
+
+/* ------------------------------ Record types ------------------------------ */
 
 // https://en.wikipedia.org/wiki/List_of_DNS_record_types
 export const recordTypes = {
@@ -58,6 +60,8 @@ export const responseStatusCodes: { [key: number]: string | undefined } = {
     3: 'The status code of the response says that no such domain exists.',
 }
 
+/* ------------------------------ Response types ------------------------------ */
+
 export interface DnsQuestion {
     name: string;
     type: RecordType;
@@ -77,9 +81,25 @@ export interface DnsResponse {
     authority: DnsRecord[]; // Can be empty.
 }
 
+/* ------------------------------ Utility functions ------------------------------ */
+
 export function getAllRecords(response: DnsResponse, type: RecordType): DnsRecord[] {
     return response.answer.concat(response.authority).filter(record => record.type === type);
 }
+
+export function isAuthenticated(response: DnsResponse, domain: string, type: RecordType, cname: boolean = true): boolean {
+    return response.answer.filter(record =>
+        record.name === (domain.endsWith('.') ? domain : domain + '.') &&
+        record.type === 'RRSIG' &&
+        (record.data.startsWith(type.toLowerCase() + ' ') || (cname && record.data.startsWith('cname '))),
+    ).length === 1;
+}
+
+export function getReverseLookupDomain(ipAddress: string): string {
+    return ipAddress.split('.').reverse().join('.') + '.in-addr.arpa';
+}
+
+/* ------------------------------ Google DNS API ------------------------------ */
 
 interface GoogleDnQuestion {
     name: string;
@@ -117,7 +137,7 @@ export async function resolveDomainName(domainName: string, recordType: RecordTy
         type: recordType,
         do: dnssecOk.toString(),
     };
-    const response = await fetchWithError(endpoint + new URLSearchParams(parameters).toString());
+    const response = await fetchWithErrorAndTimeout(endpoint + new URLSearchParams(parameters).toString());
     const json: GoogleDnsResponse = await response.json();
     const status = json.Status;
     const type = recordTypesById[json.Question[0].type];

@@ -3,15 +3,16 @@ import { createElement, Fragment } from 'react';
 import { toLocalDateWithTime } from '../../utility/date';
 import { Dictionary } from '../../utility/types';
 
+import { DynamicOutput, StaticOutput } from '../../react/code';
 import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
-import { RawInput, RawInputProps } from '../../react/input';
+import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
 import { setIpInfoInput } from '../ip/tool';
 
-import { DnsRecord, DnsResponse, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from './api';
+import { DnsRecord, DnsResponse, getReverseLookupDomain, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from './api';
 
 interface DnsResponseState {
     response?: DnsResponse;
@@ -28,10 +29,6 @@ function parseTimeToLive(ttl: number): string {
     } else {
         return ttl + ' seconds';
     }
-}
-
-export function getReverseLookupDomain(ipAddress: string): string {
-    return ipAddress.split('.').reverse().join('.') + '.in-addr.arpa';
 }
 
 const dnskeyFlags: Dictionary = {
@@ -166,7 +163,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
             { title: 'The number of seconds for which the non-existence of a resource record can be cached by DNS resolvers.' },
         ],
     },
-    SPF: record => <span className="static-output" title={`This record specifies the IP addresses of the outgoing mail servers of ${record.name} SPF stands for Sender Policy Framework. This record type has been obsoleted by RFC 7208. You should just use a TXT record for this now.`}>{record.data}</span>,
+    SPF: record => <StaticOutput title={`This record specifies the IP addresses of the outgoing mail servers of ${record.name} SPF stands for Sender Policy Framework. This record type has been obsoleted by RFC 7208. You should just use a TXT record for this now.`}>{record.data}</StaticOutput>,
     SRV: {
         regexp: /^\d+ \d+ \d+ (([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63})?\.$/i,
         fields: [
@@ -177,7 +174,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         ],
     },
     // TODO: Support SPF, DKIM, DMARC, etc.
-    TXT: record => <span className="static-output" title="The arbitrary, text-based data of this record.">{record.data}</span>,
+    TXT: record => <StaticOutput title="The arbitrary, text-based data of this record.">{record.data}</StaticOutput>,
     DNSKEY,
     DS,
     RRSIG: {
@@ -198,12 +195,13 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         const availableTypes = record.data.split(' ');
         const nextDomain = availableTypes.splice(0, 1)[0];
         return <Fragment>
-            <span
-                className="dynamic-output"
+            <DynamicOutput
                 title={`This is the next domain name in this zone. This record indicates that no domain exists between ${record.name.slice(0, -1)} and ${nextDomain} Click to look up its next domain name. Right click to open the domain in your browser.`}
                 onClick={() => setDnsResolverInputs(nextDomain, 'NSEC')}
                 onContextMenu={event => { onContextMenu(nextDomain); event.preventDefault(); }}
-            >{nextDomain}</span>{' '}
+            >
+                {nextDomain}
+            </DynamicOutput>{' '}
             {join((availableTypes as RecordType[]).map(
                 recordType => <span
                     className={recordTypes[recordType] ? 'dynamic-output' : 'static-output'}
@@ -218,25 +216,25 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         const [ algorithm, flags, iterations, salt, nextDomain ] = availableTypes.splice(0, 5);
         const owner = record.name.substring(0, record.name.indexOf('.'));
         return <Fragment>
-            <span className="static-output"
-                title="Algorithm: This value identifies the cryptographic hash function used to hash the subdomains in this zone. 1 stands for SHA-1, which is the only algorithm currently supported."
-            >{algorithm}</span>{' '}
-            <span className="static-output"
-                title={`Opt-out flag: If this value is 1, there can be unsigned subzones whose hash is between ${owner} and ${nextDomain}. Otherwise, there are no unsigned subzones that fall in this range. By skipping all subzones that don't deploy DNSSEC, the size of this zone can be reduced as fewer NSEC3 records are required.`}
-            >{flags}</span>{' '}
-            <span className="static-output"
-                title="Iterations: This value specifies how many additional times the hash function is applied to a subdomain name. (A value of 0 means that the subdomain name is hashed only once in total.) By hashing the result of the hash function again, then its result again and so on, the computational cost to brute-force the name of the hashed subdomain can be increased."
-            >{iterations}</span>{' '}
-            <span className="static-output"
-                title="Salt: Optionally, an arbitrary value can be provided here to be mixed into the hash function in order to make pre-calculated dictionary attacks harder. This prevents an attacker from simultaneously brute-forcing the subdomains of zones which use different salts."
-            >{salt}</span>{' '}
-            <span className="static-output"
-                title={`This is the hash of the next domain name in this zone. This record indicates that no other subdomain hashes to a value between ${owner} and ${nextDomain} (with the exception of unsigned subzones if the opt-out flag is set).`}
-            >{nextDomain}</span>{' '}
+            <StaticOutput title="Algorithm: This value identifies the cryptographic hash function used to hash the subdomains in this zone. 1 stands for SHA-1, which is the only algorithm currently supported.">
+                {algorithm}
+            </StaticOutput>{' '}
+            <StaticOutput title={`Opt-out flag: If this value is 1, there can be unsigned subzones whose hash is between ${owner} and ${nextDomain}. Otherwise, there are no unsigned subzones that fall in this range. By skipping all subzones that don't deploy DNSSEC, the size of this zone can be reduced as fewer NSEC3 records are required.`}>
+                {flags}
+            </StaticOutput>{' '}
+            <StaticOutput title="Iterations: This value specifies how many additional times the hash function is applied to a subdomain name. (A value of 0 means that the subdomain name is hashed only once in total.) By hashing the result of the hash function again, then its result again and so on, the computational cost to brute-force the name of the hashed subdomain can be increased.">
+                {iterations}
+            </StaticOutput>{' '}
+            <StaticOutput title="Salt: Optionally, an arbitrary value can be provided here to be mixed into the hash function in order to make pre-calculated dictionary attacks harder. This prevents an attacker from simultaneously brute-forcing the subdomains of zones which use different salts.">
+                {salt}
+            </StaticOutput>{' '}
+            <StaticOutput title={`This is the hash of the next domain name in this zone. This record indicates that no other subdomain hashes to a value between ${owner} and ${nextDomain} (with the exception of unsigned subzones if the opt-out flag is set).`}>
+                {nextDomain}
+            </StaticOutput>{' '}
             {join((availableTypes as RecordType[]).map(
-                recordType => <span className="static-output"
-                    title={`This entry indicates that the subdomain which hashes to ${owner} has ${['A', 'M', 'N', 'R', 'S'].includes(recordType[0]) ? 'an' : 'a'} ${recordType} record.`}
-                >{recordType}</span>,
+                recordType => <StaticOutput title={`This entry indicates that the subdomain which hashes to ${owner} has ${['A', 'M', 'N', 'R', 'S'].includes(recordType[0]) ? 'an' : 'a'} ${recordType} record.`}>
+                        {recordType}
+                    </StaticOutput>,
             ))}
         </Fragment>;
     },
@@ -400,7 +398,7 @@ const entries: DynamicEntries<State> = {
 };
 
 const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateDnsResponseTable }, 'dns');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & RawInputProps<State>, AllEntries<State>>(store)(RawInput);
+const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
