@@ -1,13 +1,13 @@
-<svg id="figure-client-server-simplified" class="figure" data-name="client-server-simplified" width="268.586" height="42" viewBox="-1.25 -1.25 268.586 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-client-server-simplified" class="figure" data-name="client-server-simplified" width="273.682" height="42" viewBox="-1.25 -1.25 273.682 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <line x1="67.336" y1="19.75" x2="198.75" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="124"></line>
-    <rect x="0" y="0" width="66.086" height="39.5" rx="8" ry="8"></rect>
-    <text x="33.043" y="19.75" text-anchor="middle">
-        <tspan x="33.043" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+    <line x1="72.432" y1="19.75" x2="198.75" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="119"></line>
+    <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text x="35.591" y="19.75" text-anchor="middle">
+        <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
     </text>
-    <rect x="200" y="0" width="66.086" height="39.5" rx="8" ry="8"></rect>
-    <text x="233.043" y="19.75" text-anchor="middle">
-        <tspan x="233.043" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    <rect x="200" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text x="235.591" y="19.75" text-anchor="middle">
+        <tspan x="235.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
     </text>
 
 </svg>
