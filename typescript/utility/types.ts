@@ -21,14 +21,19 @@ export type ObjectButNotFunction = object & { prototype?: never; };
 export type Dictionary<T = string> = { [key: string]: T | undefined };
 
 /**
+ * Value or array of the same type.
+ */
+export type ValueOrArray<T> = T | T[];
+
+/**
  * A function which returns a value of the given type.
  */
-export type Function<T extends NotFunction, I = void> = (input: I) => T;
+export type Function<T, I = undefined> = (input: I) => T;
 
 /**
  * Value or function which returns a value of the same type.
  */
-export type ValueOrFunction<T extends NotFunction, I = void> = T | Function<T, I>;
+export type ValueOrFunction<T extends NotFunction | undefined, I = undefined> = T | Function<T, I>;
 
 /**
  * Handles an arbitrary event.

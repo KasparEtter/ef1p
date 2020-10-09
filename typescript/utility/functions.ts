@@ -1,10 +1,10 @@
-import { NotFunction, ValueOrFunction } from './types';
+import { Dictionary, NotFunction, ValueOrArray, ValueOrFunction } from './types';
 
-export function normalizeToValue<T extends NotFunction, I = void>(argument: ValueOrFunction<T, I>, input: I): T {
+export function normalizeToValue<T extends NotFunction | undefined, I = undefined>(argument: ValueOrFunction<T, I>, input: I): T {
     return typeof argument === 'function' ? argument(input) : argument;
 }
 
-export function normalizeToArray<T>(argument: undefined | T | T[]): T[] {
+export function normalizeToArray<T>(argument?: ValueOrArray<T>): T[] {
     if (argument === undefined) {
         return [];
     } else {
@@ -50,6 +50,30 @@ export function filterUndefined<T>(ts: (T | undefined)[]): T[] {
 
 export function flatten<T>(array: T[][]): T[] {
     return array.reduce((flat, next) => flat.concat(next), []);
+}
+
+export function unique<T>(array: T[]): T[] {
+    return Array.from(new Set(array));
+}
+
+export function nonEmpty(value: string): boolean {
+    return value.length > 0;
+}
+
+export function createRecord(array: string[]): Record<string, string> {
+    const result: Record<string, string> = {};
+    for (const element of array) {
+        result[element] = element;
+    }
+    return result;
+}
+
+export function reverseLookup<T = string>(dictionary: Dictionary<T>, value: T): string | undefined {
+    return Object.keys(dictionary).find(key => dictionary[key] === value);
+}
+
+export function getRandomString(): string {
+    return Math.random().toString(36).substring(2);
 }
 
 export function sleep(ms: number): Promise<unknown> {

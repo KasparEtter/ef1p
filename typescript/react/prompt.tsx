@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 
 import { textColor } from '../utility/color';
+import { normalizeToValue } from '../utility/functions';
 
 import { ClickToCopy } from './copy';
 import { AllEntries, DynamicEntry, getCurrentState, PersistedState, StateWithOnlyValues } from './entry';
@@ -22,12 +23,13 @@ export interface StateWithPrompt extends StateWithOnlyValues {
 }
 
 export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children): JSX.Element {
+    const value = getCurrentState(store).prompt;
     return <div className="prompt">
         <span
-            title={prompt.name + ': ' + prompt.description}
-            className={'dynamic-output' + textColor(prompt.outputColor)}
+            title={prompt.name + ': ' + normalizeToValue(prompt.description, value)}
+            className={'dynamic-output' + textColor(normalizeToValue(prompt.outputColor, value))}
         >
-            {getCurrentState(store).prompt}
+            {value}
         </span>
         {' '}
         <ClickToCopy>

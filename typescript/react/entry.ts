@@ -1,20 +1,21 @@
 import { report } from '../utility/analytics';
 import { Color } from '../utility/color';
-import { normalizeToValue } from '../utility/functions';
-import { Function, KeysOf, ValueOrFunction } from '../utility/types';
+import { normalizeToArray, normalizeToValue } from '../utility/functions';
+import { Function, KeysOf, ValueOrArray, ValueOrFunction } from '../utility/types';
 
 import { PersistedStore, Store } from './store';
 
 export type ValueType = boolean | number | string;
+export type ErrorType = string | false;
 
 /**
  * Static entries can only be used to output information to the user.
  */
 export interface Entry<T extends ValueType> {
     readonly name: string;
-    readonly description: string;
-    readonly defaultValue: T;
-    readonly outputColor?: Color;
+    readonly description: ValueOrFunction<string, T>;
+    defaultValue: ValueOrFunction<T>;
+    outputColor?: ValueOrFunction<Color, T>;
 }
 
 export type Entries = {
@@ -53,13 +54,13 @@ export interface DynamicEntry<T extends ValueType, State extends StateWithOnlyVa
     readonly minValue?: T;
     readonly maxValue?: T;
     readonly stepValue?: T;
-    readonly placeholder?: string;
+    readonly placeholder?: ValueOrFunction<string, State>;
     readonly suggestedValues?: ValueOrFunction<T[], State>; // Added to the datalist but not the history.
     readonly selectOptions?: ValueOrFunction<Record<string, string>, State>; // Only relevant for 'select' inputs.
     readonly disabled?: Function<boolean, State>;
-    readonly validate?: (value: T) => (string | false);
-    readonly onChange?: (newValue: T) => any; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
-    readonly determine?: Function<Promise<[T?, string?]>, State>;
+    readonly validate?: (value: T, state: State) => ErrorType;
+    readonly onChange?: ValueOrArray<(newValue: T, newState: State, fromHistory: boolean) => any>; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
+    readonly determine?: Function<Promise<[T, ErrorType]>, State>;
 }
 
 export function isDynamicEntry<T extends ValueType>(entry: Entry<T>): entry is DynamicEntry<T> {
@@ -82,13 +83,13 @@ export interface ProvidedDynamicEntries<State extends StateWithOnlyValues> {
 export function getDefaultState<State extends StateWithOnlyValues>(entries: DynamicEntries<State>): State {
     const state: StateWithOnlyValues = {};
     for (const key of Object.keys(entries) as KeysOf<State>) {
-        state[key as string] = entries[key].defaultValue;
+        state[key as string] = normalizeToValue(entries[key].defaultValue, undefined);
     }
     return state as State;
 }
 
 export type Errors<State extends StateWithOnlyValues> = {
-    [key in keyof State]: string | false | undefined;
+    [key in keyof State]: ErrorType;
 };
 
 export interface PersistedState<State extends StateWithOnlyValues> {
@@ -118,29 +119,33 @@ export function getDefaultPersistedState<State extends StateWithOnlyValues>(entr
 
 export interface AllEntries<State extends StateWithOnlyValues> {
     readonly entries: DynamicEntries<State>;
-    readonly onChange?: (newState: State) => any;
+    readonly onChange?: ValueOrArray<(newState: State, fromHistory: boolean) => any>;
 }
 
 export function getCurrentState<State extends StateWithOnlyValues>(store: Store<PersistedState<State>, AllEntries<State>>): State {
     return store.state.states[store.state.index];
 }
 
-export function setState<State extends StateWithOnlyValues>(
+function updateState<State extends StateWithOnlyValues>(
     store: Store<PersistedState<State>, AllEntries<State>>,
     partialNewState: Partial<State>,
     callOnChangeEvenWhenNoChange: boolean = false,
+    partialErrors: Partial<Errors<State>> = {},
+    createNewState: boolean = true,
 ): void {
     const inputs = { ...store.state.inputs, ...partialNewState };
     store.state.inputs = inputs;
     const entries = store.meta.entries;
     for (const key of Object.keys(partialNewState) as KeysOf<State>) {
-        store.state.errors[key] = entries[key].validate?.(partialNewState[key] as string);
+        store.state.errors[key] = entries[key].validate?.(partialNewState[key] as string, inputs) ?? false;
     }
+    store.state.errors = { ...store.state.errors, ...partialErrors };
     if (Object.values(store.state.errors).every(error => !error)) {
         const changed: (keyof State)[] = [];
         const currentState = getCurrentState(store);
         // We need to loop through all inputs and not just through the partial state
         // because an input could have been changed while another input had an error.
+        // Now that other inputs are disabled, this can only happen programmatically.
         for (const key of Object.keys(entries) as KeysOf<State>) {
             if (inputs[key] !== currentState[key]) {
                 changed.push(key);
@@ -163,23 +168,45 @@ export function setState<State extends StateWithOnlyValues>(
                 }
             }
             // Insert the new state into the array of states.
-            store.state.index += 1;
-            store.state.states.splice(store.state.index, 0, { ...inputs });
+            if (createNewState) {
+                store.state.index += 1;
+                store.state.states.splice(store.state.index, 0, { ...inputs });
+            } else {
+                store.state.states[store.state.index] = { ...inputs };
+            }
         }
         store.update();
         for (const key of changed) {
-            entries[key].onChange?.(inputs[key]);
+            normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false));
         }
         if (changed.length > 0 || callOnChangeEvenWhenNoChange) {
-            store.meta.onChange?.(inputs);
+            normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
         }
-        if (changed.length > 0) {
+        if (changed.length > 0 && createNewState) {
             const label = (store as PersistedStore<PersistedState<State>, AllEntries<State>>).identifier ?? 'unknown';
             report('tools', 'state', label);
         }
     } else {
         store.update();
     }
+}
+
+// For state updates triggered by the user.
+export function setState<State extends StateWithOnlyValues>(
+    store: Store<PersistedState<State>, AllEntries<State>>,
+    partialNewState: Partial<State>,
+    callOnChangeEvenWhenNoChange: boolean = false,
+): void {
+    updateState(store, partialNewState, callOnChangeEvenWhenNoChange);
+}
+
+// For state updates triggered by a change handler.
+export function mergeIntoCurrentState<State extends StateWithOnlyValues>(
+    store: Store<PersistedState<State>, AllEntries<State>>,
+    partialNewState: Partial<State>,
+    partialErrors: Partial<Errors<State>> = {},
+): void {
+    updateState(store, partialNewState, false, partialErrors, false);
 }
 
 function changeState<State extends StateWithOnlyValues>(
@@ -199,10 +226,10 @@ function changeState<State extends StateWithOnlyValues>(
     store.update();
     for (const key of Object.keys(entries) as KeysOf<State>) {
         if (nextState[key] !== previousState[key]) {
-            entries[key].onChange?.(nextState[key]);
+            normalizeToArray(entries[key].onChange).forEach(handler => handler(nextState[key], nextState, true));
         }
     }
-    store.meta.onChange?.(nextState);
+    normalizeToArray(store.meta.onChange).forEach(handler => handler(nextState, true));
 }
 
 export function previousState<State extends StateWithOnlyValues>(

@@ -1,6 +1,6 @@
 import { ChangeEvent, Component, createElement, MouseEvent } from 'react';
 
-import { normalizeToValue } from '../utility/functions';
+import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
 
 import { CustomInput, CustomTextarea } from './custom';
 import { AllEntries, clearState, DynamicEntry, getCurrentState, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
@@ -11,7 +11,7 @@ export interface InputProps<State extends StateWithOnlyValues> {
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
     horizontal?: boolean; // Default: false.
-    columns?: boolean; // Default: false.
+    newColumn?: number; // Defaults to single column.
     submit?: string; // Defaults to no button.
     onSubmit?: (newState: State) => any;
 }
@@ -51,7 +51,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         const entry: DynamicEntry<any, State> = this.props.entries[key]!;
         const state = getCurrentState(this.props.store);
         const [value, error] = await entry.determine!(state);
-        if (error !== undefined) {
+        if (error) {
             this.props.store.state.inputs[key] = value;
             this.props.store.state.errors[key] = false;
             this.props.store.update();
@@ -62,7 +62,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
 
     private readonly onSubmit = () => {
         const state = getCurrentState(this.props.store);
-        this.props.store.meta.onChange?.(state);
+        normalizeToArray(this.props.store.meta.onChange).forEach(handler => handler(state, true));
         this.props.onSubmit?.(state);
     }
 
@@ -80,25 +80,26 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         }
     }
 
-    private readonly randomID = '-' + Math.random().toString(36).substr(2, 8);
+    private readonly randomID = '-' + getRandomString();
 
     private labelWidth = 0;
+    private someError = false;
 
     private renderEntry = (key: string) => {
         const entry = this.props.entries[key] as DynamicEntry<ValueType, State>;
         const input = this.props.store.state.inputs[key];
         const error = this.props.store.state.errors[key];
         const state = getCurrentState(this.props.store);
-        const disabled = entry.disabled ? entry.disabled(state) : false;
+        const disabled = (this.someError && !error) ? true : (entry.disabled ? entry.disabled(state) : false);
         const history = inputTypesWithHistory.includes(entry.inputType);
         return <label
             key={key}
-            title={entry.description}
+            title={entry.description + (disabled ? ' (Currently disabled.)' : '' )}
         >
             {
                 !this.props.noLabels &&
                 <span
-                    className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '')}
+                    className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' text-gray' : '')}
                     style={this.props.horizontal ? {} : { width: this.labelWidth + 'px' }}
                 >
                     {entry.name}:
@@ -141,12 +142,12 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         autoCorrect="off"
                         autoCapitalize="off"
                         spellCheck="false"
-                        placeholder={entry.placeholder}
+                        placeholder={normalizeToValue(entry.placeholder, state)}
                         disabled={disabled}
                         onChange={this.onChange}
                         onInput={this.onInput}
                         value={input as string}
-                        rows={1}
+                        rows={5}
                         style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                     />
                     {
@@ -172,7 +173,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         min={entry.minValue as string | number | undefined}
                         max={entry.maxValue as string | number | undefined}
                         step={entry.stepValue as string | number | undefined}
-                        placeholder={entry.placeholder}
+                        placeholder={normalizeToValue(entry.placeholder, state)}
                         disabled={disabled}
                         onChange={this.onChange}
                         onInput={this.onInput}
@@ -206,20 +207,19 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
             }
             {
                 entry.determine &&
-                <button name={key} type="button" className="btn btn-primary btn-sm ml-2" onClick={this.onDetermine} title="Determine a suitable value.">Determine</button>
+                <button name={key} type="button" className="btn btn-primary btn-sm align-top ml-2" onClick={this.onDetermine} disabled={disabled} title="Determine a suitable value.">Determine</button>
             }
         </label>;
     };
 
     private renderSubmitButton = () => {
-        const errors = !Object.values(this.props.store.state.errors).every(error => !error);
         return this.props.submit && (this.props.store.meta.onChange || this.props.onSubmit) &&
             <button
                 type="button"
                 className="label btn btn-sm btn-primary"
                 onClick={this.onSubmit}
-                disabled={errors}
-                title={errors ? 'Make sure that there are no errors.' : 'Submit the input fields.'}
+                disabled={this.someError}
+                title={this.someError ? 'Make sure that there are no errors.' : 'Submit the input fields.'}
             >{this.props.submit}</button>;
     };
 
@@ -264,15 +264,15 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         const entries = this.props.entries;
         const keys = Object.keys(entries);
         this.labelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
-        if (this.props.columns) {
-            const numberOfEntries = keys.length + (this.props.submit ? 1 : 0) + (this.props.noHistory ? 0 : 1);
-            const startIndexOfSecondColumn = Math.ceil(numberOfEntries / 2);
+        this.someError = Object.values(this.props.store.state.errors).some(error => error);
+        const newColumn = this.props.newColumn;
+        if (newColumn !== undefined) {
             return <div className="block-form vertical-form row">
                 <div className="col-md">
-                    {keys.slice(0, startIndexOfSecondColumn).map(this.renderEntry)}
+                    {keys.slice(0, newColumn).map(this.renderEntry)}
                 </div>
                 <div className="col-md">
-                    {keys.slice(startIndexOfSecondColumn).map(this.renderEntry)}
+                    {keys.slice(newColumn).map(this.renderEntry)}
                     {this.renderSubmitButton()}
                     {this.renderHistoryButtons()}
                 </div>

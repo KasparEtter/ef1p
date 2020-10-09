@@ -3,6 +3,7 @@ import { DynamicEntry, Entry, StateWithOnlyValues, ValueType } from './entry';
 export interface Argument<T extends ValueType> extends Entry<T> {
     longForm: string;
     shortForm?: string;
+    escape?: boolean; // False by default.
 }
 
 export function isArgument<T extends ValueType>(entry: Entry<T>): entry is Argument<T> {
