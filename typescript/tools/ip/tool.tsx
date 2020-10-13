@@ -11,7 +11,7 @@ import { PersistedStore, Store } from '../../react/store';
 import { getReverseLookupDomain } from '../dns/api';
 import { setDnsResolverInputs } from '../dns/tool';
 
-import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from './api';
+import { getIpInfo, getMapLink, IpInfoResponse, isSuccessfulIpInfoResponse } from './api';
 
 interface IpInfoResponseState {
     response?: IpInfoResponse;
@@ -34,7 +34,7 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
             >
                 {response.ip}
             </DynamicOutput>;
-            const location = <a href={`https://www.google.com/maps/@${response.loc},14z`}>{response.city} ({response.country})</a>;
+            const location = getMapLink(response);
             const provider = response.org.replace(/^AS\d+/, '');
             if (getCurrentState(store).ipAddress === '') {
                 return <p className="dynamic-output-pointer">
