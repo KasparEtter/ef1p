@@ -10,7 +10,7 @@ export function isArgument<T extends ValueType>(entry: Entry<T>): entry is Argum
     return (entry as Argument<T>).longForm !== undefined;
 }
 
-export interface DynamicArgument<T extends ValueType> extends Argument<T>, DynamicEntry<T> {}
+export interface DynamicArgument<T extends ValueType, State extends StateWithOnlyValues = {}> extends Argument<T>, DynamicEntry<T, State> {}
 
 export const shortForm: DynamicEntry<boolean> = {
     name: 'Short form',

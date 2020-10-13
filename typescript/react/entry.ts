@@ -49,17 +49,46 @@ export const inputTypesWithHistory: InputType[] = ['text', 'number'];
  */
 export interface DynamicEntry<T extends ValueType, State extends StateWithOnlyValues = {}> extends Entry<T> {
     readonly inputType: InputType;
-    readonly labelWidth: number; // In pixels.
-    readonly inputWidth?: number; // In pixels.
+    /**
+     * Width in pixels.
+     */
+    readonly labelWidth: number;
+    /**
+     * Width in pixels.
+     */
+    readonly inputWidth?: number;
+    /**
+     * Only relevant for 'textarea' inputs.
+     */
+    readonly rows?: number;
     readonly minValue?: T;
     readonly maxValue?: T;
     readonly stepValue?: T;
     readonly placeholder?: ValueOrFunction<string, State>;
-    readonly suggestedValues?: ValueOrFunction<T[], State>; // Added to the datalist but not the history.
-    readonly selectOptions?: ValueOrFunction<Record<string, string>, State>; // Only relevant for 'select' inputs.
+    /**
+     * The suggested values are added to the datalist but not to the history.
+     */
+    readonly suggestedValues?: ValueOrFunction<T[], State>;
+    /**
+     * Only relevant for 'select' inputs.
+     */
+    readonly selectOptions?: ValueOrFunction<Record<string, string>, State>;
     readonly disabled?: Function<boolean, State>;
     readonly validate?: (value: T, state: State) => ErrorType;
-    readonly onChange?: ValueOrArray<(newValue: T, newState: State, fromHistory: boolean) => any>; // Only use this for reactions specific to this entry. Otherwise use the meta property of the store.
+    /**
+     * Only use onChange for reactions specific to this entry.
+     * Otherwise use the meta property of the store.
+     *
+     * @argument fromHistory Derived entries shouldn't be overwritten when stepping through the history.
+     * @argument changeId This value allows callees to determine that the same change triggered several invocations of the same handler.
+     */
+    readonly onChange?: ValueOrArray<(newValue: T, newState: State, fromHistory: boolean, changeId: number) => any>;
+    /**
+     * For live updates based on the current input.
+     * You likely also want to listen for changes as onInput is not triggered when stepping through the history.
+     * Also note that the value has not been validated and that onInput is not triggered for boolean and 'select' inputs.
+     */
+    readonly onInput?: ValueOrArray<(newValue: T, currentState: State) => any>;
     readonly determine?: Function<Promise<[T, ErrorType]>, State>;
 }
 
@@ -119,12 +148,20 @@ export function getDefaultPersistedState<State extends StateWithOnlyValues>(entr
 
 export interface AllEntries<State extends StateWithOnlyValues> {
     readonly entries: DynamicEntries<State>;
+    /**
+     * There is no more specific 'onSubmit' callback
+     * because pressing enter would trigger both 'onChange' and 'onSubmit'.
+     * Since the caller might want to trigger the same action in either case but only once,
+     * it's easier if we guarantee a single invocation here.
+     */
     readonly onChange?: ValueOrArray<(newState: State, fromHistory: boolean) => any>;
 }
 
 export function getCurrentState<State extends StateWithOnlyValues>(store: Store<PersistedState<State>, AllEntries<State>>): State {
     return store.state.states[store.state.index];
 }
+
+let changeCounter = 0;
 
 function updateState<State extends StateWithOnlyValues>(
     store: Store<PersistedState<State>, AllEntries<State>>,
@@ -176,8 +213,11 @@ function updateState<State extends StateWithOnlyValues>(
             }
         }
         store.update();
+        changeCounter++;
+        // Local copy of the change counter in case one of the handlers triggers another change synchronously.
+        const changeId = changeCounter;
         for (const key of changed) {
-            normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false));
+            normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false, changeId));
         }
         if (changed.length > 0 || callOnChangeEvenWhenNoChange) {
             normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
@@ -224,9 +264,12 @@ function changeState<State extends StateWithOnlyValues>(
         store.state.states.splice(1);
     }
     store.update();
+    changeCounter++;
+    // Local copy of the change counter in case one of the handlers triggers another change synchronously.
+    const changeId = changeCounter;
     for (const key of Object.keys(entries) as KeysOf<State>) {
         if (nextState[key] !== previousState[key]) {
-            normalizeToArray(entries[key].onChange).forEach(handler => handler(nextState[key], nextState, true));
+            normalizeToArray(entries[key].onChange).forEach(handler => handler(nextState[key], nextState, true, changeId));
         }
     }
     normalizeToArray(store.meta.onChange).forEach(handler => handler(nextState, true));

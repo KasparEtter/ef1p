@@ -13,6 +13,11 @@ export interface InputProps<State extends StateWithOnlyValues> {
     horizontal?: boolean; // Default: false.
     newColumn?: number; // Defaults to single column.
     submit?: string; // Defaults to no button.
+    /**
+     * For submit actions specific to this instantiation of the form.
+     * It is triggered on pressing enter in one of the fields
+     * or when the user clicks on the submit button.
+     */
     onSubmit?: (newState: State) => any;
 }
 
@@ -43,6 +48,9 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
         this.props.store.state.inputs[key] = value as any;
         this.props.store.state.errors[key] = false;
         this.props.store.update();
+        const entry: DynamicEntry<any, State> = this.props.entries[key]!;
+        const state = getCurrentState(this.props.store);
+        normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
     }
 
     private readonly onDetermine = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -147,7 +155,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         onChange={this.onChange}
                         onInput={this.onInput}
                         value={input as string}
-                        rows={5}
+                        rows={entry.rows ?? 5}
                         style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                     />
                     {
