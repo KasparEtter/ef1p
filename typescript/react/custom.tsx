@@ -50,7 +50,7 @@ export class CustomInput extends Component<Omit<InputHTMLAttributes<HTMLInputEle
             element.oninput = this.props.onInput ?? null;
             if ((this.props.type === 'text' || this.props.type === 'number') && this.props.onEnter) {
                 element.onkeydown = (event: KeyboardEvent) => {
-                    if (event.keyCode === 13 && this.props.onEnter) {
+                    if (event.key === 'Enter' && this.props.onEnter) {
                         this.props.onEnter(event);
                         event.preventDefault();
                     }

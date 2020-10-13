@@ -38,5 +38,13 @@ code {
 }
 
 .click-to-copy {
+  padding: 2px 4px;
+  margin: -2px -4px;
   cursor: pointer;
+  border-radius: 4px;
+
+  &:focus {
+    background-color: $select-color;
+    outline: none;
+  }
 }
