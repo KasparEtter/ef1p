@@ -45,7 +45,7 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
                     telnet
                 </StaticOutput> :
                 <StaticOutput title="A common command with some options to open a TLS channel to the specified server.">
-                    openssl s_client -connect
+                    openssl s_client -quiet -connect
                 </StaticOutput>
             }
             {' '}
