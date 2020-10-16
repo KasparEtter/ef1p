@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, ReactNode } from 'react';
 
 import { textColor } from '../utility/color';
 import { normalizeToValue } from '../utility/functions';
@@ -18,12 +18,7 @@ export const prompt: DynamicEntry<string> = {
     validate: (value: string) => value.length === 0 && 'The prompt may not be empty.',
 };
 
-export interface StateWithPrompt extends StateWithOnlyValues {
-    prompt: string;
-}
-
-export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children): JSX.Element {
-    const value = getCurrentState(store).prompt;
+function getPrompt(value: string, children: ReactNode): JSX.Element {
     return <div className="prompt">
         <span
             title={prompt.name + ': ' + normalizeToValue(prompt.description, value)}
@@ -36,4 +31,16 @@ export function RawPrompt<State extends StateWithPrompt>({ store, children }: Pr
             {children}
         </ClickToCopy>
     </div>;
+}
+
+export function StaticPrompt({ children }: Children): JSX.Element {
+    return getPrompt(normalizeToValue(prompt.defaultValue, undefined), children);
+}
+
+export interface StateWithPrompt extends StateWithOnlyValues {
+    prompt: string;
+}
+
+export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children): JSX.Element {
+    return getPrompt(getCurrentState(store).prompt, children);
 }
