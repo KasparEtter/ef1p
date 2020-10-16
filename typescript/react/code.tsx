@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 
+import { ClickToCopy } from './copy';
 import { Children, ClickHandler, Title } from './utility';
 
 export function CodeBlock({ children }: Children): JSX.Element {
@@ -24,4 +25,12 @@ export function DynamicOutput({ title, onClick, onContextMenu, children }: Title
         onClick={onClick}
         onContextMenu={onContextMenu}
     >{children}</span>;
+}
+
+export function UserCommand({ children }: Children): JSX.Element {
+    return <div><b><ClickToCopy>{children}</ClickToCopy></b></div>;
+}
+
+export function SystemReply({ children }: Children): JSX.Element {
+    return <div className="text-gray">{children}</div>;
 }
