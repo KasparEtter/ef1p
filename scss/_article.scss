@@ -8,6 +8,13 @@ article {
     @extend .img-fluid;
 
     margin: $spacer * 1.5 auto;
+
+    // '& + &' leads to 'article img + article img'.
+    & + img,
+    & + figure,
+    & + svg.figure {
+      margin-top: $spacer * 2;
+    }
   }
 
   img {
