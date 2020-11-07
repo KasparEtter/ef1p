@@ -173,7 +173,7 @@ export function setZoneWalkerInputFields(startDomain: string, resultLimit?: numb
 }
 
 export const zoneTool = <Fragment>
-    <Input entries={{ startDomain, resultLimit }} horizontal submit="Walk" onSubmit={walkZone} />
+    <Input entries={entries} horizontal submit="Walk" onSubmit={walkZone}/>
     <ZoneWalkerResponseTable/>
 </Fragment>;
 

@@ -97,6 +97,6 @@ export function setIpInfoInput(ipAddress: string): void {
 }
 
 export const ipTool = <Fragment>
-    <Input entries={{ ipAddress }} horizontal submit="Locate" />
+    <Input entries={entries} horizontal submit="Locate"/>
     <IpInfoResponseParagraph/>
 </Fragment>;

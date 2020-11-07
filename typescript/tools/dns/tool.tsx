@@ -405,7 +405,7 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
 }
 
 export const dnsTool = <Fragment>
-    <Input entries={{ domainName, recordType, dnssecOk }} horizontal submit="Query"/>
+    <Input entries={entries} horizontal submit="Query"/>
     <DnsResponseTable/>
 </Fragment>;
 
