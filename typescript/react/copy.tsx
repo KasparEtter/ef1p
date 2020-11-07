@@ -6,7 +6,7 @@ import { Children } from './utility';
 
 function copy(target: EventTarget & HTMLSpanElement): void {
     if (copyToClipboardWithAnimation(
-        target.innerText,
+        target.innerText + (target.dataset.newline ? '\n' : ''),
         target,
         target.dataset.effect as AnimationEffect | undefined,
     )) {
@@ -36,10 +36,18 @@ function handleKeyUp(event: KeyboardEvent<HTMLSpanElement>): void {
 }
 
 export interface ClickToCopyProps {
+    /**
+     * Whether to append a newline character to the text. Defaults to false.
+     */
+    newline?: boolean;
+
+    /**
+     * The animation effect used to animate the span element.
+     */
     effect?: AnimationEffect;
 }
 
-export function ClickToCopy({ effect, children }: ClickToCopyProps & Children): JSX.Element {
+export function ClickToCopy({ newline, effect, children }: ClickToCopyProps & Children): JSX.Element {
     return <span
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -47,6 +55,7 @@ export function ClickToCopy({ effect, children }: ClickToCopyProps & Children): 
         className="click-to-copy"
         title="Click to copy."
         tabIndex={0}
+        data-newline={newline}
         data-effect={effect}
     >
         {children}

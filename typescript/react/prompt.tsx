@@ -27,7 +27,7 @@ function getPrompt(value: string, children: ReactNode): JSX.Element {
             {value}
         </span>
         {' '}
-        <ClickToCopy>
+        <ClickToCopy newline>
             {children}
         </ClickToCopy>
     </div>;

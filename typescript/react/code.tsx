@@ -28,7 +28,7 @@ export function DynamicOutput({ title, onClick, onContextMenu, children }: Title
 }
 
 export function UserCommand({ children }: Children): JSX.Element {
-    return <div><b><ClickToCopy>{children}</ClickToCopy></b></div>;
+    return <div><b><ClickToCopy newline>{children}</ClickToCopy></b></div>;
 }
 
 export function SystemReply({ children }: Children): JSX.Element {
