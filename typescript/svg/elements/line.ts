@@ -113,10 +113,12 @@ export function ConnectionLine(
     endElement: VisualElement,
     endSide: BoxSide,
     props: Omit<LineProps, 'start' | 'end'> = {},
+    startOffset?: number,
+    endOffset: number | undefined = startOffset,
 ): Line {
     const marker = props.marker ?? 'end';
-    const start = startElement.boundingBox().pointAt(startSide, markerOffset(marker, 'start'));
-    const end = endElement.boundingBox().pointAt(endSide, markerOffset(marker, 'end'));
+    const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
+    const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
     return new Line({ start, end, marker, ...props });
 }
 
@@ -124,9 +126,11 @@ export function DiagonalLine(
     startElement: Circle | Ellipse,
     endElement: Circle | Ellipse,
     props: Omit<LineProps, 'start' | 'end'> = {},
+    startOffset?: number,
+    endOffset: number | undefined = startOffset,
 ): Line {
     const marker = props.marker ?? 'end';
-    const start = startElement.pointTowards(endElement.center(), markerOffset(marker, 'start'));
-    const end = endElement.pointTowards(startElement.center(), markerOffset(marker, 'end'));
+    const start = startElement.pointTowards(endElement.center(), startOffset ?? markerOffset(marker, 'start'));
+    const end = endElement.pointTowards(startElement.center(), endOffset ?? markerOffset(marker, 'end'));
     return new Line({ start, end, marker, ...props });
 }
