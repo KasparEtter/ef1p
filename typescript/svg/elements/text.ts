@@ -1,3 +1,4 @@
+import { Color } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
 import { estimateWidthOfString, multiplier, TextStyle } from '../utility/string';
 
@@ -27,6 +28,10 @@ export class Tspan {
         // The estimate can get even more inaccurate when the same style is nested.
         return estimateWidthOfTextLine(this.text) * multiplier(this.widthStyle);
     }
+}
+
+export function colorize(color: Color, text: TextLine): Tspan {
+    return new Tspan(text, color, 'normal');
 }
 
 export function bold(text: TextLine): Tspan {
