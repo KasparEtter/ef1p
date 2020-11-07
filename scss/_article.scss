@@ -10,9 +10,9 @@ article {
     margin: $spacer * 1.5 auto;
 
     // '& + &' leads to 'article img + article img'.
-    & + img,
-    & + figure,
-    & + svg.figure {
+    + img,
+    + figure,
+    + svg.figure {
       margin-top: $spacer * 2;
     }
   }
@@ -33,11 +33,6 @@ article {
     }
   }
 
-  p + ol,
-  p + ul {
-    margin-top: -$paragraph-margin-bottom;
-  }
-
   ol,
   ul {
     padding-left: 20px;
@@ -47,13 +42,19 @@ article {
     padding-left: 4px;
   }
 
-  ul.spaced,
-  ol.spaced {
-    margin-top: 0;
+  p + ol,
+  p + ul {
+    margin-top: -$paragraph-margin-bottom;
+  }
 
-    > li {
-      margin-top: $paragraph-margin-bottom;
-    }
+  p + ol.spaced,
+  p + ul.spaced {
+    margin-top: -$paragraph-margin-bottom / 2;
+  }
+
+  ol.spaced > li,
+  ul.spaced > li {
+    margin-top: $paragraph-margin-bottom / 2;
   }
 
   table {
