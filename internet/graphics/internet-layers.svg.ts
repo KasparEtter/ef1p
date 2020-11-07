@@ -8,13 +8,14 @@ import { ConnectionLine } from '../../typescript/svg/elements/line';
 import { Rectangle } from '../../typescript/svg/elements/rectangle';
 import { printSVG } from '../../typescript/svg/elements/svg';
 import { Text } from '../../typescript/svg/elements/text';
+import { strokeRadius } from '../../typescript/svg/utility/constants';
 
 const colors: Color[] = ['yellow', 'orange', 'red', 'pink', 'purple'];
 const layers = ['Application layer', 'Security layer', 'Transport layer', 'Network layer', 'Link layer'];
 const entities = ['Sender', 'Router', 'Recipient'];
 
-const columnDistance = 150;
-const rowDistance = 75;
+const columnDistance = 140;
+const rowDistance = 70;
 const offsetTop = 35;
 
 const cornerRadius = 0;
@@ -30,7 +31,7 @@ let previousSquare: Rectangle | undefined;
 let previousCenter: Point | undefined;
 let previousColor: Color | undefined;
 
-function generateSquares(x: number, layer: number) {
+function generateSquares(x: number, layer: number, shorten = 5) {
     const center = P(x, layer * rowDistance + offsetTop);
     let position = center.subtract(halfSquareSize);
     let size = squareSize;
@@ -54,7 +55,7 @@ function generateSquares(x: number, layer: number) {
             startSide = 'right';
             endSide = 'left';
         }
-        elements.push(ConnectionLine(previousSquare, startSide, square!, endSide, { color: previousColor }).shorten(8));
+        elements.push(ConnectionLine(previousSquare, startSide, square!, endSide, { color: previousColor }, 2 * strokeRadius, strokeRadius).shorten(shorten));
     }
     previousSquare = square;
     previousCenter = center;
@@ -74,8 +75,8 @@ for (let i = 0; i < 5; i++) {
 }
 
 generateSquares(2 * columnDistance - rowDistance / 2, 4);
-generateSquares(2 * columnDistance, 3);
-generateSquares(2 * columnDistance + rowDistance / 2, 4);
+generateSquares(2 * columnDistance, 3, 7);
+generateSquares(2 * columnDistance + rowDistance / 2, 4, 7);
 
 for (let i = 4; i >= 0; i--) {
     generateSquares(3 * columnDistance, i);
