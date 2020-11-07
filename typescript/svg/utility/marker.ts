@@ -11,7 +11,13 @@ export function markerOffset(
     side: Exclude<Marker, 'middle'>,
 ): number {
     marker = normalizeToArray(marker);
-    return marker.includes('middle') && !marker.includes(side) ? 0 : strokeRadius;
+    if (marker.includes(side)) {
+        return strokeRadius; // Arrow
+    } else if (marker.includes(side)) {
+        return 0; // Circle
+    } else {
+        return strokeRadius / 4; // None
+    }
 }
 
 export function markerAttributes(
