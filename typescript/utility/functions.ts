@@ -56,8 +56,30 @@ export function unique<T>(array: T[]): T[] {
     return Array.from(new Set(array));
 }
 
+export function sortNumbers(array: number[]): number[] {
+    return array.sort((a, b) => a - b);
+}
+
 export function nonEmpty(value: string): boolean {
     return value.length > 0;
+}
+
+export function escape(value: string): string {
+    return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+/**
+ * Escapes and quotes the given value.
+ */
+export function quote(value: string): string {
+    return `"${escape(value)}"`;
+}
+
+/**
+ * Quotes the given value if it contains a space.
+ */
+export function quoteIfNecessary(value: string): string {
+    return value.includes(' ') ? quote(value) : value;
 }
 
 export function createRecord(array: string[]): Record<string, string> {
