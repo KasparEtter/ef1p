@@ -1,4 +1,4 @@
-import { createElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { fetchWithErrorAndTimeout } from '../../utility/fetch';
 

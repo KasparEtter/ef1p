@@ -1,16 +1,16 @@
-import { DynamicEntry, Entry, StateWithOnlyValues, ValueType } from './entry';
+import { ObjectButNotFunction } from '../utility/types';
+import { DynamicEntry, Entry, ValueType } from './entry';
 
-export interface Argument<T extends ValueType> extends Entry<T> {
+export interface Argument<T extends ValueType, State extends ObjectButNotFunction = {}> extends Entry<T, State> {
     longForm: string;
     shortForm?: string;
-    escape?: boolean; // False by default.
 }
 
 export function isArgument<T extends ValueType>(entry: Entry<T>): entry is Argument<T> {
     return (entry as Argument<T>).longForm !== undefined;
 }
 
-export interface DynamicArgument<T extends ValueType, State extends StateWithOnlyValues = {}> extends Argument<T>, DynamicEntry<T, State> {}
+export interface DynamicArgument<T extends ValueType, State extends ObjectButNotFunction = {}> extends Argument<T, State>, DynamicEntry<T, State> {}
 
 export const shortForm: DynamicEntry<boolean> = {
     name: 'Short form',
@@ -20,6 +20,6 @@ export const shortForm: DynamicEntry<boolean> = {
     labelWidth: 80,
 };
 
-export interface StateWithArguments extends StateWithOnlyValues {
+export interface StateWithArguments {
     shortForm: boolean;
 }

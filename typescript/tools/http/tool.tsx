@@ -1,11 +1,12 @@
-import { createElement, Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { CodeBlock, DynamicOutput, StaticOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { AllEntries, DynamicEntries, DynamicEntry, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, StateWithOnlyValues } from '../../react/entry';
+import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
 import { shareState, shareStore } from '../../react/share';
+import { AllEntries, DynamicEntries, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries } from '../../react/state';
 import { PersistedStore } from '../../react/store';
 
 const webAddress: DynamicEntry<string> = {
@@ -24,7 +25,7 @@ const webAddress: DynamicEntry<string> = {
         !/^(http|https):\/\/([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}(:\d+)?(\/[a-z0-9-_\.:\/?&=]*)?$/i.test(value) && 'The pattern of the web address is invalid.',
 };
 
-interface State extends StateWithOnlyValues {
+interface State {
     webAddress: string;
 }
 

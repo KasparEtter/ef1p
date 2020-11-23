@@ -1,8 +1,9 @@
-import { createElement, Fragment } from 'react';
+import { Fragment } from 'react';
 
-import { AllEntries, DynamicEntries, DynamicEntry, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
+import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
+import { AllEntries, DynamicEntries, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 import { join } from '../../react/utility';
 
@@ -155,7 +156,7 @@ const resultLimit: DynamicEntry<number> = {
     stepValue: 25,
 };
 
-interface State extends StateWithOnlyValues {
+interface State {
     startDomain: string;
     resultLimit: number;
 }

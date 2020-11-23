@@ -1,11 +1,12 @@
-import { createElement, Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { copyToClipboard } from '../../utility/clipboard';
 
 import { DynamicOutput } from '../../react/code';
-import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
+import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
+import { AllEntries, DynamicEntries, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 
 import { getReverseLookupDomain } from '../dns/api';
@@ -81,7 +82,7 @@ const ipAddress: DynamicEntry<string> = {
     validate: value => value !== '' && !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value) && 'Please enter an IPv4 address or leave the field empty.',
 };
 
-interface State extends StateWithOnlyValues {
+interface State {
     ipAddress: string;
 }
 

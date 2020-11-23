@@ -28,7 +28,9 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined> {
      * Call this method after changing the state directly without using the setState method.
      */
     public update(): void {
-        for (const component of this.components) {
+        // Copying the array is important because the original array can change during the loop.
+        const components = this.components.slice(0);
+        for (const component of components) {
             component.forceUpdate();
         }
     }

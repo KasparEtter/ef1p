@@ -1,4 +1,4 @@
-import { Component, createElement, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { Component, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 import { EventHandler } from '../utility/types';
 

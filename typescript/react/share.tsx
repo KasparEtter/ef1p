@@ -1,4 +1,4 @@
-import { Component, ComponentType, createElement, ReactNode } from 'react';
+import { Component, ComponentType, ReactNode } from 'react';
 
 import { ObjectButNotFunction } from '../utility/types';
 import { Store } from './store';

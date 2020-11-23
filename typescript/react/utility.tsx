@@ -1,4 +1,4 @@
-import { createElement, Fragment, FunctionComponentElement, ReactNode } from 'react';
+import { Fragment, FunctionComponentElement, ReactNode } from 'react';
 import { render } from 'react-dom';
 
 /**

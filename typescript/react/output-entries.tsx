@@ -1,34 +1,34 @@
-import { createElement, Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { textColor } from '../utility/color';
 import { normalizeToValue } from '../utility/functions';
+import { ObjectButNotFunction } from '../utility/types';
 
 import { isArgument } from './argument';
-import { AllEntries, getCurrentState, isDynamicEntry, PersistedState, ProvidedEntries, StateWithOnlyValues, ValueType } from './entry';
+import { isDynamicEntry, ValueType } from './entry';
 import { ProvidedStore } from './share';
+import { AllEntries, getCurrentState, PersistedState, ProvidedEntries } from './state';
 
 export interface OutputEntriesProps {
     separator?: ReactNode; // A single space by default.
-}
-
-export function escapeValue(value: string): string {
-    value = value.replace('\"', '\\\"');
-    return value.includes(' ') ? `"${value}"` : value;
 }
 
 /**
  * Outputs the value of all provided entries.
  * Please note that falsy values are skipped.
  */
-export function RawOutputEntries<State extends StateWithOnlyValues = {}>(props: Readonly<Partial<ProvidedStore<PersistedState<State>, AllEntries<State>>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
+export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props: Readonly<Partial<ProvidedStore<PersistedState<State>, AllEntries<State>>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
     const separator = props.separator ?? ' ';
     return <Fragment>
         {Object.entries(props.entries).map(([key, entry], index) => {
-            // The following line errors if no store is provided for dynamic entries:
+            // The following lines error if no store is provided for dynamic entries or static entries with skip or transform:
+            // @ts-ignore
             const value: ValueType = isDynamicEntry(entry) ? getCurrentState(props.store!)[key] : normalizeToValue(entry.defaultValue, undefined);
+            const output: string = entry.transform ? entry.transform(value, getCurrentState(props.store!)) : value.toString();
             const details = (isDynamicEntry(entry) && entry.inputType === 'select' && entry.selectOptions) ?
                 ` (${normalizeToValue(entry.selectOptions, getCurrentState(props.store!))[value as string]})` : '';
-            return (!isArgument(entry) || value) &&
+            const skipped = entry.skip ? entry.skip(getCurrentState(props.store!), value) : isArgument(entry) && !value;
+            return !skipped &&
                 <Fragment
                     key={key as string}
                 >
@@ -39,13 +39,11 @@ export function RawOutputEntries<State extends StateWithOnlyValues = {}>(props: 
                     >
                         {
                             isArgument(entry) ? (
+                                // @ts-ignore
                                 (entry[getCurrentState(props.store!).shortForm ? 'shortForm' : 'longForm'] ?? entry.longForm) +
-                                ((typeof value === 'string' || typeof value === 'number') ?
-                                    ' ' + (entry.escape ? escapeValue(value.toString()) : value.toString())
-                                    : ''
-                                )
+                                (typeof value === 'boolean' ? '' : ' ' + output)
                             ) : (
-                                value.toString()
+                                output
                             )
                         }
                     </span>

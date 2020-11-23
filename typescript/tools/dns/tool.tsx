@@ -1,12 +1,13 @@
-import { createElement, Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { toLocalDateWithTime } from '../../utility/date';
 import { Dictionary } from '../../utility/types';
 
 import { DynamicOutput, StaticOutput } from '../../react/code';
-import { AllEntries, DynamicEntries, DynamicEntry, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState, StateWithOnlyValues } from '../../react/entry';
+import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
+import { AllEntries, DynamicEntries, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
@@ -385,7 +386,7 @@ const dnssecOk: DynamicEntry<boolean> = {
     labelWidth: 66,
 };
 
-interface State extends StateWithOnlyValues {
+interface State {
     domainName: string;
     recordType: string;
     dnssecOk: boolean;

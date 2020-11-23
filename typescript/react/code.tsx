@@ -1,5 +1,3 @@
-import { createElement } from 'react';
-
 import { ClickToCopy } from './copy';
 import { Children, ClickHandler, Title } from './utility';
 

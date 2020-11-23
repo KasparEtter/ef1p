@@ -1,4 +1,4 @@
-import { createElement, KeyboardEvent, MouseEvent } from 'react';
+import { KeyboardEvent, MouseEvent } from 'react';
 
 import { AnimationEffect, copyToClipboardWithAnimation } from '../utility/animation';
 

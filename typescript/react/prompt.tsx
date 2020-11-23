@@ -1,16 +1,17 @@
-import { createElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { textColor } from '../utility/color';
 import { normalizeToValue } from '../utility/functions';
 
 import { ClickToCopy } from './copy';
-import { AllEntries, DynamicEntry, getCurrentState, PersistedState, StateWithOnlyValues } from './entry';
+import { DynamicEntry } from './entry';
 import { ProvidedStore } from './share';
+import { AllEntries, getCurrentState, PersistedState } from './state';
 import { Children } from './utility';
 
 export const prompt: DynamicEntry<string> = {
     name: 'Prompt',
-    description: 'How the terminal prompts for user input.',
+    description: 'How the command-line interface prompts for user input.',
     defaultValue: '$',
     outputColor: 'pink',
     inputType: 'text',
@@ -37,7 +38,7 @@ export function StaticPrompt({ children }: Children): JSX.Element {
     return getPrompt(normalizeToValue(prompt.defaultValue, undefined), children);
 }
 
-export interface StateWithPrompt extends StateWithOnlyValues {
+export interface StateWithPrompt {
     prompt: string;
 }
 

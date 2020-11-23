@@ -1,13 +1,15 @@
-import { createElement, Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 
-import { AllEntries, getCurrentState, PersistedState, StateWithOnlyValues } from './entry';
+import { ObjectButNotFunction } from '../utility/types';
+
 import { ProvidedStore } from './share';
+import { AllEntries, getCurrentState, PersistedState } from './state';
 
-export interface OutputFunctionProps<State extends StateWithOnlyValues> {
+export interface OutputFunctionProps<State extends ObjectButNotFunction> {
     function: (state: State) => ReactNode;
 }
 
-export function RawOutputFunction<State extends StateWithOnlyValues>(props: Readonly<ProvidedStore<PersistedState<State>, AllEntries<State>> & OutputFunctionProps<State>>): JSX.Element {
+export function RawOutputFunction<State extends ObjectButNotFunction>(props: Readonly<ProvidedStore<PersistedState<State>, AllEntries<State>> & OutputFunctionProps<State>>): JSX.Element {
     return <Fragment>
         {props.function(getCurrentState(props.store))}
     </Fragment>;

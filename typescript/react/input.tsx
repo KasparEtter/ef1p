@@ -1,12 +1,14 @@
-import { ChangeEvent, Component, createElement, MouseEvent } from 'react';
+import { ChangeEvent, Component, MouseEvent } from 'react';
 
 import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
+import { ObjectButNotFunction } from '../utility/types';
 
 import { CustomInput, CustomTextarea } from './custom';
-import { AllEntries, clearState, DynamicEntry, getCurrentState, inputTypesWithHistory, nextState, numberInputTypes, PersistedState, previousState, ProvidedDynamicEntries, setState, StateWithOnlyValues, ValueType } from './entry';
+import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore } from './share';
+import { AllEntries, clearState, getCurrentState, nextState, PersistedState, previousState, ProvidedDynamicEntries, setState } from './state';
 
-export interface InputProps<State extends StateWithOnlyValues> {
+export interface InputProps<State extends ObjectButNotFunction> {
     noHistory?: boolean; // Default: false.
     noLabels?: boolean; // Default: false.
     inline?: boolean; // Default: false.
@@ -21,15 +23,15 @@ export interface InputProps<State extends StateWithOnlyValues> {
     onSubmit?: (newState: State) => any;
 }
 
-export class RawInput<State extends StateWithOnlyValues> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & InputProps<State>> {
+export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & InputProps<State>> {
     private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
         const target = event.currentTarget as HTMLInputElement;
-        const key: keyof State = target.name;
+        const key = target.name as keyof State;
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
         // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
         const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
-        setState(this.props.store, { [key]: value } as Partial<State>, callOnChangeEvenWhenNoChange);
+        setState(this.props.store, { [key]: value } as unknown as Partial<State>, callOnChangeEvenWhenNoChange);
     }
 
     private readonly onChange = (event: Event | ChangeEvent<any>) => {
@@ -44,7 +46,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     private readonly onInput = (event: Event) => {
         const target = event.currentTarget as HTMLInputElement;
         const value = numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value;
-        const key: keyof State = target.name;
+        const key = target.name as keyof State;
         this.props.store.state.inputs[key] = value as any;
         this.props.store.state.errors[key] = false;
         this.props.store.update();
@@ -55,7 +57,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
 
     private readonly onDetermine = async (event: MouseEvent<HTMLButtonElement>) => {
         const target = event.currentTarget as HTMLButtonElement;
-        const key: keyof State = target.name;
+        const key = target.name as keyof State;
         const entry: DynamicEntry<any, State> = this.props.entries[key]!;
         const state = getCurrentState(this.props.store);
         const [value, error] = await entry.determine!(state);
@@ -94,9 +96,9 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
     private someError = false;
 
     private renderEntry = (key: string) => {
-        const entry = this.props.entries[key] as DynamicEntry<ValueType, State>;
-        const input = this.props.store.state.inputs[key];
-        const error = this.props.store.state.errors[key];
+        const entry = this.props.entries[key as keyof State] as DynamicEntry<ValueType, State>;
+        const input = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
+        const error = this.props.store.state.errors[key as keyof State] as ErrorType;
         const state = getCurrentState(this.props.store);
         const disabled = (this.someError && !error) ? true : (entry.disabled ? entry.disabled(state) : false);
         const history = inputTypesWithHistory.includes(entry.inputType);
@@ -193,7 +195,7 @@ export class RawInput<State extends StateWithOnlyValues> extends Component<Provi
                         history &&
                         <datalist id={key + this.randomID}>
                             {normalizeToValue(entry.suggestedValues ?? [], state).concat(
-                                this.props.store.state.states.map(object => object[key]),
+                                this.props.store.state.states.map(object => object[key as keyof State] as unknown as ValueType),
                             ).reverse().filter(
                                 (option, index, self) => option !== input && self.indexOf(option) === index,
                             ).map(
