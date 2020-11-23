@@ -1,6 +1,6 @@
 import { Color } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
-import { estimateWidthOfString, multiplier, TextStyle } from '../utility/string';
+import { estimateWidthOfString, monospaceWidth, multiplier, TextStyle } from '../utility/string';
 
 import { Box } from '../utility/box';
 import { Collector } from '../utility/collector';
@@ -12,16 +12,27 @@ import { VisualElement, VisualElementProps } from './element';
 
 /* ------------------------------ Tspan ------------------------------ */
 
-export class Tspan {
+export abstract class Tspan {
     public constructor(
-        private readonly text: TextLine,
-        private readonly className: string,
-        private readonly widthStyle: TextStyle,
+        protected readonly text: TextLine,
+        protected readonly className: string,
     ) {}
 
     public encode(collector: Collector): string {
         collector.classes.add(this.className);
         return `<tspan class="${this.className}">${encode(this.text, collector)}</tspan>`;
+    }
+
+    public abstract estimateWidth(): number;
+}
+
+class TspanWithTextStyle extends Tspan {
+    public constructor(
+        text: TextLine,
+        className: string,
+        protected readonly widthStyle: TextStyle,
+    ) {
+        super(text, className);
     }
 
     public estimateWidth(): number {
@@ -31,49 +42,65 @@ export class Tspan {
 }
 
 export function colorize(color: Color, text: TextLine): Tspan {
-    return new Tspan(text, color, 'normal');
+    return new TspanWithTextStyle(text, color, 'normal');
 }
 
 export function bold(text: TextLine): Tspan {
-    return new Tspan(text, 'font-weight-bold', 'bold');
+    return new TspanWithTextStyle(text, 'font-weight-bold', 'bold');
 }
 
 export function italic(text: TextLine): Tspan {
-    return new Tspan(text, 'font-italic', 'italic');
+    return new TspanWithTextStyle(text, 'font-italic', 'italic');
 }
 
 export function underline(text: TextLine): Tspan {
-    return new Tspan(text, 'text-underline', 'normal');
+    return new TspanWithTextStyle(text, 'text-underline', 'normal');
 }
 
 export function lineThrough(text: TextLine): Tspan {
-    return new Tspan(text, 'text-line-through', 'normal');
+    return new TspanWithTextStyle(text, 'text-line-through', 'normal');
 }
 
 export function preserveWhitespace(text: TextLine): Tspan {
-    return new Tspan(text, 'preserve-whitespace', 'normal');
+    return new TspanWithTextStyle(text, 'preserve-whitespace', 'normal');
 }
 
 export function small(text: TextLine): Tspan {
-    return new Tspan(text, 'small', 'small');
+    return new TspanWithTextStyle(text, 'small', 'small');
 }
 
 export function large(text: TextLine): Tspan {
-    return new Tspan(text, 'large', 'large');
+    return new TspanWithTextStyle(text, 'large', 'large');
 }
 
 // The following methods are useful to circumvent kramdown's replacement of abbreviations
 // (see https://github.com/gettalong/kramdown/issues/671 for more information).
 export function uppercase(text: TextLine): Tspan {
-    return new Tspan(text, 'text-uppercase', 'normal');
+    return new TspanWithTextStyle(text, 'text-uppercase', 'normal');
 }
 
 export function lowercase(text: TextLine): Tspan {
-    return new Tspan(text, 'text-lowercase', 'normal');
+    return new TspanWithTextStyle(text, 'text-lowercase', 'normal');
 }
 
 export function capitalize(text: TextLine): Tspan {
-    return new Tspan(text, 'text-capitalize', 'normal');
+    return new TspanWithTextStyle(text, 'text-capitalize', 'normal');
+}
+
+class TspanForMonospace extends Tspan {
+    public constructor(
+        text: string,
+    ) {
+        super(text, 'code');
+    }
+
+    public estimateWidth(): number {
+        return (this.text as string).length * monospaceWidth;
+    }
+}
+
+export function code(text: string): Tspan {
+    return new TspanForMonospace(text);
 }
 
 export class Anchor {
@@ -116,7 +143,7 @@ export function T(...texts: TextLine[]): CombinedText {
 export type TextLine = string | Tspan | Anchor | CombinedText;
 
 function escapeStringForSVG(text: string): string {
-    return text.replace('<', '&lt;').replace('>', '&gt;');
+    return text.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
 }
 
 function encode(line: TextLine, collector: Collector): string {

@@ -96,6 +96,8 @@ const widths = {
     '~': 9.28016,
 };
 
+export const monospaceWidth = 8.42875;
+
 export function estimateWidthOfString(text: string): number {
     let i = text.length;
     let result = 0;

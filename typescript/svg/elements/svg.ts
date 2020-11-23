@@ -172,19 +172,19 @@ const staticStyles: Style[] = [
         },
     },
     {
-        filter: collector => collector.theme === 'light',
-        selector: 'svg',
-        properties: {
-            'fill': colors.text.light,
-            'stroke': colors.text.light,
-        },
-    },
-    {
         filter: collector => collector.theme === 'dark',
         selector: 'svg',
         properties: {
             'fill': colors.text.dark,
             'stroke': colors.text.dark,
+        },
+    },
+    {
+        filter: collector => collector.theme === 'light',
+        selector: 'svg',
+        properties: {
+            'fill': colors.text.light,
+            'stroke': colors.text.light,
         },
     },
     {
@@ -195,18 +195,18 @@ const staticStyles: Style[] = [
         },
     },
     {
-        filter: collector => collector.elements.has('a') && collector.theme === 'light',
+        filter: collector => collector.elements.has('a') && collector.theme === 'dark',
         selector: 'a',
         properties: {
-            'color': colors.blue.light,
+            'fill': colors.blue.dark,
             'text-decoration': 'none',
         },
     },
     {
-        filter: collector => collector.elements.has('a') && collector.theme === 'dark',
+        filter: collector => collector.elements.has('a') && collector.theme === 'light',
         selector: 'a',
         properties: {
-            'color': colors.blue.dark,
+            'fill': colors.blue.light,
             'text-decoration': 'none',
         },
     },
@@ -312,6 +312,26 @@ const staticStyles: Style[] = [
         filter: collector => collector.classes.has('preserve-whitespace'),
         selector: '.preserve-whitespace',
         properties: {
+            'white-space': 'pre',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('code') && collector.theme === 'dark',
+        selector: '.code',
+        properties: {
+            'font-family': 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            'font-size': '87.5%',
+            'fill': colors.pink.dark,
+            'white-space': 'pre',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('code') && collector.theme === 'light',
+        selector: '.code',
+        properties: {
+            'font-family': 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            'font-size': '87.5%',
+            'fill': colors.pink.light,
             'white-space': 'pre',
         },
     },

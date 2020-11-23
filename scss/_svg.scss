@@ -87,6 +87,13 @@ svg.figure {
       stroke: $value;
     }
   }
+
+  .code {
+    font-family: $font-family-monospace;
+    font-size: $code-font-size;
+    fill: $code-color;
+    white-space: pre;
+  }  
 }
 
 #svg-definitions {

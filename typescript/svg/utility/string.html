@@ -27,6 +27,7 @@
                 const svg = document.getElementById('svg');
                 for (let i = 32; i <= 126; i++) {
                     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    // text.setAttribute('class', 'code');
                     text.setAttribute('x', 0);
                     text.setAttribute('y', (i - 31) * 20);
                     const character = String.fromCharCode(i);
