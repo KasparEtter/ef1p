@@ -39,6 +39,10 @@ module.exports = {
         ],
     },
 
+    performance: {
+        hints: false,
+    },
+
     // Enable sourcemaps for debugging webpack's output.
     // devtool: 'source-map',
 
