@@ -90,6 +90,15 @@ export function createRecord(array: string[]): Record<string, string> {
     return result;
 }
 
+export function getInitialized<T>(object: { [key: string]: T[] | undefined }, key: string): T[] {
+    let result = object[key];
+    if (result === undefined) {
+        result = [];
+        object[key] = result;
+    }
+    return result;
+}
+
 export function reverseLookup<T = string>(dictionary: Dictionary<T>, value: T): string | undefined {
     return Object.keys(dictionary).find(key => dictionary[key] === value);
 }
