@@ -1,7 +1,7 @@
 import { getInitialized } from './functions';
 
 if (typeof(Storage) === 'undefined') {
-    console.error('Your browser does not support local storage.');
+    console.warn('Your browser does not support local storage.');
 }
 
 /**

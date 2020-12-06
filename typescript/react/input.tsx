@@ -65,7 +65,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const [value, error] = await entry.determine!(state);
         if (error) {
             this.props.store.state.inputs[key] = value;
-            this.props.store.state.errors[key] = false;
+            this.props.store.state.errors[key] = error;
             this.props.store.update('input');
         } else {
             setState(this.props.store, { [key]: value } as Partial<State>);

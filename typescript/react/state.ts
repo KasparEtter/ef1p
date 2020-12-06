@@ -114,8 +114,7 @@ function updateState<State extends ObjectButNotFunction>(
                     if (newSelectOptions.length === 0) {
                         throw new Error('There should always be at least one option to select.');
                     }
-                    // @ts-ignore
-                    if (!newSelectOptions.includes(inputs[key])) {
+                    if (!newSelectOptions.includes(inputs[key] as any)) {
                         store.state.inputs[key] = newSelectOptions[0] as any;
                         inputs[key] = newSelectOptions[0] as any;
                         changed.push(key);
@@ -152,7 +151,7 @@ function updateState<State extends ObjectButNotFunction>(
 // For state updates triggered by the user.
 export function setState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
-    partialNewState: Partial<State>,
+    partialNewState: Partial<State> = {},
     callOnChangeEvenWhenNoChange: boolean = false,
 ): void {
     updateState(store, partialNewState, callOnChangeEvenWhenNoChange);
@@ -161,7 +160,7 @@ export function setState<State extends ObjectButNotFunction>(
 // For state updates triggered by a change handler.
 export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
-    partialNewState: Partial<State>,
+    partialNewState: Partial<State> = {},
     partialErrors: Partial<Errors<State>> = {},
 ): void {
     updateState(store, partialNewState, false, partialErrors, false);
@@ -170,7 +169,7 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
 function changeState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     nextIndex: number,
-    clear?: boolean,
+    clear: boolean = false,
 ): void {
     const entries = store.meta.entries;
     const previousState = getCurrentState(store);
