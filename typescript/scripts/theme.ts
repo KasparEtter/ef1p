@@ -1,4 +1,4 @@
-import { restoreObject, storeObject } from '../utility/storage';
+import { getItem, setItem } from '../utility/storage';
 
 // Declared in the HTML head.
 declare const themes: {
@@ -8,40 +8,57 @@ declare const themes: {
 
 type Theme = keyof typeof themes;
 
-const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-let theme: Theme = restoreObject('theme') ?? (mediaQuery.matches ? 'light' : 'dark');
-document.write('<link rel="stylesheet" id="theme" href="' + themes[theme] + '"/>');
+let theme: Theme;
+let setByUser: boolean;
 
-const setStylesheetSource = () => {
+function setStylesheetSource(): void {
     const themeElement = document.getElementById('theme') as HTMLLinkElement | null;
     if (themeElement) {
         themeElement.href = themes[theme];
     }
 };
 
-const setTogglerText = () => {
+function setTogglerText(): void {
     const togglerElement = document.getElementById('theme-toggler-text') as HTMLSpanElement | null;
     if (togglerElement) {
         togglerElement.textContent = theme === 'dark' ? 'Light' : 'Dark';
     }
 };
 
-const setTheme = (newTheme: Theme) => {
+function setTheme(newTheme: Theme, newSetByUser = true): void {
     theme = newTheme;
-    storeObject('theme', theme);
+    setByUser = newSetByUser;
     setStylesheetSource();
     setTogglerText();
+}
+
+{
+    const restoredTheme = getItem('theme', setTheme);
+    if (restoredTheme !== undefined) {
+        theme = restoredTheme;
+        setByUser = true;
+    } else {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+        theme = mediaQuery.matches ? 'light' : 'dark';
+        setByUser = false;
+        mediaQuery.addEventListener('change', event => {
+            if (!setByUser) {
+                setTheme(event.matches ? 'light' : 'dark', false);
+            }
+        });
+    }
+    document.write('<link rel="stylesheet" id="theme" href="' + themes[theme] + '"/>');
+}
+
+function storeTheme(newTheme: Theme) {
+    setTheme(newTheme, true);
+    setItem('theme', theme);
 };
 
-mediaQuery.addListener(event => setTheme(event.matches ? 'light' : 'dark'));
-const togglerClickHandler = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-
-const contentLoadedHandler = () => {
+document.addEventListener('DOMContentLoaded', () => {
     setTogglerText();
     const toggler = document.getElementById('theme-toggler');
     if (toggler) {
-        toggler.onclick = togglerClickHandler;
+        toggler.onclick = () => storeTheme(theme === 'dark' ? 'light' : 'dark');
     }
-};
-
-document.addEventListener('DOMContentLoaded', contentLoadedHandler);
+});
