@@ -448,6 +448,21 @@ Please note that
 in order for the rebuilt scripts to take effect
 you also have to run `npm run md-watch`.
 
+#### Analyze
+
+You can find circular dependencies in the TypeScript code with `npm run ts-circular`.
+
+If you want to inspect the generated bundles,
+you can run `npm run ts-analyze`,
+which opens a locally hosted website,
+or `npm run ts-stats`,
+which generates the file `webpack-stats.json`,
+which can be visualized with [this website](https://chrisbateman.github.io/webpack-visualizer/).
+
+The `inspectpack` plugin outputs during the build process whether there are any duplicate sources.
+You can read more about this
+[here](https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/).
+
 ### Libraries
 
 If you want to update the external JavaScript libraries in `assets/scripts/external/`,

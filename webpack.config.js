@@ -1,9 +1,10 @@
+const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const { DuplicatesPlugin } = require('inspectpack/plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 // Configuration adapted from https://www.typescriptlang.org/docs/handbook/react-&-webpack.html#create-a-webpack-configuration-file.
 module.exports = {
-    // mode: 'development',
     mode: 'production',
 
     // https://webpack.js.org/concepts/entry-points/
@@ -50,9 +51,14 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
 
+        // Add aliases to avoid bundling the same package several times.
+        alias: {
+            'safe-buffer': path.resolve(__dirname, 'node_modules/safe-buffer/'),
+        },
+
         fallback: {
             'stream': require.resolve('stream-browserify'),
-        }
+        },
     },
 
     module: {
@@ -62,7 +68,7 @@ module.exports = {
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             // { test: /\.js$/, enforce: 'pre', loader: 'source-map-loader' },
-        ]
+        ],
     },
 
     // When importing a module whose path matches one of the following, just
@@ -76,5 +82,6 @@ module.exports = {
 
     plugins: [
         new WebpackBuildNotifierPlugin(),
+        new DuplicatesPlugin(),
     ],
 };
