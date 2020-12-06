@@ -91,9 +91,9 @@ svg.figure {
   .code {
     font-family: $font-family-monospace;
     font-size: $code-font-size;
-    fill: $code-color;
     white-space: pre;
-  }  
+    fill: $code-color;
+  }
 }
 
 #svg-definitions {
