@@ -7,7 +7,7 @@ import { ObjectButNotFunction } from '../utility/types';
 import { isArgument } from './argument';
 import { isDynamicEntry, ValueType } from './entry';
 import { ProvidedStore } from './share';
-import { AllEntries, getCurrentState, PersistedState, ProvidedEntries } from './state';
+import { AllEntries, getCurrentState, ProvidedEntries, VersionedState, VersioningEvent } from './state';
 
 export interface OutputEntriesProps {
     separator?: ReactNode; // A single space by default.
@@ -17,7 +17,7 @@ export interface OutputEntriesProps {
  * Outputs the value of all provided entries.
  * Please note that falsy values are skipped.
  */
-export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props: Readonly<Partial<ProvidedStore<PersistedState<State>, AllEntries<State>>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
+export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props: Readonly<Partial<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
     const separator = props.separator ?? ' ';
     return <Fragment>
         {Object.entries(props.entries).map(([key, entry], index) => {

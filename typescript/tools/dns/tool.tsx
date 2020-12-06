@@ -7,7 +7,7 @@ import { DynamicOutput, StaticOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
+import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
@@ -174,7 +174,6 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
             { title: field => 'The host which provides the service. ' + (field === '.' ? 'The period means that the service is not available at this domain.' : 'Click to look up its IPv4 address.'), onClick },
         ],
     },
-    // TODO: Support SPF, DKIM, DMARC, etc.
     TXT: record => <StaticOutput title="The arbitrary, text-based data of this record.">{record.data}</StaticOutput>,
     DNSKEY,
     DS,
@@ -398,8 +397,8 @@ const entries: DynamicEntries<State> = {
     dnssecOk,
 };
 
-const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateDnsResponseTable }, 'dns');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateDnsResponseTable }, 'dns');
+const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });

@@ -6,7 +6,7 @@ import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
 import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries } from '../../react/state';
+import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore } from '../../react/store';
 
 const webAddress: DynamicEntry<string> = {
@@ -33,7 +33,7 @@ const entries: DynamicEntries<State> = {
     webAddress,
 };
 
-function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX.Element {
+function RawHttpCommand({ states, index }: Readonly<VersionedState<State>>): JSX.Element {
     const webAddress = states[index].webAddress;
     const [, protocol, domain, port, path] = /^(http|https):\/\/([a-z0-9-\.]+)(?::(\d+))?(\/.*)?$/i.exec(webAddress)!;
     return <CodeBlock>
@@ -80,9 +80,9 @@ function RawHttpCommand({ states, index }: Readonly<PersistedState<State>>): JSX
     </CodeBlock>;
 }
 
-const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries }, 'http');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
-const HttpCommand = shareState<PersistedState<State>>(store)(RawHttpCommand);
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'http');
+const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const HttpCommand = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'state')(RawHttpCommand);
 
 export const httpTool = <Fragment>
     <Input entries={entries} horizontal/>

@@ -3,7 +3,7 @@ import { normalizeToArray, normalizeToValue } from '../utility/functions';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 
 import { DynamicEntry, Entry, ErrorType, ValueType } from './entry';
-import { PersistedStore, Store } from './store';
+import { PersistedState, PersistedStore, Store } from './store';
 
 export type Entries = {
     readonly [key: string]: Entry<any, any>;
@@ -35,7 +35,7 @@ export type Errors<State extends ObjectButNotFunction> = {
     [key in keyof State]: ErrorType;
 };
 
-export interface PersistedState<State extends ObjectButNotFunction> {
+export interface VersionedState<State extends ObjectButNotFunction> extends PersistedState<VersioningEvent> {
     states: State[];
     inputs: State;
     errors: Errors<State>;
@@ -50,7 +50,7 @@ export function getNoErrors<State extends ObjectButNotFunction>(entries: Dynamic
     return errors as Errors<State>;
 }
 
-export function getDefaultPersistedState<State extends ObjectButNotFunction>(entries: DynamicEntries<State>): PersistedState<State> {
+export function getDefaultVersionedState<State extends ObjectButNotFunction>(entries: DynamicEntries<State>): VersionedState<State> {
     const state = getDefaultState(entries);
     return {
         states: [ state ],
@@ -72,14 +72,16 @@ export interface AllEntries<State extends ObjectButNotFunction> {
     readonly onChange?: ValueOrArray<(newState: State, fromHistory: boolean) => any>;
 }
 
-export function getCurrentState<State extends ObjectButNotFunction>(store: Store<PersistedState<State>, AllEntries<State>>): State {
+export type VersioningEvent = 'input' | 'state';
+
+export function getCurrentState<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>): State {
     return store.state.states[store.state.index];
 }
 
 let changeCounter = 0;
 
 function updateState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State>,
     callOnChangeEvenWhenNoChange: boolean = false,
     partialErrors: Partial<Errors<State>> = {},
@@ -128,7 +130,7 @@ function updateState<State extends ObjectButNotFunction>(
                 store.state.states[store.state.index] = { ...inputs };
             }
         }
-        store.update();
+        store.update('input', 'state');
         changeCounter++;
         // Local copy of the change counter in case one of the handlers triggers another change synchronously.
         const changeId = changeCounter;
@@ -139,17 +141,17 @@ function updateState<State extends ObjectButNotFunction>(
             normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
         }
         if (changed.length > 0 && createNewState) {
-            const label = (store as PersistedStore<PersistedState<State>, AllEntries<State>>).identifier ?? 'unknown';
+            const label = (store as PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>).identifier ?? 'unknown';
             report('tools', 'state', label);
         }
     } else {
-        store.update();
+        store.update('input');
     }
 }
 
 // For state updates triggered by the user.
 export function setState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State>,
     callOnChangeEvenWhenNoChange: boolean = false,
 ): void {
@@ -158,7 +160,7 @@ export function setState<State extends ObjectButNotFunction>(
 
 // For state updates triggered by a change handler.
 export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State>,
     partialErrors: Partial<Errors<State>> = {},
 ): void {
@@ -166,7 +168,7 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
 }
 
 function changeState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     nextIndex: number,
     clear?: boolean,
 ): void {
@@ -179,7 +181,7 @@ function changeState<State extends ObjectButNotFunction>(
     if (clear) {
         store.state.states.splice(1);
     }
-    store.update();
+    store.update('input', 'state');
     changeCounter++;
     // Local copy of the change counter in case one of the handlers triggers another change synchronously.
     const changeId = changeCounter;
@@ -192,7 +194,7 @@ function changeState<State extends ObjectButNotFunction>(
 }
 
 export function previousState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
 ): void {
     if (store.state.index === 0) {
         console.warn('There is no previous state.');
@@ -202,7 +204,7 @@ export function previousState<State extends ObjectButNotFunction>(
 }
 
 export function nextState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
 ): void {
     if (store.state.index === store.state.states.length - 1) {
         console.warn('There is no next state.');
@@ -212,7 +214,7 @@ export function nextState<State extends ObjectButNotFunction>(
 }
 
 export function clearState<State extends ObjectButNotFunction>(
-    store: Store<PersistedState<State>, AllEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
 ): void {
     if (store.state.states.length === 1) {
         console.warn('There is no state to clear.');

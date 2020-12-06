@@ -1,4 +1,5 @@
 import { ObjectButNotFunction } from '../utility/types';
+
 import { DynamicEntry, Entry, ValueType } from './entry';
 
 export interface Argument<T extends ValueType, State extends ObjectButNotFunction = {}> extends Entry<T, State> {

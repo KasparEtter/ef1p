@@ -6,7 +6,7 @@ import { DynamicOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
+import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 
 import { getReverseLookupDomain } from '../dns/api';
@@ -90,8 +90,8 @@ const entries: DynamicEntries<State> = {
     ipAddress,
 };
 
-const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
+const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });

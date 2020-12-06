@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultPersistedState, PersistedState, ProvidedDynamicEntries, setState } from '../../react/state';
+import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 import { join } from '../../react/utility';
 
@@ -166,8 +166,8 @@ const entries: DynamicEntries<State> = {
     resultLimit,
 };
 
-const store = new PersistedStore<PersistedState<State>, AllEntries<State>>(getDefaultPersistedState(entries), { entries, onChange: resetResponseTable }, 'zone');
-const Input = shareStore<PersistedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>>(store)(RawInput);
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: resetResponseTable }, 'zone');
+const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
     setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });

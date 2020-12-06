@@ -6,7 +6,7 @@ import { ObjectButNotFunction } from '../utility/types';
 import { CustomInput, CustomTextarea } from './custom';
 import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore } from './share';
-import { AllEntries, clearState, getCurrentState, nextState, PersistedState, previousState, ProvidedDynamicEntries, setState } from './state';
+import { AllEntries, clearState, getCurrentState, nextState, previousState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from './state';
 
 export interface InputProps<State extends ObjectButNotFunction> {
     noHistory?: boolean; // Default: false.
@@ -23,7 +23,7 @@ export interface InputProps<State extends ObjectButNotFunction> {
     onSubmit?: (newState: State) => any;
 }
 
-export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<PersistedState<State>, AllEntries<State>> & ProvidedDynamicEntries<State> & InputProps<State>> {
+export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
     private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
         const target = event.currentTarget as HTMLInputElement;
         const key = target.name as keyof State;
@@ -40,7 +40,9 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly onEnter = (event: Event) => {
         this.handle(event, true);
-        this.props.onSubmit?.(getCurrentState(this.props.store));
+        if (!this.someError) {
+            this.props.onSubmit?.(getCurrentState(this.props.store));
+        }
     }
 
     private readonly onInput = (event: Event) => {
@@ -49,7 +51,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const key = target.name as keyof State;
         this.props.store.state.inputs[key] = value as any;
         this.props.store.state.errors[key] = false;
-        this.props.store.update();
+        this.props.store.update('input');
         const entry: DynamicEntry<any, State> = this.props.entries[key]!;
         const state = getCurrentState(this.props.store);
         normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
@@ -64,7 +66,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         if (error) {
             this.props.store.state.inputs[key] = value;
             this.props.store.state.errors[key] = false;
-            this.props.store.update();
+            this.props.store.update('input');
         } else {
             setState(this.props.store, { [key]: value } as Partial<State>);
         }

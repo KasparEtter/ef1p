@@ -6,7 +6,7 @@ import { normalizeToValue } from '../utility/functions';
 import { ClickToCopy } from './copy';
 import { DynamicEntry } from './entry';
 import { ProvidedStore } from './share';
-import { AllEntries, getCurrentState, PersistedState } from './state';
+import { AllEntries, getCurrentState, VersionedState, VersioningEvent } from './state';
 import { Children } from './utility';
 
 export const prompt: DynamicEntry<string> = {
@@ -42,6 +42,6 @@ export interface StateWithPrompt {
     prompt: string;
 }
 
-export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<PersistedState<State>, AllEntries<State>> & Children): JSX.Element {
+export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Children): JSX.Element {
     return getPrompt(getCurrentState(store).prompt, children);
 }
