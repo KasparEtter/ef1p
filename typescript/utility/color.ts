@@ -39,8 +39,8 @@ export const colors = {
         light: '#86592D',
     } as ColorValues,
     gray: {
-        dark:  '#999999',
-        light: '#808080',
+        dark:  '#a6a6a6',
+        light: '#666666',
     } as ColorValues,
     text: {
         dark:  '#FFFFFF',
