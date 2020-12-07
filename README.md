@@ -375,7 +375,7 @@ If you change any of the [Sass](https://sass-lang.com) files in `scss`,
 you have to compile, prefix and minify the CSS again with:
 
 ```bash
-npm run css-build
+npm run scss-build
 ```
 
 The full and minified CSS for both the dark and the light theme are written to `assets/styles`.
@@ -391,7 +391,7 @@ If you are using [Visual Studio Code](https://code.visualstudio.com/),
 you can install this [extension](https://marketplace.visualstudio.com/items?itemName=shinnn.stylelint).
 
 ```bash
-npm run css-lint
+npm run scss-lint
 ```
 
 #### Watch
@@ -400,7 +400,7 @@ If you want to rebuild the styles automatically when you change a Sass file,
 you can run the following script:
 
 ```bash
-npm run css-watch
+npm run scss-watch
 ```
 
 Please note that
