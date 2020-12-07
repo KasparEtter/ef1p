@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, MouseEvent } from 'react';
+import { ChangeEvent, Component, Fragment, MouseEvent } from 'react';
 
 import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
 import { ObjectButNotFunction } from '../utility/types';
@@ -117,36 +117,36 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                     {entry.name}:
                 </span>
             }
-            {
-                (entry.inputType === 'checkbox' || entry.inputType === 'switch') &&
-                <span className={`custom-control custom-${entry.inputType}`}>
-                    <CustomInput
+            <span className="d-inline-block">
+                {
+                    (entry.inputType === 'checkbox' || entry.inputType === 'switch') &&
+                    <span className={'custom-control custom-' + entry.inputType + (error ? ' is-invalid' : '')}>
+                        <CustomInput
+                            name={key}
+                            type="checkbox"
+                            className={'custom-control-input' + (error ? ' is-invalid' : '')}
+                            checked={input as boolean}
+                            disabled={disabled}
+                            onChange={this.onChange}
+                        />
+                        <span className="custom-control-label"></span>
+                    </span>
+                }
+                {
+                    entry.inputType === 'select' &&
+                    <select
                         name={key}
-                        type="checkbox"
-                        className="custom-control-input"
-                        checked={input as boolean}
+                        className={'custom-select' + (error ? ' is-invalid' : '')}
                         disabled={disabled}
                         onChange={this.onChange}
-                    />
-                    <span className="custom-control-label"></span>
-                </span>
-            }
-            {
-                entry.inputType === 'select' &&
-                <select
-                    name={key}
-                    className="custom-select"
-                    disabled={disabled}
-                    onChange={this.onChange}
-                >
-                    {entry.selectOptions && Object.entries(normalizeToValue(entry.selectOptions, state)).map(
-                        ([key, text]) => <option value={key} selected={key === input}>{text}</option>,
-                    )}
-                </select>
-            }
-            {
-                entry.inputType === 'textarea' &&
-                <span className="d-inline-block">
+                    >
+                        {entry.selectOptions && Object.entries(normalizeToValue(entry.selectOptions, state)).map(
+                            ([key, text]) => <option key={key} value={key} selected={key === input}>{text}</option>,
+                        )}
+                    </select>
+                }
+                {
+                    entry.inputType === 'textarea' &&
                     <CustomTextarea
                         name={key}
                         className={'form-control' + (error ? ' is-invalid' : '')}
@@ -162,57 +162,51 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                         rows={entry.rows ?? 5}
                         style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                     />
-                    {
-                        error &&
-                        <div className="invalid-feedback">
-                            {error}
-                        </div>
-                    }
-                </span>
-            }
-            { // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
-                entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' && entry.inputType !== 'textarea' &&
-                <span className="d-inline-block">
-                    <CustomInput
-                        name={key}
-                        type={entry.inputType}
-                        autoComplete="off"
-                        autoCorrect="off"
-                        autoCapitalize="off"
-                        spellCheck="false"
-                        className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (error ? ' is-invalid' : '')}
-                        value={input as string | number}
-                        min={entry.minValue as string | number | undefined}
-                        max={entry.maxValue as string | number | undefined}
-                        step={entry.stepValue as string | number | undefined}
-                        placeholder={normalizeToValue(entry.placeholder, state)}
-                        disabled={disabled}
-                        onChange={this.onChange}
-                        onInput={this.onInput}
-                        onEnter={this.onEnter}
-                        list={history ? key + this.randomID : undefined}
-                        style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
-                    />
-                    {
-                        history &&
-                        <datalist id={key + this.randomID}>
-                            {normalizeToValue(entry.suggestedValues ?? [], state).concat(
-                                this.props.store.state.states.map(object => object[key as keyof State] as unknown as ValueType),
-                            ).reverse().filter(
-                                (option, index, self) => option !== input && self.indexOf(option) === index,
-                            ).map(
-                                option => <option value={'' + option}/>,
-                            )}
-                        </datalist>
-                    }
-                    {
-                        error &&
-                        <div className="invalid-feedback">
-                            {error}
-                        </div>
-                    }
-                </span>
-            }
+                }
+                { // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
+                    entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' && entry.inputType !== 'textarea' &&
+                    <Fragment>
+                        {
+                            history &&
+                            <datalist id={key + this.randomID}>
+                                {normalizeToValue(entry.suggestedValues ?? [], state).concat(
+                                    this.props.store.state.states.map(object => object[key as keyof State] as unknown as ValueType),
+                                ).reverse().filter(
+                                    (option, index, self) => option !== input && self.indexOf(option) === index,
+                                ).map(
+                                    option => <option key={'' + option} value={'' + option}/>,
+                                )}
+                            </datalist>
+                        }
+                        <CustomInput
+                            name={key}
+                            type={entry.inputType}
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="off"
+                            spellCheck="false"
+                            className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (error ? ' is-invalid' : '')}
+                            value={input as string | number}
+                            min={entry.minValue as string | number | undefined}
+                            max={entry.maxValue as string | number | undefined}
+                            step={entry.stepValue as string | number | undefined}
+                            placeholder={normalizeToValue(entry.placeholder, state)}
+                            disabled={disabled}
+                            onChange={this.onChange}
+                            onInput={this.onInput}
+                            onEnter={this.onEnter}
+                            list={history ? key + this.randomID : undefined}
+                            style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
+                        />
+                    </Fragment>
+                }
+                {
+                    error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
+                }
+            </span>
             {
                 entry.inputType === 'range' &&
                 <span className="range-value">{input}</span>
