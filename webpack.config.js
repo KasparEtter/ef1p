@@ -14,8 +14,10 @@ module.exports = {
         theme: './typescript/scripts/theme.ts',
 
         404: './404.ts',
-        internet: './internet/script.tsx',
+        index: './index.ts',
         tools: './tools/script.tsx',
+
+        internet: './internet/script.tsx',
     },
 
     output: {

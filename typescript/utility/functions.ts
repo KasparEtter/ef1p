@@ -1,4 +1,4 @@
-import { Dictionary, NotFunction, ValueOrArray, ValueOrFunction } from './types';
+import { Dictionary, EventHandler, NotFunction, ValueOrArray, ValueOrFunction } from './types';
 
 export function normalizeToValue<T extends NotFunction | undefined, I = undefined>(argument: ValueOrFunction<T, I>, input: I): T {
     return typeof argument === 'function' ? argument(input) : argument;
@@ -109,4 +109,8 @@ export function getRandomString(): string {
 
 export function sleep(ms: number): Promise<unknown> {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function bind(elementId: string, event: keyof GlobalEventHandlersEventMap, callback: EventHandler): void {
+    document.getElementById(elementId)!.addEventListener(event, callback);
 }
