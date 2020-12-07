@@ -20,7 +20,8 @@ a[href^="#"] {
   }
 }
 
-a:not([href]) {
+a:not([href]),
+a:not([href]):not([class]) {
   color: $pink;
 
   @include hover() {
