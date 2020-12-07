@@ -1,9 +1,10 @@
 import { report } from '../utility/analytics';
 import { normalizeToArray, normalizeToValue } from '../utility/functions';
+import { removeItem } from '../utility/storage';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 
 import { DynamicEntry, Entry, ErrorType, ValueType } from './entry';
-import { PersistedState, PersistedStore, Store } from './store';
+import { PersistedState, Store } from './store';
 
 export type Entries = {
     readonly [key: string]: Entry<any, any>;
@@ -90,8 +91,8 @@ function updateState<State extends ObjectButNotFunction>(
     const inputs = { ...store.state.inputs, ...partialNewState };
     store.state.inputs = inputs;
     const entries = store.meta.entries;
-    for (const key of Object.keys(partialNewState) as KeysOf<State>) {
-        store.state.errors[key] = entries[key].validate?.(partialNewState[key], inputs) ?? false;
+    for (const key of Object.keys(entries) as KeysOf<State>) {
+        store.state.errors[key] = entries[key].validate?.(inputs[key], inputs) ?? false;
     }
     store.state.errors = { ...store.state.errors, ...partialErrors };
     if (Object.values(store.state.errors).every(error => !error)) {
@@ -140,8 +141,7 @@ function updateState<State extends ObjectButNotFunction>(
             normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
         }
         if (changed.length > 0 && createNewState) {
-            const label = (store as PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>).identifier ?? 'unknown';
-            report('tools', 'state', label);
+            report('tools', 'state', store.identifier);
         }
     } else {
         store.update('input');
@@ -169,7 +169,6 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
 function changeState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     nextIndex: number,
-    clear: boolean = false,
 ): void {
     const entries = store.meta.entries;
     const previousState = getCurrentState(store);
@@ -177,9 +176,6 @@ function changeState<State extends ObjectButNotFunction>(
     const nextState = getCurrentState(store);
     store.state.inputs = { ...nextState };
     store.state.errors = getNoErrors(entries);
-    if (clear) {
-        store.state.states.splice(1);
-    }
     store.update('input', 'state');
     changeCounter++;
     // Local copy of the change counter in case one of the handlers triggers another change synchronously.
@@ -218,6 +214,6 @@ export function clearState<State extends ObjectButNotFunction>(
     if (store.state.states.length === 1) {
         console.warn('There is no state to clear.');
     } else {
-        changeState(store, 0, true);
+        removeItem(store.identifier);
     }
 }

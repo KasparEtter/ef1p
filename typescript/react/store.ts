@@ -17,7 +17,7 @@ function normalizeEvents(events: string[]): string[] {
  * This class allows components to share a common state.
  */
 export class Store<State extends ObjectButNotFunction, Meta = undefined, Event extends string = Default> {
-    private components: { [key: string]: Component[] | undefined } = {};
+    protected components: { [key: string]: Component[] | undefined } = {};
 
     /**
      * This method should only be called by the Share HOC.
@@ -61,7 +61,11 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined, Event e
      * Creates a new store with the given initial state.
      * The meta property can be used to pass around additional information.
      */
-    public constructor(public state: State, public readonly meta: Meta) {}
+    public constructor(
+        public state: State,
+        public readonly meta: Meta,
+        public readonly identifier = 'unknown',
+    ) {}
 
     /**
      * Sets the state of this store and updates the subscribed components.
@@ -85,19 +89,29 @@ export class PersistedStore<State extends PersistedState<Event>, Meta = undefine
      * Creates a new persisted store with the given default state or the state restored with the given identifier.
      * The meta property can be used to pass around additional information. It is not persisted.
      */
-    public constructor(defaultState: State, meta: Meta, public readonly identifier: string) {
+    public constructor(
+        public readonly defaultState: State,
+        meta: Meta,
+        identifier: string,
+    ) {
         super(
             {
                 ...defaultState,
                 ...getItem(
                     identifier,
-                    (state: State) => {
-                        this.state = state;
-                        super.update(...state.events ?? []);
+                    (state: State | undefined) => {
+                        if (state !== undefined) {
+                            this.state = state;
+                            super.update(...state.events ?? []);
+                        } else {
+                            this.state = defaultState;
+                            super.update(...Object.keys(this.components) as Event[]);
+                        }
                     },
                 ) as State,
             },
             meta,
+            identifier,
         );
     }
 
