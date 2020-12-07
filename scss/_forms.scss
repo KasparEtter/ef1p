@@ -36,6 +36,7 @@
   .label {
     display: inline-block;
     margin-right: 18px;
+    vertical-align: top;
 
     &:last-child {
       margin-right: 0;
@@ -80,6 +81,12 @@
 .custom-select {
   margin-top: 1px;
   vertical-align: baseline;
+
+  &.is-invalid {
+    // Don't show the exclamation mark, use the original styles instead.
+    padding-right: $custom-select-padding-x + $custom-select-indicator-padding;
+    background: $custom-select-bg $custom-select-background;
+  }
 }
 
 .custom-color {
@@ -116,11 +123,13 @@
 .is-invalid {
   margin-bottom: 20px;
 
-  &.form-control {
+  &.form-control,
+  &.custom-select {
     box-shadow: inset 0 -1px $danger;
   }
 
-  &.form-control:focus {
+  &.form-control:focus,
+  &.custom-select:focus {
     box-shadow: inset 0 -2px $danger;
   }
 }
@@ -128,11 +137,13 @@
 .is-valid {
   margin-bottom: 20px;
 
-  &.form-control {
+  &.form-control,
+  &.custom-select {
     box-shadow: inset 0 -1px $success;
   }
 
-  &.form-control:focus {
+  &.form-control:focus,
+  &.custom-select:focus {
     box-shadow: inset 0 -2px $success;
   }
 }
