@@ -7,8 +7,11 @@ import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEn
 import { PersistedStore, Store } from '../../react/store';
 import { join } from '../../react/utility';
 
-import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../dns/api';
-import { setDnsResolverInputs } from '../dns/tool';
+import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../../apis/dns-lookup';
+
+import { setDnsResolverInputs } from './dns-records';
+
+/* ------------------------------ Response table ------------------------------ */
 
 interface Row {
     name: string;
@@ -43,7 +46,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
                             }</td>
                             <td>{join(row.types.filter(type => type !== 'NSEC' && type !== 'RRSIG').map(
                                 type => recordTypes[type as RecordType] !== undefined ?
-                                    <a href="#tool-dns-resolver" title="Look up this record type with the DNS tool." onClick={() => setDnsResolverInputs(row.name, type as RecordType)}>{type}</a> :
+                                    <a href="#tool-lookup-dns-records" title="Look up this record type with the DNS tool." onClick={() => setDnsResolverInputs(row.name, type as RecordType)}>{type}</a> :
                                     <Fragment>{type}</Fragment>,
                             ), <Fragment>, </Fragment>)}</td>
                         </tr>)}
@@ -58,7 +61,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
         {
             nextQuery &&
             <p className="text-center">
-                <a href="#tool-zone-walker" className="btn btn-sm btn-primary" onClick={() => setZoneWalkerInputFields(nextQuery)}>
+                <a href="#tool-lookup-zone-domains" className="btn btn-sm btn-primary" onClick={() => setZoneWalkerInputFields(nextQuery)}>
                     <i className="icon-left fas fa-arrow-alt-circle-right"></i>Continue
                 </a>
             </p>
@@ -129,6 +132,8 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
     }
 }
 
+/* ------------------------------ Dynamic entries ------------------------------ */
+
 const startDomain: DynamicEntry<string> = {
     name: 'Start domain',
     description: 'The domain name from which you would like to list the next domain names.',
@@ -166,20 +171,24 @@ const entries: DynamicEntries<State> = {
     resultLimit,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: resetResponseTable }, 'zone');
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: resetResponseTable }, 'lookup-zone-domains');
 const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
     setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });
 }
 
-export const zoneTool = <Fragment>
-    <Input entries={entries} horizontal submit="Walk" onSubmit={walkZone}/>
+/* ------------------------------ User interface ------------------------------ */
+
+export const toolLookupZoneDomains = <Fragment>
+    <Input entries={entries} submit="Walk" onSubmit={walkZone}/>
     <ZoneWalkerResponseTable/>
 </Fragment>;
 
+/* ------------------------------ Element bindings ------------------------------ */
+
 export function bindZoneWalks() {
-    Array.from(document.getElementsByClassName('zone-walk') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    Array.from(document.getElementsByClassName('bind-zone-walk') as HTMLCollectionOf<HTMLElement>).forEach(element => {
         const domain = element.dataset.domain;
         if (domain === undefined) {
             console.error('The data attributes of the following element are invalid:', element);

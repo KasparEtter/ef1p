@@ -9,6 +9,8 @@ import { shareState, shareStore } from '../../react/share';
 import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore } from '../../react/store';
 
+/* ------------------------------ Dynamic entries ------------------------------ */
+
 const webAddress: DynamicEntry<string> = {
     name: 'Web address',
     description: 'The web address you would like to fetch manually from the command line.',
@@ -32,6 +34,12 @@ interface State {
 const entries: DynamicEntries<State> = {
     webAddress,
 };
+
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-http');
+const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const HttpCommand = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'state')(RawHttpCommand);
+
+/* ------------------------------ User interface ------------------------------ */
 
 function RawHttpCommand({ states, index }: Readonly<VersionedState<State>>): JSX.Element {
     const webAddress = states[index].webAddress;
@@ -80,11 +88,7 @@ function RawHttpCommand({ states, index }: Readonly<VersionedState<State>>): JSX
     </CodeBlock>;
 }
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'http');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const HttpCommand = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'state')(RawHttpCommand);
-
-export const httpTool = <Fragment>
-    <Input entries={entries} horizontal/>
+export const toolProtocolHttp = <Fragment>
+    <Input entries={entries}/>
     <HttpCommand/>
 </Fragment>;

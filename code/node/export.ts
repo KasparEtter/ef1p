@@ -36,7 +36,7 @@ if (!directory) {
     // Wait for higher quality images to be loaded.
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    fs.mkdirSync(`${directory}/generated`, { recursive: true });
+    fs.mkdirSync(`pages/${directory}/generated`, { recursive: true });
 
     const footerTemplate = `<div style="font-size: 8px; font-family: Lato; width: 100%; margin-bottom: 2mm; text-align: center;">
     <span style="float: left; margin-left: 9.5mm;">
@@ -56,7 +56,7 @@ if (!directory) {
 
     // https://github.com/puppeteer/puppeteer/blob/v3.0.4/docs/api.md#pagepdfoptions
     await page.pdf({
-        path: `${directory}/generated/${date} ${title}.pdf`,
+        path: `pages/${directory}/generated/${date} ${title}.pdf`,
         width: '210mm',
         height: '297mm',
         margin: {
@@ -65,6 +65,7 @@ if (!directory) {
             bottom: '20mm',
             left: margin,
         },
+        printBackground: true,
         displayHeaderFooter: true,
         headerTemplate: '<span></span>',
         footerTemplate,

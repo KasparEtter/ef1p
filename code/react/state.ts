@@ -43,7 +43,7 @@ export interface VersionedState<State extends ObjectButNotFunction> extends Pers
     index: number;
 }
 
-export function getNoErrors<State extends ObjectButNotFunction>(entries: DynamicEntries<State>): Errors<State> {
+function getNoErrors<State extends ObjectButNotFunction>(entries: DynamicEntries<State>): Errors<State> {
     const errors: { [key: string]: false } = {};
     for (const key of Object.keys(entries) as KeysOf<State>) {
         errors[key as string] = false;
@@ -55,7 +55,7 @@ export function getDefaultVersionedState<State extends ObjectButNotFunction>(ent
     const state = getDefaultState(entries);
     return {
         states: [ state ],
-        inputs: { ...state }, // It's important to use a copy here.
+        inputs: { ...state }, // It's important to use a copy here. Since all values are primitive, a shallow copy is good enough.
         errors: getNoErrors(entries),
         index: 0,
     };
@@ -81,6 +81,22 @@ export function getCurrentState<State extends ObjectButNotFunction>(store: Store
 
 let changeCounter = 0;
 
+export function validateInputs<State extends ObjectButNotFunction>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+): void {
+    const inputs = store.state.inputs;
+    const entries = store.meta.entries;
+    for (const key of Object.keys(entries) as KeysOf<State>) {
+        store.state.errors[key] = entries[key].validate?.(inputs[key], inputs) ?? false;
+    }
+}
+
+export function hasNoErrors<State extends ObjectButNotFunction>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+): boolean {
+    return Object.values(store.state.errors).every(error => !error);
+}
+
 function updateState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State>,
@@ -90,12 +106,10 @@ function updateState<State extends ObjectButNotFunction>(
 ): void {
     const inputs = { ...store.state.inputs, ...partialNewState };
     store.state.inputs = inputs;
-    const entries = store.meta.entries;
-    for (const key of Object.keys(entries) as KeysOf<State>) {
-        store.state.errors[key] = entries[key].validate?.(inputs[key], inputs) ?? false;
-    }
+    validateInputs(store);
     store.state.errors = { ...store.state.errors, ...partialErrors };
-    if (Object.values(store.state.errors).every(error => !error)) {
+    if (hasNoErrors(store)) {
+        const entries = store.meta.entries;
         const changed: (keyof State)[] = [];
         const currentState = getCurrentState(store);
         // We need to loop through all inputs and not just through the partial state
@@ -166,6 +180,15 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
     updateState(store, partialNewState, false, partialErrors, false);
 }
 
+export function clearErrors<State extends ObjectButNotFunction>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+): void {
+    const errors = store.state.errors;
+    for (const key of Object.keys(errors) as KeysOf<State>) {
+        errors[key] = false;
+    }
+}
+
 function changeState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     nextIndex: number,
@@ -175,7 +198,7 @@ function changeState<State extends ObjectButNotFunction>(
     store.state.index = nextIndex;
     const nextState = getCurrentState(store);
     store.state.inputs = { ...nextState };
-    store.state.errors = getNoErrors(entries);
+    clearErrors(store);
     store.update('input', 'state');
     changeCounter++;
     // Local copy of the change counter in case one of the handlers triggers another change synchronously.

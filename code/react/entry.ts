@@ -15,11 +15,13 @@ export interface Entry<T extends ValueType, State extends ObjectButNotFunction =
 
     /**
      * Transforms the value for output.
+     * The function is only called with a valid state.
      */
     readonly transform?: (value: T, state: State) => string;
 
     /**
      * Whether to skip the value in a list of outputs.
+     * The function is only called with a valid state.
      */
     readonly skip?: (state: State, value: T) => boolean; // Order inverted to be compatible with the disabled type.
 }
@@ -67,21 +69,32 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
 
     /**
      * The suggested values are added to the datalist but not to the history.
+     * The function is only called with a valid state.
      */
     readonly suggestedValues?: ValueOrFunction<T[], State>;
 
     /**
      * Only relevant for 'select' inputs.
+     * The function is only called with a valid state.
      */
     readonly selectOptions?: ValueOrFunction<Record<string, string>, State>;
 
-    readonly disabled?: Function<boolean, State>;
+    /**
+     * Determines whether this input is disabled.
+     * The function is called with potentially invalid inputs.
+     */
+    readonly disabled?: (inputs: State) => boolean;
 
-    readonly validate?: (value: T, state: State) => ErrorType;
+    /**
+     * Validates this input.
+     * The function is called with potentially invalid inputs.
+     */
+    readonly validate?: (value: T, inputs: State) => ErrorType;
 
     /**
      * Only use onChange for reactions specific to this entry.
      * Otherwise use the meta property of the store.
+     * The function is only called with a valid value and a valid state.
      *
      * @argument fromHistory Derived entries shouldn't be overwritten when stepping through the history.
      * @argument changeId This value allows callees to determine that the same change triggered several invocations of the same handler.
@@ -89,14 +102,15 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     readonly onChange?: ValueOrArray<(newValue: T, newState: State, fromHistory: boolean, changeId: number) => any>;
 
     /**
-     * For live updates based on the current input.
+     * For live updates based on the non-validated input value and the last valid state.
      * You likely also want to listen for changes as onInput is not triggered when stepping through the history.
-     * Also note that the value has not been validated and that onInput is not triggered for boolean and 'select' inputs.
+     * Note that onInput is also not triggered for boolean and 'select' inputs.
      */
     readonly onInput?: ValueOrArray<(newValue: T, currentState: State) => any>;
 
     /**
      * Creates a button which the user can press in order to determine a suitable value for this entry.
+     * The function is only called with a valid state.
      */
     readonly determine?: Function<Promise<[T, ErrorType]>, State>;
 }

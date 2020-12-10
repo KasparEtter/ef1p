@@ -193,9 +193,10 @@ jQuery(() => {
     const downloadMenu = $('<div>').addClass(['dropdown-menu']).append(downloadAsPNG, downloadAsSVG).appendTo('body');
 
     function showDownloadMenu(this: any, event: JQuery.MouseEventBase) {
+        const page = window.location.pathname.replace(/\//g, '') || 'index';
         const name = $(this).data('name');
-        downloadAsPNG.attr('href', 'generated/' + name + '.png');
-        downloadAsSVG.attr('href', 'generated/' + name + '.svg');
+        downloadAsPNG.attr('href', `/pages/${page}/generated/${name}.png`);
+        downloadAsSVG.attr('href', `/pages/${page}/generated/${name}.svg`);
         downloadMenu.css({ left: event.pageX, top: event.pageY }).show();
         event.preventDefault();
     }

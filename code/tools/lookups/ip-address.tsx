@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { copyToClipboard } from '../../utility/clipboard';
 
@@ -9,10 +9,25 @@ import { shareState, shareStore } from '../../react/share';
 import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 
-import { getReverseLookupDomain } from '../dns/api';
-import { setDnsResolverInputs } from '../dns/tool';
+import { getReverseLookupDomain } from '../../apis/dns-lookup';
+import { setDnsResolverInputs } from './dns-records';
 
-import { getIpInfo, getMapLink, IpInfoResponse, isSuccessfulIpInfoResponse } from './api';
+import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from '../../apis/ip-geolocation';
+
+/* ------------------------------ Utility ------------------------------ */
+
+// https://developers.google.com/maps/documentation/urls/get-started#map-action
+export function getMapLink(response: IpInfoResponse, fallback: ReactNode = 'unknown'): ReactNode {
+    if (isSuccessfulIpInfoResponse(response)) {
+        return <a href={`https://www.google.com/maps/@?api=1&map_action=map&center=${response.loc}&zoom=10`}>
+            {response.city} ({response.country})
+        </a>;
+    } else {
+        return fallback;
+    }
+}
+
+/* ------------------------------ Response paragraph ------------------------------ */
 
 interface IpInfoResponseState {
     response?: IpInfoResponse;
@@ -29,7 +44,7 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
                 onClick={_ => copyToClipboard(response.ip)}
                 onContextMenu={event => {
                     setDnsResolverInputs(getReverseLookupDomain(response.ip), 'PTR');
-                    window.location.hash = '#tool-dns-resolver';
+                    window.location.hash = '#tool-lookup-dns-records';
                     event.preventDefault();
                 }}
             >
@@ -71,6 +86,8 @@ async function updateIpInfoResponseParagraph({ ipAddress }: State): Promise<void
     }
 }
 
+/* ------------------------------ Dynamic entries ------------------------------ */
+
 const ipAddress: DynamicEntry<string> = {
     name: 'IPv4 address',
     description: 'The IPv4 address you are interested in or nothing to take yours.',
@@ -90,14 +107,16 @@ const entries: DynamicEntries<State> = {
     ipAddress,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'ip');
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'lookup-ip-address');
 const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });
 }
 
-export const ipTool = <Fragment>
-    <Input entries={entries} horizontal submit="Locate"/>
+/* ------------------------------ User interface ------------------------------ */
+
+export const toolLookupIpAddress = <Fragment>
+    <Input entries={entries} submit="Locate"/>
     <IpInfoResponseParagraph/>
 </Fragment>;

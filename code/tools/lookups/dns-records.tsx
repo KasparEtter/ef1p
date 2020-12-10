@@ -11,9 +11,11 @@ import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, 
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
-import { setIpInfoInput } from '../ip/tool';
+import { setIpInfoInput } from './ip-address';
 
-import { DnsRecord, DnsResponse, getReverseLookupDomain, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from './api';
+import { DnsRecord, DnsResponse, getReverseLookupDomain, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
+
+/* ------------------------------ Response table ------------------------------ */
 
 interface DnsResponseState {
     response?: DnsResponse;
@@ -110,7 +112,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         fields: [{
             title: (_, record) => `The IPv4 address of ${record.name} Click to do a reverse lookup. Right click to geolocate the IP address.`,
             onClick: field => setDnsResolverInputs(getReverseLookupDomain(field), 'PTR'),
-            onContextMenu: field => { setIpInfoInput(field); window.location.hash = '#tool-ip-info'; },
+            onContextMenu: field => { setIpInfoInput(field); window.location.hash = '#tool-lookup-ip-address'; },
         }],
     },
     AAAA: {
@@ -352,6 +354,8 @@ async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: Stat
     }
 }
 
+/* ------------------------------ Dynamic entries ------------------------------ */
+
 const domainName: DynamicEntry<string> = {
     name: 'Domain',
     description: 'The domain name you are interested in.',
@@ -397,20 +401,24 @@ const entries: DynamicEntries<State> = {
     dnssecOk,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateDnsResponseTable }, 'dns');
+const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateDnsResponseTable }, 'lookup-dns-records');
 const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
 }
 
-export const dnsTool = <Fragment>
-    <Input entries={entries} horizontal submit="Query"/>
+/* ------------------------------ User interface ------------------------------ */
+
+export const toolLookupDnsRecords = <Fragment>
+    <Input entries={entries} submit="Query"/>
     <DnsResponseTable/>
 </Fragment>;
 
+/* ------------------------------ Element bindings ------------------------------ */
+
 export function bindDnsQueries() {
-    Array.from(document.getElementsByClassName('dns-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    Array.from(document.getElementsByClassName('bind-dns-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
         const { domain, type, dnssec } = element.dataset;
         if (domain === undefined || !Object.keys(recordTypes).includes(type!) || !['true', 'false'].includes(dnssec!)) {
             console.error('The data attributes of the following element are invalid:', element);

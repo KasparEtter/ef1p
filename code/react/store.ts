@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { getInitialized } from '../utility/functions';
+import { deepCopy, getInitialized } from '../utility/functions';
 import { getItem, setItem } from '../utility/storage';
 import { ObjectButNotFunction } from '../utility/types';
 
@@ -96,7 +96,7 @@ export class PersistedStore<State extends PersistedState<Event>, Meta = undefine
     ) {
         super(
             {
-                ...defaultState,
+                ...deepCopy(defaultState),
                 ...getItem(
                     identifier,
                     (state: State | undefined) => {
@@ -104,7 +104,7 @@ export class PersistedStore<State extends PersistedState<Event>, Meta = undefine
                             this.state = state;
                             super.update(...state.events ?? []);
                         } else {
-                            this.state = defaultState;
+                            this.state = deepCopy(defaultState);
                             super.update(...Object.keys(this.components) as Event[]);
                         }
                     },

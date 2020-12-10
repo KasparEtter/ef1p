@@ -7,8 +7,8 @@ export interface Argument<T extends ValueType, State extends ObjectButNotFunctio
     shortForm?: string;
 }
 
-export function isArgument<T extends ValueType>(entry: Entry<T>): entry is Argument<T> {
-    return (entry as Argument<T>).longForm !== undefined;
+export function isArgument<T extends ValueType, State extends ObjectButNotFunction = {}>(entry: Entry<T, State>): entry is Argument<T, State> {
+    return (entry as Argument<T, State>).longForm !== undefined;
 }
 
 export interface DynamicArgument<T extends ValueType, State extends ObjectButNotFunction = {}> extends Argument<T, State>, DynamicEntry<T, State> {}

@@ -114,3 +114,12 @@ export function sleep(ms: number): Promise<unknown> {
 export function bind(elementId: string, event: keyof GlobalEventHandlersEventMap, callback: EventHandler): void {
     document.getElementById(elementId)!.addEventListener(event, callback);
 }
+
+/**
+ * Clones the given object by encoding it as JSON and then parsing it again.
+ * Only use this function for objects that can be represented as JSON.
+ * See https://stackoverflow.com/a/122704/12917821 for more information.
+ */
+export function deepCopy<T extends NotFunction>(object: T): T {
+    return JSON.parse(JSON.stringify(object));
+}

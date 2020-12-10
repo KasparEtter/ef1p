@@ -6,15 +6,38 @@ import { ObjectButNotFunction } from '../utility/types';
 import { CustomInput, CustomTextarea } from './custom';
 import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore } from './share';
-import { AllEntries, clearState, getCurrentState, nextState, previousState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from './state';
+import { AllEntries, clearErrors, clearState, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
 
 export interface InputProps<State extends ObjectButNotFunction> {
-    noHistory?: boolean; // Default: false.
-    noLabels?: boolean; // Default: false.
-    inline?: boolean; // Default: false.
-    horizontal?: boolean; // Default: false.
-    newColumn?: number; // Defaults to single column.
-    submit?: string; // Defaults to no button.
+    /**
+     * Whether to skip the history buttons.
+     */
+    noHistory?: boolean;
+
+    /**
+     * Whether to skip the input labels.
+     */
+    noLabels?: boolean;
+
+    /**
+     * The index of the first entry to break into a second column.
+     * Results in a vertical form with two columns if provided,
+     * horizontal form otherwise.
+     */
+    newColumnAt?: number;
+
+    /**
+     * Whether to display the form inline instead of blocking.
+     * This value is ignored if 'newColumnAt' is provided.
+     */
+    inline?: boolean;
+
+    /**
+     * The text on the submit button.
+     * No submit button is displayed if this value is not provided.
+     */
+    submit?: string;
+
     /**
      * For submit actions specific to this instantiation of the form.
      * It is triggered on pressing enter in one of the fields
@@ -40,7 +63,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly onEnter = (event: Event) => {
         this.handle(event, true);
-        if (!this.someError) {
+        if (hasNoErrors(this.props.store)) {
             this.props.onSubmit?.(getCurrentState(this.props.store));
         }
     }
@@ -50,7 +73,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const value = numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value;
         const key = target.name as keyof State;
         this.props.store.state.inputs[key] = value as any;
-        this.props.store.state.errors[key] = false;
+        clearErrors(this.props.store);
         this.props.store.update('input');
         const entry: DynamicEntry<any, State> = this.props.entries[key]!;
         const state = getCurrentState(this.props.store);
@@ -73,9 +96,12 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     }
 
     private readonly onSubmit = () => {
-        const state = getCurrentState(this.props.store);
-        normalizeToArray(this.props.store.meta.onChange).forEach(handler => handler(state, true));
-        this.props.onSubmit?.(state);
+        validateInputs(this.props.store);
+        if (hasNoErrors(this.props.store)) {
+            const state = getCurrentState(this.props.store);
+            normalizeToArray(this.props.store.meta.onChange).forEach(handler => handler(state, true));
+            this.props.onSubmit?.(state);
+        }
     }
 
     private readonly onPrevious = () => {
@@ -87,23 +113,26 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     }
 
     private readonly onClear = () => {
-        if (confirm(`Are you sure you want to erase the history of ${this.props.store.state.states.length} entered values?`)) {
+        if (confirm(`Are you sure you want to erase the history of ${this.props.store.state.states.length - 1} entered values?`)) {
             clearState(this.props.store);
         }
     }
 
+    private readonly onCancel = () => {
+        this.props.store.state.inputs = getCurrentState(this.props.store);
+        clearErrors(this.props.store);
+        this.props.store.update('input');
+    }
+
     private readonly randomID = '-' + getRandomString();
 
-    private labelWidth = 0;
-    private someError = false;
-
-    private renderEntry = (key: string) => {
+    private renderEntry = (key: string, hasErrors: boolean, labelWidth: number) => {
         const entry = this.props.entries[key as keyof State] as DynamicEntry<ValueType, State>;
         const input = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
-        const state = getCurrentState(this.props.store);
-        const disabled = (this.someError && !error) ? true : (entry.disabled ? entry.disabled(state) : false);
+        const disabled = !error && (hasErrors ? true : (entry.disabled ? entry.disabled(this.props.store.state.inputs) : false));
         const history = inputTypesWithHistory.includes(entry.inputType);
+        const state = getCurrentState(this.props.store);
         return <label
             key={key}
             title={entry.description + (disabled ? ' (Currently disabled.)' : '' )}
@@ -112,7 +141,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 !this.props.noLabels &&
                 <span
                     className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' text-gray' : '')}
-                    style={this.props.horizontal ? {} : { width: this.labelWidth + 'px' }}
+                    style={this.props.newColumnAt ? { width: labelWidth + 'px' } : {}}
                 >
                     {entry.name}:
                 </span>
@@ -218,24 +247,20 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         </label>;
     };
 
-    private renderSubmitButton = () => {
+    private renderSubmitButton = (hasErrors: boolean) => {
         return this.props.submit && (this.props.store.meta.onChange || this.props.onSubmit) &&
             <button
                 type="button"
-                className="label btn btn-sm btn-primary"
+                className="label btn btn-sm btn-primary input-buttons-group"
                 onClick={this.onSubmit}
-                disabled={this.someError}
-                title={this.someError ? 'Make sure that there are no errors.' : 'Submit the input fields.'}
+                disabled={hasErrors}
+                title={hasErrors ? 'Make sure that there are no errors.' : 'Submit the input fields.'}
             >{this.props.submit}</button>;
     };
 
     private renderHistoryButtons = () => {
         return !this.props.noHistory &&
-            <div
-                className="label btn-icon btn-group btn-group-sm"
-                role="group"
-                aria-label="Walk through the history of values."
-            >
+            <span className="label btn-icon btn-group btn-group-sm">
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -263,34 +288,51 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 >
                     <i className="fas fa-redo-alt"></i>
                 </button>
-            </div>;
+            </span>;
+    };
+
+    private renderCancelButton = (hasErrors: boolean) => {
+        return hasErrors &&
+            <button
+                type="button"
+                className="label btn btn-sm btn-primary"
+                onClick={this.onCancel}
+                title="Return to the valid state before before the error."
+            >Cancel</button>;
+    };
+
+    private renderButtons = (hasErrors: boolean) => {
+        const submitButton = this.renderSubmitButton(hasErrors);
+        const historyButtons = this.renderHistoryButtons();
+        const cancelButton = this.renderCancelButton(hasErrors);
+        return (submitButton || historyButtons || cancelButton) &&
+            <span className="horizontal-form">
+                {submitButton}
+                {historyButtons}
+                {cancelButton}
+            </span>;
     };
 
     public render(): JSX.Element {
         const entries = this.props.entries;
         const keys = Object.keys(entries);
-        this.labelWidth = Object.values(entries).reduce((width, entry) => Math.max(width, entry!.labelWidth), 0);
-        this.someError = Object.values(this.props.store.state.errors).some(error => error);
-        const newColumn = this.props.newColumn;
-        if (newColumn !== undefined) {
+        const hasErrors = !hasNoErrors(this.props.store);
+        const labelWidth = Math.max(...Object.values(entries).map(entry => entry!.labelWidth));
+        const newColumn = this.props.newColumnAt;
+        if (newColumn) {
             return <div className="block-form vertical-form row">
                 <div className="col-md">
-                    {keys.slice(0, newColumn).map(this.renderEntry)}
+                    {keys.slice(0, newColumn).map(key => this.renderEntry(key, hasErrors, labelWidth))}
                 </div>
                 <div className="col-md">
-                    {keys.slice(newColumn).map(this.renderEntry)}
-                    {this.renderSubmitButton()}
-                    {this.renderHistoryButtons()}
+                    {keys.slice(newColumn).map(key => this.renderEntry(key, hasErrors, labelWidth))}
+                    {this.renderButtons(hasErrors)}
                 </div>
             </div>;
         } else {
-            return <div className={
-                (this.props.inline ? 'inline-form' : 'block-form') + ' ' +
-                (this.props.horizontal ? 'horizontal-form' : 'vertical-form')
-            }>
-                {keys.map(this.renderEntry)}
-                {this.renderSubmitButton()}
-                {this.renderHistoryButtons()}
+            return <div className={(this.props.inline ? 'inline-form' : 'block-form') + ' horizontal-form'}>
+                {keys.map(key => this.renderEntry(key, hasErrors, labelWidth))}
+                {this.renderButtons(hasErrors)}
             </div>;
         }
     }

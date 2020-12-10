@@ -1,5 +1,5 @@
-import { fetchWithErrorAndTimeout } from '../../utility/fetch';
-import { normalizeToArray } from '../../utility/functions';
+import { fetchWithErrorAndTimeout } from '../utility/fetch';
+import { normalizeToArray } from '../utility/functions';
 
 /* ------------------------------ Record types ------------------------------ */
 
