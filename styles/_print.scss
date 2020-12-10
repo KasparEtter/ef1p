@@ -41,6 +41,10 @@
     max-width: 720px;
   }
 
+  .row {
+    flex-wrap: nowrap;
+  }
+
   body,
   code,
   table,
@@ -89,6 +93,10 @@
   .custom-switch .custom-control-label::after {
     background-color: transparent;
     border: 1px solid #000;
+  }
+
+  .custom-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23000' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
   }
 
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {

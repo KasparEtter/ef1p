@@ -42,19 +42,24 @@ article {
     padding-left: 4px;
   }
 
-  p + ol,
-  p + ul {
-    margin-top: -$paragraph-margin-bottom;
+  ol > li,
+  ul > li {
+    margin-top: $paragraph-margin-bottom / 2;
   }
 
-  p + ol.spaced,
-  p + ul.spaced {
+  p + ol,
+  p + ul {
     margin-top: -$paragraph-margin-bottom / 2;
   }
 
-  ol.spaced > li,
-  ul.spaced > li {
-    margin-top: $paragraph-margin-bottom / 2;
+  ol.compact > li,
+  ul.compact > li {
+    margin-top: 0;
+  }
+
+  p + ol.compact,
+  p + ul.compact {
+    margin-top: -$paragraph-margin-bottom;
   }
 
   table {

@@ -22,25 +22,28 @@
   label,
   .label {
     display: block;
-    max-width: fit-content;
     min-height: 28px;
-  }
-
-  .btn-group {
-    margin-left: 4px;
   }
 }
 
 .horizontal-form {
+  margin-left: -18px;
+
+  // Used for the buttons.
+  .horizontal-form {
+    margin-left: 0;
+  }
+
   label,
   .label {
     display: inline-block;
-    margin-right: 18px;
+    margin-left: 18px;
     vertical-align: top;
+  }
 
-    &:last-child {
-      margin-right: 0;
-    }
+  .label.btn,
+  .label.btn-group {
+    margin-left: 21px; // Prevent the focus shadow from being hidden on the left side of the article.
   }
 
   &.block-form {
