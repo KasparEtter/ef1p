@@ -1,7 +1,7 @@
-import { indentation } from '../../typescript/svg/utility/constants';
-import { Color, colors } from '../../typescript/utility/color';
+import { indentation } from '../../code/svg/utility/constants';
+import { Color, colors } from '../../code/utility/color';
 
-import { getArrowMarkers, getCircleMarkers } from '../../typescript/svg/utility/definitions';
+import { getArrowMarkers, getCircleMarkers } from '../../code/svg/utility/definitions';
 
 const array = Object.keys(colors) as (Color | undefined)[];
 array.unshift(undefined);
