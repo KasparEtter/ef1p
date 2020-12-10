@@ -2,7 +2,6 @@
 layout: navbar
 title: Page not found
 permalink: /404.html
-script: 404
 ---
 
 # Page not found

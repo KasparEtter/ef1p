@@ -1,4 +1,4 @@
-import { report } from './typescript/utility/analytics';
+import { report } from '../../code/utility/analytics';
 
 // Wrapping the code in a function so that we can return from it.
 (() => {
