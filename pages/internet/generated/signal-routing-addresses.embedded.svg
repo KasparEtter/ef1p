@@ -1,0 +1,65 @@
+<svg id="figure-signal-routing-addresses" class="figure" data-name="signal-routing-addresses" width="278.249" height="278.25" viewBox="-100.388 -109.979 278.249 278.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="yellow" x1="-14.127" y1="8.156" x2="-69.011" y2="39.844"></line>
+    <line class="yellow" x1="-8.156" y1="-14.127" x2="-39.844" y2="-69.011"></line>
+    <line class="yellow" x1="15.757" y1="-4.222" x2="76.972" y2="-20.625"></line>
+    <line class="yellow" x1="11.535" y1="11.535" x2="56.348" y2="56.348"></line>
+    <line class="yellow" x1="88.507" y1="-9.09" x2="72.104" y2="52.126"></line>
+    <line class="yellow" x1="104.264" y1="-36.381" x2="149.076" y2="-81.194"></line>
+    <line class="yellow" x1="104.264" y1="-13.312" x2="149.076" y2="31.501"></line>
+    <line class="yellow" x1="83.639" y1="63.66" x2="144.854" y2="47.258"></line>
+    <line class="yellow" x1="76.039" y1="82.009" x2="107.726" y2="136.894"></line>
+    <line class="yellow" x1="56.348" y1="79.417" x2="11.535" y2="124.23"></line>
+    <circle class="green" cx="-83.138" cy="48" r="16"></circle>
+    <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
+    <circle class="green" cx="160.611" cy="-92.729" r="16"></circle>
+    <circle class="green" cx="160.611" cy="43.036" r="16"></circle>
+    <circle class="green" cx="115.882" cy="151.021" r="16"></circle>
+    <circle class="green" cx="0" cy="135.765" r="16"></circle>
+    <circle class="blue" cx="0" cy="0" r="16"></circle>
+    <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
+    <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
+    <text class="blue" x="0" y="0" text-anchor="middle">
+        <tspan x="0" y="5.9">A</tspan>
+    </text>
+    <text class="blue" x="92.729" y="-24.847" text-anchor="middle">
+        <tspan x="92.729" y="-18.947">B</tspan>
+    </text>
+    <text class="blue" x="67.882" y="67.882" text-anchor="middle">
+        <tspan x="67.882" y="73.782">C</tspan>
+    </text>
+    <text class="green" x="-83.138" y="48" text-anchor="middle">
+        <tspan x="-83.138" y="53.9">A1</tspan>
+    </text>
+    <text class="green" x="-48" y="-83.138" text-anchor="middle">
+        <tspan x="-48" y="-77.238">A2</tspan>
+    </text>
+    <text class="green" x="160.611" y="-92.729" text-anchor="middle">
+        <tspan x="160.611" y="-86.829">B1</tspan>
+    </text>
+    <text class="green" x="160.611" y="43.036" text-anchor="middle">
+        <tspan x="160.611" y="15.936">B2</tspan>
+        <tspan x="160.611" y="37.936"></tspan>
+        <tspan x="160.611" y="59.936"></tspan>
+        <tspan x="160.611" y="81.936">C1</tspan>
+    </text>
+    <text class="green" x="115.882" y="151.021" text-anchor="middle">
+        <tspan x="115.882" y="156.921">C2</tspan>
+    </text>
+    <text class="green" x="0" y="135.765" text-anchor="middle">
+        <tspan x="0" y="141.665">C3</tspan>
+    </text>
+    <text class="yellow" x="-48.569" y="11.876" text-anchor="middle">
+        <tspan x="-48.569" y="17.776"><tspan class="small">1</tspan></tspan>
+    </text>
+    <text class="yellow" x="-11.876" y="-48.569" text-anchor="middle">
+        <tspan x="-11.876" y="-42.669"><tspan class="small">2</tspan></tspan>
+    </text>
+    <text class="yellow" x="42.741" y="-25.946" text-anchor="middle">
+        <tspan x="42.741" y="-20.046"><tspan class="small">3</tspan></tspan>
+    </text>
+    <text class="yellow" x="43.841" y="24.042" text-anchor="middle">
+        <tspan x="43.841" y="29.942"><tspan class="small">4</tspan></tspan>
+    </text>
+
+</svg>

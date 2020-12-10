@@ -1,0 +1,84 @@
+<svg width="273.682" height="69.5" viewBox="-1.25 -14 273.682 69.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://www.kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <line class="blue" x1="71.495" y1="12.75" x2="198.75" y2="12.75" marker-end="url(#arrow-blue)" stroke-dasharray="120"></line>
+    <text class="blue" x="135.122" y="-1.25" text-anchor="middle">
+        <tspan x="135.122" y="-1.25">Request</tspan>
+    </text>
+    <line class="green" x1="199.688" y1="26.75" x2="72.432" y2="26.75" marker-end="url(#arrow-green)" stroke-dasharray="120"></line>
+    <text class="green" x="136.06" y="40.75" text-anchor="middle">
+        <tspan x="136.06" y="52.25">Response</tspan>
+    </text>
+    <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text x="35.591" y="19.75" text-anchor="middle">
+        <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+    </text>
+    <rect x="200" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text x="235.591" y="19.75" text-anchor="middle">
+        <tspan x="235.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    </text>
+
+</svg>

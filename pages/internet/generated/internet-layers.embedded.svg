@@ -1,0 +1,84 @@
+<svg id="figure-internet-layers" class="figure" data-name="internet-layers" width="455.716" height="345.75" viewBox="-1.25 -7 455.716 345.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <text class="yellow" x="0" y="35" text-anchor="start">
+        <tspan x="0" y="40.9">Application layer</tspan>
+    </text>
+    <text class="orange" x="0" y="105" text-anchor="start">
+        <tspan x="0" y="110.9">Security layer</tspan>
+    </text>
+    <text class="red" x="0" y="175" text-anchor="start">
+        <tspan x="0" y="180.9">Transport layer</tspan>
+    </text>
+    <text class="pink" x="0" y="245" text-anchor="start">
+        <tspan x="0" y="250.9">Network layer</tspan>
+    </text>
+    <text class="purple" x="0" y="315" text-anchor="start">
+        <tspan x="0" y="320.9">Link layer</tspan>
+    </text>
+    <text x="140" y="0" text-anchor="middle">
+        <tspan x="140" y="5.9">Sender</tspan>
+    </text>
+    <text x="280" y="0" text-anchor="middle">
+        <tspan x="280" y="5.9">Router</tspan>
+    </text>
+    <text x="420" y="0" text-anchor="middle">
+        <tspan x="420" y="5.9">Recipient</tspan>
+    </text>
+    <rect class="yellow angular" x="135.5" y="30.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="yellow angular" x="135.5" y="100.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="131" y="96" width="18" height="18" rx="0" ry="0"></rect>
+    <line class="yellow" x1="140" y1="47" x2="140" y2="89.75" marker-end="url(#arrow-yellow)" stroke-dasharray="36"></line>
+    <rect class="yellow angular" x="135.5" y="170.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="131" y="166" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="126.5" y="161.5" width="27" height="27" rx="0" ry="0"></rect>
+    <line class="orange" x1="140" y1="121.5" x2="140" y2="155.25" marker-end="url(#arrow-orange)" stroke-dasharray="27"></line>
+    <rect class="yellow angular" x="135.5" y="240.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="131" y="236" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="126.5" y="231.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="122" y="227" width="36" height="36" rx="0" ry="0"></rect>
+    <line class="red" x1="140" y1="196" x2="140" y2="220.75" marker-end="url(#arrow-red)" stroke-dasharray="18"></line>
+    <rect class="yellow angular" x="135.5" y="310.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="131" y="306" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="126.5" y="301.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="122" y="297" width="36" height="36" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="117.5" y="292.5" width="45" height="45" rx="0" ry="0"></rect>
+    <line class="pink" x1="140" y1="270.5" x2="140" y2="286.25" marker-end="url(#arrow-pink)" stroke-dasharray="9"></line>
+    <rect class="yellow angular" x="240.5" y="310.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="236" y="306" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="231.5" y="301.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="227" y="297" width="36" height="36" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="222.5" y="292.5" width="45" height="45" rx="0" ry="0"></rect>
+    <line class="purple" x1="170" y1="315" x2="216.25" y2="315" marker-end="url(#arrow-purple)" stroke-dasharray="39"></line>
+    <rect class="yellow angular" x="275.5" y="240.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="271" y="236" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="266.5" y="231.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="262" y="227" width="36" height="36" rx="0" ry="0"></rect>
+    <line class="purple" x1="250.638" y1="285.852" x2="274.362" y2="268.398" marker-end="url(#arrow-purple)" stroke-dasharray="22"></line>
+    <rect class="yellow angular" x="310.5" y="310.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="306" y="306" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="301.5" y="301.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="297" y="297" width="36" height="36" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="292.5" y="292.5" width="45" height="45" rx="0" ry="0"></rect>
+    <line class="pink" x1="285.638" y1="269.648" x2="309.362" y2="287.102" marker-end="url(#arrow-pink)" stroke-dasharray="22"></line>
+    <rect class="yellow angular" x="415.5" y="310.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="411" y="306" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="406.5" y="301.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="402" y="297" width="36" height="36" rx="0" ry="0"></rect>
+    <rect class="purple angular" x="397.5" y="292.5" width="45" height="45" rx="0" ry="0"></rect>
+    <line class="purple" x1="345" y1="315" x2="391.25" y2="315" marker-end="url(#arrow-purple)" stroke-dasharray="39"></line>
+    <rect class="yellow angular" x="415.5" y="240.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="411" y="236" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="406.5" y="231.5" width="27" height="27" rx="0" ry="0"></rect>
+    <rect class="pink angular" x="402" y="227" width="36" height="36" rx="0" ry="0"></rect>
+    <line class="purple" x1="420" y1="285" x2="420" y2="269.25" marker-end="url(#arrow-purple)" stroke-dasharray="9"></line>
+    <rect class="yellow angular" x="415.5" y="170.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="411" y="166" width="18" height="18" rx="0" ry="0"></rect>
+    <rect class="red angular" x="406.5" y="161.5" width="27" height="27" rx="0" ry="0"></rect>
+    <line class="pink" x1="420" y1="219.5" x2="420" y2="194.75" marker-end="url(#arrow-pink)" stroke-dasharray="18"></line>
+    <rect class="yellow angular" x="415.5" y="100.5" width="9" height="9" rx="0" ry="0"></rect>
+    <rect class="orange angular" x="411" y="96" width="18" height="18" rx="0" ry="0"></rect>
+    <line class="red" x1="420" y1="154" x2="420" y2="120.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <rect class="yellow angular" x="415.5" y="30.5" width="9" height="9" rx="0" ry="0"></rect>
+    <line class="orange" x1="420" y1="88.5" x2="420" y2="45.75" marker-end="url(#arrow-orange)" stroke-dasharray="36"></line>
+
+</svg>

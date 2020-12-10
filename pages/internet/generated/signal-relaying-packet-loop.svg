@@ -1,0 +1,102 @@
+<svg width="278.249" height="278.25" viewBox="-100.388 -109.979 278.249 278.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://www.kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .orange {
+            fill: #E66000;
+            stroke: #E66000;
+        }
+
+        .yellow {
+            fill: #E6AC00;
+            stroke: #E6AC00;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+    </defs>
+
+    <line class="yellow" x1="-8.156" y1="-14.127" x2="-39.844" y2="-69.011"></line>
+    <line class="yellow" x1="104.264" y1="-36.381" x2="149.076" y2="-81.194"></line>
+    <line class="yellow" x1="104.264" y1="-13.312" x2="149.076" y2="31.501"></line>
+    <line class="yellow" x1="83.639" y1="63.66" x2="144.854" y2="47.258"></line>
+    <line class="yellow" x1="76.039" y1="82.009" x2="107.726" y2="136.894"></line>
+    <line class="yellow" x1="56.348" y1="79.417" x2="11.535" y2="124.23"></line>
+    <line class="orange" x1="-69.011" y1="39.844" x2="-14.939" y2="8.625" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="15.757" y1="-4.222" x2="76.067" y2="-20.382" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="88.507" y1="-9.09" x2="72.347" y2="51.22" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="56.348" y1="56.348" x2="12.198" y2="12.198" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <text class="orange" x="-50.975" y="8.646" text-anchor="middle">
+        <tspan x="-50.975" y="14.546">■</tspan>
+    </text>
+    <text class="orange" x="41.253" y="-29.689" text-anchor="middle">
+        <tspan x="41.253" y="-23.789">■</tspan>
+    </text>
+    <text class="orange" x="97.814" y="25.724" text-anchor="middle">
+        <tspan x="97.814" y="31.624">■</tspan>
+    </text>
+    <text class="orange" x="21.545" y="47.001" text-anchor="middle">
+        <tspan x="21.545" y="52.901">■</tspan>
+    </text>
+    <circle class="green" cx="-83.138" cy="48" r="16"></circle>
+    <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
+    <circle class="green" cx="160.611" cy="-92.729" r="16"></circle>
+    <circle class="green" cx="160.611" cy="43.036" r="16"></circle>
+    <circle class="green" cx="115.882" cy="151.021" r="16"></circle>
+    <circle class="green" cx="0" cy="135.765" r="16"></circle>
+    <circle class="blue" cx="0" cy="0" r="16"></circle>
+    <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
+    <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
+
+</svg>

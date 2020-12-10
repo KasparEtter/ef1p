@@ -1,0 +1,113 @@
+<svg width="683.721" height="357.96799999999996" viewBox="-303.124 -149.838 683.721 357.96799999999996" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://www.kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #FFFFFF;
+            stroke: #FFFFFF;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
+        }
+
+        .blue {
+            fill: #4DA6FF;
+            stroke: #4DA6FF;
+        }
+
+        .orange {
+            fill: #FF8833;
+            stroke: #FF8833;
+        }
+
+        .yellow {
+            fill: #FFCC33;
+            stroke: #FFCC33;
+        }
+
+        .green {
+            fill: #00CC99;
+            stroke: #00CC99;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+    </defs>
+
+    <rect class="filled" x="-303.124" y="-149.838" width="683.721" height="357.96799999999996" style="fill: #1A181B;"></rect>
+
+    <line class="yellow" x1="-8.156" y1="-14.127" x2="-39.844" y2="-69.011"></line>
+    <line class="yellow" x1="15.757" y1="-4.222" x2="76.972" y2="-20.625"></line>
+    <line class="yellow" x1="88.507" y1="-9.09" x2="72.104" y2="52.126"></line>
+    <line class="yellow" x1="104.264" y1="-36.381" x2="149.076" y2="-81.194"></line>
+    <line class="yellow" x1="104.264" y1="-13.312" x2="149.076" y2="31.501"></line>
+    <line class="yellow" x1="76.039" y1="82.009" x2="107.726" y2="136.894"></line>
+    <line class="yellow" x1="56.348" y1="79.417" x2="11.535" y2="124.23"></line>
+    <line class="orange" x1="-69.011" y1="39.844" x2="-14.939" y2="8.625" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="11.535" y1="11.535" x2="55.685" y2="55.685" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <line class="orange" x1="83.639" y1="63.66" x2="143.949" y2="47.5" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
+    <text class="orange" x="-50.975" y="8.646" text-anchor="middle">
+        <tspan x="-50.975" y="14.546">■</tspan>
+    </text>
+    <text class="orange" x="46.338" y="20.882" text-anchor="middle">
+        <tspan x="46.338" y="26.782">■</tspan>
+    </text>
+    <text class="orange" x="109.135" y="38.194" text-anchor="middle">
+        <tspan x="109.135" y="44.094">■</tspan>
+    </text>
+    <circle class="green" cx="-83.138" cy="48" r="16"></circle>
+    <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
+    <circle class="green" cx="160.611" cy="-92.729" r="16"></circle>
+    <circle class="green" cx="160.611" cy="43.036" r="16"></circle>
+    <circle class="green" cx="115.882" cy="151.021" r="16"></circle>
+    <circle class="green" cx="0" cy="135.765" r="16"></circle>
+    <circle class="blue" cx="0" cy="0" r="16"></circle>
+    <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
+    <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
+
+    <mask id="mask">
+        <rect class="filled" x="-263.265" y="128.412" width="39.859" height="39.859" style="fill: white;"></rect>
+        <line x1="-249.978" y1="141.699" x2="-249.978" y2="154.985" style="stroke-width: 9.964; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="-236.692" cy="154.985" r="4.982" style="fill: black;"></circle>
+    </mask>
+    <circle class="filled" cx="-243.335" cy="148.342" r="19.93" style="fill: white;" mask="url(#mask)"/>
+
+</svg>
