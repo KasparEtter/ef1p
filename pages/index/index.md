@@ -1,9 +1,9 @@
 ---
 layout: toc
 title: Explained from First Principles
-regenerate: true
+permalink: /index.html
 author: Kaspar Etter
-image: generated/focus.thumbnail.png
+regenerate: true
 ---
 
 # {{ site.title }}
@@ -39,7 +39,7 @@ The following articles have been published on this blog:
     <a class="custom-card" href="{{ article.url | relative_url }}">
       <div class="custom-card-image">
 
-{% include_relative {{ article.image | replace: ".thumbnail.png", ".embedded.svg" }} %}
+{% include_relative {{ article.name | replace: ".md", ".svg" | prepend: "thumbnails/" }} %}
       </div>
       <div class="custom-card-title">{{ article.title }}</div>
       <div class="custom-card-text">{{ article.teaser }}</div>
@@ -55,6 +55,7 @@ The topics on this blog fall into one of the following categories:
 
 {% for category in site.data.categories %}
 - <i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}: {{ category.description }}{% endfor %}
+{:.compact}
 
 ### Ambition
 
@@ -264,6 +265,8 @@ by clicking the button with the trash icon.
 If you don't want the entered values to be persisted across sessions in the first place,
 then open the article in the [private mode](https://en.wikipedia.org/wiki/Private_browsing)
 of your web browser.
+If you want, you can <a id="erase-all-values">erase all stored values</a>,
+including your theme preference.
 
 ### Article download
 
@@ -333,6 +336,7 @@ you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
   If they do, this is explicitly stated in the paragraph before the corresponding input field.
   Otherwise, all the values you enter are only stored
   [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
+{:.compact}
 
 
 ## About

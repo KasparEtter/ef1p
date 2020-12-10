@@ -1,11 +1,11 @@
-import { Color } from '../typescript/utility/color';
+import { Color } from '../../../code/utility/color';
 
-import { P } from '../typescript/svg/utility/point';
+import { P } from '../../../code/svg/utility/point';
 
-import { Circle } from '../typescript/svg/elements/circle';
-import { G } from '../typescript/svg/elements/group';
-import { printSVG } from '../typescript/svg/elements/svg';
-import { bold, small, TextLine } from '../typescript/svg/elements/text';
+import { Circle } from '../../../code/svg/elements/circle';
+import { G } from '../../../code/svg/elements/group';
+import { printSVG } from '../../../code/svg/elements/svg';
+import { bold, small, TextLine } from '../../../code/svg/elements/text';
 
 const radius = 56;
 const verticalGap = 28;
