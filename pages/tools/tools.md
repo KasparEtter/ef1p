@@ -1,8 +1,7 @@
 ---
 layout: toc
 title: Tools
-script: tools
-image: /internet/generated/client-server.thumbnail.png
+author: Kaspar Etter
 teaser: Play around with the various tools on this website.
 ---
 
@@ -15,16 +14,16 @@ Each title takes you to where the respective tool is explained.
 
 ### [IP geolocation](/internet/#ip-geolocation)
 
-<div id="tool-ip-info"></div>
+<div id="tool-lookup-ip-address"></div>
 
 ### [HTTP requester](/internet/#hypertext-transfer-protocol)
 
-<div id="tool-http-cli"></div>
+<div id="tool-protocol-http"></div>
 
 ### [DNS resolver](/internet/#domain-name-system)
 
-<div id="tool-dns-resolver"></div>
+<div id="tool-lookup-dns-records"></div>
 
 ### [Zone walker](/internet/#domain-name-system-security-extensions)
 
-<div id="tool-zone-walker"></div>
+<div id="tool-lookup-zone-domains"></div>
