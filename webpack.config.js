@@ -9,15 +9,15 @@ module.exports = {
 
     // https://webpack.js.org/concepts/entry-points/
     entry: {
-        links: './typescript/scripts/links.ts',
-        ready: './typescript/scripts/ready.ts',
-        theme: './typescript/scripts/theme.ts',
+        links: './code/scripts/links.ts',
+        ready: './code/scripts/ready.ts',
+        theme: './code/scripts/theme.ts',
 
-        404: './404.ts',
-        index: './index.ts',
-        tools: './tools/script.tsx',
+        index: './pages/index/index.ts',
+        error: './pages/error/error.ts',
+        tools: './pages/tools/tools.tsx',
 
-        internet: './internet/script.tsx',
+        internet: './pages/internet/internet.tsx',
     },
 
     output: {

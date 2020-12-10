@@ -25,27 +25,25 @@ theme: null
 
 exclude:
   - "*.json"
+  - "*.ots"
   - "*.scss"
   - "*.ts"
   - "*.tsx"
   - "*.txt"
+  - code
   - CNAME
   - Gemfile
   - Gemfile.lock
   - node_modules
   - README.md
-  - scss
-  - typescript
+  - styles
   - vendor
   - webpack.config.js
 
 defaults:
   - scope:
-      path: ""
-    values:
-      layout: toc
-  - scope:
-      path: ""
+      path: "pages"
       type: pages
     values:
       layout: article
+      permalink: /:basename/

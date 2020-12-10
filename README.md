@@ -509,16 +509,12 @@ Articles can have the following variables in their [front matter](https://jekyll
 
 - `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
 - `title`: The title of the article as used at the top of the article and in the navigation.
-- `script`: The name of the script to be included from `/assets/scripts/internal/{{script}}.min.js`.
 - `category`: The name of the [category](_data/categories.yml) to which the article belongs.
 - `author`: The author of the article so that this information is included in timestamps of the file.
 - `published`: The date when the article was first published as YYYY-MM-DD.
   Omit this variable if the article shall not yet be added to the navigation.
 - `modified`: The date when the article was last modified as YYYY-MM-DD.
   Omit this variable if the article has not been modified since its publication.
-- `image`: The path from the root of this repository to the image
-  that shall be used when the article is shared on social media.
-  The image should be 1200 x 630 or larger and less than 1 MB in size.
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
 - `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
@@ -780,7 +776,7 @@ Caption with *Markdown*.
 
 If you want to use an SVG image for the social media preview,
 you can generate a dark and properly scaled PNG
-by adding the graphic to the script at `typescript/node/thumbnail.ts`.
+by adding the graphic to the script at `code/node/thumbnail.ts`.
 You can then run this script with:
 
 ```bash
