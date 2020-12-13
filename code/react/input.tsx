@@ -20,6 +20,12 @@ export interface InputProps<State extends ObjectButNotFunction> {
     noLabels?: boolean;
 
     /**
+     * Whether to set labels to their individual width.
+     * This value is only used if 'newColumnAt' is provided.
+     */
+    individualLabelWidth?: boolean;
+
+    /**
      * The index of the first entry to break into a second column.
      * Results in a vertical form with two columns if provided,
      * horizontal form otherwise.
@@ -141,7 +147,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 !this.props.noLabels &&
                 <span
                     className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' text-gray' : '')}
-                    style={this.props.newColumnAt ? { width: labelWidth + 'px' } : {}}
+                    style={this.props.newColumnAt ? { width: (this.props.individualLabelWidth ? entry.labelWidth : labelWidth) + 'px' } : {}}
                 >
                     {entry.name}:
                 </span>
@@ -317,7 +323,8 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const entries = this.props.entries;
         const keys = Object.keys(entries);
         const hasErrors = !hasNoErrors(this.props.store);
-        const labelWidth = Math.max(...Object.values(entries).map(entry => entry!.labelWidth));
+        const labelWidth = this.props.individualLabelWidth || !this.props.newColumnAt ?
+            0 : Math.max(...Object.values(entries).map(entry => entry!.labelWidth));
         const newColumn = this.props.newColumnAt;
         if (newColumn) {
             return <div className="block-form vertical-form row">
