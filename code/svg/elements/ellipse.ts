@@ -47,4 +47,8 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
         const r = x * y / Math.sqrt(xSin * xSin + yCos * yCos);
         return center.add(vector.normalize(r + offset));
     }
+
+    public move(vector: Point): Ellipse {
+        return new Ellipse({ ...this.props, center: this.props.center.add(vector) });
+    }
 }

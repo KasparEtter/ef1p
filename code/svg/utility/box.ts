@@ -20,6 +20,21 @@ export class Box {
         }
     }
 
+    public static around(point1: Point, point2: Point): Box {
+        return new Box(point1.min(point2), point1.max(point2));
+    }
+
+    public static aroundAll(boxes: Box[]): Box {
+        if (boxes.length === 0) {
+            throw Error(`At least one box has to be provided.`);
+        }
+        let box = boxes[0];
+        for (let i = 1; i < boxes.length; i++) {
+            box = box.encompass(boxes[i]);
+        }
+        return box;
+    }
+
     public round3(): Box {
         return new Box(this.topLeft.round3(), this.bottomRight.round3());
     }
@@ -40,6 +55,14 @@ export class Box {
         return new Box(this.topLeft.subtract(that), this.bottomRight.add(that));
     }
 
+    public scaleX(factor: number): Box {
+        return new Box(this.topLeft, this.topLeft.add(this.size().multiplyX(factor)));
+    }
+
+    public scaleY(factor: number): Box {
+        return new Box(this.topLeft, this.topLeft.add(this.size().multiplyY(factor)));
+    }
+
     public pointAt(side: BoxSide, offset: number = strokeRadius): Point {
         const center = this.topLeft.center(this.bottomRight);
         switch (side) {
@@ -57,19 +80,4 @@ export class Box {
     public toString(): string {
         return `[${this.topLeft.toString()}, ${this.bottomRight.toString()}]`;
     }
-}
-
-export function BoundingBox(point1: Point, point2: Point): Box {
-    return new Box(point1.min(point2), point1.max(point2));
-}
-
-export function EncompassAll(boxes: Box[]): Box {
-    if (boxes.length === 0) {
-        throw Error(`At least one box has to be provided.`);
-    }
-    let box = boxes[0];
-    for (let i = 1; i < boxes.length; i++) {
-        box = box.encompass(boxes[i]);
-    }
-    return box;
 }

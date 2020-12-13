@@ -1,6 +1,6 @@
 import { Color } from '../../utility/color';
 
-import { BoundingBox, Box, BoxSide } from '../utility/box';
+import { Box, BoxSide } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
@@ -39,16 +39,44 @@ export interface LineProps extends VisualElementProps {
 }
 
 export class Line extends VisualElement<LineProps> {
+    public static connectBoxes(
+        startElement: VisualElement,
+        startSide: BoxSide,
+        endElement: VisualElement,
+        endSide: BoxSide,
+        props: Omit<LineProps, 'start' | 'end'> = {},
+        startOffset?: number,
+        endOffset: number | undefined = startOffset,
+    ): Line {
+        const marker = props.marker ?? 'end';
+        const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
+        return new Line({ start, end, marker, ...props });
+    }
+
+    public static connectEllipses(
+        startElement: Circle | Ellipse,
+        endElement: Circle | Ellipse,
+        props: Omit<LineProps, 'start' | 'end'> = {},
+        startOffset?: number,
+        endOffset: number | undefined = startOffset,
+    ): Line {
+        const marker = props.marker ?? 'end';
+        const start = startElement.pointTowards(endElement.center(), startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.pointTowards(startElement.center(), endOffset ?? markerOffset(marker, 'end'));
+        return new Line({ start, end, marker, ...props });
+    }
+
+    protected _boundingBox({ start, end }: LineProps): Box {
+        return Box.around(start, end);
+    }
+
     public vector(): Point {
         return this.props.end.subtract(this.props.start);
     }
 
     public length(): number {
         return this.vector().length();
-    }
-
-    protected _boundingBox({ start, end }: LineProps): Box {
-        return BoundingBox(start, end);
     }
 
     protected _encode(collector: Collector, prefix: string, {
@@ -105,32 +133,4 @@ export class Line extends VisualElement<LineProps> {
             new Line({ start: center.point(radius, angle + step * 3), end: center.point(radius, angle + step * 7), color }),
         ]
     }
-}
-
-export function ConnectionLine(
-    startElement: VisualElement,
-    startSide: BoxSide,
-    endElement: VisualElement,
-    endSide: BoxSide,
-    props: Omit<LineProps, 'start' | 'end'> = {},
-    startOffset?: number,
-    endOffset: number | undefined = startOffset,
-): Line {
-    const marker = props.marker ?? 'end';
-    const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
-    const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
-    return new Line({ start, end, marker, ...props });
-}
-
-export function DiagonalLine(
-    startElement: Circle | Ellipse,
-    endElement: Circle | Ellipse,
-    props: Omit<LineProps, 'start' | 'end'> = {},
-    startOffset?: number,
-    endOffset: number | undefined = startOffset,
-): Line {
-    const marker = props.marker ?? 'end';
-    const start = startElement.pointTowards(endElement.center(), startOffset ?? markerOffset(marker, 'start'));
-    const end = endElement.pointTowards(startElement.center(), endOffset ?? markerOffset(marker, 'end'));
-    return new Line({ start, end, marker, ...props });
 }

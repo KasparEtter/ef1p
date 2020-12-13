@@ -282,4 +282,8 @@ export class Text extends VisualElement<TextProps> {
         result += prefix + this.children(collector, prefix) + `</text>\n`;
         return result;
     }
+
+    public move(vector: Point): Text {
+        return new Text({ ...this.props, position: this.props.position.add(vector) });
+    }
 }

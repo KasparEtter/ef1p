@@ -23,6 +23,48 @@ export class Polyline extends VisualElement<PolylineProps> {
         }
     }
 
+    public static connectBoxes(
+        startElement: VisualElement,
+        startSide: BoxSide,
+        endElement: VisualElement,
+        endSide: BoxSide,
+        intermediatePoints: Point[],
+        props: Omit<PolylineProps, 'points'> = {},
+        startOffset?: number,
+        endOffset: number | undefined = startOffset,
+    ): Polyline {
+        if (intermediatePoints.length < 1) {
+            throw Error('A polyline requires at least one intermediate point.');
+        }
+        const marker = props.marker ?? 'end';
+        const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
+        return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
+    }
+
+    public static connectEllipses(
+        startElement: Circle | Ellipse,
+        endElement: Circle | Ellipse,
+        intermediatePoints: Point[],
+        props: Omit<PolylineProps, 'points'> = {},
+        startOffset?: number,
+        endOffset: number | undefined = startOffset,
+    ): Polyline {
+        if (intermediatePoints.length < 1) {
+            throw Error('A polyline requires at least one intermediate point.');
+        }
+        const marker = props.marker ?? 'end';
+        const start = startElement.pointTowards(intermediatePoints[0], startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.pointTowards(intermediatePoints[intermediatePoints.length - 1], endOffset ?? markerOffset(marker, 'end'));
+        return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
+    }
+
+    protected _boundingBox({ points }: PolylineProps): Box {
+        const min = points.reduce((previous, current) => previous.min(current), points[0]);
+        const max = points.reduce((previous, current) => previous.max(current), points[0]);
+        return new Box(min, max);
+    }
+
     public length(): number {
         let length = 0;
         const points = this.props.points;
@@ -32,12 +74,6 @@ export class Polyline extends VisualElement<PolylineProps> {
         return length;
     }
 
-    protected _boundingBox({ points }: PolylineProps): Box {
-        const min = points.reduce((previous, current) => previous.min(current), points[0]);
-        const max = points.reduce((previous, current) => previous.max(current), points[0]);
-        return new Box(min, max);
-    }
-
     protected _encode(collector: Collector, prefix: string, { points, marker, color }: PolylineProps): string {
         collector.elements.add('polyline');
         return prefix + `<polyline${this.attributes(collector)}`
@@ -45,40 +81,8 @@ export class Polyline extends VisualElement<PolylineProps> {
             + markerAttributes(collector, this.length.bind(this), marker, color, true)
             + `>${this.children(collector, prefix)}</polyline>\n`;
     }
-}
 
-export function ConnectionPolyline(
-    startElement: VisualElement,
-    startSide: BoxSide,
-    endElement: VisualElement,
-    endSide: BoxSide,
-    intermediatePoints: Point[],
-    props: Omit<PolylineProps, 'points'> = {},
-    startOffset?: number,
-    endOffset: number | undefined = startOffset,
-): Polyline {
-    if (intermediatePoints.length < 1) {
-        throw Error('A polyline requires at least one intermediate point.');
+    public move(vector: Point): Polyline {
+        return new Polyline({ ...this.props, points: this.props.points.map(point => point.add(vector)) });
     }
-    const marker = props.marker ?? 'end';
-    const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
-    const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
-    return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
-}
-
-export function DiagonalPolyline(
-    startElement: Circle | Ellipse,
-    endElement: Circle | Ellipse,
-    intermediatePoints: Point[],
-    props: Omit<PolylineProps, 'points'> = {},
-    startOffset?: number,
-    endOffset: number | undefined = startOffset,
-): Polyline {
-    if (intermediatePoints.length < 1) {
-        throw Error('A polyline requires at least one intermediate point.');
-    }
-    const marker = props.marker ?? 'end';
-    const start = startElement.pointTowards(intermediatePoints[0], startOffset ?? markerOffset(marker, 'start'));
-    const end = endElement.pointTowards(intermediatePoints[intermediatePoints.length - 1], endOffset ?? markerOffset(marker, 'end'));
-    return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
 }

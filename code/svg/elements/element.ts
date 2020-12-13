@@ -1,7 +1,7 @@
 import { Color } from '../../utility/color';
 import { filterUndefined, normalizeToArray } from '../../utility/functions';
 
-import { Box, EncompassAll } from '../utility/box';
+import { Box } from '../utility/box';
 import { Collector, createEmptyCollector } from '../utility/collector';
 import { indentation } from '../utility/constants';
 import { Point } from '../utility/point';
@@ -107,11 +107,11 @@ export abstract class StructuralElement<P extends StructuralElementProps> extend
     }
 
     protected _boundingBox({ children }: P): Box {
-        return EncompassAll(children.map(child => child.boundingBox()));
+        return Box.aroundAll(children.map(child => child.boundingBox()));
     }
 
     public clippingBox(): Box | undefined {
         const boxes = filterUndefined(this.props.children.map(child => child.clippingBox()));
-        return boxes.length === 0 ? undefined : EncompassAll(boxes);
+        return boxes.length === 0 ? undefined : Box.aroundAll(boxes);
     }
 }

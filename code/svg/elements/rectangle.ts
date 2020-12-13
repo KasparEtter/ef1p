@@ -26,6 +26,10 @@ export class Rectangle extends VisualElement<RectangleProps> {
         }
     }
 
+    public static fromBox(box: Box, props: Omit<RectangleProps, 'position' | 'size'> = {}): Rectangle {
+        return new Rectangle({ ...props, position: box.topLeft, size: box.size() });
+    }
+
     protected _boundingBox({ position, size }: RectangleProps): Box {
         return new Box(position, position.add(size));
     }
@@ -82,6 +86,10 @@ export class Rectangle extends VisualElement<RectangleProps> {
         const color = this.props.color;
         const ignoreForClipping = true;
         return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ignoreForClipping, ...props });
+    }
+
+    public move(vector: Point): Rectangle {
+        return new Rectangle({ ...this.props, position: this.props.position.add(vector) });
     }
 
     public cross(shorten: number = 0, color: Color | undefined = this.props.color): Line[] {

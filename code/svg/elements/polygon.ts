@@ -32,4 +32,8 @@ export class Polygon extends CenterTextElement<PolygonProps> {
             + ` points="${points.map(point => point.round3().encode()).join(' ')}">`
             + `${this.children(collector, prefix)}</polygon>\n`;
     }
+
+    public move(vector: Point): Polygon {
+        return new Polygon({ ...this.props, points: this.props.points.map(point => point.add(vector)) });
+    }
 }

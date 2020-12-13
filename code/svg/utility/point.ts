@@ -64,8 +64,24 @@ export class Point {
         return new Point(this.x * factor, this.y * factor);
     }
 
+    public multiplyX(factor: number): Point {
+        return new Point(this.x * factor, this.y);
+    }
+
+    public multiplyY(factor: number): Point {
+        return new Point(this.x, this.y * factor);
+    }
+
     public divide(factor: number): Point {
         return new Point(this.x / factor, this.y / factor);
+    }
+
+    public divideX(factor: number): Point {
+        return new Point(this.x / factor, this.y);
+    }
+
+    public divideY(factor: number): Point {
+        return new Point(this.x, this.y / factor);
     }
 
     public min(that: Point): Point {

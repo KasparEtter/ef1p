@@ -42,4 +42,8 @@ export class Circle extends CenterTextElement<CircleProps> {
         const { center, radius } = this.props;
         return center.add(target.subtract(center).normalize(radius + offset));
     }
+
+    public move(vector: Point): Circle {
+        return new Circle({ ...this.props, center: this.props.center.add(vector) });
+    }
 }

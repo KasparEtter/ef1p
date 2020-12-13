@@ -1,6 +1,6 @@
 import { normalizeToArray } from '../../utility/functions';
 
-import { BoundingBox, Box, BoxSide, opposite } from '../utility/box';
+import { Box, BoxSide, opposite } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { strokeRadius, textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
@@ -56,6 +56,49 @@ export class Arc extends VisualElement<ArcProps> {
         }
     }
 
+    public static connectBoxes(
+        startElement: VisualElement,
+        startSide: BoxSide,
+        endElement: VisualElement,
+        endSide: BoxSide,
+        props: Omit<ArcProps, 'start' | 'startSide' | 'end' | 'endSide'> = {},
+        startOffset?: number,
+        endOffset: number | undefined = startOffset,
+    ): Arc {
+        const marker = normalizeToArray(props.marker ?? 'end');
+        // Make sure not to break the arc's invariant.
+        if ((startOffset === undefined || endOffset === undefined) && startSide === endSide) {
+            if (marker.includes('middle')) {
+                startOffset = endOffset = 0;
+            } else if (marker.length > 0) {
+                startOffset = endOffset = strokeRadius;
+            } else {
+                startOffset = endOffset = strokeRadius / 4;
+            }
+        }
+        const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
+        return new Arc({ start, startSide, end, endSide, marker, ...props });
+    }
+
+    protected _boundingBox({ start, startSide, end, endSide, radius = defaultArcRadius }: ArcProps): Box {
+        const boundingBox = Box.around(start, end);
+        if (startSide === endSide) {
+            switch (startSide) {
+                case 'top':
+                    return new Box(boundingBox.topLeft.subtractY(radius), boundingBox.bottomRight);
+                case 'right':
+                    return new Box(boundingBox.topLeft, boundingBox.bottomRight.addX(radius));
+                case 'bottom':
+                    return new Box(boundingBox.topLeft, boundingBox.bottomRight.addY(radius));
+                case 'left':
+                    return new Box(boundingBox.topLeft.subtractX(radius), boundingBox.bottomRight);
+            }
+        } else {
+            return boundingBox;
+        }
+    }
+
     public radius(): Point {
         const { start, end, radius = defaultArcRadius } = this.props;
         const vector = end.subtract(start).absolute();
@@ -77,24 +120,6 @@ export class Arc extends VisualElement<ArcProps> {
             return circumference / 2;
         } else {
             return circumference / 4;
-        }
-    }
-
-    protected _boundingBox({ start, startSide, end, endSide, radius = defaultArcRadius }: ArcProps): Box {
-        const boundingBox = BoundingBox(start, end);
-        if (startSide === endSide) {
-            switch (startSide) {
-                case 'top':
-                    return new Box(boundingBox.topLeft.subtractY(radius), boundingBox.bottomRight);
-                case 'right':
-                    return new Box(boundingBox.topLeft, boundingBox.bottomRight.addX(radius));
-                case 'bottom':
-                    return new Box(boundingBox.topLeft, boundingBox.bottomRight.addY(radius));
-                case 'left':
-                    return new Box(boundingBox.topLeft.subtractX(radius), boundingBox.bottomRight);
-            }
-        } else {
-            return boundingBox;
         }
     }
 
@@ -205,29 +230,8 @@ export class Arc extends VisualElement<ArcProps> {
 
         return new Text({ position, text, ...determineAlignment(offset), color, ...props });
     }
-}
 
-export function ConnectionArc(
-    startElement: VisualElement,
-    startSide: BoxSide,
-    endElement: VisualElement,
-    endSide: BoxSide,
-    props: Omit<ArcProps, 'start' | 'startSide' | 'end' | 'endSide'> = {},
-    startOffset?: number,
-    endOffset: number | undefined = startOffset,
-): Arc {
-    const marker = normalizeToArray(props.marker ?? 'end');
-    // Make sure not to break the arc's invariant.
-    if ((startOffset === undefined || endOffset === undefined) && startSide === endSide) {
-        if (marker.includes('middle')) {
-            startOffset = endOffset = 0;
-        } else if (marker.length > 0) {
-            startOffset = endOffset = strokeRadius;
-        } else {
-            startOffset = endOffset = strokeRadius / 4;
-        }
+    public move(vector: Point): Arc {
+        return new Arc({ ...this.props, start: this.props.start.add(vector), end: this.props.end.add(vector) });
     }
-    const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
-    const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
-    return new Arc({ start, startSide, end, endSide, marker, ...props });
 }
