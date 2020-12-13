@@ -1,7 +1,7 @@
 import { zeroPoint } from '../../../code/svg/utility/point';
 
 import { Circle } from '../../../code/svg/elements/circle';
-import { DiagonalLine } from '../../../code/svg/elements/line';
+import { Line } from '../../../code/svg/elements/line';
 import { printSVG } from '../../../code/svg/elements/svg';
 
 import { linkProperties, relayProperties } from './network-topology';
@@ -11,7 +11,7 @@ const center = new Circle({ center: zeroPoint, ...relayProperties })
 
 const links = new Array();
 for (let i = 0; i < amount; i++) {
-    links.push(DiagonalLine(nodes[i], center, linkProperties));
+    links.push(Line.connectEllipses(nodes[i], center, linkProperties));
 }
 
 printSVG(...links, ...nodes, center);

@@ -2,7 +2,7 @@ import { textToLineDistance } from '../../../code/svg/utility/constants';
 import { zeroPoint } from '../../../code/svg/utility/point';
 
 import { Circle } from '../../../code/svg/elements/circle';
-import { DiagonalLine } from '../../../code/svg/elements/line';
+import { Line } from '../../../code/svg/elements/line';
 import { small } from '../../../code/svg/elements/text';
 
 import { defaultDistance, lineProperties, nodeProperties, relayProperties } from './network-topology';
@@ -43,7 +43,7 @@ export const linkPairs = [
     [C, C2],
     [C, C3],
 ];
-export const links = linkPairs.map(pair => DiagonalLine(pair[0], pair[1], lineProperties));
+export const links = linkPairs.map(pair => Line.connectEllipses(pair[0], pair[1], lineProperties));
 
 export const relayLabels = ['A', 'B', 'C'].map((text, index) => relays[index].text(text));
 export const nodeLabels = ['A1', 'A2', 'B1', ['B2', '', '', 'C1'], 'C2', 'C3'].map((text, index) => nodes[index].text(text));

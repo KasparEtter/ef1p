@@ -4,7 +4,7 @@ import { BoxSide } from '../../../code/svg/utility/box';
 import { P, Point } from '../../../code/svg/utility/point';
 
 import { VisualElement } from '../../../code/svg/elements/element';
-import { ConnectionLine } from '../../../code/svg/elements/line';
+import { Line } from '../../../code/svg/elements/line';
 import { Rectangle } from '../../../code/svg/elements/rectangle';
 import { printSVG } from '../../../code/svg/elements/svg';
 import { Text } from '../../../code/svg/elements/text';
@@ -55,7 +55,7 @@ function generateSquares(x: number, layer: number, shorten = 5) {
             startSide = 'right';
             endSide = 'left';
         }
-        elements.push(ConnectionLine(previousSquare, startSide, square!, endSide, { color: previousColor }, 2 * strokeRadius, strokeRadius).shorten(shorten));
+        elements.push(Line.connectBoxes(previousSquare, startSide, square!, endSide, { color: previousColor }, 2 * strokeRadius, strokeRadius).shorten(shorten));
     }
     previousSquare = square;
     previousCenter = center;
