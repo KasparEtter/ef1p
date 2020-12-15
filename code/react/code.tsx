@@ -32,3 +32,7 @@ export function UserCommand({ children }: Children): JSX.Element {
 export function SystemReply({ children }: Children): JSX.Element {
     return <div className="text-gray">{children}</div>;
 }
+
+export function Comment({ children }: Children): JSX.Element {
+    return <div className="text-gray">{children}</div>;
+}
