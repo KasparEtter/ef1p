@@ -6,6 +6,6 @@ import { entities, messages } from './greeting-protocol';
     message.color = 'blue';
 });
 
-messages[3].delay = -1;
+messages[4].delay = -1;
 
 printProtocol(entities, messages);

@@ -8,6 +8,10 @@ export class Point {
         public readonly y: number,
     ) {}
 
+    public static max(points: Point[]): Point {
+        return points.reduce((previousSize, currentSize) => previousSize.max(currentSize), zeroPoint);
+    }
+
     public length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }

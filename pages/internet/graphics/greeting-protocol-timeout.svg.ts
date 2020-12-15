@@ -5,9 +5,8 @@ const newMessage: Message = {
     ...left,
     text: 'Bye.',
     color: 'red',
+    delay: 3,
 }
-
-messages[1].delay = 3;
 
 messages.splice(2, 4, newMessage);
 printProtocol(entities, messages);
