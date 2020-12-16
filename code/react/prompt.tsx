@@ -19,7 +19,7 @@ export const prompt: DynamicEntry<string> = {
     validate: (value: string) => value.length === 0 && 'The prompt may not be empty.',
 };
 
-function getPrompt(value: string, children: ReactNode): JSX.Element {
+function getPrompt(value: string, children: ReactNode, noNewline?: boolean): JSX.Element {
     return <div className="prompt">
         <span
             title={prompt.name + ': ' + normalizeToValue(prompt.description, value)}
@@ -28,20 +28,27 @@ function getPrompt(value: string, children: ReactNode): JSX.Element {
             {value}
         </span>
         {' '}
-        <ClickToCopy newline>
+        <ClickToCopy newline={!noNewline}>
             {children}
         </ClickToCopy>
     </div>;
 }
 
-export function StaticPrompt({ children }: Children): JSX.Element {
-    return getPrompt(normalizeToValue(prompt.defaultValue, undefined), children);
+export interface PromptProps {
+    /**
+     * Append no newline character when copying the prompt to the clipboard.
+     */
+    noNewline?: boolean;
+}
+
+export function StaticPrompt({ children, noNewline }: Children & PromptProps): JSX.Element {
+    return getPrompt(normalizeToValue(prompt.defaultValue, undefined), children, noNewline);
 }
 
 export interface StateWithPrompt {
     prompt: string;
 }
 
-export function RawPrompt<State extends StateWithPrompt>({ store, children }: ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Children): JSX.Element {
-    return getPrompt(getCurrentState(store).prompt, children);
+export function RawPrompt<State extends StateWithPrompt>({ store, children, noNewline }: ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Children & PromptProps): JSX.Element {
+    return getPrompt(getCurrentState(store).prompt, children, noNewline);
 }

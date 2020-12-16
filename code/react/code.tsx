@@ -34,5 +34,5 @@ export function SystemReply({ children }: Children): JSX.Element {
 }
 
 export function Comment({ children }: Children): JSX.Element {
-    return <div className="text-gray">{children}</div>;
+    return <div className="text-gray" title="This is just a comment.">{children}</div>;
 }

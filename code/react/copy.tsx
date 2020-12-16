@@ -6,7 +6,7 @@ import { Children } from './utility';
 
 function copy(target: EventTarget & HTMLSpanElement): void {
     if (copyToClipboardWithAnimation(
-        target.innerText + (target.dataset.newline ? '\n' : ''),
+        target.innerText + (target.dataset.newline === 'true' ? '\n' : ''),
         target,
         target.dataset.effect as AnimationEffect | undefined,
     )) {
