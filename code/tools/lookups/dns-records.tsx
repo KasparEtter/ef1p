@@ -417,13 +417,18 @@ export const toolLookupDnsRecords = <Fragment>
 
 /* ------------------------------ Element bindings ------------------------------ */
 
+function clickHandler(this: HTMLElement): void {
+    const { domain, type, dnssec } = this.dataset;
+    setDnsResolverInputs(domain!, type as RecordType, dnssec === 'true');
+}
+
 export function bindDnsQueries() {
     Array.from(document.getElementsByClassName('bind-dns-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
         const { domain, type, dnssec } = element.dataset;
         if (domain === undefined || !Object.keys(recordTypes).includes(type!) || !['true', 'false'].includes(dnssec!)) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
-            element.addEventListener('click', () => setDnsResolverInputs(domain, type as RecordType, dnssec === 'true'));
+            element.addEventListener('click', clickHandler);
         }
     });
 }
