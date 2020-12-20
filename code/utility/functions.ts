@@ -1,5 +1,7 @@
 import { Dictionary, EventHandler, NotFunction, ValueOrArray, ValueOrFunction } from './types';
 
+/* ------------------------------ Normalization ------------------------------ */
+
 export function normalizeToValue<T extends NotFunction | undefined, I = undefined>(argument: ValueOrFunction<T, I>, input: I): T {
     return typeof argument === 'function' ? argument(input) : argument;
 }
@@ -11,6 +13,8 @@ export function normalizeToArray<T>(argument?: ValueOrArray<T>): T[] {
         return Array.isArray(argument) ? argument : [ argument ];
     }
 }
+
+/* ------------------------------ Array ------------------------------ */
 
 export function removeFromArrayOnce<T>(array: T[], value: T): boolean {
     const index = array.indexOf(value);
@@ -44,8 +48,8 @@ export function replaceFirstInPlace<T>(array: T[], oldValue: T, newValue: T): bo
 }
 
 // https://codereview.stackexchange.com/a/202442
-export function filterUndefined<T>(ts: (T | undefined)[]): T[] {
-    return ts.filter((t: T | undefined): t is T => t !== undefined)
+export function filterUndefined<T>(array: (T | undefined)[]): T[] {
+    return array.filter((t: T | undefined): t is T => t !== undefined)
 }
 
 export function flatten<T>(array: T[][]): T[] {
@@ -60,27 +64,37 @@ export function sortNumbers(array: number[]): number[] {
     return array.sort((a, b) => a - b);
 }
 
+/* ------------------------------ String ------------------------------ */
+
 export function nonEmpty(value: string): boolean {
     return value.length > 0;
 }
 
-export function escape(value: string): string {
+export function escapeDoubleQuotes(value: string): string {
     return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-/**
- * Escapes and quotes the given value.
- */
-export function quote(value: string): string {
-    return `"${escape(value)}"`;
+export function doubleQuote(value: string): string {
+    return `"${escapeDoubleQuotes(value)}"`;
 }
 
-/**
- * Quotes the given value if it contains a space.
- */
-export function quoteIfNecessary(value: string): string {
-    return value.includes(' ') ? quote(value) : value;
+export function doubleQuoteIfWhitespace(value: string): string {
+    return /\s/.test(value) ? doubleQuote(value) : value;
 }
+
+export function escapeSingleQuote(value: string): string {
+    return value.replace(/'/g, '\'\\\'\'');
+}
+
+export function singleQuote(value: string): string {
+    return `'${escapeSingleQuote(value)}'`;
+}
+
+export function toHex(value: number, minLength = 0): string {
+    return value.toString(16).toUpperCase().padStart(minLength, '0');
+}
+
+/* ------------------------------ Records ------------------------------ */
 
 export function createRecord(array: string[]): Record<string, string> {
     const result: Record<string, string> = {};
@@ -102,6 +116,8 @@ export function getInitialized<T>(object: { [key: string]: T[] | undefined }, ke
 export function reverseLookup<T = string>(dictionary: Dictionary<T>, value: T): string | undefined {
     return Object.keys(dictionary).find(key => dictionary[key] === value);
 }
+
+/* ------------------------------ Other ------------------------------ */
 
 export function getRandomString(): string {
     return Math.random().toString(36).substring(2);
