@@ -1,8 +1,10 @@
 .static-output,
 .dynamic-output {
+  display: inline-block;
   padding: 1px 3px;
   margin: -1px -3px;
   border-radius: 4px;
+  text-align: center;
 }
 
 pre,
@@ -19,6 +21,10 @@ code {
   position: relative;
   z-index: 1;
   color: $body-bg;
+
+  * {
+    color: $body-bg;
+  }
 }
 
 .static-output:hover {

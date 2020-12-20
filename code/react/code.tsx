@@ -1,5 +1,5 @@
 import { ClickToCopy } from './copy';
-import { Children, ClickHandler, Title } from './utility';
+import { Children, ClassName, ClickHandler, Title } from './utility';
 
 export function CodeBlock({ children }: Children): JSX.Element {
     return <pre>{children}</pre>;
@@ -9,16 +9,16 @@ export function InlineCode({ children }: Children): JSX.Element {
     return <code>{children}</code>;
 }
 
-export function StaticOutput({ title, children }: Title & Children): JSX.Element {
+export function StaticOutput({ className, title, children }: ClassName & Title & Children): JSX.Element {
     return <span
-        className="static-output"
+        className={'static-output' + (className ? ' ' + className : '')}
         title={title}
     >{children}</span>;
 }
 
-export function DynamicOutput({ title, onClick, onContextMenu, children }: Title & ClickHandler & Children): JSX.Element {
+export function DynamicOutput({ className, title, onClick, onContextMenu, children }: ClassName & Title & ClickHandler & Children): JSX.Element {
     return <span
-        className="dynamic-output"
+        className={'dynamic-output' + (className ? ' ' + className : '')}
         title={title}
         onClick={onClick}
         onContextMenu={onContextMenu}

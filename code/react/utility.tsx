@@ -16,6 +16,13 @@ export interface Title {
 }
 
 /**
+ * Declares the className attribute to be combined with other properties.
+ */
+export interface ClassName {
+    className?: string;
+}
+
+/**
  * Declares the onClick and onContextMenu attributes to be combined with other properties.
  */
 export interface ClickHandler {
