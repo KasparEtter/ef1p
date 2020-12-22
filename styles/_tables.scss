@@ -8,6 +8,13 @@
   margin-top: 0;
 }
 
+.table-with-vertical-border-after-column-1 {
+  td:nth-child(1),
+  th:nth-child(1) {
+    border-right: (2 * $table-border-width) solid $table-border-color;
+  }
+}
+
 .table-with-vertical-border-after-column-2 {
   td:nth-child(2),
   th:nth-child(2) {
