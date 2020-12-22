@@ -11,6 +11,10 @@ import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
 import { bold, estimateSizeWithMargin, Text, TextLine } from '../elements/text';
 
+export const defaultHorizontalGap = 238;
+export const defaultVerticalGap = 18;
+export const defaultTimeUnit = lineHeight + defaultVerticalGap;
+
 export interface Entity {
     text: TextLine | TextLine[];
     color?: Color;
@@ -49,8 +53,8 @@ function arrowHeight(message: Message, verticalGap: number): number {
 export function generateProtocol(
     entities: Entity[] | string[],
     messages: Message[],
-    distance: number = 238,
-    verticalGap: number = 18,
+    distance = defaultHorizontalGap,
+    verticalGap = defaultVerticalGap,
 ): [Group[], Group[]] {
     if (typeof entities[0] === 'string') {
         entities = (entities as string[]).map(text => ({ text: bold(text) }));
@@ -90,8 +94,9 @@ export function generateProtocol(
 export function printProtocol(
     entities: Entity[] | string[],
     messages: Message[],
-    distance: number = 238,
+    distance = defaultHorizontalGap,
+    verticalGap = defaultVerticalGap,
 ): void {
-    const [entityGroups, messageGroups] = generateProtocol(entities, messages, distance);
+    const [entityGroups, messageGroups] = generateProtocol(entities, messages, distance, verticalGap);
     printSVG(...entityGroups, ...messageGroups);
 }
