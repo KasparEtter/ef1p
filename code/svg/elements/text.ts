@@ -26,6 +26,21 @@ export abstract class Tspan {
     public abstract estimateWidth(): number;
 }
 
+function transformText(text: TextLine, className: string): TextLine {
+    if (typeof text === 'string') {
+        switch (className) {
+            case 'text-uppercase':
+                return text.toUpperCase();
+            case 'text-uppercase':
+                return text.toLowerCase();
+            default:
+                return text;
+        }
+    } else {
+        return text;
+    }
+}
+
 class TspanWithTextStyle extends Tspan {
     public constructor(
         text: TextLine,
@@ -37,7 +52,7 @@ class TspanWithTextStyle extends Tspan {
 
     public estimateWidth(): number {
         // The estimate can get even more inaccurate when the same style is nested.
-        return estimateWidthOfTextLine(this.text) * multiplier(this.widthStyle);
+        return estimateWidthOfTextLine(transformText(this.text, this.className)) * multiplier(this.widthStyle);
     }
 }
 
