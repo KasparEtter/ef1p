@@ -364,12 +364,12 @@ const domainName: DynamicEntry<string> = {
     labelWidth: 60,
     inputWidth: 250,
     validate: value =>
-        value === '' && 'The domain name may not be empty.' || // Redundant to the regular expression, just a more specific error message.
+        value === '' && 'The domain name may not be empty.' ||
         value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
         value.length > 253 && 'The domain name may be at most 253 characters long.' ||
-        !value.split('.').every(label => label.length < 64) && 'Each part may be at most 63 characters long.' ||
-        !/^[a-z0-9-_\.]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(([a-z0-9_]+(-[a-z0-9]+)*\.)*[a-z]{2,63})?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
+        !value.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
+        !/^[-a-z0-9_\.]+$/i.test(value) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
+        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
 };
 
 const recordType: DynamicEntry<string> = {
