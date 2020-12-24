@@ -125,7 +125,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     }
 
     private readonly onCancel = () => {
-        this.props.store.state.inputs = getCurrentState(this.props.store);
+        this.props.store.state.inputs = { ...getCurrentState(this.props.store) }; // It has to be a copy.
         clearErrors(this.props.store);
         this.props.store.update('input');
     }
