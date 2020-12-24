@@ -94,6 +94,23 @@ export function toHex(value: number, minLength = 0): string {
     return value.toString(16).toUpperCase().padStart(minLength, '0');
 }
 
+/**
+ * Returns the given string with newlines normalized to CR + LF.
+ */
+export function normalizeNewlines(value: string): string {
+    return value.replace(/\r?\n/g, '\r\n');
+}
+
+/**
+ * Returns how many times the given string matches the given regular expression.
+ */
+export function countOccurrences(value: string, regex: RegExp): number {
+    if (!regex.global) {
+        throw Error('Set the global flag on the provided regular expression.');
+    }
+    return (value.match(regex) || []).length
+}
+
 /* ------------------------------ Records ------------------------------ */
 
 export function createRecord(array: string[]): Record<string, string> {
