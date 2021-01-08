@@ -1,6 +1,7 @@
 {
     "blanks-around-headings": {
-        "lines_below": 0
+        "lines_above": 2,
+        "lines_below": 1
     },
     "blanks-around-lists": false,
     "fenced-code-language": false,
@@ -11,24 +12,7 @@
     "no-duplicate-heading": {
         "siblings_only": true
     },
-    "no-inline-html": {
-        "allowed_elements": [
-            "a",
-            "br",
-            "code",
-            "i",
-            "details",
-            "div",
-            "figure",
-            "figcaption",
-            "img",
-            "s",
-            "span",
-            "sub",
-            "summary",
-            "sup"
-        ]
-    },
+    "no-inline-html": false,
     "no-multiple-blanks": false,
     "no-trailing-punctuation": {
         "punctuation": ",;"
