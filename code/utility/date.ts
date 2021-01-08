@@ -12,6 +12,10 @@ export function toLocalDateWithTimeString(date: Date): string {
     return toLocalISOString(date).slice(0, 16).replace('T', ' at ');
 }
 
+export function toLocalTimeString(date: Date): string {
+    return toLocalISOString(date).slice(11, 19);
+}
+
 /* Current date */
 
 export function getCurrentDate(): string {
@@ -20,6 +24,10 @@ export function getCurrentDate(): string {
 
 export function getCurrentDateWithTime(): string {
     return toLocalDateWithTimeString(new Date());
+}
+
+export function getCurrentTime(): string {
+    return toLocalTimeString(new Date());
 }
 
 /* Unix timestamp */
