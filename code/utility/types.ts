@@ -28,14 +28,23 @@ export type ValueOrArray<T> = T | T[];
 /**
  * A function which returns a value of the given type.
  */
-export type Function<T, I = undefined> = (input: I) => T;
+export type Function<O, I = undefined> = (input: I) => O;
 
 /**
  * Value or function which returns a value of the same type.
  */
-export type ValueOrFunction<T extends NotFunction | undefined, I = undefined> = T | Function<T, I>;
+export type ValueOrFunction<O extends NotFunction | undefined, I = undefined> = O | Function<O, I>;
 
 /**
  * Handles an arbitrary event.
  */
 export type EventHandler = (event: Event) => any;
+
+/**
+ * A button with the given text, title, and handler.
+ */
+export interface Button<I = undefined, O = any> {
+    text: string;
+    title: string;
+    onClick: (input: I) => O;
+};

@@ -1,7 +1,7 @@
 import { ChangeEvent, Component, Fragment, MouseEvent } from 'react';
 
 import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
-import { ObjectButNotFunction } from '../utility/types';
+import { Button, ObjectButNotFunction } from '../utility/types';
 
 import { CustomInput, CustomTextarea } from './custom';
 import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
@@ -39,17 +39,10 @@ export interface InputProps<State extends ObjectButNotFunction> {
     inline?: boolean;
 
     /**
-     * The text on the submit button.
-     * No submit button is displayed if this value is not provided.
-     */
-    submit?: string;
-
-    /**
      * For submit actions specific to this instantiation of the form.
-     * It is triggered on pressing enter in one of the fields
-     * or when the user clicks on the submit button.
+     * It is triggered when the user presses enter in one of the fields or clicks on the button.
      */
-    onSubmit?: (newState: State) => any;
+    submit?: Button<State>;
 }
 
 export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
@@ -70,7 +63,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     private readonly onEnter = (event: Event) => {
         this.handle(event, true);
         if (hasNoErrors(this.props.store)) {
-            this.props.onSubmit?.(getCurrentState(this.props.store));
+            this.props.submit?.onClick(getCurrentState(this.props.store));
         }
     }
 
@@ -91,7 +84,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const key = target.name as keyof State;
         const entry: DynamicEntry<any, State> = this.props.entries[key]!;
         const state = getCurrentState(this.props.store);
-        const [value, error] = await entry.determine!(state);
+        const [value, error] = await entry.determine!.onClick(state);
         if (error) {
             this.props.store.state.inputs[key] = value;
             this.props.store.state.errors[key] = error;
@@ -106,7 +99,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         if (hasNoErrors(this.props.store)) {
             const state = getCurrentState(this.props.store);
             normalizeToArray(this.props.store.meta.onChange).forEach(handler => handler(state, true));
-            this.props.onSubmit?.(state);
+            this.props.submit?.onClick(state);
         }
     }
 
@@ -248,20 +241,20 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
             }
             {
                 entry.determine &&
-                <button name={key} type="button" className="btn btn-primary btn-sm align-top ml-2" onClick={this.onDetermine} disabled={disabled} title="Determine a suitable value.">Determine</button>
+                <button name={key} type="button" className="btn btn-primary btn-sm align-top ml-2" onClick={this.onDetermine} disabled={disabled} title={entry.determine.title}>{entry.determine.text}</button>
             }
         </label>;
     };
 
     private renderSubmitButton = (hasErrors: boolean) => {
-        return this.props.submit && (this.props.store.meta.onChange || this.props.onSubmit) &&
+        return this.props.submit &&
             <button
                 type="button"
                 className="label btn btn-sm btn-primary input-buttons-group"
                 onClick={this.onSubmit}
                 disabled={hasErrors}
-                title={hasErrors ? 'Make sure that there are no errors.' : 'Submit the input fields.'}
-            >{this.props.submit}</button>;
+                title={hasErrors ? 'Make sure that there are no errors.' : this.props.submit.title}
+            >{this.props.submit.text}</button>;
     };
 
     private renderHistoryButtons = () => {

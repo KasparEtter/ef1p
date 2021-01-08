@@ -1,5 +1,5 @@
 import { Color } from '../utility/color';
-import { Function, ObjectButNotFunction, ValueOrArray, ValueOrFunction } from '../utility/types';
+import { Button, Function, ObjectButNotFunction, ValueOrArray, ValueOrFunction } from '../utility/types';
 
 export type ValueType = boolean | number | string;
 export type ErrorType = string | false;
@@ -110,9 +110,9 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
 
     /**
      * Creates a button which the user can press in order to determine a suitable value for this entry.
-     * The function is only called with a valid state.
+     * The handler is only called with a valid state.
      */
-    readonly determine?: Function<Promise<[T, ErrorType]>, State>;
+    readonly determine?: Button<State, Promise<[T, ErrorType]>>;
 }
 
 export function isDynamicEntry<T extends ValueType, State extends ObjectButNotFunction = {}>(entry: Entry<T, State>): entry is DynamicEntry<T, State> {
