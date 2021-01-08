@@ -411,7 +411,14 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolLookupDnsRecords = <Fragment>
-    <Input entries={entries} submit="Query"/>
+    <Input
+        entries={entries}
+        submit={{
+            text: 'Query',
+            title: 'Query the records of the given domain name.',
+            onClick: () => {},
+        }}
+    />
     <DnsResponseTable/>
 </Fragment>;
 

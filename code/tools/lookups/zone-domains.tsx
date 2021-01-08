@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { DynamicEntry } from '../../react/entry';
 import { InputProps, RawInput } from '../../react/input';
 import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
+import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
 import { PersistedStore, Store } from '../../react/store';
 import { join } from '../../react/utility';
 
@@ -61,8 +61,12 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
         {
             nextQuery &&
             <p className="text-center">
-                <a href="#tool-lookup-zone-domains" className="btn btn-sm btn-primary" onClick={() => setZoneWalkerInputFields(nextQuery)}>
-                    <i className="icon-left fas fa-arrow-alt-circle-right"></i>Continue
+                <a
+                    href="#tool-lookup-zone-domains"
+                    className="btn btn-sm btn-primary"
+                    onClick={() => { setZoneWalkerInputFields(nextQuery); walkZone(getCurrentState(store)); }}
+                >
+                    Continue
                 </a>
             </p>
         }
@@ -142,23 +146,23 @@ const startDomain: DynamicEntry<string> = {
     labelWidth: 95,
     inputWidth: 220,
     validate: value =>
-        value === '' && 'The domain name may not be empty.' || // Redundant to the regular expression, just a more specific error message.
+        value === '' && 'The domain name may not be empty.' ||
         value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
         value.length > 253 && 'The domain name may be at most 253 characters long.' ||
-        !value.split('.').every(label => label.length < 64) && 'Each part may be at most 63 characters long.' ||
-        !/^[a-z0-9-_\.\*]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(([a-z0-9-_]+\*?\.)*[a-z]{2,63})?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
+        !value.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
+        !/^[-a-z0-9_\.\*]+$/i.test(value) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
+        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\*?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
 };
 
 const resultLimit: DynamicEntry<number> = {
     name: 'Result limit',
     description: 'Configure the maximum number of results to be returned.',
-    defaultValue: 75,
+    defaultValue: 20,
     inputType: 'range',
     labelWidth: 84,
-    minValue: 25,
+    minValue: 10,
     maxValue: 150,
-    stepValue: 25,
+    stepValue: 10,
 };
 
 interface State {
@@ -181,7 +185,14 @@ export function setZoneWalkerInputFields(startDomain: string, resultLimit?: numb
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolLookupZoneDomains = <Fragment>
-    <Input entries={entries} submit="Walk" onSubmit={walkZone}/>
+    <Input
+        entries={entries}
+        submit={{
+            text: 'Walk',
+            title: 'List the domain names in the given zone.',
+            onClick: walkZone,
+        }}
+    />
     <ZoneWalkerResponseTable/>
 </Fragment>;
 

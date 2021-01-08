@@ -117,6 +117,13 @@ export function setIpInfoInput(ipAddress: string): void {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolLookupIpAddress = <Fragment>
-    <Input entries={entries} submit="Locate"/>
+    <Input
+        entries={entries}
+        submit={{
+            text: 'Locate',
+            title: 'Locate the given IPv4 address.',
+            onClick: () => {},
+        }}
+    />
     <IpInfoResponseParagraph/>
 </Fragment>;

@@ -19,12 +19,12 @@ const webAddress: DynamicEntry<string> = {
     labelWidth: 96,
     inputWidth: 450,
     validate: value =>
-        // These checks are redundant to the regular expression on the last line of this property but they provide a more specific error message.
+        // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.
         value === '' && 'The web address may not be empty.' ||
         value.includes(' ') && 'The web address may not contain spaces.' ||
         !value.startsWith('http://') && !value.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
-        !/^[a-z0-9-_\.:\/?&=]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(http|https):\/\/([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}(:\d+)?(\/[a-z0-9-_\.:\/?&=]*)?$/i.test(value) && 'The pattern of the web address is invalid.',
+        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
+        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(value) && 'The pattern of the web address is invalid.',
 };
 
 interface State {
