@@ -36,6 +36,9 @@ export interface LineProps extends VisualElementProps {
     start: Point;
     end: Point;
     marker?: Marker | Marker[];
+    // The offsets are used to correct the center of the line.
+    startOffset?: number;
+    endOffset?: number;
 }
 
 export class Line extends VisualElement<LineProps> {
@@ -44,14 +47,16 @@ export class Line extends VisualElement<LineProps> {
         startSide: BoxSide,
         endElement: VisualElement,
         endSide: BoxSide,
-        props: Omit<LineProps, 'start' | 'end'> = {},
+        props: Omit<LineProps, 'start' | 'end' | 'startOffset' | 'endOffset'> = {},
         startOffset?: number,
         endOffset: number | undefined = startOffset,
     ): Line {
         const marker = props.marker ?? 'end';
-        const start = startElement.boundingBox().pointAt(startSide, startOffset ?? markerOffset(marker, 'start'));
-        const end = endElement.boundingBox().pointAt(endSide, endOffset ?? markerOffset(marker, 'end'));
-        return new Line({ start, end, marker, ...props });
+        startOffset ??= markerOffset(marker, 'start');
+        endOffset ??= markerOffset(marker, 'end');
+        const start = startElement.boundingBox().pointAt(startSide, startOffset);
+        const end = endElement.boundingBox().pointAt(endSide, endOffset);
+        return new Line({ start, end, marker, startOffset, endOffset, ...props });
     }
 
     public static connectEllipses(
@@ -62,9 +67,11 @@ export class Line extends VisualElement<LineProps> {
         endOffset: number | undefined = startOffset,
     ): Line {
         const marker = props.marker ?? 'end';
-        const start = startElement.pointTowards(endElement.center(), startOffset ?? markerOffset(marker, 'start'));
-        const end = endElement.pointTowards(startElement.center(), endOffset ?? markerOffset(marker, 'end'));
-        return new Line({ start, end, marker, ...props });
+        startOffset ??= markerOffset(marker, 'start');
+        endOffset ??= markerOffset(marker, 'end');
+        const start = startElement.pointTowards(endElement.center(), startOffset);
+        const end = endElement.pointTowards(startElement.center(), endOffset);
+        return new Line({ start, end, marker, startOffset, endOffset, ...props });
     }
 
     protected _boundingBox({ start, end }: LineProps): Box {
@@ -97,6 +104,16 @@ export class Line extends VisualElement<LineProps> {
             + `>${this.children(collector, prefix)}</line>\n`;
     }
 
+    public center(): Point {
+        let center = this.props.start.center(this.props.end);
+        const startOffset = this.props.startOffset ?? 0;
+        const endOffset = this.props.endOffset ?? 0;
+        if (startOffset !== endOffset) {
+            center = center.add(this.props.end.subtract(this.props.start).normalize((endOffset - startOffset) / 2));
+        }
+        return center;
+    }
+
     public text(
         text: TextLine | TextLine[],
         side: LineSide = 'left',
@@ -114,6 +131,14 @@ export class Line extends VisualElement<LineProps> {
         const start = this.props.start.add(vector);
         const end = this.props.end.add(vector);
         return new Line({ ...this.props, start, end }); // Overriding old start and end properties.
+    }
+
+    public moveLeft(): Line {
+        return this.move(this.vector().rotate('left').normalize(textToLineDistance / 2));
+    }
+
+    public moveRight(): Line {
+        return this.move(this.vector().rotate('right').normalize(textToLineDistance / 2));
     }
 
     public shorten(startOffset: number, endOffset: number = startOffset): Line {
