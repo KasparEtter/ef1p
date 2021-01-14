@@ -244,7 +244,15 @@ export function verticalAlignmentFactor(value: VerticalAlignment): number {
 export interface TextProps extends VisualElementProps {
     position: Point;
     text: TextLine | TextLine[];
+
+    /**
+     * Defaults to 'left'.
+     */
     horizontalAlignment?: HorizontalAlignment;
+
+    /**
+     * Defaults to 'top'.
+     */
     verticalAlignment?: VerticalAlignment;
 }
 
@@ -253,7 +261,7 @@ export class Text extends VisualElement<TextProps> {
         super(props);
 
         if (Array.isArray(props.text) && props.text.length === 0) {
-            throw Error(`If the text is provided as an array, at least one line has to be provided.`);
+            throw Error('If the text is provided as an array, at least one line has to be provided.');
         }
     }
 
@@ -280,10 +288,7 @@ export class Text extends VisualElement<TextProps> {
         text = normalizeToArray(text);
         position = position.round3();
         collector.elements.add('text');
-        let result = prefix + `<text` + this.attributes(collector)
-            + ` x="${position.x}"`
-            + ` y="${position.y}"`
-            + ` text-anchor="${translateHorizontalAlignment(horizontalAlignment)}">\n`;
+        let result = prefix + `<text${this.attributes(collector)} text-anchor="${translateHorizontalAlignment(horizontalAlignment)}">\n`;
         let y: number;
         // Vertical positioning is done manually because
         // Safari does not support 'dominant-baseline' on tspans
@@ -300,11 +305,13 @@ export class Text extends VisualElement<TextProps> {
                 break;
         }
         collector.elements.add('tspan');
+        result += prefix + indentation;
         for (const line of text) {
-            result += prefix + indentation + `<tspan x="${position.x}" y="${round3(y)}">${encode(line, collector)}</tspan>\n`;
+            // Newlines between tspans is rendered as a space and thus needs to be avoided.
+            result += `<tspan x="${position.x}" y="${round3(y)}">${encode(line, collector)}</tspan>`;
             y += lineHeight;
         }
-        result += prefix + this.children(collector, prefix) + `</text>\n`;
+        result += (this.children(collector, prefix) || `\n` + prefix) + `</text>\n`;
         return result;
     }
 
