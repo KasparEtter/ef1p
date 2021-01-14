@@ -110,7 +110,7 @@ export function estimateWidthOfString(text: string): number {
 }
 
 // All text styles that affect the width of a string.
-export type TextStyle = 'normal' | 'bold' | 'italic' | 'small' | 'large';
+export type TextStyle = 'normal' | 'bold' | 'italic' | 'small' | 'large' | 'script';
 
 export function multiplier(style: TextStyle = 'normal'): number {
     switch (style) {
@@ -119,5 +119,6 @@ export function multiplier(style: TextStyle = 'normal'): number {
         case 'italic': return 0.92355;
         case 'small': return 0.8;
         case 'large': return 1.6;
+        case 'script': return 0.75;
     }
 }

@@ -16,11 +16,12 @@ export abstract class Tspan {
     public constructor(
         protected readonly text: TextLine,
         protected readonly className: string,
+        protected readonly dy?: number,
     ) {}
 
     public encode(collector: Collector): string {
         collector.classes.add(this.className);
-        return `<tspan class="${this.className}">${encode(this.text, collector)}</tspan>`;
+        return `<tspan class="${this.className}"${ this.dy ? ` dy="${this.dy}"` : ''}>${encode(this.text, collector)}</tspan>${ this.dy ? `<tspan dy="${this.dy * -1}">&#8203;</tspan>` : ''}`;
     }
 
     public abstract estimateWidth(): number;
@@ -46,8 +47,9 @@ class TspanWithTextStyle extends Tspan {
         text: TextLine,
         className: string,
         protected readonly widthStyle: TextStyle,
+        protected readonly dy?: number,
     ) {
-        super(text, className);
+        super(text, className, dy);
     }
 
     public estimateWidth(): number {
@@ -86,6 +88,14 @@ export function small(text: TextLine): Tspan {
 
 export function large(text: TextLine): Tspan {
     return new TspanWithTextStyle(text, 'large', 'large');
+}
+
+export function subscript(text: TextLine): Tspan {
+    return new TspanWithTextStyle(text, 'script', 'script', 3);
+}
+
+export function superscript(text: TextLine): Tspan {
+    return new TspanWithTextStyle(text, 'script', 'script', -6);
 }
 
 // The following methods are useful to circumvent kramdown's replacement of abbreviations

@@ -349,6 +349,13 @@ const staticStyles: Style[] = [
             'font-size': '160%',
         },
     },
+    {
+        filter: collector => collector.classes.has('script'),
+        selector: '.script',
+        properties: {
+            'font-size': '75%',
+        },
+    },
 ];
 
 function mapColors(theme: Theme): Style[] {
