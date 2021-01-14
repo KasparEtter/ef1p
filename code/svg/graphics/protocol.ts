@@ -1,7 +1,7 @@
 import { Color } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
 
-import { lineHeight, strokeRadius } from '../utility/constants';
+import { lineHeight, strokeRadius, textToLineDistance } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';
 import { rotate } from '../utility/transform';
 
@@ -12,7 +12,7 @@ import { printSVG } from '../elements/svg';
 import { bold, estimateSizeWithMargin, Text, TextLine } from '../elements/text';
 
 export const defaultHorizontalGap = 238;
-export const defaultVerticalGap = 18;
+export const defaultVerticalGap = 20;
 export const defaultTimeUnit = lineHeight + defaultVerticalGap;
 
 export interface Entity {
@@ -37,8 +37,6 @@ export interface Message {
     delay?: number;
     textOffset?: Point;
 }
-
-export const textOffset = 10;
 
 function textHeight(message: Message, verticalGap: number): number {
     return verticalGap +
@@ -66,7 +64,7 @@ export function generateProtocol(
         const rectangle = new Rectangle({ position: P(index * distance - size.x / 2, 0), size, color: entity.color });
         const label = rectangle.text(entity.text);
         const bottom = rectangle.boundingBox().pointAt('bottom');
-        const line = new Line({ start: bottom, end: bottom.addY(overallTime + textOffset), color: entity.color });
+        const line = new Line({ start: bottom, end: bottom.addY(overallTime + textToLineDistance), color: entity.color });
         return G(rectangle, label, line);
     });
     let y = size.y;
@@ -76,7 +74,7 @@ export function generateProtocol(
         y += arrowHeight(message, verticalGap);
         const end = P(message.to * distance, y);
         const line = new Line({ start, end, marker: ['middle', 'end'], color: message.color }).shorten(0, strokeRadius);
-        const position = line.center().subtractY(textOffset).add(message.textOffset ?? zeroPoint);
+        const position = line.center().subtractY(textToLineDistance).add(message.textOffset ?? zeroPoint);
         const transform = message.latency ? rotate(end.subtract(start), position) : undefined;
         const text = new Text({
             position,

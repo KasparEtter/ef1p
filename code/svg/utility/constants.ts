@@ -13,9 +13,13 @@ export const textHeight = 11.5;
 export const lineHeight = 22;
 
 export function getTextHeight(numberOfLines: number): number {
-    return Math.max(0, textHeight + (numberOfLines - 1) * lineHeight);
+    if (numberOfLines < 1) {
+        throw new Error('The number of lines has to be positive.');
+    }
+    return textHeight + (numberOfLines - 1) * lineHeight;
 }
 
 export const textMargin = new Point(12, 14);
 export const doubleTextMargin = textMargin.multiply(2);
-export const textToLineDistance = 14;
+export const textToLineDistance = 12;
+export const singleLineWithMarginHeight = textHeight + doubleTextMargin.y;
