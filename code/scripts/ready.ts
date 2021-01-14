@@ -210,15 +210,15 @@ jQuery(() => {
     const isTouchDevice = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
 
     if (isTouchDevice) {
-        $('figure svg.figure').dblclick(showDownloadMenu);
+        $('figure svg.figure').on('dblclick', showDownloadMenu);
     } else {
-        $('figure svg.figure').contextmenu(showDownloadMenu);
+        $('figure svg.figure').on('contextmenu', showDownloadMenu);
     }
 
     $(document).on('click', hideDownloadMenu);
 
     // Prevent the following elements from becoming focused when clicked.
-    $('a, button, summary').on('click', function() { $(this).blur(); });
+    $('a, button, summary').on('click', function() { $(this).trigger('blur'); });
 
     // Support abbreviations on touch devices.
     if (isTouchDevice) {
