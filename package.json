@@ -14,7 +14,6 @@
     "license": "CC-BY-4.0",
     "author": "Kaspar Etter",
     "scripts": {
-        "beep": "echo -e '\\a'",
         "bell": "tput bel",
         "build": "npm-run-all clean scss-build ts-build img-build svg-build thumbnail md-build",
         "clean": "rm -f pages/*/generated/*.{svg,png,jpg,jpeg}",
@@ -62,7 +61,7 @@
         "serve-network": "bundle exec jekyll serve --host=0.0.0.0",
         "sort-package": "sort-package-json",
         "start": "npm run watch",
-        "svg-build": "ts-node code/node/graphics.ts",
+        "svg-build": "ts-node code/node/graphics.ts; npm run bell",
         "svg-watch": "watch-run -p 'pages/*/graphics/*.ts,code/svg/**/*.ts' npm run svg-build",
         "test": "echo 'Error: no test specified' && exit 1",
         "thumbnail": "ts-node code/node/thumbnail.ts",
