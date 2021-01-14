@@ -13,7 +13,7 @@ export function markerOffset(
     marker = normalizeToArray(marker);
     if (marker.includes(side)) {
         return strokeRadius; // Arrow
-    } else if (marker.includes(side)) {
+    } else if (marker.includes('middle')) {
         return 0; // Circle
     } else {
         return strokeRadius / 4; // None
