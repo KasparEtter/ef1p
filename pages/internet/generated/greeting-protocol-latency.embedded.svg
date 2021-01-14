@@ -1,53 +1,53 @@
-<svg id="figure-greeting-protocol-latency" class="figure" data-name="greeting-protocol-latency" width="300.06600000000003" height="373.25" viewBox="-31.033 -1.25 300.06600000000003 373.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-greeting-protocol-latency" class="figure" data-name="greeting-protocol-latency" width="300.06600000000003" height="391.25" viewBox="-31.033 -1.25 300.06600000000003 391.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <g>
         <rect x="-29.783" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
-        <text x="0" y="19.75" text-anchor="middle">
+        <text text-anchor="middle">
             <tspan x="0" y="25.65"><tspan class="font-weight-bold">Alice</tspan></tspan>
         </text>
-        <line x1="0" y1="40.75" x2="0" y2="370.75"></line>
+        <line x1="0" y1="40.75" x2="0" y2="388.75"></line>
     </g>
     <g>
         <rect x="208.217" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
-        <text x="238" y="19.75" text-anchor="middle">
+        <text text-anchor="middle">
             <tspan x="238" y="25.65"><tspan class="font-weight-bold">Bob</tspan></tspan>
         </text>
-        <line x1="238" y1="40.75" x2="238" y2="370.75"></line>
+        <line x1="238" y1="40.75" x2="238" y2="388.75"></line>
     </g>
     <g>
-        <line x1="0" y1="79.5" x2="236.75" y2="79.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="69.5" text-anchor="middle">
+        <line x1="0" y1="81.5" x2="236.75" y2="81.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
             <tspan x="118.375" y="69.5">Hi Bob!</tspan>
         </text>
     </g>
     <g>
-        <line class="blue" x1="238" y1="119.5" x2="1.233" y2="159.293" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
-        <text class="blue" transform="rotate(-9.54, 119.616, 129.396)" x="119.616" y="129.396" text-anchor="middle">
-            <tspan x="119.616" y="129.396">Hi Alice!</tspan>
+        <line class="blue" x1="238" y1="123.5" x2="1.231" y2="165.283" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
+        <text class="blue" transform="rotate(-10.008, 119.615, 132.391)" text-anchor="middle">
+            <tspan x="119.615" y="132.391">Hi Alice!</tspan>
         </text>
     </g>
     <g>
-        <line x1="0" y1="199.5" x2="236.75" y2="199.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="189.5" text-anchor="middle">
-            <tspan x="118.375" y="189.5">How are you?</tspan>
+        <line x1="0" y1="207.5" x2="236.75" y2="207.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
+            <tspan x="118.375" y="195.5">How are you?</tspan>
         </text>
     </g>
     <g>
-        <line class="blue" x1="238" y1="239.5" x2="1.233" y2="279.293" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
-        <text class="blue" transform="rotate(-9.54, 119.616, 249.396)" x="119.616" y="249.396" text-anchor="middle">
-            <tspan x="119.616" y="249.396">Good.</tspan>
+        <line class="blue" x1="238" y1="249.5" x2="1.231" y2="291.283" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
+        <text class="blue" transform="rotate(-10.008, 119.615, 258.391)" text-anchor="middle">
+            <tspan x="119.615" y="258.391">Good.</tspan>
         </text>
     </g>
     <g>
-        <line class="blue" x1="238" y1="279.5" x2="1.233" y2="319.293" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
-        <text class="blue" transform="rotate(-9.54, 119.616, 289.396)" x="119.616" y="289.396" text-anchor="middle">
-            <tspan x="119.616" y="289.396">What about you?</tspan>
+        <line class="blue" x1="238" y1="291.5" x2="1.231" y2="333.283" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
+        <text class="blue" transform="rotate(-10.008, 119.615, 300.391)" text-anchor="middle">
+            <tspan x="119.615" y="300.391">What about you?</tspan>
         </text>
     </g>
     <g>
-        <line x1="0" y1="359.5" x2="236.75" y2="359.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="349.5" text-anchor="middle">
-            <tspan x="118.375" y="349.5">I'm fine, thanks.</tspan>
+        <line x1="0" y1="375.5" x2="236.75" y2="375.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
+            <tspan x="118.375" y="363.5">I'm fine, thanks.</tspan>
         </text>
     </g>
 

@@ -19,46 +19,43 @@
     <circle class="blue" cx="0" cy="0" r="16"></circle>
     <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
     <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
-    <text class="blue" x="0" y="0" text-anchor="middle">
+    <text class="blue" text-anchor="middle">
         <tspan x="0" y="5.9">A</tspan>
     </text>
-    <text class="blue" x="92.729" y="-24.847" text-anchor="middle">
+    <text class="blue" text-anchor="middle">
         <tspan x="92.729" y="-18.947">B</tspan>
     </text>
-    <text class="blue" x="67.882" y="67.882" text-anchor="middle">
+    <text class="blue" text-anchor="middle">
         <tspan x="67.882" y="73.782">C</tspan>
     </text>
-    <text class="green" x="-83.138" y="48" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="-83.138" y="53.9">A1</tspan>
     </text>
-    <text class="green" x="-48" y="-83.138" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="-48" y="-77.238">A2</tspan>
     </text>
-    <text class="green" x="160.611" y="-92.729" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="160.611" y="-86.829">B1</tspan>
     </text>
-    <text class="green" x="160.611" y="43.036" text-anchor="middle">
-        <tspan x="160.611" y="15.936">B2</tspan>
-        <tspan x="160.611" y="37.936"></tspan>
-        <tspan x="160.611" y="59.936"></tspan>
-        <tspan x="160.611" y="81.936">C1</tspan>
+    <text class="green" text-anchor="middle">
+        <tspan x="160.611" y="15.936">B2</tspan><tspan x="160.611" y="37.936"></tspan><tspan x="160.611" y="59.936"></tspan><tspan x="160.611" y="81.936">C1</tspan>
     </text>
-    <text class="green" x="115.882" y="151.021" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="115.882" y="156.921">C2</tspan>
     </text>
-    <text class="green" x="0" y="135.765" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="0" y="141.665">C3</tspan>
     </text>
-    <text class="yellow" x="-48.569" y="11.876" text-anchor="middle">
+    <text class="yellow" text-anchor="middle">
         <tspan x="-48.569" y="17.776"><tspan class="small">1</tspan></tspan>
     </text>
-    <text class="yellow" x="-11.876" y="-48.569" text-anchor="middle">
+    <text class="yellow" text-anchor="middle">
         <tspan x="-11.876" y="-42.669"><tspan class="small">2</tspan></tspan>
     </text>
-    <text class="yellow" x="42.741" y="-25.946" text-anchor="middle">
+    <text class="yellow" text-anchor="middle">
         <tspan x="42.741" y="-20.046"><tspan class="small">3</tspan></tspan>
     </text>
-    <text class="yellow" x="43.841" y="24.042" text-anchor="middle">
+    <text class="yellow" text-anchor="middle">
         <tspan x="43.841" y="29.942"><tspan class="small">4</tspan></tspan>
     </text>
 

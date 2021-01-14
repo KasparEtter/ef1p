@@ -1,4 +1,4 @@
-<svg width="315.901" height="69.5" viewBox="-1.25 -14 315.901 69.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="315.901" height="63.5" viewBox="-1.25 -11 315.901 63.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -64,20 +64,20 @@
         </marker>
     </defs>
 
-    <line class="green" x1="104.78" y1="12.75" x2="207.684" y2="12.75" marker-end="url(#arrow-green)" stroke-dasharray="96"></line>
-    <text class="green" x="156.232" y="-1.25" text-anchor="middle">
-        <tspan x="156.232" y="-1.25">Efficient</tspan>
+    <line class="green" x1="104.78" y1="13.75" x2="207.684" y2="13.75" marker-end="url(#arrow-green)" stroke-dasharray="96"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="156.701" y="1.75">Efficient</tspan>
     </text>
-    <line class="red" x1="208.622" y1="26.75" x2="105.717" y2="26.75" marker-end="url(#arrow-red)" stroke-dasharray="96"></line>
-    <text class="red" x="157.169" y="40.75" text-anchor="middle">
-        <tspan x="157.169" y="52.25">Infeasible</tspan>
+    <line class="red" x1="208.622" y1="25.75" x2="105.717" y2="25.75" marker-end="url(#arrow-red)" stroke-dasharray="96"></line>
+    <text class="red" text-anchor="middle">
+        <tspan x="156.701" y="49.25">Infeasible</tspan>
     </text>
     <rect x="0" y="0" width="104.467" height="39.5" rx="8" ry="8"></rect>
-    <text x="52.234" y="19.75" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="52.234" y="25.65"><tspan class="font-weight-bold">Private key</tspan></tspan>
     </text>
     <rect x="208.934" y="0" width="104.467" height="39.5" rx="8" ry="8"></rect>
-    <text x="261.168" y="19.75" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="261.168" y="25.65"><tspan class="font-weight-bold">Public key</tspan></tspan>
     </text>
 

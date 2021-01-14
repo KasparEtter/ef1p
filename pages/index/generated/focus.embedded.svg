@@ -2,26 +2,20 @@
 
     <g>
         <circle class="yellow" cx="0" cy="0" r="56"></circle>
-        <text class="yellow" x="0" y="0" text-anchor="middle">
-            <tspan x="0" y="-16.1"><tspan class="small">Tabloids</tspan></tspan>
-            <tspan x="0" y="5.9"><tspan class="small">cover</tspan></tspan>
-            <tspan x="0" y="27.9"><tspan class="font-weight-bold">people</tspan></tspan>
+        <text class="yellow" text-anchor="middle">
+            <tspan x="0" y="-16.1"><tspan class="small">Tabloids</tspan></tspan><tspan x="0" y="5.9"><tspan class="small">cover</tspan></tspan><tspan x="0" y="27.9"><tspan class="font-weight-bold">people</tspan></tspan>
         </text>
     </g>
     <g>
         <circle class="orange" cx="131.6" cy="28" r="56"></circle>
-        <text class="orange" x="131.6" y="28" text-anchor="middle">
-            <tspan x="131.6" y="11.9"><tspan class="small">Newspapers</tspan></tspan>
-            <tspan x="131.6" y="33.9"><tspan class="small">cover</tspan></tspan>
-            <tspan x="131.6" y="55.9"><tspan class="font-weight-bold">events</tspan></tspan>
+        <text class="orange" text-anchor="middle">
+            <tspan x="131.6" y="11.9"><tspan class="small">Newspapers</tspan></tspan><tspan x="131.6" y="33.9"><tspan class="small">cover</tspan></tspan><tspan x="131.6" y="55.9"><tspan class="font-weight-bold">events</tspan></tspan>
         </text>
     </g>
     <g>
         <circle class="red" cx="263.2" cy="56" r="56"></circle>
-        <text class="red" x="263.2" y="56" text-anchor="middle">
-            <tspan x="263.2" y="39.9"><tspan class="small">This blog</tspan></tspan>
-            <tspan x="263.2" y="61.9"><tspan class="small">covers</tspan></tspan>
-            <tspan x="263.2" y="83.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
+        <text class="red" text-anchor="middle">
+            <tspan x="263.2" y="39.9"><tspan class="small">This blog</tspan></tspan><tspan x="263.2" y="61.9"><tspan class="small">covers</tspan></tspan><tspan x="263.2" y="83.9"><tspan class="font-weight-bold">ideas</tspan></tspan>
         </text>
     </g>
 

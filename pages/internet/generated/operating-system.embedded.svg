@@ -1,31 +1,28 @@
 <svg id="figure-operating-system" class="figure" data-name="operating-system" width="642.5" height="122.5" viewBox="-1.25 -1.25 642.5 122.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <rect x="0" y="0" width="640" height="40" rx="0" ry="0"></rect>
-    <text x="12" y="20" text-anchor="start">
+    <text text-anchor="start">
         <tspan x="12" y="25.9"><tspan class="font-weight-bold">Application process</tspan></tspan>
     </text>
     <rect x="0" y="40" width="640" height="40" rx="0" ry="0"></rect>
-    <text x="12" y="60" text-anchor="start">
+    <text text-anchor="start">
         <tspan x="12" y="65.9"><tspan class="font-weight-bold">Operating system</tspan></tspan>
     </text>
     <rect x="0" y="80" width="640" height="40" rx="0" ry="0"></rect>
-    <text x="12" y="100" text-anchor="start">
+    <text text-anchor="start">
         <tspan x="12" y="105.9"><tspan class="font-weight-bold">Network interface</tspan></tspan>
     </text>
     <line class="green" x1="175" y1="20" x2="175" y2="60" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
-    <text class="green" x="189" y="40" text-anchor="start">
-        <tspan x="189" y="34.9">Please forward to me</tspan>
-        <tspan x="189" y="56.9">all traffic on port 25</tspan>
+    <text class="green" text-anchor="start">
+        <tspan x="187" y="34.9">Please forward to me</tspan><tspan x="187" y="56.9">all traffic on port 25</tspan>
     </text>
     <line class="green" x1="357" y1="100" x2="357" y2="60" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
-    <text class="green" x="371" y="80" text-anchor="start">
-        <tspan x="371" y="74.9">I received a new</tspan>
-        <tspan x="371" y="96.9">packet on port 25</tspan>
+    <text class="green" text-anchor="start">
+        <tspan x="369" y="74.9">I received a new</tspan><tspan x="369" y="96.9">packet on port 25</tspan>
     </text>
     <line class="green" x1="510" y1="60" x2="510" y2="20" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
-    <text class="green" x="524" y="40" text-anchor="start">
-        <tspan x="524" y="34.9">I have a new</tspan>
-        <tspan x="524" y="56.9">packet for you</tspan>
+    <text class="green" text-anchor="start">
+        <tspan x="522" y="34.9">I have a new</tspan><tspan x="522" y="56.9">packet for you</tspan>
     </text>
 
 </svg>

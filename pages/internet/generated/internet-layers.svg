@@ -89,28 +89,28 @@
         </marker>
     </defs>
 
-    <text class="yellow" x="0" y="35" text-anchor="start">
+    <text class="yellow" text-anchor="start">
         <tspan x="0" y="40.9">Application layer</tspan>
     </text>
-    <text class="orange" x="0" y="105" text-anchor="start">
+    <text class="orange" text-anchor="start">
         <tspan x="0" y="110.9">Security layer</tspan>
     </text>
-    <text class="red" x="0" y="175" text-anchor="start">
+    <text class="red" text-anchor="start">
         <tspan x="0" y="180.9">Transport layer</tspan>
     </text>
-    <text class="pink" x="0" y="245" text-anchor="start">
+    <text class="pink" text-anchor="start">
         <tspan x="0" y="250.9">Network layer</tspan>
     </text>
-    <text class="purple" x="0" y="315" text-anchor="start">
+    <text class="purple" text-anchor="start">
         <tspan x="0" y="320.9">Link layer</tspan>
     </text>
-    <text x="140" y="0" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="140" y="5.9">Sender</tspan>
     </text>
-    <text x="280" y="0" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="280" y="5.9">Router</tspan>
     </text>
-    <text x="420" y="0" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="420" y="5.9">Recipient</tspan>
     </text>
     <rect class="yellow angular" x="135.5" y="30.5" width="9" height="9" rx="0" ry="0"></rect>

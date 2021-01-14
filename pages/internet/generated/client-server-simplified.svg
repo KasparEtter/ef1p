@@ -1,4 +1,4 @@
-<svg width="273.682" height="42" viewBox="-1.25 -1.25 273.682 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="253.682" height="42" viewBox="-1.25 -1.25 253.682 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -51,14 +51,14 @@
         </marker>
     </defs>
 
-    <line x1="71.495" y1="19.75" x2="198.75" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="120"></line>
+    <line x1="71.495" y1="19.75" x2="178.75" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="100"></line>
     <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
-    <text x="35.591" y="19.75" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
     </text>
-    <rect x="200" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
-    <text x="235.591" y="19.75" text-anchor="middle">
-        <tspan x="235.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    <rect x="180" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="215.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
     </text>
 
 </svg>

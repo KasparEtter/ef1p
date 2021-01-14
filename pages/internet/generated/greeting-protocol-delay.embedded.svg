@@ -1,53 +1,53 @@
-<svg id="figure-greeting-protocol-delay" class="figure" data-name="greeting-protocol-delay" width="300.06600000000003" height="333.25" viewBox="-31.033 -1.25 300.06600000000003 333.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-greeting-protocol-delay" class="figure" data-name="greeting-protocol-delay" width="300.06600000000003" height="349.25" viewBox="-31.033 -1.25 300.06600000000003 349.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <g>
         <rect x="-29.783" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
-        <text x="0" y="19.75" text-anchor="middle">
+        <text text-anchor="middle">
             <tspan x="0" y="25.65"><tspan class="font-weight-bold">Alice</tspan></tspan>
         </text>
-        <line x1="0" y1="40.75" x2="0" y2="330.75"></line>
+        <line x1="0" y1="40.75" x2="0" y2="346.75"></line>
     </g>
     <g>
         <rect x="208.217" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
-        <text x="238" y="19.75" text-anchor="middle">
+        <text text-anchor="middle">
             <tspan x="238" y="25.65"><tspan class="font-weight-bold">Bob</tspan></tspan>
         </text>
-        <line x1="238" y1="40.75" x2="238" y2="330.75"></line>
+        <line x1="238" y1="40.75" x2="238" y2="346.75"></line>
     </g>
     <g>
-        <line x1="0" y1="79.5" x2="236.75" y2="79.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="69.5" text-anchor="middle">
+        <line x1="0" y1="81.5" x2="236.75" y2="81.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
             <tspan x="118.375" y="69.5">Hi Bob!</tspan>
         </text>
     </g>
     <g>
-        <line x1="238" y1="119.5" x2="1.25" y2="119.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="119.625" y="109.5" text-anchor="middle">
-            <tspan x="119.625" y="109.5">Hi Alice!</tspan>
+        <line x1="238" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
+            <tspan x="119.625" y="111.5">Hi Alice!</tspan>
         </text>
     </g>
     <g>
-        <line x1="0" y1="159.5" x2="236.75" y2="159.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="149.5" text-anchor="middle">
-            <tspan x="118.375" y="149.5">How are you?</tspan>
+        <line x1="0" y1="165.5" x2="236.75" y2="165.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
+            <tspan x="118.375" y="153.5">How are you?</tspan>
         </text>
     </g>
     <g>
-        <line class="blue" x1="238" y1="199.5" x2="1.185" y2="279.102" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="243"></line>
-        <text class="blue" transform="rotate(-18.579, 179.592, 209.301)" x="179.592" y="209.301" text-anchor="middle">
-            <tspan x="179.592" y="209.301">Good.</tspan>
+        <line class="blue" x1="238" y1="207.5" x2="1.179" y2="291.084" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="244"></line>
+        <text class="blue" transform="rotate(-19.44, 179.589, 215.292)" text-anchor="middle">
+            <tspan x="179.589" y="215.292">Good.</tspan>
         </text>
     </g>
     <g>
-        <line class="green" x1="238" y1="239.5" x2="1.25" y2="239.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="230"></line>
-        <text class="green" x="69.625" y="229.5" text-anchor="middle">
-            <tspan x="69.625" y="229.5">What about you?</tspan>
+        <line class="green" x1="238" y1="249.5" x2="1.25" y2="249.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="230"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="69.625" y="237.5">What about you?</tspan>
         </text>
     </g>
     <g>
-        <line x1="0" y1="319.5" x2="236.75" y2="319.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
-        <text x="118.375" y="309.5" text-anchor="middle">
-            <tspan x="118.375" y="309.5">I'm fine, thanks.</tspan>
+        <line x1="0" y1="333.5" x2="236.75" y2="333.5" marker-start="url(#circle)" marker-end="url(#arrow)" stroke-dasharray="230"></line>
+        <text text-anchor="middle">
+            <tspan x="118.375" y="321.5">I'm fine, thanks.</tspan>
         </text>
     </g>
 

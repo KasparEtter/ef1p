@@ -19,7 +19,7 @@
     <circle class="blue" cx="0" cy="0" r="16"></circle>
     <circle class="blue" cx="92.729" cy="-24.847" r="16"></circle>
     <circle class="blue" cx="67.882" cy="67.882" r="16"></circle>
-    <text class="green" x="160.611" y="43.036" text-anchor="middle">
+    <text class="green" text-anchor="middle">
         <tspan x="160.611" y="48.936">*</tspan>
     </text>
 

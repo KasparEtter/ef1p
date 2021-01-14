@@ -77,17 +77,17 @@
     <line class="orange" x1="15.757" y1="-4.222" x2="76.067" y2="-20.382" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
     <line class="orange" x1="88.507" y1="-9.09" x2="72.347" y2="51.22" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
     <line class="orange" x1="56.348" y1="56.348" x2="12.198" y2="12.198" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
-    <text class="orange" x="-50.975" y="8.646" text-anchor="middle">
-        <tspan x="-50.975" y="14.546">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="-50.569" y="14.312">■</tspan>
     </text>
-    <text class="orange" x="41.253" y="-29.689" text-anchor="middle">
-        <tspan x="41.253" y="-23.789">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="41.706" y="-23.91">■</tspan>
     </text>
-    <text class="orange" x="97.814" y="25.724" text-anchor="middle">
-        <tspan x="97.814" y="31.624">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="97.692" y="32.077">■</tspan>
     </text>
-    <text class="orange" x="21.545" y="47.001" text-anchor="middle">
-        <tspan x="21.545" y="52.901">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="21.213" y="52.569">■</tspan>
     </text>
     <circle class="green" cx="-83.138" cy="48" r="16"></circle>
     <circle class="green" cx="-48" cy="-83.138" r="16"></circle>
