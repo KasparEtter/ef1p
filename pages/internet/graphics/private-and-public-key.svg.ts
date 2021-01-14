@@ -1,4 +1,3 @@
-import { textToLineDistance } from '../../../code/svg/utility/constants';
 import { P, zeroPoint } from '../../../code/svg/utility/point';
 
 import { Line } from '../../../code/svg/elements/line';
@@ -14,12 +13,10 @@ const privateKeyText = privateKeyRectangle.text(bold('Private key'));
 const publicKeyRectangle = new Rectangle({ position: P(2 * size.x, 0), size });
 const publicKeyText = publicKeyRectangle.text(bold('Public key'));
 
-const lineOffset = textToLineDistance / 2;
+const efficientLine = Line.connectBoxes(privateKeyRectangle, 'right', publicKeyRectangle, 'left', { color: 'green' }).moveLeft();
+const efficientText = efficientLine.text('Efficient');
 
-const efficientLine = Line.connectBoxes(privateKeyRectangle, 'right', publicKeyRectangle, 'left', { color: 'green' }).move(P(0, -lineOffset));
-const efficientText = efficientLine.text('Efficient', 'left');
-
-const infeasibleLine = Line.connectBoxes(publicKeyRectangle, 'left', privateKeyRectangle, 'right', { color: 'red' }).move(P(0, lineOffset));
-const infeasibleText = infeasibleLine.text('Infeasible', 'left');
+const infeasibleLine = Line.connectBoxes(publicKeyRectangle, 'left', privateKeyRectangle, 'right', { color: 'red' }).moveLeft();
+const infeasibleText = infeasibleLine.text('Infeasible');
 
 printSVG(efficientLine, efficientText, infeasibleLine, infeasibleText, privateKeyRectangle, privateKeyText, publicKeyRectangle, publicKeyText);

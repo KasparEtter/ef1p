@@ -47,4 +47,4 @@ export const links = linkPairs.map(pair => Line.connectEllipses(pair[0], pair[1]
 
 export const relayLabels = ['A', 'B', 'C'].map((text, index) => relays[index].text(text));
 export const nodeLabels = ['A1', 'A2', 'B1', ['B2', '', '', 'C1'], 'C2', 'C3'].map((text, index) => nodes[index].text(text));
-export const linkLabels = ['1', '2', '3', '4'].map((text, index) => links[index].text(small(text), index < 2 ? 'right' : 'left', textToLineDistance, { horizontalAlignment: 'center', verticalAlignment: 'center' }));
+export const linkLabels = ['1', '2', '3', '4'].map((text, index) => links[index].text(small(text), index < 2 ? 'right' : 'left', 14, { horizontalAlignment: 'center', verticalAlignment: 'center' }));
