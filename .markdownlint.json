@@ -1,8 +1,5 @@
 {
-    "blanks-around-headings": {
-        "lines_above": 2,
-        "lines_below": 1
-    },
+    "blanks-around-headings": false,
     "blanks-around-lists": false,
     "fenced-code-language": false,
     "first-header-h1": false,
