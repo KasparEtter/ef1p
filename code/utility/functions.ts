@@ -16,8 +16,8 @@ export function normalizeToArray<T>(argument?: ValueOrArray<T>): T[] {
 
 /* ------------------------------ Array ------------------------------ */
 
-export function removeFromArrayOnce<T>(array: T[], value: T): boolean {
-    const index = array.indexOf(value);
+export function removeFromArrayOnce<T>(array: T[], element: T): boolean {
+    const index = array.indexOf(element);
     if (index > -1) {
         array.splice(index, 1);
         return true;
@@ -26,10 +26,10 @@ export function removeFromArrayOnce<T>(array: T[], value: T): boolean {
     }
 }
 
-export function removeFromArrayAll<T>(array: T[], value: T): boolean {
+export function removeFromArrayAll<T>(array: T[], element: T): boolean {
     let found = false;
     for (let i = array.length - 1; i >= 0; i--) {
-        if (array[i] === value) {
+        if (array[i] === element) {
             array.splice(i, 1);
             found = true;
         }
@@ -37,10 +37,10 @@ export function removeFromArrayAll<T>(array: T[], value: T): boolean {
     return found;
 }
 
-export function replaceFirstInPlace<T>(array: T[], oldValue: T, newValue: T): boolean {
-    const index = array.indexOf(oldValue);
+export function replaceFirstInPlace<T>(array: T[], oldElement: T, newElement: T): boolean {
+    const index = array.indexOf(oldElement);
     if (index !== -1) {
-        array[index] = newValue;
+        array[index] = newElement;
         return true;
     } else {
         return false;
@@ -66,49 +66,87 @@ export function sortNumbers(array: number[]): number[] {
 
 /* ------------------------------ String ------------------------------ */
 
-export function nonEmpty(value: string): boolean {
-    return value.length > 0;
+export function nonEmpty(text: string): boolean {
+    return text.length > 0;
 }
 
-export function escapeDoubleQuotes(value: string): string {
-    return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+export function escapeDoubleQuotes(text: string): string {
+    return text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-export function doubleQuote(value: string): string {
-    return `"${escapeDoubleQuotes(value)}"`;
+export function doubleQuote(text: string): string {
+    return `"${escapeDoubleQuotes(text)}"`;
 }
 
-export function doubleQuoteIfWhitespace(value: string): string {
-    return /\s/.test(value) ? doubleQuote(value) : value;
+export function doubleQuoteIfWhitespace(text: string): string {
+    return /\s/.test(text) ? doubleQuote(text) : text;
 }
 
-export function escapeSingleQuote(value: string): string {
-    return value.replace(/'/g, '\'\\\'\'');
+export function escapeSingleQuote(text: string): string {
+    return text.replace(/'/g, '\'\\\'\'');
 }
 
-export function singleQuote(value: string): string {
-    return `'${escapeSingleQuote(value)}'`;
+export function singleQuote(text: string): string {
+    return `'${escapeSingleQuote(text)}'`;
 }
 
-export function toHex(value: number, minLength = 0): string {
-    return value.toString(16).toUpperCase().padStart(minLength, '0');
+export function toHex(text: number, minLength = 0): string {
+    return text.toString(16).toUpperCase().padStart(minLength, '0');
 }
 
 /**
  * Returns the given string with newlines normalized to CR + LF.
  */
-export function normalizeNewlines(value: string): string {
-    return value.replace(/\r?\n/g, '\r\n');
+export function normalizeNewlines(text: string): string {
+    return text.replace(/\r?\n/g, '\r\n');
+}
+
+/**
+ * Returns the given string with runs of whitespace normalized to a single space.
+ */
+export function normalizeWhitespace(text: string): string {
+    return text.replace(/\s+/g, ' ');
 }
 
 /**
  * Returns how many times the given string matches the given regular expression.
  */
-export function countOccurrences(value: string, regex: RegExp): number {
+export function countOccurrences(text: string, regex: RegExp): number {
     if (!regex.global) {
         throw Error('Set the global flag on the provided regular expression.');
     }
-    return (value.match(regex) || []).length
+    return (text.match(regex) || []).length;
+}
+
+/**
+ * Splits the given string at the given separator unless the separator is within double quotes.
+ */
+export function splitOutsideOfDoubleQuotes(text: string, separator: string, unescape = false, trim = false): string[] {
+    const result = new Array<string>();
+    let current = '';
+    let quoted = false;
+    let escaped = false;
+    for (const character of Array.from(text)) {
+        if (escaped) {
+            escaped = false;
+            current += character;
+        } else if (character === '\\') {
+            escaped = true;
+            if (!unescape) {
+                current += character;
+            }
+        } else if (character === '"') {
+            quoted = !quoted;
+            current += character;
+        } else if (!quoted && character === separator) {
+            result.push(trim ? current.trim() : current);
+            current = '';
+        } else {
+            current += character;
+        }
+    }
+    result.push(trim ? current.trim() : current);
+    return result;
 }
 
 /* ------------------------------ Records ------------------------------ */
