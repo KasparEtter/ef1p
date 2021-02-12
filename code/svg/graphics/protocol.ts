@@ -9,7 +9,7 @@ import { G, Group } from '../elements/group';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
-import { bold, estimateSizeWithMargin, Text, TextLine } from '../elements/text';
+import { bold, estimateTextSizeWithMargin, Text, TextLine } from '../elements/text';
 
 export const defaultHorizontalGap = 238;
 export const defaultVerticalGap = 20;
@@ -58,7 +58,7 @@ export function generateProtocol(
         entities = (entities as string[]).map(text => ({ text: bold(text) }));
     }
     entities = entities as Entity[];
-    const size = Point.max(entities.map(entity => estimateSizeWithMargin(entity.text)));
+    const size = Point.max(entities.map(entity => estimateTextSizeWithMargin(entity.text)));
     const overallTime = messages.reduce((time, message) => time + textHeight(message, verticalGap) + arrowHeight(message, verticalGap), 0);
     const entityGroups = entities.map((entity, index) => {
         const rectangle = new Rectangle({ position: P(index * distance - size.x / 2, 0), size, color: entity.color });

@@ -1,6 +1,6 @@
 import { Color } from '../../utility/color';
 import { normalizeToArray } from '../../utility/functions';
-import { estimateWidthOfString, monospaceWidth, multiplier, TextStyle } from '../utility/string';
+import { estimateStringWidth, monospaceWidth, multiplier, TextStyle } from '../utility/string';
 
 import { Box } from '../utility/box';
 import { Collector } from '../utility/collector';
@@ -54,7 +54,7 @@ class TspanWithTextStyle extends Tspan {
 
     public estimateWidth(): number {
         // The estimate can get even more inaccurate when the same style is nested.
-        return estimateWidthOfTextLine(transformText(this.text, this.className)) * multiplier(this.widthStyle);
+        return estimateTextLineWidth(transformText(this.text, this.className)) * multiplier(this.widthStyle);
     }
 }
 
@@ -137,7 +137,7 @@ export class Anchor {
     }
 
     public estimateWidth(): number {
-        return estimateWidthOfTextLine(this.text);
+        return estimateTextLineWidth(this.text);
     }
 }
 
@@ -157,7 +157,7 @@ export class CombinedText {
     }
 
     public estimateWidth(): number {
-        return this.texts.map(text => estimateWidthOfTextLine(text)).reduce((a, b) => a + b, 0);
+        return this.texts.map(text => estimateTextLineWidth(text)).reduce((a, b) => a + b, 0);
     }
 }
 
@@ -175,26 +175,34 @@ function encode(line: TextLine, collector: Collector): string {
     return typeof line === 'string' ? escapeStringForSVG(line) : line.encode(collector);
 }
 
-export function estimateWidthOfTextLine(line: TextLine): number {
-    return typeof line === 'string' ? estimateWidthOfString(line) : line.estimateWidth();
+export function estimateTextLineWidth(line: TextLine): number {
+    return typeof line === 'string' ? estimateStringWidth(line) : line.estimateWidth();
 }
 
 /* ------------------------------ Size ------------------------------ */
 
-export function estimateWidth(text: TextLine | TextLine[]): number {
-    return normalizeToArray(text).map(text => estimateWidthOfTextLine(text)).reduce((a, b) => Math.max(a, b), 0);
+export function estimateTextWidth(text: TextLine | TextLine[]): number {
+    return normalizeToArray(text).map(text => estimateTextLineWidth(text)).reduce((a, b) => Math.max(a, b), 0);
 }
 
-export function calculateHeight(text: TextLine | TextLine[]): number {
+export function estimateTextWidthWithMargin(text: TextLine | TextLine[], factor = 2, margin = textMargin.x): number {
+    return estimateTextWidth(text) + factor * margin;
+}
+
+export function calculateTextHeight(text: TextLine | TextLine[]): number {
     return getTextHeight(Array.isArray(text) ? text.length : 1);
 }
 
-export function estimateSize(text: TextLine | TextLine[]): Point {
-    return new Point(estimateWidth(text), calculateHeight(text));
+export function calculateTextHeightWithMargin(text: TextLine | TextLine[], factor = 2, margin = textMargin.y): number {
+    return calculateTextHeight(text) + factor * margin;
 }
 
-export function estimateSizeWithMargin(text: TextLine | TextLine[], margin: Point = textMargin): Point {
-    return estimateSize(text).add(margin.multiply(2));
+export function estimateTextSize(text: TextLine | TextLine[]): Point {
+    return new Point(estimateTextWidth(text), calculateTextHeight(text));
+}
+
+export function estimateTextSizeWithMargin(text: TextLine | TextLine[], factor = 2, margin: Point = textMargin): Point {
+    return estimateTextSize(text).add(margin.multiply(factor));
 }
 
 /* ------------------------------ Alignment ------------------------------ */
@@ -271,7 +279,7 @@ export class Text extends VisualElement<TextProps> {
         horizontalAlignment = 'left',
         verticalAlignment = 'top',
     }: TextProps): Box {
-        const size = estimateSize(text);
+        const size = estimateTextSize(text);
         const topLeft = new Point(
             position.x - horizontalAlignmentFactor(horizontalAlignment) * size.x,
             position.y - verticalAlignmentFactor(verticalAlignment) * size.y,

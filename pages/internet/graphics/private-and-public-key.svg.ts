@@ -3,14 +3,14 @@ import { P, zeroPoint } from '../../../code/svg/utility/point';
 import { Line } from '../../../code/svg/elements/line';
 import { Rectangle } from '../../../code/svg/elements/rectangle';
 import { printSVG } from '../../../code/svg/elements/svg';
-import { bold, estimateSizeWithMargin } from '../../../code/svg/elements/text';
+import { bold, estimateTextSizeWithMargin, estimateTextWidthWithMargin } from '../../../code/svg/elements/text';
 
-const size = estimateSizeWithMargin(bold('Private key'));
+const size = estimateTextSizeWithMargin(bold('Private key'));
 
 const privateKeyRectangle = new Rectangle({ position: zeroPoint, size });
 const privateKeyText = privateKeyRectangle.text(bold('Private key'));
 
-const publicKeyRectangle = new Rectangle({ position: P(2 * size.x, 0), size });
+const publicKeyRectangle = new Rectangle({ position: P(size.x + estimateTextWidthWithMargin('Infeasible', 3), 0), size });
 const publicKeyText = publicKeyRectangle.text(bold('Public key'));
 
 const efficientLine = Line.connectBoxes(privateKeyRectangle, 'right', publicKeyRectangle, 'left', { color: 'green' }).moveLeft();

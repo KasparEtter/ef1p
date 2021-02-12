@@ -6,7 +6,7 @@ import { VisualElement } from '../elements/element';
 import { Line } from '../elements/line';
 import { Rectangle } from '../elements/rectangle';
 import { printSVG } from '../elements/svg';
-import { estimateSizeWithMargin, TextLine } from '../elements/text';
+import { estimateTextSizeWithMargin, TextLine } from '../elements/text';
 
 export const defaultVerticalGap = 24;
 
@@ -23,7 +23,7 @@ export function generateFlowchart(
     let y = 0;
     let previousRectangle: Rectangle | undefined;
     for (const step of steps) {
-        const size = estimateSizeWithMargin(step.text);
+        const size = estimateTextSizeWithMargin(step.text);
         const rectangle = new Rectangle({ position: P(-size.x / 2, y), size, color: step.color });
         elements.push(rectangle, rectangle.text(step.text));
         if (previousRectangle !== undefined) {

@@ -98,7 +98,7 @@ const widths = {
 
 export const monospaceWidth = 8.42875;
 
-export function estimateWidthOfString(text: string): number {
+export function estimateStringWidth(text: string): number {
     let i = text.length;
     let result = 0;
     // Avoid recalculation of 'text.length'.
