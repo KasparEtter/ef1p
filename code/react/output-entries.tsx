@@ -19,8 +19,9 @@ export interface OutputEntriesProps {
  */
 export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props: Readonly<Partial<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
     const separator = props.separator ?? ' ';
+    let hasPrevious = false;
     return <Fragment>
-        {Object.entries(props.entries).map(([key, entry], index) => {
+        {Object.entries(props.entries).map(([key, entry]) => {
             // The following lines error if no store is provided for dynamic entries or static entries with skip or transform:
             // @ts-ignore
             const value: ValueType = isDynamicEntry(entry) ? getCurrentState(props.store!)[key] : normalizeToValue(entry.defaultValue, undefined);
@@ -28,26 +29,32 @@ export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props:
             const details = (isDynamicEntry(entry) && entry.inputType === 'select' && entry.selectOptions) ?
                 ` (${normalizeToValue(entry.selectOptions, getCurrentState(props.store!))[value as string]})` : '';
             const skipped = entry.skip ? entry.skip(getCurrentState(props.store!), value) : isArgument(entry) && !value;
-            return !skipped &&
-                <Fragment
-                    key={key as string}
-                >
-                    {index > 0 && separator}
-                    <span
-                        title={entry.name + ': ' + normalizeToValue(entry.description, value) + details}
-                        className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + textColor(normalizeToValue(entry.outputColor, value))}
+            if (skipped) {
+                return null;
+            } else {
+                const result =
+                    <Fragment
+                        key={key as string}
                     >
-                        {
-                            isArgument(entry) ? (
-                                // @ts-ignore
-                                (entry[getCurrentState(props.store!).shortForm ? 'shortForm' : 'longForm'] ?? entry.longForm) +
-                                (typeof value === 'boolean' ? '' : ' ' + output)
-                            ) : (
-                                output
-                            )
-                        }
-                    </span>
-                </Fragment>;
+                        {hasPrevious && separator}
+                        <span
+                            title={entry.name + ': ' + normalizeToValue(entry.description, value) + details}
+                            className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + textColor(normalizeToValue(entry.outputColor, value))}
+                        >
+                            {
+                                isArgument(entry) ? (
+                                    // @ts-ignore
+                                    (entry[getCurrentState(props.store!).shortForm ? 'shortForm' : 'longForm'] ?? entry.longForm) +
+                                    (typeof value === 'boolean' ? '' : ' ' + output)
+                                ) : (
+                                    output
+                                )
+                            }
+                        </span>
+                    </Fragment>;
+                hasPrevious = true;
+                return result;
+            }
         })}
     </Fragment>;
 }
