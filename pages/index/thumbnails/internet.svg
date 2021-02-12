@@ -10,14 +10,14 @@
     <line class="orange" x1="-69.011" y1="39.844" x2="-14.939" y2="8.625" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
     <line class="orange" x1="11.535" y1="11.535" x2="55.685" y2="55.685" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
     <line class="orange" x1="83.639" y1="63.66" x2="143.949" y2="47.5" marker-end="url(#arrow-orange)" stroke-dasharray="55"></line>
-    <text class="orange" x="-50.975" y="8.646" text-anchor="middle">
-        <tspan x="-50.975" y="14.546">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="-50.569" y="14.312">■</tspan>
     </text>
-    <text class="orange" x="46.338" y="20.882" text-anchor="middle">
-        <tspan x="46.338" y="26.782">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="46.669" y="27.113">■</tspan>
     </text>
-    <text class="orange" x="109.135" y="38.194" text-anchor="middle">
-        <tspan x="109.135" y="44.094">■</tspan>
+    <text class="orange" text-anchor="middle">
+        <tspan x="109.588" y="43.972">■</tspan>
     </text>
     <circle class="green" cx="-83.138" cy="48" r="16"></circle>
     <circle class="green" cx="-48" cy="-83.138" r="16"></circle>

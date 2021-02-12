@@ -1,20 +1,20 @@
-<svg id="figure-client-server" class="figure" data-name="client-server" width="253.682" height="63.5" viewBox="-1.25 -11 253.682 63.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-client-server" class="figure" data-name="client-server" width="248.449" height="63.5" viewBox="-1.25 -11 248.449 63.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <line class="blue" x1="71.495" y1="13.75" x2="178.75" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="100"></line>
+    <line class="blue" x1="71.495" y1="13.75" x2="173.517" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="95"></line>
     <text class="blue" text-anchor="middle">
-        <tspan x="125.591" y="1.75">Request</tspan>
+        <tspan x="122.974" y="1.75">Request</tspan>
     </text>
-    <line class="green" x1="179.688" y1="25.75" x2="72.432" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="100"></line>
+    <line class="green" x1="174.454" y1="25.75" x2="72.432" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="95"></line>
     <text class="green" text-anchor="middle">
-        <tspan x="125.591" y="49.25">Response</tspan>
+        <tspan x="122.974" y="49.25">Response</tspan>
     </text>
     <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
     <text text-anchor="middle">
         <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
     </text>
-    <rect x="180" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <rect x="174.767" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
     <text text-anchor="middle">
-        <tspan x="215.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        <tspan x="210.358" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
     </text>
 
 </svg>

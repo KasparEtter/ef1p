@@ -1,4 +1,4 @@
-<svg width="314.73400000000004" height="164.782" viewBox="-21.776 -61.641 314.73400000000004 164.782" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg width="285.71700000000004" height="149.59" viewBox="-19.884 -54.045 285.71700000000004 149.59" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
@@ -69,30 +69,30 @@
         </marker>
     </defs>
 
-    <rect class="filled" x="-21.776" y="-61.641" width="314.73400000000004" height="164.782" style="fill: #1A181B;"></rect>
+    <rect class="filled" x="-19.884" y="-54.045" width="285.71700000000004" height="149.59" style="fill: #1A181B;"></rect>
 
-    <line class="blue" x1="71.495" y1="12.75" x2="198.75" y2="12.75" marker-end="url(#arrow-blue)" stroke-dasharray="120"></line>
-    <text class="blue" x="135.122" y="-1.25" text-anchor="middle">
-        <tspan x="135.122" y="-1.25">Request</tspan>
+    <line class="blue" x1="71.495" y1="13.75" x2="173.517" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="95"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="122.974" y="1.75">Request</tspan>
     </text>
-    <line class="green" x1="199.688" y1="26.75" x2="72.432" y2="26.75" marker-end="url(#arrow-green)" stroke-dasharray="120"></line>
-    <text class="green" x="136.06" y="40.75" text-anchor="middle">
-        <tspan x="136.06" y="52.25">Response</tspan>
+    <line class="green" x1="174.454" y1="25.75" x2="72.432" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="95"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="122.974" y="49.25">Response</tspan>
     </text>
     <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
-    <text x="35.591" y="19.75" text-anchor="middle">
+    <text text-anchor="middle">
         <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
     </text>
-    <rect x="200" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
-    <text x="235.591" y="19.75" text-anchor="middle">
-        <tspan x="235.591" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    <rect x="174.767" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="210.358" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
     </text>
 
     <mask id="mask">
-        <rect class="filled" x="-1.25" y="62.089" width="20.526" height="20.526" style="fill: white;"></rect>
-        <line x1="5.592" y1="68.931" x2="5.592" y2="75.773" style="stroke-width: 5.132; stroke-linecap: round; stroke: black;"></line>
-        <circle class="filled" cx="12.434" cy="75.773" r="2.566" style="fill: black;"></circle>
+        <rect class="filled" x="-1.25" y="58.277" width="18.634" height="18.634" style="fill: white;"></rect>
+        <line x1="4.962" y1="64.489" x2="4.962" y2="70.699" style="stroke-width: 4.658; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="11.172" cy="70.699" r="2.329" style="fill: black;"></circle>
     </mask>
-    <circle class="filled" cx="9.013" cy="72.352" r="10.263" style="fill: white;" mask="url(#mask)"/>
+    <circle class="filled" cx="8.067" cy="67.594" r="9.317" style="fill: white;" mask="url(#mask)"/>
 
 </svg>
