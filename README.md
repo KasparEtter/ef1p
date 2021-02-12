@@ -5,6 +5,7 @@ This repository contains the website
 which is built with [Jekyll](https://jekyllrb.com)
 and published with [GitHub Pages](https://pages.github.com).
 
+
 ## Contents
 
 This document has the following sections:
@@ -31,24 +32,30 @@ This document has the following sections:
   [used dependencies](#dependencies-1), [copyright owner](#copyright),
   [chosen license](#license), and how to [contact me](#contact).
 
+
 ## Setup
 
+
 ### Requirements
+
 
 #### Unix shell
 
 The following instructions assume that you roughly know
 how to use a [Unix shell](https://en.wikipedia.org/wiki/Unix_shell).
 
+
 ##### macOS Terminal
 
 If you are using macOS,
 open the Terminal located at `/Applications/Utilities/Terminal.app`.
 
+
 #### Package manager
 
 The required tools are easiest to install, upgrade and remove with
 a [package manager](https://en.wikipedia.org/wiki/Package_manager).
+
 
 ##### macOS Homebrew
 
@@ -70,6 +77,7 @@ install it by entering in your Terminal:
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
+
 #### Git
 
 [Git](https://git-scm.com/) is a distributed version control system
@@ -77,6 +85,7 @@ designed to track changes in text documents such as source code.
 
 You can run `git --version` to check whether Git is already installed
 and [download](https://git-scm.com/downloads) it otherwise.
+
 
 ##### macOS Git
 
@@ -86,9 +95,11 @@ You can also install Git with Homebrew:
 brew install git
 ```
 
+
 #### Ruby
 
 Install (or upgrade) [Ruby](https://www.ruby-lang.org).
+
 
 ##### macOS Ruby
 
@@ -111,7 +122,9 @@ or by [entering](https://stackoverflow.com/questions/2518127/how-do-i-reload-bas
 Depending on what shell you use,
 your [configuration file](https://en.wikipedia.org/wiki/Unix_shell#Configuration_files) can be different.
 
+
 ### Instructions
+
 
 #### Clone this repository
 
@@ -138,6 +151,7 @@ or using HTTPS otherwise:
 git clone https://github.com/KasparEtter/ef1p.git
 ```
 
+
 #### Enter this repository
 
 Navigate to the root directory of this repository:
@@ -148,6 +162,7 @@ cd ef1p
 
 Most of the following commands have to be called from this directory.
 
+
 #### Update this repository
 
 If you already cloned this repository,
@@ -157,6 +172,7 @@ you can pull in the newest changes with:
 git pull
 ```
 
+
 #### Install Bundler
 
 Install [Bundler](https://bundler.io)
@@ -165,6 +181,7 @@ and replace a potentially existing installation:
 ```bash
 gem install bundler
 ```
+
 
 #### Install all dependencies
 
@@ -193,6 +210,7 @@ You can check the versions of your local dependencies with:
 gem list
 ```
 
+
 #### Serve the website
 
 Serve the website from the root directory of this repository:
@@ -213,11 +231,14 @@ bundle exec jekyll serve --livereload --host=0.0.0.0
 Use `npm run watch` as described below
 to also watch for changes in scripts and styles.
 
+
 ## Development
 
 The articles, scripts and styles need to be rebuilt after making changes to them.
 
+
 ### Requirements
+
 
 #### Node.js
 
@@ -237,6 +258,7 @@ you can update npm with:
 npm install -g npm
 ```
 
+
 ##### macOS Node.js
 
 You can also install Node.js and npm with Homebrew:
@@ -245,7 +267,9 @@ You can also install Node.js and npm with Homebrew:
 brew install node
 ```
 
+
 ### Dependencies
+
 
 #### Install
 
@@ -254,6 +278,7 @@ Install the npm dependencies as specified in `package.json` with:
 ```bash
 npm install
 ```
+
 
 #### Update
 
@@ -280,6 +305,7 @@ fix them with:
 npm audit fix
 ```
 
+
 #### Check
 
 Show the version of a particular direct or indirect dependency:
@@ -294,9 +320,11 @@ Show the tree of all direct and indirect dependencies:
 npm list
 ```
 
+
 ### Combined
 
 All the following scripts are defined in `package.json`.
+
 
 #### Build
 
@@ -306,6 +334,7 @@ Use the following script to build the articles, scripts and styles:
 npm run build
 ```
 
+
 #### Lint
 
 Use the following script to lint the articles, scripts and styles in parallel:
@@ -313,6 +342,7 @@ Use the following script to lint the articles, scripts and styles in parallel:
 ```bash
 npm run lint
 ```
+
 
 #### Watch
 
@@ -322,7 +352,9 @@ Use the following script to watch the articles, scripts and styles simultaneousl
 npm run watch
 ```
 
+
 ### Articles
+
 
 #### Build
 
@@ -333,6 +365,7 @@ and copied to the `_site` folder:
 ```bash
 npm run md-build
 ```
+
 
 #### Lint
 
@@ -345,11 +378,13 @@ you can install this [extension](https://marketplace.visualstudio.com/items?item
 npm run md-lint
 ```
 
+
 #### Newlines
 
 Please start a new line at least for each sentence.
 You can also include more line breaks
 according to the [Semantic Line Breaks Specification](https://sembr.org).
+
 
 #### Watch
 
@@ -367,7 +402,9 @@ I decided to do this in order to get rid of the following issues outside of my c
 - `vendor/bundle/ruby/2.7.0/gems/jekyll-3.8.5/lib/jekyll/convertible.rb:41: warning: Using the last argument as keyword parameters is deprecated`
 - `ERROR: directory is already being watched!` for directories in `node_modules/puppeteer/` (see [this page](https://github.com/guard/listen/wiki/Duplicate-directory-errors) for more information).
 
+
 ### Styles
+
 
 #### Build
 
@@ -383,6 +420,7 @@ You have to run `npm run md-build` to copy the CSS files to the `_site` director
 from which the website is served
 in order for them to take effect.
 
+
 #### Lint
 
 All Sass files have to pass [stylelint](https://stylelint.io)
@@ -393,6 +431,7 @@ you can install this [extension](https://marketplace.visualstudio.com/items?item
 ```bash
 npm run scss-lint
 ```
+
 
 #### Watch
 
@@ -407,7 +446,9 @@ Please note that
 in order for the rebuilt styles to take effect
 you also have to run `npm run md-watch`.
 
+
 ### Scripts
+
 
 #### Build
 
@@ -424,6 +465,7 @@ You have to run `npm run md-build` to copy the JavaScript files to the `_site` d
 from which the website is served
 in order for them to take effect.
 
+
 #### Lint
 
 All TypeScript files have to pass [TSLint](https://palantir.github.io/tslint/)
@@ -434,6 +476,7 @@ you can install this [extension](https://marketplace.visualstudio.com/items?item
 ```bash
 npm run ts-lint
 ```
+
 
 #### Watch
 
@@ -447,6 +490,7 @@ npm run ts-watch
 Please note that
 in order for the rebuilt scripts to take effect
 you also have to run `npm run md-watch`.
+
 
 #### Analyze
 
@@ -462,6 +506,7 @@ which can be visualized with [this website](https://chrisbateman.github.io/webpa
 The `inspectpack` plugin outputs during the build process whether there are any duplicate sources.
 You can read more about this
 [here](https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/).
+
 
 ### Libraries
 
@@ -491,6 +536,7 @@ you also have to update the [CDN](https://en.wikipedia.org/wiki/Content_delivery
 and the [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) hashes,
 which you can generate at [www.srihash.org](https://www.srihash.org).
 
+
 ### Favicons
 
 The favicons stored in `assets/favicons` were generated with [RealFaviconGenerator](https://realfavicongenerator.net).
@@ -501,7 +547,9 @@ You can convert the logo in `assets/images` from SVG to PNG with:
 npm run logo-convert
 ```
 
+
 ## Documentation
+
 
 ### Articles
 
@@ -518,6 +566,7 @@ Articles can have the following variables in their [front matter](https://jekyll
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
 - `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
+
 ### Preview
 
 You can refresh the cached preview of an article
@@ -527,11 +576,13 @@ and [LinkedIn](https://www.linkedin.com/post-inspector/inspect/).
 In case of Telegram, you need to send the URL to the
 [@webpagebot](https://telegram.me/webpagebot).
 
+
 ### Markdown
 
 [Markdown](https://guides.github.com/features/mastering-markdown/)
 is converted by [kramdown](https://kramdown.gettalong.org/index.html)
 according to [this syntax specification](https://kramdown.gettalong.org/syntax.html).
+
 
 #### Comments
 
@@ -547,6 +598,7 @@ This text is ignored by Liquid.
 {% endcomment %}
 ```
 
+
 #### Footnotes
 
 ```markdown
@@ -554,6 +606,7 @@ This statement requires a source.[^label]
 
 [^label]: This can be written anywhere.
 ```
+
 
 #### Abbreviations
 
@@ -563,11 +616,13 @@ You can use an abbreviation like HTML anywhere and then provide a definition any
 *[HTML]: Hyper Text Markup Language
 ```
 
+
 #### Horizontal rules
 
 ```markdown
 ---
 ```
+
 
 #### Description list
 
@@ -587,6 +642,7 @@ This is transformed into:
 </dl>
 ```
 
+
 #### Table
 
 ```markdown
@@ -604,6 +660,7 @@ This is transformed into:
 
 See [Bootstrap](https://getbootstrap.com/docs/4.5/content/tables/) for styling options.
 
+
 #### HTML blocks
 
 You can use [HTML blocks](https://kramdown.gettalong.org/syntax.html#html-blocks) in Markdown.
@@ -612,6 +669,7 @@ you have to use `markdown="1"` as an attribute
 in order to parse its content with the default mechanism.
 You can also use `markdown="block"` or `markdown="span"`
 if you want the content of the tag to be parsed explicitly as a block or span level element.
+
 
 #### Details element
 
@@ -638,6 +696,7 @@ then add the `open` attribute to the `details` tag:
 <details markdown="block" open>
 ```
 
+
 #### Header IDs
 
 You can provide the header ID yourself if you want:
@@ -645,6 +704,7 @@ You can provide the header ID yourself if you want:
 ```markdown
 ## Title {#my-id}
 ```
+
 
 #### Attributes
 
@@ -683,6 +743,7 @@ you can declare an [attribute list definition](https://kramdown.gettalong.org/sy
 {:other: ref-name #id-of-other .another-class title="Example"}
 ```
 
+
 #### Table of contents
 
 ```markdown
@@ -693,13 +754,16 @@ you can declare an [attribute list definition](https://kramdown.gettalong.org/sy
 {:data-toc-skip=""}
 ```
 
+
 ### Images
+
 
 #### Simple image
 
 ```markdown
 ![Name of the image](image.png)
 ```
+
 
 #### Image with caption
 
@@ -710,6 +774,7 @@ you can declare an [attribute list definition](https://kramdown.gettalong.org/sy
 The `caption` string can span several lines.
 You just need to escape all quotation marks in it.
 It will be rendered with `markdown="span"` as a single paragraph.
+
 
 #### Image in various sizes
 
@@ -731,6 +796,7 @@ with the various sizes is generated when you add `scaled="true"` to the `include
 This example requires that `images/source.scaled.png` exists.
 The `caption` is optional and can be skipped.
 
+
 #### Dark and light images
 
 If you want to provide a different image for the dark and the light theme,
@@ -745,7 +811,9 @@ This example requires that `images/source.dark.png` and `images/source.light.png
 You can combine this feature with the above scaling option,
 in which case `images/source.dark.scaled.png` and `images/source.light.scaled.png` must exist.
 
+
 ### Graphics
+
 
 #### Generate SVGs
 
@@ -755,11 +823,13 @@ in the `graphics` subfolder of articles.
 You can also watch all SVG-related TypeScript files with `npm run svg-watch`.
 These scripts are also included in `npm run build` and `npm run watch` respectively.
 
+
 #### Embed SVG directly
 
 ```markdown
 {% include_relative generated/example.embedded.svg %}
 ```
+
 
 #### Embed SVG with caption
 
@@ -772,6 +842,7 @@ Caption with *Markdown*.
 </figure>
 ```
 
+
 #### Generate thumbnail
 
 If you want to use an SVG image for the social media preview,
@@ -782,6 +853,7 @@ You can then run this script with:
 ```bash
 npm run thumbnail
 ```
+
 
 ### Math
 
@@ -801,6 +873,7 @@ Don't forget to add the following front matter at the beginning of the article:
 math: true
 ```
 
+
 ### PDF
 
 The following command generates a PDF of the given article with [Puppeteer](https://github.com/puppeteer/puppeteer):
@@ -814,6 +887,7 @@ at `http://localhost:4000/` before calling the above script.
 Replace `<article>` with the name of the article's directory.
 The script runs [headless Chromium](https://developers.google.com/web/updates/2017/04/headless-chrome)
 to [generate the PDF](https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF).
+
 
 ### Timestamps
 
@@ -830,7 +904,9 @@ npm run ots-remove-bak <article>
 
 Make sure that the [PDF](#pdf) has already been generated before calling the second command.
 
+
 ## About
+
 
 ### Contributions
 
@@ -839,6 +915,7 @@ if you found a typographical error, a factual inaccuracy or a logical fallacy.
 Please also let me know if an explanation is difficult to follow.
 You are welcome to suggest interesting topics for me to write about.
 However, unless I explicitly asked for it, I will not accept any pull requests.
+
 
 ### Dependencies
 
@@ -859,17 +936,20 @@ The most important third party projects used by this website are:
 
 More dependencies are listed in [package.json](package.json) and [Gemfile](Gemfile).
 
+
 ### Copyright
 
 The copyright for the content of this repository,
 excluding the aforementioned dependencies,
 belongs to [Kaspar Etter](https://www.kasparetter.com).
 
+
 ### License
 
 The content of this repository,
 excluding the aforementioned dependencies,
 is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
 
 ### Contact
 
