@@ -3,7 +3,7 @@ import { normalizeToArray, normalizeToValue } from '../utility/functions';
 import { removeItem } from '../utility/storage';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 
-import { DynamicEntry, Entry, ErrorType, ValueType } from './entry';
+import { DynamicEntry, Entry, equalValues, ErrorType, ValueType } from './entry';
 import { PersistedState, Store } from './store';
 
 export type Entries = {
@@ -116,7 +116,7 @@ function updateState<State extends ObjectButNotFunction>(
         // because an input could have been changed while another input had an error.
         // Now that other inputs are disabled, this can only happen programmatically.
         for (const key of Object.keys(entries) as KeysOf<State>) {
-            if (inputs[key] !== currentState[key]) {
+            if (!equalValues(inputs[key], currentState[key])) {
                 changed.push(key);
             }
         }
@@ -124,15 +124,25 @@ function updateState<State extends ObjectButNotFunction>(
             // Go through all the select entries and change their value
             // if it's no longer in the list of select options when computed with the new state.
             for (const key of Object.keys(entries) as KeysOf<State>) {
-                if (entries[key].inputType === 'select') {
+                if (['select', 'multiple'].includes(entries[key].inputType)) {
                     const newSelectOptions = Object.keys(normalizeToValue(entries[key].selectOptions!, inputs));
                     if (newSelectOptions.length === 0) {
                         throw new Error('There should always be at least one option to select.');
                     }
-                    if (!newSelectOptions.includes(inputs[key] as any)) {
-                        store.state.inputs[key] = newSelectOptions[0] as any;
-                        inputs[key] = newSelectOptions[0] as any;
-                        changed.push(key);
+                    if (entries[key].inputType === 'select') {
+                        if (!newSelectOptions.includes(inputs[key] as any)) {
+                            store.state.inputs[key] = newSelectOptions[0] as any;
+                            inputs[key] = newSelectOptions[0] as any;
+                            changed.push(key);
+                        }
+                    } else if (entries[key].inputType === 'multiple') {
+                        const input = inputs[key] as unknown as string[];
+                        const filteredInput = input.filter(value => newSelectOptions.includes(value));
+                        if (!equalValues(input, filteredInput)) {
+                            store.state.inputs[key] = filteredInput as any;
+                            inputs[key] = filteredInput as any;
+                            changed.push(key);
+                        }
                     }
                 }
             }
@@ -204,7 +214,7 @@ function changeState<State extends ObjectButNotFunction>(
     // Local copy of the change counter in case one of the handlers triggers another change synchronously.
     const changeId = changeCounter;
     for (const key of Object.keys(entries) as KeysOf<State>) {
-        if (nextState[key] !== previousState[key]) {
+        if (!equalValues(nextState[key], previousState[key])) {
             normalizeToArray(entries[key].onChange).forEach(handler => handler(nextState[key], nextState, true, changeId));
         }
     }

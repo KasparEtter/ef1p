@@ -45,15 +45,26 @@ export interface InputProps<State extends ObjectButNotFunction> {
     submit?: Button<State>;
 }
 
-export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
-    private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
-        const target = event.currentTarget as HTMLInputElement;
-        const key = target.name as keyof State;
+function getValue(target: HTMLInputElement | HTMLSelectElement): ValueType {
+    if (target.type === 'checkbox') {
         // I don't know why I have to invert the checkbox value here.
         // It works without if the value is passed through `defaultChecked` instead of `checked` to the `CustomInput`.
         // However, with `defaultChecked`, other checkboxes representing the same value no longer update when the state of the value changes.
-        const value = target.type === 'checkbox' ? !target.checked : (numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value);
-        setState(this.props.store, { [key]: value } as unknown as Partial<State>, callOnChangeEvenWhenNoChange);
+        return !(target as HTMLInputElement).checked;
+    } else if (target.multiple) {
+        return [...(target as HTMLSelectElement).options].filter(option => option.selected).map(option => option.value);
+    } else if (numberInputTypes.includes(target.type as any)) {
+        return Number(target.value);
+    } else {
+        return target.value;
+    }
+}
+
+export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
+    private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
+        const target = event.currentTarget as HTMLInputElement | HTMLSelectElement;
+        const partialNewState = { [target.name]: getValue(target) } as unknown as Partial<State>;
+        setState(this.props.store, partialNewState, callOnChangeEvenWhenNoChange);
     }
 
     private readonly onChange = (event: Event | ChangeEvent<any>) => {
@@ -69,7 +80,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly onInput = (event: Event) => {
         const target = event.currentTarget as HTMLInputElement;
-        const value = numberInputTypes.includes(target.type as any) ? Number(target.value) : target.value;
+        const value = getValue(target);
         const key = target.name as keyof State;
         this.props.store.state.inputs[key] = value as any;
         clearErrors(this.props.store);
@@ -96,6 +107,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly onSubmit = () => {
         validateInputs(this.props.store);
+        this.props.store.update('input');
         if (hasNoErrors(this.props.store)) {
             const state = getCurrentState(this.props.store);
             normalizeToArray(this.props.store.meta.onChange).forEach(handler => handler(state, true));
@@ -129,7 +141,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const entry = this.props.entries[key as keyof State] as DynamicEntry<ValueType, State>;
         const input = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
-        const disabled = !error && (hasErrors ? true : (entry.disabled ? entry.disabled(this.props.store.state.inputs) : false));
+        const disabled = !error && (hasErrors ? true : (entry.disable ? entry.disable(this.props.store.state.inputs) : false));
         const history = inputTypesWithHistory.includes(entry.inputType);
         const state = getCurrentState(this.props.store);
         return <label
@@ -139,7 +151,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
             {
                 !this.props.noLabels &&
                 <span
-                    className={'label-text' + (entry.inputType === 'textarea' ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' text-gray' : '')}
+                    className={'label-text' + (['multiple', 'textarea'].includes(entry.inputType) ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' color-gray' : '')}
                     style={this.props.newColumnAt ? { width: (this.props.individualLabelWidth ? entry.labelWidth : labelWidth) + 'px' } : {}}
                 >
                     {entry.name}:
@@ -161,15 +173,21 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                     </span>
                 }
                 {
-                    entry.inputType === 'select' &&
+                    (entry.inputType === 'select' || entry.inputType === 'multiple') &&
                     <select
                         name={key}
                         className={'custom-select' + (error ? ' is-invalid' : '')}
                         disabled={disabled}
                         onChange={this.onChange}
+                        multiple={entry.inputType === 'multiple'}
+                        size={entry.inputType === 'multiple' && entry.selectOptions ? Object.entries(normalizeToValue(entry.selectOptions, state)).length : undefined}
                     >
-                        {entry.selectOptions && Object.entries(normalizeToValue(entry.selectOptions, state)).map(
-                            ([key, text]) => <option key={key} value={key} selected={key === input}>{text}</option>,
+                        {entry.selectOptions && Object.entries(normalizeToValue(entry.selectOptions, state)).map(([key, text]) =>
+                            <option
+                                key={key}
+                                value={key}
+                                selected={entry.inputType === 'multiple' ? (input as string[]).includes(key) : key === input}
+                            >{text}</option>,
                         )}
                     </select>
                 }
@@ -192,7 +210,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                     />
                 }
                 { // inputType: 'number' | 'range' | 'text' | 'password' | 'date' | 'color';
-                    entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' && entry.inputType !== 'textarea' &&
+                    entry.inputType !== 'checkbox' && entry.inputType !== 'switch' && entry.inputType !== 'select' && entry.inputType !== 'multiple' && entry.inputType !== 'textarea' &&
                     <Fragment>
                         {
                             history &&
@@ -237,7 +255,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
             </span>
             {
                 entry.inputType === 'range' &&
-                <span className="range-value">{input}</span>
+                <span className={'range-value' + (disabled ? ' color-gray' : '')}>{input}</span>
             }
             {
                 entry.determine &&

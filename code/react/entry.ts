@@ -1,8 +1,26 @@
 import { Color } from '../utility/color';
-import { Button, Function, ObjectButNotFunction, ValueOrArray, ValueOrFunction } from '../utility/types';
+import { Button, ObjectButNotFunction, ValueOrArray, ValueOrFunction } from '../utility/types';
 
-export type ValueType = boolean | number | string;
+export type ValueType = boolean | number | string | string[];
 export type ErrorType = string | false;
+
+export function equalValues(a?: any, b?: any): boolean {
+    if (a === b) {
+        return true;
+    }
+    if (Array.isArray(a) && Array.isArray(b)) {
+        if (a.length !== b.length) {
+            return false;
+        }
+        for (let i = 0; i < a.length; i++) {
+            if (a[i] !== b[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
 
 /**
  * Static entries can only be used to output information to the user.
@@ -12,6 +30,11 @@ export interface Entry<T extends ValueType, State extends ObjectButNotFunction =
     readonly description: ValueOrFunction<string, T>;
     defaultValue: ValueOrFunction<T>;
     outputColor?: ValueOrFunction<Color, T>;
+
+    /**
+     * Only used if the value type is a string array. Defaults to ', '.
+     */
+    readonly valueSeparator?: string;
 
     /**
      * Transforms the value for output.
@@ -35,7 +58,10 @@ export type NumberInputType = typeof numberInputTypes[number];
 export const stringInputTypes = ['text', 'textarea', 'select', 'password', 'date', 'color'] as const;
 export type StringInputType = typeof stringInputTypes[number];
 
-export type InputType = BooleanInputType | NumberInputType | StringInputType;
+export const arrayInputTypes = ['multiple'] as const;
+export type ArrayInputType = typeof arrayInputTypes[number];
+
+export type InputType = BooleanInputType | NumberInputType | StringInputType | ArrayInputType;
 
 /**
  * 'text' and 'number' provide suggestions based on their history.
@@ -62,9 +88,25 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
      * Only relevant for 'textarea' inputs.
      */
     readonly rows?: number;
+
+    /**
+     * Only relevant for 'range' inputs. Defaults to 0.
+     */
     readonly minValue?: T;
+
+    /**
+     * Only relevant for 'range' inputs. Defaults to 100.
+     */
     readonly maxValue?: T;
+
+    /**
+     * Only relevant for 'range' inputs. Defaults to 1.
+     */
     readonly stepValue?: T;
+
+    /**
+     * The placeholder of the input field.
+     */
     readonly placeholder?: ValueOrFunction<string, State>;
 
     /**
@@ -83,7 +125,7 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
      * Determines whether this input is disabled.
      * The function is called with potentially invalid inputs.
      */
-    readonly disabled?: (inputs: State) => boolean;
+    readonly disable?: (inputs: State) => boolean;
 
     /**
      * Validates this input.
