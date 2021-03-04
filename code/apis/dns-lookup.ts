@@ -131,20 +131,20 @@ function normalizeRecord(record: GoogleDnsRecord): DnsRecord {
     return { name, type, ttl: live, data };
 }
 
-export async function resolveDomainName(domainName: string, recordType: RecordType, dnssecOk: boolean = false): Promise<DnsResponse> {
+export async function resolveDomainName(domain: string, type: RecordType, dnssec: boolean = false): Promise<DnsResponse> {
     const parameters = {
-        name: domainName,
-        type: recordType,
-        do: dnssecOk.toString(),
+        name: domain,
+        type,
+        do: dnssec.toString(),
     };
     const response = await fetchWithErrorAndTimeout(endpoint + new URLSearchParams(parameters).toString());
     const json: GoogleDnsResponse = await response.json();
     const status = json.Status;
-    const type = recordTypesById[json.Question[0].type];
-    if (type === undefined) {
+    const recordType = recordTypesById[json.Question[0].type];
+    if (recordType === undefined) {
         throw new Error(`Unsupported record type ${json.Question[0].type}.`);
     }
-    const question = { name: json.Question[0].name, type };
+    const question = { name: json.Question[0].name, type: recordType };
     const answer = normalizeToArray(json.Answer).map(normalizeRecord);
     const authority = normalizeToArray(json.Authority).map(normalizeRecord);
     return { status, question, answer, authority };
