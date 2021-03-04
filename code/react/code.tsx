@@ -1,8 +1,8 @@
 import { ClickToCopy } from './copy';
 import { Children, ClassName, ClickHandler, Title } from './utility';
 
-export function CodeBlock({ children }: Children): JSX.Element {
-    return <pre>{children}</pre>;
+export function CodeBlock({ wrapped, children }: { wrapped?: boolean } & Children): JSX.Element {
+    return <pre className={wrapped ? 'wrapped' : ''}>{children}</pre>;
 }
 
 export function InlineCode({ children }: Children): JSX.Element {
@@ -30,9 +30,9 @@ export function UserCommand({ children }: Children): JSX.Element {
 }
 
 export function SystemReply({ children }: Children): JSX.Element {
-    return <div className="text-gray">{children}</div>;
+    return <div className="color-gray">{children}</div>;
 }
 
 export function Comment({ children }: Children): JSX.Element {
-    return <div className="text-gray" title="This is just a comment.">{children}</div>;
+    return <div className="color-gray" title="This is just a comment.">{children}</div>;
 }

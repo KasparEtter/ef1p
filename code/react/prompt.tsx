@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { textColor } from '../utility/color';
+import { colorClass } from '../utility/color';
 import { normalizeToValue } from '../utility/functions';
 
 import { ClickToCopy } from './copy';
@@ -23,7 +23,7 @@ function getPrompt(value: string, children: ReactNode, noNewline?: boolean): JSX
     return <div className="prompt">
         <span
             title={prompt.name + ': ' + normalizeToValue(prompt.description, value)}
-            className={'dynamic-output' + textColor(normalizeToValue(prompt.outputColor, value))}
+            className={'dynamic-output' + colorClass(normalizeToValue(prompt.outputColor, value))}
         >
             {value}
         </span>

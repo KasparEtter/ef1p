@@ -22,21 +22,23 @@
 $svg-colors: () !default;
 $svg-colors: map-merge(
   (
-    "blue":   $blue,
+    "blue": $blue,
     "purple": $purple,
-    "pink":   $pink,
-    "red":    $red,
+    "pink": $pink,
+    "red": $red,
     "orange": $orange,
     "yellow": $yellow,
-    "green":  $green,
-    "brown":  $brown,
-    "gray":   $gray,
+    "green": $green,
+    "brown": $brown,
+    "gray": $gray,
+    "text": $body-color,
+    "background": $body-bg,
   ),
   $svg-colors
 );
 
 @each $color, $value in $svg-colors {
-  .text-#{$color} {
+  .color-#{$color} {
     color: $value;
   }
 }

@@ -58,6 +58,6 @@ export function colorSuffix(color?: Color): string {
     return color ? '-' + color : '';
 }
 
-export function textColor(color?: Color, prefix: string = ' '): string {
-    return color ? prefix + 'text-' + color : '';
+export function colorClass(color?: Color, prefix: string = ' '): string {
+    return color ? prefix + 'color-' + color : '';
 }
