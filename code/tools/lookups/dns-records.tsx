@@ -136,26 +136,26 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         ],
     },
     CNAME: {
-        regexp: /^([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\.$/i,
+        regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [{ title: (_, record) => `The domain name for which ${record.name.slice(0, -1)} is an alias. Click to look up its resource records of the same type. Right click to open the domain in your browser.`, onClick: field => setState(store, { domainName: field }), onContextMenu }],
     },
     MX: {
-        regexp: /^\d+ ([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\.$/i,
+        regexp: /^\d+ ([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [
             { title: 'The priority of the subsequent host. The lower the value, the higher the priority. Several records with the same priority can be used for load balancing, otherwise additional records simply provide redundancy.' },
             { title: (_, record) => `A host which handles incoming mail for ${record.name} Click to look up its IPv4 address. The host name must resolve directly to one or more address records without involving CNAME records.`, onClick },
         ],
     },
     NS: {
-        regexp: /^([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\.$/i,
+        regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [{ title: (_, record) => `An authoritative name server for the DNS zone starting at ${record.name} Click to look up its IPv4 address.`, onClick }],
     },
     PTR: {
-        regexp: /^([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\.$/i,
+        regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [{ title: 'This is typically the domain name from a reverse DNS lookup. Click to look up its IPv4 address. If it matches the IP address that was looked up in reverse, then the domain holder also holds that IP address. Without a match, the reference in either direction can be fraudulent. Right click to open the domain in your browser.', onClick, onContextMenu }],
     },
     SOA: {
-        regexp: /^([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\. ([a-z0-9_]+(-[a-z0-9]+)*(\\)?\.)+[a-z]{2,63}\. \d+ \d+ \d+ \d+ \d+$/i,
+        regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\. ([a-z0-9_]+(-[a-z0-9]+)*\\?\.)+[a-z]{2,63}\. \d+ \d+ \d+ \d+ \d+$/i,
         fields: [
             { title: (_, record) => `The primary name server for the DNS zone ${record.name} Click to look up its IPv4 address.`, onClick },
             { title: field => 'The email address of the administrator responsible for this zone. The first non-escaped period is replaced with an @, so the address actually is ' + field.replace(/\\\./g, ':').replace('.', '@').replace(/:/g, '.') }, // The closing period is coming from the domain name itself.
@@ -168,7 +168,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     },
     SPF: record => <StaticOutput title={`This record specifies the IP addresses of the outgoing mail servers of ${record.name} SPF stands for Sender Policy Framework. This record type has been obsoleted by RFC 7208. You should just use a TXT record for this now.`}>{record.data}</StaticOutput>,
     SRV: {
-        regexp: /^\d+ \d+ \d+ (([a-z0-9_]+(-[a-z0-9]+)*\.)+[a-z]{2,63})?\.$/i,
+        regexp: /^\d+ \d+ \d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9])?\.$/i,
         fields: [
             { title: 'The priority of the host at the end of this record. Clients should use the SRV record with the lowest priority value first and fall back to records with higher priority values if the connection fails.' },
             { title: 'A relative weight for records with the same priority. If a service has multiple SRV records with the same priority value, each client should load balance them in proportion to the values of their weight fields.' },
@@ -180,7 +180,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     DNSKEY,
     DS,
     RRSIG: {
-        regexp: /^[a-z0-9]{1,10} \d+ \d+ \d+ \d+ \d+ \d+ (([a-z0-9_]+(-[a-z0-9]+)*\.)*[a-z]{2,63})?\. (?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/i,
+        regexp: /^[a-z0-9]{1,10} \d+ \d+ \d+ \d+ \d+ \d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\. (?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/i,
         fields: [
             { title: field => `Type covered: The record type covered by the signature in this record. A DNSSEC signature covers all the records of the given type. The records are first sorted, then hashed and signed collectively. (${recordTypes[field.toUpperCase() as RecordType] ?? 'Unsupported record type.'})`, transform: field => field.toUpperCase() },
             { title: field => `Algorithm: This number identifies the cryptographic algorithm used to create and verify the signature. (${field} stands for ${dnskeyAlgorithmsShort[field] ?? 'an unsupported or not recommended algorithm'}.)` },
