@@ -119,6 +119,16 @@ export function countOccurrences(text: string, regex: RegExp): number {
 }
 
 /**
+ * Splits the given text on the first of occurrence of the given delimiter.
+ * If the delimiter is not found, the original string is returned in the first part.
+ * The second part always starts with the delimiter but may contain no other characters.
+ */
+export function splitOnFirstOccurrence(text: string, delimiter: string): [string, string] {
+    const index = text.indexOf(delimiter);
+    return index >= 0 ? [text.substring(0, index), text.substring(index)] : [text, delimiter];
+}
+
+/**
  * Splits the given string at the given separator unless the separator is within double quotes.
  */
 export function splitOutsideOfDoubleQuotes(text: string, separator: string, unescape = false, trim = false): string[] {
