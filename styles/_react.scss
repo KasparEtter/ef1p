@@ -52,3 +52,9 @@ code {
     outline: none;
   }
 }
+
+pre.wrapped {
+  margin-top: .5rem;
+  margin-bottom: 0;
+  white-space: pre-wrap;
+}

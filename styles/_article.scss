@@ -42,7 +42,11 @@ article {
     }
   }
 
-  ol li {
+  ol.long {
+    padding-left: 25px;
+  }
+
+  ol > li {
     padding-left: 4px;
   }
 
