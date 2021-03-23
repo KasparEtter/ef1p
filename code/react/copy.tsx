@@ -42,7 +42,7 @@ export interface ClickToCopyProps {
     newline?: boolean;
 
     /**
-     * The animation effect used to animate the span element.
+     * The animation effect used to animate the span element. Defaults to 'scale150'.
      */
     effect?: AnimationEffect;
 }
