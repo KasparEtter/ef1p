@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { toLocalDateWithTime } from '../../utility/date';
+import { Time } from '../../utility/time';
 import { Dictionary } from '../../utility/types';
 
 import { DynamicOutput, StaticOutput } from '../../react/code';
@@ -68,6 +68,33 @@ const dsDigests: Dictionary = {
     '4': 'SHA-384',
 };
 
+const tlsaCertificateUsages: Dictionary = {
+    '0': 'PKIX-TA. (PKIX means that the certificate also has to be trusted in the X.509 public key infrastructure and TA means that the certificate belongs to a trust anchor, i.e. a certificate authority.)',
+    '1': 'PKIX-EE. (PKIX means that the certificate also has to be trusted in the X.509 public key infrastructure and EE means that the certificate belongs to the end entity, i.e. the server itself.)',
+    '2': 'DANE-TA. (DANE means that the certificate does not have to be trusted in the X.509 public key infrastructure and TA means that the certificate belongs to a trust anchor/certificate authority.)',
+    '3': 'DANE-EE. (DANE means that the certificate does not have to be trusted in the X.509 public key infrastructure and EE means that the certificate belongs to the end entity, i.e. the server itself.)',
+    '255': 'PrivCert (reserved for private use).',
+};
+
+const tlsaCertificateUsagesDefault = 'unassigned. (This is likely an error.)';
+
+const tlsaSelectors: Dictionary = {
+    '0': 'the entire certificate has to match',
+    '1': 'only the subject\'s public key information (SPKI) has to match',
+    '255': 'this record is used for private purposes',
+};
+
+const tlsaSelectorsDefault = 'the domain owner likely made a mistake because this value is unassigned';
+
+const tlsaMatchingTypes: Dictionary = {
+    '0': 'the entire text of the selected content',
+    '1': 'the SHA-256 hash of the selected content',
+    '2': 'the SHA-512 hash of the selected content',
+    '255': 'used for private purposes',
+};
+
+const tlsaMatchingTypesDefault = 'used for an unassigned purpose';
+
 interface Field {
     title: string | ((field: string, record: DnsRecord) => string);
     onClick?: (field: string, record: DnsRecord) => any;
@@ -86,7 +113,7 @@ const onClick = (field: string) => setDnsResolverInputs(field, 'A');
 const onContextMenu = (field: string) => window.open('http://' + field.slice(0, -1));
 
 const DNSKEY: Pattern = {
-    regexp: /^\d+ \d+ \d+ (?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/,
+    regexp: /^\d+ \d+ \d+ ([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/,
     fields: [
         { title: field => 'Flags: ' + (dnskeyFlags[field] ?? dnskeyFlagsDefault) },
         { title: 'Protocol: For DNSSEC, this value has to be 3.' },
@@ -140,10 +167,10 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         fields: [{ title: (_, record) => `The domain name for which ${record.name.slice(0, -1)} is an alias. Click to look up its resource records of the same type. Right click to open the domain in your browser.`, onClick: field => setState(store, { domainName: field }), onContextMenu }],
     },
     MX: {
-        regexp: /^\d+ ([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
+        regexp: /^\d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9])?\.$/i,
         fields: [
             { title: 'The priority of the subsequent host. The lower the value, the higher the priority. Several records with the same priority can be used for load balancing, otherwise additional records simply provide redundancy.' },
-            { title: (_, record) => `A host which handles incoming mail for ${record.name} Click to look up its IPv4 address. The host name must resolve directly to one or more address records without involving CNAME records.`, onClick },
+            { title: (field, record) => field === '.' ? `This MX record indicates that ${record.name.slice(0, -1)} doesn't accept mail.` : `A host which handles incoming mail for ${record.name} Click to look up its IPv4 address. The host name must resolve directly to one or more address records without involving CNAME records.`, onClick },
         ],
     },
     NS: {
@@ -176,18 +203,27 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
             { title: field => 'The host which provides the service. ' + (field === '.' ? 'The period means that the service is not available at this domain.' : 'Click to look up its IPv4 address.'), onClick },
         ],
     },
+    TLSA: {
+        regexp: /^\d+ \d+ \d+ [0-9A-Fa-f]+$/,
+        fields: [
+            { title: field => `Certificate usage: How to verify the server's certificate. ${field} stands for ${tlsaCertificateUsages[field] ?? tlsaCertificateUsagesDefault}` },
+            { title: field => `Selector: Which part of the certificate has to match. ${field} means that ${tlsaSelectors[field] ?? tlsaSelectorsDefault}.` },
+            { title: field => `Matching type: How the certificate association data is presented. ${field} means that the certificate association data is ${tlsaMatchingTypes[field] ?? tlsaMatchingTypesDefault}.` },
+            { title: 'The certificate association data as indicated by the previous fields.', transform: field => field.toUpperCase() },
+        ],
+    },
     TXT: record => <StaticOutput title="The arbitrary, text-based data of this record.">{record.data}</StaticOutput>,
     DNSKEY,
     DS,
     RRSIG: {
-        regexp: /^[a-z0-9]{1,10} \d+ \d+ \d+ \d+ \d+ \d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\. (?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/i,
+        regexp: /^[a-z0-9]{1,10} \d+ \d+ \d+ \d+ \d+ \d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\. ([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/i,
         fields: [
             { title: field => `Type covered: The record type covered by the signature in this record. A DNSSEC signature covers all the records of the given type. The records are first sorted, then hashed and signed collectively. (${recordTypes[field.toUpperCase() as RecordType] ?? 'Unsupported record type.'})`, transform: field => field.toUpperCase() },
             { title: field => `Algorithm: This number identifies the cryptographic algorithm used to create and verify the signature. (${field} stands for ${dnskeyAlgorithmsShort[field] ?? 'an unsupported or not recommended algorithm'}.)` },
             { title: `Labels: The number of labels in the domain name to which this record belongs. The empty label for the root and a potential wildcard label are not counted. For example, '*.example.com.' has a label count of 2. This allows a validator to determine whether the answer was synthesized for a wildcard subdomain. Since the signature covers the wildcard label instead of the queried subdomain, a validator needs to be able to detect this in order to verify the signature successfully.` },
             { title: field => `Original TTL: Since the actual time to live value is decremented when a cached record is returned, the original time to live value of the signed record needs to be provided in this RRSIG record in order to be able to verify the signature, which covers this value. (${field} seconds are ${parseTimeToLive(Number.parseInt(field, 10))}.)` },
-            { title: field => `Signature expiration: The signature in this record may not be used to authenticate the signed resource records after ${toLocalDateWithTime(field)}. The date is encoded as the number of seconds elapsed since 1 January 1970 00:00:00 UTC. For record types other than DNSKEY and DS used for key-signing keys (KSKs), the expiration date shouldn't be too far in the future as it limits for how long an attacker can successfully replay stale resource records, which have been replaced by the domain owner.` },
-            { title: field => `Signature inception: The signature in this record may not be used to authenticate the signed resource records before ${toLocalDateWithTime(field)}. The date is encoded as the number of seconds elapsed since 1 January 1970 00:00:00 UTC. The inception date allows you to already sign records which you intend to publish at a certain point in the future without risking that the signature can be misused until then.` },
+            { title: field => `Signature expiration: The signature in this record may not be used to authenticate the signed resource records after ${Time.fromUnix(field).toLocalTime().toGregorianDateWithTime()}. The date is encoded as the number of seconds elapsed since 1 January 1970 00:00:00 UTC. For record types other than DNSKEY and DS used for key-signing keys (KSKs), the expiration date shouldn't be too far in the future as it limits for how long an attacker can successfully replay stale resource records, which have been replaced by the domain owner.` },
+            { title: field => `Signature inception: The signature in this record may not be used to authenticate the signed resource records before ${Time.fromUnix(field).toLocalTime().toGregorianDateWithTime()}. The date is encoded as the number of seconds elapsed since 1 January 1970 00:00:00 UTC. The inception date allows you to already sign records which you intend to publish at a certain point in the future without risking that the signature can be misused until then.` },
             { title: 'Key tag: This value allows resolvers to quickly determine which key needs to be used to verify the signature in this record. The value is calculated according to appendix B of RFC 4034. It is basically the DNSKEY record data split into chunks of 16 bits and then summed up.' },
             { title: 'Signer name: The domain name with the DNSKEY record that contains the public key to validate this signature. It has to be the name of the zone that contains the signed resource records. Click to look up the DNSKEY records of this domain.', onClick: field => setDnsResolverInputs(field, 'DNSKEY') },
             { title: 'Signature: The signature value encoded in Base64.' },
