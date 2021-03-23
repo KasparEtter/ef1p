@@ -679,7 +679,7 @@ with a [summary](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summa
 where the content is still rendered using Markdown.
 
 ```html
-<details markdown="block">
+<details markdown="block" open>
 <summary markdown="span" id="appropriate-id">
 Summary with *Markdown*.
 </summary>
@@ -689,12 +689,8 @@ Details with *Markdown*.
 </details>
 ```
 
-If the information box shall be open by default,
-then add the `open` attribute to the `details` tag:
-
-```html
-<details markdown="block" open>
-```
+If the information box shall not be open by default,
+remove the `open` attribute from the `details` tag.
 
 
 #### Header IDs
@@ -941,7 +937,7 @@ More dependencies are listed in [package.json](package.json) and [Gemfile](Gemfi
 
 The copyright for the content of this repository,
 excluding the aforementioned dependencies,
-belongs to [Kaspar Etter](https://www.kasparetter.com).
+belongs to [Kaspar Etter](https://kasparetter.com).
 
 
 ### License

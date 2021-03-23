@@ -82,7 +82,7 @@ export class SVG extends StructuralElement<SVGProps> {
             result += prefix + indentation + `<metadata>\n`;
             result += prefix + indentation + indentation + `<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">\n`;
             result += prefix + indentation + indentation + indentation + `<rdf:Description rdf:about="">\n`;
-            result += prefix + indentation + indentation + indentation + indentation + `<schema:author rdf:resource="https://www.kasparetter.com/"/>\n`;
+            result += prefix + indentation + indentation + indentation + indentation + `<schema:author rdf:resource="https://kasparetter.com/"/>\n`;
             result += prefix + indentation + indentation + indentation + indentation + `<schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>\n`;
             result += prefix + indentation + indentation + indentation + `</rdf:Description>\n`;
             result += prefix + indentation + indentation + `</rdf:RDF>\n`;
