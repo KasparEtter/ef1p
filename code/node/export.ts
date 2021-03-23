@@ -1,7 +1,7 @@
 import fs from 'fs';
 import puppeteer from 'puppeteer';
 
-import { getCurrentDate } from '../utility/date';
+import { Time } from '../utility/time';
 
 const directory = process.argv[2];
 
@@ -31,7 +31,7 @@ if (!directory) {
             $('meta[property="article:modified_time"]').attr('content'),
         ];
     });
-    const date = modified ?? published ?? getCurrentDate();
+    const date = modified ?? published ?? Time.current().toLocalTime().toGregorianDate();
 
     // Wait for higher quality images to be loaded.
     await new Promise(resolve => setTimeout(resolve, 500));
