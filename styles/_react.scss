@@ -42,6 +42,7 @@ code {
 }
 
 .click-to-copy {
+  display: inline-block;
   padding: 2px 4px;
   margin: -2px -4px;
   cursor: pointer;
@@ -54,7 +55,9 @@ code {
 }
 
 pre.wrapped {
-  margin-top: .5rem;
-  margin-bottom: 0;
   white-space: pre-wrap;
+
+  .click-to-copy {
+    max-width: 100%;
+  }
 }

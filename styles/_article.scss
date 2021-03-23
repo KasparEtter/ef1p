@@ -30,6 +30,8 @@ article {
     figcaption {
       @extend .figure-caption;
       @extend .text-center;
+
+      margin: 0 auto;
     }
   }
 
