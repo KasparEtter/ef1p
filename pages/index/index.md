@@ -17,6 +17,7 @@ here is what you should know about this blog.
 
 ## Content
 
+
 ### Focus
 
 <figure markdown="block">
@@ -49,6 +50,7 @@ The following articles have been published on this blog:
 {% endfor %}
 </div>
 
+
 ### Categories
 
 The topics on this blog fall into one of the following categories:
@@ -56,6 +58,7 @@ The topics on this blog fall into one of the following categories:
 {% for category in site.data.categories %}
 - <i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}: {{ category.description }}{% endfor %}
 {:.compact}
+
 
 ### Ambition
 
@@ -69,11 +72,11 @@ and also the last
 — unless you want to become a real expert on the subject matter.
 I try to explain all concepts
 as much as possible from [first principles](https://en.wikipedia.org/wiki/First_principle),
-which means that all your why questions should be answered by the end of an article.
+which means that all your "why" questions should be answered by the end of an article.
 I strive to make the explanations comprehensible
 with no prior knowledge beyond a high-school education.
-If this is not the case for you,
-please [let me know](#contact).
+If this is not the case for you, please [let me know](#contact).
+
 
 ### Quality
 
@@ -103,10 +106,7 @@ If you disagree with my conclusions,
 then write a rebuttal.
 If your rebuttal contributes to a civilized debate,
 I will consider adding a link to it.
-I endeavor to make my arguments free from
-[logical fallacies](https://en.wikipedia.org/wiki/Formal_fallacy) and
-[cognitive biases](https://en.wikipedia.org/wiki/Cognitive_bias),
-but my rationality — unlike my curiosity — is also bounded.
+
 
 ### Length
 
@@ -128,9 +128,11 @@ you should skip it rather than waste your time.
 I put a lot of thought into the structure of the articles
 to make the sections as easy to skim, skip, and digest as possible.
 
+
 ### License
 
-<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
 
 ### Liability
 
@@ -148,6 +150,7 @@ I added the following features for you.
 If you have ideas for improvement,
 [tell me](#contact).
 
+
 ### Table of contents
 
 The table of contents is generated to the left on bigger screens
@@ -158,6 +161,7 @@ and always expanded on smaller screens.
 As the current section is highlighted,
 you always know where you are,
 which is crucial to grasp complex topics.
+
 
 ### Behavior of links
 
@@ -170,6 +174,7 @@ that you lose your current position.
 Let's just try it:
 [Click here](#about)
 and then back.
+
 
 ### Browser address
 
@@ -185,6 +190,7 @@ without linking to a particular section,
 make sure to remove everything in the address from the hash onward.
 Alternatively, simply scroll to the top of the page before copying the address.
 
+
 ### Section links
 
 If you want to share a link to a specific section,
@@ -194,11 +200,13 @@ On devices with a mouse,
 the green link icon is only shown
 when you hover your mouse over the title.
 
+
 ### Section skipping
 
 If a section does not interest you,
 you can click on the text of its title
 to advance to the next section of the same or a higher level.
+
 
 ### Information boxes
 
@@ -242,10 +250,12 @@ when you read the article for the first time.
 
 </details>
 
+
 ### Dark and light mode
 
 If you prefer dark text on a white background,
 you can toggle the style by clicking on the last entry of the navigation bar at the top.
+
 
 ### History of values
 
@@ -268,6 +278,7 @@ of your web browser.
 If you want, you can <a id="erase-all-values">erase all stored values</a>,
 including your theme preference.
 
+
 ### Article download
 
 Each article can be downloaded as a PDF for printing or offline reading.
@@ -276,6 +287,7 @@ The printing feature of your browser also works, of course,
 but I cannot ensure that the article will be formatted nicely this way.
 Additionally, only the open information boxes will be printed
 if you export the article yourself.
+
 
 ### Graphics export
 
@@ -289,6 +301,7 @@ as long as you give appropriate credit,
 indicate if you made changes,
 and don't suggest that I endorse you
 (see [the license](#license) above).
+
 
 ### Acronym tooltips
 
@@ -316,7 +329,7 @@ to this website beyond general improvements.
 ## Contact
 
 Do not hesitate to [contact me](mailto:contact@ef1p.com)
-if you have feedback, questions or suggestions for topics to write about.
+if you have feedback, questions, or suggestions for topics to write about.
 Please also let me know if an explanation is hard to follow.
 If you found a typographical error, a factual inaccuracy or a logical fallacy,
 you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
@@ -341,7 +354,7 @@ you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
 
 ## About
 
-My name is [Kaspar Etter](https://www.kasparetter.com)
+My name is [Kaspar Etter](https://kasparetter.com)
 and I'm a curious and skeptic person.
 I studied computer science at [ETH](https://ethz.ch/en.html)
 and live in Zurich, Switzerland.
