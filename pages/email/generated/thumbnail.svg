@@ -1,0 +1,87 @@
+<svg width="399.298" height="209.05599999999998" viewBox="-119.649 -24.528 399.298 209.05599999999998" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #FFFFFF;
+            stroke: #FFFFFF;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
+        }
+
+        .blue {
+            fill: #4DA6FF;
+            stroke: #4DA6FF;
+        }
+
+        .green {
+            fill: #00CC99;
+            stroke: #00CC99;
+        }
+
+        .gray {
+            fill: #a6a6a6;
+            stroke: #a6a6a6;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <rect class="filled" x="-119.649" y="-24.528" width="399.298" height="209.05599999999998" style="fill: #1A181B;"></rect>
+
+    <path class="blue" d="M -0.312,140 A 39.688 98.75 0 0 1 -40,41.25" marker-end="url(#arrow-blue)" stroke-dasharray="107"></path>
+    <line class="blue" x1="140" y1="119.688" x2="140" y2="41.25" marker-end="url(#arrow-blue)" stroke-dasharray="71"></line>
+    <line class="green" x1="40.313" y1="20" x2="118.75" y2="20" marker-end="url(#arrow-green)" stroke-dasharray="71"></line>
+    <line class="green" x1="20" y1="119.688" x2="20" y2="41.25" marker-end="url(#arrow-green)" stroke-dasharray="71"></line>
+    <rect x="0" y="120" width="40" height="40" rx="8" ry="8"></rect>
+    <rect x="0" y="0" width="40" height="40" rx="8" ry="8"></rect>
+    <rect x="120" y="0" width="40" height="40" rx="8" ry="8"></rect>
+    <rect x="120" y="120" width="40" height="40" rx="8" ry="8"></rect>
+    <rect x="-60" y="0" width="40" height="40" rx="8" ry="8"></rect>
+    <rect class="gray" x="180" y="0" width="40" height="40" rx="8" ry="8"></rect>
+
+    <mask id="mask">
+        <rect class="filled" x="-96.371" y="137.972" width="23.278" height="23.278" style="fill: white;"></rect>
+        <line x1="-88.612" y1="145.731" x2="-88.612" y2="153.491" style="stroke-width: 5.82; stroke-linecap: round; stroke: black;"></line>
+        <circle class="filled" cx="-80.852" cy="153.491" r="2.91" style="fill: black;"></circle>
+    </mask>
+    <circle class="filled" cx="-84.732" cy="149.611" r="11.639" style="fill: white;" mask="url(#mask)"/>
+
+</svg>

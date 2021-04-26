@@ -1,0 +1,72 @@
+<svg id="figure-webmail" class="figure" data-name="webmail" width="486.794" height="332" viewBox="-63.397 -31.25 486.794 332" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <text text-anchor="middle">
+        <tspan x="0" y="-18.5"><tspan class="font-weight-bold">Web</tspan></tspan>
+    </text>
+    <rect x="-62.147" y="130" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="155.65"><tspan class="font-weight-bold">Web server</tspan></tspan>
+    </text>
+    <rect x="-62.147" y="195" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="220.65"><tspan class="font-weight-bold">Web browser</tspan></tspan>
+    </text>
+    <line x1="0" y1="194.688" x2="0" y2="170.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <rect x="-62.147" y="260" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="285.65"><tspan class="font-weight-bold">User</tspan></tspan>
+    </text>
+    <line x1="0" y1="259.688" x2="0" y2="235.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <text text-anchor="middle">
+        <tspan x="180" y="-18.5"><tspan class="font-weight-bold">Mail</tspan></tspan>
+    </text>
+    <rect x="117.853" y="0" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="180" y="25.65"><tspan class="font-weight-bold">Mail server</tspan></tspan>
+    </text>
+    <rect x="117.853" y="65" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="180" y="90.65"><tspan class="font-weight-bold">Mail client</tspan></tspan>
+    </text>
+    <line x1="180" y1="64.688" x2="180" y2="40.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <rect x="117.853" y="260" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="180" y="285.65"><tspan class="font-weight-bold">User</tspan></tspan>
+    </text>
+    <line x1="180" y1="259.688" x2="180" y2="105.75" marker-end="url(#arrow)" stroke-dasharray="147"></line>
+    <text text-anchor="middle">
+        <tspan x="360" y="-18.5"><tspan class="font-weight-bold">Webmail</tspan></tspan>
+    </text>
+    <rect x="297.853" y="0" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="360" y="25.65"><tspan class="font-weight-bold">Mail server</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="360" y="90.65"><tspan class="font-weight-bold">Mail client</tspan></tspan>
+    </text>
+    <line x1="360" y1="64.688" x2="360" y2="40.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <text text-anchor="middle">
+        <tspan x="360" y="155.65"><tspan class="font-weight-bold">Web server</tspan></tspan>
+    </text>
+    <rect x="297.853" y="195" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="360" y="220.65"><tspan class="font-weight-bold">Web browser</tspan></tspan>
+    </text>
+    <line x1="360" y1="194.688" x2="360" y2="170.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <rect x="297.853" y="260" width="124.295" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="360" y="285.65"><tspan class="font-weight-bold">User</tspan></tspan>
+    </text>
+    <line x1="360" y1="259.688" x2="360" y2="235.75" marker-end="url(#arrow)" stroke-dasharray="17"></line>
+    <rect x="297.853" y="65" width="124.295" height="104.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="90" y="158.65"><tspan class="large"><tspan class="font-weight-bold">+</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="270" y="158.65"><tspan class="large"><tspan class="font-weight-bold">=</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="360" y="126.15"><tspan class="large">&amp;</tspan></tspan>
+    </text>
+
+</svg>

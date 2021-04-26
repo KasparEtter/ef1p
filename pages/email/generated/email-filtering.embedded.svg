@@ -1,0 +1,28 @@
+<svg id="figure-email-filtering" class="figure" data-name="email-filtering" width="574.241" height="190.375" viewBox="-1.25 -53.437 574.241 190.375" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="416.124" y1="41.75" x2="466.538" y2="93.938" marker-end="url(#arrow)" stroke-dasharray="66"></line>
+    <line class="gray" x1="416.124" y1="41.75" x2="466.538" y2="-10.437" marker-end="url(#arrow-gray)" stroke-dasharray="66"></line>
+    <line x1="260.195" y1="41.75" x2="310.609" y2="41.75" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <line x1="104.265" y1="41.75" x2="154.679" y2="41.75" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <rect x="0" y="0" width="103.953" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="51.976" y="36.65"><tspan class="font-weight-bold">Mail client</tspan></tspan><tspan x="51.976" y="58.65">of sender</tspan>
+    </text>
+    <rect x="155.929" y="0" width="103.953" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="207.906" y="25.65"><tspan class="font-weight-bold">Outgoing</tspan></tspan><tspan x="207.906" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="207.906" y="69.65">of sender</tspan>
+    </text>
+    <rect class="green" x="311.859" y="0" width="103.953" height="83.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="363.835" y="25.65"><tspan class="font-weight-bold">Incoming</tspan></tspan><tspan x="363.835" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="363.835" y="69.65">of recipient</tspan>
+    </text>
+    <rect class="gray" x="467.788" y="-52.187" width="103.953" height="83.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="519.765" y="-26.537"><tspan class="font-weight-bold">Offline</tspan></tspan><tspan x="519.765" y="-4.537"><tspan class="font-weight-bold">mail client</tspan></tspan><tspan x="519.765" y="17.463">of recipient</tspan>
+    </text>
+    <rect class="blue" x="467.788" y="52.188" width="103.953" height="83.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="519.765" y="77.838"><tspan class="font-weight-bold">Online</tspan></tspan><tspan x="519.765" y="99.838"><tspan class="font-weight-bold">mail client</tspan></tspan><tspan x="519.765" y="121.838">of recipient</tspan>
+    </text>
+
+</svg>

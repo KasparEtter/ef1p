@@ -1,0 +1,84 @@
+<svg width="368.581" height="103.85" viewBox="-1.25 -5 368.581 103.85" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .small {
+            font-size: 80%;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+    </defs>
+
+    <circle class="blue" cx="151.955" cy="58.675" r="38.925"></circle>
+    <text class="blue" text-anchor="middle">
+        <tspan x="151.955" y="53.575"><tspan class="small">Repeated</tspan></tspan><tspan x="151.955" y="75.575"><tspan class="small">hashing</tspan></tspan>
+    </text>
+    <line class="blue" x1="93.88" y1="19.75" x2="209.092" y2="19.75" marker-end="url(#arrow-blue)" stroke-dasharray="108"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="151.955" y="7.75"><tspan class="text-uppercase">pbkdf</tspan></tspan>
+    </text>
+    <rect x="0" y="0" width="93.567" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="46.784" y="25.65"><tspan class="font-weight-bold">Password</tspan></tspan>
+    </text>
+    <rect x="210.342" y="0" width="155.738" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="288.212" y="25.65"><tspan class="font-weight-bold">Cryptographic key</tspan></tspan>
+    </text>
+
+</svg>

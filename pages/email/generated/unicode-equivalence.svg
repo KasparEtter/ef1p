@@ -1,0 +1,62 @@
+<svg width="254.768" height="74" viewBox="-6.25 -6.25 254.768 74" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <rect class="blue" x="0" y="0" width="121.134" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="60.567" y="25.65"><tspan class="font-weight-bold">Canonical</tspan></tspan><tspan x="60.567" y="47.65"><tspan class="font-weight-bold">equivalence</tspan></tspan>
+    </text>
+    <rect class="green" x="-5" y="-5" width="252.268" height="71.5" rx="13" ry="13"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="184.201" y="25.65"><tspan class="font-weight-bold">Compatibility</tspan></tspan><tspan x="184.201" y="47.65"><tspan class="font-weight-bold">equivalence</tspan></tspan>
+    </text>
+
+</svg>

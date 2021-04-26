@@ -1,0 +1,28 @@
+<svg id="figure-applications-data-integrity" class="figure" data-name="applications-data-integrity" width="363.133" height="187" viewBox="-1.25 -124.25 363.133 187" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="green" x1="85.653" y1="30.75" x2="209.43" y2="30.75" marker-end="url(#arrow-green)" stroke-dasharray="117"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="148.01" y="54.25">Hash</tspan>
+    </text>
+    <line class="blue" x1="148.01" y1="-61.187" x2="209.43" y2="30.75" marker-end="url(#arrow-blue)" stroke-dasharray="104"></line>
+    <text class="blue" text-anchor="start">
+        <tspan x="188.959" y="-21.495">File</tspan>
+    </text>
+    <line class="blue" x1="85.653" y1="30.75" x2="148.01" y2="-60.25" marker-end="url(#arrow-blue)" stroke-dasharray="103"></line>
+    <text class="blue" text-anchor="end">
+        <tspan x="107.197" y="-21.92">File</tspan>
+    </text>
+    <rect x="0" y="0" width="85.34" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="42.67" y="25.65"><tspan class="font-weight-bold">Content</tspan></tspan><tspan x="42.67" y="47.65"><tspan class="font-weight-bold">producer</tspan></tspan>
+    </text>
+    <rect x="105.34" y="-123" width="85.34" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="148.01" y="-97.35"><tspan class="font-weight-bold">Storage</tspan></tspan><tspan x="148.01" y="-75.35"><tspan class="font-weight-bold">provider</tspan></tspan>
+    </text>
+    <rect x="210.68" y="0" width="149.953" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="285.657" y="25.65"><tspan class="font-weight-bold">Consumer</tspan></tspan><tspan x="285.657" y="47.65"><tspan class="pink">hash(File) = Hash?</tspan></tspan>
+    </text>
+
+</svg>

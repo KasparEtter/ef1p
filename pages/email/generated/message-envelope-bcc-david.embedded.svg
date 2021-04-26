@@ -1,0 +1,22 @@
+<svg id="figure-message-envelope-bcc-david" class="figure" data-name="message-envelope-bcc-david" width="666.966" height="206.5" viewBox="-1.25 -103.25 666.966 206.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="green" x1="469.546" y1="0" x2="507.983" y2="0" marker-end="url(#arrow-green)" stroke-dasharray="31"></line>
+    <line class="green" x1="155.546" y1="0" x2="194.921" y2="0"></line>
+    <rect x="0" y="-41.75" width="155.233" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="77.617" y="-5.1"><tspan class="font-weight-bold">Mail client</tspan> of</tspan><tspan x="77.617" y="16.9">alice@example.org</tspan>
+    </text>
+    <rect class="green angular" x="195.233" y="-102" width="274" height="204" rx="0" ry="0"></rect>
+    <text class="green" text-anchor="start">
+        <tspan x="212.233" y="-71.5"><tspan class="font-weight-bold">Envelope</tspan></tspan><tspan x="212.233" y="-49.5">MAIL FROM:&lt;alice@example.org&gt;</tspan><tspan x="212.233" y="-27.5">RCPT TO:&lt;david@example.net&gt;</tspan>
+    </text>
+    <rect class="blue angular" x="200.233" y="-8.5" width="264" height="105.5" rx="0" ry="0"></rect>
+    <text class="blue" text-anchor="start">
+        <tspan x="212.233" y="17"><tspan class="font-weight-bold">Message</tspan></tspan><tspan x="212.233" y="39">From: Alice &lt;alice@example.org&gt;</tspan><tspan x="212.233" y="61">To: Bob &lt;bob@example.com&gt;</tspan><tspan x="212.233" y="83">Bcc: David &lt;david@example.net&gt;</tspan>
+    </text>
+    <rect x="509.233" y="-41.75" width="155.233" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="586.85" y="-16.1"><tspan class="font-weight-bold">Outgoing</tspan></tspan><tspan x="586.85" y="5.9"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="586.85" y="27.9">of example.org</tspan>
+    </text>
+
+</svg>

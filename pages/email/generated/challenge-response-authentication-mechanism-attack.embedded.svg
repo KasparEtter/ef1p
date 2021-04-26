@@ -1,0 +1,61 @@
+<svg id="figure-challenge-response-authentication-mechanism-attack" class="figure" data-name="challenge-response-authentication-mechanism-attack" width="389.24199999999996" height="307.25" viewBox="-44.621 -1.25 389.24199999999996 307.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <g>
+        <rect x="-43.371" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="304.75"></line>
+    </g>
+    <g>
+        <rect class="red" x="106.629" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text class="red" text-anchor="middle">
+            <tspan x="150" y="25.65"><tspan class="font-weight-bold">Attacker</tspan></tspan>
+        </text>
+        <line class="red" x1="150" y1="40.75" x2="150" y2="304.75"></line>
+    </g>
+    <g>
+        <rect x="256.629" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="300" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="300" y1="40.75" x2="300" y2="304.75"></line>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="81.5" x2="148.75" y2="81.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="142"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="74.375" y="69.5">(Connect)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="150" y1="123.5" x2="298.75" y2="123.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="142"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="224.375" y="111.5">(Connect)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="300" y1="165.5" x2="151.25" y2="165.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="142"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="225.625" y="153.5">Challenge</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="150" y1="207.5" x2="1.25" y2="207.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="142"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="75.625" y="195.5">Challenge</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="249.5" x2="148.75" y2="249.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="142"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="74.375" y="237.5">Response</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="150" y1="291.5" x2="298.75" y2="291.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="142"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="224.375" y="279.5">Response</tspan>
+        </text>
+    </g>
+
+</svg>

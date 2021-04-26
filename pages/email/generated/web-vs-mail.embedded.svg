@@ -1,0 +1,51 @@
+<svg id="figure-web-vs-mail" class="figure" data-name="web-vs-mail" width="418.5" height="228.5" viewBox="-1.25 -31.25 418.5 228.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="orange" x1="332" y1="59.25" x2="332" y2="79.75" marker-start="url(#arrow-orange)" stroke-dasharray="14" stroke-dashoffset="21"></line>
+    <line class="orange" x1="332" y1="116.25" x2="332" y2="136.75" marker-end="url(#arrow-orange)" stroke-dasharray="14"></line>
+    <ellipse class="orange" cx="332" cy="98" rx="27" ry="17"></ellipse>
+    <text class="orange" text-anchor="middle">
+        <tspan x="332" y="103.9"><tspan class="font-weight-bold">Data</tspan></tspan>
+    </text>
+    <line class="orange" x1="121" y1="59.25" x2="121" y2="79.75" marker-start="url(#arrow-orange)" stroke-dasharray="14" stroke-dashoffset="21"></line>
+    <line class="orange" x1="121" y1="116.25" x2="121" y2="136.75" marker-end="url(#arrow-orange)" stroke-dasharray="14"></line>
+    <ellipse class="orange" cx="121" cy="98" rx="27" ry="17"></ellipse>
+    <text class="orange" text-anchor="middle">
+        <tspan x="121" y="103.9"><tspan class="font-weight-bold">Data</tspan></tspan>
+    </text>
+    <line class="pink" x1="47" y1="59.25" x2="47" y2="79.75"></line>
+    <line class="pink" x1="47" y1="116.25" x2="47" y2="136.75" marker-end="url(#arrow-pink)" stroke-dasharray="14"></line>
+    <ellipse class="pink" cx="47" cy="98" rx="27" ry="17"></ellipse>
+    <text class="pink" text-anchor="middle">
+        <tspan x="47" y="103.9"><tspan class="font-weight-bold">Code</tspan></tspan>
+    </text>
+    <rect x="0" y="0" width="168" height="58" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="84" y="34.9"><tspan class="font-weight-bold">Web server</tspan></tspan>
+    </text>
+    <rect x="0" y="138" width="168" height="58" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="84" y="172.9"><tspan class="font-weight-bold">Web browser</tspan></tspan>
+    </text>
+    <rect x="248" y="0" width="168" height="58" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="332" y="34.9"><tspan class="font-weight-bold">Mail server</tspan></tspan>
+    </text>
+    <rect x="248" y="138" width="168" height="58" rx="8" ry="8"></rect>
+    <text text-anchor="start">
+        <tspan x="260" y="172.9"><tspan class="font-weight-bold">Mail client</tspan></tspan>
+    </text>
+    <ellipse class="pink" cx="377" cy="167" rx="27" ry="17"></ellipse>
+    <text class="pink" text-anchor="middle">
+        <tspan x="377" y="172.9"><tspan class="font-weight-bold">Code</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="84" y="-18.5"><tspan class="font-weight-bold">Web</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="332" y="-18.5"><tspan class="font-weight-bold">Mail</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="208" y="103.9"><tspan class="font-weight-bold">vs.</tspan></tspan>
+    </text>
+
+</svg>

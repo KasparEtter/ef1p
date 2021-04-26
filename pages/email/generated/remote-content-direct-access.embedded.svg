@@ -1,0 +1,24 @@
+<svg id="figure-remote-content-direct-access" class="figure" data-name="remote-content-direct-access" width="301.281" height="217.75" viewBox="-37.885 -1.25 301.281 217.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="104.427" y1="153.438" x2="174.045" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="107"></line>
+    <text text-anchor="start">
+        <tspan x="149.04" y="126.529">2. Fetch content</tspan>
+    </text>
+    <line x1="104.427" y1="153.438" x2="34.809" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="107"></line>
+    <text text-anchor="end">
+        <tspan x="59.814" y="126.529">1. Fetch email</tspan>
+    </text>
+    <rect class="blue" x="0" y="0" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="34.809" y="25.65"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="34.809" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+    <rect class="green" x="69.618" y="153.75" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="104.427" y="179.4"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="104.427" y="201.4"><tspan class="font-weight-bold">client</tspan></tspan>
+    </text>
+    <rect class="orange" x="139.236" y="0" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="174.045" y="25.65"><tspan class="font-weight-bold">Web</tspan></tspan><tspan x="174.045" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+
+</svg>

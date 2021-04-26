@@ -1,0 +1,25 @@
+<svg id="figure-applications-independent-values" class="figure" data-name="applications-independent-values" width="303.783" height="181" viewBox="-1.25 -70.75 303.783 181" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="red" x1="210.05" y1="40.75" x2="210.05" y2="68.25" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)" stroke-dasharray="14" stroke-dashoffset="21"></line>
+    <line class="red" x1="210.05" y1="-28.75" x2="210.05" y2="-1.25" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)" stroke-dasharray="14" stroke-dashoffset="21"></line>
+    <line class="green" x1="59.129" y1="19.75" x2="117.566" y2="89.25" marker-end="url(#arrow-green)" stroke-dasharray="84"></line>
+    <line class="green" x1="59.129" y1="19.75" x2="117.566" y2="19.75" marker-end="url(#arrow-green)" stroke-dasharray="51"></line>
+    <line class="green" x1="59.129" y1="19.75" x2="117.566" y2="-49.75" marker-end="url(#arrow-green)" stroke-dasharray="84"></line>
+    <rect x="0" y="0" width="58.816" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="29.408" y="25.65"><tspan class="font-weight-bold">Seed</tspan></tspan>
+    </text>
+    <rect x="118.816" y="-69.5" width="182.467" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="210.05" y="-43.85"><tspan class="font-weight-bold">Value<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(1 + Seed)</tspan>
+    </text>
+    <rect x="118.816" y="0" width="182.467" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="210.05" y="25.65"><tspan class="font-weight-bold">Value<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(2 + Seed)</tspan>
+    </text>
+    <rect x="118.816" y="69.5" width="182.467" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="210.05" y="95.15"><tspan class="font-weight-bold">Value<tspan class="script" dy="3">X</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(X + Seed)</tspan>
+    </text>
+
+</svg>

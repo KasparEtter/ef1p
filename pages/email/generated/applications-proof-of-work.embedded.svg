@@ -1,0 +1,28 @@
+<svg id="figure-applications-proof-of-work" class="figure" data-name="applications-proof-of-work" width="321.147" height="122.5" viewBox="-178.04 -1.25 321.147 122.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="red" x1="-89.687" y1="60" x2="-1.25" y2="76" marker-end="url(#arrow-red)" stroke-dasharray="83"></line>
+    <line class="red" x1="-89.687" y1="60" x2="-1.25" y2="12" marker-end="url(#arrow-red)" stroke-dasharray="94"></line>
+    <line class="red" x1="-89.687" y1="60" x2="-1.25" y2="44" marker-end="url(#arrow-red)" stroke-dasharray="83"></line>
+    <line class="green" x1="-89.687" y1="60" x2="-1.25" y2="108" marker-end="url(#arrow-green)" stroke-dasharray="94"></line>
+    <rect x="-176.79" y="40.25" width="86.79" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="-133.395" y="65.9"><tspan class="font-weight-bold">Message</tspan></tspan>
+    </text>
+    <line class="red angular" x1="0" y1="0" x2="0" y2="96"></line>
+    <line class="green angular" x1="0" y1="96" x2="0" y2="120"></line>
+    <line x1="-5" y1="0" x2="5" y2="0"></line>
+    <line x1="-5" y1="120" x2="5" y2="120"></line>
+    <text class="red" text-anchor="start">
+        <tspan x="12" y="49.9">hash(Message + 1)</tspan>
+    </text>
+    <text class="red" text-anchor="start">
+        <tspan x="12" y="17.9">hash(Message + 2)</tspan>
+    </text>
+    <text class="red" text-anchor="start">
+        <tspan x="12" y="81.9">hash(Message + 3)</tspan>
+    </text>
+    <text class="green" text-anchor="start">
+        <tspan x="12" y="113.9">hash(Message + X)</tspan>
+    </text>
+
+</svg>

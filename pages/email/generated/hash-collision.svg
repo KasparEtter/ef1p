@@ -1,0 +1,81 @@
+<svg width="259.309" height="121" viewBox="-1.25 -1.25 259.309 121" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .large {
+            font-size: 160%;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+    </defs>
+
+    <line x1="108.967" y1="98.75" x2="146.904" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <line x1="108.967" y1="19.75" x2="146.904" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <rect class="green" x="0" y="0" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="54.327" y="25.65"><tspan class="font-weight-bold">Find input 1</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="79" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="54.327" y="104.65"><tspan class="font-weight-bold">Find input 2</tspan></tspan>
+    </text>
+    <rect class="green" x="148.154" y="39.5" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="202.482" y="65.15"><tspan class="font-weight-bold">Same output</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54.327" y="66.15"><tspan class="large">≠</tspan></tspan>
+    </text>
+
+</svg>

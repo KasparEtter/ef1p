@@ -1,0 +1,44 @@
+<svg id="figure-link-tracking" class="figure" data-name="link-tracking" width="466.66400000000004" height="217.75" viewBox="-25.718 -1.25 466.66400000000004 217.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="263.23" y1="184.5" x2="396.627" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="174"></line>
+    <text text-anchor="start">
+        <tspan x="338.364" y="143.672">5. Request</tspan>
+    </text>
+    <line x1="225.848" y1="61.813" x2="225.848" y2="152.5" marker-end="url(#arrow)" stroke-dasharray="84"></line>
+    <text text-anchor="start">
+        <tspan x="237.848" y="113.525">4. Redirect</tspan>
+    </text>
+    <line x1="213.848" y1="153.438" x2="213.848" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="84"></line>
+    <text text-anchor="end">
+        <tspan x="201.848" y="113.525">3. Request</tspan>
+    </text>
+    <line x1="86.451" y1="184.5" x2="175.529" y2="184.5" marker-end="url(#arrow)" stroke-dasharray="82"></line>
+    <text text-anchor="middle">
+        <tspan x="131.459" y="172.5">2. Open</tspan>
+    </text>
+    <line x1="43.069" y1="153.438" x2="43.069" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="84"></line>
+    <text text-anchor="end">
+        <tspan x="31.069" y="113.525">1. Fetch</tspan>
+    </text>
+    <rect class="blue" x="0" y="0" width="86.138" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="43.069" y="25.65"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="43.069" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="153.75" width="86.138" height="61.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="43.069" y="179.4"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="43.069" y="201.4"><tspan class="font-weight-bold">client</tspan></tspan>
+    </text>
+    <rect class="green" x="176.779" y="153.75" width="86.138" height="61.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="219.848" y="179.4"><tspan class="font-weight-bold">Web</tspan></tspan><tspan x="219.848" y="201.4"><tspan class="font-weight-bold">browser</tspan></tspan>
+    </text>
+    <rect class="orange" x="176.779" y="0" width="86.138" height="61.5" rx="8" ry="8"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="219.848" y="25.65"><tspan class="font-weight-bold">Tracking</tspan></tspan><tspan x="219.848" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+    <rect class="orange" x="353.558" y="0" width="86.138" height="61.5" rx="8" ry="8"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="396.627" y="25.65"><tspan class="font-weight-bold">Web</tspan></tspan><tspan x="396.627" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+
+</svg>

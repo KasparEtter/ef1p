@@ -1,0 +1,122 @@
+<svg width="223.68200000000002" height="181.25" viewBox="-36.841 -1.25 223.68200000000002 181.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        marker > circle {
+            fill-opacity: 1;
+            stroke-width: 1;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+
+        .gray {
+            fill: #666666;
+            stroke: #666666;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="circle-gray" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="gray" />
+        </marker>
+        <marker id="circle-green" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="green" />
+        </marker>
+        <marker id="circle-blue" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="blue" />
+        </marker>
+    </defs>
+
+    <g>
+        <rect x="-35.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="178.75"></line>
+    </g>
+    <g>
+        <rect x="114.409" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="150" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="150" y1="40.75" x2="150" y2="178.75"></line>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="81.5" x2="148.75" y2="81.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="142"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="74.375" y="69.5">(Connect)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="150" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="142"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="75.625" y="111.5">Challenge</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="165.5" x2="148.75" y2="165.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="142"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="74.375" y="153.5">Response</tspan>
+        </text>
+    </g>
+
+</svg>

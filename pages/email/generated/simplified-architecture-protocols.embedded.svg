@@ -1,0 +1,44 @@
+<svg id="figure-simplified-architecture-protocols" class="figure" data-name="simplified-architecture-protocols" width="599.148" height="298.25" viewBox="-131.662 -5 599.148 298.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <path class="blue" d="M -0.312,250.25 A 77.394 165.5 0 0 1 -77.70605076000001,84.75" marker-end="url(#arrow-blue)" stroke-dasharray="190"></path>
+    <text class="blue" text-anchor="end">
+        <tspan x="-60.121" y="224.146"><tspan class="text-uppercase">imap</tspan> for</tspan><tspan x="-60.121" y="246.146">message</tspan><tspan x="-60.121" y="268.146">storage</tspan>
+    </text>
+    <line class="blue" x1="283.118" y1="208.188" x2="283.118" y2="84.75" marker-end="url(#arrow-blue)" stroke-dasharray="116"></line>
+    <text class="blue" text-anchor="start">
+        <tspan x="295.118" y="129.9"><tspan class="text-uppercase">imap</tspan> or <tspan class="text-uppercase">pop3</tspan></tspan><tspan x="295.118" y="151.9">for message</tspan><tspan x="295.118" y="173.9">retrieval</tspan>
+    </text>
+    <line class="green" x1="105.725" y1="41.75" x2="229.162" y2="41.75" marker-end="url(#arrow-green)" stroke-dasharray="116"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="167.912" y="7.75"><tspan class="text-uppercase">smtp</tspan> for</tspan><tspan x="167.912" y="29.75">message relay</tspan>
+    </text>
+    <line class="green" x1="52.706" y1="208.188" x2="52.706" y2="84.75" marker-end="url(#arrow-green)" stroke-dasharray="116"></line>
+    <text class="green" text-anchor="end">
+        <tspan x="40.706" y="129.9"><tspan class="text-uppercase">smtp</tspan> for</tspan><tspan x="40.706" y="151.9">message</tspan><tspan x="40.706" y="173.9">submission</tspan>
+    </text>
+    <rect x="0" y="208.5" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="52.706" y="245.15"><tspan class="font-weight-bold">Mail client</tspan></tspan><tspan x="52.706" y="267.15">of sender</tspan>
+    </text>
+    <rect x="0" y="0" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="52.706" y="25.65"><tspan class="font-weight-bold">Outgoing</tspan></tspan><tspan x="52.706" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="52.706" y="69.65">of sender</tspan>
+    </text>
+    <rect x="230.412" y="0" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="283.118" y="25.65"><tspan class="font-weight-bold">Incoming</tspan></tspan><tspan x="283.118" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="283.118" y="69.65">of recipient</tspan>
+    </text>
+    <rect x="230.412" y="208.5" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="283.118" y="245.15"><tspan class="font-weight-bold">Mail client</tspan></tspan><tspan x="283.118" y="267.15">of recipient</tspan>
+    </text>
+    <rect x="-130.412" y="0" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="-77.706" y="25.65"><tspan class="font-weight-bold">Incoming</tspan></tspan><tspan x="-77.706" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="-77.706" y="69.65">of sender</tspan>
+    </text>
+    <rect class="gray" x="360.824" y="0" width="105.412" height="83.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="413.53" y="25.65"><tspan class="font-weight-bold">Outgoing</tspan></tspan><tspan x="413.53" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="413.53" y="69.65">of recipient</tspan>
+    </text>
+
+</svg>

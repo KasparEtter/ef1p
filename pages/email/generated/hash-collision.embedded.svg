@@ -1,0 +1,21 @@
+<svg id="figure-hash-collision" class="figure" data-name="hash-collision" width="259.309" height="121" viewBox="-1.25 -1.25 259.309 121" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="108.967" y1="98.75" x2="146.904" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <line x1="108.967" y1="19.75" x2="146.904" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <rect class="green" x="0" y="0" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="54.327" y="25.65"><tspan class="font-weight-bold">Find input 1</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="79" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="54.327" y="104.65"><tspan class="font-weight-bold">Find input 2</tspan></tspan>
+    </text>
+    <rect class="green" x="148.154" y="39.5" width="108.654" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="202.482" y="65.15"><tspan class="font-weight-bold">Same output</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54.327" y="66.15"><tspan class="large">≠</tspan></tspan>
+    </text>
+
+</svg>

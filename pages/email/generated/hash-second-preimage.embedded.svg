@@ -1,0 +1,21 @@
+<svg id="figure-hash-second-preimage" class="figure" data-name="hash-second-preimage" width="280.326" height="121" viewBox="-1.25 -1.25 280.326 121" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="119.475" y1="98.75" x2="157.413" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <line x1="119.475" y1="19.75" x2="157.413" y2="59.25" marker-end="url(#arrow)" stroke-dasharray="48"></line>
+    <rect class="blue" x="0" y="0" width="119.163" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="59.581" y="25.65"><tspan class="font-weight-bold">Given input 1</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="79" width="119.163" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="59.581" y="104.65"><tspan class="font-weight-bold">Find input 2</tspan></tspan>
+    </text>
+    <rect class="blue" x="158.663" y="39.5" width="119.163" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="218.244" y="65.15"><tspan class="font-weight-bold">Same output</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="59.581" y="66.15"><tspan class="large">≠</tspan></tspan>
+    </text>
+
+</svg>

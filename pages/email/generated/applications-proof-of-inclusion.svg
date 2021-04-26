@@ -1,0 +1,129 @@
+<svg width="780.961" height="220.5" viewBox="-1.25 -1.25 780.961 220.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .script {
+            font-size: 75%;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+    </defs>
+
+    <line class="blue" x1="524.501" y1="168.5" x2="562.939" y2="109" marker-end="url(#arrow-blue)" stroke-dasharray="64"></line>
+    <line class="green" x1="524.501" y1="49.5" x2="562.939" y2="109" marker-end="url(#arrow-green)" stroke-dasharray="64"></line>
+    <line x1="258.809" y1="198.25" x2="297.246" y2="168.5" marker-end="url(#arrow)" stroke-dasharray="42"></line>
+    <line x1="258.809" y1="138.75" x2="297.246" y2="168.5" marker-end="url(#arrow)" stroke-dasharray="42"></line>
+    <line class="green" x1="258.809" y1="79.25" x2="297.246" y2="49.5" marker-end="url(#arrow-green)" stroke-dasharray="42"></line>
+    <line class="blue" x1="258.809" y1="19.75" x2="297.246" y2="49.5" marker-end="url(#arrow-blue)" stroke-dasharray="42"></line>
+    <line x1="62.061" y1="198.25" x2="100.499" y2="198.25" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="62.061" y1="138.75" x2="100.499" y2="138.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line class="green" x1="62.061" y1="79.25" x2="100.499" y2="79.25" marker-end="url(#arrow-green)" stroke-dasharray="31"></line>
+    <line x1="62.061" y1="19.75" x2="100.499" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <rect x="0" y="0" width="61.749" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="30.874" y="25.65"><tspan class="font-weight-bold">Leaf<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="59.5" width="61.749" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="30.874" y="85.15"><tspan class="font-weight-bold">Leaf<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="0" y="119" width="61.749" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="30.874" y="144.65"><tspan class="font-weight-bold">Leaf<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="0" y="178.5" width="61.749" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="30.874" y="204.15"><tspan class="font-weight-bold">Leaf<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect class="blue" x="101.749" y="0" width="156.748" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="180.123" y="25.65"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Leaf<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect class="green" x="101.749" y="59.5" width="156.748" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="180.123" y="85.15"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Leaf<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect x="101.749" y="119" width="156.748" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="180.123" y="144.65"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Leaf<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect x="101.749" y="178.5" width="156.748" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="180.123" y="204.15"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Leaf<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect class="green" x="298.496" y="29.75" width="225.692" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="411.343" y="55.4"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">5</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Node<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan> + Node<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect class="blue" x="298.496" y="148.75" width="225.692" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="411.343" y="174.4"><tspan class="font-weight-bold">Node<tspan class="script" dy="3">6</tspan><tspan dy="-3">&#8203;</tspan></tspan>: hash(Node<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan> + Node<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+    <rect class="green" x="564.189" y="89.25" width="214.272" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="671.325" y="114.9"><tspan class="font-weight-bold">Root</tspan>: hash(Node<tspan class="script" dy="3">5</tspan><tspan dy="-3">&#8203;</tspan> + Node<tspan class="script" dy="3">6</tspan><tspan dy="-3">&#8203;</tspan>)</tspan>
+    </text>
+
+</svg>

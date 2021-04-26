@@ -1,0 +1,39 @@
+<svg id="figure-standardization" class="figure" data-name="standardization" width="174.864" height="211" viewBox="-36.841 -31.25 174.864 211" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="green" x1="35.904" y1="19.75" x2="64.341" y2="19.75" marker-end="url(#arrow-green)" stroke-dasharray="21"></line>
+    <line class="gray" x1="101.182" y1="138.688" x2="101.182" y2="110.25" marker-end="url(#arrow-gray)" stroke-dasharray="21"></line>
+    <line class="blue" x1="101.182" y1="69.188" x2="101.182" y2="40.75" marker-end="url(#arrow-blue)" stroke-dasharray="21"></line>
+    <line class="gray" x1="0" y1="138.688" x2="0" y2="110.25" marker-end="url(#arrow-gray)" stroke-dasharray="21"></line>
+    <line class="blue" x1="0" y1="69.188" x2="0" y2="40.75" marker-end="url(#arrow-blue)" stroke-dasharray="21"></line>
+    <text text-anchor="middle">
+        <tspan x="0" y="-18.5"><tspan class="font-weight-bold">Sender</tspan></tspan>
+    </text>
+    <rect x="-35.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    </text>
+    <rect x="-35.591" y="69.5" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="95.15"><tspan class="font-weight-bold">Client</tspan></tspan>
+    </text>
+    <rect class="gray" x="-35.591" y="139" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="164.65"><tspan class="font-weight-bold">User</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="101.182" y="-18.5"><tspan class="font-weight-bold">Recipient</tspan></tspan>
+    </text>
+    <rect x="65.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="101.182" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    </text>
+    <rect x="65.591" y="69.5" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="101.182" y="95.15"><tspan class="font-weight-bold">Client</tspan></tspan>
+    </text>
+    <rect class="gray" x="65.591" y="139" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="101.182" y="164.65"><tspan class="font-weight-bold">User</tspan></tspan>
+    </text>
+
+</svg>

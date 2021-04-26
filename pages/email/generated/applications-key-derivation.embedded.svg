@@ -1,0 +1,20 @@
+<svg id="figure-applications-key-derivation" class="figure" data-name="applications-key-derivation" width="368.581" height="103.85" viewBox="-1.25 -5 368.581 103.85" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle class="blue" cx="151.955" cy="58.675" r="38.925"></circle>
+    <text class="blue" text-anchor="middle">
+        <tspan x="151.955" y="53.575"><tspan class="small">Repeated</tspan></tspan><tspan x="151.955" y="75.575"><tspan class="small">hashing</tspan></tspan>
+    </text>
+    <line class="blue" x1="93.88" y1="19.75" x2="209.092" y2="19.75" marker-end="url(#arrow-blue)" stroke-dasharray="108"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="151.955" y="7.75"><tspan class="text-uppercase">pbkdf</tspan></tspan>
+    </text>
+    <rect x="0" y="0" width="93.567" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="46.784" y="25.65"><tspan class="font-weight-bold">Password</tspan></tspan>
+    </text>
+    <rect x="210.342" y="0" width="155.738" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="288.212" y="25.65"><tspan class="font-weight-bold">Cryptographic key</tspan></tspan>
+    </text>
+
+</svg>

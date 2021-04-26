@@ -1,0 +1,32 @@
+<svg id="figure-remote-content-indirect-access" class="figure" data-name="remote-content-indirect-access" width="355.349" height="232.5" viewBox="-123.326 -16 355.349 232.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="69.931" y1="30.75" x2="159.905" y2="30.75" marker-end="url(#arrow)" stroke-dasharray="83"></line>
+    <text text-anchor="middle">
+        <tspan x="115.386" y="-3.25">3. Fetch</tspan><tspan x="115.386" y="18.75">content</tspan>
+    </text>
+    <line x1="34.809" y1="153.438" x2="34.809" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="84"></line>
+    <text text-anchor="start">
+        <tspan x="46.809" y="113.525">2. Fetch content</tspan>
+    </text>
+    <line x1="34.809" y1="153.438" x2="-69.618" y2="62.75" marker-end="url(#arrow)" stroke-dasharray="131"></line>
+    <text text-anchor="end">
+        <tspan x="-25.627" y="128.347">1. Fetch email</tspan>
+    </text>
+    <rect class="blue" x="-104.427" y="0" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="-69.618" y="25.65"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="-69.618" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+    <rect class="blue" x="0" y="0" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="34.809" y="25.65"><tspan class="font-weight-bold">Proxy</tspan></tspan><tspan x="34.809" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="153.75" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="34.809" y="179.4"><tspan class="font-weight-bold">Mail</tspan></tspan><tspan x="34.809" y="201.4"><tspan class="font-weight-bold">client</tspan></tspan>
+    </text>
+    <rect class="orange" x="161.155" y="0" width="69.618" height="61.5" rx="8" ry="8"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="195.964" y="25.65"><tspan class="font-weight-bold">Web</tspan></tspan><tspan x="195.964" y="47.65"><tspan class="font-weight-bold">server</tspan></tspan>
+    </text>
+
+</svg>

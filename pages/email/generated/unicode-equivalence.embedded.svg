@@ -1,0 +1,12 @@
+<svg id="figure-unicode-equivalence" class="figure" data-name="unicode-equivalence" width="254.768" height="74" viewBox="-6.25 -6.25 254.768 74" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="blue" x="0" y="0" width="121.134" height="61.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="60.567" y="25.65"><tspan class="font-weight-bold">Canonical</tspan></tspan><tspan x="60.567" y="47.65"><tspan class="font-weight-bold">equivalence</tspan></tspan>
+    </text>
+    <rect class="green" x="-5" y="-5" width="252.268" height="71.5" rx="13" ry="13"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="184.201" y="25.65"><tspan class="font-weight-bold">Compatibility</tspan></tspan><tspan x="184.201" y="47.65"><tspan class="font-weight-bold">equivalence</tspan></tspan>
+    </text>
+
+</svg>

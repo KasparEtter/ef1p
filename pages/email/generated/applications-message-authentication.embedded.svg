@@ -1,0 +1,30 @@
+<svg id="figure-applications-message-authentication" class="figure" data-name="applications-message-authentication" width="423.682" height="139.25" viewBox="-36.841 -1.25 423.682 139.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <g>
+        <rect x="-35.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="136.75"></line>
+    </g>
+    <g>
+        <rect x="314.409" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="350" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="350" y1="40.75" x2="350" y2="136.75"></line>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="81.5" x2="348.75" y2="81.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="342"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="174.375" y="69.5">ClientMessage, hmac(Key, ClientMessage)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="350" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="342"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="175.625" y="111.5">ServerMessage, hmac(Key, ServerMessage)</tspan>
+        </text>
+    </g>
+
+</svg>

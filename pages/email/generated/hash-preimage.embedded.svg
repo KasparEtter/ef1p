@@ -1,0 +1,13 @@
+<svg id="figure-hash-preimage" class="figure" data-name="hash-preimage" width="277.067" height="42" viewBox="-1.25 -1.25 277.067 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="117.846" y1="19.75" x2="155.783" y2="19.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <rect class="green" x="0" y="0" width="117.533" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="58.767" y="25.65"><tspan class="font-weight-bold">Find input</tspan></tspan>
+    </text>
+    <rect class="blue" x="157.033" y="0" width="117.533" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="215.8" y="25.65"><tspan class="font-weight-bold">Given output</tspan></tspan>
+    </text>
+
+</svg>

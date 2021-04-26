@@ -1,0 +1,104 @@
+<svg width="364.156" height="423" viewBox="-182.078 -1.25 364.156 423" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+
+        .gray {
+            fill: #666666;
+            stroke: #666666;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+    </defs>
+
+    <line x1="0" y1="357.313" x2="0" y2="379.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="293.813" x2="0" y2="316.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="230.313" x2="0" y2="252.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="166.813" x2="0" y2="189.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="103.313" x2="0" y2="125.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="39.813" x2="0" y2="62.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <rect class="blue" x="-81.537" y="0" width="163.074" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="0" y="25.65">Arbitrary user input</tspan>
+    </text>
+    <rect class="gray" x="-145.996" y="63.5" width="291.991" height="39.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="89.15">Reject symbols and punctuation marks</tspan>
+    </text>
+    <rect class="gray" x="-157.052" y="127" width="314.104" height="39.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="152.65">Lowercase or reject uppercase characters</tspan>
+    </text>
+    <rect class="gray" x="-180.828" y="190.5" width="361.656" height="39.5" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="216.15"><tspan class="text-uppercase">nfkc</tspan>-normalize or reject non-normalized labels</tspan>
+    </text>
+    <rect x="-110.025" y="254" width="220.05" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="279.65">Accept only valid characters</tspan>
+    </text>
+    <rect x="-91.369" y="317.5" width="182.738" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="343.15">Encode with Punycode</tspan>
+    </text>
+    <rect class="green" x="-90.057" y="381" width="180.114" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="0" y="406.65">Domain name in <tspan class="text-uppercase">ascii</tspan></tspan>
+    </text>
+
+</svg>

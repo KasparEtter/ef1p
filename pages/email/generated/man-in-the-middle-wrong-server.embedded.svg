@@ -1,0 +1,24 @@
+<svg id="figure-man-in-the-middle-wrong-server" class="figure" data-name="man-in-the-middle-wrong-server" width="436.206" height="42" viewBox="-1.25 -1.25 436.206 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="blue" x1="260.536" y1="34.75" x2="346.652" y2="34.75"></line>
+    <line class="blue" x1="260.536" y1="4.75" x2="346.652" y2="4.75"></line>
+    <line class="blue" x1="87.054" y1="34.75" x2="173.17" y2="34.75"></line>
+    <line class="blue" x1="87.054" y1="4.75" x2="173.17" y2="4.75"></line>
+    <line class="green" x1="346.652" y1="24.75" x2="261.474" y2="24.75" marker-end="url(#arrow-green)" stroke-dasharray="78"></line>
+    <line class="green" x1="260.536" y1="14.75" x2="345.715" y2="14.75" marker-end="url(#arrow-green)" stroke-dasharray="78"></line>
+    <line class="green" x1="173.17" y1="24.75" x2="87.991" y2="24.75" marker-end="url(#arrow-green)" stroke-dasharray="78"></line>
+    <line class="green" x1="87.054" y1="14.75" x2="172.232" y2="14.75" marker-end="url(#arrow-green)" stroke-dasharray="78"></line>
+    <rect x="0" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="43.371" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+    </text>
+    <rect class="red" x="173.482" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="216.853" y="25.65"><tspan class="font-weight-bold">Attacker</tspan></tspan>
+    </text>
+    <rect x="346.965" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="390.336" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    </text>
+
+</svg>

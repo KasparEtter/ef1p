@@ -1,0 +1,65 @@
+<svg id="figure-end-to-end-security" class="figure" data-name="end-to-end-security" width="357.422" height="455.187" viewBox="-191.999 38.563 357.422 455.187" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="41.196" y1="442.713" x2="41.196" y2="492.5" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <text text-anchor="start">
+        <tspan x="53.196" y="473.975">Message, status</tspan>
+    </text>
+    <line x1="41.196" y1="351.862" x2="41.196" y2="401.65" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <text text-anchor="start">
+        <tspan x="53.196" y="383.125">Signed message</tspan>
+    </text>
+    <text class="green" text-anchor="end">
+        <tspan x="-41.196" y="383.125"><tspan class="font-weight-bold">Recipient</tspan></tspan>
+    </text>
+    <line class="red" x1="41.196" y1="221.513" x2="41.196" y2="310.8" marker-end="url(#arrow-red)" stroke-dasharray="82"></line>
+    <text class="red" text-anchor="start">
+        <tspan x="53.196" y="250.525">Signed and</tspan><tspan x="53.196" y="272.525">encrypted</tspan><tspan x="53.196" y="294.525">message</tspan>
+    </text>
+    <text class="red" text-anchor="end">
+        <tspan x="-41.196" y="272.525"><tspan class="font-weight-bold">Attacker</tspan></tspan>
+    </text>
+    <line x1="41.196" y1="130.663" x2="41.196" y2="180.45" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <text text-anchor="start">
+        <tspan x="53.196" y="161.925">Signed message</tspan>
+    </text>
+    <text class="blue" text-anchor="end">
+        <tspan x="-41.196" y="161.925"><tspan class="font-weight-bold">Sender</tspan></tspan>
+    </text>
+    <line x1="41.196" y1="39.813" x2="41.196" y2="89.6" marker-end="url(#arrow)" stroke-dasharray="43"></line>
+    <text text-anchor="start">
+        <tspan x="53.196" y="71.075">Message</tspan>
+    </text>
+    <rect class="blue" x="0" y="90.85" width="82.391" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="41.196" y="116.5"><tspan class="font-weight-bold">Sign</tspan></tspan>
+    </text>
+    <rect class="blue" x="0" y="181.7" width="82.391" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="41.196" y="207.35"><tspan class="font-weight-bold">Encrypt</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="312.05" width="82.391" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="41.196" y="337.7"><tspan class="font-weight-bold">Decrypt</tspan></tspan>
+    </text>
+    <rect class="green" x="0" y="402.9" width="82.391" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="41.196" y="428.55"><tspan class="font-weight-bold">Verify</tspan></tspan>
+    </text>
+    <line x1="-190.749" y1="110.6" x2="-1.25" y2="110.6" marker-end="url(#arrow)" stroke-dasharray="182"></line>
+    <text text-anchor="middle">
+        <tspan x="-100.687" y="98.6">Private key of sender</tspan>
+    </text>
+    <line x1="-190.749" y1="201.45" x2="-1.25" y2="201.45" marker-end="url(#arrow)" stroke-dasharray="182"></line>
+    <text text-anchor="middle">
+        <tspan x="-100.687" y="224.95">Public key of recipient</tspan>
+    </text>
+    <line x1="-190.749" y1="331.8" x2="-1.25" y2="331.8" marker-end="url(#arrow)" stroke-dasharray="182"></line>
+    <text text-anchor="middle">
+        <tspan x="-100.687" y="319.8">Private key of recipient</tspan>
+    </text>
+    <line x1="-190.749" y1="422.65" x2="-1.25" y2="422.65" marker-end="url(#arrow)" stroke-dasharray="182"></line>
+    <text text-anchor="middle">
+        <tspan x="-100.687" y="446.15">Public key of sender</tspan>
+    </text>
+
+</svg>

@@ -1,0 +1,38 @@
+<svg id="figure-idna2003" class="figure" data-name="idna2003" width="214.518" height="423" viewBox="-107.259 -1.25 214.518 423" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="0" y1="357.313" x2="0" y2="379.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="293.813" x2="0" y2="316.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="230.313" x2="0" y2="252.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="166.813" x2="0" y2="189.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="103.313" x2="0" y2="125.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="0" y1="39.813" x2="0" y2="62.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <rect class="blue" x="-81.537" y="0" width="163.074" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="0" y="25.65">Arbitrary user input</tspan>
+    </text>
+    <rect x="-105.553" y="63.5" width="211.106" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="89.15">Remove certain characters</tspan>
+    </text>
+    <rect x="-92.777" y="127" width="185.554" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="152.65">Case fold all characters</tspan>
+    </text>
+    <rect x="-106.009" y="190.5" width="212.018" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="216.15"><tspan class="text-uppercase">nfkc</tspan>-normalize the labels</tspan>
+    </text>
+    <rect x="-99.195" y="254" width="198.39" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="279.65">Reject certain characters</tspan>
+    </text>
+    <rect x="-91.369" y="317.5" width="182.738" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="0" y="343.15">Encode with Punycode</tspan>
+    </text>
+    <rect class="green" x="-90.057" y="381" width="180.114" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="0" y="406.65">Domain name in <tspan class="text-uppercase">ascii</tspan></tspan>
+    </text>
+
+</svg>

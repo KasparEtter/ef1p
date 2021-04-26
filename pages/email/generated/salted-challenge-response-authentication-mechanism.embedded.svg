@@ -1,0 +1,42 @@
+<svg id="figure-salted-challenge-response-authentication-mechanism" class="figure" data-name="salted-challenge-response-authentication-mechanism" width="373.682" height="223.25" viewBox="-36.841 -1.25 373.682 223.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <g>
+        <rect x="-35.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="220.75"></line>
+    </g>
+    <g>
+        <rect x="264.409" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="300" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="300" y1="40.75" x2="300" y2="220.75"></line>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="81.5" x2="298.75" y2="81.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="292"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="149.375" y="69.5">Username, ClientNonce</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="300" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="292"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="150.625" y="111.5">ServerNonce, Salt, IterationCount</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="165.5" x2="298.75" y2="165.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="292"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="149.375" y="153.5">KeyXorHashedKeyMac</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="300" y1="207.5" x2="1.25" y2="207.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="292"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="150.625" y="195.5">KeyMac</tspan>
+        </text>
+    </g>
+
+</svg>

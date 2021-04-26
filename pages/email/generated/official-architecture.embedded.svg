@@ -1,0 +1,57 @@
+<svg id="figure-official-architecture" class="figure" data-name="official-architecture" width="712.5" height="374" viewBox="-1.25 -42.75 712.5 374" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="blue" x1="555" y1="259.688" x2="640" y2="171.25" marker-end="url(#arrow-blue)" stroke-dasharray="116"></line>
+    <line class="blue" x1="155" y1="259.688" x2="70" y2="171.25" marker-end="url(#arrow-blue)" stroke-dasharray="116"></line>
+    <line class="green" x1="640" y1="70.313" x2="640" y2="98.75" marker-end="url(#arrow-green)" stroke-dasharray="21"></line>
+    <line class="green" x1="540.313" y1="35" x2="568.75" y2="35" marker-end="url(#arrow-green)" stroke-dasharray="21"></line>
+    <line class="green" x1="310.313" y1="35" x2="398.75" y2="35" marker-end="url(#arrow-green)" stroke-dasharray="81"></line>
+    <line class="green" x1="240" y1="99.688" x2="240" y2="71.25" marker-end="url(#arrow-green)" stroke-dasharray="21"></line>
+    <line class="green" x1="155" y1="259.688" x2="240" y2="171.25" marker-end="url(#arrow-green)" stroke-dasharray="116"></line>
+    <rect x="85" y="260" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="155" y="289.9"><tspan class="font-weight-bold">Mail user</tspan></tspan><tspan x="155" y="311.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mua)</tspan></tspan></tspan>
+    </text>
+    <rect x="170" y="100" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="240" y="129.9"><tspan class="font-weight-bold">Mail submission</tspan></tspan><tspan x="240" y="151.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(msa)</tspan></tspan></tspan>
+    </text>
+    <rect x="170" y="0" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="240" y="29.9"><tspan class="font-weight-bold">Mail transfer</tspan></tspan><tspan x="240" y="51.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mta)</tspan></tspan></tspan>
+    </text>
+    <rect class="gray" x="0" y="0" width="140" height="70" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="70" y="29.9"><tspan class="font-weight-bold">Mail delivery</tspan></tspan><tspan x="70" y="51.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mda)</tspan></tspan></tspan>
+    </text>
+    <rect x="0" y="100" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="70" y="129.9"><tspan class="font-weight-bold">Message</tspan></tspan><tspan x="70" y="151.9"><tspan class="font-weight-bold">store <tspan class="text-uppercase">(ms)</tspan></tspan></tspan>
+    </text>
+    <rect x="485" y="260" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="555" y="289.9"><tspan class="font-weight-bold">Mail user</tspan></tspan><tspan x="555" y="311.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mua)</tspan></tspan></tspan>
+    </text>
+    <rect class="gray" x="400" y="100" width="140" height="70" rx="8" ry="8"></rect>
+    <text class="gray" text-anchor="middle">
+        <tspan x="470" y="129.9"><tspan class="font-weight-bold">Mail submission</tspan></tspan><tspan x="470" y="151.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(msa)</tspan></tspan></tspan>
+    </text>
+    <rect x="400" y="0" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="470" y="29.9"><tspan class="font-weight-bold">Mail transfer</tspan></tspan><tspan x="470" y="51.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mta)</tspan></tspan></tspan>
+    </text>
+    <rect x="570" y="0" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="640" y="29.9"><tspan class="font-weight-bold">Mail delivery</tspan></tspan><tspan x="640" y="51.9"><tspan class="font-weight-bold">agent <tspan class="text-uppercase">(mda)</tspan></tspan></tspan>
+    </text>
+    <rect x="570" y="100" width="140" height="70" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="640" y="129.9"><tspan class="font-weight-bold">Message</tspan></tspan><tspan x="640" y="151.9"><tspan class="font-weight-bold">store <tspan class="text-uppercase">(ms)</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="155" y="-30"><tspan class="font-weight-bold">Sender</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="555" y="-30"><tspan class="font-weight-bold">Recipient</tspan></tspan>
+    </text>
+
+</svg>

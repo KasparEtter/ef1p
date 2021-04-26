@@ -1,0 +1,20 @@
+<svg id="figure-hash-one-way" class="figure" data-name="hash-one-way" width="279.867" height="64.75" viewBox="-1.25 -1.25 279.867 64.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="red" x1="183.413" y1="36.75" x2="80.815" y2="36.75" marker-end="url(#arrow-red)" stroke-dasharray="96"></line>
+    <text class="red" text-anchor="middle">
+        <tspan x="131.645" y="60.25">Infeasible</tspan>
+    </text>
+    <line class="green" x1="79.878" y1="24.75" x2="182.476" y2="24.75" marker-end="url(#arrow-green)" stroke-dasharray="96"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="131.645" y="12.75">Efficient</tspan>
+    </text>
+    <rect x="0" y="0" width="79.565" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="39.783" y="25.65"><tspan class="font-weight-bold">Input</tspan> of</tspan><tspan x="39.783" y="47.65">any size</tspan>
+    </text>
+    <rect x="183.726" y="0" width="93.642" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="230.546" y="25.65"><tspan class="font-weight-bold">Output</tspan> of</tspan><tspan x="230.546" y="47.65">fixed size</tspan>
+    </text>
+
+</svg>

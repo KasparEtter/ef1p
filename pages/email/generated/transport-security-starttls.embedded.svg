@@ -1,0 +1,72 @@
+<svg id="figure-transport-security-starttls" class="figure" data-name="transport-security-starttls" width="348.682" height="477.25" viewBox="-36.841 -1.25 348.682 477.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <g>
+        <rect x="-35.591" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="474.75"></line>
+    </g>
+    <g>
+        <rect x="239.409" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="275" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="275" y1="40.75" x2="275" y2="474.75"></line>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="81.5" x2="273.75" y2="81.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="136.875" y="69.5">(Open <tspan class="text-uppercase">tcp</tspan> connection)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="275" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="138.125" y="111.5">220 server.example.com</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="165.5" x2="273.75" y2="165.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="267"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="136.875" y="153.5">EHLO client.example.org</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="275" y1="251.5" x2="1.25" y2="251.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="138.125" y="195.5">250-server.example.com</tspan><tspan x="138.125" y="217.5">250-PIPELINING</tspan><tspan x="138.125" y="239.5">250 <tspan class="text-uppercase">starttls</tspan></tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="293.5" x2="273.75" y2="293.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="267"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="136.875" y="281.5"><tspan class="text-uppercase">starttls</tspan></tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="275" y1="335.5" x2="1.25" y2="335.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="138.125" y="323.5">220 Go ahead</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="377.5" x2="273.75" y2="377.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="136.875" y="365.5">(Start <tspan class="text-uppercase">tls</tspan> negotiation)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="275" y1="419.5" x2="1.25" y2="419.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="138.125" y="407.5">(Negotiate a <tspan class="text-uppercase">tls</tspan> session)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="461.5" x2="273.75" y2="461.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="136.875" y="449.5">(Continue with <tspan class="text-uppercase">tls</tspan>)</tspan>
+        </text>
+    </g>
+
+</svg>

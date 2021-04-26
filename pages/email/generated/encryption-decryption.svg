@@ -1,0 +1,110 @@
+<svg width="547.86" height="126" viewBox="-1.25 -87.25 547.86 126" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .red {
+            fill: #E60000;
+            stroke: #E60000;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+    </defs>
+
+    <text class="green" text-anchor="middle">
+        <tspan x="381.02" y="-74.5">Key</tspan>
+    </text>
+    <line class="green" x1="381.02" y1="-60.5" x2="381.02" y2="-21" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="164.34" y="-74.5">Key</tspan>
+    </text>
+    <line class="green" x1="164.34" y1="-60.5" x2="164.34" y2="-21" marker-end="url(#arrow-green)" stroke-dasharray="33"></line>
+    <line class="green" x1="434.609" y1="0" x2="545.36" y2="0" marker-end="url(#arrow-green)" stroke-dasharray="104"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="489.985" y="-12">Plaintext</tspan>
+    </text>
+    <line class="red" x1="216.992" y1="0" x2="327.43" y2="0" marker-end="url(#arrow-red)" stroke-dasharray="103"></line>
+    <text class="red" text-anchor="middle">
+        <tspan x="272.68" y="-12">Ciphertext</tspan>
+    </text>
+    <line class="green" x1="0" y1="0" x2="110.751" y2="0" marker-end="url(#arrow-green)" stroke-dasharray="104"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="55.375" y="-12">Plaintext</tspan>
+    </text>
+    <rect class="blue" x="112.001" y="-19.75" width="104.679" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="164.34" y="5.9"><tspan class="font-weight-bold">Encryption</tspan></tspan>
+    </text>
+    <rect class="blue" x="328.68" y="-19.75" width="104.679" height="39.5" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="381.02" y="5.9"><tspan class="font-weight-bold">Decryption</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="112.001" y="-47.75"><tspan class="font-weight-bold">Alice</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="433.359" y="-47.75"><tspan class="font-weight-bold">Bob</tspan></tspan>
+    </text>
+    <text class="red" text-anchor="middle">
+        <tspan x="272.68" y="35.5"><tspan class="font-weight-bold">Eve</tspan></tspan>
+    </text>
+
+</svg>

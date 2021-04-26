@@ -1,0 +1,85 @@
+<svg id="figure-transport-security-striptls" class="figure" data-name="transport-security-striptls" width="639.242" height="541.25" viewBox="-44.621 -1.25 639.242 541.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <g>
+        <rect x="-43.371" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="538.75"></line>
+    </g>
+    <g>
+        <rect class="red" x="231.629" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text class="red" text-anchor="middle">
+            <tspan x="275" y="25.65"><tspan class="font-weight-bold">Attacker</tspan></tspan>
+        </text>
+        <line class="red" x1="275" y1="40.75" x2="275" y2="538.75"></line>
+    </g>
+    <g>
+        <rect x="506.629" y="0" width="86.741" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="550" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+        </text>
+        <line x1="550" y1="40.75" x2="550" y2="538.75"></line>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="81.5" x2="273.75" y2="81.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="136.875" y="69.5">(Open <tspan class="text-uppercase">tcp</tspan> connection)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="275" y1="123.5" x2="548.75" y2="123.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="411.875" y="111.5">(Open <tspan class="text-uppercase">tcp</tspan> connection)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="550" y1="165.5" x2="276.25" y2="165.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="413.125" y="153.5">220 server.example.com</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="275" y1="207.5" x2="1.25" y2="207.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="138.125" y="195.5">220 server.example.com</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="249.5" x2="273.75" y2="249.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="267"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="136.875" y="237.5">EHLO client.example.org</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="275" y1="291.5" x2="548.75" y2="291.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="267"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="411.875" y="279.5">EHLO client.example.org</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="550" y1="377.5" x2="276.25" y2="377.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="267"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="413.125" y="321.5">250-server.example.com</tspan><tspan x="413.125" y="343.5">250-PIPELINING</tspan><tspan x="413.125" y="365.5">250 <tspan class="text-uppercase">starttls</tspan></tspan>
+        </text>
+    </g>
+    <g>
+        <line class="red" x1="275" y1="441.5" x2="1.25" y2="441.5" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="267"></line>
+        <text class="red" text-anchor="middle">
+            <tspan x="138.125" y="407.5">250-server.example.com</tspan><tspan x="138.125" y="429.5">250 PIPELINING</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="0" y1="483.5" x2="273.75" y2="483.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="136.875" y="471.5">(Continue without <tspan class="text-uppercase">tls</tspan>)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="gray" x1="275" y1="525.5" x2="548.75" y2="525.5" marker-start="url(#circle-gray)" marker-end="url(#arrow-gray)" stroke-dasharray="267"></line>
+        <text class="gray" text-anchor="middle">
+            <tspan x="411.875" y="513.5">(Continue with or without <tspan class="text-uppercase">tls</tspan>)</tspan>
+        </text>
+    </g>
+
+</svg>

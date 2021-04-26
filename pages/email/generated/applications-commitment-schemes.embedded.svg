@@ -1,0 +1,40 @@
+<svg id="figure-applications-commitment-schemes" class="figure" data-name="applications-commitment-schemes" width="302.06600000000003" height="181.25" viewBox="-31.033 -1.25 302.06600000000003 181.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <polyline class="pink" points="241.25,165.5 266.25,165.5 266.25,81.5 241.25,81.5" marker-end="url(#arrow-pink)" stroke-dasharray="127"></polyline>
+    <text class="pink" text-anchor="middle">
+        <tspan x="253.75" y="129.4"><tspan class="font-weight-bold">?</tspan></tspan>
+    </text>
+    <g>
+        <rect x="-29.783" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="0" y="25.65"><tspan class="font-weight-bold">Alice</tspan></tspan>
+        </text>
+        <line x1="0" y1="40.75" x2="0" y2="178.75"></line>
+    </g>
+    <g>
+        <rect x="210.217" y="0" width="59.566" height="39.5" rx="8" ry="8"></rect>
+        <text text-anchor="middle">
+            <tspan x="240" y="25.65"><tspan class="font-weight-bold">Bob</tspan></tspan>
+        </text>
+        <line x1="240" y1="40.75" x2="240" y2="178.75"></line>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="81.5" x2="238.75" y2="81.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="232"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="119.375" y="69.5">hash(CoinFlipAlice + Nonce)</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="green" x1="240" y1="123.5" x2="1.25" y2="123.5" marker-start="url(#circle-green)" marker-end="url(#arrow-green)" stroke-dasharray="232"></line>
+        <text class="green" text-anchor="middle">
+            <tspan x="120.625" y="111.5">CoinFlipBob</tspan>
+        </text>
+    </g>
+    <g>
+        <line class="blue" x1="0" y1="165.5" x2="238.75" y2="165.5" marker-start="url(#circle-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="232"></line>
+        <text class="blue" text-anchor="middle">
+            <tspan x="119.375" y="153.5">CoinFlipAlice, Nonce</tspan>
+        </text>
+    </g>
+
+</svg>

@@ -1,0 +1,19 @@
+<svg id="figure-channel-binding" class="figure" data-name="channel-binding" width="358.41" height="42" viewBox="-1.25 -1.25 358.41 42" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="blue" x1="71.495" y1="4.75" x2="142.052" y2="4.75"></line>
+    <line class="blue" x1="71.495" y1="34.75" x2="142.052" y2="34.75"></line>
+    <line class="blue" x1="213.859" y1="4.75" x2="284.416" y2="4.75"></line>
+    <line class="blue" x1="213.859" y1="34.75" x2="284.416" y2="34.75"></line>
+    <rect class="red" x="142.364" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <line class="green" x1="71.495" y1="14.75" x2="283.478" y2="14.75" marker-end="url(#arrow-green)" stroke-dasharray="205"></line>
+    <line class="green" x1="284.416" y1="24.75" x2="72.432" y2="24.75" marker-end="url(#arrow-green)" stroke-dasharray="205"></line>
+    <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="35.591" y="25.65"><tspan class="font-weight-bold">Client</tspan></tspan>
+    </text>
+    <rect x="284.728" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="320.319" y="25.65"><tspan class="font-weight-bold">Server</tspan></tspan>
+    </text>
+
+</svg>

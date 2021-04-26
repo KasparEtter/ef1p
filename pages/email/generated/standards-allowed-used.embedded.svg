@@ -1,0 +1,12 @@
+<svg id="figure-standards-allowed-used" class="figure" data-name="standards-allowed-used" width="505.20799999999997" height="102.5" viewBox="-238.676 -51.25 505.20799999999997 102.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle class="green" cx="0" cy="0" r="50"></circle>
+    <text class="green" text-anchor="start">
+        <tspan x="-237.426" y="5.9">What a standard allows</tspan>
+    </text>
+    <circle class="blue" cx="40" cy="0" r="20"></circle>
+    <text class="blue" text-anchor="end">
+        <tspan x="265.282" y="5.9">What is actually being used</tspan>
+    </text>
+
+</svg>
