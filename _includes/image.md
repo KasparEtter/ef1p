@@ -3,7 +3,7 @@
 {% assign name = splits[0] %}
 {% assign extension = splits[1] %}
 {% assign sizes = "500,1000,2000" | split: "," %}
-{% capture style %}{% if include.max-width %} style="max-width: {{include.max-width}}px;"{% endif %}{% endcapture %}
+{% capture style %}{% if include.image-max-width %} style="max-width: {{include.image-max-width}}px;"{% endif %}{% endcapture %}
 <figure markdown="block"{% unless include.full-width-on-print %} class="limited-width-on-print"{% endunless %}>
 {% if include.themed %}
     {% if include.scaled %}
@@ -24,6 +24,6 @@
     {% endif %}
 {% endif %}
 {% if include.caption %}
-<figcaption markdown="span">{{ include.caption }}</figcaption>
+<figcaption markdown="span"{% if include.caption-max-width %} style="max-width: {{include.caption-max-width}}px;"{% endif %}>{{ include.caption }}</figcaption>
 {% endif %}
 </figure>
