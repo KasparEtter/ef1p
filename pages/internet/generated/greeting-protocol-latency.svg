@@ -3,7 +3,7 @@
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
             <rdf:Description rdf:about="">
-                <schema:author rdf:resource="https://www.kasparetter.com/"/>
+                <schema:author rdf:resource="https://kasparetter.com/"/>
                 <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
             </rdf:Description>
         </rdf:RDF>
