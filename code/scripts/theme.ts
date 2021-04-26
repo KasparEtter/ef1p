@@ -1,5 +1,7 @@
 import { getItem, setItem } from '../utility/storage';
 
+document.getElementById('theme')?.remove();
+
 // Declared in the HTML head.
 declare const themes: {
     dark: string;
