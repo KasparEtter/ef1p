@@ -23,6 +23,9 @@ kramdown:
 # Hack to suppress a Jekyll issue with styles: https://github.com/jekyll/jekyll/issues/7478
 theme: null
 
+plugins:
+  - jekyll-redirect-from
+
 exclude:
   - "*.json"
   - "*.ots"
@@ -42,8 +45,13 @@ exclude:
 
 defaults:
   - scope:
-      path: "pages"
+      path: pages
       type: pages
     values:
       layout: article
       permalink: /:basename/
+  - scope:
+      path: pages/*/tools
+      type: pages
+    values:
+      layout: toc
