@@ -16,5 +16,5 @@ function generateThumbnail(pageDirectory: string, graphicName: string): void {
 
 generateThumbnail('index', 'focus');
 generateThumbnail('error', 'page-not-found');
-generateThumbnail('tools', 'client-server');
 generateThumbnail('internet', 'signal-relaying-packet-request');
+generateThumbnail('email', 'thumbnail');
