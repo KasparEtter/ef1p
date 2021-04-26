@@ -14,6 +14,7 @@ date_format: "%e %B %Y" # http://strftime.net
 google_analytics_id: UA-135908849-1
 telegram_channel: https://t.me/ExplainedFromFirstPrinciples
 twitter_handle: ExplainedFrom1P
+repository: KasparEtter/ef1p
 
 # https://jekyllrb.com/docs/configuration/markdown/
 markdown: kramdown
