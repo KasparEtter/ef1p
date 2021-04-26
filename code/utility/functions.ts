@@ -90,8 +90,8 @@ export function singleQuote(text: string): string {
     return `'${escapeSingleQuote(text)}'`;
 }
 
-export function toHex(text: number, minLength = 0): string {
-    return text.toString(16).toUpperCase().padStart(minLength, '0');
+export function toHex(value: number, minLength = 0): string {
+    return value.toString(16).toUpperCase().padStart(minLength, '0');
 }
 
 /**
