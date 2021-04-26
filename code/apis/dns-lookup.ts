@@ -5,19 +5,22 @@ import { normalizeToArray } from '../utility/functions';
 
 // https://en.wikipedia.org/wiki/List_of_DNS_record_types
 export const recordTypes = {
-    ANY: 'ANY: return all types',
     A: 'A: IPv4 address',
     AAAA: 'AAAA: IPv6 address',
+    ANY: 'ANY: return all types',
     CAA: 'CAA: CA authorization',
     CNAME: 'CNAME: canonical name',
     MX: 'MX: mail exchange',
     NS: 'NS: name server',
+    OPENPGPKEY: 'OPENPGPKEY',
     PTR: 'PTR: pointer resource',
+    SMIMEA: 'SMIMEA: S/MIME cert',
     SOA: 'SOA: start of authority',
     SPF: 'SPF: an obsolete type',
-    SRV: 'SRV: service',
+    SRV: 'SRV: service host',
+    SSHFP: 'SSHFP: SSH fingerprint',
     TLSA: 'TLSA: DANE certificate',
-    TXT: 'TXT: text',
+    TXT: 'TXT: unstructured text',
     DNSKEY: 'DNSKEY: DNS public key',
     DS: 'DS: delegation signer',
     RRSIG: 'RRSIG: record signature',
@@ -25,10 +28,37 @@ export const recordTypes = {
     NSEC3: 'NSEC3: NSEC version 3',
     NSEC3PARAM: 'NSEC3PARAM[eters]',
     CDS: 'CDS: DS in child zone',
-    TYPE60: 'CDNSKEY: child DNSKEY', // Google's API doesn't understand 'CDNSKEY'.
+    CDNSKEY: 'CDNSKEY: child DNSKEY',
 };
 
 export type RecordType = keyof typeof recordTypes;
+
+// Google's API doesn't understand the following record types.
+export function mapRecordTypeToGoogle(type: RecordType): string {
+    switch (type) {
+        case 'OPENPGPKEY':
+            return 'TYPE61';
+        case 'SMIMEA':
+            return 'TYPE53';
+        case 'CDNSKEY':
+            return 'TYPE60';
+        default:
+            return type;
+    }
+}
+
+export function mapRecordTypeFromGoogle(type: string): RecordType {
+    switch (type) {
+        case 'TYPE61':
+            return 'OPENPGPKEY';
+        case 'TYPE53':
+            return 'SMIMEA';
+        case 'TYPE60':
+            return 'CDNSKEY';
+        default:
+            return type as RecordType;
+    }
+}
 
 // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
 export const recordTypesById: { [key: number]: RecordType | undefined } = {
@@ -39,10 +69,13 @@ export const recordTypesById: { [key: number]: RecordType | undefined } = {
     5: 'CNAME',
     15: 'MX',
     2: 'NS',
+    61: 'OPENPGPKEY',
     12: 'PTR',
+    53: 'SMIMEA',
     6: 'SOA',
     99: 'SPF',
     33: 'SRV',
+    44: 'SSHFP',
     52: 'TLSA',
     16: 'TXT',
     48: 'DNSKEY',
@@ -52,7 +85,7 @@ export const recordTypesById: { [key: number]: RecordType | undefined } = {
     50: 'NSEC3',
     51: 'NSEC3PARAM',
     59: 'CDS',
-    60: 'TYPE60',
+    60: 'CDNSKEY',
 }
 
 // See https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6.
@@ -93,7 +126,7 @@ export function isAuthenticated(response: DnsResponse, domain: string, type: Rec
     return response.answer.filter(record =>
         record.name === (domain.endsWith('.') ? domain : domain + '.') &&
         record.type === 'RRSIG' &&
-        (record.data.startsWith(type.toLowerCase() + ' ') || (cname && record.data.startsWith('cname '))),
+        (record.data.startsWith(mapRecordTypeToGoogle(type).toLowerCase() + ' ') || (cname && record.data.startsWith('cname '))),
     ).length === 1;
 }
 
@@ -136,7 +169,7 @@ function normalizeRecord(record: GoogleDnsRecord): DnsRecord {
 export async function resolveDomainName(domain: string, type: RecordType, dnssec: boolean = false): Promise<DnsResponse> {
     const parameters = {
         name: domain,
-        type,
+        type: mapRecordTypeToGoogle(type),
         do: dnssec.toString(),
     };
     const response = await fetchWithErrorAndTimeout(endpoint + new URLSearchParams(parameters).toString());

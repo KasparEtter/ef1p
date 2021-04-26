@@ -11,9 +11,9 @@ import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, 
 import { PersistedStore, Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
-import { setIpInfoInput } from './ip-address';
+import { DnsRecord, DnsResponse, getReverseLookupDomain, mapRecordTypeFromGoogle, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
 
-import { DnsRecord, DnsResponse, getReverseLookupDomain, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
+import { setIpInfoInput } from './ip-address';
 
 /* ------------------------------ Response table ------------------------------ */
 
@@ -34,6 +34,7 @@ function parseTimeToLive(ttl: number): string {
     }
 }
 
+// https://tools.ietf.org/html/rfc4034#section-2.2
 const dnskeyFlags: Dictionary = {
     '0': 'The DNS public key in this record may not be used to verify RRSIG records.',
     '256': 'The DNS public key in this record can be used to verify RRSIG records. It is marked as a zone-signing key (ZSK).',
@@ -42,6 +43,7 @@ const dnskeyFlags: Dictionary = {
 
 const dnskeyFlagsDefault = 'This record uses flags which are not supported by this tool.';
 
+// https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml#dns-sec-alg-numbers-1
 const dnskeyAlgorithms: Dictionary = {
     '0': 'This value asks the parent zone to disable DNSSEC for this child zone. It can only be used in CDS and CDNSKEY records. See the section 4 of RFC 8078 for more information.',
     '8': 'This record contains an RSA public key whose private key is used to sign the SHA-256 hash of a message.',
@@ -61,6 +63,7 @@ const dnskeyAlgorithmsShort: Dictionary = {
     '16': 'Ed448',
 };
 
+// https://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml#ds-rr-types-1
 const dsDigests: Dictionary = {
     '1': 'SHA-1',
     '2': 'SHA-256',
@@ -68,6 +71,25 @@ const dsDigests: Dictionary = {
     '4': 'SHA-384',
 };
 
+// https://www.iana.org/assignments/dns-sshfp-rr-parameters/dns-sshfp-rr-parameters.xhtml#dns-sshfp-rr-parameters-1
+const sshfpPublicKeyAlgorithms: Dictionary = {
+    '0': 'Reserved',
+    '1': 'RSA',
+    '2': 'DSA',
+    '3': 'ECDSA',
+    '4': 'Ed25519',
+    '5': 'Unassigned',
+    '6': 'Ed448',
+};
+
+// https://www.iana.org/assignments/dns-sshfp-rr-parameters/dns-sshfp-rr-parameters.xhtml#dns-sshfp-rr-parameters-2
+const sshfpHashAlgorithms: Dictionary = {
+    '0': 'Reserved',
+    '1': 'SHA-1',
+    '2': 'SHA-256',
+};
+
+// https://www.iana.org/assignments/dane-parameters/dane-parameters.xhtml#certificate-usages
 const tlsaCertificateUsages: Dictionary = {
     '0': 'PKIX-TA. (PKIX means that the certificate also has to be trusted in the X.509 public key infrastructure and TA means that the certificate belongs to a trust anchor, i.e. a certificate authority.)',
     '1': 'PKIX-EE. (PKIX means that the certificate also has to be trusted in the X.509 public key infrastructure and EE means that the certificate belongs to the end entity, i.e. the server itself.)',
@@ -78,6 +100,7 @@ const tlsaCertificateUsages: Dictionary = {
 
 const tlsaCertificateUsagesDefault = 'unassigned. (This is likely an error.)';
 
+// https://www.iana.org/assignments/dane-parameters/dane-parameters.xhtml#selectors
 const tlsaSelectors: Dictionary = {
     '0': 'the entire certificate has to match',
     '1': 'only the subject\'s public key information (SPKI) has to match',
@@ -86,6 +109,7 @@ const tlsaSelectors: Dictionary = {
 
 const tlsaSelectorsDefault = 'the domain owner likely made a mistake because this value is unassigned';
 
+// https://www.iana.org/assignments/dane-parameters/dane-parameters.xhtml#matching-types
 const tlsaMatchingTypes: Dictionary = {
     '0': 'the entire text of the selected content',
     '1': 'the SHA-256 hash of the selected content',
@@ -108,6 +132,7 @@ interface Pattern {
 }
 
 type Parser = (record: DnsRecord) => JSX.Element;
+const parseGenericFormat: Parser = record => <StaticOutput title="The data of this record in the hexadecimal generic format.">{record.data.split(' ')[2]?.toUpperCase() ?? record.data}</StaticOutput>;
 
 const onClick = (field: string) => setDnsResolverInputs(field, 'A');
 const onContextMenu = (field: string) => window.open('http://' + field.slice(0, -1));
@@ -177,10 +202,12 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [{ title: (_, record) => `An authoritative name server for the DNS zone starting at ${record.name} Click to look up its IPv4 address.`, onClick }],
     },
+    OPENPGPKEY: parseGenericFormat,
     PTR: {
         regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
         fields: [{ title: 'This is typically the domain name from a reverse DNS lookup. Click to look up its IPv4 address. If it matches the IP address that was looked up in reverse, then the domain holder also holds that IP address. Without a match, the reference in either direction can be fraudulent. Right click to open the domain in your browser.', onClick, onContextMenu }],
     },
+    SMIMEA: parseGenericFormat,
     SOA: {
         regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\. ([a-z0-9_]+(-[a-z0-9]+)*\\?\.)+[a-z]{2,63}\. \d+ \d+ \d+ \d+ \d+$/i,
         fields: [
@@ -203,6 +230,14 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
             { title: field => 'The host which provides the service. ' + (field === '.' ? 'The period means that the service is not available at this domain.' : 'Click to look up its IPv4 address.'), onClick },
         ],
     },
+    SSHFP: {
+        regexp: /^\d+ \d+ [0-9A-Fa-f]+$/,
+        fields: [
+            { title: field => `Public key algorithm: ${field} stands for ${sshfpPublicKeyAlgorithms[field] ?? 'an algorithm unknown to this tool'}.` },
+            { title: field => `Hash algorithm: ${field} stands for ${sshfpHashAlgorithms[field] ?? 'an algorithm unknown to this tool'}.` },
+            { title: 'The fingerprint of the public key encoded in hexadecimal.', transform: field => field.toUpperCase() },
+        ],
+    },
     TLSA: {
         regexp: /^\d+ \d+ \d+ [0-9A-Fa-f]+$/,
         fields: [
@@ -218,7 +253,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     RRSIG: {
         regexp: /^[a-z0-9]{1,10} \d+ \d+ \d+ \d+ \d+ \d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\. ([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/i,
         fields: [
-            { title: field => `Type covered: The record type covered by the signature in this record. A DNSSEC signature covers all the records of the given type. The records are first sorted, then hashed and signed collectively. (${recordTypes[field.toUpperCase() as RecordType] ?? 'Unsupported record type.'})`, transform: field => field.toUpperCase() },
+            { title: field => `Type covered: The record type covered by the signature in this record. A DNSSEC signature covers all the records of the given type. The records are first sorted, then hashed and signed collectively. (${recordTypes[mapRecordTypeFromGoogle(field.toUpperCase())] ?? 'Unsupported record type.'})`, transform: field => mapRecordTypeFromGoogle(field.toUpperCase()) },
             { title: field => `Algorithm: This number identifies the cryptographic algorithm used to create and verify the signature. (${field} stands for ${dnskeyAlgorithmsShort[field] ?? 'an unsupported or not recommended algorithm'}.)` },
             { title: `Labels: The number of labels in the domain name to which this record belongs. The empty label for the root and a potential wildcard label are not counted. For example, '*.example.com.' has a label count of 2. This allows a validator to determine whether the answer was synthesized for a wildcard subdomain. Since the signature covers the wildcard label instead of the queried subdomain, a validator needs to be able to detect this in order to verify the signature successfully.` },
             { title: field => `Original TTL: Since the actual time to live value is decremented when a cached record is returned, the original time to live value of the signed record needs to be provided in this RRSIG record in order to be able to verify the signature, which covers this value. (${field} seconds are ${parseTimeToLive(Number.parseInt(field, 10))}.)` },
@@ -286,7 +321,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
         ],
     },
     CDS: DS,
-    TYPE60: DNSKEY, // Google doesn't provide a parsed answer, unfortunately: https://issuetracker.google.com/issues/162137940
+    CDNSKEY: DNSKEY, // Google doesn't provide a parsed answer, unfortunately: https://issuetracker.google.com/issues/162137940
 };
 
 function parseDnsData(record: DnsRecord): JSX.Element {
