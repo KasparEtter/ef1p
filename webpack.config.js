@@ -15,9 +15,11 @@ module.exports = {
 
         index: './pages/index/index.ts',
         error: './pages/error/error.ts',
-        tools: './pages/tools/tools.tsx',
 
         internet: './pages/internet/internet.tsx',
+        'internet-tools': './pages/internet/tools/internet-tools.tsx',
+        email: './pages/email/email.tsx',
+        'email-tools': './pages/email/tools/email-tools.tsx',
     },
 
     output: {
