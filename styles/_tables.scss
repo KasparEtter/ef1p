@@ -21,3 +21,17 @@
     border-right: (2 * $table-border-width) solid $table-border-color;
   }
 }
+
+.table-with-vertical-border-after-column-3 {
+  td:nth-child(3),
+  th:nth-child(3) {
+    border-right: (2 * $table-border-width) solid $table-border-color;
+  }
+}
+
+.table-with-vertical-border-after-column-4 {
+  td:nth-child(4),
+  th:nth-child(4) {
+    border-right: (2 * $table-border-width) solid $table-border-color;
+  }
+}
