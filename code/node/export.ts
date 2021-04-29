@@ -3,6 +3,12 @@ import puppeteer from 'puppeteer';
 
 import { Time } from '../utility/time';
 
+// Declared in the HTML head.
+declare const themes: {
+    dark: string;
+    light: string;
+};
+
 const directory = process.argv[2];
 
 if (!directory) {
@@ -25,6 +31,9 @@ if (!directory) {
         // https://stackoverflow.com/a/61807077/12917821
         $('img[srcset]').removeAttr('srcset');
 
+        // Set the theme to get the right colors.
+        $('#theme').attr('href', themes.light);
+
         return [
             document.title,
             $('meta[property="article:published_time"]').attr('content'),
@@ -34,7 +43,7 @@ if (!directory) {
     const date = modified ?? published ?? Time.current().toLocalTime().toGregorianDate();
 
     // Wait for higher quality images to be loaded.
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     fs.mkdirSync(`pages/${directory}/generated`, { recursive: true });
 
