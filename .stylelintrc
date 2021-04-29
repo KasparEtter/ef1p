@@ -7,6 +7,7 @@
         "font-weight-notation": "named-where-possible",
         "property-no-vendor-prefix": null,
         "scss/dollar-variable-default": null,
+        "selector-class-pattern": null,
         "selector-max-compound-selectors": null,
         "selector-max-type": null,
         "selector-max-id": null,

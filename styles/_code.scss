@@ -3,3 +3,128 @@ pre {
   background-color: $pre-bg !important;
   border-radius: $border-radius;
 }
+
+.highlight {
+  .c, // Comment
+  .cm, // Comment.Multiline
+  .c1, // Comment.Single
+  .cs // Comment.Special
+  {
+    color: $gray;
+  }
+
+  .ch, // Comment.Hashbang
+  .cp, // Comment.Preproc (CSS: !important; XML: <?xml version="1.0" ?>)
+  .cpf // Comment.PreprocFile
+  {
+    color: $brown;
+  }
+
+  .go, // Generic.Output
+  .gp, // Generic.Prompt
+  .gh, // Generic Heading & Diff Header
+  .gu // Generic.Subheading & Diff Unified/Comment
+  {
+    color: $gray;
+  }
+
+  .err, // Error
+  .gr, // Generic.Error
+  .gt, // Generic.Traceback
+  .gd // Generic.Deleted & Diff Deleted
+  {
+    color: $red;
+  }
+
+  .gi // Generic.Inserted & Diff Inserted
+  {
+    color: $green;
+  }
+
+  .ge // Generic.Emphasis
+  {
+    font-style: italic;
+  }
+
+  .gs // Generic.Strong
+  {
+    font-weight: bold;
+  }
+
+  .k, // Keyword (CSS: @media; HTTP in HTTP)
+  .kc, // Keyword.Constant
+  .kd, // Keyword.Declaration
+  .kn, // Keyword.Namespace
+  .kp, // Keyword.Pseudo
+  .kr, // Keyword.Reserved
+  .kt, // Keyword.Type
+  .o, // Operator
+  .ow, // Operator.Word
+  .nt, // Name.Tag (HTML tags)
+  .nc, // Name.Class (CSS classes)
+  .nd, // Name.Decorator (CSS pseudo-classes)
+  .ne, // Name.Exception (HTTP status name)
+  .nf, // Name.Function (HTTP request method)
+  .fm // Name.Function.Magic
+  {
+    color: $pink;
+  }
+
+  .n, // Name (CSS: min-width in @media (min-width: 600px); coarse in @media (pointer: coarse))
+  .na, // Name.Attribute (HTML attributes; HTTP header field names)
+  .no, // Name.Constant
+  .ni, // Name.Entity
+  .nl, // Name.Label (CSS properties; JSON names)
+  .nx, // Name.Other
+  .py, // Name.Property
+  .nv, // Name.Variable
+  .vc, // Name.Variable.Class
+  .vg, // Name.Variable.Global
+  .vi, // Name.Variable.Instance
+  .vm // Name.Variable.Magic
+  {
+    color: $blue;
+  }
+
+  .nb, // Name.Builtin (CSS built-in values; pointer in @media (pointer: coarse))
+  .bp // Name.Builtin.Pseudo
+  {
+    color: $orange;
+  }
+
+  .l, // Literal
+  .ld, // Literal.Date
+  .m, // Literal.Number (HTTP version and status code)
+  .mb, // Literal.Number.Bin
+  .mf, // Literal.Number.Float
+  .mh, // Literal.Number.Hex
+  .mi, // Literal.Number.Integer (JSON number values)
+  .il, // Literal.Number.Integer.Long
+  .mo, // Literal.Number.Oct
+  .s, // Literal.String (HTML attribute strings; HTTP header field values)
+  .sa, // Literal.String.Affix
+  .sb, // Literal.String.Backtick
+  .sc, // Literal.String.Char
+  .dl, // Literal.String.Delimiter
+  .sd, // Literal.String.Doc
+  .s2, // Literal.String.Double (JSON string values)
+  .se, // Literal.String.Escape
+  .sh, // Literal.String.Heredoc
+  .si, // Literal.String.Interpol
+  .sx, // Literal.String.Other
+  .sr, // Literal.String.Regex
+  .s1, // Literal.String.Single
+  .ss, // Literal.String.Symbol
+  .nn // Name.Namespace (HTTP requested path)
+  {
+    color: $green;
+  }
+
+  .p, // Punctuation
+  .x // Other
+  {
+    color: $body-color;
+  }
+
+  // .w // Text.Whitespace
+}

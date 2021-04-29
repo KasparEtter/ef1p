@@ -22,7 +22,3 @@ $select-color: hsl(45, 100%, 80%) !default;
 .dark-theme-only {
   display: none !important;
 }
-
-// Syntax Highlighting
-@import "external/borland";
-// Build a custom theme at http://jwarby.github.io/jekyll-pygments-themes/builder.html.
