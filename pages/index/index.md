@@ -338,7 +338,8 @@ Any amount is greatly appreciated.
 - I use [Google Analytics](https://analytics.google.com) to track site visitors.
   If you hate being tracked,
   you can deactivate this [in your browser](https://tools.google.com/dlpage/gaoptout).
-- I announce new articles on [Twitter](https://twitter.com) and [Telegram](https://telegram.org).
+- I announce new articles on [Twitter](https://twitter.com/{{ site.twitter_handle }}),
+  [Reddit]({{ site.reddit_community }}) and [Telegram]({{ site.telegram_channel }}).
   If you don't like these companies, then don't use their services.
 - This site is hosted with [GitHub Pages](https://pages.github.com),
   which means that [Microsoft](https://news.microsoft.com/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/)

@@ -6,6 +6,7 @@ author: Kaspar Etter
 published: 2020-08-05
 modified: 2021-04-23
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
+reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 math: false
 ---
 

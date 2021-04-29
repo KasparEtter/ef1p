@@ -2,7 +2,7 @@
 # 'bundle exec jekyll serve'. If you change this file, you have to restart the server process.
 
 title: Explained from First Principles
-description: Explained from First Principles explains complex topics from first principles.
+description: Explained from First Principles is a technology, science, and philosophy blog for curious people who want to understand and change the world.
 url: https://explained-from-first-principles.com
 short_url: ef1p.com
 email: contact@ef1p.com
@@ -12,9 +12,10 @@ permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
 google_analytics_id: UA-135908849-1
-telegram_channel: https://t.me/ExplainedFromFirstPrinciples
-twitter_handle: ExplainedFrom1P
 repository: KasparEtter/ef1p
+twitter_handle: ExplainedFrom1P
+reddit_community: https://www.reddit.com/r/ef1p/
+telegram_channel: https://t.me/ExplainedFromFirstPrinciples
 
 # https://jekyllrb.com/docs/configuration/markdown/
 markdown: kramdown
@@ -26,6 +27,9 @@ theme: null
 
 plugins:
   - jekyll-redirect-from
+
+redirect_from:
+  json: false
 
 exclude:
   - "*.json"
