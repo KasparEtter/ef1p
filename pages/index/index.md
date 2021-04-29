@@ -64,17 +64,12 @@ The topics on this blog fall into one of the following categories:
 
 The goal of this website is to provide the best introduction available to the covered subjects.
 After doing a lot of research about a particular topic,
-I write the articles for my past self
-in the hope they are useful to the present you.
-Each article is intended to be the first one
-that you should read about a given topic
-and also the last
-— unless you want to become a real expert on the subject matter.
-I try to explain all concepts
-as much as possible from [first principles](https://en.wikipedia.org/wiki/First_principle),
+I write the articles for my past self in the hope they are useful to the present you.
+Each article is intended to be the first one that you should read about a given topic
+and also the last — unless you want to become a real expert on the subject matter.
+I try to explain all concepts as much as possible from [first principles](https://en.wikipedia.org/wiki/First_principle),
 which means that all your "why" questions should be answered by the end of an article.
-I strive to make the explanations comprehensible
-with no prior knowledge beyond a high-school education.
+I strive to make the explanations comprehensible with no prior knowledge beyond a high-school education.
 If this is not the case for you, please [let me know](#contact).
 
 
@@ -89,17 +84,12 @@ but unlike schools and [Wikipedia](https://en.wikipedia.org/wiki/Main_Page),
 the content on this blog is intentionally opinionated.
 If you don't like this,
 then a different website is just a click away.
-I believe that the judgement of theories
-is just as important as the theories themselves
-— given the right amount of intellectual humility
-as opinions can and should evolve with new considerations.
-The problem with learning is
-that the more you understand,
-the more you understand
-what you don’t understand.
+I believe that the judgement of theories is just as important as the theories themselves,
+given the right amount of intellectual humility as opinions can and should evolve with new considerations.
+The problem with learning is that the more you understand,
+the more you understand what you don’t understand.
 While going down the rabbit hole of a topic can be a lot of fun,
-I have to stop my research at some point
-in order not to paralyze myself.
+I have to stop my research at some point in order not to paralyze myself.
 Therefore, if I'm mistaken about facts,
 please bring it to [my attention](#contact).
 If you disagree with my conclusions,
@@ -110,8 +100,7 @@ I will consider adding a link to it.
 
 ### Length
 
-In order to truly understand
-why things are the way they are and not different,
+In order to truly understand why things are the way they are and not different,
 you have to put in a lot of effort.
 But as with many things in life,
 the more you put into it,
@@ -120,9 +109,6 @@ To respect your time,
 I try to write as succinctly as I can,
 which makes the information density really high.
 However, complex concepts simply require a lot of words to explain them properly.
-Anything that I cannot explain properly
-because I don't understand it properly,
-I omit from my articles.
 If a topic or section does not interest you,
 you should skip it rather than waste your time.
 I put a lot of thought into the structure of the articles
@@ -169,11 +155,9 @@ If you click on a green link, which references a different section on the same p
 a new entry in your browser history is generated
 so that you can easily go back to where you were before you clicked the link.
 A click on a blue link opens the referenced page in a new window or tab.
-Like this, you never have to worry
-that you lose your current position.
+Like this, you never have to worry that you lose your current position.
 Let's just try it:
-[Click here](#about)
-and then back.
+[Click here](#about) and then back.
 
 
 ### Browser address
@@ -185,8 +169,7 @@ While this can create a lot of entries in your browser history,
 it helps you find more easily where you left off,
 especially on mobile,
 where a page reload is forced upon you.
-If you want to share an article
-without linking to a particular section,
+If you want to share an article without linking to a particular section,
 make sure to remove everything in the address from the hash onward.
 Alternatively, simply scroll to the top of the page before copying the address.
 
@@ -300,7 +283,7 @@ You can use the graphics on this blog for anything you want
 as long as you give appropriate credit,
 indicate if you made changes,
 and don't suggest that I endorse you
-(see [the license](#license) above).
+(see the [license](#license) above).
 
 
 ### Acronym tooltips
@@ -317,7 +300,7 @@ You can try this with PDF, PNG, and SVG.
 ## Transparency
 
 All expenses of this blog in terms of time and money
-have been paid by myself until now.
+have been paid by myself [until now](#donate).
 I pledge to disclose any conflicts of interest,
 whenever they might impact the content on this blog.
 Excluded from this are consulting work and paid seminars
@@ -333,6 +316,21 @@ if you have feedback, questions, or suggestions for topics to write about.
 Please also let me know if an explanation is hard to follow.
 If you found a typographical error, a factual inaccuracy or a logical fallacy,
 you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
+
+
+## Donate
+
+It already means a lot to me if you read and share my articles.
+If you have a regular income and learned something from my articles,
+I would really appreciate your financial support.
+You can support me on
+[GitHub](https://github.com/sponsors/KasparEtter),
+[Liberapay](https://liberapay.com/ef1p/),
+[Patreon](https://www.patreon.com/ef1p),
+and [PayPal](https://paypal.me/KasparEtter).
+You can also donate some Bitcoin to `bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep`
+[↗](https://blockstream.info/address/bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep).
+Any amount is greatly appreciated.
 
 
 ## Privacy
@@ -354,11 +352,112 @@ you can also [create an issue](https://github.com/KasparEtter/ef1p/issues/new).
 
 ## About
 
-My name is [Kaspar Etter](https://kasparetter.com)
-and I'm a curious and skeptic person.
-I studied computer science at [ETH](https://ethz.ch/en.html)
-and live in Zurich, Switzerland.
+My name is [Kaspar Etter](https://kasparetter.com) and I'm a curious and skeptic person.
+I studied computer science at [ETH](https://ethz.ch/en.html) and live in Zurich, Switzerland.
 
+
+## FAQ
+
+Here are answers to [frequently asked questions (FAQ)](https://en.wikipedia.org/wiki/FAQ):
+
+
+### Can't you write shorter articles?
+{:data-toc-text="Article length"}
+
+I guess I could,
+but I also believe that length is the [wrong metric](https://en.wikipedia.org/wiki/Attribute_substitution).
+Whether a text is worth reading should be judged by the number of insights per word
+and not by the number of words.
+Your opinion may vary,
+but I think I'm doing pretty well on this metric.
+
+
+### Why don't you split your long articles into smaller ones?
+{:data-toc-text="Article splitting"}
+
+In my opinion, scrolling is easier than clicking,
+especially when you just want to skim a text.
+Having everything on a single page is also friendlier for offline reading
+and for using your browser's search functionality to find what you're looking for.
+The biggest reason for splitting long articles into smaller ones is
+[search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search_engine_optimization).
+It would also have the desirable side effect of allowing me to post new content more often.
+For now, I'm willing to sacrifice both in favor of making my content as useful as possible
+but my view on this might change in the future.
+
+
+### How often do you intend to publish articles?
+{:data-toc-text="Article frequency"}
+
+My primary goal is to do justice to the chosen topics.
+The topics I'm interested in are usually quite involved.
+I intend to publish between two and four articles a year.
+In order to achieve this, I will likely alternate between large and small topics in the future.
+
+
+### Have you considered creating videos about your content?
+{:data-toc-text="Video format"}
+
+Yes, but I think it's neither a good fit for me nor for my content.
+I see a lot of value in [edutainment](https://en.wikipedia.org/wiki/Educational_entertainment)
+and there are many great channels in this area, which I watch regularly.
+However, written text has many advantages when you truly want to learn something:
+You can read at your own pace,
+reread paragraphs when necessary,
+recognize the structure of an argument,
+copy fragments into your notes,
+and search for terms of interest.
+In comparison to videos,
+text is also much easier to make interactive
+and to update after publishing.
+Last but not least, the [World Wide Web (WWW)](https://en.wikipedia.org/wiki/World_Wide_Web)
+allows me to link to additional explanations and to cite the relevant sources.
+
+
+### Have you considered publishing your articles as books?
+{:data-toc-text="Book format"}
+
+Not really.
+I think that books are an outdated format for most purposes.
+On the one hand, books lack the concept of [hyperlinks](https://en.wikipedia.org/wiki/Hyperlink):
+You cannot easily link into the text and out of it.
+On the other hand, books cannot have interactive elements,
+which often make learning so much easier.
+Regarding monetization, I'm not a fan of [paywalls](https://en.wikipedia.org/wiki/Paywall).
+I believe that information shall be freely accessible
+as long as it does [more good than harm](https://en.wikipedia.org/wiki/Information_hazard).
+In my opinion, the programmable Web is the ideal publishing platform – but never say never.
+
+
+### What software do you use to create the graphics?
+{:data-toc-text="Graphics tool"}
+
+I wrote [my own SVG framework](https://github.com/KasparEtter/ef1p/tree/master/code/svg)
+because I couldn't find a solution which matched my needs.
+I wanted to be able to style the scalable vector graphics with the page-wide [CSS](https://en.wikipedia.org/wiki/CSS)
+so that [the theme can be toggled](#dark-and-light-mode) without having to replace the graphics.
+The support for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors) wasn't great
+in the [vector graphics editors](https://en.wikipedia.org/wiki/Vector_graphics_editor) that I've checked.
+Using code instead of a [graphical user interface (GUI)](https://en.wikipedia.org/wiki/Graphical_user_interface)
+to create vector graphics has the advantage that graphics can build on one another and share common functionality.
+It also makes it straightforward to [compile](https://en.wikipedia.org/wiki/Compiler) a single graphic in different ways.
+I wanted the graphics to be generated ahead of time so that they can be used for other purposes as well.
+All major SVG libraries, however,
+manipulate a [document object model (DOM)](https://en.wikipedia.org/wiki/Document_Object_Model).
+While there are workarounds to run them on a server,
+such as using a [headless browser](https://en.wikipedia.org/wiki/Headless_browser)
+or a [DOM library](https://github.com/jsdom/jsdom),
+I decided to roll my own little SVG library, which grew over time.
+It is heavily tailored to my needs and my [design language](https://en.wikipedia.org/wiki/Design_language)
+but if there's enough interest, I'm open to splitting the framework into its own repository.
+
+
+*[CSS]: Cascading Style Sheets
+*[DOM]: Document Object Model
+*[FAQ]: Frequently Asked Questions
+*[GUI]: Graphical User Interface
 *[PDF]: Portable Document Format
 *[PNG]: Portable Network Graphics
+*[SEO]: Search Engine Optimization
 *[SVG]: Scalable Vector Graphics
+*[WWW]: World Wide Web
