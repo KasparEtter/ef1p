@@ -11,7 +11,7 @@
 
         <meta property="og:title" content="{{ title }}">
         <meta property="og:description" content="{{ description }}">
-        <meta property="og:image" content="{{ page.name | replace: '.md', '/generated/thumbnail.png' | prepend: '/pages/' | absolute_url }}">
+        <meta property="og:image" content="{{ page.name | remove: '-tools' | replace: '.md', '/generated/thumbnail.png' | prepend: '/pages/' | absolute_url }}">
         <meta property="og:url" content="{{ page.url | absolute_url }}">
         <meta property="og:site_name" content="{{ site.title }}">{% if page.layout == "article" %}
         <meta property="og:type" content="article">{% if page.published %}

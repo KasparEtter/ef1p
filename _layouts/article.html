@@ -17,7 +17,8 @@ layout: toc
         please share it with your friends on social media:
         <a id="short-link" href="https://{{ site.short_url }}{{ article }}" title="Click to copy.">{{ site.short_url }}{{ article }}</a>.
         {% capture pdf %}/pages{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
-        You can also {% if page.reddit %}join the <a href="{{ page.reddit }}">discussion on Reddit</a> or{% endif %}
+        You can also{% if page.reddit %}
+        join the <a href="{{ page.reddit }}">discussion on Reddit</a> or{% endif %}
         <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a>.
     </p>
 
