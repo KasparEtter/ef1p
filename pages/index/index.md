@@ -180,7 +180,7 @@ If you want to share a link to a specific section,
 just click on the green icon after the title
 in order to copy the exact address to the clipboard of your device.
 On devices with a mouse,
-the green link icon is only shown
+the green link icon is shown only
 when you hover your mouse over the title.
 
 
@@ -268,7 +268,7 @@ Each article can be downloaded as a PDF for printing or offline reading.
 You find the download link at the very top of the corresponding article.
 The printing feature of your browser also works, of course,
 but I cannot ensure that the article will be formatted nicely this way.
-Additionally, only the open information boxes will be printed
+Additionally, only the open [information boxes](#information-boxes) will be printed
 if you export the article yourself.
 
 
@@ -335,20 +335,22 @@ Any amount is greatly appreciated.
 
 ## Privacy
 
-- I use [Google Analytics](https://analytics.google.com) to track site visitors.
-  If you hate being tracked,
-  you can deactivate this [in your browser](https://tools.google.com/dlpage/gaoptout).
 - I announce new articles on [Twitter](https://twitter.com/{{ site.twitter_handle }}),
   [Reddit]({{ site.reddit_community }}) and [Telegram]({{ site.telegram_channel }}).
-  If you don't like these companies, then don't use their services.
+  If you don't like these companies, then simply don't use their services.
+- I use [Plausible Analytics](https://plausible.io/) to measure how people interact with this website. Plausible Analytics
+  collects [no personal information](https://plausible.io/privacy-focused-web-analytics#no-personal-data-is-collected),
+  uses [no cookies](https://plausible.io/privacy-focused-web-analytics#no-cookies-and-other-persistent-identifiers), and
+  isolates all data [to a single day](https://plausible.io/privacy-focused-web-analytics#all-data-is-isolated-to-a-single-day).
+  In order to be as transparent as possible,
+  I gladly share [my analytics](https://plausible.io/explained-from-first-principles.com) with you.
 - This site is hosted with [GitHub Pages](https://pages.github.com),
   which means that [Microsoft](https://news.microsoft.com/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/)
   also learns when and from where this blog is being accessed.
 - Interactive elements in articles may send personal information to other companies as well.
   If they do, this is explicitly stated in the paragraph before the corresponding input field.
-  Otherwise, all the values you enter are only stored
+  Otherwise, all the values you enter are stored only
   [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
-{:.compact}
 
 
 ## About
@@ -425,9 +427,10 @@ You cannot easily link into the text and out of it.
 On the other hand, books cannot have interactive elements,
 which often make learning so much easier.
 Regarding monetization, I'm not a fan of [paywalls](https://en.wikipedia.org/wiki/Paywall).
-I believe that information shall be freely accessible
+I believe that information shall be freely accessible and shareable
 as long as it does [more good than harm](https://en.wikipedia.org/wiki/Information_hazard).
-In my opinion, the programmable Web is the ideal publishing platform – but never say never.
+In my opinion, the Web is the ideal publishing platform.
+But we'll see what the future holds.
 
 
 ### What software do you use to create the graphics?
