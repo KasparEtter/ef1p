@@ -64,7 +64,7 @@
         "svg-build": "ts-node code/node/graphics.ts",
         "svg-definitions": "ts-node _includes/definitions.svg.ts > _includes/definitions.svg",
         "test": "echo 'Error: no test specified' && exit 1",
-        "thumbnail": "ts-node code/node/thumbnail.ts",
+        "thumbnails": "ts-node code/node/thumbnails.ts",
         "ts-analyze": "webpack --analyze",
         "ts-build": "webpack",
         "ts-circular": "madge --warning --circular --extensions ts ./code/",
