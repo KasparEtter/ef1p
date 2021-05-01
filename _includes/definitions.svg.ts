@@ -1,7 +1,7 @@
-import { indentation } from '../../code/svg/utility/constants';
-import { Color, colors } from '../../code/utility/color';
+import { Color, colors } from '../code/utility/color';
 
-import { getArrowMarkers, getCircleMarkers } from '../../code/svg/utility/definitions';
+import { indentation } from '../code/svg/utility/constants';
+import { getArrowMarkers, getCircleMarkers } from '../code/svg/utility/definitions';
 
 const array = Object.keys(colors) as (Color | undefined)[];
 array.unshift(undefined);
