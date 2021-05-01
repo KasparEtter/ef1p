@@ -774,22 +774,21 @@ It will be rendered with `markdown="span"` as a single paragraph.
 
 #### Image in various sizes
 
-Images in the `images` subfolder of articles
-that end on `.scaled.[jpeg|jpg|png]`
-are automatically scaled to a width of 500, 1000 and 2000 pixels
+Images in the `images` subfolder of articles which end on `.jpg`
+are automatically scaled to a width of 910, 1820, and 2730 pixels
 and stored in the subfolder `generated`
 when running `npm run build`, `npm run watch`, or `npm start`.
 If you only want to build or watch these images,
 you can execute `npm run img-build` or `npm run img-watch` instead.
 
 A [`srcset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset)
-with the various sizes is generated when you add `scaled="true"` to the `include` statement.
+with the various sizes is generated when you use the `include` statement.
 
 ```markdown
-{% include image.md source="source.png" caption="Caption with *Markdown*." scaled="true" %}
+{% include image.md source="source.jpg" caption="Caption with *Markdown*." %}
 ```
 
-This example requires that `images/source.scaled.png` exists.
+This example requires that `images/source.jpg` exists.
 The `caption` is optional and can be skipped.
 
 
@@ -804,8 +803,6 @@ Please note that the light image is used for printing and the [PDF](#pdf) export
 ```
 
 This example requires that `images/source.dark.png` and `images/source.light.png` exist.
-You can combine this feature with the above scaling option,
-in which case `images/source.dark.scaled.png` and `images/source.light.scaled.png` must exist.
 
 
 ### Graphics

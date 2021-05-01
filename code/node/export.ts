@@ -27,9 +27,10 @@ if (!directory) {
         // Expand all details elements.
         $('details').attr('open', '');
 
-        // Remove the 'srcset' attribute on all images.
+        // Remove the 'srcset' and 'sizes' attributes on all images.
         // https://stackoverflow.com/a/61807077/12917821
         $('img[srcset]').removeAttr('srcset');
+        $('img[sizes]').removeAttr('sizes');
 
         // Set the theme to get the right colors.
         $('#theme').attr('href', themes.light);

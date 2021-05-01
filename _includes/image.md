@@ -2,25 +2,25 @@
 {% assign splits = include.source | split: "." %}
 {% assign name = splits[0] %}
 {% assign extension = splits[1] %}
-{% assign sizes = "500,1000,2000" | split: "," %}
+{% assign sizes = "910,1820,2730" | split: "," %}
 {% capture style %}{% if include.image-max-width %} style="max-width: {{include.image-max-width}}px;"{% endif %}{% endcapture %}
 <figure markdown="block"{% unless include.full-width-on-print %} class="limited-width-on-print"{% endunless %}>
 {% if include.themed %}
-    {% if include.scaled %}
+    {% if extension == "jpg" %}
         {% capture srcset-light %}{% for size in sizes %}, {{path}}/generated/{{name}}.light.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset-light | remove_first: ', ' }}" src="{{path}}/generated/{{name}}.light.{{sizes[2]}}.{{extension}}" class="light-theme-only"{{style}} />
+<img srcset="{{ srcset-light | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.light.{{sizes[2]}}.{{extension}}" class="light-theme-only"{{style}} />
         {% capture srcset-dark %}{% for size in sizes %}, {{path}}/generated/{{name}}.dark.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset-dark | remove_first: ', ' }}" src="{{path}}/generated/{{name}}.dark.{{sizes[2]}}.{{extension}}" class="dark-theme-only"{{style}} />
+<img srcset="{{ srcset-dark | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.dark.{{sizes[2]}}.{{extension}}" class="dark-theme-only"{{style}} />
     {% else %}
-<img src="{{path}}/images/{{name}}.light.{{extension}}" class="light-theme-only"{{style}} />
-<img src="{{path}}/images/{{name}}.dark.{{extension}}" class="dark-theme-only"{{style}} />
+<img src="{{path}}/generated/{{name}}.light.{{extension}}" class="light-theme-only"{{style}} />
+<img src="{{path}}/generated/{{name}}.dark.{{extension}}" class="dark-theme-only"{{style}} />
     {% endif %}
 {% else %}
-    {% if include.scaled %}
+    {% if extension == "jpg" %}
         {% capture srcset %}{% for size in sizes %}, {{path}}/generated/{{name}}.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset | remove_first: ', ' }}" src="{{path}}/generated/{{name}}.{{sizes[2]}}.{{extension}}"{{style}} />
+<img srcset="{{ srcset | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.{{sizes[2]}}.{{extension}}"{{style}} />
     {% else %}
-<img src="{{path}}/images/{{ include.source }}"{{style}} />
+<img src="{{path}}/generated/{{ include.source }}"{{style}} />
     {% endif %}
 {% endif %}
 {% if include.caption %}

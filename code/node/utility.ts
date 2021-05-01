@@ -4,6 +4,8 @@ import glob from 'glob';
 
 import { sleep } from '../utility/functions';
 
+const watchMode = process.argv[2] === 'watch';
+
 export interface File {
     /**
      * The path to the input directory ends without a path separator.
@@ -42,25 +44,28 @@ export function scan(
     fileSuffix: string,
     callback: (file: File) => any,
 ): void {
-    glob(`**${inputDirectory}*${fileSuffix}`, { nodir: true, nonull: false, strict: true }, (error, paths) => {
+    glob(`pages/*${inputDirectory}*${fileSuffix}`, { nodir: true, nonull: false, strict: true }, (error, paths) => {
         if (error) {
             console.error('The globbing failed with the following error:', error);
             return;
         }
 
-        let files: File[] = paths.filter(path => !path.startsWith('_site/')).map(path => {
+        let files: File[] = paths.map(path => {
+            // Works as long no article is called 'graphics' or 'images'.
             const parts = ('./' + path).split(inputDirectory);
             return {
                 pathToInputDirectory: parts[0],
                 name: parts[1],
-                path,
+                path: './' + path,
                 date: fs.statSync(path).mtimeMs,
             };
         });
 
         // Call the callback on the last modified file first.
         files.sort((a, b) => b.date - a.date);
-        files = files.slice(0); // Improve performance by generating just the last modified file with `slice(0, 1)`.
+        if (watchMode){
+            files = files.slice(0, 1);
+        }
 
         const articles = new Set<string>();
         files.forEach(file => {
