@@ -6,7 +6,6 @@ const endings = ['.', ',', ':', '?', '!', ')', '.)', '?)', '!)'];
 function sanitize(hash: string): string {
     for (const ending of endings) {
         if (hash.endsWith(ending)) {
-            report('notfound', 'ending', window.location.pathname + hash);
             return hash.slice(0, -ending.length);
         }
     }
@@ -23,19 +22,23 @@ jQuery(() => {
     };
 
     // Scrolling inspired by http://jsfiddle.net/ianclark001/rkocah23/.
-    const scrollIfAnchor = (href: string | null, source: 'load' | 'hash' | 'link' | 'jump') => {
-        if (!href || !/^#[^ ]+$/.test(href)) {
+    const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' | 'jump') => {
+        if (!hash || !/^#[^ ]+$/.test(hash)) {
             return false;
         }
 
-        const hash = source === 'load' ? sanitize(href) : href;
-        const url = window.location.pathname + hash;
-        const target = document.getElementById(hash.slice(1));
+        const anchor = trigger === 'load' ? sanitize(hash) : hash;
+        const url = window.location.pathname + anchor;
+        const target = document.getElementById(anchor.slice(1));
         if (!target) {
-            report('notfound', 'anchor', url);
+            if (trigger === 'load') {
+                report('Not found', { Type: 'Anchor', Anchor: anchor });
+            }
             return false;
         }
-        report('target', source, url);
+        if (trigger === 'load') {
+            report('Load target', { Anchor: anchor });
+        }
 
         if (target.tagName === 'SUMMARY') {
             (target.parentElement as HTMLDetailsElement).open = true;
@@ -46,8 +49,8 @@ jQuery(() => {
             return false;
         }
 
-        if (source !== 'load' && window.history && window.history.pushState) {
-            document.title = getTitle(hash);
+        if (trigger !== 'load' && window.history && window.history.pushState) {
+            document.title = getTitle(anchor);
             window.history.pushState(null, document.title, url);
         }
 
@@ -55,10 +58,10 @@ jQuery(() => {
 
         return true;
     };
-    scrollIfAnchor(window.location.hash, 'load');
+    scrollToAnchor(window.location.hash, 'load');
 
     const handleHashChange = (event: JQuery.Event) => {
-        if (scrollIfAnchor(window.location.hash, 'hash')) {
+        if (scrollToAnchor(window.location.hash, 'hash')) {
             event.preventDefault();
         }
     };
@@ -74,13 +77,12 @@ jQuery(() => {
             event.preventDefault();
             const address = window.location.origin + window.location.pathname + href;
             if (copyToClipboardWithAnimation(address, target, 'scale400')) {
-                report('anchors', 'click', window.location.pathname + href);
+                report('Copy link', { Anchor: href });
             }
-        } else if (scrollIfAnchor(href, 'link')) {
+        } else if (scrollToAnchor(href, 'link')) {
             event.preventDefault();
         } else {
             target.setAttribute('target', '_blank');
-            report('links', 'visit', href);
         }
     };
     $('body').on('click', 'a', handleLinkClick);
@@ -149,13 +151,12 @@ jQuery(() => {
     const jumpToNextHeading = (event: JQuery.TriggeredEvent) => {
         if (event.target.tagName === 'SPAN') {
             const target = event.target.closest('h2, h3, h4, h5, h6') as HTMLHeadingElement;
-            report('sections', 'skip', window.location.pathname + '#' + target.id);
             const level = parseInt(target.tagName.charAt(1), 10);
             let element = target.nextElementSibling;
             while (element !== null) {
                 if (['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(element.tagName)) {
                     if (parseInt(element.tagName.charAt(1), 10) <= level) {
-                        scrollIfAnchor('#' + element.id, 'jump');
+                        scrollToAnchor('#' + element.id, 'jump');
                         break;
                     }
                 }
@@ -172,10 +173,12 @@ jQuery(() => {
     // Track opening and closing of information boxes.
     $('summary').on('click', event => {
         const summary = event.target.closest('summary');
-        const details = summary?.closest('details');
-        const action = details ? (details.open ? 'close' : 'open') : 'unknown';
-        const label = summary ? window.location.pathname + '#' + summary.id : 'unknown';
-        report('boxes', action, label);
+        if (summary !== null) {
+            const details = summary.closest('details');
+            if (details !== null && !details.open) {
+                report('Open box', { Anchor: '#' + summary.id });
+            }
+        }
     });
 
     // Add the anchors with AnchorJS. As no IDs need to be added, this instruction can be ignored:
@@ -230,7 +233,7 @@ jQuery(() => {
         $('details').attr('open', '');
         $('#details-expander').addClass('d-none');
         $('#details-collapser').removeClass('d-none');
-        report('boxes', 'open-all', window.location.pathname);
+        report('Open box', { Anchor: 'all' });
     });
 
     // Collapse all information boxes.
@@ -238,7 +241,6 @@ jQuery(() => {
         $('details').removeAttr('open');
         $('#details-collapser').addClass('d-none');
         $('#details-expander').removeClass('d-none');
-        report('boxes', 'close-all', window.location.pathname);
     });
 
     // Copy the short link to the clipboard.
@@ -246,14 +248,13 @@ jQuery(() => {
         const target = event.target as HTMLAnchorElement;
         if (copyToClipboardWithAnimation(target.href, target)) {
             event.preventDefault();
-            report('addresses', 'copy', target.href);
         }
     });
 
     // Track the number of PDF downloads.
     $('#pdf-download').on('click contextmenu', event => {
         const target = event.target as HTMLAnchorElement;
-        report('articles', 'download', target.href);
+        report('Download article', { Version: target.href });
     });
 
     // Remove the cookies set by earlier versions of this website.

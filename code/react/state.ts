@@ -165,7 +165,7 @@ function updateState<State extends ObjectButNotFunction>(
             normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
         }
         if (changed.length > 0 && createNewState) {
-            report('tools', 'state', store.identifier);
+            report('Use tool', { Identifier: store.identifier });
         }
     } else {
         store.update('input');

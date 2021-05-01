@@ -15,7 +15,7 @@ layout: toc
         {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
         If you like the article,
         please share it with your friends on social media:
-        <a id="short-link" href="https://{{ site.short_url }}{{ article }}" title="Click to copy.">{{ site.short_url }}{{ article }}</a>.
+        <a id="short-link" href="https://{{ site.short_domain }}{{ article }}" title="Click to copy.">{{ site.short_domain }}{{ article }}</a>.
         {% capture pdf %}/pages{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
         You can also{% if page.reddit %}
         join the <a href="{{ page.reddit }}">discussion on Reddit</a> or{% endif %}
