@@ -34,14 +34,15 @@ function listener(event: MediaQueryListEvent): void {
 const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
 
 function setTheme(newTheme: Theme | undefined, newSetByUser = true, siteLoaded = true): void {
-    if (!setByUser && newSetByUser) {
+    // Support on Safari and Edge is relatively new: https://caniuse.com/mdn-api_mediaquerylistevent
+    if (!setByUser && newSetByUser && typeof mediaQuery.removeEventListener !== 'undefined') {
         mediaQuery.removeEventListener('change', listener);
     }
     if (newTheme !== undefined) {
         theme = newTheme;
         setByUser = newSetByUser;
     } else {
-        if (setByUser) {
+        if (setByUser && typeof mediaQuery.addEventListener !== 'undefined') {
             mediaQuery.addEventListener('change', listener);
         }
         theme = mediaQuery.matches ? 'light' : 'dark';
