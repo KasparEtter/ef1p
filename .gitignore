@@ -2,8 +2,6 @@
 /.jekyll-metadata
 /.stylelintcache
 /_site
-/_includes/generated/definitions.embedded.svg
 /node_modules
-/playground
-/theme.html
 /vendor
+/webpack-stats.json
