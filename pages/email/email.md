@@ -3,7 +3,7 @@ title: Email
 icon: envelope
 category: Technologies
 author: Kaspar Etter
-published: 2021-05-01
+published: 2021-05-02
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 math: false
 ---
@@ -18,9 +18,27 @@ email has been with us for decades and will remain with us for at least another 
 Even though email plays an important role in everyday life, most people know very little about how it works.
 Before we roll up our sleeves and change this, here are a few things that you should know:
 - This article covers all aspects of modern email.
-  As a result, this article is really long.
+  As a result, it became really long.
   While later chapters do build on earlier ones,
-  I made it as easy as possible for you to jump around and fill your knowledge gaps as you go.
+  you can start reading wherever you want and fill your knowledge gaps as you go.
+- This article is structured as follows:
+  After clarifying some user-facing [concepts](#concepts),
+  we'll look at the technical [architecture](#architecture) of email
+  and the roles of the various [entities](#entities).
+  We'll then study the [protocols](#protocols) used by these entities to communicate with one another
+  and the [format](#format) of the transmitted messages.
+  Now that we understand how email works,
+  we can discuss its [privacy](#privacy) and [security](#security) [issues](#issues)
+  and examine how some of the security issues are [fixed](#fixes) by more recent standards.
+- Among many other things, you will learn in this article
+  [why mail clients use outgoing mail servers](#why-outgoing-mail-servers),
+  [why SMTP is used for the submission and the relay of messages](#submission-versus-relay),
+  [how mail loops are prevented](#mail-loops),
+  and [how you should configure your custom domains](#domain-authentication).
+- During my research for this article,
+  I made [responsible disclosures](https://en.wikipedia.org/wiki/Responsible_disclosure)
+  to [Gandi](#spoofed-sender-during-submission), [Microsoft](#outlook.com-example-exploit),
+  and [Thunderbird](#thunderbird-example-exploit) ([second](#origination-date) and [third](#sender-towards-recipients)).
 - Even if you're not interested in email, this article can teach you a lot about Internet protocols and IT security.
   For example, it covers [Implicit and Explicit TLS](#use-of-tls);
   [password-based authentication mechanisms](#password-based-authentication-mechanisms)
@@ -31,7 +49,7 @@ Before we roll up our sleeves and change this, here are a few things that you sh
   and [homograph attacks](#homograph-attack); [transport security](#transport-security)
   with [DANE](#dns-based-authentication-of-named-entities) and [HSTS](#http-strict-transport-security);
   and [end-to-end security](#end-to-end-security) with [S/MIME and PGP](#comparison-of-smime-and-pgp).
-- If you haven't done so already, read the article about the [Internet](/internet/) first.
+- If you haven't done so already, read the [article about the Internet](/internet/) first.
   This article assumes that you're familiar with the following acronyms and the concepts behind them:
   [RFC](/internet/#request-for-comments), [IP](/internet/#network-layer),
   [TCP](/internet/#transmission-control-protocol), [TLS](/internet/#transport-layer-security),
