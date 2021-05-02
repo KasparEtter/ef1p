@@ -8314,7 +8314,7 @@ Content-Disposition: attachment; filename=HelloWorld.c
 #include <stdio.h>
 
 int main() {
-  printf("Hello, World!\n");
+  printf("Hello, World!");
   return 0;
 }
 
@@ -8324,7 +8324,7 @@ int main() {
 <figcaption markdown="span">
 
 How to attach a file with a name.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nHello, I've attached the source code of the exercise.\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\nContent-Disposition: attachment; filename=HelloWorld.c\n\n#include <stdio.h>\n\nint main() {\n  printf(&quot;Hello, World!\n&quot;);\n  return 0;\n}\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this attachment example.">Click here</a>
+<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nHello, I've attached the source code of the exercise.\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\nContent-Disposition: attachment; filename=HelloWorld.c\n\n#include <stdio.h>\n\nint main() {\n  printf(&quot;Hello, World!&quot;);\n  return 0;\n}\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this attachment example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 </figcaption>
