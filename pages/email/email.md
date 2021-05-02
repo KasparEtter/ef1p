@@ -176,8 +176,8 @@ and then connect to the mail server of each recipient.
 The user name allows the mail server to determine the mailbox to which a message should be delivered.
 The hierarchical [Domain Name System](/internet/#domain-name-system) ensures that the domain name is unique,
 whereas the email service provider has to ensure that the name of each user is unique within its domain.
-However, there doesn't have to be a one-to-one correspondence between email addresses and mailboxes:
-A mailbox can be identified [by several addresses](#subaddressing)
+There doesn't have to be a one-to-one correspondence between addresses and mailboxes:
+A mailbox can be identified [by several addresses](#subaddressing),
 and an email sent to a single address can be delivered [to multiple mailboxes](#alias-address).
 
 <details markdown="block">
@@ -243,7 +243,6 @@ Subaddressing
 
 Many email service providers support a technique known as
 [subaddressing](https://en.wikipedia.org/wiki/Email_address#Subaddressing) as part of their address normalization.
-This technique allows you to enter a variant of your address whenever someone asks you for your email address.
 By restricting the character set for user names more than the standard demands,
 an email service provider can designate a special character,
 which is valid according to the standard but not in the set for user names,
@@ -338,7 +337,7 @@ As mentioned earlier, an address consists of a local part followed by the @ symb
 If we restrict ourselves to what is widely adopted, the local part has to consist of the characters
 `a` to `z`, `A` to `Z`, `0` to `9`, and any of ``!#$%&'*+-/=?^_`{|}~``.
 A dot `.` can be used as long as it is between two of the aforementioned characters.
-In other words, dots are not allowed next to one another and at the beginning and end of the local part.
+In other words, you cannot have multiple dots in a row or at the beginning or end of the local part.
 Every mail system must be able to handle addresses whose local part is up to
 [64 characters long](https://tools.ietf.org/html/rfc5321#section-4.5.3.1.1) (including any dots).
 The local part has to consist of at least one character and should not be longer than 64 characters.
@@ -387,8 +386,8 @@ On the other hand,
 the equivalent `qtextSMTP` rule of [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.1.2) does allow spaces.
 What the standard does clarify is that the escape character `\` is semantically invisible.
 Therefore, `"a"` and `"\a"` are equivalent.
-I assume this means that mail systems are allowed to remove the backslash of other people's addresses
-when a character doesn't need to be escaped.
+I assume this means that mail systems are allowed to remove the backslash in front of characters
+which don't need to be escaped in non-local addresses.
 
 What about the domain part of an email address?
 While the [Domain Name System](/internet/#domain-name-system) allows the use of pretty much any character,
@@ -508,7 +507,7 @@ You can address the recipients of a message in [three different ways](https://to
 **Important**: Just because someone is listed as another recipient
 doesn't mean that they received the same message as you.
 The reason for this could be innocuous or malicious.
-On one hand, it might be that the email could simply not be delivered to them.
+On the one hand, it may be that the email could simply not be delivered to them.
 On the other hand, the sender might have delivered the message only to you in order to mislead you.
 Your email service provider has no way of verifying
 that the same message has also been delivered to the other recipients.
@@ -548,11 +547,11 @@ Using a `From` address which doesn't belong to the actual sender is known as
 [email spoofing](https://en.wikipedia.org/wiki/Email_spoofing).
 Forged sender addresses are a huge problem for [security](#security).
 Luckily, there are additional standards to authenticate emails.
-In order for them to have the desired effect, though,
+For them to have the desired effect, though,
 both the sender and the recipients have to make use of them.
 Besides improving my own understanding of email,
 increasing the adoption of these standards was my main motivation for writing this article.
-This is why a whole section is dedicated to [email authentication](#domain-authentication).
+This is why a whole section of this article is dedicated to [email authentication](#domain-authentication).
 
 <details markdown="block">
 <summary markdown="span" id="sender-field">
@@ -726,7 +725,7 @@ Let's have a look at each of these interactions with regard to standardization:
   (as long as we ignore [firewalls](/internet/#firewall)),
   any users with an email address can send each other messages
   (as long as we ignore [spam filters](#spam)).
-  This only works because [the exchange of messages between mail servers is standardized](#delivery-protocols).
+  This only works because the exchange of messages between mail servers is [standardized](#delivery-protocols).
   Anyone who adheres to this standard can participate in the global email system.
   In order to maintain compatibility with older servers,
   support for new functionality is always optional.
@@ -781,8 +780,7 @@ you have to be connected to the Internet to use webmail.
 While not generally desirable,
 fetching all data only temporarily until you log out
 is useful when you want to access your emails from someone else's device.
-In addition, configuring a mail client is a hassle,
-navigating to a website is much easier.
+In addition, configuring a mail client is more complicated than navigating to a website.
 This might explain the popularity of webmail.
 In my opinion, the biggest disadvantage of webmail is that
 the logic of how you can interact with your messages comes from the provider:
@@ -958,7 +956,7 @@ This is the case for my email configuration:
 One more thing that users need to be informed about is whether to use the full email address
 or only the local part before the @ symbol (or even something completely different) as the user name.
 While flexibility is great for customizing a setup to the particular needs of an organization,
-it often leads to an unnecessarily complicated experience for users, unfortunately.
+it also leads to an unnecessarily complicated experience for users.
 
 </details>
 
@@ -1109,32 +1107,33 @@ which are not supported by your email service provider.
 Configuration database
 </summary>
 
-How can mail clients often configure themselves automatically in the absence of an established standard?
+At this point, you may be wondering how mail clients can often figure out the correct configuration by themselves
+despite the lack of an established standard.
 Most mail clients look up the configuration for [popular email service providers](#email-service-providers)
 in a database, which is either delivered with the client or centrally hosted by the software manufacturer.
 Some mail clients also use custom autoconfiguration protocols,
 which typically fetch an [XML](https://en.wikipedia.org/wiki/XML) file hosted at a specific subdomain via HTTPS.
 
 Let's have a look at how [Thunderbird](https://www.thunderbird.net/en-US/) does it.
-While not that many people use Thunderbird, it's autoconfiguration process is
+It's autoconfiguration process is
 [well documented](https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration)
 and it's configuration database is free to use for any mail client.
-Thunderbird performs the following lookups in the listed order until it finds a suitable configuration,
-where `<domain>` stands for the domain part of the email `<address>`:
-1. It checks the installation directory for a
+Given an email address `{Address}` `=` `{LocalPart}@{Domain}`,
+Thunderbird goes through the following steps from top to bottom until it finds a suitable configuration:
+1. Check the installation directory for a
    [configuration file](https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration/FileFormat/HowTo).
-   This is useful for when the employer administrates the devices.
-2. It checks `https://autoconfig.<domain>/mail/config-v1.1.xml?emailaddress=<address>` for a configuration file.
+   This is useful for when the employer administrates the user's device.
+2. Check `https://autoconfig.{Domain}/mail/config-v1.1.xml?emailaddress={Address}` for a configuration file.
    Unlike the mechanism discussed in the [previous box](#autoconfiguration),
    this file can be generated dynamically based on the email address.
    This is useful for when the user name is neither the email address nor the local part.
-3. It checks `https://<domain>/.well-known/autoconfig/mail/config-v1.1.xml`.
-   The advantage of the previous lookup is that the `autoconfig` subdomain can point to a web server
-   which is operated by your email service provider.
-   If you use the current lookup without a subdomain, you have to host the configuration file yourself.
-4. It looks for a configuration file in the central database at `https://autoconfig.thunderbird.net/v1.1/<domain>`.
-5. It looks up the [`MX` record](#address-resolution) of the domain in the Domain Name System
-   and then checks whether the central database has an entry for the so-called apex domain
+3. Check `https://{Domain}/.well-known/autoconfig/mail/config-v1.1.xml`.
+   The key difference between this and the previous lookup is that
+   the `autoconfig` subdomain in step 2 can point to a web server operated by your email service provider,
+   while the lookup in the current step 3 must be handled by `{Domain}` itself.
+4. Look for a configuration file in the central database at `https://autoconfig.thunderbird.net/v1.1/{Domain}`.
+5. Look up the [`MX` record](#address-resolution) of the domain in the Domain Name System
+   and then check whether the central database has an entry for the so-called apex domain
    at the root of the [zone](https://en.wikipedia.org/wiki/DNS_zone).
    This is useful for custom domains like `ef1p.com`,
    which has an `MX` record pointing to `spool.mail.gandi.net`,
@@ -1143,15 +1142,15 @@ where `<domain>` stands for the domain part of the email `<address>`:
    which is how Thunderbird would find the configuration for my email address.
 6. If all previous attempts to find a configuration failed,
    Thunderbird resorts to guessing the mail servers.
-   It tries to connect to common server names such as `mail.<domain>`, `smtp.<domain>`, and `imap.<domain>`
+   It tries to connect to common server names such as `mail.{Domain}`, `smtp.{Domain}`, and `imap.{Domain}`
    on the [default port numbers](#port-numbers) and checks whether they support TLS or [STARTTLS](#starttls-extension)
    and a [challenge-response authentication mechanism (CRAM)](#challenge-response-authentication-mechanism).
    The last check prevents Thunderbird from accidentally revealing the user's password to the wrong server.
    Unfortunately, CRAM is rather weak.
    The far better [salted challenge-response authentication mechanism (SCRAM)](#salted-challenge-response-authentication-mechanism) should be used instead.
-7. If guessing the mail servers also fails, the user has to enter the configuration manually.
+7. If all of the above steps fail, then the user has to enter the configuration themself.
 
-I've implemented the steps 2 to 5 of Thunderbird's discovery procedure
+I've implemented steps 2 to 5 of Thunderbird's discovery procedure
 in case you need to configure a mail client and don't know the required information.
 The tool makes requests to the entered domain according to the above description
 and, if necessary, to [Thunderbird's database](https://autoconfig.thunderbird.net/v1.1/).
@@ -1182,7 +1181,7 @@ the outgoing mail server authenticates the user
 
 <details markdown="block">
 <summary markdown="span" id="why-outgoing-mail-servers">
-Why do we need outgoing mail servers when mail clients could simply deliver the messages directly to the recipients?
+Why do we need outgoing mail servers when mail clients could simply deliver the messages directly?
 </summary>
 
 Before we discuss why we need outgoing mail servers,
@@ -1197,10 +1196,9 @@ A hypothetical email architecture without outgoing mail servers.
 
 Since outgoing mail servers are just a piece of software and can thus be integrated into mail clients,
 it is technically possible to send emails directly to the incoming mail server of each recipient.
-In fact, sending an email to someone from the [command line](https://en.wikipedia.org/wiki/Command-line_interface)
+In fact, sending an email to someone [from the command line](#extended-simple-mail-transfer-protocol)
 is my favorite demonstration in the seminars I give.
-Unfortunately or rather fortunately, only badly configured incoming mail servers accept such messages.
-I will show you [later on](#extended-simple-mail-transfer-protocol) how you can send spoofed emails yourself.
+Only badly configured incoming mail servers accept such messages, though.
 
 There are [two main reasons](https://superuser.com/questions/1006079/why-do-i-need-an-smtp-server)
 why outgoing mail servers are used in practice:
@@ -1320,7 +1318,7 @@ why outgoing mail servers are used in practice:
     In combination with user authentication,
     where outgoing mail servers prevent their users from sending messages in the name of another user of the same domain,
     the two mechanisms guarantee that the sender of a message owns the claimed `From` address.
-    Again, there are other ways to achieve a similar result without requiring outgoing mail servers,
+    There would be other ways to achieve a similar result without requiring outgoing mail servers,
     but this is how email works.
 
 <figure markdown="block">
@@ -1347,8 +1345,8 @@ your mail client has to store each outgoing message in the sent folder on your i
 Since we focussed on how an email gets to its recipient so far,
 this aspect has been grayed out in the above [architecture diagrams](#simplified-architecture).
 In most cases, the client has to submit the same message twice:
-Once to the outgoing mail server for delivery [without the `Bcc` field](#bcc-removal) and
-once to the incoming mail server for mailbox synchronization with the `Bcc` recipients.
+Once to the outgoing mail server for delivering the message to the recipients,
+and once to the incoming mail server for updating the sent folder.
 
 <figure markdown="block">
 {% include_relative generated/simplified-architecture-double-submission.embedded.svg %}
@@ -1736,7 +1734,7 @@ Implicit TLS was once discouraged in favor of Explicit TLS for
   Once a secure connection could be established, though,
   the client should no longer accept insecure connections.
   Since the insecure protocol could still advertise when its secure variant is available,
-  having only Implicit TLS wouldn't cause a lot of trouble in reality.
+  having only Implicit TLS wouldn't cause a lot of overhead in practice.
 - **Port number exhaustion**:
   If every protocol requires two ports (one to be used with TLS and one without TLS),
   only half as many protocols can be accommodated in the limited space of port numbers.
@@ -2511,7 +2509,7 @@ The tool uses [Thunderbird's database](https://autoconfig.thunderbird.net/v1.1/)
 and [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
 to resolve the server you want to connect to and the [API by ipinfo.io](https://ipinfo.io/developers)
 to determine your IP address when you click on `Determine` next to the `Client` field.
-The text in gray mimics how the responses from the server likely look like.
+The text in gray mimics what the responses from the server likely look like.
 What you actually receive from the server will be different.
 As long as the returned [status code](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes)
 starts with a 2 or a 3, you should be fine.
@@ -2708,9 +2706,9 @@ Gmail's outgoing mail server supports the following SMTP extensions:
   during an SMTP session.
   Instead of having to wait for a response from the server after each command,
   it allows the client to send several commands in a single [packet](/internet/#packet-switching) to the server.
-  Of the commands covered in this article, `EHLO`, `DATA`, `QUIT`, and `AUTH`
-  if the authentication method isn't `PLAIN`, which makes the command interactive,
-  have to be the last command in a group of commands.
+  The standard requires that `EHLO`, `DATA`, and `QUIT` are the last command in a batch of commands.
+  `AUTH` must also be the last command in a batch unless the authentication method is `PLAIN`,
+  which makes the command non-interactive.
   The server then returns all the status codes at once,
   matching the order of the transmitted commands.
   The reason why I've implemented pipelining in the [above tool](#esmtp-tool)
@@ -3076,12 +3074,12 @@ In my opinion, outgoing mail servers should reject spoofed sender addresses even
 
 I reported to [Gandi.net](https://www.gandi.net/en-US/domain/email) on 27 October 2020
 that their outgoing mail server accepts submissions with spoofed `MAIL` `FROM` and `From` addresses.
-On one hand, they told me that some of their customers use alternative sender identities
+On the one hand, they told me that some of their customers use alternative sender identities
 and that they won't enforce any rules for them.
 On the other hand, they let me know that they would address the issue
 before my [90-day disclosure deadline](https://www.google.ch/about/appsecurity/).
 When I tested this again before publishing this article,
-I did get the impression that more of my test messages were rejected
+I got the impression that more of my test messages were rejected
 by [their spam filter](https://docs.gandi.net/en/gandimail/faq/error_types/rule3_2.html)
 but I could still authenticate myself as a Gandi user
 and then use my Gmail address in the `MAIL` `FROM` and `From` fields.
@@ -3347,7 +3345,7 @@ to form the authenticated bounce address.
 
 The following boxes focus on [password-based authentication mechanisms](#user-authentication),
 which allow users to authenticate themselves to servers with only their username and password.
-Due to the nature of the topic, these boxes are fairly advanced.
+Due to the nature of the topic, some of the later boxes are fairly advanced.
 If you're not interested in cryptography,
 you might want to [skip them](#access-protocols).
 
@@ -3438,7 +3436,7 @@ who forwards all communication without raising any suspicion.
   [misbehaving](https://security.googleblog.com/2013/12/further-improving-digital-certificate.html) certification
   authorities to [surveillance programs](https://www.cnet.com/news/nsa-disguised-itself-as-google-to-spy-say-reports/)
   and [search warrants for private keys](https://en.wikipedia.org/wiki/Lavabit#Connection_to_Edward_Snowden).
-  In other words, TLS isn't guaranteed to be secure
+  In other words, TLS isn't guaranteed to be secure,
   but it's still much better than having no protection at all, of course.
   An illegitimately issued certificate allows the attacker
   to intercept the communication between the client and the server.
@@ -4744,7 +4742,7 @@ The tool uses [Thunderbird's configuration database](https://autoconfig.thunderb
 and [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
 to resolve the server you want to connect to.
 Copy the commands in bold to your [command-line interface](#command-line-interface) by clicking on them.
-The text in gray mimics how the responses from the server look like.
+The text in gray mimics what the responses from the server look like.
 The actual responses will be different.
 Each response starts with either `+OK` or `-ERR`.
 The former indicates that your command was successful,
@@ -4895,9 +4893,9 @@ You find an example session [in the RFC](https://tools.ietf.org/html/rfc1939#sec
 
 The [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)
 is specified in [RFC 3501](https://tools.ietf.org/html/rfc3501).
-IMAP functions similar to [ESMTP](#extended-simple-mail-transfer-protocol)
+IMAP works similar to [ESMTP](#extended-simple-mail-transfer-protocol)
 and [POP3](#post-office-protocol-version-3),
-it just has way more commands and options.
+it just has many more commands and options.
 While I covered most of what is practically relevant in the case of ESMTP and POP3,
 doing the same for IMAP is beyond the scope of this article.
 Instead, let's focus on what IMAP is capable of and then look at an interactive example.
@@ -8626,7 +8624,7 @@ I'm not *that* excited about email headers, though. 😅
 ## Issues
 
 Email is both a blessing and a curse.
-On one hand, email is by far the most important decentralized messaging service that we have,
+On the one hand, email is by far the most important decentralized messaging service that we have,
 which should be reason enough to cherish it.
 The only other decentralized messaging service which comes close to email in terms of ubiquity
 is the [Short Message Service (SMS)](https://en.wikipedia.org/wiki/SMS).
@@ -10334,9 +10332,9 @@ Domain owner
 </summary>
 
 Knowing with certainty that a message was sent from a specific domain is important for
-algorithms such as [reputation systems](#reputation) and [email filters](#email-filtering)
+algorithms such as [reputation systems](#reputation) and [email filters](#email-filtering),
 but domain authentication can give human users a false sense of security, which is dangerous.
-On one hand, it can be difficult for us to tell different domain names apart,
+On the one hand, it can be difficult for us to tell different domain names apart,
 i.e. we easily fall victim to [homograph attacks](#homograph-attack).
 On the other hand, it can be really hard to figure out who owns the domain in question.
 There are around [1'500 top-level domains](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains)
@@ -10581,7 +10579,7 @@ Since many mail servers check whether the sender's domain has a valid `MX` recor
 configuring an SPF record on subdomains without an `MX` record is usually not necessary.
 For unused domains, setting up a [DMARC record](#domain-based-message-authentication-reporting-and-conformance)
 is much more important.
-On one hand, DMARC protects the identity which is actually visible to users: the `From` address.
+On the one hand, DMARC protects the identity which is actually visible to users: the `From` address.
 On the other hand, DMARC policies also cover subdomains,
 where the [policy for subdomains](#subdomain-policy)
 can be different from the policy for the [organizational domain](#organizational-domain).
@@ -12433,7 +12431,7 @@ The `TLSA` record type is specified in [RFC 6698](https://tools.ietf.org/html/rf
 A `TLSA` record consists of the following four fields:
 1. [**Certificate usage**](https://tools.ietf.org/html/rfc6698#section-2.1.1):
    This field captures two separate pieces of information in a single number.
-   On one hand, the number indicates whether the certificate referenced by the `TLSA` record
+   On the one hand, the number indicates whether the certificate referenced by the `TLSA` record
    belongs to a trust anchor, which certified the public key and the identity of the end entity,
    or to the end entity, i.e. the server to which the client wants to connect.
    On the other hand, the number also indicates whether a

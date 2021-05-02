@@ -115,9 +115,9 @@
     <text class="gray" text-anchor="middle">
         <tspan x="413.53" y="25.65"><tspan class="font-weight-bold">Outgoing</tspan></tspan><tspan x="413.53" y="47.65"><tspan class="font-weight-bold">mail server</tspan></tspan><tspan x="413.53" y="69.65">of recipient</tspan>
     </text>
-    <line class="red" x1="1.568" y1="1.242" x2="103.844" y2="82.258"></line>
-    <line class="red" x1="1.568" y1="82.258" x2="103.844" y2="1.242"></line>
-    <line class="gray" x1="363.96" y1="2.484" x2="463.101" y2="81.016"></line>
-    <line class="gray" x1="363.96" y1="81.016" x2="463.101" y2="2.484"></line>
+    <line class="red" x1="0" y1="0" x2="105.412" y2="83.5"></line>
+    <line class="red" x1="0" y1="83.5" x2="105.412" y2="0"></line>
+    <line class="gray" x1="360.824" y1="0" x2="466.236" y2="83.5"></line>
+    <line class="gray" x1="360.824" y1="83.5" x2="466.236" y2="0"></line>
 
 </svg>
