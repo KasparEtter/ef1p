@@ -501,12 +501,12 @@ function clickHandler(this: HTMLElement): void {
 }
 
 export function bindDnsQueries() {
-    Array.from(document.getElementsByClassName('bind-dns-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-dns-query') as HTMLCollectionOf<HTMLElement>) {
         const { domain, type, dnssec } = element.dataset;
         if (domain === undefined || !Object.keys(recordTypes).includes(type!) || !['true', 'false'].includes(dnssec!)) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', clickHandler);
         }
-    });
+    }
 }

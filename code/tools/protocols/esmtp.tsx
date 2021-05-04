@@ -1176,12 +1176,12 @@ function clickHandler(this: HTMLElement): void {
 }
 
 export function bindEsmtpExamples() {
-    Array.from(document.getElementsByClassName('bind-esmtp-example') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-esmtp-example') as HTMLCollectionOf<HTMLElement>) {
         const { content, body } = element.dataset;
         if (content === undefined || !contentOptions.includes(content) || body === undefined) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', clickHandler);
         }
-    });
+    }
 }

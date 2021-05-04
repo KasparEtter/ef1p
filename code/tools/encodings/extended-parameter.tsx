@@ -78,12 +78,12 @@ function clickHandler(this: HTMLElement): void {
 }
 
 export function bindExtendedParameters() {
-    Array.from(document.getElementsByClassName('bind-extended-parameter') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-extended-parameter') as HTMLCollectionOf<HTMLElement>) {
         const { decoded, encoded } = element.dataset;
         if ((decoded === undefined) === (encoded === undefined)) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', clickHandler);
         }
-    });
+    }
 }

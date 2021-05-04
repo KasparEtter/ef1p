@@ -158,12 +158,12 @@ function clickHandler(this: HTMLElement): void {
 }
 
 export function bindUnicodeNormalizations() {
-    Array.from(document.getElementsByClassName('bind-unicode-normalization') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-unicode-normalization') as HTMLCollectionOf<HTMLElement>) {
         const { input, normalization } = element.dataset;
         if (input === undefined || !Object.keys(normalizations).includes(normalization!)) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', clickHandler);
         }
-    });
+    }
 }

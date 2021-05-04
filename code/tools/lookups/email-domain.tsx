@@ -2079,12 +2079,12 @@ function spfClickHandler(this: HTMLElement): void {
 }
 
 export function bindSpfQuery() {
-    Array.from(document.getElementsByClassName('bind-spf-query') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-spf-query') as HTMLCollectionOf<HTMLElement>) {
         const { domain } = element.dataset;
         if (domain === undefined || !domainRegex.test(domain)) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', spfClickHandler);
         }
-    });
+    }
 }

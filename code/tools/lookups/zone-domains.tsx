@@ -199,12 +199,12 @@ export const toolLookupZoneDomains = <Fragment>
 /* ------------------------------ Element bindings ------------------------------ */
 
 export function bindZoneWalks() {
-    Array.from(document.getElementsByClassName('bind-zone-walk') as HTMLCollectionOf<HTMLElement>).forEach(element => {
+    for (const element of document.getElementsByClassName('bind-zone-walk') as HTMLCollectionOf<HTMLElement>) {
         const domain = element.dataset.domain;
         if (domain === undefined) {
             console.error('The data attributes of the following element are invalid:', element);
         } else {
             element.addEventListener('click', () => setZoneWalkerInputFields(domain, 25));
         }
-    });
+    }
 }
