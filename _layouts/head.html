@@ -35,8 +35,8 @@
         </script>
         <script src="{{ '/assets/scripts/internal/theme.min.js' | relative_url }}?v=4"></script>
     {% if jekyll.environment == 'production' %}
-        <script defer src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+        <script defer src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>{% comment %}
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>{% endcomment %}
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script defer src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js" integrity="sha384-OGf04BRlCdmgZXHhCupHT3BIkznbahjfhX8DKSIEXyU9PvSO0/8iMiiVJPcA5vi7" crossorigin="anonymous"></script>
         <script defer src="https://unpkg.com/react@17.0.1/umd/react.production.min.js" integrity="sha384-YF0qbrX3+TW1Oyow2MYZpkEMq34QcYzbTJbSb9K0sdeykm4i4kTCSrsYeH8HX11w" crossorigin="anonymous"></script>
@@ -45,8 +45,8 @@
         <script defer src="https://analytics.{{ site.domain }}/js/index.js" data-domain="{{ site.domain }}" integrity="sha384-sgd5l61tA+inRan4TEpkTFpEeCgFZO2SGl5kbKT1ib4h10qWtD03weRNl22y3X+G" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     {% else %}
-        <script defer src="{{ '/assets/scripts/external/jquery.min.js' | relative_url }}"></script>
-        <script defer src="{{ '/assets/scripts/external/popper.min.js' | relative_url }}"></script>
+        <script defer src="{{ '/assets/scripts/external/jquery.min.js' | relative_url }}"></script>{% comment %}
+        <script defer src="{{ '/assets/scripts/external/popper.min.js' | relative_url }}"></script>{% endcomment %}
         <script defer src="{{ '/assets/scripts/external/bootstrap.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/external/react.production.min.js' | relative_url }}"></script>
