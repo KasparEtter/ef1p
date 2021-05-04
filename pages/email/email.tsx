@@ -187,7 +187,7 @@ inject('code-imap-prefixed-string', <CodeBlock>
     <UserCommand>F FETCH 1 (BODY.PEEK[HEADER.FIELDS (SUBJECT)])</UserCommand>
     <SystemReply>
         * 1 FETCH (BODY[HEADER.FIELDS (SUBJECT)] {'{20}'}<br/>
-        Subject: Question<br/><br/>)<br/>
+        Subject: Example<br/><br/>)<br/>
         F OK FETCH completed
     </SystemReply>
 </CodeBlock>);
