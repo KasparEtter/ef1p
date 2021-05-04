@@ -4,7 +4,7 @@ icon: network-wired
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2021-04-23
+modified: 2021-05-04
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 math: false
@@ -388,8 +388,8 @@ structure of the network:
 
 <figure markdown="block">
 {% include_relative generated/signal-routing-addresses.embedded.svg %}
-<figcaption markdown="span">
-Nodes with addresses according to the router they're connected to.<br>
+<figcaption markdown="span" style="max-width: 440px;">
+Nodes with addresses according to the router they're connected to.
 For the sake of simplicity, I no longer draw the arrow tips on links.
 </figcaption>
 </figure>
@@ -457,7 +457,7 @@ Based on this information,
 a router constructs the actual [forwarding table](https://en.wikipedia.org/wiki/Forwarding_information_base),
 which only contains the optimal route for each destination without its cost.
 This makes the table smaller and the lookup during routing faster,
-which is important for low [latency](https://en.wikipedia.org/wiki/Latency_(engineering)).
+which is important for [low latency](#network-performance).
 
 <figure markdown="block">
 
@@ -468,8 +468,8 @@ which is important for low [latency](https://en.wikipedia.org/wiki/Latency_(engi
 | B? | 3
 | C? | 4
 
-<figcaption markdown="span">
-The forwarding table for router A,<br>
+<figcaption markdown="span" style="max-width: 250px;">
+The forwarding table for router A,
 according to the above routing table.
 </figcaption>
 </figure>
@@ -505,8 +505,8 @@ The link between the routers A and C failed.
 | B? | 3 | 5
 | C? | 3 | 9
 
-<figcaption markdown="span">
-The updated routing table of router A with the routes over link 4 removed.<br>
+<figcaption markdown="span" style="max-width: 490px;">
+The updated routing table of router A with the routes over link 4 removed.
 With only one route left, router A forwards all communications for C on link 3.
 </figcaption>
 </figure>
@@ -671,8 +671,8 @@ we first need to understand what "building on the layer below" means.
 can be copied perfectly from one memory location to another.
 The implementation of a specific protocol receives a chunk of data, known as the payload, from the layer above
 and wraps it with the information required to fulfill its purpose in the so-called header.
-The payload and header then become the payload for the layer below,
-where another protocol specifies a new set of headers to be added.
+The payload and the header then become the payload for the layer below,
+where another protocol specifies a new header to be added.
 Each of these wrappings is undone by the respective protocol on the recipient side.
 This can be visualized as follows:
 
@@ -760,13 +760,13 @@ Link layer protocols are designed to handle the intricacies of the underlying ph
 This can be an electric signal over a copper wire,
 light over an optical fiber or an electromagnetic wave through space.
 The node on the other end of the link, typically a router,
-removes the headers of the link layer,
+removes the header of the link layer,
 determines on the network layer on which link to forward the packet,
 and then wraps the packet according to the protocol spoken on that link.
 Link layer protocols typically detect [bit errors](https://en.wikipedia.org/wiki/Bit_error)
 caused by noise, interference, distortion and faulty synchronization.
 If several devices want to send a packet over the same medium at the same time,
-the signals collide and the packets have to be retransmitted
+the signals collide and the packets must be retransmitted
 after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponential_backoff).
 
 <details markdown="block">
@@ -931,7 +931,8 @@ If a packet is larger than the MTU,
 it is split into smaller fragments by the network layer.
 If the network drops any of the fragments,
 then the entire packet is lost.
-{% include image.md source="mac-address.png" caption="This is how the MAC address and the MTU appear in the Wi-Fi preferences of macOS." scaled="true" themed="true" %}
+
+{% include image.md source="mac-address.png" caption="This is how the MAC address and the MTU appear in the Wi-Fi preferences of macOS." themed="true" image-max-width="750" %}
 
 </details>
 
@@ -942,7 +943,7 @@ IP over Avian Carriers (IPoAC)
 
 Written as an April Fools' joke,
 [RFC](#request-for-comments) [1149](https://tools.ietf.org/html/rfc1149)
-describes a method to deliver packets on the link layer
+describes a method for delivering packets on the link layer
 using [homing pigeons](https://en.wikipedia.org/wiki/Homing_pigeon).
 While this method is of no practical importance,
 it shows the flexibility of the Internet layers
@@ -1193,7 +1194,7 @@ your device can request an IP address from the router of the network using the
 [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol).
 DHCP is an [application layer](#application-layer) protocol.
 
-{% include image.md source="dhcp-configuration.png" caption="The DHCP configuration in the Wi-Fi preferences of macOS. Have a look at [NAT](#network-address-translation) for more information about the IP address." scaled="true" themed="true" %}
+{% include image.md source="dhcp-configuration.png" caption="The DHCP configuration in the Wi-Fi preferences of macOS. Have a look at [NAT](#network-address-translation) for more information about the IP address." themed="true" image-max-width="750" %}
 
 </details>
 
@@ -1316,16 +1317,16 @@ There is also a dedicated IP address for this purpose:
 
 <figure markdown="block">
 {% include_relative generated/client-server.embedded.svg %}
-<figcaption markdown="span">
-The client requests a service provided by the server.<br>
+<figcaption markdown="span" style="max-width: 345px;">
+The client requests a service provided by the server.
 The client's port number is dynamic, the server's static.
 </figcaption>
 </figure>
 
 <figure markdown="block">
 {% include_relative generated/client-server-simplified.embedded.svg %}
-<figcaption markdown="span">
-Instead of drawing two arrows, I will only draw one from now on,<br>
+<figcaption markdown="span" style="max-width: 420px;">
+Instead of drawing two arrows, I will only draw one from now on,
 namely from the client initiating the communication to the server.
 </figcaption>
 </figure>
@@ -1591,7 +1592,8 @@ such as a network administrator or the government,
 users might resort to [tunneling](https://en.wikipedia.org/wiki/Tunneling_protocol#Circumventing_firewall_policy)
 their traffic via an approved protocol.
 
-{% include image.md source="firewall-settings.png" caption="The firewall tab in the security and privacy preferences of macOS. Make sure that you have this setting enabled!" scaled="true" themed="true" %}
+{% include image.md source="firewall-settings.png" caption="The firewall tab in the security and privacy preferences of macOS. Make sure that you have this setting enabled!" themed="true" image-max-width="750" %}
+
 </details>
 
 
@@ -1800,7 +1802,7 @@ A widely adopted format for public-key certificates is
 which is also used in TLS.
 X.509 certificates are often displayed as follows:
 
-{% include image.md source="digital-certificate.png" caption="The public-key certificate of [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) as displayed by Chrome on macOS." scaled="true" themed="true" %}
+{% include image.md source="digital-certificate.png" caption="The public-key certificate of [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) as displayed by Chrome on macOS." themed="true" image-max-width="750" %}
 
 There are two different paradigms for issuing public-key certificates:
 - **[Web of trust](https://en.wikipedia.org/wiki/Web_of_trust)**:
@@ -1841,7 +1843,7 @@ There are two different paradigms for issuing public-key certificates:
   If we check the list of root CAs,
   we see that *DigiCert High Assurance EV Root CA* is indeed among them:
 
-{% include image.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS.<br>In case you are wondering, this list contains 165 root CAs on my Mac." scaled="true" themed="true" %}
+{% include image.md source="root-certificates.png" caption="The list of root CAs as displayed by the preinstalled application [Keychain Access](https://support.apple.com/guide/keychain-access/welcome/mac) on macOS. In case you are wondering, this list contains 165 root CAs on my Mac." themed="true" image-max-width="750" caption-max-width="580" %}
 
 As [described above](#transport-layer-security),
 the server sends its certificate to the client during the TLS handshake.
@@ -1891,16 +1893,16 @@ Text encoding
 Similar to [numbers](#number-encoding),
 human language is also encoded with symbols.
 By assigning meaning to specific combinations of symbols,
-which we call "words",
+which we call words,
 we can encode a large vocabulary with relatively few symbols.
 In computing, the symbols which make up a text are called
 [characters](https://en.wikipedia.org/wiki/Character_(computing)).
-In English text, each character is either
-a [letter](https://en.wikipedia.org/wiki/Letter_(alphabet)),
-a [digit](https://en.wikipedia.org/wiki/Numerical_digit),
-a [punctuation mark](https://en.wikipedia.org/wiki/Punctuation),
-or a [control character](https://en.wikipedia.org/wiki/Control_character).
-Control characters are used to structure a text without being printed themselves.
+English texts consist of
+[letters](https://en.wikipedia.org/wiki/Letter_(alphabet)),
+[digits](https://en.wikipedia.org/wiki/Numerical_digit),
+[punctuation marks](https://en.wikipedia.org/wiki/Punctuation),
+and [control characters](https://en.wikipedia.org/wiki/Control_character).
+Control characters are used to structure texts without being printed themselves.
 So-called [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character),
 such as [space](https://en.wikipedia.org/wiki/Space_(punctuation)),
 [tab](https://en.wikipedia.org/wiki/Tab_key#Tab_characters),
@@ -1909,10 +1911,10 @@ fall in this category.
 Other examples of control characters are
 [backspace](https://en.wikipedia.org/wiki/Backspace),
 [escape](https://en.wikipedia.org/wiki/Escape_character),
-a character to indicate [the end of a transmission](https://en.wikipedia.org/wiki/End-of-Transmission_character),
-and a character to indicate [the end of a string](https://en.wikipedia.org/wiki/Null-terminated_string).
-(A [string](https://en.wikipedia.org/wiki/String_(computer_science))
-is just a sequence of characters in memory.)
+the [end-of-transmission character](https://en.wikipedia.org/wiki/End-of-Transmission_character),
+and the [null character](https://en.wikipedia.org/wiki/Null_character)
+to indicate the [end of a string](https://en.wikipedia.org/wiki/Null-terminated_string).
+(A [string](https://en.wikipedia.org/wiki/String_(computer_science)) is just a sequence of characters in memory.)
 
 In order to uniquely identify them,
 a so-called [code point](https://en.wikipedia.org/wiki/Code_point)
@@ -1944,12 +1946,12 @@ which standardized character sets for
 [Eastern European languages](https://en.wikipedia.org/wiki/ISO_8859-2),
 and others.
 
-The character encodings defined by ISO 8859 still have the problem
+The character encodings defined by ISO 8859 have the problem
 that they are not compatible with each other.
 Since character encodings are typically used for whole documents
 including websites and not just parts of them,
 you cannot use characters from different sets in the same document.
-Additionally, each document has to be accompanied with the used character encoding
+Additionally, each document has to be accompanied with the used character set
 as part of its [metadata](https://en.wikipedia.org/wiki/Metadata)
 because none of the encodings will ever be in a position to supersede them all
 as a widely accepted default encoding.
@@ -1995,8 +1997,8 @@ that they can directly incorporate arbitrary data,
 whereas the data in text-based protocols needs to be
 [escaped](https://en.wikipedia.org/wiki/Escape_character)
 in order to ensure that the delimiting character does not occur within a field.
-If, for example, different headers are separated by a newline,
-then none of the headers may contain a newline character.
+If, for example, different header fields are separated by a newline,
+then none of the header fields may contain a newline character.
 If they do, the newline character needs to be replaced
 with the appropriate [escape sequence](https://en.wikipedia.org/wiki/Escape_sequence)
 as defined by the protocol.
@@ -2075,9 +2077,9 @@ Host: www.example.com
 
 ```
 
-<figcaption markdown="span">
+<figcaption markdown="span" style="max-width: 700px;">
 A minimal HTTP request from a client,
-requesting the resource `/index.html` from the host `www.example.com`.<br>
+requesting the resource `/index.html` from the host `www.example.com`.
 Please note that the request is terminated by an empty line and has no message body.
 </figcaption>
 </figure>
@@ -2088,7 +2090,7 @@ from which website to serve the requested resource
 in case the same server hosts several websites.
 As you [learned above](#port-numbers),
 only one process can bind to a specific port on the same machine,
-thus this header is the only way for a server
+thus this header field is the only way for a server
 to tell the requests to different websites apart.
 (Strictly speaking, it's one process per port number and IP address.
 So if the server has several network interfaces,
@@ -2126,7 +2128,7 @@ which includes the requested resource in its message body after the empty line.
 </figcaption>
 </figure>
 
-As indicated by the `Content-Type` header,
+As indicated by the `Content-Type` header field,
 the response is an HTML document.
 HTML stands for [HyperText Markup Language](https://en.wikipedia.org/wiki/HTML)
 and is the document format of the Web.
@@ -2143,13 +2145,13 @@ These files can be hosted on the same or a different server.
 The browser fetches them via separate HTTP requests.
 The body of the response is not limited to text-based formats,
 any files can be transferred via HTTP.
-Thanks to the `Content-Length` header,
+Thanks to the `Content-Length` header field,
 binary files don't need to be [escaped](#text-based-protocols).
 Every modern browser includes powerful
 [developer tools](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools),
 with which you can inspect the requests it made:
 
-{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details, such as its request method and the IP address with the port number of the server, on the right." scaled="true" themed="true" %}
+{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details, such as its request method and the IP address with the port number of the server, on the right." themed="true" caption-max-width="860" %}
 
 If you are familiar with the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface)
 of your operating system,
@@ -2848,7 +2850,7 @@ Personally, I can think of the following reasons:
   One reason to disable DNSSEC for a zone is when the domain name is transferred to a new owner
   who cannot or doesn't want to deploy DNSSEC.
 - **Operational risks**: While classic DNS can be configured and then forgotten,
-  DNSSEC requires regular effort unless everything,
+  DNSSEC requires regular attention unless everything,
   including updating the `DS` record in the parent zone,
   is fully automated.
   A failure to sign the resource records of your zone in time takes down your whole domain.
