@@ -189,19 +189,19 @@ const completed: Entry<string> = {
 const IMPLEMENTATION: Entry<string> = {
     name: 'Capability',
     description: 'The name and version of the server implementation.',
-    defaultValue: '"IMPLEMENTATION" "<NameAndVersion>"',
+    defaultValue: '"IMPLEMENTATION" "{NameAndVersion}"',
 };
 
 const SIEVE: Entry<string> = {
     name: 'Capability',
     description: 'The supported extensions to the Sieve mail filtering language.',
-    defaultValue: '"SIEVE" "<Extensions>"',
+    defaultValue: '"SIEVE" "{Extensions}"',
 };
 
 const NOTIFY: Entry<string> = {
     name: 'Capability',
     description: 'The supported notification methods of the "enotify" extension.',
-    defaultValue: '"NOTIFY" "<Methods>"',
+    defaultValue: '"NOTIFY" "{Methods}"',
 };
 
 const SASL: Entry<string> = {
@@ -301,13 +301,13 @@ const GETSCRIPT: Entry<string> = {
 const staticLength: Entry<string> = {
     name: 'Length',
     description: 'The length of the retrieved script in bytes.',
-    defaultValue: '{<Length>}',
+    defaultValue: '{{Length}}',
 };
 
 const staticScript: Entry<string> = {
     name: 'Script',
     description: 'The retrieved script.',
-    defaultValue: '<Script>',
+    defaultValue: '{Script}',
 };
 
 /* ------------------------------ Activate entries ------------------------------ */
@@ -337,7 +337,7 @@ const RENAMESCRIPT: Entry<string> = {
 const newName: Entry<string> = {
     name: 'New name',
     description: 'The new name of the script with the given name.',
-    defaultValue: doubleQuote('<NewName>'),
+    defaultValue: doubleQuote('{NewName}'),
 };
 
 /* ------------------------------ Logout entries ------------------------------ */
