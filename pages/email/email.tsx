@@ -236,7 +236,7 @@ inject('code-vacation-response', <CodeBlock>
     <ClickToCopy>
         require ["date", "relational", "vacation"];<br/>
         if allof (currentdate :value "ge" "date" "{Time.fromDate(tomorrow).toLocalTime().toGregorianDate()}", currentdate :value "le" "date" "{Time.fromDate(tomorrowInAWeek).toLocalTime().toGregorianDate()}") {'{'}<br/>
-        {'    '}vacation "Hi, I had to take a couple of days off to read ef1p.com/email. I should be back soon.";<br/>
+        {'    '}vacation "Hi, I had to take a couple of days off to read ef1p.com/email. I will be back soon.";<br/>
         {'}'}
     </ClickToCopy>
 </CodeBlock>);
