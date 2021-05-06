@@ -39,6 +39,10 @@ article {
     p {
       margin-bottom: 0;
     }
+
+    div p {
+      margin-bottom: $paragraph-margin-bottom;
+    }
   }
 
   ol.long {
