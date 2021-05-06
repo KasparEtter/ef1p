@@ -3,7 +3,7 @@ title: Email
 icon: envelope
 category: Technologies
 author: Kaspar Etter
-published: 2021-05-05
+published: 2021-05-07
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 math: false
 ---
@@ -45,10 +45,6 @@ Before we roll up our sleeves and change this, here are a few things that you sh
   and [homograph attacks](#homograph-attack); [transport security](#transport-security)
   with [DANE](#dns-based-authentication-of-named-entities) and [HSTS](#http-strict-transport-security);
   and [end-to-end security](#end-to-end-security) with [S/MIME and PGP](#comparison-of-smime-and-pgp).
-- During my research for this article,
-  I made [responsible disclosures](https://en.wikipedia.org/wiki/Responsible_disclosure)
-  to [Gandi](#spoofed-sender-during-submission), [Microsoft](#outlook.com-example-exploit),
-  [and](#origination-date) [Mozilla](#sender-towards-recipients) [Thunderbird](#thunderbird-example-exploit).
 - If you haven't done so already, read the [article about the Internet](/internet/) first.
   This article assumes that you're familiar with the following acronyms and the concepts behind them:
   [RFC](/internet/#request-for-comments), [IP](/internet/#network-layer),
@@ -58,6 +54,11 @@ Before we roll up our sleeves and change this, here are a few things that you sh
   To make it easier to play around with them, I've published them on a [separate page](/email/tools/) as well.
 - This article focuses on how modern email works, not on how you set up your own email infrastructure.
   If you want to do that, [Mail-in-a-Box](https://mailinabox.email/) seems like a good place to start.
+- During my research for this article,
+  I made [responsible disclosures](https://en.wikipedia.org/wiki/Responsible_disclosure)
+  to [Gandi](#spoofed-sender-during-submission), [Microsoft](#outlook.com-example-exploit),
+  [and](#origination-date) [Mozilla](#sender-towards-recipients) [Thunderbird](#thunderbird-example-exploit).
+  I also submitted [quite a few RFC errata](https://www.rfc-editor.org/errata_search.php?submitter_name=Kaspar+Etter).
 
 </details>
 
@@ -69,7 +70,7 @@ Terminology
 [Email](https://en.wikipedia.org/wiki/Email), which also used to be written as e-mail, stands for electronic mail.
 Since the term *electronic mail* applies to any mail that is transferred electronically, it also encompasses
 [fax](https://en.wikipedia.org/wiki/Fax), [SMS](https://en.wikipedia.org/wiki/SMS), and other systems.
-For this reason, I only use the short form *email* in this article and always mean the decentralized system
+For this reason, I use only the short form *email* in this article and always mean the decentralized system
 to transfer messages over the Internet as documented in numerous [RFCs](/internet/#request-for-comments).
 The term *email* doesn't appear in the [original RFC](https://tools.ietf.org/html/rfc821)
 and many RFCs just use *mail* or *(Internet) message* instead.
@@ -727,7 +728,7 @@ Let's have a look at each of these interactions with regard to standardization:
   (as long as we ignore [firewalls](/internet/#firewall)),
   any users with an email address can send each other messages
   (as long as we ignore [spam filters](#spam)).
-  This only works because the exchange of messages between mail servers is [standardized](#delivery-protocols).
+  This works only because the exchange of messages between mail servers is [standardized](#delivery-protocols).
   Anyone who adheres to this standard can participate in the global email system.
   In order to maintain compatibility with older servers,
   support for new functionality is always optional.
@@ -1026,8 +1027,8 @@ and `_service` is `_submission`/`_submissions`, `_imap`/`_imaps`, or `_pop3`/`_p
 The data of `SRV` records consist of a priority number, a weight number, a port number,
 and the domain name of the target host separated by a single space.
 If several records are returned, the client has to connect to the host with the lowest priority number first
-and only fall back to the host with the next higher priority number
-if all hosts with lower priority numbers are unreachable.
+and fall back to the host with the next higher priority number
+only if all hosts with lower priority numbers are unreachable.
 If there are several records with the same priority,
 the client should select one at random proportionally to its weight.
 This can be useful to [balance the load](https://en.wikipedia.org/wiki/Load_balancing_(computing)) among several hosts.
@@ -1291,7 +1292,7 @@ why outgoing mail servers are used in practice:
     because users would no longer use their service if emails are no longer delivered reliably.
     This is why email service providers impose sending limits on their users
     and delete accounts when misbehavior is reported to them,
-    which is only possible if they authenticate their users before relaying messages.
+    which is possible only if they authenticate their users before relaying messages.
     For example, [Gmail limits](https://support.google.com/a/answer/166852)
     the number of messages per day to 2'000 and the number of recipients per message to 100
     if the message is submitted from a mail client rather than the web interface.
@@ -1516,7 +1517,7 @@ You can use the following tool to look up the incoming mail servers of a domain 
 It uses an [API by Google](https://developers.google.com/speed/public-dns/docs/doh/json) to query the Domain Name System
 and an [API by ipinfo.io](https://ipinfo.io/developers) to determine the geographic location of each server.
 The latter is just to remind you that the Internet is a physical infrastructure.
-Outgoing mail servers only need to know the IP address of the incoming mail server, of course.
+Outgoing mail servers need to know only the IP address of the incoming mail server, of course.
 (A remark on the subdomains you might encounter:
 [spool](https://en.wikipedia.org/wiki/Spooling) is a synonym for
 [buffer](https://en.wikipedia.org/wiki/Data_buffer)/[queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)),
@@ -1636,7 +1637,7 @@ and an `SRV` record of `10 10 0 your-dns-needs-immediate-attention.{TLD}.`.
 New [country-code top-level domains](https://en.wikipedia.org/wiki/Country_code_top-level_domain)
 can but don't have to undergo a controlled interruption.
 The goal of controlled interruptions is to give IT administrators an opportunity
-to detect when names which are only used locally suddenly resolve differently than before.
+to detect when names which are used only locally suddenly resolve differently than before.
 This can happen when companies use private top-level domains in their [Intranet](https://en.wikipedia.org/wiki/Intranet)
 or when a local DNS resolver extends relative domain names to
 [fully qualified domain names (FQDN)](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
@@ -1747,7 +1748,7 @@ Since the ease of deployment should trump any other concerns when it comes to se
 [RFC 8314](https://tools.ietf.org/html/rfc8314) recommends Implicit TLS over Explicit TLS
 for IMAP, POP3, and SMTP for message submission since 2018.
 When used opportunistically,
-Implicit TLS and Explicit TLS only provide security against
+Implicit TLS and Explicit TLS provide security only against
 [passive attacks](https://en.wikipedia.org/wiki/Passive_attack),
 where an attacker can merely eavesdrop on your communication but cannot interfere with it.
 In the presence of an [active adversary](https://en.wikipedia.org/wiki/Adversary_(cryptography)),
@@ -2193,7 +2194,7 @@ which is deployed on around 34% of the reachable mail servers on the Internet,
 [drop the `Bcc` header field](http://www.postfix.org/postconf.5.html#message_drop_headers) by default,
 others, such as [Exim](https://en.wikipedia.org/wiki/Exim),
 which is deployed on around 57% of the reachable mail servers on the Internet,
-only do so if they are invoked with the
+do so only if they are invoked with the
 [`-t` option](https://www.exim.org/exim-html-current/doc/html/spec_html/ch-the_exim_command_line.html#CHAPcommandline).
 (This option was introduced for use in [pipelines](https://en.wikipedia.org/wiki/Pipeline_(Unix)),
 such as `cat message | sendmail -t`.)
@@ -2563,7 +2564,7 @@ If you need more help, [send me an email](mailto:contact@ef1p.com)
 **Important**: Be a nice person and don't scam others!
 If you spoof the sender of an email in bad faith, you likely commit a crime in most countries.
 I showed you this attack for educational purposes only because I believe that seeing is believing.
-We can only improve the state of email security if consumers start demanding better security.
+We can improve the state of email security only if consumers start demanding better security.
 In this spirit, I encourage you to relay spoofed emails only to your own mailbox.
 If such a spoofed email lands in your inbox,
 ask your email service provider to be more rigorous in filtering scam emails or use the service of a different provider.
@@ -2609,7 +2610,7 @@ One way to inspect your clipboard is to always paste its content into a
 Since this is a hassle, you likely won't do this for long.
 A better approach is to have a window which displays the current content of your clipboard.
 On macOS, the [Finder](https://en.wikipedia.org/wiki/Finder_(software)) has a "Show Clipboard" command in the "Edit" menu.
-Unfortunately, this window is only visible if Finder is the active application.
+Unfortunately, this window is visible only if Finder is the active application.
 A different approach is to open a new window in your [terminal](https://en.wikipedia.org/wiki/Computer_terminal)
 and paste the clipboard once a second with the [`watch` command](https://en.wikipedia.org/wiki/Watch_(command)):
 
@@ -2752,7 +2753,7 @@ Backward compatibility
 ESMTP uses the same port as SMTP,
 so how does ESMTP ensure backward compatibility with SMTP?
 (Since submission was split from relay in 1998 while ESMTP dates back to 1993,
-we're only talking about port 25 here.)
+we're talking only about port 25 here.)
 Remember that when an outgoing mail server connects to an incoming mail server,
 it assumes the role of the [client](/internet/#client-server-model) in that interaction.
 There are only two cases to consider:
@@ -2762,7 +2763,7 @@ There are only two cases to consider:
   SMTP servers which don't understand the `EHLO` command respond with the error code 500.
   The client can either `QUIT` the connection or continue with the `HELO` command.
   According to [this source](https://cr.yp.to/smtp/greeting.html),
-  some mail clients only send the `EHLO` command if the first line from the server,
+  some mail clients send the `EHLO` command only if the first line from the server,
   which starts with the status code 220, contains `ESMTP`.
   This explains why most servers include `ESMTP` in their greeting even if the standard doesn't require it.
 
@@ -2853,7 +2854,7 @@ which is specified in [RFC 4422](https://tools.ietf.org/html/rfc4422).
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a list of
 [SASL mechanisms](https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml).
 SMTP servers list all the mechanisms that they support after `AUTH` in their response to the `EHLO` command.
-We're only interested in four of them:
+We're interested in only four of them:
 - `PLAIN` ([RFC 4616](https://tools.ietf.org/html/rfc4616)):
   The client sends the [Base64](https://en.wikipedia.org/wiki/Base64) encoding
   of the user's username and password as an argument to the `AUTH` command to the server.
@@ -3267,7 +3268,7 @@ the bounce message (in red) is generated by a different system.
 </figcaption>
 </figure>
 
-Historically, bounce messages were in a format that could only be interpreted by a human sender.
+Historically, bounce messages were in a format that could be interpreted only by a human sender.
 However, many messages are sent by automated systems,
 which should also be able to detect when a message couldn't be delivered.
 For example, [mailing list software](https://en.wikipedia.org/wiki/List_of_mailing_list_software)
@@ -3298,20 +3299,20 @@ Two techniques address this problem:
   the `@` of the recipient's address has to be replaced with something else, such as `=`.
   As long as the mailing list software can access the automatic responses that were delivered to such addresses,
   it can easily associate a response with the recipient who sent it.
-  The software only needs to guess whether the response denotes a failed delivery
+  The software needs to guess only whether the response denotes a failed delivery
   or an [out-of-office reply](#out-of-office-replies).
-  It should only remove addresses from the mailing list
-  if messages to a particular recipient cannot be delivered over a period of several weeks.
+  It should remove addresses from the mailing list
+  only if messages to a particular recipient cannot be delivered over a period of several weeks.
   If you [look at](#raw-message) the [`Return-Path` header field](#trace-information) of messages
   sent by mailing list providers, such as [Mailchimp](https://en.wikipedia.org/wiki/Mailchimp),
   you see an address which identifies you.
   The good thing about VERP is that it works very reliably.
-  On the downside, mail clients can only make use of this technique with [subaddressing](#subaddressing).
+  On the downside, mail clients can make use of this technique only with [subaddressing](#subaddressing).
   Since the syntax for this is specific to each email service provider if subaddressing is supported at all,
   I'm not aware of any mail clients which use VERP to enhance the user experience of delivery failures.
   Moreover, VERP requires that the message is transmitted separately for each recipient.
   While a single message can be delivered to several recipients by using several `RCPT` `TO` commands,
-  the `MAIL` `FROM` command can only be used once for each message.
+  the `MAIL` `FROM` command can be used only once for each message.
   Finally, the delivery of messages can be delayed due to [graylisting](#graylisting)
   if the `MAIL` `FROM` address includes a value which is unique to each message.
   Unique `MAIL` `FROM` addresses allow the mailing list software to identify
@@ -3620,7 +3621,7 @@ Instead of trying all possible inputs again,
 which can take a long time,
 you simply look up the hash to crack in the output column of your precomputed table.
 Since computers have limited memory,
-this approach only works for a limited number of inputs.
+this approach works only for a limited number of inputs.
 You can enumerate all possible inputs up to a certain length
 or choose them from a [dictionary](https://en.wikipedia.org/wiki/Dictionary_attack).
 You can reduce the amount of required memory by accepting longer lookup times.
@@ -3734,7 +3735,7 @@ A server can reduce the damage of a leaked database by storing individually salt
   passwords are often hashed thousands of times instead of just once.
   Repeated hashing means that you take the output of one round as the input to the next round.
   This also makes the computation costlier for the legitimate parties
-  but unlike an attacker, they only have to compute the derivation once per session.
+  but unlike an attacker, they have to compute the derivation only once per session.
   Making a weak [key](https://en.wikipedia.org/wiki/Key_(cryptography))
   more secure against brute-force attacks by increasing the cost
   is called [key stretching](https://en.wikipedia.org/wiki/Key_stretching).
@@ -3828,7 +3829,7 @@ If `CoinFlipAlice ≠ CoinFlipBob`, Bob wins.
   Both parties compute the MAC for each message they receive
   and reject all messages for which the transmitted MAC is different from the computed MAC.
   One way of implementing message authentication codes is to hash the message together with a value
-  which is only known to the legitimate parties.
+  which is known only to the legitimate parties.
   This value is a [shared secret](https://en.wikipedia.org/wiki/Shared_secret)
   and it is used as a [cryptographic key](https://en.wikipedia.org/wiki/Key_(cryptography)).
   For example, the MAC could be computed as `hash(Key + Message)`.
@@ -3849,7 +3850,7 @@ If `CoinFlipAlice ≠ CoinFlipBob`, Bob wins.
   which is defined as follows:
   `hmac(Key, Message) = hash([Key' ⊕ OuterPadding] + hash([Key' ⊕ InnerPadding] + Message))`,
   where the `⊕` denotes the [bitwise exclusive-or operation](#exclusive-or-operation-for-perfect-encryption)
-  and the square brackets are only used to make the parenthesis matching easier.
+  and the square brackets are used only to make the parenthesis matching easier.
   The paddings are the same for everyone and their purpose is to make the key in the inner hash
   different from the key in the outer hash.
   If the key is longer than the [block size](https://en.wikipedia.org/wiki/Block_size_(cryptography))
@@ -3901,7 +3902,7 @@ A message authentication code is appended to each message.
 {% include_relative generated/applications-proof-of-inclusion.embedded.svg %}
 <figcaption markdown="span">
 In order to verify that the green leaf is included in the root,
-a verifier only needs to know the hashes and positions of the blue nodes.
+a verifier needs to know only the hashes and positions of the blue nodes.
 </figcaption>
 </figure>
 
@@ -3935,7 +3936,7 @@ a verifier only needs to know the hashes and positions of the blue nodes.
   The average difficulty of the problem can be adjusted by making the target range bigger or smaller.
   This technique was invented [in 1992](https://dl.acm.org/doi/10.5555/646757.705669)
   as a digital [postage stamp](https://en.wikipedia.org/wiki/Postage_stamp)
-  but only saw widespread usage with the rise of
+  but saw widespread usage only with the rise of
   [cryptocurrency mining](https://en.wikipedia.org/wiki/Cryptocurrency#Mining).
 
 <figure markdown="block">
@@ -4029,7 +4030,7 @@ The following graphic depicts all these terms:
 {% include_relative generated/encryption-decryption.embedded.svg %}
 <figcaption markdown="span" style="max-width: 420px;">
 Eve has access to the ciphertext and knows the algorithms in blue,
-while the information in green is only known to Alice and Bob.
+while the information in green is known only to Alice and Bob.
 </figcaption>
 </figure>
 
@@ -4052,7 +4053,7 @@ because for every possible plaintext there's a key (`Key: Plaintext ⊕ Cipherte
 which produces the observed ciphertext.
 While this encryption scheme is perfectly secure,
 it's rarely used in practice because the key has to be at least as long as the plaintext
-and each key may only be used to encrypt a single message; hence the name one-time pad.
+and each key may be used to encrypt only a single message; hence the name one-time pad.
 Practical encryption schemes derive an infinite sequence of key material from a finite value,
 sacrificing perfect security by doing so.
 This makes the [distribution of keys](https://en.wikipedia.org/wiki/Key_distribution) much easier,
@@ -4587,12 +4588,12 @@ If a server supports channel binding,
 it advertises the authentication mechanism as `SCRAM-<hash-function>-PLUS`.
 An example is `SCRAM-SHA-256-PLUS` as specified in [RFC 7677](https://tools.ietf.org/html/rfc7677).
 Since mutual authentication is established on the application layer by `SCRAM`,
-the security layer only has to provide message confidentiality and message authentication
+the security layer has to provide only message confidentiality and message authentication
 but not [party authentication](/internet/#transport-layer-security) when channel binding is used.
 As a consequence, `SCRAM-PLUS` can be used without a [public-key infrastructure](/internet/#public-key-infrastructure),
 which means that servers can use [self-signed certificates](https://en.wikipedia.org/wiki/Self-signed_certificate).
 Binding the application layer to the security layer doesn't change the security layer.
-A TLS implementation only needs to be changed if it doesn't allow the application layer to access the necessary values.
+A TLS implementation needs to be changed only if it doesn't allow the application layer to access the necessary values.
 
 [RFC 5929](https://tools.ietf.org/html/rfc5929) defines three different channel bindings for TLS,
 where only two of them are relevant for us:
@@ -4975,7 +4976,7 @@ or [`UNSELECT`](https://tools.ietf.org/html/rfc3691) the current folder and open
 The difference between these two commands is that
 the former removes messages marked for deletion permanently while the latter does not.
 (`UNSELECT` is an [extension](#imap-extensions),
-which can only be used if the server supports it.)
+which can be used only if the server supports it.)
 By using the new [`UNAUTHENTICATE`](https://tools.ietf.org/html/rfc8437) command,
 which not many servers support yet,
 the client can authenticate as a different user without having to re-establish the TCP and TLS connection.
@@ -5404,7 +5405,7 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
   In the absence of `QRESYNC`,
   clients can perform a ["binary" search](https://en.wikipedia.org/wiki/Binary_search_algorithm)
   to find the first message whose [position](#message-numbers) changed.
-  Clients only need to do this when the `EXISTS` count from the server is different from the local count
+  Clients need to do this only when the `EXISTS` count from the server is different from the local count
   after adding all the newly arrived messages.
   Clients can retrieve the UIDs of several messages at once
   by issuing `TAG UID SEARCH {Position1},{Position2},{etc.}`.
@@ -6293,7 +6294,7 @@ In the case of LMTP, the server has to confirm the acceptance of the message for
 which was provided with the `RCPT TO` command.
 Being able to reject a message for individual recipients frees LMTP servers from having to manage a mail queue.
 
-LMTP is specified in [RFC 2033](https://tools.ietf.org/html/rfc2033) and may only be used in a local network.
+LMTP is specified in [RFC 2033](https://tools.ietf.org/html/rfc2033) and may be used only in a local network.
 LMTP uses `LHLO` instead of `EHLO` to greet the server.
 The reason why I mention LMTP is because you might encounter it as `LMTP[S][A]`
 in the `with` clause of a `Received` header field.
@@ -6661,7 +6662,7 @@ Punycode encodes Unicode strings in three steps:
    Each position has its own threshold and its own base.
    If a digit at a position is below the threshold there,
    it marks the end of the current number.
-   Let's imagine, for a moment, that we only use the digits `0` to `9`
+   Let's imagine, for a moment, that we use only the digits `0` to `9`
    and a fixed threshold value of 5.
    Counting then works as follows: `0`, `1`, `2`, `3`, `4`
    (so far, each number has been terminated by the digit being below the threshold,
@@ -6713,7 +6714,7 @@ A few additional observations:
 - Punycode transforms a sequence of Unicode [code points](https://en.wikipedia.org/wiki/Code_point)
   irrespective of their encoding, such as [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
   or [UTF-16](https://en.wikipedia.org/wiki/UTF-16).
-- The deltas can only be positive.
+- The deltas can be only positive.
   This is why the non-ASCII characters have to be sorted before they can be encoded.
 - If the encoded word contains a hyphen, then the decoded word contains ASCII characters
   and the last hyphen is interpreted as the delimiter between the ASCII characters and the deltas.
@@ -6984,7 +6985,7 @@ the capitalization of `ß` is still defined as `SS`:
 `'ß'.toUpperCase()` `===` `'SS'` but `'ẞ'.toLowerCase()` `===` `'ß'`.
 Therefore, neither `x.toUpperCase().toLowerCase()` `===` `x` nor
 `x.toLowerCase().toUpperCase()` `===` `x` is true in general.
-The lowercase sigma `ς` is only used at the [end of words](https://en.wikipedia.org/wiki/Final_form).
+The lowercase sigma `ς` is used only at the [end of words](https://en.wikipedia.org/wiki/Final_form).
 Within words, `σ` is used.
 Since there is only one uppercase sigma,
 both `'ς'.toUpperCase()` `===` `'Σ'` and `'σ'.toUpperCase()` `===` `'Σ'`.
@@ -7043,7 +7044,7 @@ Each label of a domain name is internationalized separately.
 In order to distinguish Punycode-encoded labels from ordinary labels,
 Punycode-encoded labels are prefixed with `xn--`.
 This is known as the ASCII-Compatible Encoding (ACE) prefix.
-A label may only be Punycode-encoded if it contains non-ASCII characters.
+A label may be Punycode-encoded only if it contains non-ASCII characters.
 This ensures that Punycode-encoded labels never end with a hyphen.
 (The [preferred name syntax](https://tools.ietf.org/html/rfc1035#section-2.3.1)
 requires that labels neither start nor end with a hyphen.)
@@ -7143,7 +7144,7 @@ and other characters, such as `ß` and `ς`, are no longer mapped,
 some internationalized domain names are [interpreted differently](https://tools.ietf.org/html/rfc5894#section-7.2)
 under IDNA2008 than under IDNA2003.
 These changes require a [transition period](https://tools.ietf.org/html/rfc5894#section-7.2.3) from IDNA2003 to IDNA2008,
-where [domain name registries]([/internet/#domain-name-system](https://en.wikipedia.org/wiki/Domain_name_registry))
+where [domain name registries](https://en.wikipedia.org/wiki/Domain_name_registry)
 reserve the newer mapping of an internationalized domain name for the registrant of the older mapping,
 bundle different mappings of a new registration,
 or block the registration of deviating mappings.
@@ -7485,8 +7486,8 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 This data format has mostly been superseded by [HTML](#html-emails) and is not widely supported.
 Apple Mail strips all the tags and displays the text without formatting.
-Gmail doesn't recognize the format and offers just a download option.
-Only Thunderbird displays the text with formatting but doesn't support the `<color>` tag.
+Gmail doesn't recognize the format and offers the option to download the content instead.
+Only Thunderbird displays the text with formatting, but it doesn't support the `<color>` tag.
 
 </details>
 
@@ -7497,7 +7498,7 @@ HTML emails
 
 Nowadays, most messages are formatted with the [Hypertext Markup Language (HTML)](https://en.wikipedia.org/wiki/HTML).
 The `text/html` media type is specified in [RFC 2854](https://tools.ietf.org/html/rfc2854).
-The message from the [previous box](#enriched-text) looks as follows when formatted with HTML:
+The message from the [previous box](#enriched-text) looks as follows when it is formatted with HTML:
 
 <figure markdown="block">
 
@@ -7523,7 +7524,7 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 This example works as intended in Apple Mail, Gmail, and Thunderbird.
 We'll discuss in the [next box](#email-styling) how to style [HTML emails](https://en.wikipedia.org/wiki/HTML_email).
 For security reasons, mail clients don't execute sender-provided [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
-Gmail and some others still support [dynamic content](#dynamic-content), though.
+Gmail and some other email service providers still support [dynamic content](#dynamic-content), though.
 Furthermore, HTML messages cause serious [privacy issues](#remote-content), which I'll cover later.
 
 </details>
@@ -7544,8 +7545,8 @@ There are [three ways](https://www.w3schools.com/CSS/css_howto.asp) to add CSS t
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <span>Hello</span>
-    <span>world</span>
+    <span>Hello,</span>
+    <span>World!</span>
   </body>
 </html>
 ```
@@ -7570,8 +7571,8 @@ There are [three ways](https://www.w3schools.com/CSS/css_howto.asp) to add CSS t
     </style>
   </head>
   <body>
-    <span>Hello</span>
-    <span>world</span>
+    <span>Hello,</span>
+    <span>World!</span>
   </body>
 </html>
 ```
@@ -7590,8 +7591,8 @@ inside the [`<head>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/
 ```html
 <html>
   <body>
-    <span style="color: red;">Hello</span>
-    <span style="color: red;">world</span>
+    <span style="color: red;">Hello,</span>
+    <span style="color: red;">World!</span>
   </body>
 </html>
 ```
@@ -7616,7 +7617,7 @@ which is supported by all mail clients that can display HTML emails.
 By the way, you don't have to inline the CSS manually,
 there are [tools for that](https://htmlemail.io/inline/).
 
-Since [Gmail started to support internal CSS](https://www.litmus.com/blog/gmail-to-support-responsive-email-design/)
+Since [Gmail started supporting internal CSS](https://www.litmus.com/blog/gmail-to-support-responsive-email-design/)
 in 2016, all [major mail clients](https://emailclientmarketshare.com/) support it.
 It seems that we can finally stop inlining styles in emails.
 Unfortunately, the situation is still worse than it seems.
@@ -7676,7 +7677,7 @@ of your browser, you'll see why:
 ```
 
 <figcaption markdown="span">
-The styles that Gmail uses for the link in the above message.
+The styles that Gmail applies to the link in the above message.
 </figcaption>
 </figure>
 
@@ -7706,37 +7707,38 @@ on your style (`a { color: red !important; }`) or by wrapping the message with a
 </html>
 ```
 
-<figcaption markdown="span" style="max-width: 600px;">
+<figcaption markdown="span" style="max-width: 650px;">
 
-How to fix Gmail's rendering problem.
+How to solve Gmail's link rendering problem.
 <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      #body a { color: red; }\n    </style>\n  </head>\n  <body>\n    <div id=&quot;body&quot;>\n      <a href=&quot;https://en.wikipedia.org/wiki/Roses_Are_Red&quot;>Roses are red</a>.\n    </div>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 While the [ID](https://www.campaignmonitor.com/css/selectors/id/) and the
-[descendant](https://www.campaignmonitor.com/css/selectors/descendant/) selectors are widely supported,
+[descendant](https://www.campaignmonitor.com/css/selectors/descendant/) selectors are supported by almost everyone,
 the [child selector](https://www.campaignmonitor.com/css/selectors/child/) is not.
 
 </figcaption>
 </figure>
 
 Since [inline styles are more specific](https://specifishity.com/),
-the example from the [previous box](#html-emails) didn't have this problem.
+you can keep inlining your CSS styles to avoid this problem.
 Yahoo.com and Outlook.com do a better job than Gmail.
 Yahoo rewrites the custom style to `#yiv4554178645 a`,
 which overrides the default `.msg-body a`.
-Outlook seems to have no default style for the `<a>` element
-but interestingly, it inlines a brightened color when activating
+Outlook.com has no default style for the `<a>` element,
+but interestingly, it inlines a brightened color when you activate
 its [dark mode](https://support.microsoft.com/en-us/office/dark-mode-in-outlook-com-and-outlook-on-the-web-391487d7-c2c0-4256-a5af-b49d0b36a645).
 Personally, I hope that we can abandon inline CSS for HTML emails soon.
 Since emails are [compressed](#message-compression) neither in transit nor in storage,
 inline styles increase the size of messages significantly.
 It also makes HTML messages harder to read in their [raw form](#raw-message).
-And last but not least,
-[media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
+Moreover, [media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
 are not allowed inside the [style attribute](https://www.w3.org/TR/css-style-attr/#syntax),
 which means that you cannot implement
 [responsive design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 and optional [dark mode](https://htmlemail.io/blog/dark-mode-email-styles) with inline CSS.
-As I will explain later, CSS poses serious [security issues](#quoting-html-messages).
+As we'll see later, Gmail removes the `<style>` element when [quoting an HTML message](#quoting-html-messages), though.
+And since email styling can be abused to make the same message [appear differently](#different-appearances)
+to different recipients, it might be a good idea to abandon [HTML emails](#html-emails) altogether.
 
 </details>
 
@@ -7752,20 +7754,20 @@ Making information easier to understand and to act upon for machines is
 the goal of the [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web).
 [Gmail supports](https://developers.google.com/gmail/markup/overview)
 certain [schema.org](https://schema.org/) [ontologies](https://en.wikipedia.org/wiki/Ontology_(information_science)).
-You can use them to define
-[actions](https://developers.google.com/gmail/markup/actions/actions-overview) such as one-click confirmations
-and [highlights](https://developers.google.com/gmail/markup/highlights) such as reservations,
+You can use them to define [actions](https://developers.google.com/gmail/markup/actions/actions-overview),
+such as one-click confirmations,
+and [highlights](https://developers.google.com/gmail/markup/highlights), such as reservations,
 which users can take or view directly from their inbox without even having to open the email.
 
 In order to use these features,
 senders have to [register with Google](https://developers.google.com/gmail/markup/registering-with-google)
 and authenticate their messages with [SPF](#sender-policy-framework) or [DKIM](#domainkeys-identified-mail).
-No registration is required when
-[sending messages to yourself](https://developers.google.com/gmail/markup/testing-your-schema#self_testing)
+No registration is required for
+[sending messages to yourself](https://developers.google.com/gmail/markup/testing-your-schema#self_testing),
 but such messages still have to fulfill the SPF or DKIM requirement.
 Unfortunately, Gmail doesn't authenticate messages with SPF or DKIM when you send them to yourself,
 no matter whether you submit them from the web interface or from the command line with the [tool above](#esmtp-tool).
-I only got the email markup to work by following
+I got the email markup to work only by following
 [this tutorial](https://developers.google.com/gmail/markup/apps-script-tutorial).
 
 </details>
@@ -7786,14 +7788,14 @@ and making websites [cacheable](https://en.wikipedia.org/wiki/Cache_(computing))
 through a [content delivery network (CDN)](https://en.wikipedia.org/wiki/Content_delivery_network).
 While [AMP for websites](https://amp.dev/about/websites/) supports
 [custom JavaScript](https://amp.dev/documentation/guides-and-tutorials/develop/custom-javascript/),
-you can only use the [default library](https://amp.dev/documentation/guides-and-tutorials/start/create_email/#start-with-the-amp-email-boilerplate)
+you can use only the [default library](https://amp.dev/documentation/guides-and-tutorials/start/create_email/#start-with-the-amp-email-boilerplate)
 when using [AMP for emails](https://amp.dev/about/email/).
 It's basically a whitelisted [web framework](https://en.wikipedia.org/wiki/Web_framework).
 As with [email markup](#email-markup), you have to
 [register yourself as a sender](https://amp.dev/documentation/guides-and-tutorials/start/email_sender_distribution/)
 with the email service providers before they display your dynamic content to their users.
 AMP messages must be [authenticated](#domain-authentication) and
-contain an ordinary [HTML or plain text version](#multipart-messages) of the same content,
+must contain an ordinary [HTML or plaintext version](#multipart-messages) of the same content,
 which is displayed when the mail client is offline or
 [30 days after receiving the message](https://developers.google.com/gmail/ampemail/testing-dynamic-email#delivery_requirements).
 
@@ -7869,11 +7871,11 @@ Otherwise, this line would be a quoted `3`.
 </figure>
 
 The standard for `format=flowed` is a bit more complicated than how I explained it.
-For one thing, a space can be inserted at the beginning of any line,
+On the one hand, a space can be inserted at the beginning of any line,
 which means that lines which already start with a space have to be protected with an additional space.
 (For [historical reasons](https://tools.ietf.org/html/rfc3676#section-4.4),
 lines which start with `From` also have to be protected by inserting a leading space.)
-For another thing, it also specifies how to handle consecutive lines
+On the other hand, it also specifies how to handle consecutive lines
 with [different quote levels](https://tools.ietf.org/html/rfc3676#section-4.5),
 which always lead to hard line breaks.
 
@@ -7899,11 +7901,10 @@ rather than to apply `format=flowed` as it would otherwise.
 Message compression
 </summary>
 
-As far as I can tell, emails are rarely [compressed](https://en.wikipedia.org/wiki/Data_compression)
-although this would save a lot of bandwidth during relay
-and a lot of memory during [storage](#storage-format).
-For example, HTML newsletters are often between 50 KB and 120 KB in size
-and compression reduces this by 70 to 90% due to the many repetitions of styling information.
+To the best of my knowledge, emails are rarely [compressed](https://en.wikipedia.org/wiki/Data_compression)
+even though this would save a lot of bandwidth during relay and a lot of memory during [storage](#storage-format).
+For example, HTML newsletters are often between 50 KB and 120 KB in size,
+and compression reduces this by 70 to 90% due to the many repetitions of [styling information](#email-styling).
 Most of the websites you visit are delivered to your browser in compressed form.
 So why is it that emails are rarely compressed?
 The problem in the case of email is that the sender doesn't know
@@ -7914,11 +7915,11 @@ it's very difficult to transition to compressed message bodies now.
 Additionally, the email protocols in general and the Quoted-Printable encoding in particular
 are designed to be human-readable.
 Compressed data, on the other hand, would have to be encoded with Base64
-and can only be decompressed with specialized software.
+and can be decompressed only with specialized software.
 As we will see in the [next subsection](#multipart-messages),
 it's much easier to introduce new content types than to change the encoding of existing ones
 because the new and potentially unknown content type can be complemented with known types.
-If the goal is to decrease the size of messages,
+Since the goal of compression is to decrease the size of messages,
 we don't want to add yet another part to messages, though.
 
 In the case of HTTP, we don't have this problem
@@ -7960,10 +7961,10 @@ as specified in [RFC 1950](https://tools.ietf.org/html/rfc1950).
 </figure>
 
 You can decompress this example message with the following commands.
-[`pigz`](https://zlib.net/pigz/) stands for Parallel Implementation of GZip
-and can be installed on macOS with `brew install pigz` if you have [Homebrew](https://brew.sh/).
+[`pigz`](https://zlib.net/pigz/) stands for Parallel Implementation of [GZip](https://en.wikipedia.org/wiki/Gzip),
+and it can be installed on macOS with `brew install pigz` if you have [Homebrew](https://brew.sh/).
 Using `gzip -dc` instead of `pigz -d` doesn't work because
-gzip doesn't recognize the compression format
+`gzip` doesn't recognize the compression format
 if the file doesn't start with [specific bytes](https://en.wikipedia.org/wiki/List_of_file_signatures).
 
 <figure markdown="block">
@@ -7971,7 +7972,7 @@ if the file doesn't start with [specific bytes](https://en.wikipedia.org/wiki/Li
 <figcaption markdown="span">
 
 The [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)) of commands
-to Base64-decode and ZLIB-decompress the string from the above example message.
+to [Base64-decode](#decoding-on-the-command-line) and ZLIB-decompress the string from the above example message.
 
 </figcaption>
 </figure>
@@ -7981,12 +7982,12 @@ we won't see end-to-end compression of messages from the mail client of the send
 to the mail client of the recipient anytime soon.
 This doesn't prevent mail clients and mail servers to compress messages between them, though,
 as they can advertise [their capabilities](#imap-extensions) as part of the used protocol.
-[RFC 4978](https://tools.ietf.org/html/rfc4978) specifies a `COMPRESS` extension for IMAP,
+[RFC 4978](https://tools.ietf.org/html/rfc4978) specifies the `COMPRESS` extension
+for [IMAP](#internet-message-access-protocol),
 which allows the client and the server to agree on compressing their communication.
 Since mail clients can store messages in whatever format they want,
 compressing locally stored messages is by far the lowest hanging fruit.
-However, as we've seen [earlier](#storage-format),
-neither Thunderbird nor Apple Mail does it.
+However, neither [Thunderbird](#storage-format) nor [Apple Mail](#apple-mail-storage-format) compress their stored emails.
 
 </details>
 
@@ -8022,7 +8023,7 @@ Remarks on the above tool:
   Therefore, don't use this tool in production!
 - **Quoted values**: Unencoded parameter values have to be quoted if they contain certain characters
   such as spaces or what the standard calls [`tspecials`](https://tools.ietf.org/html/rfc2045#section-5.1).
-  The quotes themselves are not part of the value and encoded values are never quoted.
+  The quotes themselves are not part of the value, and encoded values are never quoted.
 - **Parameter continuations**: [RFC 2231](https://tools.ietf.org/html/rfc2231#section-3)
   also introduced a mechanism which allows you to split long parameter values
   in order to adhere to the [line-length limit](#line-length-limit).
@@ -8039,22 +8040,20 @@ Remarks on the above tool:
 - **Combining encodings and continuations**: You can combine value encodings and parameter continuations.
   Encoded and unencoded segments can be mixed.
   The first segment has to be encoded
-  and it contains the character set and language information for all encoded segments.
-  Other encoded segments don't repeat the character set and language information,
+  and it contains the character set and the language information for all the encoded segments.
+  Further encoded segments don't repeat the character set and the language information,
   which means that you cannot mix character sets with parameter continuations.
   For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*2*=d%EDas!;\nname*0*=iso-8859-1'es'%A1;\nname*1=&quot;Buenos &quot;" title="Set the value of the Extended-Parameter tool.">`name*2*=d%EDas!; name*0*=iso-8859-1'es'%A1; name*1="Buenos "`</a>
   decodes to `name="¡Buenos días!"`.
-- **Parameter separations**: This tool was a bit of a pain to implement.
-  Not only do you have to reorder continued parameters,
-  you also can't simply split the parameters at the semicolons
-  because semicolons are allowed in quoted strings.
+- **Parameter separations**: Not only do you have to reorder continued parameters,
+  you also can't just split the parameters at the semicolons because semicolons are allowed in quoted strings.
   For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-decoded="name=&quot;\&quot;;😬 &quot;" title="Set the value of the Extended-Parameter tool.">`name="\";😬 "`</a>
   is a single parameter and has to be encoded as such.
 - **Language information**: The format of the language tag
   is specified in [RFC 5646](https://tools.ietf.org/html/rfc5646).
   The language tag has been introduced to provide context for
   [screen readers](https://en.wikipedia.org/wiki/Screen_reader).
-  The language information can be skipped but the delimiting single quote has to be kept.
+  The language information can be skipped, but the delimiting single quote must be kept.
   Since the above tool doesn't know in which language you write,
   it always skips this field when encoding your input.
   [RFC 2231](https://tools.ietf.org/html/rfc2231#section-5)
@@ -8064,7 +8063,9 @@ Remarks on the above tool:
   versus [`=?US-ASCII*DE?Q?Taste?=`](https://de.wikipedia.org/wiki/Taste),
   which should be [pronounced differently](https://www.dict.cc/?s=taste).
 - **Unicode normalization**: Everyone [normalizes Unicode](#unicode-normalization) to NFC
-  except Apple who decided to screw everyone and normalize filenames in macOS to NFD.
+  except [Apple](https://en.wikipedia.org/wiki/Apple_Inc.),
+  who [thought differently](https://en.wikipedia.org/wiki/Think_different)
+  and normalizes filenames in [macOS](https://en.wikipedia.org/wiki/MacOS) to NFD.
   If you send a file called `¡Buenos días!.txt` with Apple Mail,
   the filename is encoded as <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="filename*=utf-8''%C2%A1Buenos%20di%CC%81as%21.txt" title="Set the value of the Extended-Parameter tool.">`filename*=utf-8''%C2%A1Buenos%20di%CC%81as%21.txt`</a>.
   `i%CC%81` encodes the [Latin small letter i](https://unicode-table.com/en/0069/)
@@ -8197,25 +8198,26 @@ and leave the rest for the boxes below.
   </figcaption>
   </figure>
 
-Since these are content types like any other, they can be nested,
+Since `multipart/mixed` and `multipart/alternative` are content types like any other, they can be nested,
 which results in a [tree](https://en.wikipedia.org/wiki/Tree_(graph_theory)) of message parts.
 The [content encoding](#content-encoding) of `multipart` parts
-[has to be](https://tools.ietf.org/html/rfc2045#section-6.4) `7bit`, `8bit`, or `binary`
-and the boundary between the inner parts have to be different from the boundary between the outer parts.
+[has to be](https://tools.ietf.org/html/rfc2045#section-6.4) `7bit`, `8bit`, or `binary`,
+and the [boundary](#boundary-delimiter) between the inner parts
+has to be different from the boundary between the outer parts.
 
 <details markdown="block">
 <summary markdown="span" id="boundary-delimiter">
 Boundary delimiter
 </summary>
 
-For all subtypes of the `multipart` content type,
+For all subtypes of the `multipart` [content type](#content-type),
 the sender has to provide a `boundary` value;
 there's no default value for this parameter.
 As mentioned [earlier](#internationalized-parameter-values),
 the double quotes are not part of the value and
-are only required if the value contains [certain characters](https://tools.ietf.org/html/rfc2045#section-5.1).
-The `boundary` value has to be between [1 and 70 ASCII characters](https://tools.ietf.org/html/rfc2046#page-20)
-and may not end with whitespace.
+are required only if the value contains [certain characters](https://tools.ietf.org/html/rfc2045#section-5.1).
+The `boundary` value has to consist of [1 to 70 ASCII characters](https://tools.ietf.org/html/rfc2046#page-20),
+and it may not end with [whitespace](https://en.wikipedia.org/wiki/Whitespace_character).
 Unlike other parameter values, multipart boundaries [are case-sensitive](https://tools.ietf.org/html/rfc2045#page-13).
 The various parts are then separated by two hyphens
 followed by the `boundary` value and optional whitespace on a line of their own.
@@ -8225,8 +8227,8 @@ As a consequence, the preceding content has no trailing newline characters
 if there's no empty line between the content and the boundary delimiter line.
 [More formally](https://tools.ietf.org/html/rfc2046#page-22),
 the various parts are separated by `{CR}{LF}--{BoundaryValue}{OptionalWhitespace}{CR}{LF}`.
-The same line without the leading `{CR}{LF}` is used to mark the beginning of the first part and
-the same line with two hyphens inserted after the `BoundaryValue` is used to mark the end of the last part.
+The same line without the leading `{CR}{LF}` is used to mark the beginning of the first part,
+and the same line with two hyphens inserted after the `BoundaryValue` is used to mark the end of the last part.
 (If the first line required the leading `{CR}{LF}`, then the above examples would be wrong
 because the empty line is used to [separate the header from the body](https://tools.ietf.org/html/rfc5322#section-3.5)
 and the content itself therefore starts with `--UniqueBoundary{CR}{LF}`.)
@@ -8236,7 +8238,7 @@ Both the preamble and the epilogue are ignored by clients which support MIME.
 Historically, the preamble was used to inform users of clients without MIME support
 that the rest of the body is a multipart message.
 Nowadays, the preamble and the epilogue are best used
-to leave a note for users who know how to inspect the [raw message](#raw-message). 😉
+to leave a note to users who know how to inspect the [raw message](#raw-message). 😉
 
 <figure markdown="block">
 
@@ -8244,26 +8246,26 @@ to leave a note for users who know how to inspect the [raw message](#raw-message
 MIME-Version: 1.0
 Content-Type: multipart/mixed; boundary="UniqueBoundary"
 
-Preamble, which is ignored by MIME-supporting clients
+Preamble, which is ignored by MIME-supporting clients.
 
 --UniqueBoundary
 
-Part 1 with an implicit content type of text/plain
+Part 1 with an implicit content type of text/plain.
 
 --UniqueBoundary
 Content-Type: text/plain; charset=us-ascii
 
-Part 2 with an explicit content type of text/plain
+Part 2 with an explicit content type of text/plain.
 
 --UniqueBoundary--
 
-Epilogue, which is ignored by MIME-supporting clients
+Epilogue, which is ignored by MIME-supporting clients.
 ```
 
 <figcaption markdown="span">
 
 The various parts of a  `multipart` message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="Preamble, which is ignored by MIME-supporting clients\n\n--UniqueBoundary\n\nPart 1 with an implicit content type of text/plain\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nPart 2 with an explicit content type of text/plain\n\n--UniqueBoundary--\n\nEpilogue, which is ignored by MIME-supporting clients" title="Set the body of the ESMTP tool to this boundary example.">Click here</a>
+<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="Preamble, which is ignored by MIME-supporting clients.\n\n--UniqueBoundary\n\nPart 1 with an implicit content type of text/plain.\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nPart 2 with an explicit content type of text/plain.\n\n--UniqueBoundary--\n\nEpilogue, which is ignored by MIME-supporting clients." title="Set the body of the ESMTP tool to this boundary example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 </figcaption>
@@ -8276,7 +8278,7 @@ By including `=_` in the `boundary` value,
 the delimiter also cannot appear in [Quoted-Printable-encoded content](#content-encoding).
 The rest of the `boundary` value is usually chosen randomly.
 Apple Mail, for example, chooses `Apple-Mail=_` followed by a
-[UUID](#universally-unique-identifier) as the `boundary` value.
+[universally unique identifier (UUID)](#universally-unique-identifier) as the `boundary` value.
 
 </details>
 
@@ -8298,9 +8300,10 @@ With the [`filename` parameter](https://tools.ietf.org/html/rfc2183#section-2.3)
 the sender can suggest a filename for when the recipient wants to store the part in a separate file.
 If the filename includes non-ASCII characters,
 it has to be encoded with the [Extended-Parameter encoding](#internationalized-parameter-values).
-The receiving mail clients should make sure that the filename conforms to local filesystem conventions
+The receiving mail client should make sure that the filename conforms to local filesystem conventions
 and that no file is overwritten without user consent when saving the attachment.
-They should also ignore any directory path information in the filename.
+The receiving mail client should also ignore any
+[path delimiters](https://en.wikipedia.org/wiki/Path_(computing)) in the filename.
 Let's look at an example:
 
 <figure markdown="block">
@@ -8376,12 +8379,12 @@ The following three standards allow us to do this:
   The [`type` parameter](https://tools.ietf.org/html/rfc2387#section-3.1)
   has to be set to the content type of the main part.
   The [content disposition](#content-disposition) of the other parts is
-  [only relevant](https://tools.ietf.org/html/rfc2387#section-4) for mail clients
+  [relevant only](https://tools.ietf.org/html/rfc2387#section-4) for mail clients
   which don't recognize the `multipart/related` content type and render the parts as `multipart/mixed`.
 - [RFC 2045](https://tools.ietf.org/html/rfc2045#section-7) specifies the `Content-ID` header field
   to identify the parts of a multipart message.
-  The syntax of the [`Message-ID` header field](#message-identification) is used for the `Content-ID` header field
-  and, just like the `Message-ID`, each `Content-ID` has to be generated in such a way that it is globally unique.
+  The syntax of the [`Message-ID` header field](#message-identification) is used for the `Content-ID` header field,
+  and just like the `Message-ID`, each `Content-ID` has to be generated in such a way that it is globally unique.
 - [RFC 2557](https://tools.ietf.org/html/rfc2557) specifies two ways how other MIME parts can be referenced from HTML.
   The first way is to use `cid` as the [scheme name](https://en.wikipedia.org/wiki/URL#Syntax)
   of [Uniform Resource Locators (URLs)](https://en.wikipedia.org/wiki/URL)
@@ -8390,7 +8393,7 @@ The following three standards allow us to do this:
   For this reason, the second way leaves the HTML page as is and introduces a
   [`Content-Location` header field](https://tools.ietf.org/html/rfc2557#section-4) instead.
   This header field can be used in a referenced part with the URL that is used to reference it in the main part.
-  The URL should be globally unique but it doesn't have to resolve to a document
+  The URL should be globally unique, but it doesn't have to resolve to a document,
   and it may even resolve to a completely different document.
   What makes the second approach a bit more complicated is the potentially required
   [encoding of the URL](https://tools.ietf.org/html/rfc2557#section-4.4)
@@ -8400,7 +8403,8 @@ The following three standards allow us to do this:
   is also used to [archive websites](https://en.wikipedia.org/wiki/Web_archiving) independently from email.
 
 You can find [plenty of examples](https://tools.ietf.org/html/rfc2557#section-9)
-with [plenty of errors](https://www.rfc-editor.org/errata_search.php?rfc=2557) in the RFC.
+with [plenty of errors](https://www.rfc-editor.org/errata_search.php?rfc=2557)
+in [RFC 2557](https://tools.ietf.org/html/rfc2557).
 Here is an example of my own:
 
 <figure markdown="block">
@@ -8478,8 +8482,8 @@ Click on the list title to use the corresponding variant in the [ESMTP tool](#es
   For example, when telling Thunderbird to display the plaintext part,
   it offered to save the attached image in both cases.
   As far as I can tell, nesting `multipart/alternative` in `multipart/related` is more common.
-  This structure is also mentioned in [RFC 2557](https://tools.ietf.org/html/rfc2557#section-7)
-  and the second variant doesn't even make it through Gandi.net spam filters.
+  This structure is also mentioned in [RFC 2557](https://tools.ietf.org/html/rfc2557#section-7),
+  and the second variant doesn't even make it through [Gandi's spam filters](https://postmaster.gandi.net/).
 
 </details>
 
@@ -8496,18 +8500,19 @@ There are other multipart types for emails besides
 - `multipart/report` ([RFC 6522](https://tools.ietf.org/html/rfc6522)):
   Complement human-readable [(non-)delivery reports](#bounce-messages) with a machine-processable part.
 - `multipart/signed` ([RFC 1847](https://tools.ietf.org/html/rfc1847#section-2.1)):
-  Append the signature, which is generated over the first MIME part, in the second part.
+  [Append the signature](#multipart-message-nesting), which is generated over the first MIME part, in the second part.
 - `multipart/encrypted` ([RFC 1847](https://tools.ietf.org/html/rfc1847#section-2.2)):
-  Prepend the information needed to decrypt the second MIME part in the first part.
+  [Prepend the information](#multipart-message-nesting) needed to decrypt the second MIME part in the first part.
 {:.compact}
 
 </details>
 
+After many encoding-related sections,
+I want to mention two more format-related aspects before moving on to [issues with email](#issues).
+
 
 ### One-click unsubscribe
 
-After many encoding-related subsections,
-I quickly want to mention two more aspects before moving on to [issues with email](#issues).
 If you are subscribed to a [mailing list](#mailing-list),
 you may want to unsubscribe from the list after having received a message you no longer want to receive.
 Most mailing lists include a link at the bottom of each sent message,
@@ -8535,7 +8540,7 @@ If there are several options in angle brackets, the mail client should use the f
 </figcaption>
 </figure>
 
-To be precise, [RFC 2369](https://tools.ietf.org/html/rfc2369) doesn't require
+To be precise, [RFC 2369](https://tools.ietf.org/html/rfc2369) didn't require
 that there is no additional user interaction.
 In fact, user confirmation was often necessary in order to prevent accidental unsubscriptions
 triggered by anti-spam programs which simply fetch all the links in a message.
@@ -8545,8 +8550,9 @@ When the user clicks on "Unsubscribe",
 the mail client sends a [`POST` request](https://en.wikipedia.org/wiki/POST_(HTTP))
 to the HTTPS resource specified in the `List-Unsubscribe` header field
 with the value of the new `List-Unsubscribe-Post` header field in the body of the request.
-The `List-Unsubscribe-Post` header field has to contain `List-Unsubscribe=One-Click`
-and both header fields have to be covered by a valid [DKIM signature](#domainkeys-identified-mail).
+The `List-Unsubscribe-Post` header field has to contain `List-Unsubscribe=One-Click`,
+and both header fields [must be covered](https://tools.ietf.org/html/rfc8058#section-4)
+by a valid [DKIM signature](#domainkeys-identified-mail).
 
 <figure markdown="block">
 
@@ -8586,7 +8592,7 @@ List-Unsubscribe=One-Click
 The `POST` request to unsubscribe a user from a mailing list
 [as generated by Gmail](https://support.google.com/a/answer/81126).
 You find an example `POST` request using `multipart/form-data`
-in the [RFC](https://tools.ietf.org/html/rfc8058#section-8.3).
+in [RFC 8058](https://tools.ietf.org/html/rfc8058#section-8.3).
 
 </figcaption>
 </figure>
@@ -8594,26 +8600,27 @@ in the [RFC](https://tools.ietf.org/html/rfc8058#section-8.3).
 These two header fields are not only convenient for users,
 they also make unsubscribing more secure since mail clients don't include them when forwarding a message.
 If you want to prevent others from unsubscribing you from a mailing list,
-you have to remove the unsubscribe link at the bottom of a message manually when you forward the message.
+you have to remove the unsubscribe link at the bottom of a message manually before forwarding the message.
 
 
 ### Custom header fields
 
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a long list of
 [registered message header fields](https://www.iana.org/assignments/message-headers/message-headers.xhtml).
-The ones specified in an RFC and thus endorsed by the IETF are called permanent header fields.
+The ones specified in an RFC and thus endorsed by IETF are called permanent header fields.
 The ones registered for [private use](https://tools.ietf.org/html/rfc8126#section-4.1)
 without official recognition are called provisional header fields.
-[RFC 3864](https://tools.ietf.org/html/rfc3864) outlines the registration procedures for header fields.
-It's common to start the name of custom header fields with `X-`
+[RFC 3864](https://tools.ietf.org/html/rfc3864) outlines the registration procedure for header fields.
+It's common to start the name of custom header fields with `X-`,
 but unlike in the case of [content types](#content-type),
 there is no requirement for this.
-The obsolete [RFC 822](https://tools.ietf.org/html/rfc822#section-4.7.4) just promised that
+[RFC 822](https://tools.ietf.org/html/rfc822#section-4.7.4) just promised that
 official header fields will never start with `X-`.
-However, this provision was dropped by [later revisions](https://tools.ietf.org/html/rfc5322#appendix-B).
+This provision regarding extension header fields was dropped
+in [later revisions](https://tools.ietf.org/html/rfc5322#appendix-B), though.
 During my research for this article,
 I've inspected a ton of messages in their [raw format](#raw-message).
-The funniest header field I've come across is the following one from [Booking.com](https://www.booking.com/):
+The funniest header field I came across is the following one from [Booking.com](https://www.booking.com/):
 
 <figure markdown="block">
 
@@ -8640,7 +8647,7 @@ is the [Short Message Service (SMS)](https://en.wikipedia.org/wiki/SMS).
 On the other hand, email has become so dysfunctional that many of us would like to leave it behind.
 In this section, we'll look at the issues that plague modern email.
 In the [last chapter](#fixes),
-we'll discuss how some of the security-related issues are addressed.
+we'll discuss how some of the security-related issues are being addressed.
 
 
 ### Spam
@@ -8648,20 +8655,19 @@ we'll discuss how some of the security-related issues are addressed.
 Unsolicited messages which are sent in large quantities are called
 [spam](https://en.wikipedia.org/wiki/Email_spam) or
 [junk mail](https://en.wikipedia.org/wiki/Junk_mail).
-[Spam](https://en.wikipedia.org/wiki/Spam_(food)) is a brand of canned pork,
-which was introduced in 1937 and might be an abbreviation for spiced ham.
-It became ubiquitous during and after [World War II](https://en.wikipedia.org/wiki/World_War_II),
-when food was rationed.
+[Spam](https://en.wikipedia.org/wiki/Spam_(food)) is a brand of canned pork, which was introduced in 1937.
+Spam is likely an abbreviation for spiced ham.
+It became ubiquitous during and after [World War II](https://en.wikipedia.org/wiki/World_War_II) when food was rationed.
 The British comedy group [Monty Python](https://en.wikipedia.org/wiki/Monty_Python)
 made fun of this fact in a [famous sketch](https://en.wikipedia.org/wiki/Spam_(Monty_Python)) in 1970.
 The term got adopted to refer to undesirable things which come in excessive quantities – including junk mail.
 
-Any messaging service that is popular, open, and free will have spam sooner or later.
+Any messaging service which is popular, open, and free will have spam sooner or later.
 Thus, spam isn't a result of the shortcomings of email but rather a consequence of its desirable properties.
 Since unsolicited messages are annoying,
 people try to eliminate junk mail from their inboxes with
 [heuristics](#heuristics), [blacklists](#blacklists), and [challenges](#challenges).
-While such [techniques](https://en.wikipedia.org/wiki/Anti-spam_techniques) make spam bearable,
+While [such techniques](https://en.wikipedia.org/wiki/Anti-spam_techniques) make spam bearable,
 they don't solve the underlying problem of unsolicited mail:
 Anyone in the world can add tasks to the to-do list which is your inbox.
 In my opinion, mail clients should separate messages from unapproved senders from your inbox
@@ -8693,7 +8699,7 @@ the continuous probability has to be converted into a
 If the probability that a message is spam is above a certain threshold value, it is discarded.
 While users hate spam, they hate losing legitimate messages due to spam filters even more.
 In other words, the [rate of false positives](https://en.wikipedia.org/wiki/False_positive_rate)
-has to be close to zero, while the rate of false positives can be higher.
+has to be close to zero, while the rate of false negatives can be higher.
 For this reason, the threshold for discarding a message is usually quite high.
 Messages with a score above a lower threshold are typically moved to a spam folder
 so that the user can decide what to do with them.
@@ -8710,7 +8716,7 @@ so that the user can decide what to do with them.
 
 How binary classifiers are [evaluated](https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers).
 When labelling spam, you want to have as few false positives as possible,
-even if this increases the rate of false negatives.
+even if this increases the rate of false negatives as well.
 
 </figcaption>
 </figure>
@@ -8740,7 +8746,7 @@ the IT industry is moving to replace these terms with block or deny list and all
 traditional terms [likely predate attribution to race](https://en.wikipedia.org/wiki/Blacklist_(computing)#Controversy).
 In the spirit of making the IT industry and our societies more inclusive, I welcome these changes.
 The main reason why I stuck with the old terms is the next box:
-The anti-spam technique is only known as [graylisting](#graylisting).
+The anti-spam technique is known only as [graylisting](#graylisting).
 If I were to speak of temporarily-reject listing, many would have no idea what I'm talking about.
 
 While block lists are already useful when every provider maintains their own list,
@@ -8748,9 +8754,9 @@ they are much more powerful when they are shared among email service providers.
 The best-known maintainer of block lists is [The Spamhaus Project](https://en.wikipedia.org/wiki/The_Spamhaus_Project).
 Before you try to relay email directly with the [ESMTP tool](#esmtp-tool),
 you can check [here](https://www.spamhaus.org/lookup/) whether your IP address is blocked.
-If you use and misuse the ESMTP tool a lot, your address might get listed there.
+If you use and misuse the ESMTP tool a lot, your address may get listed there.
 Once your address is on their block list, your chances of relaying emails successfully dwindle.
-Block lists are fed by spam filters, which in turn are trained by users who mark unwanted messages as spam.
+Block lists are fed by spam filters, which in turn are trained by users, who mark unwanted messages as spam.
 Another way to identify spammers is to set up a [honeypot](https://en.wikipedia.org/wiki/Honeypot_(computing)):
 An email server or email address which is positioned to attract spammers
 but unlikely to be contacted by legitimate parties.
@@ -8780,16 +8786,25 @@ Emails which aren't delivered instantly are as annoying as spam:
 If you sign up on a new website or reset your password, you want to be able to continue immediately.
 Nonetheless, graylisting is the lesser evil.
 
-There are other areas where [strict enforcement of RFC standards](https://en.wikipedia.org/wiki/Anti-spam_techniques#Strict_enforcement_of_RFC_standards) pose a hurdle for impatient spammers:
+</details>
+
+<details markdown="block">
+<summary markdown="span" id="patience">
+Patience
+</summary>
+
+There are other areas where the
+[strict enforcement of RFC standards](https://en.wikipedia.org/wiki/Anti-spam_techniques#Strict_enforcement_of_RFC_standards)
+pose a hurdle for impatient spammers:
 - **Greeting delay**: SMTP clients [should wait](https://tools.ietf.org/html/rfc5321#section-4.3.1)
   for the greeting from the server before sending the
   [`EHLO` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.1).
   Spammers who want to maximize the use of their bandwidth
   either drop the connection when the greeting is delayed
-  or send the `EHLO` command immediately, which is then rejected by the server.
-  If you delay the greeting only for unknown senders, you slow down spammers at the very least.
-  More generally, slowing down illegitimate software is known as
-  [tar-pitting](https://en.wikipedia.org/wiki/Tarpit_(networking)).
+  or send the `EHLO` command immediately, which can be rejected by the server.
+  By delaying the greeting only for unknown senders,
+  you can slow down spammers without affecting everyone.
+  Slowing down fraudulent software is also known as [tarpitting](https://en.wikipedia.org/wiki/Tarpit_(networking)).
 - **Quit detection**: SMTP clients must send the
   [`QUIT` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.10) before closing the connection.
   Since the email is already queued for delivery at this point,
@@ -8797,11 +8812,11 @@ There are other areas where [strict enforcement of RFC standards](https://en.wik
   When a mail server detects this behavior, it can include this information in its spam assessment.
 - **Invalid pipelining**: In order to reduce the number of [round trips](/internet/#network-performance),
   many mail servers allow clients to [batch their commands](#common-smtp-extensions).
-  The standard requires that clients wait for the response code after
-  [certain commands](https://tools.ietf.org/html/rfc2920#section-3.1), though.
-  As you see in the [ESMTP tool](#esmtp-tool) above if you activate pipelining,
+  The standard requires, though, that clients wait for the response code of
+  [certain commands](https://tools.ietf.org/html/rfc2920#section-3.1).
+  As you can see in the [ESMTP tool](#esmtp-tool) above when you activate pipelining,
   the client has to wait for the response to the `EHLO` command
-  to see whether the server even supports pipelining
+  to determine whether the server even supports pipelining
   and for the response to the [`DATA` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.4)
   before sending the actual message.
   Since spammers don't care about errors, they are tempted to send all commands at once.
@@ -8833,8 +8848,8 @@ who needs to solve it in order for their email to be delivered to your inbox.
 To require attention from a human,
 you can send them a [CAPTCHA](https://en.wikipedia.org/wiki/CAPTCHA).
 To require attention from a machine,
-you can ask them for [proof of its work](#applications-of-cryptographic-hash-functions).
-Since your challenge is an automated response,
+you can ask it for [proof of its work](#applications-of-cryptographic-hash-functions).
+Since your challenge is an [automatic response](#automatic-responses),
 care needs to be taken to avoid [mail loops](#mail-loops).
 The main disadvantage is that you confirm the existence of your email address to anyone
 (unless your mail server sends a challenge for existent and non-existent recipients).
@@ -8865,16 +8880,16 @@ Your IP address just isn't known yet to deliver emails that users want to receiv
 A good reputation takes time to build,
 which makes it quite difficult to run your outgoing mail server yourself.
 Especially as a company, you want all your customers to receive all your emails.
-In order to achieve a high delivery rate (also called good deliverability), you typically buy
+In order to achieve a high delivery rate (also called *good deliverability*), you typically buy
 into the [reputation capital](https://en.wikipedia.org/wiki/Reputation_capital) of another company.
 A whole industry evolved around just this value proposition.
-Such companies are known as SMTP service providers or email delivery vendors
+Such companies are known as SMTP service providers or email delivery vendors,
 and they offer a transactional email service.
 The downside of this reputation system is that email is no longer really an open service
 if you have to purchase the qualification to send messages from another company.
 The upside of this system is that companies are incentivized to protect their reputation:
-They rather want to make it as easy as possible for readers
-[to unsubscribe from their newsletter](#one-click-unsubscribe)
+They rather want to make it as easy as possible for readers to
+[unsubscribe from their newsletter](#one-click-unsubscribe)
 than to risk being flagged as spam.
 
 </details>
@@ -8910,7 +8925,7 @@ Legal requirements
 </summary>
 
 Many countries adopted [anti-spam laws](https://en.wikipedia.org/wiki/Email_spam_legislation_by_country),
-which ban unsolicited bulk mailings.
+which ban unsolicited bulk mailing.
 While the [legal requirements for email marketing](https://en.wikipedia.org/wiki/Email_marketing#Legal_requirements)
 vary by country, you're typically restricted to contact only people
 who gave their explicit consent to being contacted by you.
@@ -8924,7 +8939,7 @@ Since another person can generally sign you up to a [newsletter](https://en.wiki
 it's a good practice to ask new subscribers via email to confirm their subscription
 before sending them the newsletter.
 This practice is known as
-[double opt-in](https://en.wikipedia.org/wiki/Opt-in_email#Confirmed_opt-in_(COI)/Double_opt-in_(DOI))
+[double opt-in](https://en.wikipedia.org/wiki/Opt-in_email#Confirmed_opt-in_(COI)/Double_opt-in_(DOI)),
 and without confirming the email address,
 you will likely struggle to prove that the recipient gave their explicit consent.
 
@@ -8935,89 +8950,62 @@ you will likely struggle to prove that the recipient gave their explicit consent
 
 If you send an email to someone, you want to share certain information with that person.
 Mail clients and mail servers, however, share a lot more information than what the users intended to share.
-In this subsection, I list all the subtle information disclosures that users likely are not aware of.
+In this subsection, I list all the subtle information disclosures that users likely aren't aware of.
 If you know of other privacy leaks, please [let me know](mailto:contact@ef1p.com).
 
 
 #### Sender towards recipients
 
-The recipient of a message learns the following things about the sender (listed in no particular order):
-- **Display names**: Your mail client not just adds your name
-  as a [display name](#display-name) in the `From` address,
-  it also adds a display name for each recipient it knows.
-  This can leak how you've stored a recipient in your address book
-  (i.e. be careful under what name you store the colleague you're having an affair with)
-  and with whom of the recipients you've been in contact before
-  (because mail clients usually add display names from earlier conversations automatically).
-  As a recipient, you have to inspect the raw message to see what the sender provided
-  because your mail client typically overwrites the display names with the information from your own address book.
-  In my opinion, mail clients should remove the display names of recipients before sending a message.
-- **Mail client**: Many mail clients add their name with their current version
-  and often the operating system on which they run with its version in a `User-Agent` or `X-Mailer` header field.
-  While such data is usually harmless,
-  it can provide valuable information to someone who wants to attack you.
-  Given the intricacies of email, mail clients can also be identified by
-  how they [delimit parts](#boundary-delimiter),
-  how they [label files](#content-disposition),
-  how they [style messages](#email-styling),
-  how they [quote messages](#quoting-html-messages), and so on.
-  This is known as [fingerprinting](https://en.wikipedia.org/wiki/Device_fingerprint),
-  and it allows a recipient to determine how likely separate messages were sent from the same device.
-  Thus, if you want to contact the same person with separate identities,
-  use separate mail clients on separate machines with separate Internet connections (see below).
-- **Timezone**: The [sent date](#origination-date) is usually encoded in the timezone of the sender.
-  By looking at the offset from the [Greenwich Mean Time (GMT)](https://en.wikipedia.org/wiki/Greenwich_Mean_Time),
-  the recipient learns from which [longitude](https://en.wikipedia.org/wiki/Longitude) a message was sent.
-  In my opinion, mail clients should always encode the `Date` field in Greenwich Mean Time.
+The recipient of a message often learns the following information about the sender:
 - **IP address**: When you submit an email to an outgoing mail server,
   most mail servers add your [IP address](/internet/#network-layer) to the message
   as part of the [trace information](#trace-information).
   As a recipient, you find the IP address from which a message was sent in an `x-originating-ip` header field
   or in the square brackets in the first parentheses of the last `Received` header field.
-  (Each mail server through which a message passes adds an additional `Received` header field at the top,
-  which means that the first `Received` header field, which is added by the outgoing mail server, is at the bottom.)
-  There are two important implications of this.
+  (Each mail server through which an email passes adds an additional `Received` header field at the top,
+  which means that the first `Received` header field, which was added by the outgoing mail server, is at the bottom.)
+  There are three important implications of this.
   Firstly, your outgoing mail server leaks your rough physical location to all recipients.
   In other words, never send to your boss that you're sick at home from your holiday apartment.
   Similarly, recipients can tell whether you're still at work or went home already.
   Secondly, recipients can launch a [denial-of-service attack](https://en.wikipedia.org/wiki/Denial-of-service_attack).
   Due to [network address translation (NAT)](/internet/#network-address-translation),
-  the target would typically be your router rather than your machine but your Internet connection goes down either way.
-  Similarly, if you use the website of an email recipient anonymously or pseudonymously,
+  the target would typically be your router rather than your machine, but your Internet connection goes down either way.
+  Thirdly, if you visited the website of an email recipient anonymously or pseudonymously,
   the recipient now knows who this user on their website is.
   To find out whether your outgoing mail server includes your IP address in the messages that you send,
-  just send a message to yourself.
-  You can use the following tool to [locate an IP address](/internet/#ip-geolocation).
-  It uses an API from [ipinfo.io](https://ipinfo.io/) and,
-  if you leave the field empty, your own IP address is returned.
+  send a message to yourself and search for your IP address.
+  You can use the following tool with an empty input field to determine your IP address.
+  You can also use the tool to [locate the IP address](/internet/#ip-geolocation) of someone who sent you an email.
+  The tool uses the geolocation API of [ipinfo.io](https://ipinfo.io/).
   <div id="tool-lookup-ip-address" class="mt-3"></div>
-  If you don't want your email service provider to leak your IP address,
-  you can either use a [Virtual Private Network (VPN)](https://en.wikipedia.org/wiki/Virtual_private_network)
+  If you don't want your email service provider to leak your own IP address,
+  you can use a [Virtual Private Network (VPN)](https://en.wikipedia.org/wiki/Virtual_private_network)
   or an [overlay network](https://en.wikipedia.org/wiki/Overlay_network) for anonymous communication,
-  such as [Tor](https://www.torproject.org/),
-  or use an email service provider which values your privacy,
+  such as [Tor](https://www.torproject.org/).
+  Alternatively, you can use an email service provider which values your privacy,
   such as [ProtonMail](https://protonmail.com/security-details)
   or [Tutanota](https://tutanota.com/security/#enhanced-privacy-features).
-  Sending messages from the [web interface](#webmail) of an email service provider also often helps.
-  For example, when you compose a message on [gmail.com](https://gmail.com/),
-  your IP address is not included in outgoing messages.
-  If you submit messages from your desktop client to Gmail using [SMTP](#delivery-protocols),
+  Sending messages from the [web interface](#webmail) of an email service provider usually also helps.
+  For example, if you compose an email on [gmail.com](https://gmail.com/),
+  your IP address is not included in the outgoing message.
+  If you submit a message from your desktop client to Gmail using [SMTP](#delivery-protocols),
   on the other hand, your IP address is added by `smtp.gmail.com` in a `Received` header field.
   While [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.4) does say that
   the IP address of the source should be included in the `Received` header field,
-  email service providers should clearly ignore the standard in this regard, in my opinion.
+  email service providers should ignore the standard in this regard, in my opinion.
   I understand that email service providers may want to record the IP address of the sender
-  to analyze abuse of their service,
+  to prevent abuse of their service,
   I just see no reason to share this information with the recipients of a message.
   In fact, it might even be illegal to do so.
   Many privacy acts, such as the European
   [General Data Protection Regulation (GDPR)](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation),
   forbid service providers to share personal data without the user's explicit consent.
-  Since the third party with whom the personal data is shared can be different for every email,
-  the user's consent might be required every time they send an email.
-  If you're a lawyer and think that this reasoning has some merit,
-  let me know so that we can file a class action lawsuit to bring this industry practice to an end.
-  {:.mb-0}
+  Since the third party with whom the personal data is being shared can be different for every email,
+  the user's consent would be required every time they send an email.
+  If you're a lawyer and you think that this reasoning has some merit,
+  let me know so that we can file a [class-action lawsuit](https://en.wikipedia.org/wiki/Class_action)
+  to bring this industry practice to an end.
 - **Device name**: Mail servers also include the client's argument to the `EHLO` command in the `Received` header field.
   [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.1.1.1) requires that the client uses its
   [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
@@ -9026,33 +9014,60 @@ The recipient of a message learns the following things about the sender (listed 
   use the name of your device in the local network as the argument.
   On macOS, you find the [name of your device](https://support.apple.com/guide/mac-help/change-computers-local-hostname-mac-mchlp2322/mac) in the "Sharing" tab of your "System Preferences".
   By default, it starts with the first name of your user account.
-  For example, my Mac is reachable under `Kaspars-MacBook-Pro.local` in the local network.
+  In my case, my computer is reachable under `Kaspars-MacBook-Pro.local` in the local network.
   As a [whistleblower](https://en.wikipedia.org/wiki/Whistleblower), I might create a new email address
   and even use an anonymization service, such as Tor, just to have my mail client and mail server leak my real name.
   [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.6) even warns about exactly this problem.
   I reported [this privacy bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1680197)
-  to the Thunderbird team on 2 December 2020.
+  to Mozilla Thunderbird on 2 December 2020.
   Until a fix is available, you can set the `mail.smtpserver.default.hello_argument` option in the
-  [config editor](https://support.mozilla.org/en-US/kb/config-editor) to something like `[192.168.1.1]`.
-  Such a value is typical for those who use [network address translation (NAT)](/internet/#network-address-translation).
+  [config editor](https://support.mozilla.org/en-US/kb/config-editor) to `[192.168.1.1]`.
+  Such a value is typical for the vast majority of people
+  due to [network address translation (NAT)](/internet/#network-address-translation).
+- **Timezone**: The [sent date](#origination-date) is usually encoded in the timezone of the sender.
+  By looking at the offset from the [Greenwich Mean Time (GMT)](https://en.wikipedia.org/wiki/Greenwich_Mean_Time),
+  the recipient learns from which [longitude](https://en.wikipedia.org/wiki/Longitude) a message was sent.
+  In my opinion, mail clients should always encode the `Date` field in Greenwich Mean Time.
+- **Mail client**: Many mail clients put their name with their current version
+  into a `User-Agent` or `X-Mailer` header field.
+  Some mail clients even include the name and the version of the operating system on which they run.
+  While such data is usually harmless,
+  it can provide valuable information to someone who wants to attack you.
+  Given the intricacies of email, mail clients can also be identified by
+  how they [delimit parts](#boundary-delimiter),
+  how they [label files](#content-disposition),
+  how they [style messages](#email-styling),
+  how they [quote messages](#quoting-html-messages), and so on.
+  This is known as [fingerprinting](https://en.wikipedia.org/wiki/Device_fingerprint),
+  and it allows a recipient to determine whether separate messages were sent from the same client.
+- **Display names**: Your mail client not just adds your name
+  as a [display name](#display-name) in the `From` address,
+  it also adds a display name for each recipient it knows.
+  This can leak how you've stored a recipient in your address book
+  (i.e. be careful under what name you store the colleague you're having an affair with)
+  and with whom of the recipients you've been in contact before
+  (because mail clients usually add display names from earlier conversations automatically).
+  As a recipient, you have to inspect the raw message to see what the sender provided
+  because your mail client typically overwrites the display names with the information from its own address book.
+  In my opinion, mail clients should remove the display names of recipients before sending a message.
+- **Hidden recipients**: The [`Received` header field](#trace-information) has an optional `for` clause,
+  which contains the address of the specified recipient.
+  As recommended by [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.6),
+  the `for` clause is skipped when there are several recipients
+  in the [envelope](#diverging-envelope-example) of the message.
+  As a consequence, a single non-hidden recipient learns that
+  the message was also sent to [hidden recipients](#recipients)
+  if the `for` clause is missing in the bottommost `Received` header field.
+  This means that the [empty `Bcc` field approach](#bcc-removal) is used more often than intended.
 - **Attachments**: The [content disposition](#content-disposition) of attachments can include information
   such as when the file was created and when it was last modified.
   While it can be useful to preserve such information when mailing a file,
   sharing such information with the recipient can also be unexpected and undesirable.
   I don't know how mail clients can determine the preferred option without cluttering the user experience.
   By default, they should err on the side of caution, which many do.
-- **Hidden recipients**: The [`Received` header field](#trace-information) has an optional `for` clause,
-  which contains the address of the specified recipient.
-  As recommended by [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.6),
-  the `for` clause is usually skipped when several `RCPT TO` are provided
-  in the [message's envelope](#diverging-envelope-example).
-  As a consequence, a single non-hidden recipient learns that
-  the message was also sent to [hidden recipients](#recipients)
-  if the `for` clause is missing in the lowest `Received` header field.
-  This means that the [empty `Bcc` field approach](#bcc-removal) is used more often than intended.
 
 Assuming that all recipients can be trusted is foolish.
-If a person pretends to be interested in your work, you likely reply to them.
+If someone pretends to be interested in your work, you'll likely reply to them.
 
 
 #### Recipient towards sender
@@ -9068,20 +9083,20 @@ then all the [above privacy issues](#sender-towards-recipients) also apply, of c
 ##### Remote content
 
 [HTML emails](#html-emails) can include remote content,
-which is then fetched by the mail client when reading the message.
+which is fetched by the mail client when it renders the message.
 Images are by far the most common type of remote content.
 They are usually included with the [`<img>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img)
 or with the [`background-image` property](https://developer.mozilla.org/en-US/docs/Web/CSS/background-image).
 Some mail clients [support external style sheets](https://www.campaignmonitor.com/css/link-element/link-in-head/)
 through the [`<link>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link),
-but even [embedded CSS](#email-styling) can have
+but [internal CSS](#email-styling) can also have
 [`@import` statements](https://developer.mozilla.org/en-US/docs/Web/CSS/@import)
-to load other styles and [Web fonts](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts)
-with the [`url()` function](https://developer.mozilla.org/en-US/docs/Web/CSS/url()).
+to load [Web fonts](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts)
+and other styles with the [`url()` function](https://developer.mozilla.org/en-US/docs/Web/CSS/url()).
 There are other elements, such as [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio),
 [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video), and
 [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
-which can also be used to include remote content (but not all mail clients support them).
+which can also be used to include remote content, but not all mail clients support them.
 
 <figure markdown="block">
 {% include_relative generated/remote-content-direct-access.embedded.svg %}
@@ -9100,7 +9115,7 @@ Remote content violates three fundamental principles of email:
    once they have received an email, the sender can no longer modify it because
    your inbox contains an independent copy of the message, to which the sender has no access.
    Unfortunately, this assumption doesn't hold for HTML emails with remote content.
-   As we've seen in the previous point, different content can be provided every time you open a message.
+   Since remote content isn't cached, different content can be provided every time you open a message.
    Some clever engineers used this circumstance to include a [dynamic Twitter feed](https://www.litmus.com/blog/how-to-code-a-live-dynamic-twitter-feed-in-html-email/) in an email.
    If you're not aware of this "feature", though, you might fall for a scammer
    who seemingly predicted the development of some market accurately.
@@ -9126,12 +9141,12 @@ Remote content violates three fundamental principles of email:
    in their [HTTP request](/internet/#hypertext-transfer-protocol),
    the web server operator also learns which mail client you use.
    For the reasons mentioned in the previous point,
-   senders should only reference remote content which they control.
+   senders should reference only remote content which they control.
    Email newsletters often include remote content with a personalized [URL](https://en.wikipedia.org/wiki/URL)
    just to track who opened the message when and from where.
    Based on this data, the sender can determine what percentage of recipients opened the email,
    which is known as the [open rate](https://en.wikipedia.org/wiki/Open_rate).
-   It is important to note that your privacy when reading emails is not worse than when browsing the Web.
+   It's important to note that your privacy when reading emails is not worse than when browsing the Web.
    The crucial difference is that on the Web, you go to a website,
    whereas in the case of email, the website comes to you.
    Since you don't want to provide your IP address to anyone,
@@ -9151,19 +9166,19 @@ Proxying remote content
 [Google](https://gmail.googleblog.com/2013/12/images-now-showing.html) and
 [Yahoo](https://help.yahoo.com/kb/yahoo-mail-proxy-SLN28749.html)
 proxy all remote content in their [webmail clients](#webmail).
-Instead of fetching the remote content directly,
-these companies fetch the remote content on behalf of their users.
+Instead of letting your browser fetch the remote content directly,
+these companies fetch the remote content on your behalf.
 The advantage of this approach is that your IP address no longer leaks to the sender of a message.
 Unfortunately, Google and Yahoo fetch the remote content only when you open the email.
-Thus, you still confirm to the sender that you've opened the email and when you've opened it.
+Thus, you still let the sender know that you've opened the email and when you've opened it.
 Google seems to cache the external resources for some time.
 Yahoo, on the other hand, makes another request if you force your browser to reload all content.
 In order to fully protect the privacy of their users,
 these companies would have to fetch and cache all remote content as soon as they receive the email.
 In order not to confirm to the sender which addresses exist,
-they would have to do this for all incoming email,
-even those with inexistent recipients
-(and even if the message is [discarded as spam](#heuristics)).
+they would have to do this for all incoming messages,
+even the ones with inexistent recipients
+and the ones which are [discarded as spam](#heuristics).
 Beyond fetching static content, Google also
 [proxies the requests](https://developers.google.com/gmail/markup/actions/handling-action-requests)
 triggered by [dynamic content](#dynamic-content).
@@ -9194,8 +9209,8 @@ How to disable remote content
 </summary>
 
 If you care about your privacy, you should allow remote content only from trusted senders.
-Here is how you disable remote content in various clients
-(where some of them disable remote content by default):
+Here is how you disable remote content in various mail clients
+(where some of them have remote content disabled by default):
 - [**Gmail**](https://support.google.com/mail/answer/145919):
   All settings > General > Images > Ask before displaying external images
 - [**Yahoo**](https://help.yahoo.com/kb/SLN5043.html):
@@ -9214,7 +9229,7 @@ Here is how you disable remote content in various clients
     File > Options > Trust Center > Trust Center Settings or Automatic Download > Don't download pictures automatically in HTML e-mail messages or RSS items [enabled by default]
 
 Afterwards, you can test your mail client with [emailprivacytester.com](https://www.emailprivacytester.com/).
-After verifying your address, you get an email with 40 different forms of remote content
+After verifying your address, you get an email with 40 different types of remote content,
 and you can observe in real time which ones are fetched by your client.
 
 </details>
@@ -9225,8 +9240,8 @@ and you can observe in real time which ones are fetched by your client.
 Emails often contain links to websites.
 Instead of linking to the target site directly,
 the sender can rewrite the link in such a way
-that your browser sends a request to their tracking server,
-which in turn redirects your browser to the actual site:
+that your [web browser](https://en.wikipedia.org/wiki/Web_browser) sends a request to their tracking server,
+which in turn redirects your browser to the actual [web server](https://en.wikipedia.org/wiki/Web_server):
 
 <figure markdown="block">
 {% include_relative generated/link-tracking.embedded.svg %}
@@ -9239,16 +9254,16 @@ In general, you cannot trust the servers in orange.
 Unlike [tracking pixels](https://en.wikipedia.org/wiki/Web_beacon),
 link tracking also works in plaintext emails and when remote content is disabled.
 If the target website isn't identifiable in the tracking link,
-you have no other option than to request it from the tracking server
-if you really want to visit the advertised content.
+you have no other choice than to request its address from the tracking server
+if you really want to see the advertised content.
 The sender can use tracking links to measure what percentage of recipients opened the link,
 which is known as the [click-through rate (CTR)](https://en.wikipedia.org/wiki/Click-through_rate).
 The same technique is often used on [social media](https://en.wikipedia.org/wiki/Social_media)
 in combination with [URL shortening](https://en.wikipedia.org/wiki/URL_shortening)
 to determine the reach of a post.
 
-Since seeing is believing, I wrote a [tool to track emails](https://github.com/KasparEtter/email-tracker).
-You can generate a unique token and then subscribe to its events below.
+Since seeing is believing, I wrote a little [tool to track emails](https://github.com/KasparEtter/email-tracker).
+You can generate a unique token and then subscribe to the associated events below.
 You can send the tracking link and the tracking image to someone
 using your mail client or the [ESMTP tool](#esmtp-tool) above.
 I've deployed the tracking server on [heroku.com](https://www.heroku.com/).
@@ -9256,7 +9271,7 @@ As you can see in [its source code](https://github.com/KasparEtter/email-tracker
 my server doesn't store anything but
 [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
 which includes the token, the link, and your IP address.
-I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file)
+I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file),
 but I might check it from time to time for troubleshooting.
 In order to determine where a request was made from,
 the tool uses the free API from [ipinfo.io](https://ipinfo.io/).
@@ -9270,23 +9285,23 @@ indeed connects from a different location every time you restart it.
 ### Security
 
 Security and the lack thereof have been a topic throughout this article.
-In this subsection, I shine a light on some additional aspects.
+In this section, I shine a light on some additional aspects.
 
 
 #### Spoofing
 
-As we have seen [earlier](#tool-instructions),
-the sender of a message can easily be [spoofed](https://en.wikipedia.org/wiki/Email_spoofing)
+As we saw [earlier](#tool-instructions),
+the sender of an email can easily be [spoofed](https://en.wikipedia.org/wiki/Email_spoofing)
 because at least historically emails aren't authenticated.
 Somewhat frustratingly, [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.1)
 and [some companies](#spoofed-sender-during-submission)
-see forged sender addresses more as a feature than a bug.
+see forged sender addresses more as a feature than as a bug.
 Criminals abuse this "feature" to trick unsuspecting users into performing actions or disclosing information,
 which they wouldn't do otherwise.
 Exploiting the credulity of people is known as
 [social engineering](https://en.wikipedia.org/wiki/Social_engineering_(security)).
 Besides impersonating a trusted organization for [phishing](#phishing),
-a common attack is to send the victim an email which seemingly comes from their own address.
+a common attack is to send a victim an email which seemingly comes from their own address.
 In the message, the attacker claims that they've compromised the victim's computer
 and that they've recorded the victim masturbating to porn.
 The attacker threatens to send the recording to all the victim's contacts unless they receive a payment,
@@ -9294,12 +9309,12 @@ usually in [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin), within a couple of 
 This form of [blackmailing](https://en.wikipedia.org/wiki/Blackmail)
 is known as [sextortion](https://en.wikipedia.org/wiki/Sextortion).
 If you receive such an email yourself, how do you know that the attacker's claim is wrong?
-First of all, you now know that the sender address of emails can easily be forged
+First of all, you know now that the sender address of emails can easily be forged
 and that there is no reason to assume that your account has been compromised.
 But more importantly, if there was an easy way to increase the fraction of people who pay the ransom,
 criminals would certainly make use of it.
-In the case of sextortion, they would just need to include a screenshot of the recording
-and the address of some contacts to make probably the large majority of people pay.
+In the case of sextortion, they would just have to include a screenshot of the recording
+and the addresses of some contacts to make presumably the large majority of people pay.
 Given that this is (usually) not the case, there's no reason to worry.
 Do people fall for this crap? The answer is yes, unfortunately.
 The first time I've received such a message was on 13 January 2019.
@@ -9309,7 +9324,7 @@ and was stupid enough to provide the
 Since all Bitcoin transactions are public, we know exactly how much money they made:
 5.379 BTC, which was worth around 20'000 USD at the time.
 This also means that they had no way to know who of their victims actually paid,
-which made the threat even less credible to anyone who has a basic understanding of
+which made their threat even less credible to anyone who has a basic understanding of
 [blockchains](https://en.wikipedia.org/wiki/Blockchain).
 
 Besides social engineering, spoofed sender addresses can be abused
@@ -9320,7 +9335,7 @@ to whom several messages in a row couldn't be delivered automatically.
 Unless a mailing list uses unpredictable [variable envelope return paths (VERP)](#bounce-messages),
 [bounce messages](#bounce-messages) can easily be forged,
 which means that you can unsubscribe other people from the mailing list.
-Similarly, it's often the case that only approved senders send a message to all subscribers of a mailing list.
+Similarly, it's often the case that only approved senders can send a message to all subscribers of a mailing list.
 Anyone who knows how to spoof emails can easily bypass this restriction and spam the mailing list.
 
 Email address spoofing can be prevented by enforcing [domain authentication](#domain-authentication),
@@ -9331,7 +9346,7 @@ which I'll cover in the last chapter of this article.
 
 Impersonating a trusted organization to obtain sensitive information or payments from gullible users
 is known as [phishing](https://en.wikipedia.org/wiki/Phishing).
-Phishing emails often direct the victims to a fraudulent website
+Phishing emails often direct their victims to a fraudulent website
 which looks exactly like the legitimate website.
 By providing a pretext, the attacker tries to get the victims to perform a specific action,
 such as entering their username and password or initiating a payment with their credit card.
@@ -9342,12 +9357,12 @@ This is why most phishing attacks are motivated by financial gain
 rather than a desire to harass or stalk the victim.
 While requesting a payment leads to a direct success for the criminals,
 usernames and passwords can be used to launch further attacks from the victim's account.
-For example, the credentials of employees can be used to infiltrate a company
+For example, the credentials of an employee can be used to infiltrate a company
 in order to obtain [trade secrets](https://en.wikipedia.org/wiki/Trade_secret)
 or to install [ransomware](https://en.wikipedia.org/wiki/Ransomware) on their computers.
 
-Phishing attacks come in all shapes and sizes but you can reduce your risk
-by sticking to the following principles:
+Phishing attacks come in all shapes and sizes,
+but you can reduce your risk by sticking to the following principles:
 - **Always be suspicious**: If an email prompts you to perform a certain action, your alarm bells should ring.
   Have you been prompted for similar actions before?
   Is the time frame to perform the action unusually short?
@@ -9361,17 +9376,18 @@ by sticking to the following principles:
   log in to the website of the service provider with the bookmark and not the link.
   Using a bookmark (or a search engine) to navigate to a website
   is better than relying on the address autocompletion of your browser.
-  If you clicked on a dubious link by accident in the past,
-  the website is still in your browser's history.
+  If you clicked on a dubious link by mistake in the past,
+  the fraudulent URL is still in your browser's history
+  and you may not be able to [recognize it as such](#homograph-attack).
 - **Hover over links**: If you can't suppress your urge to click on a link,
-  move your mouse over the link first and check that the [status bar](https://en.wikipedia.org/wiki/Status_bar)
+  move your mouse over the link first and verify whether the [status bar](https://en.wikipedia.org/wiki/Status_bar)
   at the bottom of the window indeed displays the address you want to visit.
   You should always do this because the text of a link can be misleading.
-  For example, the link [www.google.com](https://www.bing.com/) takes you to
+  For example, [www.google.com](https://www.bing.com/) takes you to
   [Bing](https://en.wikipedia.org/wiki/Microsoft_Bing), not [Google](https://en.wikipedia.org/wiki/Google_Search).
   You should check the destination of a link before you click on it.
-  If you check the destination of the link only in the opened browser window,
-  you have already confirmed to the attacker that you [click on links](#link-tracking)
+  If you check the destination of a link only in the opened browser window,
+  you have already confirmed to the attacker that you [click on links](#link-tracking),
   and the visited website might have already infected your computer
   with [malware](https://en.wikipedia.org/wiki/Malware).
   Unfortunately, [link tracking](#link-tracking) can make it quite difficult to recognize
@@ -9389,9 +9405,9 @@ by sticking to the following principles:
   Anything you open on an untrusted page can also not be trusted.
   Some mail clients, such as Apple Mail, don't have a status bar
   and show the destination address in a [tooltip](https://en.wikipedia.org/wiki/Tooltip) instead.
-  (Apple Mail is smart enough to override any tooltips which the sender provided
+  And yes, Apple Mail is smart enough to override any tooltips that a sender provided
   with the [`title` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
-  I've checked this! 🤓 )
+  I've tested this.
 - **Use a password manager**: Seriously.
   [Password managers](https://en.wikipedia.org/wiki/Password_manager) not only allow you
   to have a long, randomly-generated password for each website,
@@ -9400,7 +9416,7 @@ by sticking to the following principles:
   Password managers just won't do this for you if the domain is different.
   This is just [one more level of defense](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)),
   which is especially useful for innocuous-looking actions that don't trigger your alarm bells.
-  For example, some websites require you to log in before you can unsubscribe from their newsletter
+  For example, some websites require you to log in before you can unsubscribe from their newsletter,
   and such an email and login can be bogus, of course.
 - **Verify the sender**: Who sent you the email?
   Since the sender of an email can ([still](#domain-authentication)) be [spoofed](#spoofing),
@@ -9432,8 +9448,8 @@ by sticking to the following principles:
 Malicious display names
 </summary>
 
-In my opinion, the sender's [display name](#display-name) should only be used
-as the suggested name when the recipient adds the sender's address to their address book.
+In my opinion, the sender's [display name](#display-name) should be used
+as the suggested name only when the recipient adds the sender's address to their address book.
 Since the sender can choose any display name they want, it shouldn't be displayed anywhere else.
 Unfortunately, I'm not aware of any mail client which handles the display name like this.
 [Gmail](https://en.wikipedia.org/wiki/Gmail),
@@ -9458,11 +9474,11 @@ Since we humans tend to [confirm what we already think](https://en.wikipedia.org
 rather than to question our initial assumptions and beliefs,
 the behavior of these mail clients seems reckless to me.
 Many users might not check the sender's email address
-when they think they already know who the sender is from the message overview screen.
+when they think that they already know who the sender is based on the message overview screen.
 
 The very least that mail clients should do to prevent phishing attacks
 is to show a warning if a known display name is used by an unknown sender.
-I have only seen this in the Gmail web interface so far.
+I have seen this only in the Gmail web interface so far.
 For some reasons, I can no longer replicate this, though.
 
 {% include image.md source="gmail-phishing-warning.png" caption="How Gmail warns its users when a known display name is used by an unknown sender." image-max-width="580" %}
@@ -9472,20 +9488,20 @@ For some reasons, I can no longer replicate this, though.
 
 #### Confidentiality and integrity
 
-As we have seen [earlier](#tls-deployment-statistics), the percentage of emails
-which are encrypted and authenticated in transit increased significantly in the last decade.
-When you send an email, though, you have no guarantees
+As we saw [earlier](#tls-deployment-statistics), the percentage of emails
+which are encrypted and authenticated in transit increased significantly over the last decade.
+When you send an email, though, there is no guarantee
 that the confidentiality and integrity of your message is protected
-when it is relayed from your outgoing mail server to the incoming mail server of the recipients.
+when it is relayed from your outgoing mail server to the incoming mail server of the recipient.
 This is especially problematic when email is used to perform security-critical operations,
 such as [password resets](https://en.wikipedia.org/wiki/Self-service_password_reset#Email_or_phone_based_resets).
 Due to backward compatibility, the [email protocols](#protocols)
-are only secure against [passive attackers](#implicit-tls-versus-explicit-tls).
-I will cover efforts to make email secure against active attackers in the [last chapter](#transport-security).
+are secure only against [passive attackers](#implicit-tls-versus-explicit-tls).
+I will cover the efforts to make email secure against active attackers in the [last chapter](#transport-security).
 
 In my opinion, mail clients should warn their users if the incoming mail server of one of the recipients
-doesn't support strict transport security.
-You can only increase the pressure on email service providers by increasing the awareness of users.
+doesn't support [strict transport security](#transport-security).
+You can increase the pressure on email service providers only by increasing the awareness of users.
 Gmail provides an easy way to see whether a received message has been authenticated and encrypted in transit,
 which allows users to assess the authenticity and, [somewhat misleadingly](#reporting-in-header-fields),
 the confidentiality of a message at least after it has been transmitted:
@@ -9517,8 +9533,8 @@ If the `From` address ends in one of these domains, the message is deleted immed
 My custom anti-spam rule, which also includes the domains of sales companies, does wonders for my inbox.
 The problem with custom email filters, though, is that they often work
 like [shotguns](https://en.wikipedia.org/wiki/Shotgun):
-They certainly hit the emails you wanted to remove from your inbox
-but, due to their simplicity, they likely bring down legitimate messages as well.
+They certainly hit the messages you wanted to remove from your inbox,
+but due to their simplicity, they likely bring down legitimate messages as well.
 As long as senders send emails automatically, recipients will remove them automatically.
 Casualties are to be expected in such a setup.
 
@@ -9528,12 +9544,9 @@ Casualties are to be expected in such a setup.
 [HTML emails](#html-emails) can be [styled](#email-styling).
 When you reply to or forward such an email, your mail client has to make sure
 that the quoted message cannot change the appearance of your own message.
-If your mail client fails to do so, someone can put words into your mouth:
-It seems to the recipient of your reply or forwarded message
-that you said things which you never did.
 If the quoted message isn't escaped properly,
 an attacker can inject text into the victim's response.
-When quoting an HTML message, mail clients need to ensure two things:
+When quoting an HTML message, mail clients need to ensure the following two things:
 - **Scoped styles**: The style of the quoted message may not leak into the surrounding message.
   If the quoted message uses the [`<link>` or `<style>` element](#email-styling) for styling,
   these styles have to be scoped to the quoted message.
@@ -9563,14 +9576,14 @@ When quoting an HTML message, mail clients need to ensure two things:
 - **No overlays**: CSS can be used to move HTML elements away from their default position in a document.
   This becomes a problem when HTML elements in the quoted message can be moved above the
   [attribution line](https://en.wikipedia.org/wiki/Posting_style#Attribution_lines)
-  since email users are trained to perceive everything above an attribution line,
-  such as `Alice wrote:`, as coming from the sender of the message.
-  I can think of three ways how HTML elements can be moved around with CSS
+  since email users are trained to perceive everything above the attribution line
+  as coming from the sender of the message.
+  I can think of three ways how HTML elements can be moved around with CSS,
   but I wouldn't be surprised if CSS has more ways to achieve this.
   Firstly, there is the [`position` property](https://developer.mozilla.org/en-US/docs/Web/CSS/position),
   with which elements can be moved relative to their default position or to an absolute position in the document.
   Secondly, the [`transform` property](https://developer.mozilla.org/en-US/docs/Web/CSS/transform)
-  can be used to `translate` HTML elements (and to `scale` and `rotate` them).
+  can be used to `translate` HTML elements (and to `scale` and to `rotate` them).
   Thirdly, [negative margins](https://www.quirksmode.org/blog/archives/2020/02/negative_margin.html)
   have a similar effect as `position: relative;`.
   Without having tested all possibilities,
@@ -9579,8 +9592,8 @@ When quoting an HTML message, mail clients need to ensure two things:
   [supported CSS properties](https://developers.google.com/gmail/design/reference/supported_css)
   and also removes negative margins before displaying a message.
   Desktop clients, on the other hand, struggle with this.
-  `position: absolute;` and `margin-top: -200px;` work in both Apple Mail and Thunderbird.
-  Therefore, simply restricting styles to inline CSS in order to scope the styles isn't enough.
+  `position: absolute;` and `margin-top: -200px;` work in Apple Mail and in Thunderbird.
+  Restricting styles to inline CSS isn't enough to scope the styles.
   Doing so would make it more difficult, though,
   to show the injected text only in the reply but not when composing the reply.
 
@@ -9602,7 +9615,7 @@ Thunderbird example exploit
 If you reply to or forward the following message with "No, I don't." in Thunderbird,
 the recipient will see "Yes, I do." instead.
 If you have already disabled the composition of messages in HTML,
-you have to press "Shift" when you click on the "Reply" or "Forward" button.
+you have to press "Shift" when you click on the "Reply" or the "Forward" button.
 For this particular attack to work, the message has to be composed in the "Paragraph" style.
 
 <figure markdown="block">
@@ -9630,7 +9643,7 @@ How to exploit Thunderbird's failure to scope the styles of the quoted message.
 <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      p { font-size: 0; }\n      p::before { content: 'Yes, I do.'; font-size: initial; }\n      p + p { display: none; }\n      p[_moz_dirty] { display: block; font-size: initial; }\n      p[_moz_dirty]::before { display: none; }\n    </style>\n  </head>\n  <body>\n    <div>Hello, do you like my proposal?</div>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this Thunderbird exploit example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 The attack uses the [`::before` pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)
-to inject the text and `p[_moz_dirty]` to hide the injected text during composition.
+to inject the text, and `p[_moz_dirty]` to hide the injected text during composition.
 
 </figcaption>
 </figure>
@@ -9684,8 +9697,9 @@ to make the injected text appear only once.
 </figcaption>
 </figure>
 
-If you click on "Forward", Outlook.com inlines the CSS but calls the inline function not the original message
-but rather on the quoted message wrapped with the attribution line.
+If you click on "Forward", Outlook.com inlines the CSS.
+However, it calls the inlining function on the quoted message wrapped with the attribution line
+instead of the original message.
 By adding the style `b { display: none !important; }`,
 the sender can hide the parts which are generated by Outlook.com,
 such as "From:", "Sent:", "To:", and "Subject:".
@@ -9707,7 +9721,7 @@ and got the following response from Microsoft two weeks later on 8 February 2021
 
 #### Different appearances
 
-Another issue with email is that the same message can appear differently for different recipients.
+Another issue with email is that the same message can appear differently to different recipients.
 This is a problem whenever you refer to the content of an earlier message,
 no matter whether you [quote the message](#quoting-html-messages)
 or reference it in the [`In-Reply-To` header field](#message-identification).
@@ -9718,7 +9732,7 @@ Emails can appear differently for three reasons:
   so that the mail client of the recipient can display the last version
   whose [content type](#content-type) it supports.
   However, nothing guarantees that the various parts contain the same content.
-  [Spam filters](#heuristics) might flag messages whose alternative parts diverge too much from one another
+  [Spam filters](#heuristics) might flag messages whose alternative parts diverge too much from one another,
   but determining whether different parts contain the same content is more difficult than it seems.
   Let's look at an example:
 
@@ -9745,17 +9759,17 @@ Emails can appear differently for three reasons:
   If you know that your accountant uses a plaintext-only mail client, this attack will work.
   On most HTML-capable mail clients,
   you can see the plaintext version only by inspecting the [raw message](#raw-message).
-  Thunderbird, however, allows you to change which part is displayed by
-  switching "Message Body As" in the "View" menu.
+  Thunderbird, however, allows you to change which part is being displayed by
+  switching the "Message Body As" in the "View" menu.
   If you use `display: none;` instead of `font-size: 0;`,
   Apple Mail won't include the additional zero in the plaintext reply as it uses something
   like [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
   to determine the plaintext content.
   There are plenty of ways to [hide content with CSS](#hide-content-with-css), though,
   and the plaintext conversion algorithm would have to consider them all.
-  Since computing what is actually displayed is impractical,
+  Since computing what is actually being displayed is impractical,
   the solution has to be to force all content to render in HTML messages by disabling those CSS properties.
-  As already the original message could have contained conflicting alternative parts,
+  Since already the original message could have contained conflicting alternative parts,
   mail clients which take security seriously should probably warn their users
   when they reply to `multipart/alternative` messages
   because most mail clients hide the quoted messages in email conversations.
@@ -9806,8 +9820,8 @@ Emails can appear differently for three reasons:
 
   Media queries are useful to design websites for various screen sizes,
   which is known as [responsive web design](https://en.wikipedia.org/wiki/Responsive_web_design).
-  As emails are read on a wide variety of devices,
-  media queries are an important technique to make them look well on all devices.
+  Since emails are read on a wide variety of devices,
+  media queries are an important technique to make them look good on all devices.
   Since media queries and [selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#selectors)
   aren't allowed in the [`style` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style),
   conditional rendering is much easier in mail clients which support [internal or external CSS](#email-styling),
@@ -9816,9 +9830,8 @@ Emails can appear differently for three reasons:
   Thunderbird no longer supports media queries.
   In my opinion, this is the wrong approach
   and the fix should rather be to force all content to render.
-  Styles should affect only how content is displayed, not which content is displayed.
-  [Which media features are supported](https://www.campaignmonitor.com/css/properties/media-queries/)
-  varies greatly among clients.
+  Styles should affect only how content is displayed, not which content is being displayed.
+  The [supported media features](https://www.campaignmonitor.com/css/properties/media-queries/) vary greatly among clients.
   For example, the screen width media queries are supported by
   Gmail, Outlook.com, Yahoo Mail, and Apple Mail (also on iOS).
   The [`pointer` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer),
@@ -9826,7 +9839,7 @@ Emails can appear differently for three reasons:
   is removed by the Gmail and Yahoo Mail webclients.
 - **Different implementations**:
   As long as different users use different mail clients which sanitize emails differently,
-  attackers can draft messages which are displayed differently for different recipients.
+  attackers can draft messages which are displayed differently to different recipients.
   Since it's easy to learn [which mail client someone uses](#sender-towards-recipients),
   it's often not difficult to have some part of a message be shown or hidden for a specific recipient.
   I've drafted such a message for you:
@@ -9885,8 +9898,8 @@ Just because someone is listed as another recipient
 doesn’t mean that they received the same message as you.
 The abuse of conditional CSS rules as a signing oracle was discovered and published by
 [Jens Müller and his colleagues](https://arxiv.org/abs/1904.07550) in 2019.
-The problem with diverging `multipart/alternative` parts was thereafter discussed in this
-[Thunderbird issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1530106).
+The problem with diverging `multipart/alternative` parts was discussed thereafter
+in [this Thunderbird issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1530106).
 
 <details markdown="block">
 <summary markdown="span" id="hide-content-with-css">
@@ -9897,7 +9910,7 @@ There are plenty of ways to hide text and other content with CSS.
 While this is useful on the Web, where you can have dynamic content,
 there is no reason to allow hidden content in emails,
 where you can't unhide it with JavaScript.
-(I know that one can accomplish amazing things with just CSS,
+(I know that one can accomplish amazing things with only CSS,
 such as [tabbed areas](https://stackblitz.com/edit/medium-tabs?file=style.css),
 but do we really need this in emails?)
 Jens Müller and his co-authors included the following table of content-hiding CSS properties
@@ -9931,12 +9944,12 @@ If you can think of another way, [let me know](mailto:contact@ef1p.com).
 
 For some of the properties, such as `font-size` and `opacity`,
 mail clients should enforce a minimum value.
-For other properties, such as `display`, only certain values have to be disallowed.
+For other properties, such as `display`, only certain values should be allowed.
 Many of the properties can be removed completely.
 For example, [Gmail doesn't support](https://developers.google.com/gmail/design/reference/supported_css)
 `visibility`, `filter`, `clip`[`-path`], `position`, and `transform` at all.
-Interestingly, the [`text-`]`overflow` property can be used to hide content based on the screen size of the client,
-even when only inline styles are allowed.
+Interestingly, the [`text-`]`overflow` property can be used to hide content based on the screen size of the client
+even if only inline styles are allowed.
 In order to make a static analysis even possible,
 all [CSS functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions),
 such as [`calc()`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc()), should be removed.
@@ -9947,17 +9960,17 @@ Otherwise, an attacker can simply replace `opacity: 0` with `opacity: calc(1 - 1
 
 ### Complexity
 
-If you made it to this paragraph, I probably don't need to convince you that email is incredibly complex.
+Since you made it to this paragraph, I probably don't need to convince you that email is incredibly complex.
 Email is a system that has been retrofitted to modern requirements for 40 years.
 It's no wonder then that what we have today is a complicated patchwork of extensions.
-Just to be clear: I don't want to criticize anyone in this subsection.
+Just to be clear: I don't want to criticize anyone in this section.
 Most of the design decisions that led us to the current situation were reasonable at the time.
 I still think it's a good idea to assess what brought us here
 as this allows us to appreciate what we have now.
 In my view, the following limitations of early email are responsible for most of today's complexity:
 - [**Text-based protocols**](/internet/#text-based-protocols):
   Using characters to delimit the various parts of protocols and messages
-  makes it easy for us to interact with servers manually
+  makes it easy for us to interact with servers manually,
   but it also prevents us from sending arbitrary content without escaping it first.
   [SMTP](#simple-mail-transfer-protocol) and [POP3](#post-office-protocol-version-3)
   require [periods to be escaped](#message-termination),
@@ -9969,9 +9982,9 @@ In my view, the following limitations of early email are responsible for most of
   Since each line of a message may consist of at most 1'000 characters,
   [folding whitespace](https://tools.ietf.org/html/rfc5322#section-3.2.2)
   is required for [header fields](#header-fields-and-body),
-  long text lines need to be [broken](#soft-line-breaks)
+  long text lines have to be [broken](#soft-line-breaks)
   without conflicting with [quoting conventions](#quoting-the-previous-message),
-  and system-specific [newline characters](#newline-characters) have to be converted to `{CR}{LF}`.
+  and system-specific [newline characters](#newline-characters) must be converted to `{CR}{LF}`.
 - [**ASCII-only characters**](/internet/#text-encoding):
   Email is older than [ISO 8859](https://en.wikipedia.org/wiki/ISO/IEC_8859)
   and [Unicode](https://en.wikipedia.org/wiki/Unicode).
@@ -9980,9 +9993,9 @@ In my view, the following limitations of early email are responsible for most of
   in [header fields](#header-encoding), in [domain names](#internationalized-domain-names),
   in [parameter values](#internationalized-parameter-values), and in [URLs](#percent-encoding).
   To make things even more complicated, all these encodings are different.
-  When the involved servers support it, UTF-8 can be used
-  in the [local part](#email-address-internationalization) of an email address
-  but such messages must be [downgraded](#email-address-internationalization)
+  When the involved servers [support `SMTPUTF8`](#common-smtp-extensions),
+  UTF-8 can be used in the [local part](#email-address-internationalization) of an email address,
+  but internationalized messages have to be [downgraded](#email-address-internationalization)
   for clients which don't support UTF-8.
 - **No** [**submission protocol**](#submission-versus-relay):
   In the early years of email, mail clients could submit
@@ -10008,9 +10021,9 @@ In my view, the following limitations of early email are responsible for most of
   Emails and account passwords couldn't be secured in transit for more than a decade.
   Once [Transport Layer Security (TLS)](/internet/#transport-layer-security) became popular,
   existing protocols were retrofitted so that all communication could be encrypted and authenticated.
-  All the protocols were extended to support [Explicit TLS](#implicit-tls-versus-explicit-tls)
+  All the protocols were extended to support [Explicit TLS](#implicit-tls-versus-explicit-tls),
   but all of them require [different commands](#libressl-doesnt-support-managesieve) to activate TLS,
-  which makes it difficult to use some of them from the [command-line interface](#command-line-interface).
+  which makes it difficult to use some of them from the [command line](#command-line-interface).
   The introduction of protocol variants which use [Implicit TLS](#implicit-tls-versus-explicit-tls)
   required [additional port numbers](#port-numbers), which confuses ordinary users even more.
   Since mail servers don't know whether other mail servers support TLS, the communication between
@@ -10018,8 +10031,8 @@ In my view, the following limitations of early email are responsible for most of
   I'll cover in the [last chapter](#transport-security) of this article how such attacks can be prevented.
 - **No** [**sender authentication**](#domain-authentication):
   Since emails aren't authenticated, it's quite easy to [spoof the sender](#spoofing) of a message.
-  This aggravates problems such as [spam](#spam) and [phishing](#phishing)
-  and can lead to undesirable [backscatter](#backscatter).
+  This aggravates problems such as [spam](#spam) and [phishing](#phishing),
+  and it can lead to undesirable [backscatter](#backscatter).
   I'll explain the mechanisms which are used to alleviate this issue in the [last chapter](#domain-authentication).
 
 <details markdown="block">
@@ -10027,9 +10040,9 @@ In my view, the following limitations of early email are responsible for most of
 Benign inconsistencies
 </summary>
 
-As we have seen in the previous subsection, complexity is bad for [security](#security).
-As we will see in the next subsection, complexity is also bad for [innovation](#innovation).
-But for now, let's have some fun with a few benign inconsistencies caused by email's complexity:
+As we have seen in the [previous section](#security), complexity is bad for security.
+As we will see in the [next section](#innovation), complexity is also bad for innovation.
+But for now, let's have some fun with a few benign inconsistencies, which are caused by email's complexity:
 - What should happen when a user enters a `Subject` which is already [Encoded-Word encoded](#header-encoding)?
   In my opinion, the recipient should see exactly what the sender entered.
   In other words, `decode(encode(Subject)) = Subject` should always hold even if the `Subject` is already encoded.
@@ -10040,7 +10053,7 @@ But for now, let's have some fun with a few benign inconsistencies caused by ema
   It just says at [the bottom of page 8](https://tools.ietf.org/html/rfc2047#page-8):
   "In rare cases it may be necessary to encode ordinary text that looks like an Encoded-Word."
   When you paste `=?ISO-8859-1?Q?=A1Buenos_d=EDas!?=`,
-  which is the Encoded-Word encoding of `¡Buenos días!`, into the `Subject` field of various clients,
+  which is the Encoded-Word encoding of `¡Buenos días!`, into the `Subject` field of various mail clients,
   they send the following `Subject` header field:
 
   <figure markdown="block">
@@ -10061,17 +10074,17 @@ But for now, let's have some fun with a few benign inconsistencies caused by ema
   </figure>
 
   Only Apple Mail produces an encoding in which the recipient sees what the sender entered.
-  Thunderbird and Gmail recognize that the user entered an Encoded-Word but instead of escaping it,
-  they decode and re-encode the user-provided string.
+  Thunderbird and Gmail recognize that the user entered an Encoded-Word,
+  but instead of escaping it, they decode and re-encode the user-provided string.
   Outlook.com also recognizes that the user entered an Encoded-Word
-  but then only lowercases the [character set](#character-encoding).
+  but then only lowercases the [character set](#character-encoding). 🤷‍♂️
 - What the standard [does say](https://tools.ietf.org/html/rfc2047#section-7)
   is that compliant mail clients must ensure that all words
   which begin with `=?` and end with `?=` are valid Encoded-Words.
   So what happens if you enter `=?Hello?=` in the subject line?
   Only Apple Mail encodes this as `=?us-ascii?B?PT9IZWxsbz89?=`.
   Thunderbird, Gmail, Outlook.com, and Yahoo Mail leave the string as is
-  and therefore don't conform to [RFC 2047](https://tools.ietf.org/html/rfc2047).
+  and thus don't conform to [RFC 2047](https://tools.ietf.org/html/rfc2047).
 - [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.2.2) states that
   runs of whitespace are to be interpreted as a single space character in structured header fields.
   The [`Subject`](https://tools.ietf.org/html/rfc5322#section-3.6.5), however, is an unstructured header field,
@@ -10104,22 +10117,25 @@ So here comes the list of things which should never have been approved or implem
   Since emails are almost always parsed by mail clients, which ignore any comments,
   comments increase the complexity of the [message format](#format) without bringing any benefits.
   Where comments do have some merit, such as in the [`Received` header field](#trace-information),
-  an extensible list of name-value pairs, such as the parameters in [MIME header fields](#content-type),
+  an extensible list of name-value pairs similar to the parameters in [MIME header fields](#content-type)
   could have been used instead.
   You find an example message with plenty of comments in
   [Appendix A.5 of RFC 5322](https://tools.ietf.org/html/rfc5322#appendix-A.5).
   (The example violates a [`SHOULD NOT`](https://tools.ietf.org/html/rfc2119#section-4)
   [two](https://www.rfc-editor.org/errata/eid2515) [times](https://www.rfc-editor.org/errata/eid2579), though.)
-- [**Valid address syntax**](#address-syntax):
+- [**Address syntax**](#address-syntax):
   Determining whether an email address is valid or whether two addresses are the same should be easy.
   I think I have a good understanding of the former question
   but I [still struggle](#address-syntax) with the latter.
+  Given that arbitrary strings can be encoded with only letters and digits if needed,
+  the syntax of email addresses should never have been so complicated.
+  I believe it's a perfect example of where less would have been more.
 - [**Vague Bcc semantics**](#bcc-removal):
-  [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) only requires
+  [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) requires only
   that `Bcc` recipients are never disclosed to non-`Bcc` recipients.
-  Within this constraint, implementations can do pretty much whatever they want.
+  Within this constraint, implementations can do pretty much anything they want.
   In my opinion, user-facing behavior should be fully specified
-  because users cannot be expected to study what a particular mail client does.
+  because users cannot be expected to study how a particular email setup behaves.
 - [**MIME version**](#content-encoding):
   The `MIME-Version: 1.0` header field is pointless, which is also acknowledged by
   [the author himself](https://www.networkworld.com/article/2199390/the-mime-guys--how-two-internet-gurus-changed-e-mail-forever.html).
@@ -10146,7 +10162,7 @@ If you want to have something added to or removed from this list, [let me know](
 
 ### Innovation
 
-Besides [JMAP](#json-meta-application-protocol), [dynamic content](#dynamic-content)
+Besides [JMAP](#json-meta-application-protocol), [dynamic content](#dynamic-content),
 and what we'll discuss in the [last chapter](#fixes),
 there was barely any innovation over the last two decades.
 This is a pity given that email is the only decentralized communication service with global adoption.
@@ -10161,10 +10177,10 @@ I can only speculate about the reasons for the lack of innovation:
   If you want to write a mail client for a general audience,
   you have to support [IMAP](#internet-message-access-protocol).
   If you have to deal with the intricacies of IMAP anyway,
-  you don't gain anything by implementing newer [access protocols](#access-protocols),
-  such as [JMAP](#json-meta-application-protocol), as well.
-  As long as all mail clients that people want to use support IMAP,
-  existing email service providers have no incentive to support JMAP as well.
+  you don't gain anything by implementing a newer [access protocols](#access-protocols)
+  such as [JMAP](#json-meta-application-protocol) as well.
+  As long as all mail clients which people want to use support IMAP,
+  existing email service providers have little incentive to support JMAP.
 - **Saturation**: The email market is saturated with free solutions for clients, servers, and hosting.
   The low willingness to pay for a product or service
   makes it really hard to build an innovative business in this space.
@@ -10185,13 +10201,13 @@ For a start, we still have no [`No-Reply` header field](#no-reply),
 no [`Proof-Of-Work` header field](#challenges),
 no header field to [reference the previous message](#different-appearances)
 by its [hash](#cryptographic-hash-functions)
-(ideally using a [Merkle tree](#applications-of-cryptographic-hash-functions) for MIME multiparts
+(ideally using a [Merkle tree](#applications-of-cryptographic-hash-functions) for MIME parts
 so that attachments can be removed from a message without invalidating its hash),
 no header fields for the sender's contact details
 to replace [email signatures](https://en.wikipedia.org/wiki/Signature_block),
 no [content type](#content-type) to initiate and reply to surveys, etc.
 
-Some features, like [message compression](#message-compression), exist in theory but not in practice.
+Some features, such as [message compression](#message-compression), exist in theory but not in practice.
 Other features, which originated in the alternative email system [X.400](https://en.wikipedia.org/wiki/X.400),
 were formally specified as IETF email header fields in order to increase compatibility between the two systems
 but were never recommended for general use.
@@ -10204,12 +10220,12 @@ and [`Reply-By`](https://tools.ietf.org/html/rfc4021#section-2.1.51) to request 
 #### Client innovation
 
 Given the decentralized nature of email, protocol and format innovations are difficult to achieve.
-However, nothing hinders mail clients to innovate at the edge of the network.
+However, nothing hinders mail clients from innovating at the edge of the network.
 I've mentioned plenty of ideas throughout this article.
 Among them are [sender approval](#spam), [automatic challenges](#challenges),
 [`Bcc` recovery](#bcc-recovery), [privacy features](#privacy) such as
 [proxying remote content](#proxying-remote-content) via [Tor](https://en.wikipedia.org/wiki/Tor_(anonymity_network))
-(and even submit messages via Tor as long as email service providers leak the IP address of their users),
+(and even submitting emails via Tor as long as email service providers leak the IP addresses of their users),
 and [security features](#security) such as preventing [malicious display names](#malicious-display-names)
 and [different appearances](#different-appearances) of messages.
 It would be great if my mail client displayed whether a received message was successfully
@@ -10219,10 +10235,10 @@ I would like to see native support for [DNS-based autoconfiguration](#autoconfig
 [Sieve](#mail-filtering-language) and [ManageSieve](#filter-management-protocol),
 as well as [PGP](#comparison-of-smime-and-pgp).
 I don't understand why mail clients separate the outbox from the inbox.
-(I don't know any other messaging app which does this and just because
-[IMAP](#internet-message-access-protocol) uses folders doesn't mean you have to display them.)
+(I don't know any other messaging app which does this,
+and just because [IMAP](#internet-message-access-protocol) uses folders doesn't mean you have to display them.)
 I think it would be great if my mail client could
-[timestamp](https://opentimestamps.org/) all the messages that I send.
+[timestamp](https://opentimestamps.org/) all the emails that I send.
 Whenever I submit a responsible disclosure, I do this manually.
 
 
@@ -10235,13 +10251,13 @@ and how [confidentiality and integrity](#confidentiality-and-integrity) is ensur
 [active attacker](#implicit-tls-versus-explicit-tls) with [strict transport security](#transport-security).
 Many of the approaches rely on the [Domain Name System (DNS)](/internet/#domain-name-system)
 to provide additional information.
-This is only secure if the records are authenticated with
+This is secure only if the records are authenticated with
 [DNSSEC](/internet/#domain-name-system-security-extensions).
 I will no longer mention this aspect in the remaining subsections.
 Some of the steps have to be performed by the owner of the domain rather than the email service provider.
 If you use a custom domain for your emails, you should definitely read the part about
 [domain authentication](#domain-authentication) to make sure that your domain is configured properly.
-Since email is a decentralized service, we can only improve its security in a collective effort.
+Since email is a decentralized service, we can improve its security only in a collective effort.
 
 
 ### Domain authentication
@@ -10592,7 +10608,7 @@ On the other hand, DMARC policies also cover subdomains,
 where the [policy for subdomains](#subdomain-policy)
 can be different from the policy for the [organizational domain](#organizational-domain).
 If you do configure a DMARC record for unused domains,
-an SPF record is only necessary for mail servers that verify SPF but don't support DMARC.
+an SPF record is necessary only for mail servers that verify SPF but don't support DMARC.
 Given that SPF was introduced in [2006](https://tools.ietf.org/html/rfc4408)
 and DMARC in [2015](https://tools.ietf.org/html/rfc7489),
 such servers exist and won't vanish anytime soon.
@@ -10720,7 +10736,7 @@ to match the sender's IP address:
   an additional lookup is required for each returned `MX` record.
   These lookups count towards the [limit of 10 DNS queries](https://tools.ietf.org/html/rfc7208#section-4.6.4)
   after the initial record retrieval.
-  Therefore, only use the `mx` mechanism if absolutely necessary.
+  Therefore, use the `mx` mechanism only if absolutely necessary.
   A different domain can be specified after a colon and the address range can be extended with a CIDR suffix.
 - [`include`](https://tools.ietf.org/html/rfc7208#section-5.2)
   matches if the evaluation of the referenced SPF record results in a `pass` for the sender's IP address.
@@ -10731,7 +10747,7 @@ to match the sender's IP address:
   unless they prevent a later mechanism from producing a `pass` result.
   For example, if the SPF record of `example.com` contains `-include:example.net`
   and the SPF record at `example.net` is `v=spf1 -a ip4:192.0.2.1 -all`,
-  the `-a` only matters if it produces a fail for the IP address `192.0.2.1`.
+  the `-a` matters only if it produces a fail for the IP address `192.0.2.1`.
   If this is not the case and the sender's IP address is `192.0.2.1`,
   the evaluation of the referenced SPF record results in a `pass`.
   This causes the `include` mechanism of `example.com` to match
@@ -10741,7 +10757,7 @@ to match the sender's IP address:
   other addresses can be useful when a range of IP addresses shall be authorized with a few exceptions.
 - [`exists`](https://tools.ietf.org/html/rfc7208#section-5.7)
   matches if the domain name provided after the colon has an `A` record.
-  This is only useful in combination with [macros](#spf-macros), where parts of the provided domain name
+  This is useful only in combination with [macros](#spf-macros), where parts of the provided domain name
   can be replaced with the local part of the `MAIL` `FROM` address or the sender's IP address.
   This makes it possible to produce different results for different users.
 - [`ptr`](https://tools.ietf.org/html/rfc7208#section-5.5)
@@ -10764,7 +10780,7 @@ Instead of including examples here, you can query real SPF records with the [abo
 If your SPF record triggers more than 10 lookups,
 you have to inline some of your `a` or `mx` mechanisms.
 Before you inline an `include` mechanism, make sure that you fully understand how they work.
-It goes without saying that you should only authorize IP addresses
+It goes without saying that you should authorize only IP addresses
 which belong to you or which send emails on your behalf.
 
 </details>
@@ -10833,7 +10849,7 @@ The [`HELO` identity](https://tools.ietf.org/html/rfc7208#section-2.3) can also 
 by evaluating the SPF record of the `HELO`/`EHLO` domain.
 Email service providers would have to configure SPF records for each of their outgoing mail servers.
 As far as I can tell, this is rarely done in practice.
-I only found SPF records for the outgoing mail servers of Outlook.com.
+I found SPF records only for the outgoing mail servers of Outlook.com.
 Unless you run your mail servers yourself, this aspect of SPF is nothing to worry about.
 
 </details>
@@ -10910,7 +10926,7 @@ DKIM signatures are added in a new header field,
 which makes them unobtrusive for users whose mail clients don't support DKIM.
 Also unlike S/MIME and PGP, DKIM uses the [Domain Name System](/internet/#domain-name-system)
 as its [public-key infrastructure](/internet/#public-key-infrastructure),
-which is only secure in combination with [DNSSEC](/internet/#domain-name-system-security-extensions).
+which is secure only in combination with [DNSSEC](/internet/#domain-name-system-security-extensions).
 The owner of a domain can publish several [public keys](/internet/#digital-signatures)
 so that different servers can use different [private keys](/internet/#digital-signatures) for signing.
 The ability to publish several keys is also useful for introducing a new key before revoking an old one.
@@ -10982,7 +10998,7 @@ to make it easier to analyze and modify existing DKIM records.
 Non-repudiation
 </summary>
 
-Unlike the sender's IP address, which can only be verified by the first incoming mail server,
+Unlike the sender's IP address, which can be verified only by the first incoming mail server,
 [ordinary digital signatures](/internet/#digital-signatures) can be verified by anyone.
 In comparison with [SPF](#sender-policy-framework),
 DKIM has the advantage that [email forwarding](#email-forwarding) due to
@@ -11100,7 +11116,7 @@ I have no idea why Gmail signs the [`MIME-Version` header field](#content-encodi
 but not the [`Content-Type` header field](#content-type).
 The latter is much more important as it includes the [multipart type](#multipart-messages)
 as well as the [boundary delimiter](#boundary-delimiter).
-Moreover, Gmail only includes the [`Cc` header field](#recipients) in the `h` tag
+Moreover, Gmail includes only the [`Cc` header field](#recipients) in the `h` tag
 if the message has `Cc` recipients.
 By not always including `Cc` (and `Bcc`) in the list of signed header fields,
 such a field can be added by a relaying mail server without invalidating the signature.
@@ -11218,9 +11234,9 @@ Once they have received the email, they can relay the signed message to
 [an arbitrary number of recipients](https://tools.ietf.org/html/rfc6376#section-8.6).
 The recipients might not see their email address in the `To` or `Cc` field
 but this is usually also the case for `Bcc` recipients.
-The email service provider who signed the message can only stop such a
+The email service provider who signed the message can stop such a
 [replay attack](https://en.wikipedia.org/wiki/Replay_attack)
-by revoking the corresponding signing key.
+only by revoking the corresponding signing key.
 If the email service provider doesn't use
 [a different key for each user](https://tools.ietf.org/html/rfc6376#section-8.7),
 which would increase the load on their domain name servers considerably,
@@ -11404,7 +11420,7 @@ Organizational domain
 </summary>
 
 An [organizational domain](https://tools.ietf.org/html/rfc7489#section-3.2) is a domain
-which was registered with a [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar).
+which is registered with a [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar).
 For example, the organizational domain of `support.example.com` is `example.com`.
 While [second-level domains](https://en.wikipedia.org/wiki/Second-level_domain) can be registered
 for many [top-level domains](https://en.wikipedia.org/wiki/Top-level_domain),
@@ -12153,7 +12169,7 @@ without sacrificing backward compatibility:
    [MTA-STS](#mail-transfer-agent-strict-transport-security) works like this.
 2. **Authenticated channel**: The recipient can indicate support for TLS through an authenticated channel.
    [DANE](#dns-based-authentication-of-named-entities) works like this.
-3. **User configuration**: Let the user require that their messages may only be delivered with TLS.
+3. **User configuration**: Let the user require that their messages may be delivered only with TLS.
    [REQUIRETLS](#requiretls-extension) makes this possible.
 {:.compact}
 
@@ -12293,7 +12309,7 @@ DANE relies on [DNSSEC](/internet/#domain-name-system-security-extensions) for t
   Personally, I like to think of `TLSA` as Transport Layer Security Anchor.)
   Letting the service providers configure the necessary `TLSA` records
   at their domains has [some advantages](#tlsa-record-location).
-  The `TLSA` records can only be trusted, though, if the DNS records are authenticated with DNSSEC
+  However, the `TLSA` records can be trusted only if the DNS records are authenticated with DNSSEC
   both in the zone of the customer and in the zone of the service provider.
   If the reply to the `MX`, `SRV`, or `CNAME` query can be spoofed by an attacker,
   the attacker can pose as the legitimate service provider to unsuspecting clients.
@@ -12779,7 +12795,7 @@ A couple of remarks on the above table:
 - "Pre-DANE TLS" stands for whatever clients did before the introduction of DANE.
   In the case of [ESMTP](#extended-simple-mail-transfer-protocol),
   this means [opportunistic TLS](#transport-security).
-  In the case of [JMAP](#json-meta-application-protocol), which is only used with TLS,
+  In the case of [JMAP](#json-meta-application-protocol), which is used only with TLS,
   this would mean PKIX-authenticated TLS once JMAP/HTTPS adopts DANE.
 - In the unexpected cases of the [previous box](#name-matching),
   DANE clients can enforce DANE-authentication even if some of the DNS lookups were insecure.
@@ -14176,6 +14192,7 @@ If no such folder or file exists in your user directory, you can create them wit
 *[BBC]: British Broadcasting Corporation
 *[BiDi]: Bi-Directional (text)
 *[BIMI]: Brand Indicators for Message Identification
+*[BTC]: Bitcoin
 *[CA]: Certification Authority
 *[CAs]: Certification Authorities
 *[CDN]: Content Delivery Network
@@ -14330,6 +14347,7 @@ If no such folder or file exists in your user directory, you can create them wit
 *[URIs]: Uniform Resource Identifiers (a format for unique resource names)
 *[URL]: Uniform Resource Locator (the formal name for a web address)
 *[URLs]: Uniform Resource Locators (the formal name for web addresses)
+*[USD]: US Dollar
 *[UTC]: Coordinated Universal Time
 *[UTF]: Unicode Transformation Format
 *[UTS]: Unicode Technical Standard

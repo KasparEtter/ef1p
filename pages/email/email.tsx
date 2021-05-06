@@ -260,7 +260,7 @@ inject('code-installed-openssl', <CodeBlock>
 bind('set-openssl-command', 'click', () => setOpenSslCommand('/usr/local/opt/openssl/bin/openssl'));
 
 inject('code-message-decompression', <CodeBlock>
-    <StaticPrompt>echo -n "eNoLycgsVgCi4vzcVIXixNyCnFSF5Py8ktS8Ej0AlCkKVA==" | openssl base64 -d -A | pigz -d</StaticPrompt>
+    <StaticPrompt>echo "eNoLycgsVgCi4vzcVIXixNyCnFSF5Py8ktS8Ej0AlCkKVA==" | openssl base64 -d | pigz -d</StaticPrompt>
     <SystemReply>This is some sample content.</SystemReply>
 </CodeBlock>);
 
