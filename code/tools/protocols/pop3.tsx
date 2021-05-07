@@ -316,8 +316,8 @@ const messageFollows: Entry<string> = {
 
 const messagePlaceholder: Entry<string> = {
     name: 'Message placeholder',
-    description: 'The message which you retrieved from the server.',
-    defaultValue: '[The message consisting of the header and the body.]',
+    description: 'The header and the body of the retrieved message.',
+    defaultValue: '{HeaderAndBody}',
 };
 
 const messageDeletion: Entry<string> = {

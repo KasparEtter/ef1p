@@ -550,7 +550,7 @@ when the sender uses a `From` address which doesn't belong to them.
 Forged sender addresses are a huge problem for the [security of email](#security).
 There are [additional standards](#domain-authentication) to authenticate emails.
 For them to have the desired effect, though,
-both the sender and the recipients have use them.
+both the sender and the recipients have to use them.
 
 <details markdown="block">
 <summary markdown="span" id="sender-field">
@@ -1075,7 +1075,7 @@ without requiring every member of the organization to change their email setting
 According to [RFC 6186](https://tools.ietf.org/html/rfc6186#section-4),
 mail clients should cache the resolved hosts
 until they can no longer establish a connection or user authentication fails.
-When either of this happens,
+When either of these happen,
 mail clients are supposed to fetch the `SRV` records of the same `_service` again.
 Mail clients may not switch from IMAP to POP3 or vice versa without the user's consent.
 
@@ -2160,7 +2160,7 @@ The entity can be a person but is typically a piece of software,
 which keeps track of delivery failures in order to revise the list.
 The RFC also demands that the `From` field in the message remains the same.
 [Mailing list tools](https://en.wikipedia.org/wiki/List_of_mailing_list_software)
-often do modify the message in some ways,
+often modify the message in some ways,
 for example by adding a field to the header and a footer to the body
 in order to let recipients of the message [unsubscribe from the mailing list](#one-click-unsubscribe).
 Alias addresses and mailing lists cause difficulties for [domain authentication](#domain-authentication).
@@ -2898,7 +2898,7 @@ We're interested in only four of them:
   Therefore, it also deserves its [own box](#salted-challenge-response-authentication-mechanism).
 
 Please note that the tool hides the password in the input field but unless you use `CRAM-MD5`,
-anyone who can make a picture of your screen can easily decode the entered password.
+anyone who can take a picture of your screen can easily decode the entered password.
 When authenticating to an SMTP server, the server responds with either
 `235 2.7.0 Authentication successful` or `535 5.7.8 Error: authentication failed`.
 
@@ -3133,11 +3133,11 @@ there are some other SMTP commands, which are rarely used in practice:
 
 | Command | Argument | Description
 |-
-| [`RSET`](https://tools.ietf.org/html/rfc5321#section-4.1.1.5) | – | Resets already transmitted sender, recipient, and mail data.
-| [`VRFY`](https://tools.ietf.org/html/rfc5321#section-4.1.1.6) | Mailbox | Verifies whether the given mailbox exists on the server.
-| [`EXPN`](https://tools.ietf.org/html/rfc5321#section-4.1.1.7) | Mailing list | Expands the given mailing list (i.e. returns the members).
-| [`HELP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.8) | [Command] | Asks for helpful information about the optional command.
-| [`NOOP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.9) | – | [Does nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
+| [`RSET`](https://tools.ietf.org/html/rfc5321#section-4.1.1.5) | – | Reset already transmitted sender, recipient, and mail data.
+| [`VRFY`](https://tools.ietf.org/html/rfc5321#section-4.1.1.6) | Mailbox | Verify whether the given mailbox exists on the server.
+| [`EXPN`](https://tools.ietf.org/html/rfc5321#section-4.1.1.7) | Mailing list | Expand the given mailing list (i.e. return the members).
+| [`HELP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.8) | [Command] | Ask for helpful information about the optional command.
+| [`NOOP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.9) | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
 
 <figcaption markdown="span" style="max-width: 380px;">
 
@@ -4461,8 +4461,8 @@ and compute the `HashedKeyMac` as the HMAC with the `HashedKey`.
 The client then sends the `Key` encrypted with the `HashedKeyMac` to the server,
 which decrypts the `Key` as `KeyXorHashedKeyMac ⊕ HashedKeyMac`.
 In the next step, the server verifies whether `hash(Key) = HashedKey`.
-If this is the case, it successfully authenticated the client.
-If not, the server aborts the authentication.
+If this is the case, it has successfully authenticated the client.
+If not, the server aborts the session.
 At last, the server uses the `Key` to authenticate the same `Message` to the client.
 By also computing `KeyMac`, the client can verify that the last message was indeed sent by the server.
 Since both parties can compose the `Message`,
@@ -4787,15 +4787,15 @@ POP3 servers must support the following commands:
 
 | Command | Argument | Response | Description
 |-
-| [`USER`](https://tools.ietf.org/html/rfc1939#page-13) | Username | – | Indicates the user whose messages shall be retrieved.
-| [`PASS`](https://tools.ietf.org/html/rfc1939#page-14) | Password | – | Transmits the password to authenticate the user.
-| [`STAT`](https://tools.ietf.org/html/rfc1939#page-6) | – | Count Size | Returns the count and size of all messages.
-| [`LIST`](https://tools.ietf.org/html/rfc1939#page-6) | [Number] | Number Size | Lists the size of all messages [or of the specified one].
-| [`RETR`](https://tools.ietf.org/html/rfc1939#page-8) | Number | Message | Retrieves the message with the given number.
-| [`DELE`](https://tools.ietf.org/html/rfc1939#page-8) | Number | – | Marks the message with the given number as deleted.
-| [`RSET`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | Unmarks all messages that were marked as deleted.
-| [`NOOP`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | [Does nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
-| [`QUIT`](https://tools.ietf.org/html/rfc1939#page-10) | – | – | Deletes the marked messages and closes the connection.
+| [`USER`](https://tools.ietf.org/html/rfc1939#page-13) | Username | – | Indicate the user whose messages shall be retrieved.
+| [`PASS`](https://tools.ietf.org/html/rfc1939#page-14) | Password | – | Transmit the password to authenticate the user.
+| [`STAT`](https://tools.ietf.org/html/rfc1939#page-6) | – | Count Size | Return the count and size of all messages.
+| [`LIST`](https://tools.ietf.org/html/rfc1939#page-6) | [Number] | Number Size | List the size of all messages [or of the specified one].
+| [`RETR`](https://tools.ietf.org/html/rfc1939#page-8) | Number | Message | Retrieve the message with the given number.
+| [`DELE`](https://tools.ietf.org/html/rfc1939#page-8) | Number | – | Mark the message with the given number as deleted.
+| [`RSET`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | Unmark all messages that were marked as deleted.
+| [`NOOP`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
+| [`QUIT`](https://tools.ietf.org/html/rfc1939#page-10) | – | – | Delete the marked messages and close the connection.
 
 <figcaption markdown="span">
 The mandatory commands of POP3.
@@ -4822,10 +4822,10 @@ or a behavior which the client should know about:
 
 | Command | Argument | Response | Description
 |-
-| [`CAPA`](https://tools.ietf.org/html/rfc2449#section-5) | – | Capabilities | Lists the supported capabilities.
-| [`STLS`](https://tools.ietf.org/html/rfc2595#section-4) | – | – | Upgrades the connection from TCP to TLS just like [`STARTTLS`](#starttls-extension).
-| [`TOP`](https://tools.ietf.org/html/rfc1939#section-7) | Number X | Message | Returns the header and the top X body lines of the specified message.
-| [`UIDL`](https://tools.ietf.org/html/rfc1939#page-12) | [Number] | Number ID | Lists the permanent ID of all messages [or just the specified one].
+| [`CAPA`](https://tools.ietf.org/html/rfc2449#section-5) | – | Capabilities | List the supported capabilities.
+| [`STLS`](https://tools.ietf.org/html/rfc2595#section-4) | – | – | Upgrade the connection from TCP to TLS just like [`STARTTLS`](#starttls-extension).
+| [`TOP`](https://tools.ietf.org/html/rfc1939#section-7) | Number X | Message | Return the header and the top X body lines of the specified message.
+| [`UIDL`](https://tools.ietf.org/html/rfc1939#page-12) | [Number] | Number ID | List the permanent ID of all messages [or just the specified one].
 
 <figcaption markdown="span" style="max-width: 600px;">
 
@@ -4844,7 +4844,7 @@ Unlike the message numbering, the IDs are guaranteed to stay the same across ses
 | [`RESP-CODES`](https://tools.ietf.org/html/rfc2449#section-6.4) | – | Indicates that the server supports [extended response codes](https://tools.ietf.org/html/rfc2449#section-8) in square brackets.
 | [`AUTH-RESP-CODE`](https://tools.ietf.org/html/rfc3206) | – | Indicates that the server tells the client why an authentication attempt failed.
 | [`IMPLEMENTATION`](https://tools.ietf.org/html/rfc2449#section-6.9) | Name | Indicates the name of the server's POP3 implementation for troubleshooting.
-| [`SASL`](https://tools.ietf.org/html/rfc2449#section-6.3) | Mechanisms | Indicates the [SASL mechanisms](#user-authentication) that can be used with the [`AUTH` command](https://tools.ietf.org/html/rfc1734).
+| [`SASL`](https://tools.ietf.org/html/rfc2449#section-6.3) | Mechanisms | Indicates the [SASL mechanisms](#user-authentication) which can be used with the [`AUTH` command](https://tools.ietf.org/html/rfc1734).
 | [`LOGIN-DELAY`](https://tools.ietf.org/html/rfc2449#section-6.5) | Seconds | Indicates how many seconds the client has to wait before connecting again.
 | [`EXPIRE`](https://tools.ietf.org/html/rfc2449#section-6.7) | Days | Indicates after how many days the server deletes (retrieved) messages.
 
@@ -6942,7 +6942,7 @@ A few additional remarks:
 Unicode case folding
 </summary>
 
-The [domain name system](/internet/#domain-name-system) is
+The [domain name system](/internet/#domain-name-system) has been
 [case-insensitive](https://tools.ietf.org/html/rfc1035#section-2.3.3) since its inception.
 This means that if you search for `EF1P.com`,
 you still get the records for `ef1p.com`.
@@ -7129,11 +7129,11 @@ So how does IDNA2008 differ from IDNA2003? Let's look at a few examples:
   are two different hearts, where both of them were
   [valid under IDNA2003](https://util.unicode.org/UnicodeJsps/idna.jsp?a=%E2%9D%A4%EF%B8%8F.com%0D%0A%E2%99%A5%EF%B8%8F.com).
 - [**German eszett ß**](https://en.wikipedia.org/wiki/%C3%9F):
-  In IDNA2003, `ß` was [case folded](#unicode-case-folding) to `ss`.
+  In IDNA2003, `ß` was [case-folded](#unicode-case-folding) to `ss`.
   For example, `Gießen.de` was transformed to `giessen.de` before making the DNS lookup.
   Since `ß` is allowed in IDNA2008, `Gießen.de` is now transformed to `xn--gieen-nqa.de`.
 - [**Greek sigma ς**](https://en.wikipedia.org/wiki/Sigma):
-  Similarly, `ς` was case folded to `σ` in IDNA2003 but is now allowed in IDNA2008.
+  Similarly, `ς` was case-folded to `σ` in IDNA2003 but is now allowed in IDNA2008.
   For example, `ἑλλάς.gr` was transformed to `xn--hxa3aa7a0420a.gr` in IDNA2003
   and is now transformed to `xn--hxa3aa3a0982a.gr` in IDNA2008.
 
@@ -7978,16 +7978,17 @@ to [Base64-decode](#decoding-on-the-command-line) and ZLIB-decompress the string
 </figure>
 
 Since mail clients have no (standardized) way to advertise their capabilities to other mail clients,
-we won't see end-to-end compression of messages from the mail client of the sender
+we won't see compression of messages from the mail client of the sender
 to the mail client of the recipient anytime soon.
-This doesn't prevent mail clients and mail servers to compress messages between them, though,
+This doesn't prevent mail clients and mail servers from compressing messages between them, though,
 as they can advertise [their capabilities](#imap-extensions) as part of the used protocol.
 [RFC 4978](https://tools.ietf.org/html/rfc4978) specifies the `COMPRESS` extension
 for [IMAP](#internet-message-access-protocol),
 which allows the client and the server to agree on compressing their communication.
 Since mail clients can store messages in whatever format they want,
-compressing locally stored messages is by far the lowest hanging fruit.
-However, neither [Thunderbird](#storage-format) nor [Apple Mail](#apple-mail-storage-format) compress their stored emails.
+compressing locally stored emails is by far the lowest hanging fruit.
+However, neither [Thunderbird](#storage-format) nor [Apple Mail](#apple-mail-storage-format)
+compresses the messages which it stores locally.
 
 </details>
 
@@ -10177,7 +10178,7 @@ I can only speculate about the reasons for the lack of innovation:
   If you want to write a mail client for a general audience,
   you have to support [IMAP](#internet-message-access-protocol).
   If you have to deal with the intricacies of IMAP anyway,
-  you don't gain anything by implementing a newer [access protocols](#access-protocols)
+  you don't gain anything by implementing a newer [access protocol](#access-protocols)
   such as [JMAP](#json-meta-application-protocol) as well.
   As long as all mail clients which people want to use support IMAP,
   existing email service providers have little incentive to support JMAP.
@@ -11783,7 +11784,7 @@ incoming mail servers [have to remove](https://tools.ietf.org/html/rfc8601#secti
 all `Authentication-Results` header fields which use their own identifier as the `Verifier`.
 Since mail clients cannot know whether their incoming mail server supports this standard,
 they should interpret this header field [only on the user's request](https://tools.ietf.org/html/rfc8601#section-4.1).
-Incoming mail servers could strip all existing `Authentication-Results` header fields from incoming messages
+Incoming mail servers could strip all existing `Authentication-Results` header fields from incoming messages,
 but this invalidates any [DKIM signature](#domainkeys-identified-mail) which covered one of them.
 Furthermore, there doesn't exist a mechanism yet
 which allows mail clients to query the `Verifier` identifier of their incoming mail server.
@@ -12414,7 +12415,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   DANE clients can just compare the server's public key with its `TLSA` records.
   Complexity is not just the enemy of security,
   it also leads to partial implementations of a standard,
-  which in turn lead to a mess of incompatibilities.
+  which in turn leads to a mess of incompatibilities.
 - **Cached intermediate certificates**:
   TLS servers send their certificate with all
   [intermediate certificates](https://en.wikipedia.org/wiki/Public_key_certificate#Intermediate_certificate)
@@ -13017,7 +13018,7 @@ Comparison to DANE
   MTA-STS, on the other hand, has an explicit mode for testing,
   which is intended to be used in combination with [SMTP TLS Reporting (TLSRPT)](#smtp-tls-reporting-tlsrpt).
   Such a test mode is necessary because the MTA-STS policy affects the whole domain.
-- **No support from email service provider required**:
+- **No support from email service providers required**:
   If your incoming mail server uses a valid PKIX certificate for its domain,
   you can deploy MTA-STS on your custom domain without explicit support from your email service provider.
   It's unlikely that your email service provider stops using valid PKIX certificates for their servers
@@ -13140,9 +13141,9 @@ As specified in [RFC 8615](https://tools.ietf.org/html/rfc8615),
 maintains a [registry](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml)
 for the `.well-known` directory in order to prevent name collisions among unrelated standards.
 A subdomain is used to allow `CNAME` indirections.
-Moreover, the required DNS record prevents that sites which allow untrusted users to claim subdomains
-fall victim to [denial-of-service attacks](https://tools.ietf.org/html/rfc8461#section-10.3) with malicious policies.
-Here are two examples: [https://mta-sts.github.io](https://mta-sts.github.io/)
+Moreover, the required DNS record prevents sites which allow untrusted users to claim subdomains from falling victim
+to [denial-of-service attacks](https://tools.ietf.org/html/rfc8461#section-10.3) with malicious policies.
+Examples are [https://mta-sts.github.io](https://mta-sts.github.io/)
 and [https://mta-sts.blogspot.com](https://mta-sts.blogspot.com/).
 
 The policy file is fetched with a [`GET` request](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)
@@ -13580,7 +13581,7 @@ There are two main standards for end-to-end security:
 [Secure/Multipurpose Internet Mail Extensions (S/MIME)](https://en.wikipedia.org/wiki/S/MIME)
 and [Pretty Good Privacy (PGP)](https://en.wikipedia.org/wiki/Pretty_Good_Privacy),
 which was standardized as [OpenPGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP).
-Unlike the other fixes in this chapter, both of them exist since the 1990s.
+Unlike the other fixes in this chapter, both of them have existed since the 90s.
 The main difference between them is how public keys are authenticated, distributed, and revoked.
 Otherwise, they are quite similar.
 

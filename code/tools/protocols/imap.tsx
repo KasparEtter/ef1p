@@ -677,14 +677,14 @@ const FETCH: Entry<string> = {
 
 const length: Entry<string> = {
     name: 'Length',
-    description: 'The length of the data in bytes with newlines counting as two (CR+LF).',
-    defaultValue: '{<Length>}',
+    description: 'The length of the data in bytes with newlines counting as two (CR + LF).',
+    defaultValue: '{123}',
 };
 
 const data: Entry<string> = {
     name: 'Data',
     description: 'This is just a placeholder for the actual data.',
-    defaultValue: '<Data>',
+    defaultValue: '{Data}',
 };
 
 /* ------------------------------ Delete entries ------------------------------ */
