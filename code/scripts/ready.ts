@@ -266,7 +266,7 @@ jQuery(() => {
         clearCookie('_ga');
         clearCookie('_gid');
         clearCookie('_gat_gtag_UA_135908849_1');
-        clearCookie('cookieconsent_status', true);
+        clearCookie('cookieconsent_status');
     }
 
     console.log('Hi there, are you curious about how this website works? You find all the code at https://github.com/KasparEtter/ef1p. If you have any questions, just ask.');
