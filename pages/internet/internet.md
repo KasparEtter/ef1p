@@ -4,7 +4,7 @@ icon: network-wired
 category: Technologies
 author: Kaspar Etter
 published: 2020-08-05
-modified: 2021-05-04
+modified: 2021-05-07
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 math: false
@@ -1150,22 +1150,9 @@ It sends several echo requests and waits for the echo replies
 before reporting statistics on packet loss and round-trip times:
 
 <figure markdown="block">
-
-```
-$ ping -c 5 example.com
-PING example.com (93.184.216.34): 56 data bytes
-64 bytes from 93.184.216.34: icmp_seq=0 ttl=50 time=87.363 ms
-64 bytes from 93.184.216.34: icmp_seq=1 ttl=50 time=88.107 ms
-64 bytes from 93.184.216.34: icmp_seq=2 ttl=50 time=87.196 ms
-64 bytes from 93.184.216.34: icmp_seq=3 ttl=50 time=88.546 ms
-64 bytes from 93.184.216.34: icmp_seq=4 ttl=50 time=87.811 ms
-
---- example.com ping statistics ---
-5 packets transmitted, 5 packets received, 0.0% packet loss
-round-trip min/avg/max/stddev = 87.196/87.805/88.546/0.491 ms
-```
-
+<div id="code-ping-example"></div>
 <figcaption markdown="span">
+
 Pinging the example.com server five times from my
 [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface).
 The average round-trip time is around 88 ms.<br>
@@ -1173,8 +1160,8 @@ The first line consists of the command and options that I entered,
 all the subsequent lines are output by the ping utility.<br>
 Round-trip times within the same geographical area are typically below 10 ms,
 whereas it takes around 80 to 100 ms<br>
-to the US East Coast and around 150 to 170 ms to the US West Coast and back
-from my place in central Europe.
+to the US East Coast and around 150 to 170 ms to the US West Coast and back from my place in central Europe.
+
 </figcaption>
 </figure>
 
