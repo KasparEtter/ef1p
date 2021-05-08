@@ -436,7 +436,7 @@ But we'll see what the future holds.
 ### What software do you use to create the graphics?
 {:data-toc-text="Graphics tool"}
 
-I wrote [my own SVG framework](https://github.com/KasparEtter/ef1p/tree/master/code/svg)
+I wrote [my own SVG framework](https://github.com/KasparEtter/ef1p/tree/main/code/svg)
 because I couldn't find a solution which matched my needs.
 I wanted to be able to style the scalable vector graphics with the page-wide [CSS](https://en.wikipedia.org/wiki/CSS)
 so that [the theme can be toggled](#dark-and-light-mode) without having to replace the graphics.
