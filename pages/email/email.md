@@ -2508,9 +2508,9 @@ Since you shouldn't enter your email password on a random website like this one,
 I recommend that you use the mode for submission only with demo accounts which you've created for this purpose.
 The password is stored in the [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
 of your browser without any protections until you [erase the history](/#history-of-values).
-Having said that, the tool is [open source](https://github.com/KasparEtter/ef1p/blob/master/code/tools/protocols/esmtp.tsx)
+Having said that, the tool is [open source](https://github.com/KasparEtter/ef1p/blob/main/code/tools/protocols/esmtp.tsx)
 like the rest of this website and if you don't trust me that this website is served from those files,
-you can also [build and run](https://github.com/KasparEtter/ef1p/blob/master/README.md) this website locally.
+you can also [build and run](https://github.com/KasparEtter/ef1p/blob/main/README.md) this website locally.
 The tool uses [Thunderbird's database](https://autoconfig.thunderbird.net/v1.1/)
 and [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
 to resolve the server you want to connect to and the [API by ipinfo.io](https://ipinfo.io/developers)
@@ -7164,7 +7164,7 @@ Unfortunately, there is [no JavaScript library](https://github.com/mathiasbynens
 to validate [internationalized domain names](#internationalized-domain-names).
 I've approximated the [IDNA2008 rules](https://tools.ietf.org/html/rfc5894#section-3.1.3)
 in the [Punycode tool](#punycode-encoding)
-[as follows](https://github.com/KasparEtter/ef1p/blob/master/code/tools/encodings/punycode.tsx):
+[as follows](https://github.com/KasparEtter/ef1p/blob/main/code/tools/encodings/punycode.tsx):
 `/^[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*(?:\.[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*)*$/u`.
 
 This regular expression uses [Unicode property escapes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
