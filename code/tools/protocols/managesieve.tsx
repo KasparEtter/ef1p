@@ -72,10 +72,11 @@ const username: DynamicEntry<string, State> = {
 const password: DynamicEntry<string, State> = {
     name: 'Password',
     description: 'The password of your account. I recommend you to set up a test account for this.',
-    defaultValue: 'password',
+    defaultValue: '',
     inputType: 'password',
     labelWidth: 73,
     inputWidth,
+    placeholder: 'Your password',
 };
 
 const list: DynamicEntry<boolean, State> = {
