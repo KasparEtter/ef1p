@@ -328,9 +328,12 @@ You can support me on
 [Liberapay](https://liberapay.com/ef1p/),
 [Patreon](https://www.patreon.com/ef1p),
 and [PayPal](https://paypal.me/KasparEtter).
-You can also donate some Bitcoin to `bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep`
+You can also transfer money directly to my bank account
+using [my name](#about) and the IBAN `CH48 0025 7257 6106 9840 Q`.
+If you prefer to stay "anonymous", you can donate some bitcoin to
+`bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep`
 [↗](https://blockstream.info/address/bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep).
-Any amount is greatly appreciated.
+Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) counts.
 
 
 ## Privacy
@@ -355,7 +358,7 @@ Any amount is greatly appreciated.
 
 ## About
 
-My name is [Kaspar Etter](https://kasparetter.com) and I'm a curious and skeptic person.
+My name is [Kaspar Etter](https://kasparetter.com), and I'm a curious and skeptic person.
 I studied computer science at [ETH](https://ethz.ch/en.html) and live in Zurich, Switzerland.
 
 
@@ -385,7 +388,7 @@ and for using your browser's search functionality to find what you're looking fo
 The biggest reason for splitting long articles into smaller ones is
 [search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search_engine_optimization).
 It would also have the desirable side effect of allowing me to post new content more often.
-For now, I'm willing to sacrifice both in favor of making my content as useful as possible
+For now, I'm willing to sacrifice both in favor of making my content as useful as possible,
 but my view on this might change in the future.
 
 
@@ -460,6 +463,7 @@ but if there's enough interest, I'm open to splitting the framework into its own
 *[DOM]: Document Object Model
 *[FAQ]: Frequently Asked Questions
 *[GUI]: Graphical User Interface
+*[IBAN]: International Bank Account Number
 *[PDF]: Portable Document Format
 *[PNG]: Portable Network Graphics
 *[SEO]: Search Engine Optimization
