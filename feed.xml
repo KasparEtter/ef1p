@@ -22,9 +22,9 @@ layout: null
     <updated>{{ post.modified | default: post.published | date_to_xmlschema }}</updated>
     <id>{{ post.url | absolute_url }}</id>{% if post.category %}
     <category term="{{ post.category | escape }}" />{% endif %}{% if post.teaser %}
-    <summary>{{ post.teaser | xml_escape }}</summary>{% endif %}{% if post.image %}
-    <media:thumbnail url="{{ post.image | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />
-    <media:content medium="image" url="{{ post.image | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />{% endif %}
+    <summary>{{ post.teaser | xml_escape }}</summary>{% endif %}
+    <media:thumbnail url="{{ post.name | replace: '.md', '/generated/thumbnail.png' | prepend: '/pages/' | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />
+    <media:content medium="image" url="{{ post.name | replace: '.md', '/generated/thumbnail.png' | prepend: '/pages/' | absolute_url }}" xmlns:media="http://search.yahoo.com/mrss/" />
   </entry>
   {% endfor %}
 </feed>
