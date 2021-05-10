@@ -21,11 +21,11 @@ export async function fetchWithError(url: string): Promise<Response> {
     return response;
 }
 
-export function fetchWithErrorAndTimeout(url: string, timeoutInMs = 4000): Promise<Response> {
+export function fetchWithErrorAndTimeout(url: string, timeoutInSeconds = 4): Promise<Response> {
     return Promise.race<Promise<Response>>([
         fetchWithError(url),
         new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`Custom timeout when fetching ${url} after ${timeoutInMs} ms.`)), timeoutInMs),
+            setTimeout(() => reject(new Error(`Custom timeout when fetching ${url} after ${timeoutInSeconds} seconds.`)), timeoutInSeconds * 1000),
         ),
     ]);
 }
