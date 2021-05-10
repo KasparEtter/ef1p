@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import { Box, BoxSide } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';

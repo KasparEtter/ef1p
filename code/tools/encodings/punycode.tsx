@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import punycode from 'punycode/'; // Refers to Node's deprecated library without the trailing slash.
 
 import { countOccurrences } from '../../utility/functions';

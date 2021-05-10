@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import { copyToClipboard } from './clipboard';
 
 // See https://www.sitepoint.com/css3-animation-javascript-event-handlers/ (oanimationend is Opera):

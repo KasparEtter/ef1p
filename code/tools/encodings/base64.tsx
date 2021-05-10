@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import { Charset, decodeBase64, encodeBase64WithLineLengthLimit, isInLatin1Range } from '../../utility/encoding';
 
 import { DynamicEntry } from '../../react/entry';

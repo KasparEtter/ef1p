@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import { CircleProps } from '../../../code/svg/elements/circle';
 import { LineProps } from '../../../code/svg/elements/line';
 

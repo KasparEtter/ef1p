@@ -1,3 +1,9 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
 import { Circle } from '../../../code/svg/elements/circle';
 import { zeroPoint } from '../../../code/svg/utility/point';
 
