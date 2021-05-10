@@ -338,8 +338,9 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
 
 ## Privacy
 
-- I announce new articles on [Twitter](https://twitter.com/{{ site.twitter_handle }}),
-  [Reddit]({{ site.reddit_community }}) and [Telegram]({{ site.telegram_channel }}).
+- I announce new articles on [Reddit]({{ site.reddit_community }}),
+  [Twitter](https://twitter.com/{{ site.twitter_handle }}),
+  and [Telegram]({{ site.telegram_channel }}).
   If you don't like these companies, then simply don't use their services.
 - I use [Plausible Analytics](https://plausible.io/) to measure how people interact with this website. Plausible Analytics
   collects [no personal information](https://plausible.io/privacy-focused-web-analytics#no-personal-data-is-collected),

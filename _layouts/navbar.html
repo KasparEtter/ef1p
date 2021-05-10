@@ -16,7 +16,7 @@ layout: head
                     <a class="nav-link" data-toggle="dropdown" title="{{ category.description }}"><i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}</a>
                     <div class="dropdown-menu">
                         {% assign articles = site.pages | where: "category", category.name | where_exp: "article", "article.published" | sort: "published" %}{% for article in articles %}
-                            <a class="dropdown-item{% if article.url == page.url %} active{% endif %}" href="{{ article.url | relative_url }}" target="_self">{% if article.icon %}<i class="icon-left fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}</a>
+                            <a class="dropdown-item{% if article.url == page.url %} active{% endif %}" href="{{ article.url | relative_url }}">{% if article.icon %}<i class="icon-left fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}</a>
                         {% endfor %}
                     </div>
                 </li>
@@ -30,6 +30,15 @@ layout: head
                 </li>
                 <li class="nav-item">
                     <a id="theme-toggler" class="nav-link" data-toggle="collapse" data-target="#navbar.show" title="Toggle the design theme."><i class="icon-left fas fa-adjust"></i><span id="theme-toggler-text"></span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" title="Follow this blog on social media."><i class="icon-left fas fa-external-link-alt"></i>Follow</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ site.reddit_community }}"><i class="icon-left fab fa-reddit-alien"></i>Reddit</a>
+                        <a class="dropdown-item" href="https://twitter.com/{{ site.twitter_handle }}"><i class="icon-left fab fa-twitter"></i>Twitter</a>
+                        <a class="dropdown-item" href="{{ site.telegram_channel }}"><i class="icon-left fab fa-telegram-plane"></i>Telegram</a>
+                        <a class="dropdown-item" href="{% link feed.xml %}"><i class="icon-left fas fa-rss"></i>RSS/Atom</a>
+                    </div>
                 </li>
             </ul>
         </div>
