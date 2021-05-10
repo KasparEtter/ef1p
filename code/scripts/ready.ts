@@ -249,14 +249,6 @@ jQuery(() => {
         $('#details-expander').removeClass('d-none');
     });
 
-    // Copy the short link to the clipboard.
-    $('#short-link').on('click', event => {
-        const target = event.target as HTMLAnchorElement;
-        if (copyToClipboardWithAnimation(target.href, target)) {
-            event.preventDefault();
-        }
-    });
-
     // Track the number of PDF downloads.
     $('#pdf-download').on('click contextmenu', event => {
         const target = event.target as HTMLAnchorElement;

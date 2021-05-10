@@ -14,12 +14,13 @@ layout: toc
         on {{ page.modified | date: site.date_format }}{% endif %}.
         {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
         If you like the article,
-        please share it with your friends on social media:
-        <a id="short-link" href="https://{{ site.short_domain }}{{ article }}" title="Click to copy.">{{ site.short_domain }}{{ article }}</a>.
+        please share it with your friends on <a href="https://twitter.com/{{ site.twitter_handle }}">social media</a>
+        or support me with a <a href="/#donate">donation</a>.
         {% capture pdf %}/pages{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
         You can also{% if page.reddit %}
-        join the <a href="{{ page.reddit }}">discussion on Reddit</a> or{% endif %}
-        <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a>.
+        join the <a href="{{ page.reddit }}">discussion on Reddit</a>,{% endif %}
+        <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a> as a PDF,
+        or <a href="https://translate.google.com/translate?u={{ page.url | absolute_url }}">use Google Translate</a> to read this article in your native language.
     </p>
 
     <p class="article-disclaimer">
