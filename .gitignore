@@ -2,6 +2,8 @@
 /.jekyll-metadata
 /.stylelintcache
 /_site
+/assets/styles/dark.css
+/assets/styles/light.css
 /node_modules
 /vendor
 /webpack-stats.json
