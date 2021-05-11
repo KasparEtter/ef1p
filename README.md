@@ -290,12 +290,11 @@ npm update
 ```
 
 If you want to update all dependencies to their latest version ignoring the specified versions,
-you can use [npm-check-updates](https://www.npmjs.com/package/npm-check-updates):
+you can use [npm-check-updates](https://www.npmjs.com/package/npm-check-updates) as follows:
 
 ```bash
-npx npm-check-updates # Shows which dependencies can be updated.
-npx npm-check-updates -u # Updates the versions in the package file.
-npm install # Installs the new versions according to the package file.
+npm run npm-upgrade
+npm install
 ```
 
 If vulnerabilities were found,
@@ -908,6 +907,7 @@ if you found a typographical error, a factual inaccuracy or a logical fallacy.
 Please also let me know if an explanation is difficult to follow.
 You are welcome to suggest interesting topics for me to write about.
 However, unless I explicitly asked for it, I will not accept any pull requests.
+By making a pull request, you transfer the copyright of your contribution without any limitations to [me](#copyright).
 
 
 ### Dependencies
