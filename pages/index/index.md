@@ -3,6 +3,7 @@ layout: toc
 title: Explained from First Principles
 permalink: /index.html
 author: Kaspar Etter
+license: CC BY 4.0
 regenerate: true
 ---
 
@@ -368,6 +369,21 @@ I studied computer science at [ETH](https://ethz.ch/en.html) and live in Zurich,
 Here are answers to [frequently asked questions (FAQ)](https://en.wikipedia.org/wiki/FAQ):
 
 
+### Do you also have a mailing list?
+{:data-toc-text="Mailing list"}
+
+No.
+I don't like the pricing models of the major mailing list providers, the double opt-in hassle due to the European
+[General Data Protection Regulation (GDPR)](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation),
+and anti-spam regulations requiring me to disclose my physical address,
+so I opted for a [Telegram channel]({{ site.telegram_channel }}) instead.
+You can also activate notifications on this blog's [Twitter profile](https://twitter.com/{{ site.twitter_handle }})
+or subscribe to its [news feed]({% link feed.xml %})
+using [RSS/Atom](https://support.mozilla.org/en-US/kb/how-subscribe-news-feeds-and-blogs).
+I intend to use these channels exclusively to announce new content,
+which means that you don't have to worry about noise.
+
+
 ### Can't you write shorter articles?
 {:data-toc-text="Article length"}
 
@@ -463,6 +479,7 @@ but if there's enough interest, I'm open to splitting the framework into its own
 *[CSS]: Cascading Style Sheets
 *[DOM]: Document Object Model
 *[FAQ]: Frequently Asked Questions
+*[GDPR]: General Data Protection Regulation
 *[GUI]: Graphical User Interface
 *[IBAN]: International Bank Account Number
 *[PDF]: Portable Document Format
