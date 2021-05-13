@@ -462,7 +462,7 @@ If you use your own domain for email, you can choose the [local part](#normaliza
 however you want as long as you adhere to the [address syntax](#address-syntax).
 Some local parts, though, are commonly used to reach the person with a specific role in an organization:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Address | Expectation
 |-
@@ -1090,7 +1090,7 @@ Mail clients may not switch from IMAP to POP3 or vice versa without the user's c
 If you want to configure `SRV` records for your domain,
 you can put the following entries into your [zone file](https://en.wikipedia.org/wiki/Zone_file):
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 _imap._tcp 10800 IN SRV 0 0 143 {Domain}.
@@ -2062,7 +2062,7 @@ header fields are formatted as `Name:` `Value`.
 What follows is a simple example message.
 You can find more examples in [RFC 5322](https://tools.ietf.org/html/rfc5322#appendix-A).
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 From: Alice <alice@example.org>
@@ -2239,7 +2239,7 @@ you have to send a test email to figure out the behavior of your particular setu
 [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) allows four different behaviors
 when it comes to `Bcc` recipients, which we'll study on the basis of another example:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 From: Alice <alice@example.org>
@@ -2647,7 +2647,7 @@ Unfortunately, this window is visible only if Finder is the active application.
 A different approach is to open a new window in your [terminal](https://en.wikipedia.org/wiki/Computer_terminal)
 and paste the clipboard once a second with the [`watch` command](https://en.wikipedia.org/wiki/Watch_(command)):
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-clipboard-verification"></div>
 <figcaption markdown="span">
 How to watch your clipboard in your command-line interface.
@@ -2690,7 +2690,7 @@ The difference between ESMTP and SMTP is that ESMTP allows the server to list ex
 which the client can make use of during the session.
 Let's have a look at some common SMTP extensions on the basis of what Gmail supports:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-gmail-smtp-extensions"></div>
 <figcaption markdown="span">
 
@@ -2813,7 +2813,7 @@ The reason why [Gmail didn't list this extension](#common-smtp-extensions)
 is because we used SMTP with Implicit TLS on port 465.
 If we open a TCP connection on port 587, it's there:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-starttls-extension"></div>
 <figcaption markdown="span">
 
@@ -3162,7 +3162,7 @@ Besides [`EHLO`](https://tools.ietf.org/html/rfc5321#section-4.1.1.1),
 and [`QUIT`](https://tools.ietf.org/html/rfc5321#section-4.1.1.10),
 there are some other SMTP commands, which are rarely used in practice:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Command | Argument | Description
 |-
@@ -4197,7 +4197,7 @@ you don't want to send one of your most valuable passwords
 directly to a potential attacker when checking your inbox.
 Let's look on how the [three authentication mechanisms](#user-authentication) perform in this regard:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Resistant to | [PLAIN](#user-authentication) | [CRAM](#challenge-response-authentication-mechanism) | [SCRAM](#salted-challenge-response-authentication-mechanism)
 |-|:-:|:-:|:-:
@@ -4831,7 +4831,7 @@ As long as the server can guarantee consistency for each client, it can allow si
 All sizes are specified in [bytes](https://en.wikipedia.org/wiki/Octet_(computing)).
 POP3 servers must support the following commands:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Command | Argument | Response | Description
 |-
@@ -4866,7 +4866,7 @@ it responds with `-ERR`.
 Each line in the response to the `CAPA` command indicates a command that the client can use
 or a behavior which the client should know about:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Command | Argument | Response | Description
 |-
@@ -4884,7 +4884,7 @@ Unlike the message numbering, the IDs are guaranteed to stay the same across ses
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Behavior | Argument | Description
 |-
@@ -4904,7 +4904,7 @@ The server can indicate additional behavior in its response to the `CAPA` comman
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-gandi-pop3-extensions"></div>
 <figcaption markdown="span">
 
@@ -5087,7 +5087,7 @@ We're interested in just three of them:
   </figcaption>
   </figure>
 
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
   <div id="code-imap-prefixed-string"></div>
   <figcaption markdown="span" style="max-width: 840px;">
 
@@ -6566,7 +6566,7 @@ Use the option `-A` to have no newline characters inserted or expected.
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-encoding-with-perl"></div>
 <figcaption markdown="span">
 
@@ -6580,7 +6580,7 @@ The code uses the [MIME::QuotedPrint](https://perldoc.perl.org/MIME::QuotedPrint
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-encoding-with-python"></div>
 <figcaption markdown="span">
 
@@ -7515,7 +7515,7 @@ and revised again in [RFC 1896](https://tools.ietf.org/html/rfc1896).
 with [HTML-like tags](https://en.wikipedia.org/wiki/HTML_element#Syntax).
 Let's look at a simple example:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -7548,7 +7548,7 @@ Nowadays, most messages are formatted with the [Hypertext Markup Language (HTML)
 The `text/html` media type is specified in [RFC 2854](https://tools.ietf.org/html/rfc2854).
 The message from the [previous box](#enriched-text) looks as follows when it is formatted with HTML:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -7585,7 +7585,7 @@ Email styling
 HTML is styled with [Cascading Style Sheets (CSS)](https://en.wikipedia.org/wiki/Cascading_Style_Sheets).
 There are [three ways](https://www.w3schools.com/CSS/css_howto.asp) to add CSS to an HTML page:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -7607,7 +7607,7 @@ There are [three ways](https://www.w3schools.com/CSS/css_howto.asp) to add CSS t
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -7634,7 +7634,7 @@ inside the [`<head>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -7682,7 +7682,7 @@ As [others have noted](https://www.hteumeuleu.com/2017/should-we-stop-inlining-s
 Gmail does a bad job at this.
 Let's look at an example:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -7710,7 +7710,7 @@ If you inspect the [`<a>` element](https://developer.mozilla.org/en-US/docs/Web/
 [developer tools](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools)
 of your browser, you'll see why:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```css
 /* Gmail's default style: */
@@ -7738,7 +7738,7 @@ You can solve the problem either by
 using [`!important`](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity#the_!important_exception)
 on your style (`a { color: red !important; }`) or by wrapping the message with an ID:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -7894,7 +7894,7 @@ If we reduce the line-length limit to eight
 (including the [two newline characters](#newline-characters)),
 `2 + 2 > 3` can be encoded as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version:␣1.0↵
@@ -7990,7 +7990,7 @@ which we'll discuss later.
 [Section 3.6 of RFC 8551](https://tools.ietf.org/html/rfc8551#section-3.6)
 provides the following example for how to use S/MIME for compression only:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 Content-Type: application/pkcs7-mime; smime-type=compressed-data; name=smime.p7z
@@ -8149,7 +8149,7 @@ and leave the rest for the boxes below.
   If a client doesn't recognize a `multipart` subtype,
   it should treat the content as `multipart/mixed`
   and show the recognized parts.
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
 
   ```
   MIME-Version: 1.0
@@ -8208,7 +8208,7 @@ and leave the rest for the boxes below.
   To give you another example,
   I could have included a plaintext version of the [Enriched-Text message](#enriched-text)
   so that Gmail could display that instead of offering me to download the unrecognized content.
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
 
   ```
   MIME-Version: 1.0
@@ -8289,7 +8289,7 @@ that the rest of the body is a multipart message.
 Nowadays, the preamble and the epilogue are best used
 to leave a note to users who know how to inspect the [raw message](#raw-message). 😉
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -8355,7 +8355,7 @@ The receiving mail client should also ignore any
 [path delimiters](https://en.wikipedia.org/wiki/Path_(computing)) in the filename.
 Let's look at an example:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -8456,7 +8456,7 @@ with [plenty of errors](https://www.rfc-editor.org/errata_search.php?rfc=2557)
 in [RFC 2557](https://tools.ietf.org/html/rfc2557).
 Here is an example of my own:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -8625,7 +8625,7 @@ in their [URL spec](https://url.spec.whatwg.org/#application/x-www-form-urlencod
 The request has to be sent without context information such as [cookies](https://en.wikipedia.org/wiki/HTTP_cookie).
 The user has to be authenticated with a [token](https://en.wikipedia.org/wiki/Access_token) in the URL.
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 POST /unsubscribe?token=XYZ HTTP/1.1
@@ -9667,7 +9667,7 @@ If you have already disabled the composition of messages in HTML,
 you have to press "Shift" when you click on the "Reply" or the "Forward" button.
 For this particular attack to work, the message has to be composed in the "Paragraph" style.
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -9717,7 +9717,7 @@ Outlook.com example exploit
 If you reply to the following message with "No, I don't." on [Outlook.com](https://outlook.com/),
 the recipient will see "Yes, I do." on other clients.
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```html
 <html>
@@ -9785,7 +9785,7 @@ Emails can appear differently for three reasons:
   but determining whether different parts contain the same content is more difficult than it seems.
   Let's look at an example:
 
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
   ```html
   <html>
     <body>
@@ -9832,7 +9832,7 @@ Emails can appear differently for three reasons:
   due to [media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries).
   The following message shows a different text on devices with a small screen than on devices with a large screen:
 
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
   ```html
   <html>
     <head>
@@ -9893,7 +9893,7 @@ Emails can appear differently for three reasons:
   it's often not difficult to have some part of a message be shown or hidden for a specific recipient.
   I've drafted such a message for you:
 
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
   ```html
   <html>
     <head>
@@ -9966,7 +9966,7 @@ Jens Müller and his co-authors included the following table of content-hiding C
 in [their paper](https://arxiv.org/abs/1904.07550),
 which I simplified and extended for you:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Property | Value(s)
 |-
@@ -10105,7 +10105,7 @@ But for now, let's have some fun with a few benign inconsistencies, which are ca
   which is the Encoded-Word encoding of `¡Buenos días!`, into the `Subject` field of various mail clients,
   they send the following `Subject` header field:
 
-  <figure markdown="block">
+  <figure markdown="block" class="allow-break-inside">
 
   | Mail client | Subject encoding
   |-
@@ -10436,7 +10436,7 @@ which you can query to determine the WHOIS server of the registry,
 which in turn informs you about the WHOIS server of the registrar.
 For example, this is how you find the WHOIS information of `ef1p.com`:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-whois-queries"></div>
 <figcaption markdown="span">
 
@@ -10731,7 +10731,7 @@ The qualifier of the first mechanism which matches the sender's IP address deter
 If no mechanism matches, the [default result](https://tools.ietf.org/html/rfc7208#section-4.7) is `neutral`.
 The four qualifiers are:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Qualifier | Result | Description
 |:-:|:-:|:-
@@ -10921,7 +10921,7 @@ EDNS allows the sender to indicate a higher UDP payload size in a so-called
 [pseudo resource record](https://tools.ietf.org/html/rfc6891#section-6) of the type `OPT`.
 The command-line tool [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) displays this `OPT` record as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 <div id="code-opt-pseudosection"></div>
 <figcaption markdown="span" style="max-width: 610px;">
 
@@ -11091,7 +11091,7 @@ Each DKIM signature is added in a [`DKIM-Signature` header field](https://tools.
 which consists of `name=value` pairs separated by a semicolon.
 Let's look at an example before we discuss the various tags and their values:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -11113,7 +11113,7 @@ An example `DKIM-Signature` header field from a message sent with Gmail.
 </figcaption>
 </figure>
 
-<figure markdown="block" class="mt-4">
+<figure markdown="block" class="mt-4 allow-break-inside">
 
 | Tag | Necessity | Description
 |:-:|:-:|:-
@@ -11554,7 +11554,7 @@ Spammers can also configure DMARC records
 and you don't want to give them insights into the effectiveness of their campaigns.
 An aggregate report looks as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -11673,7 +11673,7 @@ The format is sometimes also called the Messaging Abuse Reporting Format (MARF),
 which was the name of the [IETF working group](https://tools.ietf.org/wg/marf/).
 To make failure reports easy to read for machines, they are structured as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -11879,7 +11879,7 @@ so that the incoming mail server of the recipient can consider to deliver even t
 whose [DMARC authentication](#domain-based-message-authentication-reporting-and-conformance) no longer passes.
 These three header fields look as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 ARC-Seal: i=1; a=rsa-sha256; t=1616059926; cv=none;
@@ -12577,7 +12577,7 @@ If a server hosts the service for different customers under several domain names
 it should support the TLS extension [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication)
 in order to return the right certificate chain to each client.
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Requirements | [PKIX-TA](https://tools.ietf.org/html/rfc7671#section-5.4) | [PKIX-EE](https://tools.ietf.org/html/rfc7671#section-5.3) | [DANE-TA](https://tools.ietf.org/html/rfc7671#section-5.2) | [DANE-EE](https://tools.ietf.org/html/rfc7671#section-5.1)
 |-:|:-:|:-:|:-:|:-:
@@ -12610,7 +12610,7 @@ forbids the certificate usages DANE-EE and DANE-TA.
 Otherwise, an attacker who compromised the DNS zone can simply change the certificate usage to DANE-EE or DANE-TA
 in order to [bypass the additional PKIX verification](https://tools.ietf.org/html/rfc7671#section-4).
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | Recommendation | Certificate usage | Selector | Matching type
 |-:|:-:|:-:|:-:
@@ -12743,7 +12743,7 @@ In order to do so, they carry out the following, rather complicated and boring p
    If the expanded `@` domain has no `MX` records,
    you [fall back to its `A`/`AAAA` records](#address-resolution).
    The `TLSA` domain is determined as follows:
-   <figure markdown="block">
+   <figure markdown="block" class="allow-break-inside">
    | Non-expanded `@` domain | Expanded `@` domain | `MX` domain | `TLSA` domain
    |-
    | Secure `CNAME` record | Secure `MX` records | Secure `A`/`AAAA`<br>and `TLSA` records | `MX` domain <i class="ml-1 fas fa-check-circle color-green"></i>
@@ -12813,7 +12813,7 @@ If a lookup involves indirections with `CNAME`, `MX`, or `SRV` records,
 all the indirections have to be secure for the expanded domain to be considered secure.
 Depending on the outcome of the `TLSA` lookup, DANE clients behave as follows:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 | DNS lookups | TLSA availability | TLSA usability | Client behavior
 |-
@@ -13240,7 +13240,7 @@ it must use the [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Ser
 TLS extension with the name of the server as encountered in the verified `MX` record.
 Before we move on, here is an example policy:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 version: STSv1
@@ -13466,7 +13466,7 @@ with all dates in [Unix time](#unix-time).
 In case of failures, the report [indicates the cause](https://tools.ietf.org/html/rfc8460#section-4.3).
 Here is an example report, which I've formatted for better readability:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```json
 {
@@ -13633,7 +13633,7 @@ Unlike the other fixes in this chapter, both of them have existed since the 90s.
 The main difference between them is how public keys are authenticated, distributed, and revoked.
 Otherwise, they are quite similar.
 
-<figure markdown="block" id="comparison-of-smime-and-pgp">
+<figure markdown="block" id="comparison-of-smime-and-pgp" class="allow-break-inside">
 
 | Aspect | [Secure/Multipurpose Internet<br>Mail Extensions (S/MIME)](https://en.wikipedia.org/wiki/S/MIME) | [Pretty Good Privacy (PGP)](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)
 |-
@@ -13831,7 +13831,7 @@ in order to trick mail clients into sending the decryption to them.
 A vulnerability like this is yet another reason to disable [remote content](#remote-content) in your mail client.
 Let's look at some example messages:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -13850,7 +13850,7 @@ Content-Transfer-Encoding: base64
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -13883,7 +13883,7 @@ The advantage of this format is that users can read the message even if their ma
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -13902,7 +13902,7 @@ Content-Transfer-Encoding: base64
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -13940,7 +13940,7 @@ Some implementations use `BEGIN PGP SIGNATURE`
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 MIME-Version: 1.0
@@ -14008,7 +14008,7 @@ Before you rely on end-to-end security, make sure that your mail client uses one
 Thunderbird follows the last specification.
 A message with protected header fields looks as follows after decrypting it:
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```
 From: Alice <alice@example.org>

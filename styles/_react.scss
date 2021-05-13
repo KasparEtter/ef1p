@@ -48,7 +48,7 @@ code {
 }
 
 .click-to-copy {
-  display: inline-block;
+  display: inline-block; // This value is required for the animation.
   padding: 2px 4px;
   margin: -2px -4px;
   cursor: pointer;

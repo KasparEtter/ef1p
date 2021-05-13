@@ -3,7 +3,7 @@
 {% assign name = splits[0] %}
 {% assign extension = splits[1] %}
 {% assign sizes = "910,1820,2730" | split: "," %}
-<figure markdown="block"{% unless include.full-width-on-print %} class="limited-width-on-print"{% endunless %}>
+<figure markdown="block">
 <div class="mx-auto"{% if include.image-max-width %} style="max-width: {{include.image-max-width}}px;"{% endif %}>
 {% if include.themed %}
     {% if extension == "jpg" %}

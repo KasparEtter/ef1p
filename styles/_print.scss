@@ -43,10 +43,6 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     display: none;
   }
 
-  figure.limited-width-on-print img {
-    max-width: 720px;
-  }
-
   .row {
     flex-wrap: nowrap;
   }
@@ -66,7 +62,9 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   .custom-select,
   .custom-card,
   .custom-card:hover,
-  .custom-card-date {
+  .custom-card-date,
+  .highlight .p,
+  .highlight .x {
     color: #000;
   }
 
@@ -148,6 +146,12 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
         border: 1px solid #000;
       }
     }
+  }
+
+  // Unset Bootstrap styles.
+  pre,
+  blockquote {
+    page-break-inside: auto;
   }
 
   // 'avoid' in 'break-after' and 'break-before' is not yet supported in Chrome,
