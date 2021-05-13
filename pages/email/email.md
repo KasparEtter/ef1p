@@ -3,7 +3,9 @@ title: Email
 icon: envelope
 category: Technologies
 author: Kaspar Etter
+license: CC BY 4.0
 published: 2021-05-07
+modified: 2021-05-13
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 math: false
@@ -28,9 +30,9 @@ Before we roll up our sleeves and change this, here are a few things that you sh
   and the roles of the various [entities](#entities).
   We'll then study the [protocols](#protocols) used by these entities to communicate with one another
   and the [format](#format) of the transmitted messages.
-  Now that we understand how email works,
+  Once we understand how email works,
   we can discuss its [privacy](#privacy) and [security](#security) [issues](#issues)
-  and examine how some of the security issues are [fixed](#fixes) by more recent standards.
+  and examine how some of the security issues are being [fixed](#fixes) by more recent standards.
 - Among many other things, you will learn in this article
   [why mail clients use outgoing mail servers](#why-outgoing-mail-servers),
   [why SMTP is used for the submission and the relay of messages](#submission-versus-relay),
@@ -84,14 +86,14 @@ I'd rather save my [artistic license](https://en.wikipedia.org/wiki/Artistic_lic
 ([Proper nouns](https://en.wikipedia.org/wiki/Proper_noun_and_common_noun) refer to a single entity,
 whereas common nouns refer to a class of entities.
 Only proper nouns are capitalized in English.
-For example, *Earth* with a capital E refers to the single planet we live on,
+For example, *Earth* with a capital E refers to the planet we live on,
 whereas *earth* with a lowercase E refers to the soil in which plants grow.)
 Note that this is in contrast to [*Internet*](https://en.wikipedia.org/wiki/Capitalization_of_Internet),
 which is commonly capitalized because there is only one Internet:
-You are either connected to *the* Internet or not.
-Unfortunately, the Internet becomes increasingly fragmented along country borders,
-sometimes for legal reasons, such as copyright licenses,
-sometimes for political reasons, such as censorship.
+You're either connected to *the* Internet or not.
+Unfortunately, the Internet becomes increasingly fragmented along country borders
+due to legal reasons, such as copyright licenses,
+and political reasons, such as censorship.
 Therefore, we might have to degrade *Internet* to a common noun soon.
 
 </details>
@@ -275,7 +277,7 @@ While subaddressing can be used for creating
 [disposable email addresses](https://en.wikipedia.org/wiki/Disposable_email_address) on the fly,
 this protection against abuse can easily be circumvented.
 If the subaddressing scheme is publicly known, spammers can just remove the tag from customized addresses.
-A better approach against unsolicited messages is to create proper [email aliases or forwarding addresses](#alias-address),
+A better method against unsolicited messages is to create proper [email aliases or forwarding addresses](#alias-address),
 which are indistinguishable from ordinary addresses.
 The disadvantage of this approach is that you have to set them up before you can use them.
 If you use a custom domain for your emails, you might be able to use a so-called catch-all address
@@ -340,9 +342,9 @@ If we restrict ourselves to what is widely adopted, the local part has to consis
 `a` to `z`, `A` to `Z`, `0` to `9`, and any of ``!#$%&'*+-/=?^_`{|}~``.
 A dot `.` can be used as long as it is between two of the aforementioned characters.
 In other words, you cannot have multiple dots in a row or at the beginning or end of the local part.
-Every mail system must be able to handle addresses whose local part is up to
-[64 characters long](https://tools.ietf.org/html/rfc5321#section-4.5.3.1.1) (including any dots).
-The local part has to consist of at least one character and should not be longer than 64 characters.
+The local part has to consist of at least one character,
+and every mail system must be able to handle addresses whose local part is up to
+[64 characters long](https://tools.ietf.org/html/rfc5321#section-4.5.3.1.1), including any dots.
 While this is the easy part of the standard, you should avoid most of the special characters
 if you want to be confident that online services accept your email address.
 [Twitter](https://twitter.com/), for example, accepts only `!+-_` beyond the alphanumeric characters and the dot.
@@ -409,10 +411,9 @@ According to [RFC 5321](https://tools.ietf.org/html/rfc5321#section-5.1), a `CNA
 as long as its target can be resolved to an IP address through one of the just mentioned record types.
 
 Can an email address use an IP address instead of a domain name?
-Technically yes, practically no.
-The [address format](https://tools.ietf.org/html/rfc5322#section-3.4.1)
+Yes: The [address format](https://tools.ietf.org/html/rfc5322#section-3.4.1)
 allows an IP address in brackets in place of a domain name.
-For example, `user@[192.0.2.123]` is a valid email address, format-wise.
+For example, `user@[192.0.2.123]` is a valid email address.
 However, the SMTP specification says that a host [should not](https://tools.ietf.org/html/rfc5321#section-2.3.4)
 be identified by its IP address, [unless](https://tools.ietf.org/html/rfc5321#section-4.1.3)
 the host is not known to the Domain Name System.
@@ -420,10 +421,15 @@ One reason for this is that a single mail server can receive emails for multiple
 and the same user might exist in several of these domains.
 If the recipient address doesn't include a domain name,
 the mail server might not know to which mailbox it should deliver the message.
-(The domain part of an email address serves a similar purpose
-as the `Host` header field in [HTTP](/internet/#hypertext-transfer-protocol).)
-And if you use an IP address in the sender address,
-the mail server likely rejects the message as [spam](#spam).
+The domain part of an email address thus serves a similar purpose
+as the `Host` header field in [HTTP](/internet/#hypertext-transfer-protocol).
+One might think that mail servers would reject messages with an IP address in the [sender address](#sender) as [spam](#spam),
+but a reader of this article convinced me that this works just fine in many cases.
+[Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail),
+[Thunderbird](https://en.wikipedia.org/wiki/Mozilla_Thunderbird),
+and [Gmail](https://en.wikipedia.org/wiki/Gmail) also accept such addresses as [recipients](#recipients),
+while [Outlook.com](https://en.wikipedia.org/wiki/Outlook.com)
+and [Yahoo! Mail](https://en.wikipedia.org/wiki/Yahoo!_Mail) don't.
 
 What about characters outside of the English alphabet?
 There was a [working group](https://tools.ietf.org/wg/eai/) dedicated to the
@@ -438,7 +444,8 @@ you can use the following [regular expression](https://en.wikipedia.org/wiki/Reg
 from the [Living HTML Standard](https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address):
 ``/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/``.
 This regular expression allows adjacent dots in the local part but does not allow the local part to be quoted.
-You can limit the length of the local part with ``[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]{1,64}``.
+You could limit the length of the local part with ``[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]{1,64}``,
+but you should be [liberal in what you accept from others](https://en.wikipedia.org/wiki/Robustness_principle).
 And since [some top-level domains](#dotless-domains) accept email,
 the regular expression intentionally ends with `*$/` instead of `+$/`.
 As we will see later on,
@@ -1160,6 +1167,13 @@ The tool makes requests to the entered domain according to the above description
 and, if necessary, to [Thunderbird's database](https://autoconfig.thunderbird.net/v1.1/).
 If the fifth step is also needed, the DNS queries are made with
 [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json).
+Please note that the requests are sent directly from your browser,
+which means that the lookups fail if the server does not allow
+[cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) with an
+[`Access-Control-Allow-Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
+header field value of `*`.
+Since such a header field is not required for mail clients, this is often not the case.
+For this reason, the [protocol tools](/email/tools/#protocols) query only Thunderbird's database.
 
 <div id="tool-lookup-configuration-database"></div>
 
@@ -1336,6 +1350,10 @@ while the outgoing mail server of the sender ensures that each user uses their o
 As we will see in the [next box](#double-submission-problem),
 having an [audit trail](https://en.wikipedia.org/wiki/Audit_trail)
 of sent emails is not among the reasons why outgoing mail servers are used.
+And while an outgoing mail server could be useful to hide your IP address from the recipients,
+many outgoing mail servers [leak your IP address](#sender-towards-recipients)
+in a [`Received` header field](#trace-information).
+Privacy could be one of the reasons for using an outgoing mail server but often isn't.
 
 </details>
 
@@ -1360,7 +1378,20 @@ The mail client submits the same message to both the outgoing mail server and th
 </figure>
 
 For a bandwidth-limited mail client, this is not ideal.
-There are three different approaches to avoid this double submission:
+There are four different approaches to avoid this double submission:
+
+- **Always `Bcc` yourself**:
+  You can configure most mail clients to add yourself as a `Bcc` recipient whenever you compose an email.
+  The outgoing mail server then delivers a copy of each message to your inbox.
+  The downside of this method is that your copy doesn't include the other `Bcc` recipients.
+  Moreover, sent and received messages aren't separated, which may be [desirable](#client-innovation).
+
+<figure markdown="block">
+{% include_relative generated/double-submission-bcc.embedded.svg %}
+<figcaption markdown="span">
+The outgoing mail server sends a copy to your inbox.
+</figcaption>
+</figure>
 
 - [**Gmail**](https://support.google.com/mail/answer/78892):
   Google's outgoing mail server automatically stores a copy of sent messages in the user's sent folder.
@@ -1372,7 +1403,8 @@ There are three different approaches to avoid this double submission:
   this non-standard behavior when submitting a message to the outgoing mail server,
   either the mail client has to treat `@gmail.com` addresses differently
   or the user has to disable the option to save a copy in the sent folder manually.
-  As far as I can tell, Gmail's behavior is badly documented and leads to [new problems](#gmail-bcc-recovery).
+  Since mail clients [remove the `Bcc` field](#bcc-removal) before [submission](#submission-versus-relay),
+  [Gmail recovers it](#gmail-bcc-recovery) from the [envelope of the message](#message-versus-envelope).
 
 <figure markdown="block">
 {% include_relative generated/double-submission-gmail.embedded.svg %}
@@ -2371,7 +2403,7 @@ because first implementations and then users would have to adopt such a change.
 <details markdown="block">
 <summary markdown="span" id="gmail-bcc-recovery">
 
-How does Gmail recover the Bcc field of sent messages?
+How does Gmail recover the Bcc header field of sent messages?
 
 </summary>
 
@@ -2398,8 +2430,8 @@ This procedure works reasonably well as long as the mail client submits the mess
 with all recipients in the envelope.
 If the mail client opts to deliver a [separate version](#bcc-removal) of the message to `Bcc` recipients,
 Gmail fails to merge the `Bcc` recipients from the second submission into the message from the first submission.
-It just ignores the second message with additional `Bcc` recipients and the same [`Message-ID`](#message-identification),
-even when it was submitted in the same session
+It just ignores the second message with additional `Bcc` recipients and the same [`Message-ID`](#message-identification)
+even when it is submitted in the same session
 (by continuing with another `MAIL` `FROM` command after submitting the `DATA`).
 If you think you can use this to bypass Gmail's sent archive,
 I must disappoint you:
@@ -2960,8 +2992,8 @@ for the IP addresses of their residential customers, incoming mail servers use t
 If you use the [above tool](#esmtp-tool) to relay a message directly to an incoming mail server,
 your chances of having the message delivered are much higher
 if your [public IP address](/internet/#network-address-translation) has a reverse DNS entry.
-Somewhat paradoxically, this means that spoofing emails often works better
-when you use the Wi-Fi of a hotel or restaurant instead of your own.
+Somewhat ironically, this means that spoofing emails often works better
+when you use the Wi-Fi of a hotel or a restaurant instead of your own.
 If your public IP address has a reverse DNS entry,
 the tool determines it when you click on "Determine":
 
@@ -3045,9 +3077,9 @@ Alternatively, you can backdate an email to meet a passed deadline.
 Or if you want to make sure that your message lands at the top of the recipient's inbox,
 you can choose a date in the future.
 Such tampering is easy to detect if you know how to inspect the [raw message](#raw-message).
-For ordinary users, however, a warning should be shown in my opinion.
+For ordinary users, however, a warning should be shown, in my opinion.
 I reported [this issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1670739)
-to the Thunderbird team but they were not interested in addressing it.
+to the Thunderbird team, but they were not interested in addressing it.
 
 </details>
 
@@ -4708,7 +4740,22 @@ with [POP3](#post-office-protocol-version-3) or [IMAP](#internet-message-access-
 If your mail client and your mail server support both protocols,
 you should choose the latter as it's much more powerful.
 The main reason for including POP3 in this article
-is that it's much easier to use from the [command line](#command-line-interface).
+is that it's much easier to use from the [command-line interface](#command-line-interface).
+
+<details markdown="block">
+<summary markdown="span" id="apple-mail-logging">
+Communication logging in Apple Mail
+</summary>
+
+[Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail) allows you to inspect its communication with your mail servers
+by clicking on "Connection Doctor" in the "Window" menu and then on "Show Detail".
+You can also enable "Log Connection Activity" there to persist the log of its communication
+in the folder `~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/`.
+Since the [log files](https://en.wikipedia.org/wiki/Log_file) include the content of all your messages,
+including deleted ones and those of removed accounts,
+you should enable this option only if you really need it.
+
+</details>
 
 <details markdown="block">
 <summary markdown="span" id="thunderbird-logging">
@@ -6563,7 +6610,7 @@ encodings in header fields indicate which [character encoding](#character-encodi
 and which [content encoding](#content-encoding) has been used.
 This results in the so-called [Encoded-Word encoding](https://en.wikipedia.org/wiki/MIME#Encoded-Word).
 Its format is as follows: `=?{CharacterEncoding}?{ContentEncoding}?{EncodedText}?=`,
-where `CharacterEncoding` is usually either `ISO-8859-1` or `UTF-8`,
+where `CharacterEncoding` is usually either `ISO-`<wbr>`8859-1` or `UTF-8`,
 `ContentEncoding` is either `Q` for Quoted-Printable or `B` for Base64,
 and `EncodedText` is the field value encoded according to the previous parameters.
 The Quoted-Printable encoding is slightly modified when used to encode header field values:
@@ -9319,7 +9366,7 @@ In the case of sextortion, they would just have to include a screenshot of the r
 and the addresses of some contacts to make presumably the large majority of people pay.
 Given that this is (usually) not the case, there's no reason to worry.
 Do people fall for this crap? The answer is yes, unfortunately.
-The first time I've received such a message was on 13 January 2019.
+The first time I received such a message was on 13 January 2019.
 The fraudster demanded 356 Euro in Bitcoin to remain silent
 and was stupid enough to provide the
 [same Bitcoin address](https://blockchair.com/bitcoin/address/18Pt4B7Rz7Wf491FGQHPsfDeKRqnkyrMo6) to several victims.
@@ -10007,7 +10054,7 @@ In my view, the following limitations of early email are responsible for most of
   the mail submission protocol was forked from [ESMTP](#extended-simple-mail-transfer-protocol)
   rather than being incorporated into [access protocols](#access-protocols),
   such as [POP3](#post-office-protocol-version-3) and [IMAP](#internet-message-access-protocol).
-  Unless their mail service provider is in a [configuration database](#configuration-database),
+  Unless their email service provider is in a [configuration database](#configuration-database),
   users have to [configure](#configuration) both their
   [incoming mail server](#incoming-mail-server) and their
   [outgoing mail server](#outgoing-mail-server) to this day.
@@ -10302,15 +10349,15 @@ There are three complementary standards for domain authentication:
 - [**Sender Policy Framework (SPF)**](#sender-policy-framework):
   List the [IP addresses](/internet/#network-layer) of your outgoing mail servers in a DNS record at your domain.
   SPF protects only the `MAIL` `FROM` address,
-  which is used for [bounce messages](#bounce-messages),
-  and can cause problems with [email forwarding](#email-forwarding).
+  which is used for [bounce messages](#bounce-messages).
+  SPF can cause problems with [email forwarding](#email-forwarding).
 - [**DomainKeys Identified Mail (DKIM)**](#domainkeys-identified-mail):
   Let the outgoing mail servers sign outgoing messages
   and publish the [public key](/internet/#digital-signatures) in a DNS record at the sender's domain.
   The signature usually survives email forwarding but introduces [non-repudiation](#non-repudiation).
 - [**Domain-based Message Authentication, Reporting and Conformance (DMARC)**](#domain-based-message-authentication-reporting-and-conformance):
-  Publish a policy, which tells recipients what to do with emails
-  that fail the SPF or DKIM check, in a DNS record at your domain.
+  Publish a policy, which tells recipients what to do with messages
+  that fail both SPF and DKIM, in a DNS record at your domain.
   Without a DMARC record, the recipient [cannot know](#author-domain-signing-practices) whether the sender uses DKIM.
   By publishing a DMARC policy, you also require the domain in the `From` address
   to match the domain in the `MAIL` `FROM` address and the [DKIM header field](#dkim-signature-header-field).
@@ -10947,7 +10994,7 @@ which [entities](#entities) add and verify DKIM signatures.
 Since DKIM keys are valid for the whole domain and cannot be restricted to individual users,
 messages are usually signed by the outgoing mail server after authenticating the user.
 If you are the only user of your domain and your email service provider doesn't support DKIM,
-you could add a DKIM signature to a message before submitting it to the outgoing mail server
+you could add a DKIM signature to a message before submitting it to the outgoing mail server,
 but I'm not aware of any mail client which supports this.
 Since DKIM keys can be revoked at any time after a message has been delivered,
 DKIM signatures are typically verified by incoming mail servers, which record the result in the
