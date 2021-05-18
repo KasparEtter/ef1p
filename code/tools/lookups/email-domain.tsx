@@ -838,7 +838,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
         if (nonPassQualifierInInclude) {
             record.remarks.push({
                 type: 'warning',
-                text: 'In an included SPF record, qualifiers other than "+" only have an effect if they are followed by a directive with an (implicit) "+". Unless this record is also used directly or through the "redirect" modifier, this is likely a mistake.',
+                text: 'In an included SPF record, qualifiers other than "+" have an effect only if they are followed by a directive with an (implicit) "+". Unless this record is also used directly or through the "redirect" modifier, this is likely a mistake.',
                 link: 'https://tools.ietf.org/html/rfc7208#section-5.2',
             });
         }
@@ -1432,7 +1432,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
         } else if (pTag.value === 'none') {
             record.remarks.push({
                 type: 'warning',
-                text: `The domain policy "p" should only be "none" if you still need to collect feedback during early rollout.`,
+                text: `The domain policy "p" should be "none" only if you still need to collect feedback during early rollout.`,
                 link: 'https://tools.ietf.org/html/rfc7489#section-6.7',
             });
         }
@@ -1450,7 +1450,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
             if (spTag.value === 'none') {
                 record.remarks.push({
                     type: 'warning',
-                    text: `The subdomain policy "sp" should only be "none" if you still need to collect feedback during early rollout.`,
+                    text: `The subdomain policy "sp" should be "none" only if you still need to collect feedback during early rollout.`,
                     link: 'https://tools.ietf.org/html/rfc7489#section-6.7',
                 });
             }
