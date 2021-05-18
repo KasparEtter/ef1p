@@ -24,7 +24,7 @@ export interface SuccessfulIpInfoResponse extends IpInfoResponse {
     country: string;
     hostname?: string;
     loc: string;
-    org: string;
+    org?: string;
     postal: string;
     region: string;
     timezone: string;

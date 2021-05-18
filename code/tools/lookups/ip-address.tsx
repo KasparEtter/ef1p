@@ -57,17 +57,17 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
                 {response.ip}
             </DynamicOutput>;
             const location = getMapLink(response);
-            const provider = response.org.replace(/^AS\d+/, '');
+            const provider = response.org?.replace(/^AS\d+/, '');
             if (getCurrentState(store).ipAddress === '') {
                 return <p className="dynamic-output-pointer">
                     Your IP address is {address}.
-                    You're currently in {location},
-                    using the network of {provider}.
+                    You're currently in {location}
+                    {provider ? `, using the network of ${provider}` : ''}.
                 </p>;
             } else {
                 return <p className="dynamic-output-pointer">
                     The device with the IP address {address} is likely located in {location}.
-                    The network is operated by {provider}.
+                    {provider ? ` The network is operated by ${provider}.` : ''}
                 </p>;
             }
         } else {
