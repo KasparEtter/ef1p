@@ -3,6 +3,7 @@ title: The Internet
 icon: network-wired
 category: Technologies
 author: Kaspar Etter
+license: CC BY 4.0
 published: 2020-08-05
 modified: 2021-05-07
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
@@ -2089,7 +2090,7 @@ you would specify this after the host name in the
 For example, if you run a web server [locally](#server-on-your-personal-computer) on port 4000,
 you would access it at `http://localhost:4000/` in your browser.
 
-<figure markdown="block">
+<figure markdown="block" class="allow-break-inside">
 
 ```http
 HTTP/1.0 200 OK
@@ -2138,7 +2139,7 @@ Every modern browser includes powerful
 [developer tools](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools),
 with which you can inspect the requests it made:
 
-{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details, such as its request method and the IP address with the port number of the server, on the right." themed="true" caption-max-width="860" %}
+{% include image.md source="developer-tools.png" caption="The network tab in [Chrome's developer tools](https://developers.google.com/web/tools/chrome-devtools) shows you the resources the browser loaded in order to render the visited page. If you click on one of the resources, you see details, such as its request method and the IP address with the port number of the server, on the right." themed="true" image-max-width="880" caption-max-width="860" %}
 
 If you are familiar with the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface)
 of your operating system,
