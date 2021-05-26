@@ -16,7 +16,7 @@ import { PersistedStore } from '../../react/store';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
-// A very crude approximation of the IDNA2008 rules: https://tools.ietf.org/html/rfc5894#section-3.1.3
+// A very crude approximation of the IDNA2008 rules: https://datatracker.ietf.org/doc/html/rfc5894#section-3.1.3
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
 // Unicode categories: https://www.regular-expressions.info/unicode.html
 // See also https://mathiasbynens.be/notes/es-unicode-property-escapes#word

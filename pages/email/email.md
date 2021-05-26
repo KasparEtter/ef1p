@@ -75,7 +75,7 @@ Since the term *electronic mail* applies to any mail that is transferred electro
 [fax](https://en.wikipedia.org/wiki/Fax), [SMS](https://en.wikipedia.org/wiki/SMS), and other systems.
 For this reason, I use only the short form *email* in this article and always mean the decentralized system
 to transfer messages over the Internet as documented in numerous [RFCs](/internet/#request-for-comments).
-The term *email* doesn't appear in the [original RFC](https://tools.ietf.org/html/rfc821)
+The term *email* doesn't appear in the [original RFC](https://datatracker.ietf.org/doc/html/rfc821)
 and many RFCs just use *mail* or *(Internet) message* instead.
 In ordinary language, *email* refers both to the system of standards
 and to individual messages transmitted via these standards.
@@ -191,7 +191,7 @@ Display name
 
 Email protocols accept an optional display name in most places where an email address is expected.
 The format for this is `Display Name <user@example.com>`
-according to [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.4).
+according to [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4).
 Mail clients display this name to the user as follows:
 
 {% include image.md source="apple-mail-display-name.png" caption="How [Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail) shows the display name in the [`To`](#recipients) and [`From`](#sender) fields – if you have [Smart Addresses](https://support.apple.com/guide/mail/use-smart-addresses-mlhl0257dcd6/mac) disabled, which you totally should." themed="true" image-max-width="320" caption-max-width="410" %}
@@ -222,11 +222,11 @@ in a predecessor of today's email in 1971.
 Normalization
 </summary>
 
-In [the standard](https://tools.ietf.org/html/rfc5322#section-3.4.1), the part before the @ symbol
+In [the standard](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1), the part before the @ symbol
 is called the [local part](https://en.wikipedia.org/wiki/Email_address#Local-part) of an email address.
 The interpretation of the local part is completely up to the receiving mail system specified after the @ symbol
 and you shouldn't make any assumptions about the recipient's address as a sender.
-In particular, implementations [must preserve the case](https://tools.ietf.org/html/rfc5321#section-2.4)
+In particular, implementations [must preserve the case](https://datatracker.ietf.org/doc/html/rfc5321#section-2.4)
 of the letters in the local part, but mail servers are encouraged to deliver messages case-independently.
 In other words, it is recommended but not mandatory
 that mail servers treat `John.Smith` and `john.smith` as the same user.
@@ -336,7 +336,7 @@ while some things become convention without a formal standard.
 </figure>
 
 The syntax of email addresses is specified in
-[section 3.4.1 of RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.4.1).
+[section 3.4.1 of RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1).
 As mentioned earlier, an address consists of a local part followed by the @ symbol and a domain name.
 If we restrict ourselves to what is widely adopted, the local part has to consist of the characters
 `a` to `z`, `A` to `Z`, `0` to `9`, and any of ``!#$%&'*+-/=?^_`{|}~``.
@@ -344,7 +344,7 @@ A dot `.` can be used as long as it is between two of the aforementioned charact
 In other words, you cannot have multiple dots in a row or at the beginning or end of the local part.
 The local part has to consist of at least one character,
 and every mail system must be able to handle addresses whose local part is up to
-[64 characters long](https://tools.ietf.org/html/rfc5321#section-4.5.3.1.1), including any dots.
+[64 characters long](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.3.1.1), including any dots.
 While this is the easy part of the standard, you should avoid most of the special characters
 if you want to be confident that online services accept your email address.
 [Twitter](https://twitter.com/), for example, accepts only `!+-_` beyond the alphanumeric characters and the dot.
@@ -354,10 +354,10 @@ but fails to recognize this character sequence as an email address in text.
 
 This paragraph is about the complicated part of the standard,
 which is not widely supported and therefore more of theoretical than practical interest.
-The local part of an email address can also be a [quoted string](https://tools.ietf.org/html/rfc5322#section-3.2.4).
+The local part of an email address can also be a [quoted string](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.4).
 Any [printable ASCII character](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
 is allowed inside of double quotes.
-If we ignore the [obsolete syntax](https://tools.ietf.org/html/rfc5322#section-4.4),
+If we ignore the [obsolete syntax](https://datatracker.ietf.org/doc/html/rfc5322#section-4.4),
 which may no longer be generated but must still be accepted,
 the quoted string has to be the whole local part,
 i.e. it cannot be combined with non-quoted characters.
@@ -368,9 +368,9 @@ This means that `"\""@ef1p.com` and `"\\"@ef1p.com` are also valid addresses.
 When it comes to [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character),
 such as space and tab, the situation is a bit confusing.
 A quoted string can contain escaped spaces (`"\ "`)
-through the [`quoted-pair` rule](https://tools.ietf.org/html/rfc5322#section-3.2.1).
+through the [`quoted-pair` rule](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.1).
 The only other way a space can be added to a quoted string
-is as [folding whitespace](https://tools.ietf.org/html/rfc5322#section-3.2.2).
+is as [folding whitespace](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2).
 The standard says that runs of folding whitespace
 which occur between lexical tokens in a structured header field
 are semantically interpreted as a single space character.
@@ -380,14 +380,14 @@ is the same as a local part with a single space (<code class="preserve-whitespac
 It's not clear to me, though, whether `" "` is to be interpreted as `""`.
 The reason why I think this might be the case is
 because spaces are clearly excluded from the set of characters which don't need to be escaped.
-The [`qtext` rule](https://tools.ietf.org/html/rfc5322#page-14)
+The [`qtext` rule](https://datatracker.ietf.org/doc/html/rfc5322#page-14)
 doesn't include the space character, which is `%d32` in ASCII,
 but this [might change](https://www.rfc-editor.org/errata/eid4692) in the future.
 If unescaped spaces were meant to have meaning beyond just folding lines,
 which we'll discuss [later](#line-length-limit),
 they could easily have been added to the `qtext` rule.
 On the other hand,
-the equivalent `qtextSMTP` rule of [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.1.2) does allow spaces.
+the equivalent `qtextSMTP` rule of [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.2) does allow spaces.
 What the standard does clarify is that the escape character `\` is semantically invisible.
 Therefore, `"a"` and `"\a"` are equivalent.
 I assume this means that mail systems are allowed to remove the backslash in front of characters
@@ -395,27 +395,27 @@ which don't need to be escaped in non-local addresses.
 
 What about the domain part of an email address?
 While the [Domain Name System](/internet/#domain-name-system) allows the use of pretty much any character,
-the [preferred name syntax](https://tools.ietf.org/html/rfc1035#section-2.3.1)
+the [preferred name syntax](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.1)
 requires that each [label](https://en.wikipedia.org/wiki/Domain_name#Domain_name_syntax)
 consists only of letters, digits, and hyphens, where labels may neither start nor end with a hyphen.
-[SMTP](https://tools.ietf.org/html/rfc5321#section-2.3.5) restricts domain names to this syntax.
+[SMTP](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.5) restricts domain names to this syntax.
 All labels (except the one for the root zone)
-have to contain at least one character and at most [63 characters](https://tools.ietf.org/html/rfc1035#section-2.3.4).
-The length of the whole domain name is limited to [255 characters](https://tools.ietf.org/html/rfc1035#section-2.3.4),
+have to contain at least one character and at most [63 characters](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4).
+The length of the whole domain name is limited to [255 characters](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4),
 including the dots.
-Domain names are explicitly [case-insensitive](https://tools.ietf.org/html/rfc1035#section-2.3.3).
+Domain names are explicitly [case-insensitive](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.3).
 Only fully-qualified domain names may be used in email addresses on the public Internet
 and the domain part of an email address is always written without the trailing dot.
 The domain name in an email address must have an `MX`, `A`, or `AAAA` resource record.
-According to [RFC 5321](https://tools.ietf.org/html/rfc5321#section-5.1), a `CNAME` record is also permitted
+According to [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-5.1), a `CNAME` record is also permitted
 as long as its target can be resolved to an IP address through one of the just mentioned record types.
 
 Can an email address use an IP address instead of a domain name?
-Yes: The [address format](https://tools.ietf.org/html/rfc5322#section-3.4.1)
+Yes: The [address format](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1)
 allows an IP address in brackets in place of a domain name.
 For example, `user@[192.0.2.123]` is a valid email address.
-However, the SMTP specification says that a host [should not](https://tools.ietf.org/html/rfc5321#section-2.3.4)
-be identified by its IP address, [unless](https://tools.ietf.org/html/rfc5321#section-4.1.3)
+However, the SMTP specification says that a host [should not](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.4)
+be identified by its IP address, [unless](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.3)
 the host is not known to the Domain Name System.
 One reason for this is that a single mail server can receive emails for multiple domains
 and the same user might exist in several of these domains.
@@ -434,7 +434,7 @@ and [Yahoo! Mail](https://en.wikipedia.org/wiki/Yahoo!_Mail) don't.
 What about characters outside of the English alphabet?
 There was a [working group](https://tools.ietf.org/wg/eai/) dedicated to the
 [internationalization of email addresses](https://en.wikipedia.org/wiki/Email_address#Internationalization).
-[RFC 6531](https://tools.ietf.org/html/rfc6531) defines an [SMTP extension](#common-smtp-extensions)
+[RFC 6531](https://datatracker.ietf.org/doc/html/rfc6531) defines an [SMTP extension](#common-smtp-extensions)
 which allows [envelope fields](#message-versus-envelope) to be encoded in [UTF-8](/internet/#text-encoding)
 if both the sender and the recipient support it.
 I'll cover this [later](#email-address-internationalization).
@@ -473,14 +473,14 @@ Some local parts, though, are commonly used to reach the person with a specific 
 | `marketing@` | Provide feedback to marketing campaigns.
 | `abuse@` | Report inappropriate public behavior.
 | `security@` | [Responsibly disclose](https://en.wikipedia.org/wiki/Responsible_disclosure) a [security vulnerability](https://en.wikipedia.org/wiki/Vulnerability_(computing)).
-| `postmaster@` | Reach the email administrator (required according to [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.5.1)).
+| `postmaster@` | Reach the email administrator (required according to [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.1)).
 | `hostmaster@` | Reach the DNS administrator.
 | `webmaster@` | Reach the Web administrator.
 | `admin@` | Reach the technical administrator (as an alternative to the previous three addresses).
 
 <figcaption markdown="span" style="max-width: 720px;">
 
-Most of these addresses are encouraged by [RFC 2142](https://tools.ietf.org/html/rfc2142):
+Most of these addresses are encouraged by [RFC 2142](https://datatracker.ietf.org/doc/html/rfc2142):
 "Mailbox names for common services, roles, and functions".
 Role-based addresses are usually configured as [aliases](#alias-address)
 so that incoming emails can be forwarded to several people.
@@ -493,7 +493,7 @@ so that incoming emails can be forwarded to several people.
 
 ### Recipients
 
-You can address the recipients of a message in [three different ways](https://tools.ietf.org/html/rfc5322#section-3.6.3):
+You can address the recipients of a message in [three different ways](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3):
 - The `To` field contains the address(es) of the primary recipient(s).
   As a sender, you expect the primary recipient(s) to read and often to react to your message.
   The expected reaction can be a reply or that they perform the requested task.
@@ -530,7 +530,7 @@ If you reply to all, your reply would also be sent to the faked recipients, of c
 Group construct
 </summary>
 
-The [address specification](https://tools.ietf.org/html/rfc5322#section-3.4)
+The [address specification](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4)
 allows senders to group addresses with the following syntax: `{GroupName}:` `{ListOfAddresses};`,
 where the [curly brackets](https://en.wikipedia.org/wiki/Bracket#Curly_bracket) have to be replaced with actual values.
 `ListOfAddresses` is a comma-separated list of addresses, where each address can also have a display name.
@@ -546,7 +546,7 @@ As far as I can tell, this is the primary use of the group construct nowadays.
 
 ### Sender
 
-There are [two relevant fields](https://tools.ietf.org/html/rfc5322#section-3.6.2) to indicate the originator of a message:
+There are [two relevant fields](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.2) to indicate the originator of a message:
 - The `From` field contains the address of the person who is responsible for the content of the message.
 - The `Reply-To` field indicates the address(es) to which replies should be sent.
   If absent, replies are sent to the `From` address.
@@ -565,7 +565,7 @@ both the sender and the recipients have to use them.
 Sender field
 </summary>
 
-[RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.2)
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.2)
 differentiates between the author and the sender of a message.
 The person who writes the message is usually also the one who sends it.
 If the author and the sender are different, though,
@@ -590,9 +590,9 @@ No reply
 
 Many emails are sent from automated systems, which cannot handle replies.
 Examples of such emails are notifications about events on a platform and reports about some usage statistics.
-[RFC 5322](https://tools.ietf.org/html/rfc5322#page-21)
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#page-21)
 demanded that there is a `From` field with one or several addresses.
-[RFC 6854](https://tools.ietf.org/html/rfc6854) updated the standard in 2013
+[RFC 6854](https://datatracker.ietf.org/doc/html/rfc6854) updated the standard in 2013
 to allow the [group construct](#group-construct) to be used in the `From` field as well.
 This allows automated systems to provide no reply address by using an empty group in the `From` field,
 rather than having to rely on users interpreting an address such as `no-reply@example.com` correctly.
@@ -601,14 +601,14 @@ for example `LinkedIn Notification Bot:;`.
 In the absence of an alternative to indicate the originating domain to the user,
 I strongly advise against using an empty group in the `From` field, though,
 because this defeats all efforts towards [domain authentication](#domain-authentication).
-Even the RFC itself [recommends against](https://tools.ietf.org/html/rfc6854#page-3)
-the general use of this method and [says](https://tools.ietf.org/html/rfc6854#section-3)
-that it is for [limited use](https://tools.ietf.org/html/rfc2026#section-3.3) only.
+Even the RFC itself [recommends against](https://datatracker.ietf.org/doc/html/rfc6854#page-3)
+the general use of this method and [says](https://datatracker.ietf.org/doc/html/rfc6854#section-3)
+that it is for [limited use](https://datatracker.ietf.org/doc/html/rfc2026#section-3.3) only.
 Thus, we still have to wait for a usable
 [`No-Reply`](https://stackoverflow.com/questions/9591044/is-there-a-no-reply-email-header/63689720)
 [header field](#header-fields-and-body), unfortunately.
 (The empty group construct is used to [downgrade internationalized email addresses](#email-address-internationalization)
-as specified in [RFC 6857](https://tools.ietf.org/html/rfc6857#page-11).)
+as specified in [RFC 6857](https://datatracker.ietf.org/doc/html/rfc6857#page-11).)
 
 </details>
 
@@ -618,7 +618,7 @@ as specified in [RFC 6857](https://tools.ietf.org/html/rfc6857#page-11).)
 The `Subject` field identifies the topic of a message.
 Its content is restricted to a single line but the line can be of arbitrary length.
 (We'll talk about [encoding](#line-length-limit) later.)
-[RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.5) also defines other informational fields,
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.5) also defines other informational fields,
 namely `Comments` and `Keywords`, but I've never seen them being used.
 All informational fields are optional, which means an email doesn't need a subject line.
 The mail clients I've checked, though, include the `Subject` field even when it's empty.
@@ -633,7 +633,7 @@ Prefixes
 When you reply to a message, your mail client automatically suggests the new subject:
 “Re: ” followed by the original subject.
 While I would argue that "Re" stands for "reply",
-[RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.5) says
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.5) says
 that it is an abbreviation of the Latin "in re", which means "in the matter of".
 Similarly, if you forward an email to another recipient,
 your mail client typically puts “Fwd: ” in front of the original subject.
@@ -647,7 +647,7 @@ based on other, more reliable information.
 
 ### Body
 
-Last but not least, an email has a [body](https://tools.ietf.org/html/rfc5322#section-2.1)
+Last but not least, an email has a [body](https://datatracker.ietf.org/doc/html/rfc5322#section-2.1)
 (which is strictly speaking optional).
 The body contains the actual content of a message.
 It can be formatted in different ways and can consist of [different parts](#multipart-messages).
@@ -661,7 +661,7 @@ We'll discuss [later](#content-encoding) how all of this works.
 Size limit
 </summary>
 
-The email standards impose [no size limit](https://tools.ietf.org/html/rfc5321#section-4.5.3.1.7) on messages.
+The email standards impose [no size limit](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.3.1.7) on messages.
 Since various servers have to store your message at least temporarily,
 they are configured to reject messages larger than a certain size.
 Many providers have a size limit between around
@@ -831,8 +831,8 @@ Webmail is thus of no interest for the scope of this article.
 All you need to know is that email has nothing to do with the Web.
 Both are independent services that run over the Internet.
 Moreover, email is [older than the Web](/internet/#internet-history):
-[SMTP](#simple-mail-transfer-protocol) was first defined in [1982](https://tools.ietf.org/html/rfc822),
-[POP](#post-office-protocol-version-3) in [1984](https://tools.ietf.org/html/rfc918),
+[SMTP](#simple-mail-transfer-protocol) was first defined in [1982](https://datatracker.ietf.org/doc/html/rfc822),
+[POP](#post-office-protocol-version-3) in [1984](https://datatracker.ietf.org/doc/html/rfc918),
 and [IMAP](#internet-message-access-protocol)
 in [1986](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol#History).
 The [HyperText Transfer Protocol (HTTP)](/internet/#hypertext-transfer-protocol), which underpins the Web,
@@ -844,7 +844,7 @@ was introduced [around 1990](https://en.wikipedia.org/wiki/Hypertext_Transfer_Pr
 ### Official architecture
 
 For the sake of completeness and to enable you to understand the linked articles,
-this subsection covers the official terminology as used, for example, in [RFC 5598](https://tools.ietf.org/html/rfc5598).
+this subsection covers the official terminology as used, for example, in [RFC 5598](https://datatracker.ietf.org/doc/html/rfc5598).
 In the official documents, there are five instead of three entities,
 with each of them having a more complicated name and, of course, an associated
 [three-letter acronym (TLA)](https://en.wikipedia.org/wiki/Three-letter_acronym):
@@ -854,17 +854,17 @@ with each of them having a more complicated name and, of course, an associated
 | TLA | Name | Description
 |-
 | MUA | [Mail user agent](https://en.wikipedia.org/wiki/Mail_user_agent) | Client to compose, send, receive, and read emails, such as<br>[Microsoft Outlook](https://en.wikipedia.org/wiki/Microsoft_Outlook), [Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail), and [Mozilla Thunderbird](https://en.wikipedia.org/wiki/Mozilla_Thunderbird).
-| MSA<br>*MSS* | [Mail submission agent](https://en.wikipedia.org/wiki/Mail_submission_agent)<br>*[Mail submission server](https://tools.ietf.org/html/rfc8314#section-2)* | Server to receive outgoing emails from authenticated users<br>and to queue them for delivery by the mail transfer agent (MTA).
+| MSA<br>*MSS* | [Mail submission agent](https://en.wikipedia.org/wiki/Mail_submission_agent)<br>*[Mail submission server](https://datatracker.ietf.org/doc/html/rfc8314#section-2)* | Server to receive outgoing emails from authenticated users<br>and to queue them for delivery by the mail transfer agent (MTA).
 | MTA | [Mail transfer agent](https://en.wikipedia.org/wiki/Mail_transfer_agent) | Server to deliver the queued emails and to receive them on the other end.<br>It then forwards the received emails to the mail delivery agent (MDA).
 | MDA | [Mail delivery agent](https://en.wikipedia.org/wiki/Mail_delivery_agent) | Server to receive emails from the local mail transfer agent (MTA)<br>and to store them in the message store (MS) of the recipient.
-| MS<br>*MAS* | [Message store](https://en.wikipedia.org/wiki/Email_box)<br>*[Mail access server](https://tools.ietf.org/html/rfc8314#section-2)* | Server to store the emails received from the mail delivery agent (MDA)<br>and to deliver them to the mail user agent (MUA) of the recipient.
+| MS<br>*MAS* | [Message store](https://en.wikipedia.org/wiki/Email_box)<br>*[Mail access server](https://datatracker.ietf.org/doc/html/rfc8314#section-2)* | Server to store the emails received from the mail delivery agent (MDA)<br>and to deliver them to the mail user agent (MUA) of the recipient.
 
 <figcaption markdown="span" style="max-width: 704px;">
 
 The terminology used by the
 [Internet Engineering Task Force (IETF)](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)
-in its official documents, such as [this one](https://tools.ietf.org/html/rfc5321#section-2.3.3).
-The terms in italics are used in some newer documents, such as [this one](https://tools.ietf.org/html/rfc8314#section-2).
+in its official documents, such as [this one](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.3).
+The terms in italics are used in some newer documents, such as [this one](https://datatracker.ietf.org/doc/html/rfc8314#section-2).
 I added them because I like them better.
 
 </figcaption>
@@ -872,14 +872,14 @@ I added them because I like them better.
 
 These terms are not as precise as they seem to be and the boundaries are often fluid in practice.
 Having more entities also changes the architecture.
-What follows is a nicer version of [this ASCII graphic](https://tools.ietf.org/html/rfc5598#page-23),
+What follows is a nicer version of [this ASCII graphic](https://datatracker.ietf.org/doc/html/rfc5598#page-23),
 which is a masterpiece to be appreciated in its own right.
 
 <figure markdown="block">
 {% include_relative generated/official-architecture.embedded.svg %}
 <figcaption markdown="span">
 
-The official [Internet Mail Architecture](https://tools.ietf.org/html/rfc5598)
+The official [Internet Mail Architecture](https://datatracker.ietf.org/doc/html/rfc5598)
 with [SMTP connections](#simple-mail-transfer-protocol) in green
 and [IMAP connections](#internet-message-access-protocol) in blue.
 
@@ -1002,7 +1002,7 @@ Wouldn't it be nice if mail clients could configure themselves automatically
 by fetching the required information directly from the email service providers?
 The good news is that we have a standard for exactly this purpose.
 The bad news is that almost no one is using it, even though it's simple and elegant.
-[RFC 6186](https://tools.ietf.org/html/rfc6186) defines
+[RFC 6186](https://datatracker.ietf.org/doc/html/rfc6186) defines
 how to use [`SRV` records](https://en.wikipedia.org/wiki/SRV_record)
 in the [Domain Name System (DNS)](/internet/#domain-name-system)
 for locating email submission and access services.
@@ -1021,12 +1021,12 @@ over the encrypted channel instead of using non-reusable
 such as [SCRAM](#salted-challenge-response-authentication-mechanism).
 The attacker can thus authenticate as the user to the legitimate servers
 beyond the duration of the attack until the user changes their password.
-The [RFC just says](https://tools.ietf.org/html/rfc6186#section-6) that
+The [RFC just says](https://datatracker.ietf.org/doc/html/rfc6186#section-6) that
 the domain names of the servers should be confirmed by the user
 if they are not subdomains of the queried domain without requiring or even mentioning DNSSEC.
 As everyone working in IT security knows, security-critical decisions should not be left to users.
 
-[RFC 2782](https://tools.ietf.org/html/rfc2782) specifies the format of service (`SRV`) records.
+[RFC 2782](https://datatracker.ietf.org/doc/html/rfc2782) specifies the format of service (`SRV`) records.
 The basic idea is to use a different subdomain for each protocol and service and list the port number and
 domain name of the host which provides the particular service in the data field of the resource record.
 The subdomain is constructed as follows: `_service._protocol.domain`,
@@ -1080,7 +1080,7 @@ I can see only three potential weaknesses with this standard:
 Besides improving the experience of users,
 service records make it possible to migrate an organization to another email service provider
 without requiring every member of the organization to change their email settings.
-According to [RFC 6186](https://tools.ietf.org/html/rfc6186#section-4),
+According to [RFC 6186](https://datatracker.ietf.org/doc/html/rfc6186#section-4),
 mail clients should cache the resolved hosts
 until they can no longer establish a connection or user authentication fails.
 When either of these happen,
@@ -1237,7 +1237,7 @@ why outgoing mail servers are used in practice:
     An incoming mail server might also be unreachable due to maintenance or malfunctioning.
     While Internet outages are rare in most areas of the world,
     it might happen that a communication link is temporarily unavailable.
-    This is why [the standard demands](https://tools.ietf.org/html/rfc5321#section-4.5.4.1)
+    This is why [the standard demands](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.4.1)
     that messages which cannot be delivered immediately
     have to be queued and their transmission retried by the sender
     after a delay of at least 30 minutes for several days.
@@ -1430,15 +1430,15 @@ The Courier IMAP server can deliver emails.
 </figcaption>
 </figure>
 
-- [**Lemonade profile**](https://tools.ietf.org/html/rfc5550):
+- [**Lemonade profile**](https://datatracker.ietf.org/doc/html/rfc5550):
   The only standardized solution to the double submission problem
   is a collection of extensions to [IMAP](#internet-message-access-protocol)
   and [SMTP submission](#submission-versus-relay),
   which is called the [lemonade profile](https://en.wikipedia.org/wiki/Lemonade_Profile).
-  The [`URLAUTH` extension](https://tools.ietf.org/html/rfc4467) to IMAP
+  The [`URLAUTH` extension](https://datatracker.ietf.org/doc/html/rfc4467) to IMAP
   allows mail clients to create references to mailbox data,
   which include the required authorization to access the data.
-  The [`BURL` extension](https://tools.ietf.org/html/rfc4468) to SMTP submission
+  The [`BURL` extension](https://datatracker.ietf.org/doc/html/rfc4468) to SMTP submission
   allows mail clients to instruct the outgoing mail server to fetch data from the user's mailbox.
   If the mail servers support these two extensions,
   the mail client can upload the message to be sent to the user's mailbox on the incoming mail server
@@ -1452,8 +1452,8 @@ The lemonade profile enables the outgoing mail server to fetch content for deliv
 </figure>
 
 The lemonade profile includes additional extensions,
-such as the [`CATENATE` extension](https://tools.ietf.org/html/rfc4469) to IMAP
-and the [`PIPELINING` extension](https://tools.ietf.org/html/rfc2920) to SMTP.
+such as the [`CATENATE` extension](https://datatracker.ietf.org/doc/html/rfc4469) to IMAP
+and the [`PIPELINING` extension](https://datatracker.ietf.org/doc/html/rfc2920) to SMTP.
 The former allows mail clients to compose new messages based on existing messages directly on the IMAP server.
 This makes it possible to forward large attachments without having to download and upload them first.
 The latter allows clients to send several commands in a row
@@ -1494,7 +1494,7 @@ or discarded without notifying the author.
 While the last option violates the principle
 that mail is either delivered or returned,
 the alternative is often [worse](#backscatter).
-This is why the standard [explicitly allows](https://tools.ietf.org/html/rfc5321#section-6.2)
+This is why the standard [explicitly allows](https://datatracker.ietf.org/doc/html/rfc5321#section-6.2)
 incoming mail servers to drop received messages silently.
 If the receiving address is an [alias](#alias-address),
 the incoming mail server forwards the message to the configured email address
@@ -1530,7 +1530,7 @@ As we learned above, an [email address](#address) consists of a username and a d
 A sender finds the incoming mail server of a recipient
 by querying the [Domain Name System (DNS)](/internet/#domain-name-system)
 for mail exchange (`MX`) records of the used domain name.
-If no such records exist, the sender [queries for address records](https://tools.ietf.org/html/rfc5321#section-5.1)
+If no such records exist, the sender [queries for address records](https://datatracker.ietf.org/doc/html/rfc5321#section-5.1)
 (`A` or `AAAA`) of the domain name instead.
 If the DNS response is not authenticated with [DNSSEC](/internet/#domain-name-system-security-extensions),
 mail might be sent to the server of an attacker.
@@ -1574,7 +1574,7 @@ This is not just a waste of resources,
 it also delays the [bounce message](#bounce-messages) to the sender of the message,
 who might have simply mistyped the address of the recipient.
 In order to prevent this from happening,
-[RFC 7505](https://tools.ietf.org/html/rfc7505) defines a "null `MX` record" as `0 .`
+[RFC 7505](https://datatracker.ietf.org/doc/html/rfc7505) defines a "null `MX` record" as `0 .`
 similar to how [`SRV` records](#autoconfiguration) indicate the unavailability of a service.
 You should configure a null `MX` record on all your domains which neither send nor receive emails.
 
@@ -1630,13 +1630,13 @@ the following 23 of them have have an `A`, `AAAA`, or `MX` record in April 2021:
 [`.xn--l1acc`](https://www.iana.org/domains/root/db/xn--l1acc.html), and
 [`.xn--mgbah1a3hjkrd`](https://www.iana.org/domains/root/db/xn--mgbah1a3hjkrd.html).
 (The last two domains are [internationalized domain names](#internationalized-domain-names).)
-I've determined this list with the script from [RFC 7085](https://tools.ietf.org/html/rfc7085#appendix-A),
+I've determined this list with the script from [RFC 7085](https://datatracker.ietf.org/doc/html/rfc7085#appendix-A),
 which uses [IANA's](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
 machine-readable [list of top-level domains](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 On yet another note, the [formal grammar](https://en.wikipedia.org/wiki/Formal_grammar)
-in [RFC 2821](https://tools.ietf.org/html/rfc2821#section-4.1.2)
+in [RFC 2821](https://datatracker.ietf.org/doc/html/rfc2821#section-4.1.2)
 required that the domain part of an email address consists of at least two labels.
-[RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.1.2) no longer has this requirement.
+[RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.2) no longer has this requirement.
 
 </details>
 
@@ -1645,7 +1645,7 @@ required that the domain part of an email address consists of at least two label
 Name collisions
 </summary>
 
-If you run the script from [RFC 7085](https://tools.ietf.org/html/rfc7085#appendix-A) yourself,
+If you run the script from [RFC 7085](https://datatracker.ietf.org/doc/html/rfc7085#appendix-A) yourself,
 you will notice that many name servers cannot be resolved
 and that a few top-level domains have an `A` record of `127.0.53.53`
 and an `MX` record of `10 your-dns-needs-immediate-attention.{TLD}.`,
@@ -1754,7 +1754,7 @@ For example, many implementations of Explicit TLS allowed an attacker to
 [inject commands during the unencrypted phase](https://www.kb.cert.org/vuls/id/555316),
 which would then be executed during the encrypted phase of the protocol.
 Implicit TLS was once discouraged in favor of Explicit TLS for the
-[following reasons](https://tools.ietf.org/html/rfc2595#section-7):
+[following reasons](https://datatracker.ietf.org/doc/html/rfc2595#section-7):
 - **Implicit TLS leads to new protocols**:
   The discovery of whether TLS is supported should be made by the client
   and not by the user, who is likely confused by additional protocol options.
@@ -1778,7 +1778,7 @@ Implicit TLS was once discouraged in favor of Explicit TLS for the
   Luckily, this won't be a problem anytime soon.
 
 Since the ease of deployment should trump any other concerns when it comes to security,
-[RFC 8314](https://tools.ietf.org/html/rfc8314) recommends Implicit TLS over Explicit TLS
+[RFC 8314](https://datatracker.ietf.org/doc/html/rfc8314) recommends Implicit TLS over Explicit TLS
 for IMAP, POP3, and SMTP for message submission since 2018.
 When used opportunistically,
 Implicit TLS and Explicit TLS provide security only against
@@ -1888,7 +1888,7 @@ What is less well known because it's rarely used, is that HTTP supports Explicit
 Since version 1.1, HTTP has an [`Upgrade` header field](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header)
 to upgrade an insecure connection to a secure one.
 Because Explicit TLS maintains backward compatibility,
-it can be offered on port 80 as documented in [RFC 2817](https://tools.ietf.org/html/rfc2817).
+it can be offered on port 80 as documented in [RFC 2817](https://datatracker.ietf.org/doc/html/rfc2817).
 
 </details>
 
@@ -1935,7 +1935,7 @@ here is a table with all the relevant information for future reference:
 <figcaption markdown="span" style="max-width: 400px;">
 
 The port numbers used by the various email protocols.<br>
-Since [RFC 8314](https://tools.ietf.org/html/rfc8314),
+Since [RFC 8314](https://datatracker.ietf.org/doc/html/rfc8314),
 Implicit TLS is the preferred option and cleartext is considered obsolete on the port for Explicit TLS.
 
 </figcaption>
@@ -1947,7 +1947,7 @@ Why has SMTP for Relay no port for Implicit TLS?
 </summary>
 
 First of all, we'll talk in a minute about why SMTP is different for [submission and relay](#submission-versus-relay).
-The [official argument](https://tools.ietf.org/html/rfc8314#section-7.3) for why SMTP for Relay has no port for Implicit TLS
+The [official argument](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3) for why SMTP for Relay has no port for Implicit TLS
 is that [`MX` records](#address-resolution) have no way to indicate which port to use and thus port 25 has to be used.
 In my opinion, this argumentation is misleading.
 A more accurate answer is that the outgoing mail server had no secure way to discover
@@ -1961,9 +1961,9 @@ in a [secure way](#dns-based-authentication-of-named-entities).
 
 (In a [twist of history](https://en.wikipedia.org/wiki/SMTPS#History),
 port 465 was shortly registered for SMTP for Relay with Implicit TLS in 1997 before it was revoked again in 1998
-when [STARTTLS for SMTP](https://tools.ietf.org/html/rfc2487) was standardized.
+when [STARTTLS for SMTP](https://datatracker.ietf.org/doc/html/rfc2487) was standardized.
 Since some email service providers began to use this port for message submission with Implicit TLS,
-port 465 was officially recognized for this purpose in [2018](https://tools.ietf.org/html/rfc8314#section-7.3).)
+port 465 was officially recognized for this purpose in [2018](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3).)
 
 </details>
 
@@ -1998,19 +1998,19 @@ This approach had two problems:
   However, relay servers are not supposed to modify messages
   and apparently such modifications caused more harm than good.
 
-For these reasons, [RFC 2476](https://tools.ietf.org/html/rfc2476)
+For these reasons, [RFC 2476](https://datatracker.ietf.org/doc/html/rfc2476)
 introduced a separation between submission and relay in 1998.
 From then on, mail clients were expected to submit outgoing messages
-[on port 587 instead of port 25](https://tools.ietf.org/html/rfc2476#section-3.1)
+[on port 587 instead of port 25](https://datatracker.ietf.org/doc/html/rfc2476#section-3.1)
 so that mail servers can handle them differently from relayed messages more easily.
-The RFC also allowed submission servers to [require authentication](https://tools.ietf.org/html/rfc2476#section-6.2)
+The RFC also allowed submission servers to [require authentication](https://datatracker.ietf.org/doc/html/rfc2476#section-6.2)
 before accepting a message.
 In the late 90s, submission was often restricted based on the IP address of the mail client.
 Allowing submission only from within the organization meant,
 though, that travelling employees couldn't use the outgoing mail server of their organization.
-Just a few months later, SMTP was extended with a flexible [authentication mechanism](https://tools.ietf.org/html/rfc2554),
+Just a few months later, SMTP was extended with a flexible [authentication mechanism](https://datatracker.ietf.org/doc/html/rfc2554),
 which is still in use today.
-RFC 2476 also permitted submission servers to [modify messages](https://tools.ietf.org/html/rfc2476#section-8)
+RFC 2476 also permitted submission servers to [modify messages](https://datatracker.ietf.org/doc/html/rfc2476#section-8)
 in specific ways with the intention that relay servers would stop doing so.
 Equally importantly, the separation between submission and relay allowed the mail transfer agent of an organization
 to reject all messages which were addressed to non-local users.
@@ -2021,11 +2021,11 @@ As a consequence of this separation,
 the original SMTP was split into two protocols:
 One for submission and one for relay.
 Apart from using different port numbers,
-they differ mostly in their use of [SMTP extensions](https://tools.ietf.org/html/rfc6409#section-7).
-The submission protocol is specified most recently in [RFC 6409](https://tools.ietf.org/html/rfc6409),
-which also defines what a submission server [has to do](https://tools.ietf.org/html/rfc6409#section-4),
-what it [should do](https://tools.ietf.org/html/rfc6409#section-5),
-and what it [may do](https://tools.ietf.org/html/rfc6409#section-6).
+they differ mostly in their use of [SMTP extensions](https://datatracker.ietf.org/doc/html/rfc6409#section-7).
+The submission protocol is specified most recently in [RFC 6409](https://datatracker.ietf.org/doc/html/rfc6409),
+which also defines what a submission server [has to do](https://datatracker.ietf.org/doc/html/rfc6409#section-4),
+what it [should do](https://datatracker.ietf.org/doc/html/rfc6409#section-5),
+and what it [may do](https://datatracker.ietf.org/doc/html/rfc6409#section-6).
 These aspects affect only how a submission server is supposed to behave
 but not how mail clients communicate with the server.
 This is why the two protocols are rarely distinguished when talking about SMTP.
@@ -2052,15 +2052,15 @@ Header fields and body
 We'll have a closer look at the format of messages in the [next section](#format)
 but, because we already want to transmit messages in this section,
 we have to cover the basics now.
-A message consists of several [header fields](https://tools.ietf.org/html/rfc5322#section-2.2)
-and an optional [body](https://tools.ietf.org/html/rfc5322#section-2.3),
+A message consists of several [header fields](https://datatracker.ietf.org/doc/html/rfc5322#section-2.2)
+and an optional [body](https://datatracker.ietf.org/doc/html/rfc5322#section-2.3),
 which follows after an empty line.
 Each header field has to be on a separate line but can,
 [if necessary](#line-length-limit), span several lines.
 Identical to [HTTP](/internet/#hypertext-transfer-protocol),
 header fields are formatted as `Name:` `Value`.
 What follows is a simple example message.
-You can find more examples in [RFC 5322](https://tools.ietf.org/html/rfc5322#appendix-A).
+You can find more examples in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#appendix-A).
 
 <figure markdown="block" class="allow-break-inside">
 
@@ -2103,7 +2103,7 @@ incoming mail servers should only add [trace information](#trace-information) to
 and leave the message as is otherwise.
 The information relevant for handling the message,
 such as the addresses to deliver the message to and the address to report failures to,
-belongs to the so-called [envelope](https://tools.ietf.org/html/rfc5321#section-2.3.1).
+belongs to the so-called [envelope](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.1).
 The envelope is specific to the [Simple Mail Transfer Protocol (SMTP)](#simple-mail-transfer-protocol)
 and it can change completely during the delivery of a message.
 The message, on the other hand, mostly stays the same during delivery
@@ -2146,7 +2146,7 @@ and delivers the message in a single envelope to the incoming mail server of thi
 The outgoing mail server could also connect to the incoming mail server twice,
 delivering the message once for Bob and once for Carol.
 I don't know which approach is more common in practice.
-[RFC 5321](https://tools.ietf.org/html/rfc5321#page-68) just says that,
+[RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#page-68) just says that,
 when the same message is delivered to multiple recipients in the same session,
 it should be delivered with a command sequence of
 `MAIL` `FROM`, `RCPT` `TO`, `RCPT` `TO`, `DATA` rather than
@@ -2185,7 +2185,7 @@ so it does that.
 **Mailing list**: It turns out that `ietf@ietf.org` is a [mailing list](#mailing-list).
 It is now the task of the mail server of `ietf.org` to deliver the message to all subscribers of this list,
 with one of them being `dave@example.net`.
-[RFC 5321](https://tools.ietf.org/html/rfc5321#section-3.9) requires that
+[RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-3.9) requires that
 the [bounce address](https://en.wikipedia.org/wiki/Bounce_address)
 as specified in the `MAIL` `FROM` field of the envelope
 is changed to the entity who administers the mailing list.
@@ -2219,9 +2219,9 @@ the mail client has to remove the `Bcc` field for the primary (`To`) and seconda
 Since this is not clearly stated in the standard,
 there existed (and maybe still exist) mail clients
 which relied on the outgoing mail server to remove the `Bcc` field.
-However, [RFC 6409](https://tools.ietf.org/html/rfc6409) lists `Bcc` removal
-neither among the [mandatory actions](https://tools.ietf.org/html/rfc6409#section-4) nor among the
-[permitted message modifications](https://tools.ietf.org/html/rfc6409#section-8) for outgoing mail servers.
+However, [RFC 6409](https://datatracker.ietf.org/doc/html/rfc6409) lists `Bcc` removal
+neither among the [mandatory actions](https://datatracker.ietf.org/doc/html/rfc6409#section-4) nor among the
+[permitted message modifications](https://datatracker.ietf.org/doc/html/rfc6409#section-8) for outgoing mail servers.
 While some outgoing mail server software, such as [Postfix](https://en.wikipedia.org/wiki/Postfix_(software)),
 which is deployed on around 34% of the reachable mail servers on the Internet,
 [drop the `Bcc` header field](http://www.postfix.org/postconf.5.html#message_drop_headers) by default,
@@ -2236,7 +2236,7 @@ depending on their specific combination of mail client and outgoing mail server 
 Since neither mail clients nor outgoing mail servers document how they treat `Bcc` recipients,
 you have to send a test email to figure out the behavior of your particular setup.
 
-[RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) allows four different behaviors
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3) allows four different behaviors
 when it comes to `Bcc` recipients, which we'll study on the basis of another example:
 
 <figure markdown="block" class="allow-break-inside">
@@ -2366,7 +2366,7 @@ indicate this as the sender by using an empty [group construct](#group-construct
 such as `undisclosed-recipients:;`, in the `To` field.
 As we learned above, this behavior isn't guaranteed by the standard.
 Given how prevalent it is to use `Bcc` for undisclosed recipients,
-I think a new iteration of [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) should reflect user expectation
+I think a new iteration of [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3) should reflect user expectation
 and formally deprecate the grouped delivery approach unless the user agreed to this behavior.
 
 While the individual delivery approach is nice in theory
@@ -2446,7 +2446,7 @@ no matter whether you submit the message via SMTP or the web interface.
 #### Simple Mail Transfer Protocol (SMTP) {#simple-mail-transfer-protocol}
 
 The [Simple Mail Transfer Protocol (SMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)
-was first specified in [RFC 821](https://tools.ietf.org/html/rfc821) in 1982.
+was first specified in [RFC 821](https://datatracker.ietf.org/doc/html/rfc821) in 1982.
 As its name suggests, it is a fairly simple protocol:
 
 <figure markdown="block">
@@ -2493,13 +2493,13 @@ Field terminology
 </summary>
 
 Historically, the client could also specify
-[how the message shall be routed](https://tools.ietf.org/html/rfc822#section-6.2.7).
+[how the message shall be routed](https://datatracker.ietf.org/doc/html/rfc822#section-6.2.7).
 For this reason, the `MAIL` `FROM` address is also known as the *reverse path*
 and the `RCPT` `TO` address is also known as the *forward path*.
 [Alternative names](https://en.wikipedia.org/wiki/Bounce_address#Terminology)
 for the `MAIL` `FROM` address are *bounce address*,
 *return path*, *envelope from*, and *5321 from*
-(according to the most recent [RFC](https://tools.ietf.org/html/rfc5321) for SMTP).
+(according to the most recent [RFC](https://datatracker.ietf.org/doc/html/rfc5321) for SMTP).
 I will stick to `MAIL` `FROM` and `RCPT` `TO` for the envelope fields
 and to `From`, `To`, `Cc`, and `Bcc` for the message fields.
 As we will see [later on](#trace-information),
@@ -2511,15 +2511,15 @@ the `MAIL` `FROM` address is added to the message in a `Return-Path` field.
 
 #### Extended Simple Mail Transfer Protocol (ESMTP) {#extended-simple-mail-transfer-protocol}
 
-A framework for extending SMTP was introduced in [RFC 1425](https://tools.ietf.org/html/rfc1425) in 1993.
+A framework for extending SMTP was introduced in [RFC 1425](https://datatracker.ietf.org/doc/html/rfc1425) in 1993.
 The extensible protocol, which is backward compatible with SMTP,
 is called the [Extended Simple Mail Transfer Protocol (ESMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol#Extended_Simple_Mail_Transfer_Protocol).
-ESMTP was revised in [RFC 1651](https://tools.ietf.org/html/rfc1651) (1994),
-[RFC 1869](https://tools.ietf.org/html/rfc1869) (1995),
-[RFC 2821](https://tools.ietf.org/html/rfc2821) (2001),
-and most recently in [RFC 5321](https://tools.ietf.org/html/rfc5321) (2008).
+ESMTP was revised in [RFC 1651](https://datatracker.ietf.org/doc/html/rfc1651) (1994),
+[RFC 1869](https://datatracker.ietf.org/doc/html/rfc1869) (1995),
+[RFC 2821](https://datatracker.ietf.org/doc/html/rfc2821) (2001),
+and most recently in [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321) (2008).
 The basic idea behind ESMTP is that the client greets the server
-with the ["extended hello" command](https://tools.ietf.org/html/rfc5321#section-4.1.1.1) `EHLO`
+with the ["extended hello" command](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.1) `EHLO`
 instead of the old "hello" command `HELO`.
 This indicates to the server that the client understands ESMTP.
 The server responds with all the SMTP extensions it supports.
@@ -2702,19 +2702,19 @@ A transcript of a session with the outgoing mail server of Gmail when using [Imp
 
 As can be seen in the above transcript,
 Gmail's outgoing mail server supports the following SMTP extensions:
-- `SIZE` ([RFC 1870](https://tools.ietf.org/html/rfc1870)):
+- `SIZE` ([RFC 1870](https://datatracker.ietf.org/doc/html/rfc1870)):
   This extension allows the server to specify an upper limit
   on the size of messages it accepts in bytes as part of the `EHLO` response.
   Gmail apparently accepts messages of almost 36 MB.
   The extension also allows the client to specify the size of the message in bytes
   as part of the `MAIL` command: `MAIL FROM:<alice@example.org> SIZE=1234`.
-  The server can then reject the message [for individual recipients](https://tools.ietf.org/html/rfc1870#section-6.4)
+  The server can then reject the message [for individual recipients](https://datatracker.ietf.org/doc/html/rfc1870#section-6.4)
   in its response to each `RCPT` command,
   for example because a mailbox no longer has enough space to store a message of the stated size.
   Doing so has the advantage that a large message doesn't even have to be transmitted
   if it will be rejected for all recipients based on its size.
-  (The declared size can be an [estimate](https://tools.ietf.org/html/rfc1870#section-6).)
-- `8BITMIME` ([RFC 6152](https://tools.ietf.org/html/rfc6152)):
+  (The declared size can be an [estimate](https://datatracker.ietf.org/doc/html/rfc1870#section-6).)
+- `8BITMIME` ([RFC 6152](https://datatracker.ietf.org/doc/html/rfc6152)):
   MIME stands for [Multipurpose Internet Mail Extensions](https://en.wikipedia.org/wiki/MIME)
   and we'll discuss this [later](#content-encoding).
   SMTP originally required the message to consist of 7-bit [ASCII](/internet/#text-encoding) characters.
@@ -2724,22 +2724,22 @@ Gmail's outgoing mail server supports the following SMTP extensions:
   `MAIL FROM:<alice@example.org> BODY=8BITMIME`.
   The server can still enforce a [limit on the length of each line](#line-length-limit), though.
   Therefore, this extension doesn't enable binary data transfer without encoding.
-- `AUTH` ([RFC 4954](https://tools.ietf.org/html/rfc4954)):
+- `AUTH` ([RFC 4954](https://datatracker.ietf.org/doc/html/rfc4954)):
   This extension allows the server to [authenticate](https://en.wikipedia.org/wiki/SMTP_Authentication)
   the user in the [submission protocol](#submission-versus-relay) before accepting a message for relay.
   Since the [above tool](#esmtp-tool) makes extensive use of this extension,
   it deserves its own [information box](#user-authentication).
-- `ENHANCEDSTATUSCODES` ([RFC 2034](https://tools.ietf.org/html/rfc2034)):
+- `ENHANCEDSTATUSCODES` ([RFC 2034](https://datatracker.ietf.org/doc/html/rfc2034)):
   This extension allows the server to respond with more precise
   [status codes](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes)
-  than the ones specified in the [original standard](https://tools.ietf.org/html/rfc821#page-35).
+  than the ones specified in the [original standard](https://datatracker.ietf.org/doc/html/rfc821#page-35).
   The server indicates that it returns enhanced status codes to the client
   by listing the extension in its response to the `EHLO` command.
   The server then prepends the enhanced status codes to the text part of the original status codes.
   The structure of enhanced status codes is `class.subject.detail`,
-  with the values specified in [RFC 3463](https://tools.ietf.org/html/rfc3463) and maintained in a
+  with the values specified in [RFC 3463](https://datatracker.ietf.org/doc/html/rfc3463) and maintained in a
   [registry by IANA](https://www.iana.org/assignments/smtp-enhanced-status-codes/smtp-enhanced-status-codes.xhtml).
-- `PIPELINING` ([RFC 2920](https://tools.ietf.org/html/rfc2920)):
+- `PIPELINING` ([RFC 2920](https://datatracker.ietf.org/doc/html/rfc2920)):
   The goal of this extension is to reduce the number of [round trips](/internet/#network-performance)
   during an SMTP session.
   Instead of having to wait for a response from the server after each command,
@@ -2751,7 +2751,7 @@ Gmail's outgoing mail server supports the following SMTP extensions:
   matching the order of the transmitted commands.
   The reason why I've implemented pipelining in the [above tool](#esmtp-tool)
   is because it makes copying the commands much quicker.
-- `CHUNKING` ([Section 2 of RFC 3030](https://tools.ietf.org/html/rfc3030#section-2)):
+- `CHUNKING` ([Section 2 of RFC 3030](https://datatracker.ietf.org/doc/html/rfc3030#section-2)):
   This extension allows the client to split the message into several chunks and transfer each chunk separately,
   which is especially useful for large messages.
   Instead of the `DATA` command,
@@ -2764,8 +2764,8 @@ Gmail's outgoing mail server supports the following SMTP extensions:
   in order to [determine the end of the message](#message-termination).
   This length prefix turns SMTP into a [binary protocol](/internet/#text-based-protocols) temporarily.
   The client indicates the last chunk by appending `LAST` after the chunk size to the `BDAT` command.
-  The RFC contains a [simple example](https://tools.ietf.org/html/rfc3030#section-4.1).
-- `SMTPUTF8` ([RFC 6531](https://tools.ietf.org/html/rfc6531)):
+  The RFC contains a [simple example](https://datatracker.ietf.org/doc/html/rfc3030#section-4.1).
+- `SMTPUTF8` ([RFC 6531](https://datatracker.ietf.org/doc/html/rfc6531)):
   This extension allows the client to use [UTF-8](/internet/#text-encoding)
   instead of just ASCII in the `MAIL` and `RCPT` commands as well as the message.
   A server which supports the `SMTPUTF8` extension also has to support the `8BITMIME` extension.
@@ -2808,7 +2808,7 @@ STARTTLS extension
 </summary>
 
 [Explicit TLS](#use-of-tls) is implemented with an extension called `STARTTLS`,
-which is specified in [RFC 3207](https://tools.ietf.org/html/rfc3207).
+which is specified in [RFC 3207](https://datatracker.ietf.org/doc/html/rfc3207).
 The reason why [Gmail didn't list this extension](#common-smtp-extensions)
 is because we used SMTP with Implicit TLS on port 465.
 If we open a TCP connection on port 587, it's there:
@@ -2824,10 +2824,10 @@ The `STARTTLS` extension is listed when we connect without TLS to Gmail's outgoi
 
 If the `STARTTLS` extension is listed in the response to the `EHLO` command,
 the client can ask the server to upgrade the insecure channel to a secure one with the `STARTTLS` command.
-If the server responds with the [status code 220](https://tools.ietf.org/html/rfc3207#section-4),
+If the server responds with the [status code 220](https://datatracker.ietf.org/doc/html/rfc3207#section-4),
 the client can continue with the [TLS handshake](/internet/#transport-layer-security).
 Once the handshake is completed, the client and the server are
-[reset to their initial state](https://tools.ietf.org/html/rfc3207#section-4.2).
+[reset to their initial state](https://datatracker.ietf.org/doc/html/rfc3207#section-4.2).
 In particular, the server must forget about the client's argument to the `EHLO` command,
 whereas the client must forget about the extensions supported by the server.
 The client should send another `EHLO` command,
@@ -2877,18 +2877,18 @@ User authentication
 
 In order to protect their reputation and to reduce spam and phishing,
 outgoing mail servers authenticate their users before accepting messages for relay.
-This is done with the `AUTH` extension as specified in [RFC 4954](https://tools.ietf.org/html/rfc4954).
+This is done with the `AUTH` extension as specified in [RFC 4954](https://datatracker.ietf.org/doc/html/rfc4954).
 The `AUTH` extension itself is also extensible:
 Servers can support new mechanisms, which clients can then make use of.
 Since many [application-layer protocols](/internet/#application-layer) require authentication,
 the IETF community abstracted the various mechanisms into the so-called
 [Simple Authentication and Security Layer (SASL)](https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer),
-which is specified in [RFC 4422](https://tools.ietf.org/html/rfc4422).
+which is specified in [RFC 4422](https://datatracker.ietf.org/doc/html/rfc4422).
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a list of
 [SASL mechanisms](https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml).
 SMTP servers list all the mechanisms that they support after `AUTH` in their response to the `EHLO` command.
 We're interested in only four of them:
-- `PLAIN` ([RFC 4616](https://tools.ietf.org/html/rfc4616)):
+- `PLAIN` ([RFC 4616](https://datatracker.ietf.org/doc/html/rfc4616)):
   The client sends the [Base64](https://en.wikipedia.org/wiki/Base64) encoding
   of the user's username and password as an argument to the `AUTH` command to the server.
   The username and password are separated by the [null character](https://en.wikipedia.org/wiki/Null_character).
@@ -2902,19 +2902,19 @@ We're interested in only four of them:
   The reason why I used four zeros instead of just two in the escape sequence
   is to not cause any troubles if your username or password starts with a number.
   And if you're wondering why there is a leading null character:
-  The standard supports an [additional field](https://tools.ietf.org/html/rfc4616#section-2)
+  The standard supports an [additional field](https://datatracker.ietf.org/doc/html/rfc4616#section-2)
   at the beginning, which is usually left empty in the case of SMTP.
   The username and password can consist of any Unicode character except the null character.
   All characters have to be encoded with [UTF-8](/internet/#text-encoding).
-- `LOGIN` ([draft-murchison-sasl-login](https://tools.ietf.org/html/draft-murchison-sasl-login-00)):
+- `LOGIN` ([draft-murchison-sasl-login](https://datatracker.ietf.org/doc/html/draft-murchison-sasl-login-00)):
   This mechanism is obsolete but since it's still widely offered,
   I decided to implement it in the above tool as well.
   Instead of sending the username and the password together,
   the server prompts for them separately once the client has initiated the authentication with `AUTH LOGIN`.
   The `LOGIN` mechanism has the same security properties as the `PLAIN` mechanism,
   it just requires more round trips and prevents [pipelining](#common-smtp-extensions) because it's interactive.
-- `CRAM-MD5` ([RFC 2195](https://tools.ietf.org/html/rfc2195)
-  and [draft-ietf-sasl-crammd5](https://tools.ietf.org/html/draft-ietf-sasl-crammd5-10)):
+- `CRAM-MD5` ([RFC 2195](https://datatracker.ietf.org/doc/html/rfc2195)
+  and [draft-ietf-sasl-crammd5](https://datatracker.ietf.org/doc/html/draft-ietf-sasl-crammd5-10)):
   As far as I can tell,
   this mechanism is not widely used by mail servers but still widely supported by mail clients.
   I cover this mechanism in more detail in a [separate box](#challenge-response-authentication-mechanism).
@@ -2922,7 +2922,7 @@ We're interested in only four of them:
   through a [one-way function](https://en.wikipedia.org/wiki/One-way_function)
   and sends the output of this function to the server instead of the password.
   This was useful against passive attackers before the widespread deployment of TLS.
-- `SCRAM` ([RFC 5802](https://tools.ietf.org/html/rfc5802)):
+- `SCRAM` ([RFC 5802](https://datatracker.ietf.org/doc/html/rfc5802)):
   `SCRAM` is not much more complicated than `CRAM-MD5`
   but has [much better properties](#desirable-properties-of-authentication-mechanisms).
   Unfortunately, it's not widely used so I didn't bother to implement it in the above tool.
@@ -2984,7 +2984,7 @@ whereas in domain names the root of the delegation hierarchy is on the right.
 In reality, the situation is a bit more complicated because the 32-bit IPv4 address ranges
 are no longer just allocated along the byte boundaries but also split at arbitrary positions.
 This is known as [classless inter-domain routing (CIDR)](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
-and solved by [classless `in-addr.arpa` delegation](https://tools.ietf.org/html/rfc2317).
+and solved by [classless `in-addr.arpa` delegation](https://datatracker.ietf.org/doc/html/rfc2317).
 
 Since Internet service providers usually don't configure reverse mappings
 for the IP addresses of their residential customers, incoming mail servers use this
@@ -3020,8 +3020,8 @@ other operating systems, such as [Linux](https://en.wikipedia.org/wiki/Linux)
 and [macOS](https://en.wikipedia.org/wiki/MacOS), use only LF to encode a newline.
 As you can imagine, this causes a lot of
 [interoperability issues](https://en.wikipedia.org/wiki/Newline#Issues_with_different_newline_formats).
-Both [SMTP](https://tools.ietf.org/html/rfc5321#section-2.3.8)
-and the [message format](https://tools.ietf.org/html/rfc5322#section-2.1) require that lines end with both CR and LF.
+Both [SMTP](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.8)
+and the [message format](https://datatracker.ietf.org/doc/html/rfc5322#section-2.1) require that lines end with both CR and LF.
 By using the [`-crlf` option](https://www.openssl.org/docs/manmaster/man1/openssl-s_client.html#crlf),
 `openssl` makes sure that this is the case.
 
@@ -3032,10 +3032,10 @@ By using the [`-crlf` option](https://www.openssl.org/docs/manmaster/man1/openss
 Message termination
 </summary>
 
-When using the [`DATA` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.4),
+When using the [`DATA` command](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.4),
 the transmission of the message is terminated by a period on a line of its own.
 So what happens if you include a line with a single period in an email?
-[SMTP specifies](https://tools.ietf.org/html/rfc5321#section-4.5.2) that
+[SMTP specifies](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.2) that
 the sender has to insert an additional period at the beginning of every line
 which starts with a period before transmitting the message.
 The recipient then removes the leading period from every line
@@ -3053,13 +3053,13 @@ the [tool above](#esmtp-tool) does the escaping for you.
 Origination date
 </summary>
 
-The [`Date` field](https://tools.ietf.org/html/rfc5322#section-3.6.1)
+The [`Date` field](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.1)
 indicates the date and time at which the author of the message pushed the "Send" button.
 It's not supposed to reflect when the message is actually sent, though:
 If the device is offline when the user clicks on "Send",
 the message is queued locally and the `Date` field isn't updated when the message is submitted.
-Messages [must have](https://tools.ietf.org/html/rfc5322#page-21) a single `Date` field and
-outgoing mail servers [may add one](https://tools.ietf.org/html/rfc6409#section-8.2) if it's missing.
+Messages [must have](https://datatracker.ietf.org/doc/html/rfc5322#page-21) a single `Date` field and
+outgoing mail servers [may add one](https://datatracker.ietf.org/doc/html/rfc6409#section-8.2) if it's missing.
 The outgoing mail servers that I've checked don't enforce any rules on the `Date`.
 I've successfully submitted messages whose `Date` was one year in the past or in the future.
 Do mail clients display messages with the date that was chosen by the sender?
@@ -3092,7 +3092,7 @@ Can you [spoof the sender address](https://en.wikipedia.org/wiki/Email_spoofing)
 not only during relay but also during submission?
 Or more precisely: Can you authenticate to an outgoing mail server as one user
 but then use the address of a different user in the `MAIL` `FROM` and `From` fields?
-According to [RFC 6409](https://tools.ietf.org/html/rfc6409#section-6.1),
+According to [RFC 6409](https://datatracker.ietf.org/doc/html/rfc6409#section-6.1),
 outgoing mail servers may enforce submission rights but they don't have to.
 If you want to know how your email service provider handles such submissions, you have to try it.
 Some mail clients, such as [Thunderbird](https://support.mozilla.org/en-US/kb/using-identities)
@@ -3142,7 +3142,7 @@ Limitations of the above tool
 - The address format is more restrictive than necessary:
   - No [quoted strings](#address-syntax) in the local part,
   - No support for the [group construct](#group-construct),
-  - No support for [folding whitespace and comments](https://tools.ietf.org/html/rfc5322#section-3.2.2),
+  - No support for [folding whitespace and comments](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2),
   - Only ASCII characters supported in addresses and [display names](#display-name)<br>
     (i.e. you have to do [header encoding](#header-encoding) and [domain encoding](#punycode-encoding) yourself).
   {:.compact}
@@ -3155,27 +3155,27 @@ Limitations of the above tool
 Other SMTP commands
 </summary>
 
-Besides [`EHLO`](https://tools.ietf.org/html/rfc5321#section-4.1.1.1),
-[`MAIL`](https://tools.ietf.org/html/rfc5321#section-4.1.1.2),
-[`RCPT`](https://tools.ietf.org/html/rfc5321#section-4.1.1.3),
-[`DATA`](https://tools.ietf.org/html/rfc5321#section-4.1.1.4),
-and [`QUIT`](https://tools.ietf.org/html/rfc5321#section-4.1.1.10),
+Besides [`EHLO`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.1),
+[`MAIL`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.2),
+[`RCPT`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.3),
+[`DATA`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.4),
+and [`QUIT`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.10),
 there are some other SMTP commands, which are rarely used in practice:
 
 <figure markdown="block" class="allow-break-inside">
 
 | Command | Argument | Description
 |-
-| [`RSET`](https://tools.ietf.org/html/rfc5321#section-4.1.1.5) | – | Reset already transmitted sender, recipient, and mail data.
-| [`VRFY`](https://tools.ietf.org/html/rfc5321#section-4.1.1.6) | Mailbox | Verify whether the given mailbox exists on the server.
-| [`EXPN`](https://tools.ietf.org/html/rfc5321#section-4.1.1.7) | Mailing list | Expand the given mailing list (i.e. return the members).
-| [`HELP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.8) | [Command] | Ask for helpful information about the optional command.
-| [`NOOP`](https://tools.ietf.org/html/rfc5321#section-4.1.1.9) | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
+| [`RSET`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.5) | – | Reset already transmitted sender, recipient, and mail data.
+| [`VRFY`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.6) | Mailbox | Verify whether the given mailbox exists on the server.
+| [`EXPN`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.7) | Mailing list | Expand the given mailing list (i.e. return the members).
+| [`HELP`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.8) | [Command] | Ask for helpful information about the optional command.
+| [`NOOP`](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.9) | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
 
 <figcaption markdown="span" style="max-width: 380px;">
 
-These commands can be used [at any time during a session](https://tools.ietf.org/html/rfc5321#section-4.1.4).
-`VRFY` and `EXPN` are usually disabled for [security reasons](https://tools.ietf.org/html/rfc5321#section-7.3).
+These commands can be used [at any time during a session](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.4).
+`VRFY` and `EXPN` are usually disabled for [security reasons](https://datatracker.ietf.org/doc/html/rfc5321#section-7.3).
 
 </figcaption>
 </figure>
@@ -3187,7 +3187,7 @@ Let's look at two examples:
 <figcaption markdown="span">
 
 What a response to the `VRFY` command usually looks like.
-(The reply code of a disabled `VRFY` command [should be 252](https://tools.ietf.org/html/rfc5321#section-7.3), though.)
+(The reply code of a disabled `VRFY` command [should be 252](https://datatracker.ietf.org/doc/html/rfc5321#section-7.3), though.)
 
 </figcaption>
 </figure>
@@ -3233,10 +3233,10 @@ chain reactions are prevented with the following measures:
   as this could result in messages being sent back and forth indefinitely between the two systems.
   Automatic responses should always be sent to the `MAIL` `FROM` address,
   which was specified in the [envelope](#message-versus-envelope) of the message.
-  By using an [empty `MAIL` `FROM` address](https://tools.ietf.org/html/rfc5321#section-4.5.5)
+  By using an [empty `MAIL` `FROM` address](https://datatracker.ietf.org/doc/html/rfc5321#section-4.5.5)
   (`MAIL` `FROM:<>`), a sender can indicate that no automatic response shall be sent back.
   Additionally, automatically submitted messages should be marked with the `Auto-Submitted` header field,
-  which is specified in [RFC 3834](https://tools.ietf.org/html/rfc3834#section-5).
+  which is specified in [RFC 3834](https://datatracker.ietf.org/doc/html/rfc3834#section-5).
   If an automatic process sends a message in response to another message,
   the value of this header field should be set to `auto-replied`.
   If the message is triggered by another event,
@@ -3258,7 +3258,7 @@ chain reactions are prevented with the following measures:
   they can simply go through its header fields to determine
   whether the message has already been delivered to the specified mailbox.
   If the message has already been delivered, they respond with a delivery failure.
-  Another way to detect loops is to [count](https://tools.ietf.org/html/rfc5321#section-6.3)
+  Another way to detect loops is to [count](https://datatracker.ietf.org/doc/html/rfc5321#section-6.3)
   the [`Received` header fields](#trace-information) in a message.
   If they exceed a certain threshold, the message is [bounced](#bounce-messages).
   Both techniques require that mail servers only add additional header fields without removing existing ones.
@@ -3308,15 +3308,15 @@ For example, [mailing list software](https://en.wikipedia.org/wiki/List_of_maili
 should be able to remove no longer valid addresses from the list automatically.
 Two techniques address this problem:
 - [**Machine-processable non-delivery reports (NDR)**](https://en.wikipedia.org/wiki/Return_receipt):
-  [RFC 3464](https://tools.ietf.org/html/rfc3464) specifies how [multipart messages](#multipart-messages)
+  [RFC 3464](https://datatracker.ietf.org/doc/html/rfc3464) specifies how [multipart messages](#multipart-messages)
   can be used to send so-called delivery status notifications (DSN) to the sender in a standardized way.
   In short, the bounce message is marked with
   `Content-Type: multipart/report; report-type=delivery-status; boundary="…"`
   and the machine-processable part is labeled with `Content-Type: message/delivery-status`.
-  The report contains [message-specific](https://tools.ietf.org/html/rfc3464#section-2.2)
-  and [recipient-specific](https://tools.ietf.org/html/rfc3464#section-2.3) fields,
+  The report contains [message-specific](https://datatracker.ietf.org/doc/html/rfc3464#section-2.2)
+  and [recipient-specific](https://datatracker.ietf.org/doc/html/rfc3464#section-2.3) fields,
   which are separated by a blank line.
-  The RFC includes [some examples](https://tools.ietf.org/html/rfc3464#page-34).
+  The RFC includes [some examples](https://datatracker.ietf.org/doc/html/rfc3464#page-34).
   The advantage of this approach is that even mail clients can make use of the report.
   Its disadvantage is that not everyone supports this format and even if everyone did,
   the sender doesn't learn for which recipient the message couldn't be delivered
@@ -3369,9 +3369,9 @@ This allows the incoming mail server to reject bounce messages
 which are addressed to a non-authenticated address.
 The best-known proposal for how to do this is called
 [bounce address tag validation (BATV)](https://en.wikipedia.org/wiki/Bounce_Address_Tag_Validation).
-It is specified in [this draft](https://tools.ietf.org/html/draft-levine-smtp-batv-01).
+It is specified in [this draft](https://datatracker.ietf.org/doc/html/draft-levine-smtp-batv-01).
 In order to prevent the authenticated bounce address from being abused,
-the [HMAC is calculated](https://tools.ietf.org/html/draft-levine-smtp-batv-01#section-4.1)
+the [HMAC is calculated](https://datatracker.ietf.org/doc/html/draft-levine-smtp-batv-01#section-4.1)
 over the original `MAIL` `FROM` address and a [timestamp](https://en.wikipedia.org/wiki/Timestamp)
 of when the authenticated address expires.
 The timestamp and some part of the HMAC are prepended to the original `MAIL` `FROM` address
@@ -3774,7 +3774,7 @@ A server can reduce the damage of a leaked database by storing individually salt
   is called [key stretching](https://en.wikipedia.org/wiki/Key_stretching).
   One algorithm for doing so is the
   [Password-Based Key Derivation Function 2 (PBKDF2)](https://en.wikipedia.org/wiki/PBKDF2),
-  which is specified in [RFC 8018](https://tools.ietf.org/html/rfc8018).
+  which is specified in [RFC 8018](https://datatracker.ietf.org/doc/html/rfc8018).
   Additionally, cryptographic keys typically have a desired length,
   which is another reason for using a key derivation function (KDF).
 
@@ -4123,7 +4123,7 @@ Unfortunately, I couldn't find any good literature on desirable properties of pa
 which is why I made up the following criteria myself.
 Since this isn't my area of expertise,
 [let me know](mailto:contact@ef1p.com) if I missed an important aspect.
-([Section 5 of RFC 7616](https://tools.ietf.org/html/rfc7616#section-5)
+([Section 5 of RFC 7616](https://datatracker.ietf.org/doc/html/rfc7616#section-5)
 is the best source that I could find, covering security considerations of
 [Digest Access Authentication](https://en.wikipedia.org/wiki/Digest_access_authentication).)
 
@@ -4305,8 +4305,8 @@ How [challenge–response authentication](https://en.wikipedia.org/wiki/Challeng
 </figcaption>
 </figure>
 
-CRAM is specified in [RFC 2195](https://tools.ietf.org/html/rfc2195)
-and [draft-ietf-sasl-crammd5](https://tools.ietf.org/html/draft-ietf-sasl-crammd5-10).
+CRAM is specified in [RFC 2195](https://datatracker.ietf.org/doc/html/rfc2195)
+and [draft-ietf-sasl-crammd5](https://datatracker.ietf.org/doc/html/draft-ietf-sasl-crammd5-10).
 Unlike what [some documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration/FileFormat/HowTo#Authentication) suggests,
 CRAM has nothing to do with encryption.
 The client computes the response as `Response: hmac(Password, Challenge)`,
@@ -4323,8 +4323,8 @@ are fulfilled by `CRAM-MD5`:
    In this regard, `CRAM` is worse than `PLAIN`,
    where only a [derivation](#applications-of-cryptographic-hash-functions)
    of the password needs to be stored.
-   Both the [RFC](https://tools.ietf.org/html/rfc2195#section-4)
-   and the [draft](https://tools.ietf.org/html/draft-ietf-sasl-crammd5-10#section-5)
+   Both the [RFC](https://datatracker.ietf.org/doc/html/rfc2195#section-4)
+   and the [draft](https://datatracker.ietf.org/doc/html/draft-ietf-sasl-crammd5-10#section-5)
    say that the security can be marginally improved by storing the state of the hash function
    after feeding in the password instead of the password itself.
    This is putting the [length-extension vulnerability](#applications-of-cryptographic-hash-functions)
@@ -4384,7 +4384,7 @@ Salted Challenge-Response Authentication Mechanism (SCRAM)
 Looking at its name, [SCRAM](https://en.wikipedia.org/wiki/Salted_Challenge_Response_Authentication_Mechanism)
 seems to be just a salted version of [CRAM](#challenge-response-authentication-mechanism).
 This is misleading, however, as SCRAM is much more than that.
-SCRAM is specified in [RFC 5802](https://tools.ietf.org/html/rfc5802)
+SCRAM is specified in [RFC 5802](https://datatracker.ietf.org/doc/html/rfc5802)
 and improves on CRAM with the following, now mostly familiar techniques:
 - [**Key derivation**](#applications-of-cryptographic-hash-functions):
   Instead of using the password directly, SCRAM uses
@@ -4424,7 +4424,7 @@ and improves on CRAM with the following, now mostly familiar techniques:
   Binding the channel on the [application layer](/internet/#application-layer)
   to the channel on the [security layer](/internet/#security-layer)
   prevents [man-in-the-middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
-  [Channel binding](https://tools.ietf.org/html/rfc5802#section-6) is optional in SCRAM.
+  [Channel binding](https://datatracker.ietf.org/doc/html/rfc5802#section-6) is optional in SCRAM.
   There are different ways to bind the inner channel to the outer channel with different tradeoffs.
   We'll cover them in the [next box](#tls-channel-bindings).
 
@@ -4443,7 +4443,7 @@ However, be aware that my simplifications haven't been reviewed.
 The SCRAM standard might do things differently for good reasons,
 which I just haven't thought of.
 For the sake of compatibility and security,
-implement the [official protocol](https://tools.ietf.org/html/rfc5802#section-3)!
+implement the [official protocol](https://datatracker.ietf.org/doc/html/rfc5802#section-3)!
 I simplified the protocol only to make it easier to understand.
 The biggest differences are that I don't separate the "server key" from the "client key"
 and that I removed the redundancy in the transmitted and thus authenticated messages.
@@ -4521,7 +4521,7 @@ to all but one of the [above properties](#desirable-properties-of-authentication
    Even if the `ServerNonce`, `Salt`, and `IterationCount` are chosen by a man-in-the-middle,
    `KeyXorHashedKeyMac` depends on the unique `ClientNonce`, which prevents pooled brute-force attacks.
 4. **Individual brute-force attacks** thanks to a minimum iteration count:
-   Unfortunately, the [standard says only](https://tools.ietf.org/html/rfc5802#page-13)
+   Unfortunately, the [standard says only](https://datatracker.ietf.org/doc/html/rfc5802#page-13)
    that servers should choose an `IterationCount` of at least 4096.
    It's important, however, that clients are programmed to reject an `IterationCount` below a certain threshold.
    Otherwise, a man-in-the-middle can send an `IterationCount` of 1,
@@ -4530,7 +4530,7 @@ to all but one of the [above properties](#desirable-properties-of-authentication
    not standardizing the minimum iteration count can lead to incompatibilities
    between different implementations of the standard.
 5. **Denial-of-service attacks** thanks to a maximum iteration count:
-   The [standard notes](https://tools.ietf.org/html/rfc5802#page-22)
+   The [standard notes](https://datatracker.ietf.org/doc/html/rfc5802#page-22)
    that a compromised server or a man-in-the-middle can perform a computational denial-of-service attack on clients
    by sending a big `IterationCount`.
    For this reason, clients should reject an `IterationCount` above a certain threshold.
@@ -4616,10 +4616,10 @@ The standards exist, we just need to deploy them…
 TLS channel bindings (SCRAM-PLUS)
 </summary>
 
-Channel binding is discussed in [section 6 of RFC 5802](https://tools.ietf.org/html/rfc5802#section-6).
+Channel binding is discussed in [section 6 of RFC 5802](https://datatracker.ietf.org/doc/html/rfc5802#section-6).
 If a server supports channel binding,
 it advertises the authentication mechanism as `SCRAM-<hash-function>-PLUS`.
-An example is `SCRAM-SHA-256-PLUS` as specified in [RFC 7677](https://tools.ietf.org/html/rfc7677).
+An example is `SCRAM-SHA-256-PLUS` as specified in [RFC 7677](https://datatracker.ietf.org/doc/html/rfc7677).
 Since mutual authentication is established on the application layer by `SCRAM`,
 the security layer has to provide only message confidentiality and message authentication
 but not [party authentication](/internet/#transport-layer-security) when channel binding is used.
@@ -4628,14 +4628,14 @@ which means that servers can use [self-signed certificates](https://en.wikipedia
 Binding the application layer to the security layer doesn't change the security layer.
 A TLS implementation needs to be changed only if it doesn't allow the application layer to access the necessary values.
 
-[RFC 5929](https://tools.ietf.org/html/rfc5929) defines three different channel bindings for TLS,
+[RFC 5929](https://datatracker.ietf.org/doc/html/rfc5929) defines three different channel bindings for TLS,
 where only two of them are relevant for us:
-- [`tls-server-end-point`](https://tools.ietf.org/html/rfc5929#section-4)
+- [`tls-server-end-point`](https://datatracker.ietf.org/doc/html/rfc5929#section-4)
   uses the hash of the server's certificate: `hash(ServerCertificate)`.
   The advantage of this binding is that
   it can easily be used with a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
   Its disadvantage is that it doesn't protect against compromised server keys.
-- [`tls-unique`](https://tools.ietf.org/html/rfc5929#section-3)
+- [`tls-unique`](https://datatracker.ietf.org/doc/html/rfc5929#section-3)
   uses the first TLS `Finished` message of the latest
   [TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake).
   Since the `Finished` message contains a hash over all previous handshake messages,
@@ -4727,7 +4727,7 @@ under the label [TLS-SRP](https://en.wikipedia.org/wiki/TLS-SRP)
 but just like SCRAM it seems to be
 [rarely used](https://crypto.stackexchange.com/questions/8245/why-is-srp-not-widely-used).
 One downside of SRP is that it leaks the username to any eavesdropper during
-[its TLS handshake](https://tools.ietf.org/html/rfc5054#section-2.2).
+[its TLS handshake](https://datatracker.ietf.org/doc/html/rfc5054#section-2.2).
 
 </details>
 
@@ -4777,7 +4777,7 @@ in a text editor, such as [Visual Studio Code](https://code.visualstudio.com/).
 #### Post Office Protocol Version 3 (POP3) {#post-office-protocol-version-3}
 
 The [Post Office Protocol Version 3 (POP3)](https://en.wikipedia.org/wiki/Post_Office_Protocol)
-is specified in [RFC 1939](https://tools.ietf.org/html/rfc1939).
+is specified in [RFC 1939](https://datatracker.ietf.org/doc/html/rfc1939).
 Similar to [ESMTP](#extended-simple-mail-transfer-protocol),
 POP3 is a [text-based](/internet/#text-based-protocols)
 [application-layer protocol](/internet/#application-layer),
@@ -4835,15 +4835,15 @@ POP3 servers must support the following commands:
 
 | Command | Argument | Response | Description
 |-
-| [`USER`](https://tools.ietf.org/html/rfc1939#page-13) | Username | – | Indicate the user whose messages shall be retrieved.
-| [`PASS`](https://tools.ietf.org/html/rfc1939#page-14) | Password | – | Transmit the password to authenticate the user.
-| [`STAT`](https://tools.ietf.org/html/rfc1939#page-6) | – | Count Size | Return the count and size of all messages.
-| [`LIST`](https://tools.ietf.org/html/rfc1939#page-6) | [Number] | Number Size | List the size of all messages [or of the specified one].
-| [`RETR`](https://tools.ietf.org/html/rfc1939#page-8) | Number | Message | Retrieve the message with the given number.
-| [`DELE`](https://tools.ietf.org/html/rfc1939#page-8) | Number | – | Mark the message with the given number as deleted.
-| [`RSET`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | Unmark all messages that were marked as deleted.
-| [`NOOP`](https://tools.ietf.org/html/rfc1939#page-9) | – | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
-| [`QUIT`](https://tools.ietf.org/html/rfc1939#page-10) | – | – | Delete the marked messages and close the connection.
+| [`USER`](https://datatracker.ietf.org/doc/html/rfc1939#page-13) | Username | – | Indicate the user whose messages shall be retrieved.
+| [`PASS`](https://datatracker.ietf.org/doc/html/rfc1939#page-14) | Password | – | Transmit the password to authenticate the user.
+| [`STAT`](https://datatracker.ietf.org/doc/html/rfc1939#page-6) | – | Count Size | Return the count and size of all messages.
+| [`LIST`](https://datatracker.ietf.org/doc/html/rfc1939#page-6) | [Number] | Number Size | List the size of all messages [or of the specified one].
+| [`RETR`](https://datatracker.ietf.org/doc/html/rfc1939#page-8) | Number | Message | Retrieve the message with the given number.
+| [`DELE`](https://datatracker.ietf.org/doc/html/rfc1939#page-8) | Number | – | Mark the message with the given number as deleted.
+| [`RSET`](https://datatracker.ietf.org/doc/html/rfc1939#page-9) | – | – | Unmark all messages that were marked as deleted.
+| [`NOOP`](https://datatracker.ietf.org/doc/html/rfc1939#page-9) | – | – | [Do nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands) besides [keeping the connection alive](https://en.wikipedia.org/wiki/Keepalive).
+| [`QUIT`](https://datatracker.ietf.org/doc/html/rfc1939#page-10) | – | – | Delete the marked messages and close the connection.
 
 <figcaption markdown="span">
 The mandatory commands of POP3.
@@ -4858,8 +4858,8 @@ The mandatory commands of POP3.
 POP3 extensions
 </summary>
 
-[RFC 2449](https://tools.ietf.org/html/rfc2449) defines an extension mechanism for POP3.
-It introduces the [`CAPA` command](https://tools.ietf.org/html/rfc2449#section-5),
+[RFC 2449](https://datatracker.ietf.org/doc/html/rfc2449) defines an extension mechanism for POP3.
+It introduces the [`CAPA` command](https://datatracker.ietf.org/doc/html/rfc2449#section-5),
 to which the server responds with the supported capabilities.
 If a server doesn't recognize an optional command, such as `CAPA`,
 it responds with `-ERR`.
@@ -4870,10 +4870,10 @@ or a behavior which the client should know about:
 
 | Command | Argument | Response | Description
 |-
-| [`CAPA`](https://tools.ietf.org/html/rfc2449#section-5) | – | Capabilities | List the supported capabilities.
-| [`STLS`](https://tools.ietf.org/html/rfc2595#section-4) | – | – | Upgrade the connection from TCP to TLS just like [`STARTTLS`](#starttls-extension).
-| [`TOP`](https://tools.ietf.org/html/rfc1939#section-7) | Number X | Message | Return the header and the top X body lines of the specified message.
-| [`UIDL`](https://tools.ietf.org/html/rfc1939#page-12) | [Number] | Number ID | List the permanent ID of all messages [or just the specified one].
+| [`CAPA`](https://datatracker.ietf.org/doc/html/rfc2449#section-5) | – | Capabilities | List the supported capabilities.
+| [`STLS`](https://datatracker.ietf.org/doc/html/rfc2595#section-4) | – | – | Upgrade the connection from TCP to TLS just like [`STARTTLS`](#starttls-extension).
+| [`TOP`](https://datatracker.ietf.org/doc/html/rfc1939#section-7) | Number X | Message | Return the header and the top X body lines of the specified message.
+| [`UIDL`](https://datatracker.ietf.org/doc/html/rfc1939#page-12) | [Number] | Number ID | List the permanent ID of all messages [or just the specified one].
 
 <figcaption markdown="span" style="max-width: 600px;">
 
@@ -4888,13 +4888,13 @@ Unlike the message numbering, the IDs are guaranteed to stay the same across ses
 
 | Behavior | Argument | Description
 |-
-| [`PIPELINING`](https://tools.ietf.org/html/rfc2449#section-6.6) | – | Indicates that the server can handle [multiple commands](#common-smtp-extensions) at a time.
-| [`RESP-CODES`](https://tools.ietf.org/html/rfc2449#section-6.4) | – | Indicates that the server supports [extended response codes](https://tools.ietf.org/html/rfc2449#section-8) in square brackets.
-| [`AUTH-RESP-CODE`](https://tools.ietf.org/html/rfc3206) | – | Indicates that the server tells the client why an authentication attempt failed.
-| [`IMPLEMENTATION`](https://tools.ietf.org/html/rfc2449#section-6.9) | Name | Indicates the name of the server's POP3 implementation for troubleshooting.
-| [`SASL`](https://tools.ietf.org/html/rfc2449#section-6.3) | Mechanisms | Indicates the [SASL mechanisms](#user-authentication) which can be used with the [`AUTH` command](https://tools.ietf.org/html/rfc1734).
-| [`LOGIN-DELAY`](https://tools.ietf.org/html/rfc2449#section-6.5) | Seconds | Indicates how many seconds the client has to wait before connecting again.
-| [`EXPIRE`](https://tools.ietf.org/html/rfc2449#section-6.7) | Days | Indicates after how many days the server deletes (retrieved) messages.
+| [`PIPELINING`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.6) | – | Indicates that the server can handle [multiple commands](#common-smtp-extensions) at a time.
+| [`RESP-CODES`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.4) | – | Indicates that the server supports [extended response codes](https://datatracker.ietf.org/doc/html/rfc2449#section-8) in square brackets.
+| [`AUTH-RESP-CODE`](https://datatracker.ietf.org/doc/html/rfc3206) | – | Indicates that the server tells the client why an authentication attempt failed.
+| [`IMPLEMENTATION`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.9) | Name | Indicates the name of the server's POP3 implementation for troubleshooting.
+| [`SASL`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.3) | Mechanisms | Indicates the [SASL mechanisms](#user-authentication) which can be used with the [`AUTH` command](https://datatracker.ietf.org/doc/html/rfc1734).
+| [`LOGIN-DELAY`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.5) | Seconds | Indicates how many seconds the client has to wait before connecting again.
+| [`EXPIRE`](https://datatracker.ietf.org/doc/html/rfc2449#section-6.7) | Days | Indicates after how many days the server deletes (retrieved) messages.
 
 <figcaption markdown="span" style="max-width: 520px;">
 
@@ -4923,10 +4923,10 @@ APOP authentication
 </summary>
 
 To the best of my knowledge,
-[APOP](https://tools.ietf.org/html/rfc1939#page-15) stands for Authenticated Post Office Protocol.
+[APOP](https://datatracker.ietf.org/doc/html/rfc1939#page-15) stands for Authenticated Post Office Protocol.
 It's a [challenge-response authentication mechanism](#challenge-response-authentication-mechanism) similar to
 [`CRAM-MD5`](#user-authentication) with the same [properties](#desirable-properties-of-authentication-mechanisms).
-Even though `APOP` is an [optional command](https://tools.ietf.org/html/rfc1939#section-7),
+Even though `APOP` is an [optional command](https://datatracker.ietf.org/doc/html/rfc1939#section-7),
 it's not advertised in the response to the [`CAPA` command](#pop3-extensions)
 because a POP3 server already indicates support for the `APOP` command
 by including the challenge in its initial greeting.
@@ -4934,7 +4934,7 @@ The `Challenge` is of the form `<Nonce@Host>`.
 The `Response` is the [hexadecimal encoding](https://en.wikipedia.org/wiki/Hexadecimal)
 of `md5(Challenge + Password)`, where [MD5](#secure-hash-algorithms)
 is a [cryptographic hash function](#cryptographic-hash-functions).
-You find an example session [in RFC 1939](https://tools.ietf.org/html/rfc1939#section-10).
+You find an example session [in RFC 1939](https://datatracker.ietf.org/doc/html/rfc1939#section-10).
 
 </details>
 
@@ -4942,7 +4942,7 @@ You find an example session [in RFC 1939](https://tools.ietf.org/html/rfc1939#se
 #### Internet Message Access Protocol (IMAP) {#internet-message-access-protocol}
 
 The [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)
-is specified in [RFC 3501](https://tools.ietf.org/html/rfc3501).
+is specified in [RFC 3501](https://datatracker.ietf.org/doc/html/rfc3501).
 IMAP works similar to [ESMTP](#extended-simple-mail-transfer-protocol)
 and [POP3](#post-office-protocol-version-3),
 it just has many more commands and options.
@@ -4978,7 +4978,7 @@ such as `A`, `B`, `C`, or a dot `.`.
 The server prefixes each line of its response with `*`
 and completes its response with a line
 which starts with the tag chosen by the client.
-The tag is followed by a [status response](https://tools.ietf.org/html/rfc3501#section-7.1):
+The tag is followed by a [status response](https://datatracker.ietf.org/doc/html/rfc3501#section-7.1):
 `OK` for success, `NO` for failure, or `BAD` for protocol errors.
 Don't worry about reusing tags in a single session,
 you can run a command repeatedly with the same tag.
@@ -4995,47 +4995,47 @@ Protocol states
 
 Most [IMAP commands](#imap-commands) can be called only in certain
 [states](https://en.wikipedia.org/wiki/State_(computer_science)).
-(The same is [true for POP3](https://tools.ietf.org/html/rfc1939#section-5)
+(The same is [true for POP3](https://datatracker.ietf.org/doc/html/rfc1939#section-5)
 but I didn't deem it worth mentioning.)
-Unless the connection has been [pre-authenticated](https://tools.ietf.org/html/rfc3501#section-7.1.4),
-the IMAP protocol starts in the [not-authenticated state](https://tools.ietf.org/html/rfc3501#section-3.1).
+Unless the connection has been [pre-authenticated](https://datatracker.ietf.org/doc/html/rfc3501#section-7.1.4),
+the IMAP protocol starts in the [not-authenticated state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.1).
 Before the client can do anything else,
-it has to issue a [`LOGIN`](https://tools.ietf.org/html/rfc3501#section-6.2.3)
-or [`AUTHENTICATE`](https://tools.ietf.org/html/rfc3501#section-6.2.2) command.
+it has to issue a [`LOGIN`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.2.3)
+or [`AUTHENTICATE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.2.2) command.
 (When using [Explicit TLS](#use-of-tls),
-the client can also send the [`STARTTLS`](https://tools.ietf.org/html/rfc3501#section-6.2.1) request.)
+the client can also send the [`STARTTLS`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.2.1) request.)
 While the `LOGIN` command is followed by the username and the password,
 `AUTHENTICATE` can be used with any [SASL mechanism](#user-authentication)
 which is [supported by the server](#imap-extensions).
 If the user has been authenticated successfully,
-the protocol enters the [authenticated state](https://tools.ietf.org/html/rfc3501#section-3.2).
-The client has to [`SELECT`](https://tools.ietf.org/html/rfc3501#section-6.3.1)
-or [`EXAMINE`](https://tools.ietf.org/html/rfc3501#section-6.3.2) a folder
+the protocol enters the [authenticated state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.2).
+The client has to [`SELECT`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.1)
+or [`EXAMINE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.2) a folder
 before it can issue commands that affect existing messages.
-Once in the [selected state](https://tools.ietf.org/html/rfc3501#section-3.3),
-the client can [`SEARCH`](https://tools.ietf.org/html/rfc3501#section-6.4.4)
-and [`FETCH`](https://tools.ietf.org/html/rfc3501#section-6.4.5) messages (among other things).
-The client can issue the [`LOGOUT`](https://tools.ietf.org/html/rfc3501#section-6.1.3) command in any state,
-which takes the protocol to the [logout state](https://tools.ietf.org/html/rfc3501#section-3.4),
+Once in the [selected state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.3),
+the client can [`SEARCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.4)
+and [`FETCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.5) messages (among other things).
+The client can issue the [`LOGOUT`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.1.3) command in any state,
+which takes the protocol to the [logout state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.4),
 in which the server closes the connection.
 If you want to inspect, modify, or delete messages in a different folder,
-you can [`CLOSE`](https://tools.ietf.org/html/rfc3501#section-6.4.2)
-or [`UNSELECT`](https://tools.ietf.org/html/rfc3691) the current folder and open another one.
+you can [`CLOSE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.2)
+or [`UNSELECT`](https://datatracker.ietf.org/doc/html/rfc3691) the current folder and open another one.
 The difference between these two commands is that
 the former removes messages marked for deletion permanently while the latter does not.
 (`UNSELECT` is an [extension](#imap-extensions),
 which can be used only if the server supports it.)
-By using the new [`UNAUTHENTICATE`](https://tools.ietf.org/html/rfc8437) command,
+By using the new [`UNAUTHENTICATE`](https://datatracker.ietf.org/doc/html/rfc8437) command,
 which not many servers support yet,
 the client can authenticate as a different user without having to re-establish the TCP and TLS connection.
-Here is a simplified version of the [official state diagram](https://tools.ietf.org/html/rfc8437#section-5):
+Here is a simplified version of the [official state diagram](https://datatracker.ietf.org/doc/html/rfc8437#section-5):
 
 <figure markdown="block">
 {% include_relative generated/internet-message-access-protocol-states.embedded.svg %}
 <figcaption markdown="span" style="max-width: 370px;">
 The protocol states and how to transition between them.
-`LOGOUT` can be called in any state except the [logout state](https://tools.ietf.org/html/rfc3501#section-3.4).
-`UNAUTHENTICATE` can also be called in the [selected state](https://tools.ietf.org/html/rfc3501#section-3.3).
+`LOGOUT` can be called in any state except the [logout state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.4).
+`UNAUTHENTICATE` can also be called in the [selected state](https://datatracker.ietf.org/doc/html/rfc3501#section-3.3).
 </figcaption>
 </figure>
 
@@ -5044,11 +5044,11 @@ The standard and some mail clients such as Apple Mail speak of mailboxes rather 
 When I speak of mailboxes, I usually refer to the mail account as a whole.
 Thunderbird, on the other hand, avoids the term completely.
 I mostly ignore IMAP folders and how to
-[`CREATE`](https://tools.ietf.org/html/rfc3501#section-6.3.3),
-[`DELETE`](https://tools.ietf.org/html/rfc3501#section-6.3.4), and
-[`RENAME`](https://tools.ietf.org/html/rfc3501#section-6.3.5) them.
+[`CREATE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.3),
+[`DELETE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.4), and
+[`RENAME`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.5) them.
 The only important aspect for us is that `INBOX` is a
-[special name](https://tools.ietf.org/html/rfc3501#section-5.1)
+[special name](https://datatracker.ietf.org/doc/html/rfc3501#section-5.1)
 and always refers to the primary folder of the user.
 
 </details>
@@ -5061,9 +5061,9 @@ Data formats
 While IMAP is also mostly a [text-based protocol](/internet/#text-based-protocols),
 it's more difficult to read and to write for humans than SMTP and POP3.
 This is due to the various data formats it uses,
-which are defined in [section 4 of RFC 3501](https://tools.ietf.org/html/rfc3501#section-4).
+which are defined in [section 4 of RFC 3501](https://datatracker.ietf.org/doc/html/rfc3501#section-4).
 We're interested in just three of them:
-- [**String**](https://tools.ietf.org/html/rfc3501#section-4.3):
+- [**String**](https://datatracker.ietf.org/doc/html/rfc3501#section-4.3):
   [Strings](https://en.wikipedia.org/wiki/String_(computer_science))
   are either unquoted, quoted, or prefixed with their length.
   Prefixing the length has the advantage that the string doesn't have to be escaped.
@@ -5106,7 +5106,7 @@ We're interested in just three of them:
   </figcaption>
   </figure>
 
-- [**Lists**](https://tools.ietf.org/html/rfc3501#section-4.4):
+- [**Lists**](https://datatracker.ietf.org/doc/html/rfc3501#section-4.4):
   [Lists](https://en.wikipedia.org/wiki/List_(abstract_data_type))
   are used when a variable number of items are to be transmitted.
   A single space is used to separate adjacent items
@@ -5128,9 +5128,9 @@ We're interested in just three of them:
   </figcaption>
   </figure>
 
-- [**Nil**](https://tools.ietf.org/html/rfc3501#section-4.5):
+- [**Nil**](https://datatracker.ietf.org/doc/html/rfc3501#section-4.5):
   [`NIL`](https://en.wikipedia.org/wiki/Null_pointer) indicates that an item doesn't exist.
-  You have to consult the [formal syntax](https://tools.ietf.org/html/rfc3501#section-9) to see where `NIL` is allowed.
+  You have to consult the [formal syntax](https://datatracker.ietf.org/doc/html/rfc3501#section-9) to see where `NIL` is allowed.
 
 </details>
 
@@ -5141,7 +5141,7 @@ Message numbers
 
 [Similar to POP3](#pop3-extensions),
 messages in IMAP can be referenced either by their position in a folder or by their unique identifier (UID):
-- [**Position**](https://tools.ietf.org/html/rfc3501#section-2.3.1.2):
+- [**Position**](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.1.2):
   If the response to the `SELECT` or `EXAMINE` command says with `8 EXISTS` that 8 messages exist,
   then 1 refers to the oldest message and 8 to the newest message.
   All numbers in between are guaranteed to refer to messages as well.
@@ -5150,7 +5150,7 @@ messages in IMAP can be referenced either by their position in a folder or by th
   Messages are always added at the end of the list:
   When a new message is added to the 8 existing ones,
   it can be referenced by the number 9.
-- [**UID**](https://tools.ietf.org/html/rfc3501#section-2.3.1.1):
+- [**UID**](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.1.1):
   UIDs are numbers which are assigned in ascending order to messages.
   Unlike the position of a message, which can change within and across sessions,
   its UID is meant to stay the same.
@@ -5158,14 +5158,14 @@ messages in IMAP can be referenced either by their position in a folder or by th
   As a consequence, UIDs are not necessarily contiguous.
   Mail clients use UIDs to synchronize flags and deletions
   of the messages they've already retrieved from the server.
-  IMAP has a special [`UID` command](https://tools.ietf.org/html/rfc3501#section-6.4.8),
-  which allows the client to use [`SEARCH`](https://tools.ietf.org/html/rfc3501#section-6.4.4),
-  [`FETCH`](https://tools.ietf.org/html/rfc3501#section-6.4.5),
-  [`STORE`](https://tools.ietf.org/html/rfc3501#section-6.4.6), and
-  [`COPY`](https://tools.ietf.org/html/rfc3501#section-6.4.7) with UIDs instead of positions.
+  IMAP has a special [`UID` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.8),
+  which allows the client to use [`SEARCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.4),
+  [`FETCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.5),
+  [`STORE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.6), and
+  [`COPY`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.7) with UIDs instead of positions.
   For example, clients issue the command `TAG UID FETCH 1:{LastSeenUIDNEXT-1} FLAGS`
   to discover changes to old messages according to the informational
-  [RFC 4549](https://tools.ietf.org/html/rfc4549#section-4.3.1).
+  [RFC 4549](https://datatracker.ietf.org/doc/html/rfc4549#section-4.3.1).
   In other words, clients find out which messages have been deleted while they were offline
   by fetching the flags for all locally stored messages from the server every time they reconnect.
   All messages whose UID is no longer in the response are then removed.
@@ -5188,10 +5188,10 @@ messages in IMAP can be referenced either by their position in a folder or by th
 Message sets
 </summary>
 
-[`FETCH`](https://tools.ietf.org/html/rfc3501#section-6.4.5),
-[`STORE`](https://tools.ietf.org/html/rfc3501#section-6.4.6), and
-[`COPY`](https://tools.ietf.org/html/rfc3501#section-6.4.7) operate on a
-[set of messages](https://tools.ietf.org/html/rfc3501#page-90).
+[`FETCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.5),
+[`STORE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.6), and
+[`COPY`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.7) operate on a
+[set of messages](https://datatracker.ietf.org/doc/html/rfc3501#page-90).
 You can specify a single number, such as `4`,
 a range of numbers, such as `6:8`,
 or a combination thereof, such as `4,6:8`.
@@ -5206,7 +5206,7 @@ When referencing messages by their position,
 If the folder is empty, you get an error when using `*`.
 If you want to fetch the [flags](#message-flags) of all messages,
 you can use `F UID FETCH 1:* (FLAGS)`.
-If you want to fetch [all new messages](https://tools.ietf.org/html/rfc4549#section-4.6),
+If you want to fetch [all new messages](https://datatracker.ietf.org/doc/html/rfc4549#section-4.6),
 you can use `F UID FETCH {LastSeenUIDNEXT}:* (FLAGS BODY.PEEK[])`.
 `{LastSeenUIDNEXT}` needs to be replaced with an actual number, of course.
 (You have to replace the curly brackets with an actual value in all my examples
@@ -5222,29 +5222,29 @@ Message flags
 IMAP messages can be tagged with labels, which are called flags.
 Most flags are persisted across sessions but some flags are applied only within a session.
 Flags defined by IETF standards start with a backslash.
-RFC 3501 defines the [following flags](https://tools.ietf.org/html/rfc3501#section-2.3.2):
+RFC 3501 defines the [following flags](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.2):
 - `\Seen`: The message has been seen (i.e. read).
 - `\Answered`: The message has been answered.
 - `\Flagged`: The message is flagged for special attention.
 - `\Deleted`: The message is marked for deletion by
-  [`CLOSE`](https://tools.ietf.org/html/rfc3501#section-6.4.2) or
-  [`EXPUNGE`](https://tools.ietf.org/html/rfc3501#section-6.4.3).
+  [`CLOSE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.2) or
+  [`EXPUNGE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.3).
 - `\Draft`: The message is marked as a draft, i.e. it hasn't been sent yet.
 - `\Recent`: The message has arrived in the folder recently.
   This flag cannot be set or removed by the client.
-  If the client uses [`SELECT`](https://tools.ietf.org/html/rfc3501#section-6.3.1)
-  instead of [`EXAMINE`](https://tools.ietf.org/html/rfc3501#section-6.3.2),
+  If the client uses [`SELECT`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.1)
+  instead of [`EXAMINE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.2),
   this flag is no longer set in later sessions.
 {:.compact}
 
 In the response to the `EXAMINE` or `SELECT` command,
-the server includes the [`FLAGS`](https://tools.ietf.org/html/rfc3501#section-7.2.6)
+the server includes the [`FLAGS`](https://datatracker.ietf.org/doc/html/rfc3501#section-7.2.6)
 which are defined in the folder.
-As part of the [`PERMANENTFLAGS` response](https://tools.ietf.org/html/rfc3501#section-7.1),
+As part of the [`PERMANENTFLAGS` response](https://datatracker.ietf.org/doc/html/rfc3501#section-7.1),
 the server indicates which of the flags the client can set and remove.
 If the list includes `\*`, the client can create custom tags,
 which may not start with a backslash.
-The [formal syntax](https://tools.ietf.org/html/rfc3501#page-86) specifies the permissible characters.
+The [formal syntax](https://datatracker.ietf.org/doc/html/rfc3501#page-86) specifies the permissible characters.
 
 <figure markdown="block">
 <div id="code-imap-custom-flag"></div>
@@ -5261,8 +5261,8 @@ Internal date
 </summary>
 
 Besides [flags](#message-flags),
-messages have [other attributes](https://tools.ietf.org/html/rfc3501#section-2.3) as well.
-One of them is the [internal date](https://tools.ietf.org/html/rfc3501#section-2.3.3),
+messages have [other attributes](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3) as well.
+One of them is the [internal date](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.3),
 which records when the message was received.
 Mail clients can display messages with this date
 instead of the sender-chosen [origination date](#origination-date).
@@ -5270,8 +5270,8 @@ Since Apple Mail also displays the received date instead of the sent date
 when fetching messages via [POP3](#post-office-protocol-version-3),
 it seems to rely on the [`Received` header field](#trace-information) indeed.
 Other attributes which can be fetched
-are the [message size](https://tools.ietf.org/html/rfc3501#section-2.3.4)
-and the [body structure](https://tools.ietf.org/html/rfc3501#section-2.3.6)
+are the [message size](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.4)
+and the [body structure](https://datatracker.ietf.org/doc/html/rfc3501#section-2.3.6)
 of [multipart messages](#multipart-messages).
 
 <figure markdown="block">
@@ -5290,33 +5290,33 @@ IMAP commands
 
 Some of the commands used in the above tool benefit from additional information.
 This is what you should know about them:
-- [`EXAMINE`](https://tools.ietf.org/html/rfc3501#section-6.3.2) vs.
-  [`SELECT`](https://tools.ietf.org/html/rfc3501#section-6.3.1):
+- [`EXAMINE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.2) vs.
+  [`SELECT`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.1):
   Both commands open a folder in order to search and fetch the messages in it.
   The difference is that `EXAMINE` opens the folder in read-only mode,
   while `SELECT` also allows the client to change and delete messages.
   This is made visible in the response line which starts with the tag:
   It contains either `[READ-ONLY]` or `[READ-WRITE]`.
-- [`SEARCH`](https://tools.ietf.org/html/rfc3501#section-6.4.4):
+- [`SEARCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.4):
   Saving a search result for later operations requires the [`SEARCHRES` extension](#imap-extensions).
   If your IMAP server doesn't support it,
   you have to search without the `RETURN (SAVE)` part: `S SEARCH {Criterion}`.
   The server then returns the [positions](#message-numbers)
   of all the messages that match the criterion: `* SEARCH 2 5 8`.
   Search criteria can also be combined: `S SEARCH {Criterion1} {Criterion2} {etc.}`.
-  IMAP also supports the logical operators [`NOT` and `OR`](https://tools.ietf.org/html/rfc3501#page-52)
+  IMAP also supports the logical operators [`NOT` and `OR`](https://datatracker.ietf.org/doc/html/rfc3501#page-52)
   besides the implicit "and": `NOT {Criterion}` and `OR {Criterion1} {Criterion2}`.
   As you can see, the [query language](https://en.wikipedia.org/wiki/Query_language) of IMAP is quite powerful.
-- [`FETCH`](https://tools.ietf.org/html/rfc3501#section-6.4.5):
+- [`FETCH`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.5):
   The first argument to the `FETCH` command is a [set of messages](#message-sets).
   If the server supports saving the search result with `RETURN (SAVE)`,
   you can alternatively reference the search result with the dollar sign.
   The second argument is a list of the data attributes you want to fetch.
   The difference between `BODY[{Section}]` and `BODY.PEEK[{Section}]` is that
   the former sets the [`\Seen` flag](#message-flags) while the latter does not.
-  You can use either one to fetch the [desired section](https://tools.ietf.org/html/rfc3501#page-55)
+  You can use either one to fetch the [desired section](https://datatracker.ietf.org/doc/html/rfc3501#page-55)
   of the specified messages.
-- [`STORE`](https://tools.ietf.org/html/rfc3501#section-6.4.6):
+- [`STORE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.6):
   The `STORE` command allows the client to alter the [flags of a message](#message-flags).
   Similar to `FETCH`, the first argument is either
   a [message set](#message-sets) or `$` for a [search result](#imap-extensions).
@@ -5324,11 +5324,11 @@ This is what you should know about them:
   add additional flags to the existing flags with `+FLAGS ({FlagsToAdd})`,
   or remove some flags from the existing flags with `-FLAGS ({FlagsToRemove})`.
   Messages are deleted by flagging them as `\Deleted` and then using the
-  [`CLOSE`](https://tools.ietf.org/html/rfc3501#section-6.4.2) or
-  [`EXPUNGE`](https://tools.ietf.org/html/rfc3501#section-6.4.3) command.
+  [`CLOSE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.2) or
+  [`EXPUNGE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.3) command.
   The former also closes the folder and takes you back to the [authenticated state](#protocol-states),
   whereas the latter doesn't do that.
-- [`APPEND`](https://tools.ietf.org/html/rfc3501#section-6.3.11):
+- [`APPEND`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.11):
   Mail clients use this command to [store sent messages](#double-submission-problem) in the user's mailbox.
   Since the target folder is specified in the first argument,
   this command can be used from the [authenticated state](#protocol-states).
@@ -5350,49 +5350,49 @@ IMAP extensions
 Given the importance of IMAP in the email ecosystem,
 there are numerous extensions for it.
 You can query which extensions a server supports
-with the [`CAPABILITY` command](https://tools.ietf.org/html/rfc3501#section-6.1.1).
+with the [`CAPABILITY` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.1.1).
 You see an example when you enable the `Search` or the `Idle` option in the tool above.
 Before using the enabled commands,
 make sure that your server supports the listed extensions.
 Issuing `C CAPABILITY` is often not necessary
 since many IMAP servers list their capabilities automatically
-in their response to the [`LOGIN` command](https://tools.ietf.org/html/rfc3501#section-6.2.3).
+in their response to the [`LOGIN` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.2.3).
 
 The most important extensions to IMAP are (ignoring the ones for
 [internationalization](#email-address-internationalization),
-such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
-- `IMAP4REV1` ([RFC 3501](https://tools.ietf.org/html/rfc3501)):
+such as [support for UTF-8](https://datatracker.ietf.org/doc/html/rfc6855)):
+- `IMAP4REV1` ([RFC 3501](https://datatracker.ietf.org/doc/html/rfc3501)):
   By listing this among its capabilities,
   a server indicates that it supports IMAP version 4 revision 1 as published in 2003.
   `IMAP4rev1` is the protocol we've been discussing in this article.
   A [second revision](https://datatracker.ietf.org/doc/draft-ietf-extra-imap4rev2/?include_text=1),
   which adds most of the extensions mentioned here to the core protocol, is in the making.
   The changes to the first revision are listed in
-  [its appendix](https://tools.ietf.org/html/draft-ietf-extra-imap4rev2-21#appendix-E).
-- `STARTTLS` ([RFC 2595](https://tools.ietf.org/html/rfc2595#section-3)):
+  [its appendix](https://datatracker.ietf.org/doc/html/draft-ietf-extra-imap4rev2-30#appendix-E).
+- `STARTTLS` ([RFC 2595](https://datatracker.ietf.org/doc/html/rfc2595#section-3)):
   This extension allows the client to upgrade the connection from TCP to TLS with `. STARTTLS`.
   You have to use `telnet {ServerDomain} 143` to see this capability listed by the server.
   (143 is [IMAP's port](#port-numbers) for [Explicit TLS](#use-of-tls).)
-- `SASL-IR` ([RFC 4959](https://tools.ietf.org/html/rfc4959)):
+- `SASL-IR` ([RFC 4959](https://datatracker.ietf.org/doc/html/rfc4959)):
   If the server has this capability,
   the client can append its initial [SASL](#user-authentication) response
   to the [`AUTHENTICATE` command](#protocol-states),
   which saves one [round trip](/internet/#network-performance).
   Example: `. AUTHENTICATE PLAIN {Base64EncodingOfUsernameAndPassword}`.
-- `ENABLE` ([RFC 5161](https://tools.ietf.org/html/rfc5161)):
+- `ENABLE` ([RFC 5161](https://datatracker.ietf.org/doc/html/rfc5161)):
   While `CAPABILITY` allows the server to list the extensions it supports,
   the `ENABLE` command allows the client to list the extensions it supports.
   This allows the server to send unsolicited responses defined by these extensions.
-- `ID` ([RFC 2971](https://tools.ietf.org/html/rfc2971)):
+- `ID` ([RFC 2971](https://datatracker.ietf.org/doc/html/rfc2971)):
   For improving bug reports and assembling usage statistics,
   it's useful to know which implementation of the protocol the other party uses.
   The `ID` command allows the client to send a list of key-value pairs to the server
   and receive a list of key-value pairs in return.
-  Some keys are [specified in the RFC](https://tools.ietf.org/html/rfc2971#section-3.3)
+  Some keys are [specified in the RFC](https://datatracker.ietf.org/doc/html/rfc2971#section-3.3)
   but any string of at most 30 bytes can be used as a key.
   For example, a client can send `TAG ID ("name" "ef1p")` to the server
   and receive `* ID ("name" "Dovecot")` in return.
-- `IDLE` ([RFC 2177](https://tools.ietf.org/html/rfc2177)):
+- `IDLE` ([RFC 2177](https://datatracker.ietf.org/doc/html/rfc2177)):
   Instead of regularly polling the server for changes,
   a client can instruct the server with the `IDLE` command
   to transmit changes to the current folder in real time.
@@ -5400,11 +5400,11 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
   As long as the TCP connection between the client and the server remains open,
   the client is notified about new messages immediately.
   In order to avoid [timeouts due to inactivity](/internet/#connection-loss),
-  the client can send the [`NOOP` command](https://tools.ietf.org/html/rfc3501#section-6.1.2),
+  the client can send the [`NOOP` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.1.2),
   which [does nothing](https://en.wikipedia.org/wiki/NOP_(code)#NOP_protocol_commands), from time to time.
-- `ESEARCH` ([RFC 4731](https://tools.ietf.org/html/rfc4731)):
+- `ESEARCH` ([RFC 4731](https://datatracker.ietf.org/doc/html/rfc4731)):
   `ESEARCH` is an extension to the `SEARCH` and `UID SEARCH` commands,
-  which allows the client to choose between several [result options](https://tools.ietf.org/html/rfc4731#section-3.1)
+  which allows the client to choose between several [result options](https://datatracker.ietf.org/doc/html/rfc4731#section-3.1)
   by issuing `. SEARCH RETURN ({Options}) {Criteria}`.
   The options are `MIN` to return the [position or UID](#message-numbers)
   of the first message in the folder which satisfies the criteria,
@@ -5414,7 +5414,7 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
   When using the `ALL` option, the messages are returned in the [set syntax](#message-sets)
   instead of the space-separated enumeration of all messages.
   For example, a client can query how many messages are flagged with `TAG SEARCH RETURN (COUNT) FLAGGED`.
-- `SEARCHRES` ([RFC 5182](https://tools.ietf.org/html/rfc5182)):
+- `SEARCHRES` ([RFC 5182](https://datatracker.ietf.org/doc/html/rfc5182)):
   `SEARCHRES` is an extension to the `ESEARCH` extension.
   Any server which supports `SEARCHRES` also has to support `ESEARCH`.
   `SEARCHRES` adds the result option `SAVE`,
@@ -5423,33 +5423,33 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
   `FETCH`, `STORE`, and some other commands.
   One advantage of this is that the client doesn't have to wait for the search result
   before it can submit a subsequent command.
-- `UIDPLUS` ([RFC 4315](https://tools.ietf.org/html/rfc4315)):
-  `UIDPLUS` adds the command [`UID EXPUNGE`](https://tools.ietf.org/html/rfc4315#section-2.1)
-  and [additional response codes](https://tools.ietf.org/html/rfc4315#section-3),
+- `UIDPLUS` ([RFC 4315](https://datatracker.ietf.org/doc/html/rfc4315)):
+  `UIDPLUS` adds the command [`UID EXPUNGE`](https://datatracker.ietf.org/doc/html/rfc4315#section-2.1)
+  and [additional response codes](https://datatracker.ietf.org/doc/html/rfc4315#section-3),
   which inform the client about the [UID](#message-numbers) of an appended or copied message.
   This is useful for clients to synchronize with servers more efficiently.
-- `CONDSTORE` ([RFC 4551](https://tools.ietf.org/html/rfc4551)):
+- `CONDSTORE` ([RFC 4551](https://datatracker.ietf.org/doc/html/rfc4551)):
   `CONDSTORE` is by far the biggest extension in this list.
   It introduces `MODSEQ` as an additional [message attribute](#internal-date)
   and `HIGHESTMODSEQ` as an additional response to the `EXAMINE` and `SELECT` commands.
   `MODSEQ` works like `UID` but instead of assigning a permanent, strictly increasing number to each message,
   it assigns a permanent, strictly increasing number to each message modification.
   By remembering the `HIGHESTMODSEQ` value to which they synchronized,
-  clients can use the [extended `STORE` or `UID STORE` commands](https://tools.ietf.org/html/rfc4551#section-3.2)
+  clients can use the [extended `STORE` or `UID STORE` commands](https://datatracker.ietf.org/doc/html/rfc4551#section-3.2)
   to modify messages on the server only if no other client modified them in the meantime.
   (`CONDSTORE` stands for conditional `STORE`.)
   `CONDSTORE` also extends other commands.
-  For example, clients can use the [`CHANGEDSINCE` modifier](https://tools.ietf.org/html/rfc4551#section-3.3.1)
+  For example, clients can use the [`CHANGEDSINCE` modifier](https://datatracker.ietf.org/doc/html/rfc4551#section-3.3.1)
   to fetch changes to messages more efficiently.
   Instead of fetching [the flags of all messages](#message-numbers) every time they connect,
   clients can fetch the flags of just the messages which changed since the last time:
   `TAG UID FETCH 1:* (FLAGS) (CHANGEDSINCE {LastSeenHIGHESTMODSEQ})`.
   Unfortunately, clients can't detect message deletions like this.
-- `QRESYNC` ([RFC 5162](https://tools.ietf.org/html/rfc5162)):
+- `QRESYNC` ([RFC 5162](https://datatracker.ietf.org/doc/html/rfc5162)):
   `QRESYNC` extends `CONDSTORE` to allow for quick mailbox resynchronization but it's rarely supported.
   By remembering the UIDs of expunged messages with the corresponding `MODSEQ` value,
   servers can inform clients efficiently about deleted messages.
-  Both `CONDSTORE` and `QRESYNC` were updated in [RFC 7162](https://tools.ietf.org/html/rfc7162).
+  Both `CONDSTORE` and `QRESYNC` were updated in [RFC 7162](https://datatracker.ietf.org/doc/html/rfc7162).
   In the absence of `QRESYNC`,
   clients can perform a ["binary" search](https://en.wikipedia.org/wiki/Binary_search_algorithm)
   to find the first message whose [position](#message-numbers) changed.
@@ -5457,36 +5457,36 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
   after adding all the newly arrived messages.
   Clients can retrieve the UIDs of several messages at once
   by issuing `TAG UID SEARCH {Position1},{Position2},{etc.}`.
-- `CHILDREN` ([RFC 3348](https://tools.ietf.org/html/rfc3348)):
+- `CHILDREN` ([RFC 3348](https://datatracker.ietf.org/doc/html/rfc3348)):
   This extension allows the server to indicate in its response to the
-  [`LIST` command](https://tools.ietf.org/html/rfc3501#section-6.3.8)
+  [`LIST` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.8)
   whether a folder `\HasChildren` or `\HasNoChildren`.
   This allows the client to display a folder as expandable
   without having to query for potential children with additional requests.
-- `SPECIAL-USE` ([RFC 6154](https://tools.ietf.org/html/rfc6154)):
+- `SPECIAL-USE` ([RFC 6154](https://datatracker.ietf.org/doc/html/rfc6154)):
   Folders often have a specific purpose such as storing sent or deleted messages.
   This extension allows clients to inform each other about the special use of a folder
   without having to rely on specific names for the folders and
   without having to ask the user where to store specific messages.
-  The [defined purposes](https://tools.ietf.org/html/rfc6154#section-2) are
+  The [defined purposes](https://datatracker.ietf.org/doc/html/rfc6154#section-2) are
   `\All`, `\Archive`, `\Drafts`, `\Flagged`, `\Junk`, `\Sent`, and `\Trash`.
-  The purpose can be set when [creating a new folder](https://tools.ietf.org/html/rfc6154#section-3)
-  and is returned in the response to the [`LIST` command](https://tools.ietf.org/html/rfc3501#section-6.3.8).
+  The purpose can be set when [creating a new folder](https://datatracker.ietf.org/doc/html/rfc6154#section-3)
+  and is returned in the response to the [`LIST` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.3.8).
   Gmail supports this extension and its response is roughly what you see in the [tool above](#tool-protocol-imap).
-- `NAMESPACE` ([RFC 2342](https://tools.ietf.org/html/rfc2342)):
-  This extension introduces a [`NAMESPACE` command](https://tools.ietf.org/html/rfc2342#section-5),
+- `NAMESPACE` ([RFC 2342](https://datatracker.ietf.org/doc/html/rfc2342)):
+  This extension introduces a [`NAMESPACE` command](https://datatracker.ietf.org/doc/html/rfc2342#section-5),
   which allows clients to discover the namespaces of personal folders and of shared folders.
   My understanding is that this is mostly used in corporate settings.
-- `MOVE` ([RFC 6851](https://tools.ietf.org/html/rfc6851)):
-  This extension defines the commands [`MOVE`](https://tools.ietf.org/html/rfc6851#section-3.1)
-  and [`UID MOVE`](https://tools.ietf.org/html/rfc6851#section-3.2) to move messages from one folder to another.
-  When `MOVE` is not supported, clients have to [`COPY`](https://tools.ietf.org/html/rfc3501#section-6.4.7)
+- `MOVE` ([RFC 6851](https://datatracker.ietf.org/doc/html/rfc6851)):
+  This extension defines the commands [`MOVE`](https://datatracker.ietf.org/doc/html/rfc6851#section-3.1)
+  and [`UID MOVE`](https://datatracker.ietf.org/doc/html/rfc6851#section-3.2) to move messages from one folder to another.
+  When `MOVE` is not supported, clients have to [`COPY`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.7)
   messages to another folder and then delete the copied messages in the old folder with
-  [`STORE`](https://tools.ietf.org/html/rfc3501#section-6.4.6) and
-  [`EXPUNGE`](https://tools.ietf.org/html/rfc3501#section-6.4.3).
+  [`STORE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.6) and
+  [`EXPUNGE`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.4.3).
   This is inefficient for both the client and the server
-  and can lead to [undesirable side effects](https://tools.ietf.org/html/rfc6851#section-1).
-- `QUOTA` ([RFC 2087](https://tools.ietf.org/html/rfc2087)):
+  and can lead to [undesirable side effects](https://datatracker.ietf.org/doc/html/rfc6851#section-1).
+- `QUOTA` ([RFC 2087](https://datatracker.ietf.org/doc/html/rfc2087)):
   This extension allows clients to get and set the storage quota of their mailbox.
   For example, when using `Q GETQUOTA ""` in my Gmail test account,
   I get `* QUOTA "" (STORAGE 145 15728640)`.
@@ -5499,10 +5499,10 @@ such as [support for UTF-8](https://tools.ietf.org/html/rfc6855)):
 In addition to the extensions which are standardized by IETF,
 email service providers are free to define their own extensions.
 According to the IMAP standard, the name of an experimental or independent extension
-[has to start with an `X`](https://tools.ietf.org/html/rfc3501#section-6.5.1).
+[has to start with an `X`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.5.1).
 For example, [Gmail's custom extension](https://developers.google.com/gmail/imap/imap-extensions)
 is advertised as `X-GM-EXT-1` in the response to the
-[`CAPABILITY` command](https://tools.ietf.org/html/rfc3501#section-6.1.1).
+[`CAPABILITY` command](https://datatracker.ietf.org/doc/html/rfc3501#section-6.1.1).
 Among other things, it allows clients to use
 [Gmail's search syntax](https://developers.google.com/gmail/imap/imap-extensions#extension_of_the_search_command_x-gm-raw)
 and [Gmail's message ID](https://developers.google.com/gmail/imap/imap-extensions#access_to_the_gmail_unique_message_id_x-gm-msgid).
@@ -5525,9 +5525,9 @@ designed a modern protocol for [client to server interaction](#standardization):
 The [JSON Meta Application Protocol (JMAP)](https://en.wikipedia.org/wiki/JSON_Meta_Application_Protocol).
 JSON itself stands for [JavaScript Object Notation](https://en.wikipedia.org/wiki/JSON),
 which is a popular format for storing and exchanging human-readable data.
-JMAP is specified in [RFC 8620](https://tools.ietf.org/html/rfc8620)
+JMAP is specified in [RFC 8620](https://datatracker.ietf.org/doc/html/rfc8620)
 and it can be used for more than just email.
-The data model for synchronizing email is specified in [RFC 8621](https://tools.ietf.org/html/rfc8621).
+The data model for synchronizing email is specified in [RFC 8621](https://datatracker.ietf.org/doc/html/rfc8621).
 If you don't like the RFC formatting, you can also read the two standards
 [here](https://jmap.io/spec-core.html) and [here](https://jmap.io/spec-mail.html).
 
@@ -5548,7 +5548,7 @@ and addresses the following shortcomings of IMAP (and [message submission](#subm
   if you stay connected to the server, which isn't an option for mobile clients.
 - **Push mechanism**:
   In order to be informed immediately about changes to a folder, such as newly arrived messages,
-  IMAP clients use the [`IDLE` command](https://tools.ietf.org/html/rfc2177).
+  IMAP clients use the [`IDLE` command](https://datatracker.ietf.org/doc/html/rfc2177).
   If they want to be informed about changes to several folders,
   they have to open a separate connection for each folder.
   JMAP, on the other hand, allows clients
@@ -5600,7 +5600,7 @@ and addresses the following shortcomings of IMAP (and [message submission](#subm
   to send a stored message to its recipients.
   The client can generate the [envelope](#message-versus-envelope) itself or let the server do it.
   By first storing the message as a draft and then moving it to the sent folder after sending it
-  (see [this example](https://tools.ietf.org/html/rfc8621#section-7.5.1)),
+  (see [this example](https://datatracker.ietf.org/doc/html/rfc8621#section-7.5.1)),
   JMAP also solves the [double-submission problem](#double-submission-problem).
 - **Flood control**:
   Since it's not always possible to anticipate how much data the server will send back,
@@ -5639,7 +5639,7 @@ There are several advantages of filtering incoming mail on the server rather tha
   This is not possible when the rules must be executed by mail clients.
 - **Rejection during delivery**:
   Unlike clients, incoming mail servers can reject a message
-  [during its delivery](https://tools.ietf.org/html/rfc5429#section-2.1.1).
+  [during its delivery](https://datatracker.ietf.org/doc/html/rfc5429#section-2.1.1).
   By sending the [550 response code](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes#-_5yz_Permanent_Negative_Completion)
   during the [SMTP session](#simple-mail-transfer-protocol),
   the incoming mail server can inform the sender about the rejection
@@ -5662,40 +5662,40 @@ Messages can be filtered by the incoming mail server (in green) or by an online 
 
 [Sieve](https://en.wikipedia.org/wiki/Sieve_(mail_filtering_language))
 is a language for filtering messages on the incoming mail server.
-It is specified in [RFC 5228](https://tools.ietf.org/html/rfc5228) and it is fairly simple:
-Using the [control commands](https://tools.ietf.org/html/rfc5228#section-3.1) `if`, `elsif`, and `else`,
-you can specify under [which conditions](https://tools.ietf.org/html/rfc5228#section-5)
-a [specific action](https://tools.ietf.org/html/rfc5228#section-4) shall be applied.
+It is specified in [RFC 5228](https://datatracker.ietf.org/doc/html/rfc5228) and it is fairly simple:
+Using the [control commands](https://datatracker.ietf.org/doc/html/rfc5228#section-3.1) `if`, `elsif`, and `else`,
+you can specify under [which conditions](https://datatracker.ietf.org/doc/html/rfc5228#section-5)
+a [specific action](https://datatracker.ietf.org/doc/html/rfc5228#section-4) shall be applied.
 You can find plenty of examples throughout the RFC as well as
 [here](https://docs.gandi.net/en/gandimail/sieve/sample_filters.html)
 and [here](https://wiki.dovecot.org/Pigeonhole/Sieve/Examples).
 There are just a couple of things you should know to understand them:
 - **Arguments**: Most commands in the Sieve language take arguments.
-  Mandatory arguments are determined by their [position](https://tools.ietf.org/html/rfc5228#section-2.6.1),
+  Mandatory arguments are determined by their [position](https://datatracker.ietf.org/doc/html/rfc5228#section-2.6.1),
   optional arguments are identified by a
-  [colon followed by their name](https://tools.ietf.org/html/rfc5228#section-2.6.2).
+  [colon followed by their name](https://datatracker.ietf.org/doc/html/rfc5228#section-2.6.2).
   Some optional arguments can take arguments themselves: `:name value`.
   This is similar to arguments in the [command-line interface](#command-line-interface)
   but with `:` instead of `-` before the name.
   When optional arguments are not provided, their default values are used instead.
-- **Extensions**: The Sieve language is [extensible](https://tools.ietf.org/html/rfc5228#section-6).
+- **Extensions**: The Sieve language is [extensible](https://datatracker.ietf.org/doc/html/rfc5228#section-6).
   A script has to list the extensions which it uses at the top of its code
-  with [`require`](https://tools.ietf.org/html/rfc5228#section-3.2).
-- **Implicit keep**: Each message is [stored in the inbox](https://tools.ietf.org/html/rfc5228#section-2.10.2)
+  with [`require`](https://datatracker.ietf.org/doc/html/rfc5228#section-3.2).
+- **Implicit keep**: Each message is [stored in the inbox](https://datatracker.ietf.org/doc/html/rfc5228#section-2.10.2)
   unless it is moved to a folder, forwarded to an address, or discarded explicitly.
-- **String lists**: Wherever a [list of strings](https://tools.ietf.org/html/rfc5228#section-2.4.2.1)
+- **String lists**: Wherever a [list of strings](https://datatracker.ietf.org/doc/html/rfc5228#section-2.4.2.1)
   is expected, such as `["To", "Cc"]`, a string without brackets, such as `"To"`, can be used.
 - **Prefix notation**: Commands and arguments are nested not with parentheses
   but by earlier [tokens](https://en.wikipedia.org/wiki/Lexical_analysis#Token) consuming later ones.
   For example, the negation of the condition `exists "Date"` is `not exists "Date"`.
   This is similar to the [prefix notation](https://en.wikipedia.org/wiki/Polish_notation).
 - **Comments**: If you use `#` outside of double quotes,
-  the incoming mail server [ignores all characters](https://tools.ietf.org/html/rfc5228#section-2.3)
+  the incoming mail server [ignores all characters](https://datatracker.ietf.org/doc/html/rfc5228#section-2.3)
   including this one until the end of the line.
   [Comments](https://en.wikipedia.org/wiki/Comment_(computer_programming))
   which span less or more than a line have to be enclosed in `/*` and `*/`.
 - **No loops**: The Sieve language doesn't support [loops](https://en.wikipedia.org/wiki/Control_flow#Loops).
-  Each [block](https://tools.ietf.org/html/rfc5228#section-2.8) is executed once or not at all.
+  Each [block](https://datatracker.ietf.org/doc/html/rfc5228#section-2.8) is executed once or not at all.
 
 You can generate simple filtering rules with the following tool.
 Make sure that the `Argument` makes sense for the chosen `Action`.
@@ -5715,7 +5715,7 @@ You find a list of all the extensions to the Sieve mail filtering language
 Out-of-office replies
 </summary>
 
-Among the [reasons](https://tools.ietf.org/html/rfc3834#section-1.1)
+Among the [reasons](https://datatracker.ietf.org/doc/html/rfc3834#section-1.1)
 for sending an automatic response to the sender of a message are:
 - **Vacation notice**: Inform the sender that the message won't be read in the coming days.
 - **Change-of-address notice**: Inform the sender that the recipient's email address has changed.
@@ -5725,9 +5725,9 @@ Prior to [JMAP](#json-meta-application-protocol),
 where servers [can support](https://jmap.io/spec-mail.html#urnietfparamsjmapvacationresponse)
 the configuration of [vacation responses](https://jmap.io/spec-mail.html#vacation-response),
 [Sieve](#mail-filtering-language) and [ManageSieve](#filter-management-protocol)
-with the [vacation extension](https://tools.ietf.org/html/rfc5230)
+with the [vacation extension](https://datatracker.ietf.org/doc/html/rfc5230)
 were the only standardized way to configure such responses.
-According to [RFC 3834](https://tools.ietf.org/html/rfc3834#page-5),
+According to [RFC 3834](https://datatracker.ietf.org/doc/html/rfc3834#page-5),
 the same response should be sent to the same sender only once within a period of several days
 even when the sender sends additional messages.
 
@@ -5769,7 +5769,7 @@ If you're willing to use a [web client](#webmail), [Roundcube](https://roundcube
 #### Filter management protocol (ManageSieve) {#filter-management-protocol}
 
 ManageSieve is a protocol for managing [Sieve scripts](#mail-filtering-language) remotely.
-It is specified in [RFC 5804](https://tools.ietf.org/html/rfc5804)
+It is specified in [RFC 5804](https://datatracker.ietf.org/doc/html/rfc5804)
 and works similar to the protocols we have seen so far.
 After an initial greeting from the server,
 the client sends commands to which the server responds.
@@ -5777,31 +5777,31 @@ Just like [IMAP](#internet-message-access-protocol),
 responses are completed with a line which starts with `OK` or `NO`;
 but unlike IMAP, the commands are not preceded with a tag.
 Just like IMAP, multiline strings are prefixed with their length;
-but unlike IMAP, the client can [include a plus](https://tools.ietf.org/html/rfc2244#section-2.6.3)
+but unlike IMAP, the client can [include a plus](https://datatracker.ietf.org/doc/html/rfc2244#section-2.6.3)
 to continue with the string without having to wait for a continuation response from the server.
 Just like [SMTP for Relay](#smtp-for-relay-with-implicit-tls),
 there's no variant of ManageSieve which can be used with [Implicit TLS](#use-of-tls).
-The server sends its [capabilities](https://tools.ietf.org/html/rfc5804#section-1.7)
+The server sends its [capabilities](https://datatracker.ietf.org/doc/html/rfc5804#section-1.7)
 automatically in its greeting and after successful
-[`STARTTLS`](https://tools.ietf.org/html/rfc5804#section-2.2) and
-[`AUTHENTICATE`](https://tools.ietf.org/html/rfc5804#section-2.1) commands.
+[`STARTTLS`](https://datatracker.ietf.org/doc/html/rfc5804#section-2.2) and
+[`AUTHENTICATE`](https://datatracker.ietf.org/doc/html/rfc5804#section-2.1) commands.
 As part of the capabilities, the server indicates which extensions to the Sieve language
 and which [SASL mechanisms](#user-authentication) it supports.
-According to [RFC 5804](https://tools.ietf.org/html/rfc5804#page-13),
+According to [RFC 5804](https://datatracker.ietf.org/doc/html/rfc5804#page-13),
 ManageSieve servers have to support [`PLAIN`](#user-authentication) over TLS
 and [`SCRAM-SHA-1`](#salted-challenge-response-authentication-mechanism).
 
-The following tool shows you how to use the [ManageSieve commands](https://tools.ietf.org/html/rfc5804#section-2)
+The following tool shows you how to use the [ManageSieve commands](https://datatracker.ietf.org/doc/html/rfc5804#section-2)
 from your [command-line interface](#command-line-interface).
 Unlike the previous tools,
 you have to configure the address and the [port number](/internet/#port-numbers) of the server manually
 as this information is not included in [Thunderbird's configuration files](#configuration-database).
 The standard describes how to locate the ManageSieve server
-[with `SRV` records](https://tools.ietf.org/html/rfc5804#section-1.8)
+[with `SRV` records](https://datatracker.ietf.org/doc/html/rfc5804#section-1.8)
 and the [autoconfiguration tool](#autoconfiguration) above does query the `_sieve._tcp` subdomain.
 However, since virtually no one configures such `SRV` records (at least not for the ManageSieve protocol),
 I didn't bother to implement this discovery mechanism here.
-ManageSieve servers listen [on port 4190](https://tools.ietf.org/html/rfc5804#section-1.8) by default.
+ManageSieve servers listen [on port 4190](https://datatracker.ietf.org/doc/html/rfc5804#section-1.8) by default.
 The [Thunderbird plugin](https://addons.thunderbird.net/en-US/thunderbird/addon/sieve/), which I mentioned earlier,
 simply [probes this port](https://github.com/thsmi/sieve/blob/8f83cfb2f1b18323311f01269294c6c21159a905/src/app/libs/libManageSieve/SieveAutoConfig.js#L68)
 on the [IMAP server](https://github.com/thsmi/sieve/blob/8f83cfb2f1b18323311f01269294c6c21159a905/src/app/libs/managesieve.ui/importer/SieveThunderbirdImport.js#L187-L197)
@@ -5814,9 +5814,9 @@ you have to use [OpenSSL](#openssl-versus-libressl)
 <div id="tool-protocol-managesieve"></div>
 
 **Explanation**: While you can have multiple scripts on the server,
-at most one of them can be [active](https://tools.ietf.org/html/rfc5804#section-1.4).
-You cannot [delete](https://tools.ietf.org/html/rfc5804#section-2.10) the active script.
-You can deactivate the active script by [activating](https://tools.ietf.org/html/rfc5804#section-2.8)
+at most one of them can be [active](https://datatracker.ietf.org/doc/html/rfc5804#section-1.4).
+You cannot [delete](https://datatracker.ietf.org/doc/html/rfc5804#section-2.10) the active script.
+You can deactivate the active script by [activating](https://datatracker.ietf.org/doc/html/rfc5804#section-2.8)
 another script or by using an empty script name to set no script active.<br>
 You can also generate the [argument to `PLAIN`](#user-authentication) yourself
 with `echo -ne '\0000username\0000password' | openssl base64`.
@@ -5834,7 +5834,7 @@ There are [two implementations of `openssl`](#openssl-versus-libressl):
 If you provide `-starttls sieve`, OpenSSL executes
 [this code](https://github.com/openssl/openssl/blob/66923436788d307c8e64cc392ffcd9631065eaa5/apps/s_client.c#L2623-L2671).
 Can't we use one of the other protocol options to let LibreSSL send
-[`STARTTLS`](https://tools.ietf.org/html/rfc5804#section-2.2) to the server?
+[`STARTTLS`](https://datatracker.ietf.org/doc/html/rfc5804#section-2.2) to the server?
 The answer is no, unfortunately:
 - [IMAP](https://github.com/libressl-portable/openbsd/blob/6b643cda77ab1b4fede5c692cebfb21f8ef16f95/src/usr.bin/openssl/s_client.c#L1214-L1237):
   LibreSSL first issues `. CAPABILITY` to check whether the server supports `STARTTLS`.
@@ -5892,7 +5892,7 @@ to use this as the OpenSSL command in the [tool above](#tool-protocol-managesiev
 
 ## Format
 
-The format of an email message is specified in [RFC 5322](https://tools.ietf.org/html/rfc5322).
+The format of an email message is specified in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322).
 The goal of this chapter is to make you comfortable reading raw messages.
 
 <details markdown="block" open>
@@ -5945,7 +5945,7 @@ For their own purposes, mail clients can store messages in whatever format they 
 The two formats which are used by several mail clients and servers to store messages
 are [Mbox](https://en.wikipedia.org/wiki/Mbox) and [Maildir](https://en.wikipedia.org/wiki/Maildir).
 By default, Thunderbird uses the former but it can also be configured to use the latter.
-The Mbox format is specified in [RFC 4155](https://tools.ietf.org/html/rfc4155).
+The Mbox format is specified in [RFC 4155](https://datatracker.ietf.org/doc/html/rfc4155).
 All messages are appended in their [raw format](#raw-message) to a single file.
 Mbox is a [text-based format](/internet/#text-based-protocols),
 which means that a given string, namely `From …`, is used to delimit the messages
@@ -6028,7 +6028,7 @@ you may want to have a look at [this project](https://github.com/qqilihq/partial
 
 ### Line-length limit
 
-According to [RFC 5322](https://tools.ietf.org/html/rfc5322#section-2.1.1),
+According to [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-2.1.1),
 each line of a message may consist of at most 1'000 ASCII characters,
 including [CR + LF](#newline-characters).
 Implementations are free to accept longer lines,
@@ -6039,10 +6039,10 @@ to accommodate clients that truncate longer lines in violation of the standard.
 In order to leave the line wrapping to the mail client of the recipient,
 the mail client of the sender has to [encode the body](#content-encoding)
 if the body contains lines which are too long.
-If a [header field](#header-fields-and-body) is [too long](https://tools.ietf.org/html/rfc5322#section-2.2.3),
+If a [header field](#header-fields-and-body) is [too long](https://datatracker.ietf.org/doc/html/rfc5322#section-2.2.3),
 it must be broken into several lines with
-[folding whitespace](https://tools.ietf.org/html/rfc5322#section-3.2.2):
-`{CR}{LF}` followed by at least [one space or tab](https://tools.ietf.org/html/rfc5234#appendix-B.1).
+[folding whitespace](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2):
+`{CR}{LF}` followed by at least [one space or tab](https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1).
 If a line in the header section of a message starts with whitespace,
 its content belongs to the header field on the previous line.
 The procedure of breaking lines as done by the sender is called *folding*,
@@ -6053,12 +6053,12 @@ When unfolding, runs of whitespace characters are replaced with a single
 
 ### Message identification
 
-There are [three header fields](https://tools.ietf.org/html/rfc5322#section-3.6.4)
+There are [three header fields](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.4)
 to identify the current message and the previous messages
 in the same [thread](https://en.wikipedia.org/wiki/Conversation_threading):
 - `Message-ID`: The `Message-ID` identifies the current message.
   It's format is `<{Value}@{Domain}>`.
-  Although outgoing mail servers [may add this field](https://tools.ietf.org/html/rfc6409#section-8.3)
+  Although outgoing mail servers [may add this field](https://datatracker.ietf.org/doc/html/rfc6409#section-8.3)
   if it's missing, the `Message-ID` should be chosen by the mail client.
   Otherwise, the copy stored in the [sent folder](#double-submission-problem)
   on the incoming mail server lacks this field, which defeats its purpose.
@@ -6103,7 +6103,7 @@ The `References` field contains the message ID of the `In-Reply-To` field.
 Mandatory header fields
 </summary>
 
-According to [RFC 5322](https://tools.ietf.org/html/rfc5322#page-21),
+According to [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#page-21),
 only two header fields must be included in every message:
 the [`From` field](#sender) and the [`Date` field](#origination-date).
 While not strictly mandatory, every message should have a `Message-ID`,
@@ -6146,8 +6146,8 @@ of the original message.
 If mail clients quote the message to which you reply,
 they also add an [attribution line](https://en.wikipedia.org/wiki/Posting_style#Attribution_lines),
 which mentions the author and the date of the original message.
-Quoting text with `>` is mentioned only in [RFC 1849](https://tools.ietf.org/html/rfc1849#page-21)
-and [RFC 3676](https://tools.ietf.org/html/rfc3676#section-4.5),
+Quoting text with `>` is mentioned only in [RFC 1849](https://datatracker.ietf.org/doc/html/rfc1849#page-21)
+and [RFC 3676](https://datatracker.ietf.org/doc/html/rfc3676#section-4.5),
 the former being related to [Usenet](https://en.wikipedia.org/wiki/Usenet) rather than traditional email.
 One problem of quoting text with `>` is that
 this can cause lines to exceed the imposed [length limit](#line-length-limit).
@@ -6162,7 +6162,7 @@ Universally Unique Identifier (UUID)
 [Universally Unique Identifier (UUID)](https://en.wikipedia.org/wiki/Universally_unique_identifier)
 is a standard for generating globally unique identifiers without coordination among the involved parties.
 The standard has been published by various organizations,
-including IETF in [RFC 4122](https://tools.ietf.org/html/rfc4122).
+including IETF in [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122).
 A universally unique identifier is a 128-bit number,
 which is encoded as 32 [hexadecimal digits](/internet/#number-encoding)
 with 4 hyphens inserted at fixed positions.
@@ -6200,11 +6200,11 @@ When using the RFC format, the algorithm `A`, which is used to determine the rem
 
 ### Trace information
 
-According to [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.4),
+According to [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.4),
 whenever a mail server receives a message,
 it must add a `Received` header field at the beginning of the message
 without changing or deleting already existing `Received` header fields.
-`Received` header fields have the [following format](https://tools.ietf.org/html/rfc5321#page-60):
+`Received` header fields have the [following format](https://datatracker.ietf.org/doc/html/rfc5321#page-60):
 
 <figure markdown="block">
 
@@ -6223,19 +6223,19 @@ The format of `Received` header fields.
 The curly brackets stand for values which need to be inserted.
 The `with`, `id`, and `for` clauses are optional.
 The newlines can be in other places, and additional information is often added
-as [comments in parentheses](https://tools.ietf.org/html/rfc5322#section-3.2.2) in various places.
+as [comments in parentheses](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2) in various places.
 
 </figcaption>
 </figure>
 
-According to [RFC 5321](https://tools.ietf.org/html/rfc5321#page-61),
+According to [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#page-61),
 the `Protocol` is either `SMTP` or `ESMTP`.
-[RFC 3848](https://tools.ietf.org/html/rfc3848) specified additional values:
+[RFC 3848](https://datatracker.ietf.org/doc/html/rfc3848) specified additional values:
 `ESMTPA` when [ESMTP](#extended-simple-mail-transfer-protocol) is used
 with successful [user authentication](#user-authentication),
 `ESMTPS` when ESMTP is used with [Implicit or Explicit TLS](#use-of-tls),
 and `ESMTPSA` when the session has been secured and the user has been authenticated.
-[RFC 8314](https://tools.ietf.org/html/rfc8314#section-4.3) specifies an additional `tls` clause,
+[RFC 8314](https://datatracker.ietf.org/doc/html/rfc8314#section-4.3) specifies an additional `tls` clause,
 which can be used after the `for` clause to record the
 [TLS ciphersuite](https://en.wikipedia.org/wiki/Transport_Layer_Security#Algorithms)
 which has been used.
@@ -6267,7 +6267,7 @@ Received: from [192.168.1.2] (unknown [203.0.113.167])
 <figcaption markdown="span" style="max-width: 900px;">
 
 What an actual `Received` header field looks like.
-I've only replaced my IP address with an [address reserved for documentation](https://tools.ietf.org/html/rfc5737).
+I've only replaced my IP address with an [address reserved for documentation](https://datatracker.ietf.org/doc/html/rfc5737).
 Due to [Network Address Translation (NAT)](/internet/#network-address-translation),
 the [private IP address](https://en.wikipedia.org/wiki/Private_network)
 that my computer used in the [`EHLO` command](#extended-simple-mail-transfer-protocol)
@@ -6342,7 +6342,7 @@ In the case of LMTP, the server has to confirm the acceptance of the message for
 which was provided with the `RCPT TO` command.
 Being able to reject a message for individual recipients frees LMTP servers from having to manage a mail queue.
 
-LMTP is specified in [RFC 2033](https://tools.ietf.org/html/rfc2033) and may be used only in a local network.
+LMTP is specified in [RFC 2033](https://datatracker.ietf.org/doc/html/rfc2033) and may be used only in a local network.
 LMTP uses `LHLO` instead of `EHLO` to greet the server.
 The reason why I mention LMTP is because you might encounter it as `LMTP[S][A]`
 in the `with` clause of a `Received` header field.
@@ -6355,12 +6355,12 @@ to which I linked [earlier](#libressl-doesnt-support-managesieve).
 
 ### Content encoding
 
-[RFC 5322](https://tools.ietf.org/html/rfc5322) specifies a format for text messages,
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) specifies a format for text messages,
 whose lines may consist of at most [1'000 ASCII characters](#line-length-limit).
 Whenever the content of a message doesn't fulfill this requirement,
 it must be encoded according to the
 [Multipurpose Internet Mail Extensions (MIME)](https://en.wikipedia.org/wiki/MIME)
-as specified in [RFC 2045](https://tools.ietf.org/html/rfc2045).
+as specified in [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045).
 When mail clients encode messages according to MIME,
 they indicate this with the following header field:
 
@@ -6385,7 +6385,7 @@ MIME also introduced additional message header fields,
 which we'll cover in this and the following subsections.
 
 Unless all involved SMTP servers support the `BINARYMIME` extension
-as specified in [RFC 3030](https://tools.ietf.org/html/rfc3030), which is rarely the case,
+as specified in [RFC 3030](https://datatracker.ietf.org/doc/html/rfc3030), which is rarely the case,
 content containing non-ASCII characters or lines longer than 1'000 characters
 must be encoded with one of the following two methods:
 
@@ -6501,10 +6501,10 @@ you might have encountered the [Percent encoding](https://en.wikipedia.org/wiki/
 It's used to encode arbitrary data in a
 [Uniform Resource Identifier (URI)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier),
 such as a [Uniform Resource Locator (URL)](https://en.wikipedia.org/wiki/Uniform_Resource_Locator).
-The Percent encoding is specified in [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2),
+The Percent encoding is specified in [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2),
 and it works similar to the Quoted-Printable encoding.
 The difference is that the Percent encoding has a longer list of
-[reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2)
+[reserved characters](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2)
 and that the [percent sign](https://en.wikipedia.org/wiki/Percent_sign)
 is used as the escape character instead of the equality sign.
 Additionally, [whitespace](https://en.wikipedia.org/wiki/Whitespace_character),
@@ -6602,8 +6602,8 @@ you can just save the file which you use as the input accordingly.
 
 ### Header encoding
 
-[RFC 2047](https://tools.ietf.org/html/rfc2047) specifies how one can use non-ASCII characters
-in [certain header field values](https://tools.ietf.org/html/rfc2047#page-8),
+[RFC 2047](https://datatracker.ietf.org/doc/html/rfc2047) specifies how one can use non-ASCII characters
+in [certain header field values](https://datatracker.ietf.org/doc/html/rfc2047#page-8),
 such as the [subject](#subject) and the [display names](#display-name).
 Instead of introducing new header fields to specify the encoding of existing header fields,
 encodings in header fields indicate which [character encoding](#character-encoding)
@@ -6644,14 +6644,14 @@ of [Unicode](https://en.wikipedia.org/wiki/Unicode) with [ASCII characters](http
 While domain names may consist of arbitrary bytes,
 many protocols require that the domain names of servers
 contain only letters, digits, and hyphens (LDH) from the ASCII character set.
-This is known as the [preferred name syntax](https://tools.ietf.org/html/rfc1035#section-2.3.1),
+This is known as the [preferred name syntax](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.1),
 and [(E)SMTP](#extended-simple-mail-transfer-protocol) is one of the protocols
-which [uphold the LDH rule](https://tools.ietf.org/html/rfc5321#section-2.3.5).
+which [uphold the LDH rule](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.5).
 In order to remain backward compatible and to require no changes to the
 [DNS infrastructure](/internet/#domain-name-system),
 domain names with non-ASCII characters have to be encoded with just ASCII letters, digits, and hyphens.
 Punycode is an encoding which does exactly that.
-It is specified in [RFC 3492](https://tools.ietf.org/html/rfc3492)
+It is specified in [RFC 3492](https://datatracker.ietf.org/doc/html/rfc3492)
 and it tries to be as space-efficient as possible.
 
 Punycode encodes Unicode strings in three steps:
@@ -6730,11 +6730,11 @@ Punycode encodes Unicode strings in three steps:
    and an additional position might be needed.
    Punycode sets the threshold as the position times the number of symbols minus the current bias
    and limits all thresholds to a certain range.
-   The bias is 72 initially and the range for thresholds is [1 to 26](https://tools.ietf.org/html/rfc3492#section-5).
+   The bias is 72 initially and the range for thresholds is [1 to 26](https://datatracker.ietf.org/doc/html/rfc3492#section-5).
    Thus, the threshold at position 1 is max(1, 1 × 36 – 72) = 1,
    the threshold at position 2 is max(1, 2 × 36 – 72) = 1, and
    the threshold at position 3 is min(26, 3 × 36 – 72) = 26 initially.
-   The bias is [adapted after each delta](https://tools.ietf.org/html/rfc3492#section-3.4) because
+   The bias is [adapted after each delta](https://datatracker.ietf.org/doc/html/rfc3492#section-3.4) because
    the current delta indicates the likely size of the next delta.
    In our example, 745 is encoded as `kva`.
    Since `k` stands for 10, `v` for 21, and `a` for 0,
@@ -6991,20 +6991,20 @@ Unicode case folding
 </summary>
 
 The [domain name system](/internet/#domain-name-system) has been
-[case-insensitive](https://tools.ietf.org/html/rfc1035#section-2.3.3) since its inception.
+[case-insensitive](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.3) since its inception.
 This means that if you search for `EF1P.com`,
 you still get the records for `ef1p.com`.
 Furthermore, if I have a DNS record at `www.ef1p.com`
 and a [wildcard record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) at `*.ef1p.com`,
 querying `WWW.EF1P.COM` returns the former.
-Since DNS servers are supposed to [preserve the case](https://tools.ietf.org/html/rfc4343#section-4),
+Since DNS servers are supposed to [preserve the case](https://datatracker.ietf.org/doc/html/rfc4343#section-4),
 they have to do the case-insensitive comparison of ASCII strings.
 (In theory, you're supposed to get back the domain name
 [as it's capitalized in the zone file of the authoritative name server](https://mailarchive.ietf.org/arch/msg/dnsext/pS7pUSM3SZBA-nu921cVn7IdfJs/).
 In practice, however, many DNS servers use case-insensitive name compression in their responses,
 which means that you often get back the domain name as you capitalized it in your query.
 Pointing from the answer section to the question section in order to make the DNS response smaller
-even if the case doesn't match is [explicitly allowed by the RFC](https://tools.ietf.org/html/rfc4343#section-4.1).)
+even if the case doesn't match is [explicitly allowed by the RFC](https://datatracker.ietf.org/doc/html/rfc4343#section-4.1).)
 Since DNS servers don't know about [Punycode](#punycode-encoding)
 and Punycode encodes non-ASCII uppercase and lowercase letters differently,
 [internationalized domain names](#internationalized-domain-names) have to be case-normalized on the client-side
@@ -7094,7 +7094,7 @@ Punycode-encoded labels are prefixed with `xn--`.
 This is known as the ASCII-Compatible Encoding (ACE) prefix.
 A label may be Punycode-encoded only if it contains non-ASCII characters.
 This ensures that Punycode-encoded labels never end with a hyphen.
-(The [preferred name syntax](https://tools.ietf.org/html/rfc1035#section-2.3.1)
+(The [preferred name syntax](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.1)
 requires that labels neither start nor end with a hyphen.)
 Each Punycode-encoded label may be at most 63 characters long, including the ACE prefix.
 If the encoding of a Unicode label is longer, the user input must be rejected.
@@ -7104,10 +7104,10 @@ What makes internationalized domain names even more complicated is that there ar
 IDNA2008 supersedes IDNA2003, which means that IDNA2003 should no longer be used.
 Since a lot of the confusion comes from the differences between them, we'll look at both:
 
-- **IDNA2003**: IDNA2003 is specified in [RFC 3490](https://tools.ietf.org/html/rfc3490).
+- **IDNA2003**: IDNA2003 is specified in [RFC 3490](https://datatracker.ietf.org/doc/html/rfc3490).
   It uses the [Nameprep](https://en.wikipedia.org/wiki/Nameprep) profile
-  as specified in [RFC 3491](https://tools.ietf.org/html/rfc3491)
-  of the Stringprep algorithm, which is specified in [RFC 3454](https://tools.ietf.org/html/rfc3454).
+  as specified in [RFC 3491](https://datatracker.ietf.org/doc/html/rfc3491)
+  of the Stringprep algorithm, which is specified in [RFC 3454](https://datatracker.ietf.org/doc/html/rfc3454).
   Nameprep prepares an arbitrary user input to be encoded with Punycode:
 
 <figure markdown="block">
@@ -7115,25 +7115,25 @@ Since a lot of the confusion comes from the differences between them, we'll look
 <figcaption markdown="span" style="max-width: 510px;">
 
 How IDNA2003 normalizes user input.
-The normalization fails only if the output contains [prohibited characters](https://tools.ietf.org/html/rfc3454#section-5)
-or violates the [rules for bidirectional text](https://tools.ietf.org/html/rfc3454#section-6).
+The normalization fails only if the output contains [prohibited characters](https://datatracker.ietf.org/doc/html/rfc3454#section-5)
+or violates the [rules for bidirectional text](https://datatracker.ietf.org/doc/html/rfc3454#section-6).
 
 </figcaption>
 </figure>
 
-- **IDNA2008**: IDNA2008 is specified in [RFC 5890](https://tools.ietf.org/html/rfc5890),
-  [RFC 5891](https://tools.ietf.org/html/rfc5891),
-  [RFC 5892](https://tools.ietf.org/html/rfc5892),
-  [RFC 5893](https://tools.ietf.org/html/rfc5893),
-  and [RFC 5894](https://tools.ietf.org/html/rfc5894).
+- **IDNA2008**: IDNA2008 is specified in [RFC 5890](https://datatracker.ietf.org/doc/html/rfc5890),
+  [RFC 5891](https://datatracker.ietf.org/doc/html/rfc5891),
+  [RFC 5892](https://datatracker.ietf.org/doc/html/rfc5892),
+  [RFC 5893](https://datatracker.ietf.org/doc/html/rfc5893),
+  and [RFC 5894](https://datatracker.ietf.org/doc/html/rfc5894).
   Instead of prohibiting certain characters,
   IDNA2008 accepts only characters with specific [properties](https://en.wikipedia.org/wiki/Unicode_character_property),
   which makes it easier to migrate to newer versions of Unicode.
   (IDNA2003 used Unicode version 3.2 only.)
   Additionally, IDNA2008 no longer specifies how characters are to be mapped,
-  it only [encourages applications](https://tools.ietf.org/html/rfc5894#section-4.2) to meet user expectations.
+  it only [encourages applications](https://datatracker.ietf.org/doc/html/rfc5894#section-4.2) to meet user expectations.
   Removing the mapping of characters from the standard allows applications to map them
-  [according to the language which is being used](https://tools.ietf.org/html/rfc5894#section-4.3).
+  [according to the language which is being used](https://datatracker.ietf.org/doc/html/rfc5894#section-4.3).
   Since the IDNA standard is the same around the globe,
   it cannot consider the local context for character mappings.
 
@@ -7187,11 +7187,11 @@ So how does IDNA2008 differ from IDNA2003? Let's look at a few examples:
 
 Since some characters that were previously removed,
 such as the [zero-width joiner](https://en.wikipedia.org/wiki/Zero-width_joiner),
-are now allowed [in certain contexts](https://tools.ietf.org/html/rfc5894#section-3.1.2)
+are now allowed [in certain contexts](https://datatracker.ietf.org/doc/html/rfc5894#section-3.1.2)
 and other characters, such as `ß` and `ς`, are no longer mapped,
-some internationalized domain names are [interpreted differently](https://tools.ietf.org/html/rfc5894#section-7.2)
+some internationalized domain names are [interpreted differently](https://datatracker.ietf.org/doc/html/rfc5894#section-7.2)
 under IDNA2008 than under IDNA2003.
-These changes require a [transition period](https://tools.ietf.org/html/rfc5894#section-7.2.3) from IDNA2003 to IDNA2008,
+These changes require a [transition period](https://datatracker.ietf.org/doc/html/rfc5894#section-7.2.3) from IDNA2003 to IDNA2008,
 where [domain name registries](https://en.wikipedia.org/wiki/Domain_name_registry)
 reserve the newer mapping of an internationalized domain name for the registrant of the older mapping,
 bundle different mappings of a new registration,
@@ -7209,7 +7209,7 @@ IDNA2008 validation
 
 Unfortunately, there is [no JavaScript library](https://github.com/mathiasbynens/todo/issues/9)
 to validate [internationalized domain names](#internationalized-domain-names).
-I've approximated the [IDNA2008 rules](https://tools.ietf.org/html/rfc5894#section-3.1.3)
+I've approximated the [IDNA2008 rules](https://datatracker.ietf.org/doc/html/rfc5894#section-3.1.3)
 in the [Punycode tool](#punycode-encoding)
 [as follows](https://github.com/KasparEtter/ef1p/blob/main/code/tools/encodings/punycode.tsx):
 `/^[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*(?:\.[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*)*$/u`.
@@ -7257,7 +7257,7 @@ such attacks can be mitigated by the client, the registry, and the user:
   Additionally, it's a good idea to lowercase and normalize domain names before displaying them
   in a font which clearly distinguishes between visually similar characters.
 - [**Registry**](https://en.wikipedia.org/wiki/IDN_homograph_attack#Server-side/registry_operator_mitigation):
-  Domain name registries should develop [registration policies](https://tools.ietf.org/html/rfc5894#section-3.2)
+  Domain name registries should develop [registration policies](https://datatracker.ietf.org/doc/html/rfc5894#section-3.2)
   for their [top-level domains](https://en.wikipedia.org/wiki/Top-level_domain).
   Registries are free to permit characters only from certain
   [scripts](https://en.wikipedia.org/wiki/Script_(Unicode)#List_of_scripts_in_Unicode)
@@ -7270,7 +7270,7 @@ such attacks can be mitigated by the client, the registry, and the user:
   with its [data set](https://www.unicode.org/Public/security/latest/)
   contains more information about confusable characters.
   On top of this, registries should bundle or block variants of the same word
-  as outlined in [RFC 4290](https://tools.ietf.org/html/rfc4290).
+  as outlined in [RFC 4290](https://datatracker.ietf.org/doc/html/rfc4290).
   Wikipedia lists [which top-level domains support IDNs](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains)
   and which top-level domains are [internationalized themselves](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Internationalized_country_code_top-level_domains).
 - [**User**](https://en.wikipedia.org/wiki/Phishing#User_training):
@@ -7292,29 +7292,29 @@ The only thing that is missing is the internationalization
 of the [local part](#address-syntax) of [email addresses](#address).
 This is achieved by the following RFCs, which extend the [email protocols](#protocols)
 and the [message format](#format) to allow Unicode characters encoded in UTF-8 everywhere:
-- [**RFC 6530**](https://tools.ietf.org/html/rfc6530)
+- [**RFC 6530**](https://datatracker.ietf.org/doc/html/rfc6530)
   introduces the framework for internationalized email.
-  It explains the [problem](https://tools.ietf.org/html/rfc6530#section-3) and
-  defines the [used terminology](https://tools.ietf.org/html/rfc6530#section-4).
-  Unlike [earlier proposals](https://tools.ietf.org/html/rfc6530#section-6),
-  [internationalized messages](https://tools.ietf.org/html/rfc6530#section-4.6)
-  are no longer [downgraded in transit](https://tools.ietf.org/html/rfc6530#section-9)
+  It explains the [problem](https://datatracker.ietf.org/doc/html/rfc6530#section-3) and
+  defines the [used terminology](https://datatracker.ietf.org/doc/html/rfc6530#section-4).
+  Unlike [earlier proposals](https://datatracker.ietf.org/doc/html/rfc6530#section-6),
+  [internationalized messages](https://datatracker.ietf.org/doc/html/rfc6530#section-4.6)
+  are no longer [downgraded in transit](https://datatracker.ietf.org/doc/html/rfc6530#section-9)
   because the local part of an address is to be interpreted
-  [only by the host specified in the domain part of the address](https://tools.ietf.org/html/rfc5321#section-2.3.11).
+  [only by the host specified in the domain part of the address](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.11).
   If an intermediary mail server doesn't support UTF-8,
   the message has to be [returned to the sender](#bounce-messages).
   If an internationalized message shall be delivered to legacy mail servers,
-  it has to be [downgraded before or during message submission](https://tools.ietf.org/html/rfc6530#section-8.1).
+  it has to be [downgraded before or during message submission](https://datatracker.ietf.org/doc/html/rfc6530#section-8.1).
   Additionally, the incoming mail server of the recipient may
-  [downgrade messages after the final delivery](https://tools.ietf.org/html/rfc6530#section-8.2)
+  [downgrade messages after the final delivery](https://datatracker.ietf.org/doc/html/rfc6530#section-8.2)
   so that they can be retrieved by legacy mail clients of the recipient (see the points below).
-  The [RFC](https://tools.ietf.org/html/rfc6530#section-10.1) recommends that
+  The [RFC](https://datatracker.ietf.org/doc/html/rfc6530#section-10.1) recommends that
   incoming mail servers [normalize](#unicode-normalization) the local part of an email address
   ideally to NFKC but at least to NFC as part of the [address normalization](#normalization).
-  Senders, however, [should not normalize the addresses of recipients](https://tools.ietf.org/html/rfc6532#section-3.1).<br>
+  Senders, however, [should not normalize the addresses of recipients](https://datatracker.ietf.org/doc/html/rfc6532#section-3.1).<br>
   [Email service providers](#provider) which provide their service to the general public
   need to be aware that allowing Unicode characters in the local part of email addresses
-  makes it easier to impersonate their users [with homograph attacks](https://tools.ietf.org/html/rfc6530#section-13).
+  makes it easier to impersonate their users [with homograph attacks](https://datatracker.ietf.org/doc/html/rfc6530#section-13).
   [Just as domain name registries](#homograph-attack),
   public email service providers should either restrict the permitted characters to ASCII
   or a single [Unicode script](https://en.wikipedia.org/wiki/Script_(Unicode)#List_of_scripts_in_Unicode).
@@ -7325,43 +7325,43 @@ and the [message format](#format) to allow Unicode characters encoded in UTF-8 e
   based on the capitalization of the local part.
   Therefore, mail clients cannot lowercase the local part before displaying it
   even though this would help to tell characters such as capital `i` and lowercase `L` apart.
-- [**RFC 6531**](https://tools.ietf.org/html/rfc6531)
+- [**RFC 6531**](https://datatracker.ietf.org/doc/html/rfc6531)
   defines an [SMTP extension](#common-smtp-extensions) with the keyword `SMTPUTF8`.
   If the SMTP server indicates this capability,
   the SMTP client can transfer a UTF-8 message with UTF-8 envelope addresses
   by using the `MAIL` `FROM` command with the `SMTPUTF8` parameter.
-  This RFC also defines [additional protocol types](https://tools.ietf.org/html/rfc6531#section-4.3),
+  This RFC also defines [additional protocol types](https://datatracker.ietf.org/doc/html/rfc6531#section-4.3),
   which can be used in the `with` clause of [`Received` header fields](#trace-information).
-- [**RFC 6532**](https://tools.ietf.org/html/rfc6532)
-  extends the syntax rules of [RFC 5322](https://tools.ietf.org/html/rfc5322)
+- [**RFC 6532**](https://datatracker.ietf.org/doc/html/rfc6532)
+  extends the syntax rules of [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322)
   to allow the use of UTF-8 characters everywhere.
   It also introduces an additional [content type](#content-type)
   with the identifier `message/global` to describe internationalized messages encoded in UTF-8.
-- [**RFC 6533**](https://tools.ietf.org/html/rfc6533)
+- [**RFC 6533**](https://datatracker.ietf.org/doc/html/rfc6533)
   brings UTF-8 to delivery status notifications (DSN), such as [non-delivery reports (NDR)](#bounce-messages).
-- [**RFC 6855**](https://tools.ietf.org/html/rfc6855)
+- [**RFC 6855**](https://datatracker.ietf.org/doc/html/rfc6855)
   specifies an [IMAP extension](#imap-extensions)
   which allows mail clients to access internationalized messages
   (and to use Unicode characters in folder names).
-  The [`UTF8=ACCEPT` capability](https://tools.ietf.org/html/rfc6855#section-3)
+  The [`UTF8=ACCEPT` capability](https://datatracker.ietf.org/doc/html/rfc6855#section-3)
   indicates that the IMAP server supports UTF-8 in strings.
-  The [`UTF8=ONLY` capability](https://tools.ietf.org/html/rfc6855#section-6)
+  The [`UTF8=ONLY` capability](https://datatracker.ietf.org/doc/html/rfc6855#section-6)
   indicates that the IMAP server requires UTF-8 support from clients
   because it won't downgrade internationalized messages for them.
   The `UTF8=ONLY` capability implies the `UTF8=ACCEPT` capability
   and clients have to indicate that they can handle UTF-8
   by sending `. ENABLE UTF8=ACCEPT` to the server.
-- [**RFC 6856**](https://tools.ietf.org/html/rfc6856)
+- [**RFC 6856**](https://datatracker.ietf.org/doc/html/rfc6856)
   specifies a [POP3 extension](#pop3-extensions)
   to upgrade an ASCII-only session to an UTF-8 session.
   The POP3 server indicates that it supports UTF-8 with the
-  [`UTF8` capability](https://tools.ietf.org/html/rfc6856#section-2).
+  [`UTF8` capability](https://datatracker.ietf.org/doc/html/rfc6856#section-2).
   A POP3 client can then enable the UTF-8 mode with the
-  [`UTF8` command](https://tools.ietf.org/html/rfc6856#section-2.1).
-  This RFC also introduces a [`LANG` capability and command](https://tools.ietf.org/html/rfc6856#section-3),
+  [`UTF8` command](https://datatracker.ietf.org/doc/html/rfc6856#section-2.1).
+  This RFC also introduces a [`LANG` capability and command](https://datatracker.ietf.org/doc/html/rfc6856#section-3),
   which allows the client to configure a different language for the response texts.
   This can be useful when the client presents error messages from the server directly to the user.
-- [**RFC 6857**](https://tools.ietf.org/html/rfc6857)
+- [**RFC 6857**](https://datatracker.ietf.org/doc/html/rfc6857)
   specifies an advanced downgrading mechanism for internationalized messages.
   POP3 and IMAP servers can use it to convert UTF-8 messages to ASCII-only messages
   before delivering them to mail clients which don't support UTF-8.
@@ -7369,35 +7369,35 @@ and the [message format](#format) to allow Unicode characters encoded in UTF-8 e
   Everywhere where the [Encoded-Word encoding](#header-encoding) is allowed,
   this encoding is used to encode UTF-8 strings as ASCII strings.
   The Encoded-Word encoding is also used if necessary for
-  [unknown header fields](https://tools.ietf.org/html/rfc6857#section-3.2.8).
+  [unknown header fields](https://datatracker.ietf.org/doc/html/rfc6857#section-3.2.8).
   [Internationalized domain names](#internationalized-domain-names) are downgraded
   with the [Punycode encoding](#punycode-encoding).
-  Email addresses with [non-ASCII characters in the local part](https://tools.ietf.org/html/rfc6857#section-3.1.8)
+  Email addresses with [non-ASCII characters in the local part](https://datatracker.ietf.org/doc/html/rfc6857#section-3.1.8)
   are rewritten by encoding the whole address as an Encoded Word
   and replacing the address with an empty [group construct](#group-construct).
   For example, `From: José <josé@example.com>` is [converted to](https://www.rfc-editor.org/errata/eid6573)
   `From: =?UTF-8?Q?Jos=C3=A9_?= =?UTF-8?Q?jos=C3=A9=40example=2Ecom?= :;`
-  thanks to [RFC 6854](https://tools.ietf.org/html/rfc6854).
+  thanks to [RFC 6854](https://datatracker.ietf.org/doc/html/rfc6854).
   Since this string encodes an empty group instead of an address,
   the recipient cannot reply to such a message without manual intervention.
-  [RFC 6857](https://tools.ietf.org/html/rfc6857#section-2) requires the use of `UTF-8` as the character encoding
-  and [RFC 2047](https://tools.ietf.org/html/rfc2047#section-5) requires that
+  [RFC 6857](https://datatracker.ietf.org/doc/html/rfc6857#section-2) requires the use of `UTF-8` as the character encoding
+  and [RFC 2047](https://datatracker.ietf.org/doc/html/rfc2047#section-5) requires that
   the @ symbol and the period are also encoded when the Encoded Word precedes an address.
   If the internationalized email address is part of an address group,
   the whole group is encoded with this technique because groups cannot be nested.
   Header fields in which addresses are used but the group syntax is not allowed
-  need to be [encapsulated](https://tools.ietf.org/html/rfc6857#section-3.1.10):
+  need to be [encapsulated](https://datatracker.ietf.org/doc/html/rfc6857#section-3.1.10):
   A header field such as `Message-Id` is replaced with `Downgraded-Message-Id`
   so that its value can be encoded as an Encoded Word.
   The `Received` header fields are an exception to this rule:
-  Any clauses with non-ASCII characters are [simply removed](https://tools.ietf.org/html/rfc6857#section-3.2.4).
-  Lastly, the message body is [left as is](https://tools.ietf.org/html/rfc6857#appendix-A),
+  Any clauses with non-ASCII characters are [simply removed](https://datatracker.ietf.org/doc/html/rfc6857#section-3.2.4).
+  Lastly, the message body is [left as is](https://datatracker.ietf.org/doc/html/rfc6857#appendix-A),
   even if the [content transfer encoding](#content-encoding) is `8bit`.
-- [**RFC 6858**](https://tools.ietf.org/html/rfc6858)
+- [**RFC 6858**](https://datatracker.ietf.org/doc/html/rfc6858)
   specifies a simpler downgrading mechanism for internationalized messages,
   which accepts the loss of information in favor of an easier implementation.
   Internationalized email addresses are replaced with an
-  [invalid address](https://tools.ietf.org/html/rfc6858#section-2.1),
+  [invalid address](https://datatracker.ietf.org/doc/html/rfc6858#section-2.1),
   such as `invalid@internationalized.invalid`.
   The original address can optionally be encoded in the [display name](#display-name) of the invalid address.
   The [subject field](#subject) is encoded as an Encoded Word,
@@ -7420,7 +7420,7 @@ and the [message format](#format) to allow Unicode characters encoded in UTF-8 e
 
 Now that we can [encode arbitrary content](#content-encoding),
 we need a way to inform the client how to interpret the decoded content.
-This is done with the [`Content-Type` header field](https://tools.ietf.org/html/rfc2045#section-5),
+This is done with the [`Content-Type` header field](https://datatracker.ietf.org/doc/html/rfc2045#section-5),
 which has the following format:
 
 <figure markdown="block">
@@ -7445,33 +7445,33 @@ A content type consists of:
 - `Type`: The primary content type describes the general type of data.
   If the client doesn't recognize the subtype,
   it can use this information to decide what to do with the content.
-  If the type is [`text`](https://tools.ietf.org/html/rfc2046#section-4.1),
+  If the type is [`text`](https://datatracker.ietf.org/doc/html/rfc2046#section-4.1),
   for example, it can display the raw data to the user,
   which wouldn't make sense for [binary files](https://en.wikipedia.org/wiki/Binary_file).
-  The other top-level media types are [`image`](https://tools.ietf.org/html/rfc2046#section-4.2),
-  [`audio`](https://tools.ietf.org/html/rfc2046#section-4.3),
-  [`video`](https://tools.ietf.org/html/rfc2046#section-4.4),
-  [`font`](https://tools.ietf.org/html/rfc8081),
-  [`model`](https://tools.ietf.org/html/rfc2077) for three-dimensional models,
-  [`application`](https://tools.ietf.org/html/rfc2046#section-4.5) for application-specific formats,
-  [`message`](https://tools.ietf.org/html/rfc2046#section-5.2) for [email messages](#format),
-  [`multipart`](https://tools.ietf.org/html/rfc2046#section-5.1) for [multipart messages](#multipart-messages),
-  and [`example`](https://tools.ietf.org/html/rfc4735) for use in documentation.
-- `Tree`: [RFC 6838](https://tools.ietf.org/html/rfc6838) defines four registration trees
+  The other top-level media types are [`image`](https://datatracker.ietf.org/doc/html/rfc2046#section-4.2),
+  [`audio`](https://datatracker.ietf.org/doc/html/rfc2046#section-4.3),
+  [`video`](https://datatracker.ietf.org/doc/html/rfc2046#section-4.4),
+  [`font`](https://datatracker.ietf.org/doc/html/rfc8081),
+  [`model`](https://datatracker.ietf.org/doc/html/rfc2077) for three-dimensional models,
+  [`application`](https://datatracker.ietf.org/doc/html/rfc2046#section-4.5) for application-specific formats,
+  [`message`](https://datatracker.ietf.org/doc/html/rfc2046#section-5.2) for [email messages](#format),
+  [`multipart`](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1) for [multipart messages](#multipart-messages),
+  and [`example`](https://datatracker.ietf.org/doc/html/rfc4735) for use in documentation.
+- `Tree`: [RFC 6838](https://datatracker.ietf.org/doc/html/rfc6838) defines four registration trees
   in order to keep different kinds of subtypes apart.
-  There is the [standards tree](https://tools.ietf.org/html/rfc6838#section-3.1),
+  There is the [standards tree](https://datatracker.ietf.org/doc/html/rfc6838#section-3.1),
   which doesn't use a tree prefix and is reserved for formats specified
   by a [standards organization](https://en.wikipedia.org/wiki/Standards_organization)
   such as [IETF](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force);
-  the [vendor tree](https://tools.ietf.org/html/rfc6838#section-3.2) with the prefix `vnd.`
+  the [vendor tree](https://datatracker.ietf.org/doc/html/rfc6838#section-3.2) with the prefix `vnd.`
   for [proprietary formats](https://en.wikipedia.org/wiki/Proprietary_format);
-  the [personal or vanity tree](https://tools.ietf.org/html/rfc6838#section-3.3) with the prefix `prs.`
+  the [personal or vanity tree](https://datatracker.ietf.org/doc/html/rfc6838#section-3.3) with the prefix `prs.`
   for experimental and non-commercial formats;
-  and the [unregistered tree](https://tools.ietf.org/html/rfc6838#section-3.4) with the prefix `x.`
+  and the [unregistered tree](https://datatracker.ietf.org/doc/html/rfc6838#section-3.4) with the prefix `x.`
   for unregistered and thus only locally used formats.
 - `Subtype`: The subtype is the name of the content type.
   See the list of examples below.
-- `Suffix`: A [structured syntax suffix](https://tools.ietf.org/html/rfc6838#section-6)
+- `Suffix`: A [structured syntax suffix](https://datatracker.ietf.org/doc/html/rfc6838#section-6)
   can be used to specify the syntax of the media type
   while leaving the semantics of the data to the subtype.
   IANA maintains a list of [registered suffixes](https://www.iana.org/assignments/media-type-structured-suffix/media-type-structured-suffix.xhtml).
@@ -7480,20 +7480,20 @@ A content type consists of:
   Each subtype specifies which parameters are required and which ones are optional.
   Optional parameters assume their default value if they are not provided.
   If several parameters are provided,
-  their [ordering is irrelevant](https://tools.ietf.org/html/rfc2046#section-1),
-  but each parameter may appear [only once](https://tools.ietf.org/html/rfc6838#section-4.3).
-  The [syntax of parameters](https://tools.ietf.org/html/rfc2045#section-5.1) is `name=value`.
+  their [ordering is irrelevant](https://datatracker.ietf.org/doc/html/rfc2046#section-1),
+  but each parameter may appear [only once](https://datatracker.ietf.org/doc/html/rfc6838#section-4.3).
+  The [syntax of parameters](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1) is `name=value`.
   The best-known parameter is `charset` to specify the [character encoding](#character-encoding) of `text` content.
   IANA maintains the [standardized character sets](https://www.iana.org/assignments/character-sets/character-sets.xhtml) and
   the [values of some parameters](https://www.iana.org/assignments/media-type-sub-parameters/media-type-sub-parameters.xhtml).
 
 The type, the subtype, and the parameter names are case-insensitive.
-[RFC 6838](https://tools.ietf.org/html/rfc6838) doesn't specify whether the tree and the suffix are also case-insensitive
+[RFC 6838](https://datatracker.ietf.org/doc/html/rfc6838) doesn't specify whether the tree and the suffix are also case-insensitive
 but I assume that this is the case.
 Whether a parameter value is case sensitive depends on the parameter.
-The [default content type for emails](https://tools.ietf.org/html/rfc2045#section-5.2)
+The [default content type for emails](https://datatracker.ietf.org/doc/html/rfc2045#section-5.2)
 is `text/plain; charset=us-ascii`.
-As specified in [RFC 1945](https://tools.ietf.org/html/rfc1945#section-3.6),
+As specified in [RFC 1945](https://datatracker.ietf.org/doc/html/rfc1945#section-3.6),
 [HTTP](/internet/#hypertext-transfer-protocol) uses the same header field with the same media types.
 
 Example content types: `text/csv`, `text/html`, `image/png`, `image/svg+xml`,
@@ -7506,10 +7506,10 @@ Enriched Text
 </summary>
 
 The ability to send [formatted text](https://en.wikipedia.org/wiki/Formatted_text)
-was first introduced [in 1992](https://tools.ietf.org/html/rfc1341#page-23) with a content type of `text/richtext`.
+was first introduced [in 1992](https://datatracker.ietf.org/doc/html/rfc1341#page-23) with a content type of `text/richtext`.
 In order to avoid confusion with Microsoft's [Rich Text Format (RTF)](https://en.wikipedia.org/wiki/Rich_Text_Format),
-the content type was renamed to `text/enriched` the [following year](https://tools.ietf.org/html/rfc1523)
-and revised again in [RFC 1896](https://tools.ietf.org/html/rfc1896).
+the content type was renamed to `text/enriched` the [following year](https://datatracker.ietf.org/doc/html/rfc1523)
+and revised again in [RFC 1896](https://datatracker.ietf.org/doc/html/rfc1896).
 [Enriched Text](https://en.wikipedia.org/wiki/Enriched_text) is a
 [markup language](https://en.wikipedia.org/wiki/Markup_language)
 with [HTML-like tags](https://en.wikipedia.org/wiki/HTML_element#Syntax).
@@ -7545,7 +7545,7 @@ HTML emails
 </summary>
 
 Nowadays, most messages are formatted with the [Hypertext Markup Language (HTML)](https://en.wikipedia.org/wiki/HTML).
-The `text/html` media type is specified in [RFC 2854](https://tools.ietf.org/html/rfc2854).
+The `text/html` media type is specified in [RFC 2854](https://datatracker.ietf.org/doc/html/rfc2854).
 The message from the [previous box](#enriched-text) looks as follows when it is formatted with HTML:
 
 <figure markdown="block" class="allow-break-inside">
@@ -7870,7 +7870,7 @@ The [line-length limit](#line-length-limit) requires the mail client to insert a
 and [message quoting](#quoting-the-previous-message) with the greater-than sign requires
 that unquoted lines don't start with `>`.
 
-[RFC 3676](https://tools.ietf.org/html/rfc3676) addresses both issues.
+[RFC 3676](https://datatracker.ietf.org/doc/html/rfc3676) addresses both issues.
 Firstly, the sending mail client removes spaces before user-inserted newlines
 and ensures that there is a space before client-inserted newlines.
 Secondly, the sending mail client inserts a space at the beginning of all newly written lines
@@ -7921,10 +7921,10 @@ Otherwise, this line would be a quoted `3`.
 The standard for `format=flowed` is a bit more complicated than how I explained it.
 On the one hand, a space can be inserted at the beginning of any line,
 which means that lines which already start with a space have to be protected with an additional space.
-(For [historical reasons](https://tools.ietf.org/html/rfc3676#section-4.4),
+(For [historical reasons](https://datatracker.ietf.org/doc/html/rfc3676#section-4.4),
 lines which start with `From` also have to be protected by inserting a leading space.)
 On the other hand, it also specifies how to handle consecutive lines
-with [different quote levels](https://tools.ietf.org/html/rfc3676#section-4.5),
+with [different quote levels](https://datatracker.ietf.org/doc/html/rfc3676#section-4.5),
 which always lead to hard line breaks.
 
 As far as I can tell, most messages are encoded with either Quoted-Printable or Base64,
@@ -7987,7 +7987,7 @@ You can inspect these header fields with the
 
 The only standardized way to compress emails during relay is with [S/MIME](#comparison-of-smime-and-pgp),
 which we'll discuss later.
-[Section 3.6 of RFC 8551](https://tools.ietf.org/html/rfc8551#section-3.6)
+[Section 3.6 of RFC 8551](https://datatracker.ietf.org/doc/html/rfc8551#section-3.6)
 provides the following example for how to use S/MIME for compression only:
 
 <figure markdown="block" class="allow-break-inside">
@@ -8003,7 +8003,7 @@ eNoLycgsVgCi4vzcVIXixNyCnFSF5Py8ktS8Ej0AlCkKVA==
 
 How [S/MIME](#comparison-of-smime-and-pgp) can be used to compress messages
 using the [ZLIB compression format](https://en.wikipedia.org/wiki/Zlib)
-as specified in [RFC 1950](https://tools.ietf.org/html/rfc1950).
+as specified in [RFC 1950](https://datatracker.ietf.org/doc/html/rfc1950).
 
 </figcaption>
 </figure>
@@ -8030,7 +8030,7 @@ we won't see compression of messages from the mail client of the sender
 to the mail client of the recipient anytime soon.
 This doesn't prevent mail clients and mail servers from compressing messages between them, though,
 as they can advertise [their capabilities](#imap-extensions) as part of the used protocol.
-[RFC 4978](https://tools.ietf.org/html/rfc4978) specifies the `COMPRESS` extension
+[RFC 4978](https://datatracker.ietf.org/doc/html/rfc4978) specifies the `COMPRESS` extension
 for [IMAP](#internet-message-access-protocol),
 which allows the client and the server to agree on compressing their communication.
 Since mail clients can store messages in whatever format they want,
@@ -8048,8 +8048,8 @@ Internationalized parameter values
 As we will see in the [next subsection](#multipart-messages),
 MIME parameters are sometimes used to convey user-chosen information,
 such as the filename of attachments.
-[RFC 2231](https://tools.ietf.org/html/rfc2231) specifies
-[yet another encoding](https://tools.ietf.org/html/rfc2231#section-4)
+[RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231) specifies
+[yet another encoding](https://datatracker.ietf.org/doc/html/rfc2231#section-4)
 to support non-ASCII characters in parameter values.
 The sender indicates that the value is encoded by putting an asterisk before the equals sign.
 The value itself then starts with the name of the [character set](#character-encoding),
@@ -8058,8 +8058,8 @@ These three pieces of information are separated by a single quote.
 The encoding is similar to the [percent encoding](#percent-encoding)
 but the reserved characters which have to be encoded are different
 and the character set doesn't have to be UTF-8.
-See the formal syntax in [RFC 2231](https://tools.ietf.org/html/rfc2231#section-7)
-and [RFC 2045](https://tools.ietf.org/html/rfc2045#section-5.1) for more information.
+See the formal syntax in [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-7)
+and [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1) for more information.
 I've implemented a tool which encodes and decodes extended parameters for you.
 Let's look at <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="filename*=iso-8859-1'es'%A1Buenos%20d%EDas!.txt" title="Set the value of the Extended-Parameter tool.">an example</a>:
 
@@ -8071,9 +8071,9 @@ Remarks on the above tool:
   If your input is invalid, the output of the tool is likely also invalid.
   Therefore, don't use this tool in production!
 - **Quoted values**: Unencoded parameter values have to be quoted if they contain certain characters
-  such as spaces or what the standard calls [`tspecials`](https://tools.ietf.org/html/rfc2045#section-5.1).
+  such as spaces or what the standard calls [`tspecials`](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1).
   The quotes themselves are not part of the value, and encoded values are never quoted.
-- **Parameter continuations**: [RFC 2231](https://tools.ietf.org/html/rfc2231#section-3)
+- **Parameter continuations**: [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-3)
   also introduced a mechanism which allows you to split long parameter values
   in order to adhere to the [line-length limit](#line-length-limit).
   You can use several parameters to encode a single parameter value
@@ -8081,7 +8081,7 @@ Remarks on the above tool:
   For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*0=&quot;Hello, &quot;;\nname*1=World!" title="Set the value of the Extended-Parameter tool.">`name*0="Hello, "; name*1=World!`</a>
   decodes to `name="Hello, World!"`.
   Please note that the above tool only decodes parameter continuations but doesn't generate them.
-- **Parameter ordering**: According to [RFC 2045](https://tools.ietf.org/html/rfc2045#section-5),
+- **Parameter ordering**: According to [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-5),
   the ordering of parameters is not significant.
   In order to remain backward compatible, this is also the case for parameter continuations:
   <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*1=World!;\nname*0=&quot;Hello, &quot;" title="Set the value of the Extended-Parameter tool.">`name*1=World!; name*0="Hello, "`</a>
@@ -8099,13 +8099,13 @@ Remarks on the above tool:
   For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-decoded="name=&quot;\&quot;;😬 &quot;" title="Set the value of the Extended-Parameter tool.">`name="\";😬 "`</a>
   is a single parameter and has to be encoded as such.
 - **Language information**: The format of the language tag
-  is specified in [RFC 5646](https://tools.ietf.org/html/rfc5646).
+  is specified in [RFC 5646](https://datatracker.ietf.org/doc/html/rfc5646).
   The language tag has been introduced to provide context for
   [screen readers](https://en.wikipedia.org/wiki/Screen_reader).
   The language information can be skipped, but the delimiting single quote must be kept.
   Since the above tool doesn't know in which language you write,
   it always skips this field when encoding your input.
-  [RFC 2231](https://tools.ietf.org/html/rfc2231#section-5)
+  [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-5)
   also extends the [Encoded-Word encoding](#header-encoding)
   so that other header fields can also specify the language they're written in.
   An example is [`=?US-ASCII*EN?Q?Taste?=`](https://en.wikipedia.org/wiki/Taste)
@@ -8132,7 +8132,7 @@ Remarks on the above tool:
 Now that we can send [arbitrary files](#content-encoding) via email,
 we can design [file formats](https://en.wikipedia.org/wiki/File_format)
 to include several files in a single message body.
-[RFC 2046](https://tools.ietf.org/html/rfc2046#section-5.1) defines various
+[RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1) defines various
 [content types](#content-type) to split a message into multiple parts.
 What all the multipart formats have in common is that they are
 [text-based](/internet/#text-based-protocols).
@@ -8143,7 +8143,7 @@ and provided to the recipient in a content-type parameter called [boundary](#bou
 Let's look at the two most common [multipart types](https://en.wikipedia.org/wiki/MIME#Multipart_subtypes)
 and leave the rest for the boxes below.
 
-- [`multipart/mixed`](https://tools.ietf.org/html/rfc2046#section-5.1.3)
+- [`multipart/mixed`](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1.3)
   bundles independent parts into a single message.
   This content type is used to attach files to a message.
   If a client doesn't recognize a `multipart` subtype,
@@ -8189,7 +8189,7 @@ and leave the rest for the boxes below.
 
   </figcaption>
   </figure>
-- [`multipart/alternative`](https://tools.ietf.org/html/rfc2046#section-5.1.4)
+- [`multipart/alternative`](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1.4)
   bundles alternative versions of the same content into a single message.
   This content type is used to provide a fallback version of the content
   for mail clients that don't support the preferred content type.
@@ -8250,7 +8250,7 @@ and leave the rest for the boxes below.
 Since `multipart/mixed` and `multipart/alternative` are content types like any other, they can be nested,
 which results in a [tree](https://en.wikipedia.org/wiki/Tree_(graph_theory)) of message parts.
 The [content encoding](#content-encoding) of `multipart` parts
-[has to be](https://tools.ietf.org/html/rfc2045#section-6.4) `7bit`, `8bit`, or `binary`,
+[has to be](https://datatracker.ietf.org/doc/html/rfc2045#section-6.4) `7bit`, `8bit`, or `binary`,
 and the [boundary](#boundary-delimiter) between the inner parts
 has to be different from the boundary between the outer parts.
 
@@ -8264,22 +8264,22 @@ the sender has to provide a `boundary` value;
 there's no default value for this parameter.
 As mentioned [earlier](#internationalized-parameter-values),
 the double quotes are not part of the value and
-are required only if the value contains [certain characters](https://tools.ietf.org/html/rfc2045#section-5.1).
-The `boundary` value has to consist of [1 to 70 ASCII characters](https://tools.ietf.org/html/rfc2046#page-20),
+are required only if the value contains [certain characters](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1).
+The `boundary` value has to consist of [1 to 70 ASCII characters](https://datatracker.ietf.org/doc/html/rfc2046#page-20),
 and it may not end with [whitespace](https://en.wikipedia.org/wiki/Whitespace_character).
-Unlike other parameter values, multipart boundaries [are case-sensitive](https://tools.ietf.org/html/rfc2045#page-13).
+Unlike other parameter values, multipart boundaries [are case-sensitive](https://datatracker.ietf.org/doc/html/rfc2045#page-13).
 The various parts are then separated by two hyphens
 followed by the `boundary` value and optional whitespace on a line of their own.
 The [newline characters CR+LF](#newline-characters) which start and end
-the [boundary delimiter line](https://tools.ietf.org/html/rfc2046#section-5.1.1) belong to the delimiter.
+the [boundary delimiter line](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1.1) belong to the delimiter.
 As a consequence, the preceding content has no trailing newline characters
 if there's no empty line between the content and the boundary delimiter line.
-[More formally](https://tools.ietf.org/html/rfc2046#page-22),
+[More formally](https://datatracker.ietf.org/doc/html/rfc2046#page-22),
 the various parts are separated by `{CR}{LF}--{BoundaryValue}{OptionalWhitespace}{CR}{LF}`.
 The same line without the leading `{CR}{LF}` is used to mark the beginning of the first part,
 and the same line with two hyphens inserted after the `BoundaryValue` is used to mark the end of the last part.
 (If the first line required the leading `{CR}{LF}`, then the above examples would be wrong
-because the empty line is used to [separate the header from the body](https://tools.ietf.org/html/rfc5322#section-3.5)
+because the empty line is used to [separate the header from the body](https://datatracker.ietf.org/doc/html/rfc5322#section-3.5)
 and the content itself therefore starts with `--UniqueBoundary{CR}{LF}`.)
 Any text before the first part belongs to the preamble and
 any text after the last part belongs to the epilogue of the `multipart` content.
@@ -8341,11 +8341,11 @@ your mail client likely displays the content of the second part below the conten
 If you want some parts of a message to be displayed as a file,
 which the user has to open to see its content,
 you can indicate this with `Content-Disposition: attachment`.
-The `Content-Disposition` header field is specified in [RFC 2183](https://tools.ietf.org/html/rfc2183).
-Besides asking mail clients to display a MIME part as an [`attachment`](https://tools.ietf.org/html/rfc2183#section-2.2),
-you can also ask them to display its content [`inline`](https://tools.ietf.org/html/rfc2183#section-2.1),
+The `Content-Disposition` header field is specified in [RFC 2183](https://datatracker.ietf.org/doc/html/rfc2183).
+Besides asking mail clients to display a MIME part as an [`attachment`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.2),
+you can also ask them to display its content [`inline`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.1),
 i.e. visible between the other parts.
-With the [`filename` parameter](https://tools.ietf.org/html/rfc2183#section-2.3),
+With the [`filename` parameter](https://datatracker.ietf.org/doc/html/rfc2183#section-2.3),
 the sender can suggest a filename for when the recipient wants to store the part in a separate file.
 If the filename includes non-ASCII characters,
 it has to be encoded with the [Extended-Parameter encoding](#internationalized-parameter-values).
@@ -8392,16 +8392,16 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 For [historical reasons](https://mailarchive.ietf.org/arch/msg/ietf-smtp/KtN0TdoHDayKvKycNbsFD-GB-e4/),
 many mail clients also include the filename with the `name` parameter in the `Content-Type` header field.
 If the filename contains non-ASCII characters, they use the [Encoded-Word encoding](#header-encoding) there
-contrary to what [RFC 2231](https://tools.ietf.org/html/rfc2231#section-4) specifies.
+contrary to what [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-4) specifies.
 
-[RFC 2183](https://tools.ietf.org/html/rfc2183) specifies additional parameters,
+[RFC 2183](https://datatracker.ietf.org/doc/html/rfc2183) specifies additional parameters,
 which are less commonly used:
-[`creation-date`](https://tools.ietf.org/html/rfc2183#section-2.4),
-[`modification-date`](https://tools.ietf.org/html/rfc2183#section-2.5),
-[`read-date`](https://tools.ietf.org/html/rfc2183#section-2.6),
-and [`size`](https://tools.ietf.org/html/rfc2183#section-2.7),
+[`creation-date`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.4),
+[`modification-date`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.5),
+[`read-date`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.6),
+and [`size`](https://datatracker.ietf.org/doc/html/rfc2183#section-2.7),
 where the size is provided in bytes and the dates are formatted according to
-[RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.3) just like the `Date` header field.
+[RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.3) just like the `Date` header field.
 
 </details>
 
@@ -8421,39 +8421,39 @@ can no longer affect its content once it has arrived in your inbox.
 These issues can be avoided by attaching all the referenced resources to the message
 and then referencing these attachments from the main part.
 The following three standards allow us to do this:
-- [RFC 2387](https://tools.ietf.org/html/rfc2387) specifies the `multipart/related` [content type](#content-type),
+- [RFC 2387](https://datatracker.ietf.org/doc/html/rfc2387) specifies the `multipart/related` [content type](#content-type),
   which indicates that the various parts are related to one another and should be rendered as a whole.
-  Unless declared otherwise with the [`start` parameter](https://tools.ietf.org/html/rfc2387#section-3.2),
+  Unless declared otherwise with the [`start` parameter](https://datatracker.ietf.org/doc/html/rfc2387#section-3.2),
   the main part, which references the other documents, is the first part of the `multipart/related` content.
-  The [`type` parameter](https://tools.ietf.org/html/rfc2387#section-3.1)
+  The [`type` parameter](https://datatracker.ietf.org/doc/html/rfc2387#section-3.1)
   has to be set to the content type of the main part.
   The [content disposition](#content-disposition) of the other parts is
-  [relevant only](https://tools.ietf.org/html/rfc2387#section-4) for mail clients
+  [relevant only](https://datatracker.ietf.org/doc/html/rfc2387#section-4) for mail clients
   which don't recognize the `multipart/related` content type and render the parts as `multipart/mixed`.
-- [RFC 2045](https://tools.ietf.org/html/rfc2045#section-7) specifies the `Content-ID` header field
+- [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-7) specifies the `Content-ID` header field
   to identify the parts of a multipart message.
   The syntax of the [`Message-ID` header field](#message-identification) is used for the `Content-ID` header field,
   and just like the `Message-ID`, each `Content-ID` has to be generated in such a way that it is globally unique.
-- [RFC 2557](https://tools.ietf.org/html/rfc2557) specifies two ways how other MIME parts can be referenced from HTML.
+- [RFC 2557](https://datatracker.ietf.org/doc/html/rfc2557) specifies two ways how other MIME parts can be referenced from HTML.
   The first way is to use `cid` as the [scheme name](https://en.wikipedia.org/wiki/URL#Syntax)
   of [Uniform Resource Locators (URLs)](https://en.wikipedia.org/wiki/URL)
   to refer to the `Content-ID` of another part.
   The disadvantage of this approach is that the URLs of an existing HTML page have to be rewritten.
   For this reason, the second way leaves the HTML page as is and introduces a
-  [`Content-Location` header field](https://tools.ietf.org/html/rfc2557#section-4) instead.
+  [`Content-Location` header field](https://datatracker.ietf.org/doc/html/rfc2557#section-4) instead.
   This header field can be used in a referenced part with the URL that is used to reference it in the main part.
   The URL should be globally unique, but it doesn't have to resolve to a document,
   and it may even resolve to a completely different document.
   What makes the second approach a bit more complicated is the potentially required
-  [encoding of the URL](https://tools.ietf.org/html/rfc2557#section-4.4)
-  and how [relative URLs are resolved](https://tools.ietf.org/html/rfc2557#section-5).
+  [encoding of the URL](https://datatracker.ietf.org/doc/html/rfc2557#section-4.4)
+  and how [relative URLs are resolved](https://datatracker.ietf.org/doc/html/rfc2557#section-5).
   The resulting `multipart/related` format,
   which is called [MHTML](https://en.wikipedia.org/wiki/MHTML),
   is also used to [archive websites](https://en.wikipedia.org/wiki/Web_archiving) independently from email.
 
-You can find [plenty of examples](https://tools.ietf.org/html/rfc2557#section-9)
+You can find [plenty of examples](https://datatracker.ietf.org/doc/html/rfc2557#section-9)
 with [plenty of errors](https://www.rfc-editor.org/errata_search.php?rfc=2557)
-in [RFC 2557](https://tools.ietf.org/html/rfc2557).
+in [RFC 2557](https://datatracker.ietf.org/doc/html/rfc2557).
 Here is an example of my own:
 
 <figure markdown="block" class="allow-break-inside">
@@ -8531,7 +8531,7 @@ Click on the list title to use the corresponding variant in the [ESMTP tool](#es
   For example, when telling Thunderbird to display the plaintext part,
   it offered to save the attached image in both cases.
   As far as I can tell, nesting `multipart/alternative` in `multipart/related` is more common.
-  This structure is also mentioned in [RFC 2557](https://tools.ietf.org/html/rfc2557#section-7),
+  This structure is also mentioned in [RFC 2557](https://datatracker.ietf.org/doc/html/rfc2557#section-7),
   and the second variant doesn't even make it through [Gandi's spam filters](https://postmaster.gandi.net/).
 
 </details>
@@ -8543,14 +8543,14 @@ Other multipart subtypes
 
 There are other multipart types for emails besides
 `multipart/mixed`, `multipart/alternative`, and `multipart/related`:
-- `multipart/digest` ([RFC 2046](https://tools.ietf.org/html/rfc2046#section-5.1.5)):
+- `multipart/digest` ([RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046#section-5.1.5)):
   Include several messages in a single message,
   which is useful for digests of [mailing lists](#mailing-list).
-- `multipart/report` ([RFC 6522](https://tools.ietf.org/html/rfc6522)):
+- `multipart/report` ([RFC 6522](https://datatracker.ietf.org/doc/html/rfc6522)):
   Complement human-readable [(non-)delivery reports](#bounce-messages) with a machine-processable part.
-- `multipart/signed` ([RFC 1847](https://tools.ietf.org/html/rfc1847#section-2.1)):
+- `multipart/signed` ([RFC 1847](https://datatracker.ietf.org/doc/html/rfc1847#section-2.1)):
   [Append the signature](#multipart-message-nesting), which is generated over the first MIME part, in the second part.
-- `multipart/encrypted` ([RFC 1847](https://tools.ietf.org/html/rfc1847#section-2.2)):
+- `multipart/encrypted` ([RFC 1847](https://datatracker.ietf.org/doc/html/rfc1847#section-2.2)):
   [Prepend the information](#multipart-message-nesting) needed to decrypt the second MIME part in the first part.
 {:.compact}
 
@@ -8569,8 +8569,8 @@ which you can click to unsubscribe from the mailing list.
 Since this is a link like any other in the message, a browser window is opened
 and you might have to click on additional buttons there to finally unsubscribe from the list.
 This can be a bit of a hassle, especially on mobile phones.
-Fortunately, [RFC 2369](https://tools.ietf.org/html/rfc2369) specifies an easier way to achieve the same.
-Mailing lists should include a [`List-Unsubscribe` header field](https://tools.ietf.org/html/rfc2369#section-3.2)
+Fortunately, [RFC 2369](https://datatracker.ietf.org/doc/html/rfc2369) specifies an easier way to achieve the same.
+Mailing lists should include a [`List-Unsubscribe` header field](https://datatracker.ietf.org/doc/html/rfc2369#section-3.2)
 so that mail clients can provide a uniform unsubscribe experience across mailing lists:
 You simply click on "Unsubscribe" and your mail client takes care of the rest.
 
@@ -8589,18 +8589,18 @@ If there are several options in angle brackets, the mail client should use the f
 </figcaption>
 </figure>
 
-To be precise, [RFC 2369](https://tools.ietf.org/html/rfc2369) didn't require
+To be precise, [RFC 2369](https://datatracker.ietf.org/doc/html/rfc2369) didn't require
 that there is no additional user interaction.
 In fact, user confirmation was often necessary in order to prevent accidental unsubscriptions
 triggered by anti-spam programs which simply fetch all the links in a message.
-For this reason, [RFC 8058](https://tools.ietf.org/html/rfc8058)
+For this reason, [RFC 8058](https://datatracker.ietf.org/doc/html/rfc8058)
 defines an additional header field with more precise semantics:
 When the user clicks on "Unsubscribe",
 the mail client sends a [`POST` request](https://en.wikipedia.org/wiki/POST_(HTTP))
 to the HTTPS resource specified in the `List-Unsubscribe` header field
 with the value of the new `List-Unsubscribe-Post` header field in the body of the request.
 The `List-Unsubscribe-Post` header field has to contain `List-Unsubscribe=One-Click`,
-and both header fields [must be covered](https://tools.ietf.org/html/rfc8058#section-4)
+and both header fields [must be covered](https://datatracker.ietf.org/doc/html/rfc8058#section-4)
 by a valid [DKIM signature](#domainkeys-identified-mail).
 
 <figure markdown="block">
@@ -8618,7 +8618,7 @@ that it can unsubscribe the user with a simple `POST` request.
 </figure>
 
 The body of the `POST` request is encoded with the [content type](#content-type)
-`multipart/form-data` as specified in [RFC 7578](https://tools.ietf.org/html/rfc7578)
+`multipart/form-data` as specified in [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578)
 or `application/x-www-form-urlencoded` as specified by the
 [Web Hypertext Application Technology Working Group (WHATWG)](https://en.wikipedia.org/wiki/WHATWG)
 in their [URL spec](https://url.spec.whatwg.org/#application/x-www-form-urlencoded).
@@ -8641,7 +8641,7 @@ List-Unsubscribe=One-Click
 The `POST` request to unsubscribe a user from a mailing list
 [as generated by Gmail](https://support.google.com/a/answer/81126).
 You find an example `POST` request using `multipart/form-data`
-in [RFC 8058](https://tools.ietf.org/html/rfc8058#section-8.3).
+in [RFC 8058](https://datatracker.ietf.org/doc/html/rfc8058#section-8.3).
 
 </figcaption>
 </figure>
@@ -8657,16 +8657,16 @@ you have to remove the unsubscribe link at the bottom of a message manually befo
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a long list of
 [registered message header fields](https://www.iana.org/assignments/message-headers/message-headers.xhtml).
 The ones specified in an RFC and thus endorsed by IETF are called permanent header fields.
-The ones registered for [private use](https://tools.ietf.org/html/rfc8126#section-4.1)
+The ones registered for [private use](https://datatracker.ietf.org/doc/html/rfc8126#section-4.1)
 without official recognition are called provisional header fields.
-[RFC 3864](https://tools.ietf.org/html/rfc3864) outlines the registration procedure for header fields.
+[RFC 3864](https://datatracker.ietf.org/doc/html/rfc3864) outlines the registration procedure for header fields.
 It's common to start the name of custom header fields with `X-`,
 but unlike in the case of [content types](#content-type),
 there is no requirement for this.
-[RFC 822](https://tools.ietf.org/html/rfc822#section-4.7.4) just promised that
+[RFC 822](https://datatracker.ietf.org/doc/html/rfc822#section-4.7.4) just promised that
 official header fields will never start with `X-`.
 This provision regarding extension header fields was dropped
-in [later revisions](https://tools.ietf.org/html/rfc5322#appendix-B), though.
+in [later revisions](https://datatracker.ietf.org/doc/html/rfc5322#appendix-B), though.
 During my research for this article,
 I've inspected a ton of messages in their [raw format](#raw-message).
 The funniest header field I came across is the following one from [Booking.com](https://www.booking.com/):
@@ -8830,7 +8830,7 @@ without coming back to the addresses which failed on the first attempt.
 By rejecting messages from unknown senders temporarily,
 mail servers can reduce the volume of spam significantly.
 The disadvantage of graylisting is that it also delays the delivery of legitimate messages.
-[RFC 5321](https://tools.ietf.org/html/rfc5321#page-67) recommends waiting at least 30 minutes before the next attempt.
+[RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#page-67) recommends waiting at least 30 minutes before the next attempt.
 Emails which aren't delivered instantly are as annoying as spam:
 If you sign up on a new website or reset your password, you want to be able to continue immediately.
 Nonetheless, graylisting is the lesser evil.
@@ -8845,9 +8845,9 @@ Patience
 There are other areas where the
 [strict enforcement of RFC standards](https://en.wikipedia.org/wiki/Anti-spam_techniques#Strict_enforcement_of_RFC_standards)
 pose a hurdle for impatient spammers:
-- **Greeting delay**: SMTP clients [should wait](https://tools.ietf.org/html/rfc5321#section-4.3.1)
+- **Greeting delay**: SMTP clients [should wait](https://datatracker.ietf.org/doc/html/rfc5321#section-4.3.1)
   for the greeting from the server before sending the
-  [`EHLO` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.1).
+  [`EHLO` command](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.1).
   Spammers who want to maximize the use of their bandwidth
   either drop the connection when the greeting is delayed
   or send the `EHLO` command immediately, which can be rejected by the server.
@@ -8855,18 +8855,18 @@ pose a hurdle for impatient spammers:
   you can slow down spammers without affecting everyone.
   Slowing down fraudulent software is also known as [tarpitting](https://en.wikipedia.org/wiki/Tarpit_(networking)).
 - **Quit detection**: SMTP clients must send the
-  [`QUIT` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.10) before closing the connection.
+  [`QUIT` command](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.10) before closing the connection.
   Since the email is already queued for delivery at this point,
   some spammers skip this step so that they can open the next connection sooner.
   When a mail server detects this behavior, it can include this information in its spam assessment.
 - **Invalid pipelining**: In order to reduce the number of [round trips](/internet/#network-performance),
   many mail servers allow clients to [batch their commands](#common-smtp-extensions).
   The standard requires, though, that clients wait for the response code of
-  [certain commands](https://tools.ietf.org/html/rfc2920#section-3.1).
+  [certain commands](https://datatracker.ietf.org/doc/html/rfc2920#section-3.1).
   As you can see in the [ESMTP tool](#esmtp-tool) above when you activate pipelining,
   the client has to wait for the response to the `EHLO` command
   to determine whether the server even supports pipelining
-  and for the response to the [`DATA` command](https://tools.ietf.org/html/rfc5321#section-4.1.1.4)
+  and for the response to the [`DATA` command](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.4)
   before sending the actual message.
   Since spammers don't care about errors, they are tempted to send all commands at once.
   Mail servers can detect invalid pipelining and reject all messages from such senders.
@@ -9040,7 +9040,7 @@ The recipient of a message often learns the following information about the send
   your IP address is not included in the outgoing message.
   If you submit a message from your desktop client to Gmail using [SMTP](#delivery-protocols),
   on the other hand, your IP address is added by `smtp.gmail.com` in a `Received` header field.
-  While [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.4) does say that
+  While [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.4) does say that
   the IP address of the source should be included in the `Received` header field,
   email service providers should ignore the standard in this regard, in my opinion.
   I understand that email service providers may want to record the IP address of the sender
@@ -9056,7 +9056,7 @@ The recipient of a message often learns the following information about the send
   let me know so that we can file a [class-action lawsuit](https://en.wikipedia.org/wiki/Class_action)
   to bring this industry practice to an end.
 - **Device name**: Mail servers also include the client's argument to the `EHLO` command in the `Received` header field.
-  [RFC 5321](https://tools.ietf.org/html/rfc5321#section-4.1.1.1) requires that the client uses its
+  [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.1.1.1) requires that the client uses its
   [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
   if it has one or its IP address otherwise.
   In spite of this, Thunderbird and maybe other clients
@@ -9066,7 +9066,7 @@ The recipient of a message often learns the following information about the send
   In my case, my computer is reachable under `Kaspars-MacBook-Pro.local` in the local network.
   As a [whistleblower](https://en.wikipedia.org/wiki/Whistleblower), I might create a new email address
   and even use an anonymization service, such as Tor, just to have my mail client and mail server leak my real name.
-  [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.6) even warns about exactly this problem.
+  [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-7.6) even warns about exactly this problem.
   I reported [this privacy bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1680197)
   to Mozilla Thunderbird on 2 December 2020.
   Until a fix is available, you can set the `mail.smtpserver.default.hello_argument` option in the
@@ -9101,7 +9101,7 @@ The recipient of a message often learns the following information about the send
   In my opinion, mail clients should remove the display names of recipients before sending a message.
 - **Hidden recipients**: The [`Received` header field](#trace-information) has an optional `for` clause,
   which contains the address of the specified recipient.
-  As recommended by [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.6),
+  As recommended by [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-7.6),
   the `for` clause is skipped when there are several recipients
   in the [envelope](#diverging-envelope-example) of the message.
   As a consequence, a single non-hidden recipient learns that
@@ -9342,7 +9342,7 @@ In this section, I shine a light on some additional aspects.
 As we saw [earlier](#tool-instructions),
 the sender of an email can easily be [spoofed](https://en.wikipedia.org/wiki/Email_spoofing)
 because at least historically emails aren't authenticated.
-Somewhat frustratingly, [RFC 5321](https://tools.ietf.org/html/rfc5321#section-7.1)
+Somewhat frustratingly, [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-7.1)
 and [some companies](#spoofed-sender-during-submission)
 see forged sender addresses more as a feature than as a bug.
 Criminals abuse this "feature" to trick unsuspecting users into performing actions or disclosing information,
@@ -10029,7 +10029,7 @@ In my view, the following limitations of early email are responsible for most of
   None of this is tragic but conversions are always a potential source of errors and incompatibilities.
 - [**Line-length limit**](#line-length-limit):
   Since each line of a message may consist of at most 1'000 characters,
-  [folding whitespace](https://tools.ietf.org/html/rfc5322#section-3.2.2)
+  [folding whitespace](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2)
   is required for [header fields](#header-fields-and-body),
   long text lines have to be [broken](#soft-line-breaks)
   without conflicting with [quoting conventions](#quoting-the-previous-message),
@@ -10097,9 +10097,9 @@ But for now, let's have some fun with a few benign inconsistencies, which are ca
   In other words, `decode(encode(Subject)) = Subject` should always hold even if the `Subject` is already encoded.
   (Note that `encode(decode(Encoded)) = Encoded` is not the case
   for encodings in which more characters can be escaped than necessary.)
-  As far as I can tell, [RFC 2047](https://tools.ietf.org/html/rfc2047) doesn't specify
+  As far as I can tell, [RFC 2047](https://datatracker.ietf.org/doc/html/rfc2047) doesn't specify
   how mail clients should handle this.
-  It just says at [the bottom of page 8](https://tools.ietf.org/html/rfc2047#page-8):
+  It just says at [the bottom of page 8](https://datatracker.ietf.org/doc/html/rfc2047#page-8):
   "In rare cases it may be necessary to encode ordinary text that looks like an Encoded-Word."
   When you paste `=?ISO-8859-1?Q?=A1Buenos_d=EDas!?=`,
   which is the Encoded-Word encoding of `¡Buenos días!`, into the `Subject` field of various mail clients,
@@ -10127,18 +10127,18 @@ But for now, let's have some fun with a few benign inconsistencies, which are ca
   but instead of escaping it, they decode and re-encode the user-provided string.
   Outlook.com also recognizes that the user entered an Encoded-Word
   but then only lowercases the [character set](#character-encoding). 🤷‍♂️
-- What the standard [does say](https://tools.ietf.org/html/rfc2047#section-7)
+- What the standard [does say](https://datatracker.ietf.org/doc/html/rfc2047#section-7)
   is that compliant mail clients must ensure that all words
   which begin with `=?` and end with `?=` are valid Encoded-Words.
   So what happens if you enter `=?Hello?=` in the subject line?
   Only Apple Mail encodes this as `=?us-ascii?B?PT9IZWxsbz89?=`.
   Thunderbird, Gmail, Outlook.com, and Yahoo Mail leave the string as is
-  and thus don't conform to [RFC 2047](https://tools.ietf.org/html/rfc2047).
-- [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.2.2) states that
+  and thus don't conform to [RFC 2047](https://datatracker.ietf.org/doc/html/rfc2047).
+- [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2) states that
   runs of whitespace are to be interpreted as a single space character in structured header fields.
-  The [`Subject`](https://tools.ietf.org/html/rfc5322#section-3.6.5), however, is an unstructured header field,
+  The [`Subject`](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.5), however, is an unstructured header field,
   where only [newline characters](#newline-characters) which are followed by whitespace
-  [are to be removed](https://tools.ietf.org/html/rfc5322#section-2.2.3).
+  [are to be removed](https://datatracker.ietf.org/doc/html/rfc5322#section-2.2.3).
   Gmail, Outlook.com, and Yahoo Mail display adjacent spaces in the `Subject` as a single space.
   Thunderbird is a bit of a special case: It displays adjacent spaces in the list view
   but not in the detail view of a single message.
@@ -10158,19 +10158,19 @@ I wrote [above](#complexity) that most of the design decisions
 which led us to the current situation were reasonable at the time.
 As you might have noticed, "most" is not "all".
 So here comes the list of things which should never have been approved or implemented:
-- [**Comments in header fields**](https://tools.ietf.org/html/rfc5322#section-3.2.2):
+- [**Comments in header fields**](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2):
   Comments can appear almost anywhere in structured header fields.
   Comments are wrapped in parentheses and comments can be nested.
   It should have been clear from the very beginning that users won't compose and parse
-  [RFC 5322](https://tools.ietf.org/html/rfc5322) messages themselves.
+  [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) messages themselves.
   Since emails are almost always parsed by mail clients, which ignore any comments,
   comments increase the complexity of the [message format](#format) without bringing any benefits.
   Where comments do have some merit, such as in the [`Received` header field](#trace-information),
   an extensible list of name-value pairs similar to the parameters in [MIME header fields](#content-type)
   could have been used instead.
   You find an example message with plenty of comments in
-  [Appendix A.5 of RFC 5322](https://tools.ietf.org/html/rfc5322#appendix-A.5).
-  (The example violates a [`SHOULD NOT`](https://tools.ietf.org/html/rfc2119#section-4)
+  [Appendix A.5 of RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#appendix-A.5).
+  (The example violates a [`SHOULD NOT`](https://datatracker.ietf.org/doc/html/rfc2119#section-4)
   [two](https://www.rfc-editor.org/errata/eid2515) [times](https://www.rfc-editor.org/errata/eid2579), though.)
 - [**Address syntax**](#address-syntax):
   Determining whether an email address is valid or whether two addresses are the same should be easy.
@@ -10180,7 +10180,7 @@ So here comes the list of things which should never have been approved or implem
   the syntax of email addresses should never have been so complicated.
   I believe it's a perfect example of where less would have been more.
 - [**Vague Bcc semantics**](#bcc-removal):
-  [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.3) requires only
+  [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3) requires only
   that `Bcc` recipients are never disclosed to non-`Bcc` recipients.
   Within this constraint, implementations can do pretty much anything they want.
   In my opinion, user-facing behavior should be fully specified
@@ -10260,10 +10260,10 @@ Some features, such as [message compression](#message-compression), exist in the
 Other features, which originated in the alternative email system [X.400](https://en.wikipedia.org/wiki/X.400),
 were formally specified as IETF email header fields in order to increase compatibility between the two systems
 but were never recommended for general use.
-Among these header fields are [`Supersedes`](https://tools.ietf.org/html/rfc4021#section-2.1.46)
+Among these header fields are [`Supersedes`](https://datatracker.ietf.org/doc/html/rfc4021#section-2.1.46)
 to replace a sent message with a revised version,
-[`Expires`](https://tools.ietf.org/html/rfc4021#section-2.1.50) to indicate when a message loses its validity,
-and [`Reply-By`](https://tools.ietf.org/html/rfc4021#section-2.1.51) to request a response in the specified time period.
+[`Expires`](https://datatracker.ietf.org/doc/html/rfc4021#section-2.1.50) to indicate when a message loses its validity,
+and [`Reply-By`](https://datatracker.ietf.org/doc/html/rfc4021#section-2.1.51) to request a response in the specified time period.
 
 
 #### Client innovation
@@ -10424,12 +10424,12 @@ If a company doesn't use a single domain across all channels (such as myself wit
 the best you can do is to query the [WHOIS](https://en.wikipedia.org/wiki/WHOIS) database.
 
 WHOIS is a simple protocol to query information about registered domain names.
-It is specified in [RFC 3912](https://tools.ietf.org/html/rfc3912)
+It is specified in [RFC 3912](https://datatracker.ietf.org/doc/html/rfc3912)
 and is typically used with the `whois` command-line utility.
 If you want to look up the information for `ef1p.com`,
 you enter `whois ef1p.com` into your [command-line interface](#command-line-interface).
 The `whois` utility opens a [TCP](/internet/#transmission-control-protocol) connection
-on [port 43](https://tools.ietf.org/html/rfc3912#section-2) to various WHOIS servers.
+on [port 43](https://datatracker.ietf.org/doc/html/rfc3912#section-2) to various WHOIS servers.
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
 maintains a root WHOIS server at `whois.iana.org`,
 which you can query to determine the WHOIS server of the registry,
@@ -10505,7 +10505,7 @@ The attacker could also redirect the victim's DNS resolver to the name server of
 and provide their own IP address
 [as the name server's address](https://en.wikipedia.org/wiki/DNS_spoofing#Redirect_the_target_domain's_name_server)
 in the additional section of the response.
-This is known as a [name chaining attack](https://tools.ietf.org/html/rfc3833#section-2.3)
+This is known as a [name chaining attack](https://datatracker.ietf.org/doc/html/rfc3833#section-2.3)
 and in the absence of [DNSSEC](/internet/#domain-name-system-security-extensions),
 any records in the additional section may not be cached by DNS resolvers.
 (In case you are wondering, [`.example`](https://en.wikipedia.org/wiki/.example)
@@ -10517,13 +10517,13 @@ is a top-level domain reserved for examples.)
 #### Sender Policy Framework (SPF) {#sender-policy-framework}
 
 The [Sender Policy Framework (SPF)](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
-is specified in [RFC 7208](https://tools.ietf.org/html/rfc7208).
+is specified in [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208).
 As a domain owner, you list the IP addresses of your outgoing mail servers in a `TXT` record at your domain.
 Incoming mail servers then check whether the IP address of the sending mail server is included
 in the SPF record of the domain which was used in the `MAIL` `FROM` command.
 If this is not the case, incoming mail servers can reject the message
 during the [SMTP session](#simple-mail-transfer-protocol).
-[RFC 7372](https://tools.ietf.org/html/rfc7372#section-3.2) defines
+[RFC 7372](https://datatracker.ietf.org/doc/html/rfc7372#section-3.2) defines
 [enhanced status codes](#common-smtp-extensions)
 with which the server can indicate failed SPF validation.
 Since [IP addresses cannot be spoofed](/internet/#ip-address-spoofing)
@@ -10533,9 +10533,9 @@ this procedure authenticates the sender's domain.
 So how do you create the SPF record for your domain?
 If you don't run your email server yourself,
 your SPF record will consist of:
-- [**Version**](https://tools.ietf.org/html/rfc7208#section-4.5):
+- [**Version**](https://datatracker.ietf.org/doc/html/rfc7208#section-4.5):
   Every SPF record has to start with `v=spf1`.
-- [**Includes**](https://tools.ietf.org/html/rfc7208#section-5.2):
+- [**Includes**](https://datatracker.ietf.org/doc/html/rfc7208#section-5.2):
   An SPF record can `include` the IP addresses of another SPF record.
   Search for the appropriate record from your email service provider.
   For example, put `include:_spf.google.com` ([source](https://support.google.com/a/answer/33786))
@@ -10544,7 +10544,7 @@ your SPF record will consist of:
   use an address of their own in the `MAIL` `FROM` command
   so that they can handle [bounce messages](#bounce-messages) for you,
   you don't need to add the addresses of their servers to your SPF record.
-- [**Default**](https://tools.ietf.org/html/rfc7208#section-5.1):
+- [**Default**](https://datatracker.ietf.org/doc/html/rfc7208#section-5.1):
   Provide an explicit default result for any sender
   which didn't match one of the previous [mechanisms](#spf-mechanisms).
   If you want incoming mail servers to reject messages with a spoofed `MAIL` `FROM` domain, use `-all`.
@@ -10556,14 +10556,14 @@ your SPF record will consist of:
 
 An SPF record created according to the above steps looks as follows: `v=spf1 include:_spf.google.com -all`.
 On domains from which you don't send any emails,
-you [should use](https://tools.ietf.org/html/rfc7208#section-10.1.2) `v=spf1 -all`.
+you [should use](https://datatracker.ietf.org/doc/html/rfc7208#section-10.1.2) `v=spf1 -all`.
 The full syntax of SPF records is much more powerful than this but rarely needed.
 I will cover SPF in more detail in the [boxes below](#spf-qualifiers).
 There are <a class="bind-spf-query" href="#tool-lookup-spf-record" data-domain="bad.spf.ef1p.com" title="Look up the SPF record of bad.spf.ef1p.com, which has lots of issues.">a lot of things</a>
 that can go wrong when configuring an SPF record.
-For a start, a domain may have [at most one SPF record](https://tools.ietf.org/html/rfc7208#section-3.2)
+For a start, a domain may have [at most one SPF record](https://datatracker.ietf.org/doc/html/rfc7208#section-3.2)
 and the number of additional DNS lookups an SPF record may trigger
-is [limited](https://tools.ietf.org/html/rfc7208#section-4.6.4).
+is [limited](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4).
 Instead of listing all the pitfalls here, I've built a tool
 which performs 30 different checks on your SPF record.
 It uses [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json) to query the records.
@@ -10585,7 +10585,7 @@ Since DNS records can change over time and the SPF check has to succeed only at 
 incoming mail servers should record the result of their SPF evaluation in the header of accepted messages.
 This allows mail filters and mail clients to process and display messages differently
 depending on whether the domain of the sender was successfully authenticated.
-There are two fields for this purpose: [`Received-SPF`](https://tools.ietf.org/html/rfc7208#section-9.1)
+There are two fields for this purpose: [`Received-SPF`](https://datatracker.ietf.org/doc/html/rfc7208#section-9.1)
 and [`Authentication-Results`](#authentication-results-header-field), which we'll discuss later.
 Both of them are [trace fields](#trace-information),
 which means that they should be added at the top of the header
@@ -10600,7 +10600,7 @@ Received-SPF: {Result} ({Comment})[ {Key}={Value};]*
 
 <figcaption markdown="span" style="max-width: 735px;">
 
-The format of the `Received-SPF` as specified in [RFC 7208](https://tools.ietf.org/html/rfc7208#section-9.1).
+The format of the `Received-SPF` as specified in [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-9.1).
 The curly brackets need to be replaced with actual values.
 The content in square brackets is optional and
 the asterisk indicates that the preceding content can be repeated.
@@ -10608,7 +10608,7 @@ the asterisk indicates that the preceding content can be repeated.
 </figcaption>
 </figure>
 
-The possible [results of SPF evaluation](https://tools.ietf.org/html/rfc7208#section-2.6) are
+The possible [results of SPF evaluation](https://datatracker.ietf.org/doc/html/rfc7208#section-2.6) are
 `pass`, `fail`, `softfail`, `neutral`, `none`, `temperror`, and `permerror`.
 The first four values are the result of a successful evaluation
 (see the [qualifiers](#spf-qualifiers) and [mechanisms](#spf-mechanisms) for more information),
@@ -10658,14 +10658,14 @@ where the [policy for subdomains](#subdomain-policy)
 can be different from the policy for the [organizational domain](#organizational-domain).
 If you do configure a DMARC record for unused domains,
 an SPF record is necessary only for mail servers which verify SPF but don't support DMARC.
-Given that SPF was introduced in [2006](https://tools.ietf.org/html/rfc4408)
-and DMARC in [2015](https://tools.ietf.org/html/rfc7489),
+Given that SPF was introduced in [2006](https://datatracker.ietf.org/doc/html/rfc4408)
+and DMARC in [2015](https://datatracker.ietf.org/doc/html/rfc7489),
 such servers exist and won't vanish anytime soon.
 
 Subdomains pose another interesting question:
 Are SPF verifiers supposed to follow [`CNAME` records](https://en.wikipedia.org/wiki/CNAME_record)?
 If the answer is yes and an additional DNS query is necessary,
-does this count towards the [lookup limit](https://tools.ietf.org/html/rfc7208#section-4.6.4)?
+does this count towards the [lookup limit](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4)?
 Unfortunately, [the standard is silent on this](https://www.rfc-editor.org/errata/eid6432).
 The above tool does resolve `CNAME` records but doesn't count them.
 In the absence of an authoritative answer,
@@ -10698,7 +10698,7 @@ In practice, most mail servers also accept emails with failed SPF checks
 if the [reputation of the forwarder](#reputation) is high enough.
 As a consequence, forwarding usually works even without rewriting the `MAIL` `FROM` address,
 which defeats the purpose of SPF to some degree.
-[RFC 7208](https://tools.ietf.org/html/rfc7208#appendix-D) also discusses some other approaches to this problem.
+[RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D) also discusses some other approaches to this problem.
 
 </details>
 
@@ -10708,7 +10708,7 @@ SPF qualifiers
 </summary>
 
 SPF records are structured according to the following syntax
-as specified in [RFC 7208](https://tools.ietf.org/html/rfc7208#section-12):
+as specified in [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-12):
 
 <figure markdown="block">
 
@@ -10726,9 +10726,9 @@ The asterisk indicates that the preceding content can be repeated.
 </figcaption>
 </figure>
 
-SPF records are evaluated [from left to right](https://tools.ietf.org/html/rfc7208#section-4.6.2).
+SPF records are evaluated [from left to right](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.2).
 The qualifier of the first mechanism which matches the sender's IP address determines the result of the evaluation.
-If no mechanism matches, the [default result](https://tools.ietf.org/html/rfc7208#section-4.7) is `neutral`.
+If no mechanism matches, the [default result](https://datatracker.ietf.org/doc/html/rfc7208#section-4.7) is `neutral`.
 The four qualifiers are:
 
 <figure markdown="block" class="allow-break-inside">
@@ -10749,7 +10749,7 @@ The four qualifiers and the evaluation results to which they lead.
 
 Mechanisms without a qualifier default to `+`.
 How the various results are to be handled is discussed in
-[section 8 of RFC 7208](https://tools.ietf.org/html/rfc7208#section-8).
+[section 8 of RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-8).
 
 </details>
 
@@ -10758,18 +10758,18 @@ How the various results are to be handled is discussed in
 SPF mechanisms
 </summary>
 
-[RFC 7208](https://tools.ietf.org/html/rfc7208#section-5) defines eight mechanisms
+[RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-5) defines eight mechanisms
 to match the sender's IP address:
-- [`all`](https://tools.ietf.org/html/rfc7208#section-5.1)
+- [`all`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.1)
   matches all IP addresses and is used to provide an explicit default result as the rightmost mechanism.
-- [`ip4` and `ip6`](https://tools.ietf.org/html/rfc7208#section-5.6)
+- [`ip4` and `ip6`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.6)
   produce a match if the sender's IP address is in the network specified after a colon.
   The network is written in the [classless inter-domain routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation):
   An IP address followed by the number of bits that need to match.
   For example, `ip4:192.0.2.0/24` matches all IP addresses from `192.0.2.0` to `192.0.2.255`.
   When specifying a single address, `/32` doesn't have to be appended to the address.
   The number in `ip4` and `ip6` refer to the version of the [Internet Protocol](/internet/#network-layer).
-- [`a`](https://tools.ietf.org/html/rfc7208#section-5.3)
+- [`a`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.3)
   matches if the domain has an `A` or `AAAA` record which matches the sender's IP address.
   When used without an argument, the lookup is performed on the domain of the SPF record.
   At the beginning of the SPF check, this is the domain of the `MAIL` `FROM` address.
@@ -10779,15 +10779,15 @@ to match the sender's IP address:
   For example, `a:example.com` matches if the sender's IP address
   is among the `A` or `AAAA` records of `example.com`.
   The address range can be extended with a CIDR suffix.
-- [`mx`](https://tools.ietf.org/html/rfc7208#section-5.4)
+- [`mx`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.4)
   matches if the sender's IP address belongs to one of the mail exchange (MX) hosts of the domain.
   Since `MX` records contain a domain name and not an IP address,
   an additional lookup is required for each returned `MX` record.
-  These lookups count towards the [limit of 10 DNS queries](https://tools.ietf.org/html/rfc7208#section-4.6.4)
+  These lookups count towards the [limit of 10 DNS queries](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4)
   after the initial record retrieval.
   Therefore, use the `mx` mechanism only if absolutely necessary.
   A different domain can be specified after a colon and the address range can be extended with a CIDR suffix.
-- [`include`](https://tools.ietf.org/html/rfc7208#section-5.2)
+- [`include`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.2)
   matches if the evaluation of the referenced SPF record results in a `pass` for the sender's IP address.
   This is the most confusing of all mechanisms because the referenced SPF record is not actually included.
   If the evaluation of the referenced SPF record results in a `pass`,
@@ -10804,12 +10804,12 @@ to match the sender's IP address:
   the evaluation of `example.com`'s SPF record results in a `fail`.
   Records with such exclusions are quite rare but being able to exclude some addresses before authorizing
   other addresses can be useful when a range of IP addresses shall be authorized with a few exceptions.
-- [`exists`](https://tools.ietf.org/html/rfc7208#section-5.7)
+- [`exists`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.7)
   matches if the domain name provided after the colon has an `A` record.
   This is useful only in combination with [macros](#spf-macros), where parts of the provided domain name
   can be replaced with the local part of the `MAIL` `FROM` address or the sender's IP address.
   This makes it possible to produce different results for different users.
-- [`ptr`](https://tools.ietf.org/html/rfc7208#section-5.5)
+- [`ptr`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.5)
   matches if the [reverse DNS entry](#reverse-dns-entry) of the sender's IP address
   returns a subdomain of the target domain.
   The target domain can be provided after a colon similar to the `a` and `mx` mechanisms.
@@ -10817,14 +10817,14 @@ to match the sender's IP address:
   Since the sender controls the reverse DNS entry of its IP address,
   the returned domain name has to include the sender's IP address in one of its `A` or `AAAA` records.
   This is known as [forward-confirmed reverse DNS](https://en.wikipedia.org/wiki/Forward-confirmed_reverse_DNS).
-  According to [RFC 7208](https://tools.ietf.org/html/rfc7208#section-5.5),
+  According to [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-5.5),
   the `ptr` mechanism should no longer be used because it is slow
   and places a large burden on the `.arpa` DNS servers.
   As an [errata points out](https://www.rfc-editor.org/errata/eid5228),
   both arguments are questionable since most mail servers do a reverse lookup anyway
   to record the sender's identity in the [`Received` header field](#trace-information).
 
-[Mechanisms and modifiers are case-insensitive](https://tools.ietf.org/html/rfc7208#section-4.6.1).
+[Mechanisms and modifiers are case-insensitive](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.1).
 Instead of including examples here, you can query real SPF records with the [above tool](#tool-lookup-spf-record).
 If your SPF record triggers more than 10 lookups,
 you have to inline some of your `a` or `mx` mechanisms.
@@ -10839,20 +10839,20 @@ which belong to you or which send emails on your behalf.
 SPF modifiers
 </summary>
 
-[RFC 7208](https://tools.ietf.org/html/rfc7208#section-6) defines two modifiers,
+[RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-6) defines two modifiers,
 which affect the evaluation of SPF records outside the matching behavior of [mechanisms](#spf-mechanisms):
-- [`redirect`](https://tools.ietf.org/html/rfc7208#section-6.1)
+- [`redirect`](https://datatracker.ietf.org/doc/html/rfc7208#section-6.1)
   tells the SPF verifier to continue the evaluation with the SPF record of a different domain
   if none of the mechanisms in the current SPF record matched the sender's IP address.
   The target domain is provided after an equals sign, such as `redirect=_spf.example.com`.
   Unlike the `include` mechanism, which matches if the included SPF record results in a `pass`,
   the `redirect` modifier adopts the result of the redirected SPF record for the original record.
-- [`exp`](https://tools.ietf.org/html/rfc7208#section-6.2)
+- [`exp`](https://datatracker.ietf.org/doc/html/rfc7208#section-6.2)
   allows the domain owner to specify an explanation for a `fail` result.
   If you include `exp=_exp.example.com` in your SPF record,
   the SPF verifier looks for a `TXT` record at `_exp.example.com`
   and returns its data to the sender in the case of a `fail` result.
-  This DNS query doesn't count towards the [lookup limit](https://tools.ietf.org/html/rfc7208#section-4.6.4) of 10.
+  This DNS query doesn't count towards the [lookup limit](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4) of 10.
 
 Modifiers should appear at the end of an SPF record but can appear anywhere.
 Unknown modifiers have to be ignored so that SPF can be extended in the future.
@@ -10870,18 +10870,18 @@ or the `redirect` and `exp` [modifiers](#spf-modifiers), you can use an SPF macr
 SPF macros are domains, where expressions of the form `%{…}` are replaced
 with information from the SMTP session.
 Since the [above tool](#tool-lookup-spf-record) doesn't have this information, it cannot evaluate macros.
-If you want to use SPF macros, you have to read the [RFC](https://tools.ietf.org/html/rfc7208#section-7).
-Let me just give you [one example](https://tools.ietf.org/html/rfc7208#appendix-D.1):
+If you want to use SPF macros, you have to read the [RFC](https://datatracker.ietf.org/doc/html/rfc7208#section-7).
+Let me just give you [one example](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D.1):
 `i` stands for the sender's IP address and `r` reverses the value, splitting on dots by default.
 If you are worried about breaking [email forwarding](#email-forwarding) when introducing SPF,
 you could specify a `neutral` result for trusted mail servers by including
 `?exists:%{ir}.whitelist.example.org` in your SPF record.
-[Other use cases of macros](https://tools.ietf.org/html/rfc7208#appendix-D.1) are to provide
+[Other use cases of macros](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D.1) are to provide
 a different policy for each user or to rate-limit messages coming from certain IP addresses.
 Macros can cause problems with [internationalized email addresses](#email-address-internationalization)
-as discussed in [RFC 8616](https://tools.ietf.org/html/rfc8616#section-4)
+as discussed in [RFC 8616](https://datatracker.ietf.org/doc/html/rfc8616#section-4)
 and aggravate [privacy implications](#privacy-implications) by
-[leaking sender addresses into the DNS](https://tools.ietf.org/html/rfc7208#appendix-C).
+[leaking sender addresses into the DNS](https://datatracker.ietf.org/doc/html/rfc7208#appendix-C).
 Such a tracking example can be found at <a class="bind-spf-query" href="#tool-lookup-spf-record" data-domain="altavista.net" title="Look up the SPF record of altavista.net.">`altavista.net`</a>.
 
 </details>
@@ -10893,8 +10893,8 @@ HELO identity
 
 In order to prevent [mail loops](#mail-loops), no `MAIL` `FROM` address is provided in automatic responses.
 In such circumstances, the address `postmaster@` followed by the domain from the
-[`HELO`/`EHLO` command](https://tools.ietf.org/html/rfc7208#section-1.1.4) is used for SPF evaluation.
-The [`HELO` identity](https://tools.ietf.org/html/rfc7208#section-2.3) can also be verified separately
+[`HELO`/`EHLO` command](https://datatracker.ietf.org/doc/html/rfc7208#section-1.1.4) is used for SPF evaluation.
+The [`HELO` identity](https://datatracker.ietf.org/doc/html/rfc7208#section-2.3) can also be verified separately
 by evaluating the SPF record of the `HELO`/`EHLO` domain.
 Email service providers would have to configure SPF records for each of their outgoing mail servers.
 As far as I can tell, this is rarely done in practice.
@@ -10914,11 +10914,11 @@ on the [transport layer](/internet/#transport-layer) if necessary.
 Since UDP is a [connectionless communication protocol](https://en.wikipedia.org/wiki/Connectionless_communication),
 no additional messages have to be sent back and forth to set up the connection, which makes it more efficient than
 [TCP with its handshake](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Connection_establishment).
-Historically, UDP messages have been [limited to 512 bytes](https://tools.ietf.org/html/rfc1035#section-2.3.4).
-This limit was raised [in 1999](https://tools.ietf.org/html/rfc2671#section-4.5) with the introduction
+Historically, UDP messages have been [limited to 512 bytes](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4).
+This limit was raised [in 1999](https://datatracker.ietf.org/doc/html/rfc2671#section-4.5) with the introduction
 of the [Extension Mechanisms for DNS (EDNS)](https://en.wikipedia.org/wiki/Extension_Mechanisms_for_DNS).
 EDNS allows the sender to indicate a higher UDP payload size in a so-called
-[pseudo resource record](https://tools.ietf.org/html/rfc6891#section-6) of the type `OPT`.
+[pseudo resource record](https://datatracker.ietf.org/doc/html/rfc6891#section-6) of the type `OPT`.
 The command-line tool [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) displays this `OPT` record as follows:
 
 <figure markdown="block" class="allow-break-inside">
@@ -10938,10 +10938,10 @@ If you operate a large email service or run into problems with certain providers
 it can make sense to split one large SPF record into several smaller ones, though.
 
 There is another limit in DNS: Each character string is
-[limited to 255 bytes](https://tools.ietf.org/html/rfc1035#section-3.3).
-A [`TXT` resource record](https://tools.ietf.org/html/rfc1035#section-3.3.14)
+[limited to 255 bytes](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3).
+A [`TXT` resource record](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.14)
 can consist of several such strings, though.
-SPF verifiers [concatenate such strings](https://tools.ietf.org/html/rfc7208#section-3.3) without inserting any spaces.
+SPF verifiers [concatenate such strings](https://datatracker.ietf.org/doc/html/rfc7208#section-3.3) without inserting any spaces.
 If the user interface of your [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar)
 splits longer strings for you, you don't have to worry about this size limit either.
 
@@ -10955,7 +10955,7 @@ SPF record type
 There used to be an `SPF` record type for publishing SPF records,
 but since this type never gained enough traction,
 it was discontinued in favor of the unstructured `TXT` record type.
-Nowadays, SPF records [have to be published in `TXT` records](https://tools.ietf.org/html/rfc7208#section-3.1).
+Nowadays, SPF records [have to be published in `TXT` records](https://datatracker.ietf.org/doc/html/rfc7208#section-3.1).
 
 </details>
 
@@ -10963,7 +10963,7 @@ Nowadays, SPF records [have to be published in `TXT` records](https://tools.ietf
 #### DomainKeys Identified Mail (DKIM) {#domainkeys-identified-mail}
 
 [DomainKeys Identified Mail (DKIM)](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
-is specified in [RFC 6376](https://tools.ietf.org/html/rfc6376).
+is specified in [RFC 6376](https://datatracker.ietf.org/doc/html/rfc6376).
 ([DomainKeys](https://en.wikipedia.org/wiki/DomainKeys) was a predecessor
 designed by [Yahoo](https://en.wikipedia.org/wiki/Yahoo)
 and the name survived the IETF standardization process.)
@@ -10989,7 +10989,7 @@ so that verifiers know how to retrieve the appropriate public key.
 Since the public key used to verify a signature is retrieved from the stated domain,
 a valid DKIM signature authenticates this domain.
 
-The standard [doesn't specify](https://tools.ietf.org/html/rfc6376#section-5.1)
+The standard [doesn't specify](https://datatracker.ietf.org/doc/html/rfc6376#section-5.1)
 which [entities](#entities) add and verify DKIM signatures.
 Since DKIM keys are valid for the whole domain and cannot be restricted to individual users,
 messages are usually signed by the outgoing mail server after authenticating the user.
@@ -11024,7 +11024,7 @@ The following two tools help you generate and validate DKIM records.
 Instead of explaining the various configuration options here,
 you can simply hover your mouse over them to read a short description
 of their purpose in a [tooltip](https://en.wikipedia.org/wiki/Tooltip).
-For a longer explanation, you can consult [RFC 6376](https://tools.ietf.org/html/rfc6376#section-3.6.1).
+For a longer explanation, you can consult [RFC 6376](https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1).
 The last three options are rarely used and just there for the sake of completeness.
 When [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) is used as the signing algorithm,
 the DKIM record can become quite long,
@@ -11087,7 +11087,7 @@ which implements [deniable authentication](https://en.wikipedia.org/wiki/Deniabl
 DKIM-Signature header field
 </summary>
 
-Each DKIM signature is added in a [`DKIM-Signature` header field](https://tools.ietf.org/html/rfc6376#section-3.5),
+Each DKIM signature is added in a [`DKIM-Signature` header field](https://datatracker.ietf.org/doc/html/rfc6376#section-3.5),
 which consists of `name=value` pairs separated by a semicolon.
 Let's look at an example before we discuss the various tags and their values:
 
@@ -11118,7 +11118,7 @@ An example `DKIM-Signature` header field from a message sent with Gmail.
 | Tag | Necessity | Description
 |:-:|:-:|:-
 | `v` | required | The version of the DKIM specification. The current version is `1`.
-| `a` | required | The signature algorithm. The value is `rsa-sha256` or `ed25519-sha256` as introduced in [RFC 8463](https://tools.ietf.org/html/rfc8463).
+| `a` | required | The signature algorithm. The value is `rsa-sha256` or `ed25519-sha256` as introduced in [RFC 8463](https://datatracker.ietf.org/doc/html/rfc8463).
 | `c` | optional | The [canonicalization](#body-and-header-canonicalization) of the header fields and the body separated by a slash. Either `simple` or `relaxed`.
 | `d` | required | The domain of the signer.
 | `s` | required | The selector, which identifies the used key.
@@ -11143,7 +11143,7 @@ There's one tag we need to have a closer look at: `h`.
 Since the mail servers through which an email passes add additional header fields
 for [message tracing](#trace-information), [mail loop prevention](#mail-loops), and [spam assessment](#spam),
 DKIM signatures cannot cover all header fields as they would be invalidated immediately otherwise.
-DKIM lets the signer decide [which header fields it wants to sign](https://tools.ietf.org/html/rfc6376#section-5.4).
+DKIM lets the signer decide [which header fields it wants to sign](https://datatracker.ietf.org/doc/html/rfc6376#section-5.4).
 The signer then lists the names of all the header fields it wants to sign in the `h` tag
 in the order in which they are to be fed into the [cryptographic hash function](#cryptographic-hash-functions).
 The `From` header field has to be in the list and the `DKIM-Signature` header field which is being generated
@@ -11175,11 +11175,11 @@ Outlook.com and Yahoo Mail are almost as bad as Gmail in this regard.
 Unlike Gmail, Outlook.com's DKIM signature also covers the `Content-Type`,
 whereas Yahoo Mail includes the inexistent `Reply-To` header field.
 On a more positive note, Mailchimp signs the [`List-Unsubscribe` header field](#one-click-unsubscribe)
-as recommended by [RFC 6376](https://tools.ietf.org/html/rfc6376#section-5.4.1).
+as recommended by [RFC 6376](https://datatracker.ietf.org/doc/html/rfc6376#section-5.4.1).
 
-Many header fields may appear [at most once](https://tools.ietf.org/html/rfc5322#page-21) in valid messages.
+Many header fields may appear [at most once](https://datatracker.ietf.org/doc/html/rfc5322#page-21) in valid messages.
 As long as DKIM verifiers ignore DKIM signatures
-[on invalid messages](https://tools.ietf.org/html/rfc6376#section-3.8),
+[on invalid messages](https://datatracker.ietf.org/doc/html/rfc6376#section-3.8),
 header fields like `From` and `To` don't need to be included twice in the `h` tag.
 
 </details>
@@ -11195,19 +11195,19 @@ the signature is seen as invalid.
 Since DKIM signatures can break due to no fault of the signer,
 messages with only invalid signatures should not be treated differently from messages with no signatures at all.
 To make DKIM signatures more robust,
-[RFC 6376](https://tools.ietf.org/html/rfc6376#section-3.4) defines four algorithms to
+[RFC 6376](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4) defines four algorithms to
 [canonicalize](https://en.wikipedia.org/wiki/Canonicalization) the inputs to the hash function:
-- [`simple` body canonicalization](https://tools.ietf.org/html/rfc6376#section-3.4.3):
+- [`simple` body canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.3):
   Make sure that the body ends with a single [`{CR}{LF}`](#newline-characters).
   If the body ends with several `{CR}{LF}`, convert them to one.
   If there is no `{CR}{LF}` at the end of the body, insert one.
-- [`relaxed` body canonicalization](https://tools.ietf.org/html/rfc6376#section-3.4.4):
+- [`relaxed` body canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.4):
   Delete spaces and tabs before `{CR}{LF}`,
   reduce all sequences of whitespace within a line to a single space,
   and apply the `simple` body canonicalization with the exception that an empty body remains empty.
-- [`simple` header canonicalization](https://tools.ietf.org/html/rfc6376#section-3.4.1):
+- [`simple` header canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.1):
   Don't change header fields in any way.
-- [`relaxed` header canonicalization](https://tools.ietf.org/html/rfc6376#section-3.4.2):
+- [`relaxed` header canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.2):
   Convert header field names to lowercase, [unfold](#line-length-limit) folded lines,
   remove any whitespace characters around the colon which separates the name of the header field from its value,
   and apply the `relaxed` body canonicalization to each header field.
@@ -11257,11 +11257,11 @@ The `i` tag has the same format as an email address.
 The domain part of the `i` tag has to be the same domain as specified in the `d` tag or a subdomain thereof.
 Unlike the domain in the `d` tag, the domain part of the `i` tag doesn't have to exist in the DNS
 and the local part of the `i` tag doesn't have to be associated with any mailbox.
-This allows parent domains [to sign on behalf of subdomains](https://tools.ietf.org/html/rfc6376#section-3.10)
+This allows parent domains [to sign on behalf of subdomains](https://datatracker.ietf.org/doc/html/rfc6376#section-3.10)
 without having to publish the DKIM keys also at the subdomains.
 However, there's no reason to use the `i` tag for emails since
 [DMARC](#domain-based-message-authentication-reporting-and-conformance)
-[ignores the `i` tag](https://tools.ietf.org/html/rfc7489#section-3.1.1).
+[ignores the `i` tag](https://datatracker.ietf.org/doc/html/rfc7489#section-3.1.1).
 
 </details>
 
@@ -11280,14 +11280,14 @@ to [limit the rate](https://en.wikipedia.org/wiki/Rate_limiting) at which their 
 The problem with DKIM is that any user can get a valid DKIM on a message of their choosing
 by sending an email to themself.
 Once they have received the email, they can relay the signed message to
-[an arbitrary number of recipients](https://tools.ietf.org/html/rfc6376#section-8.6).
+[an arbitrary number of recipients](https://datatracker.ietf.org/doc/html/rfc6376#section-8.6).
 The recipients might not see their email address in the `To` or `Cc` field
 but this is usually also the case for `Bcc` recipients.
 The email service provider who signed the message can stop such a
 [replay attack](https://en.wikipedia.org/wiki/Replay_attack)
 only by revoking the corresponding signing key.
 If the email service provider doesn't use
-[a different key for each user](https://tools.ietf.org/html/rfc6376#section-8.7),
+[a different key for each user](https://datatracker.ietf.org/doc/html/rfc6376#section-8.7),
 which would increase the load on their domain name servers considerably,
 revoking the key immediately prevents delayed emails of other users from being delivered as well.
 Unless a key is compromised, it should be revoked only after around one week of no longer being in use.
@@ -11305,7 +11305,7 @@ Generating the signing key
 </summary>
 
 You can generate a DKIM signing key yourself with the following commands.
-As far as I can tell, you can generate an [ED25519](https://tools.ietf.org/html/rfc8032#section-5.1)
+As far as I can tell, you can generate an [ED25519](https://datatracker.ietf.org/doc/html/rfc8032#section-5.1)
 key [only with OpenSSL but not with LibreSSL](#openssl-versus-libressl).
 I covered how to install OpenSSL on macOS in an [earlier box](#install-openssl-on-macos).
 
@@ -11326,7 +11326,7 @@ Many people and companies use a custom domain without running their mail servers
 Instead, they delegate the delivery and the receipt of messages to email service providers.
 [SPF](#sender-policy-framework) makes such a delegation very easy with the `include` [mechanism](#spf-mechanisms),
 which allows email service providers to change their outgoing mail servers without involving their customers.
-If you want to achieve [the same with DKIM](https://tools.ietf.org/html/rfc6376#appendix-B.1.1),
+If you want to achieve [the same with DKIM](https://datatracker.ietf.org/doc/html/rfc6376#appendix-B.1.1),
 you have to delegate a [DNS zone](https://en.wikipedia.org/wiki/DNS_zone)
 in the `_domainkey` subdomain to your email service provider.
 The next best thing is to configure a [`CNAME` record](https://en.wikipedia.org/wiki/CNAME_record)
@@ -11338,7 +11338,7 @@ With this approach, the email service provider cannot change the selector of the
 without involving their customers but if you set up several `CNAME` records,
 the email service provider can alternate between them.
 
-[RFC 6541](https://tools.ietf.org/html/rfc6541) introduces a simpler solution,
+[RFC 6541](https://datatracker.ietf.org/doc/html/rfc6541) introduces a simpler solution,
 which is called Authorized Third-Party Signatures (ATPS).
 It adds an additional tag with the name `atps` to the [`DKIM-Signature` header field](#dkim-signature-header-field),
 which can be used to indicate a domain on whose behalf the message is signed.
@@ -11350,18 +11350,18 @@ The verifier then checks whether there is a valid ATPS record at `example.com._a
 So far, so good.
 
 What makes ATPS unnecessarily complicated is that the `DelegateeDomain` can be hashed.
-The [argument for this](https://tools.ietf.org/html/rfc6541#section-4.1) is to force the subdomain to a fixed length
+The [argument for this](https://datatracker.ietf.org/doc/html/rfc6541#section-4.1) is to force the subdomain to a fixed length
 so that arbitrarily long third-party domain names can be prepended to the `DelegatorDomain`
-while remaining below [255 characters](https://tools.ietf.org/html/rfc1035#section-2.3.4).
+while remaining below [255 characters](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4).
 Yet another tag with the name `atpsh` is added to the `DKIM-Signature` header field to indicate the used hash function.
 In the previous example, which doesn't use hashing, the tag is `atpsh=none`.
 If the `DelegateeDomain` is hashed, which is indicated with `atps=sha256`,
 the hash is encoded with [Base32](https://en.wikipedia.org/wiki/Base32)
-according to [RFC 4648](https://tools.ietf.org/html/rfc4648#section-6).
+according to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648#section-6).
 Since Base32 uses only the capital letters from `A` to `Z` and the numbers from `2` to `7`,
 the encoding is better suited than [Base64](#content-encoding) for case-insensitive domain names.
-You find an example with hashing in [Appendix A of RFC 6541](https://tools.ietf.org/html/rfc6541#appendix-A).
-The RFC itself is labeled as [experimental](https://tools.ietf.org/html/rfc2026#section-4.2.1)
+You find an example with hashing in [Appendix A of RFC 6541](https://datatracker.ietf.org/doc/html/rfc6541#appendix-A).
+The RFC itself is labeled as [experimental](https://datatracker.ietf.org/doc/html/rfc2026#section-4.2.1)
 and I have no idea whether anyone actually uses ATPS.
 
 </details>
@@ -11375,7 +11375,7 @@ I said [earlier](#domain-authentication) that the recipient cannot know
 whether the sender uses DKIM when they receive a message without a DKIM signature.
 At least historically, a domain owner could indicate that all emails are signed with the now deprecated
 [Author Domain Signing Practices (ADSP)](https://en.wikipedia.org/wiki/Author_Domain_Signing_Practices)
-as specified in [RFC 5617](https://tools.ietf.org/html/rfc5617) by configuring a `TXT` record
+as specified in [RFC 5617](https://datatracker.ietf.org/doc/html/rfc5617) by configuring a `TXT` record
 with a content of `dkim=all` at the `_adsp._domainkey` subdomain.
 Since ADSP is no longer in use, you don't have to configure such a record at your domains.
 
@@ -11403,7 +11403,7 @@ even if they are delivered by a [reputable mail server](#reputation).
 While it is always up to the mail system of the recipient to decide what to do with incoming messages,
 it can enforce domain authentication only if just a small percentage of legitimate mail is affected by it.
 [Domain-based Message Authentication, Reporting and Conformance (DMARC)](https://en.wikipedia.org/wiki/DMARC),
-which is specified in [RFC 7489](https://tools.ietf.org/html/rfc7489),
+which is specified in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489),
 allows domain owners to deploy [domain authentication](#domain-authentication) gradually,
 to monitor its effect on the delivery of their emails,
 to detect overlooked sources of legitimate mail,
@@ -11416,12 +11416,12 @@ There are three aspects to understanding DMARC:
   in which case the domains have to be identical, or `relaxed`,
   in which case only the [organizational domains](#organizational-domain)
   after removing any subdomains have to be the same.
-  This is known as [identifier alignment](https://tools.ietf.org/html/rfc7489#section-3.1)
+  This is known as [identifier alignment](https://datatracker.ietf.org/doc/html/rfc7489#section-3.1)
   and the alignment can be configured separately for SPF and DKIM.
   If the `From` field consists of several addresses,
-  which is valid according to [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.2),
+  which is valid according to [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.2),
   the recipient can either reject the message or authenticate all domains and
-  [apply the most strict policy](https://tools.ietf.org/html/rfc7489#section-6.6.1) among the unauthentic domains.
+  [apply the most strict policy](https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.1) among the unauthentic domains.
 - **Reports**: Domain owners can ask receiving mail servers to send them [aggregate reports](#aggregate-reports)
   in regular intervals and [failure reports](#failure-reports) for messages which failed authentication.
   These DMARC reports allow domain owners to monitor their deployment of domain authentication,
@@ -11445,7 +11445,7 @@ Domain owners publish their preferences in a `TXT` record at `_dmarc.{Domain}`.
 The following two tools help you generate and validate the DMARC record for your domain.
 Given the remarks above, most parameters should be self-explanatory.
 If this is not the case, you can hover your mouse over them to read a short description and
-all options are also documented in [RFC 7489](https://tools.ietf.org/html/rfc7489#section-6.3), of course.
+all options are also documented in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489#section-6.3), of course.
 Domains which aren't used to send emails from should have a DMARC record of `v=DMARC1; p=reject`.
 If you want to be informed about spoofing attempts, you can also include a reporting address.
 The second tool uses [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
@@ -11468,7 +11468,7 @@ The second tool performs more than twenty such checks and warns you about potent
 Organizational domain
 </summary>
 
-An [organizational domain](https://tools.ietf.org/html/rfc7489#section-3.2) is a domain
+An [organizational domain](https://datatracker.ietf.org/doc/html/rfc7489#section-3.2) is a domain
 which is registered with a [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar).
 For example, the organizational domain of `support.example.com` is `example.com`.
 While [second-level domains](https://en.wikipedia.org/wiki/Second-level_domain) can be registered
@@ -11480,7 +11480,7 @@ which has special second-level domains, such as `.co.uk` and `.org.uk`.
 Unfortunately, DNS doesn't provide a mechanism to determine
 which domains were registered by a different organization.
 In particular, [`SOA` records](https://en.wikipedia.org/wiki/SOA_record)
-are [not always used at administrative boundaries](https://tools.ietf.org/html/rfc7489#appendix-A.6).
+are [not always used at administrative boundaries](https://datatracker.ietf.org/doc/html/rfc7489#appendix-A.6).
 Therefore, the organizational domain has to be determined by consulting a list of all known public suffixes
 and keeping one label more than the longest suffix found in the list.
 The most popular [public suffix list (PSL)](https://en.wikipedia.org/wiki/Public_Suffix_List)
@@ -11514,7 +11514,7 @@ according to the policy specified in the `p` tag of this record.
 This is why subdomain policies have an effect only
 when specified in the DMARC record of an organizational domain.
 The alternative approach of removing one subdomain after another until a DMARC record is found
-[was considered and rejected](https://tools.ietf.org/html/rfc7489#appendix-A.6)
+[was considered and rejected](https://datatracker.ietf.org/doc/html/rfc7489#appendix-A.6)
 because this would allow a malicious sender to trigger dozens of DNS requests on the incoming mail server.
 
 </details>
@@ -11541,12 +11541,12 @@ The following tool converts between unix time and the widely used
 Aggregate reports
 </summary>
 
-Incoming mail servers which support DMARC send [aggregate reports](https://tools.ietf.org/html/rfc7489#section-7.2)
+Incoming mail servers which support DMARC send [aggregate reports](https://datatracker.ietf.org/doc/html/rfc7489#section-7.2)
 to the addresses specified in the `rua` tag of the sender's DMARC record in regular intervals.
 If no DMARC record is found for the domain in the `From` address,
 they look for a DMARC record at the sender's [organizational domain](#organizational-domain).
 Aggregate reports are structured with the [Extensible Markup Language (XML)](https://en.wikipedia.org/wiki/XML)
-according to [this schema](https://tools.ietf.org/html/rfc7489#appendix-C).
+according to [this schema](https://datatracker.ietf.org/doc/html/rfc7489#appendix-C).
 They contain information about how many emails the submitter received from which IP addresses
 and whether these messages passed DMARC authentication
 – but not whether these messages were actually delivered.
@@ -11624,10 +11624,10 @@ which prevents SPF from aligning.
 </figcaption>
 </figure>
 
-At the time of writing, [email](https://tools.ietf.org/html/rfc7489#section-7.2.1.1) is
-[the only transport mechanism](https://tools.ietf.org/html/rfc7489#section-7.2.1.2) for DMARC reports.
+At the time of writing, [email](https://datatracker.ietf.org/doc/html/rfc7489#section-7.2.1.1) is
+[the only transport mechanism](https://datatracker.ietf.org/doc/html/rfc7489#section-7.2.1.2) for DMARC reports.
 Aggregate reports should be compressed with [GZIP](https://en.wikipedia.org/wiki/Gzip)
-as specified in [RFC 1952](https://tools.ietf.org/html/rfc1952) and sent as an attachment
+as specified in [RFC 1952](https://datatracker.ietf.org/doc/html/rfc1952) and sent as an attachment
 with the filename `{RecipientDomain}!{SenderDomain}!{BeginTime}!{EndTime}[!{UniqueId}].xml[.gz]`
 in an email with the subject `Report Domain: {SenderDomain} Submitter: {RecipientDomain} Report-ID: {ReportId}`.
 All dates are provided in [Unix time](#unix-time).
@@ -11650,7 +11650,7 @@ Failure reports
 </summary>
 
 The owner of a domain can ask incoming mail servers to send them a
-[failure report](https://tools.ietf.org/html/rfc7489#section-7.3)
+[failure report](https://datatracker.ietf.org/doc/html/rfc7489#section-7.3)
 for each message that failed one or both authentication mechanisms.
 Unlike [aggregate reports](#aggregate-reports), which are delivered periodically,
 failure reports are sent right after an authentication failure
@@ -11659,16 +11659,16 @@ This allows the domain owner to detect and address delivery problems quickly.
 Since failure reports include either the complete unauthentic message or at least its header,
 the domain owner can also analyze [phishing attempts](#phishing) with a [spoofed](#spoofing) `From` address.
 In order to avert [denial-of-service attacks](https://en.wikipedia.org/wiki/Denial-of-service_attack) on the domain owner,
-incoming mail servers [are encouraged](https://tools.ietf.org/html/rfc7489#section-7.3)
+incoming mail servers [are encouraged](https://datatracker.ietf.org/doc/html/rfc7489#section-7.3)
 to either aggregate similar failures over short time periods or
 [rate limit](https://en.wikipedia.org/wiki/Rate_limiting) failure reporting while discarding the remainder.
 
-The Authentication Failure Reporting Format (AFRF), which is specified in [RFC 6591](https://tools.ietf.org/html/rfc6591),
+The Authentication Failure Reporting Format (AFRF), which is specified in [RFC 6591](https://datatracker.ietf.org/doc/html/rfc6591),
 is currently [the only format](https://www.iana.org/assignments/dmarc-parameters/dmarc-parameters.xhtml#report-format)
 for DMARC failure reports.
 It is a [feedback type](https://www.iana.org/assignments/marf-parameters/marf-parameters.xml#marf-parameters-2)
 of the [Abuse Reporting Format (ARF)](https://en.wikipedia.org/wiki/Abuse_Reporting_Format),
-which is specified in [RFC 5965](https://tools.ietf.org/html/rfc5965).
+which is specified in [RFC 5965](https://datatracker.ietf.org/doc/html/rfc5965).
 The format is sometimes also called the Messaging Abuse Reporting Format (MARF),
 which was the name of the [IETF working group](https://tools.ietf.org/wg/marf/).
 To make failure reports easy to read for machines, they are structured as follows:
@@ -11708,13 +11708,13 @@ Subject: Your credit card is about to expire
 
 The structure of failure reports.
 `[A|B]` means either `A` or `B` and `[…]` stands for more header fields.
-`multipart/report` and `text/rfc822-headers` are specified in [RFC 6522](https://tools.ietf.org/html/rfc6522),
-`message/rfc822` is specified in [RFC 2046](https://tools.ietf.org/html/rfc2046#section-5.2.1), and
-`message/feedback-report` is specified in [RFC 5965](https://tools.ietf.org/html/rfc5965#section-3).
+`multipart/report` and `text/rfc822-headers` are specified in [RFC 6522](https://datatracker.ietf.org/doc/html/rfc6522),
+`message/rfc822` is specified in [RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046#section-5.2.1), and
+`message/feedback-report` is specified in [RFC 5965](https://datatracker.ietf.org/doc/html/rfc5965#section-3).
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a list of
 [feedback report header fields](https://www.iana.org/assignments/marf-parameters/marf-parameters.xml#marf-parameters-1).
 The DMARC-specific `Identity-Alignment` header field is defined
-in [RFC 7489](https://tools.ietf.org/html/rfc7489#section-7.3.1).
+in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489#section-7.3.1).
 
 </figcaption>
 </figure>
@@ -11739,7 +11739,7 @@ you should set up a dedicated mailbox or an [alias address](#alias-address) to r
 In order to prevent bad actors from flooding a victim's mailbox with unwanted reports
 by listing his or her address in the `rua` or `ruf` tag of their DMARC record,
 a receiving domain has to approve each domain for which it is willing to receive DMARC reports
-[with a special DMARC record](https://tools.ietf.org/html/rfc7489#section-7.1)
+[with a special DMARC record](https://datatracker.ietf.org/doc/html/rfc7489#section-7.1)
 unless they belong to the same [organizational domain](#organizational-domain).
 The content of such approval records is [`v=DMARC1;`](https://www.rfc-editor.org/errata/eid5440)
 and they are published as `TXT` records at `{PolicyDomain}._report._dmarc.{ReceivingDomain}`.
@@ -11760,7 +11760,7 @@ To avoid processing fraudulent reports, all report emails must pass DMARC authen
 Authentication-Results header field
 </summary>
 
-The [`Authentication-Results` header field](https://tools.ietf.org/html/rfc8601#section-2)
+The [`Authentication-Results` header field](https://datatracker.ietf.org/doc/html/rfc8601#section-2)
 allows incoming mail servers to record the results of various authentication methods so that
 [email filters](#email-filtering) can use them in their rules and
 [mail clients](#mail-client) can display them to their users
@@ -11780,7 +11780,7 @@ Authentication-Results: {Verifier} [{Version}][;
 
 <figcaption markdown="span" style="max-width: 770px;">
 
-The format of the `Authentication-Results` as specified in [RFC 8601](https://tools.ietf.org/html/rfc8601#section-2.2).
+The format of the `Authentication-Results` as specified in [RFC 8601](https://datatracker.ietf.org/doc/html/rfc8601#section-2.2).
 The curly brackets need to be replaced with actual values.
 The content in square brackets is optional and
 the asterisk indicates that the preceding content can be repeated.
@@ -11814,24 +11814,24 @@ The `Authentication-Results` header field added by Google when I send an email t
 Gmail doesn't quite adhere to the standard.
 To begin with, it adds the `Authentication-Results` below the `Received` header field.
 Since [SPF](#sender-policy-framework) doesn't authenticate the local part of the `MAIL` `FROM` address,
-it [should not](https://tools.ietf.org/html/rfc8601#section-2.7.2) be included in the `smtp.mailfrom` property.
+it [should not](https://datatracker.ietf.org/doc/html/rfc8601#section-2.7.2) be included in the `smtp.mailfrom` property.
 Furthermore, I have no idea why Gmail includes `header.i=@ef1p.com` rather than `header.d=ef1p.com`
 in the [DKIM](#domainkeys-identified-mail) result.
-To be fair, the RFC has [one example](https://tools.ietf.org/html/rfc8601#appendix-B.5)
+To be fair, the RFC has [one example](https://datatracker.ietf.org/doc/html/rfc8601#appendix-B.5)
 using the [`d` tag](#dkim-signature-header-field) and
-[one example](https://tools.ietf.org/html/rfc8601#appendix-B.6) using the [`i` tag](#dkim-signature-header-field).
+[one example](https://datatracker.ietf.org/doc/html/rfc8601#appendix-B.6) using the [`i` tag](#dkim-signature-header-field).
 
 </figcaption>
 </figure>
 
 Incoming mail servers can add a separate `Authentication-Results` header field
-[for each verified authentication method](https://tools.ietf.org/html/rfc8601#section-4)
+[for each verified authentication method](https://datatracker.ietf.org/doc/html/rfc8601#section-4)
 or combine the results of all verifications into a single header field.
-In order to avoid [forged header fields](https://tools.ietf.org/html/rfc8601#section-7.1),
-incoming mail servers [have to remove](https://tools.ietf.org/html/rfc8601#section-5)
+In order to avoid [forged header fields](https://datatracker.ietf.org/doc/html/rfc8601#section-7.1),
+incoming mail servers [have to remove](https://datatracker.ietf.org/doc/html/rfc8601#section-5)
 all `Authentication-Results` header fields which use their own identifier as the `Verifier`.
 Since mail clients cannot know whether their incoming mail server supports this standard,
-they should interpret this header field [only on the user's request](https://tools.ietf.org/html/rfc8601#section-4.1).
+they should interpret this header field [only on the user's request](https://datatracker.ietf.org/doc/html/rfc8601#section-4.1).
 Incoming mail servers could strip all existing `Authentication-Results` header fields from incoming messages,
 but this invalidates any [DKIM signature](#domainkeys-identified-mail) which covered one of them.
 Furthermore, there doesn't exist a mechanism yet
@@ -11843,7 +11843,7 @@ In order to make use of this header field without prompting the user,
 who doesn't know the answer either, you have to analyze whether most messages in the user's inbox
 have an `Authentication-Results` header field with the same identifier.
 Unfortunately, even this technique fails if server instances use their individual hostname
-[as their identifier](https://tools.ietf.org/html/rfc8601#section-2.5).
+[as their identifier](https://datatracker.ietf.org/doc/html/rfc8601#section-2.5).
 
 </details>
 
@@ -11853,21 +11853,21 @@ Authenticated Received Chain (ARC)
 </summary>
 
 [Authenticated Received Chain (ARC)](https://en.wikipedia.org/wiki/Authenticated_Received_Chain)
-is an [experimental](https://tools.ietf.org/html/rfc2026#section-4.2.1) protocol
+is an [experimental](https://datatracker.ietf.org/doc/html/rfc2026#section-4.2.1) protocol
 to convey [authentication results](#authentication-results-header-field) across trust boundaries.
-It's specified in [RFC 8617](https://tools.ietf.org/html/rfc8617) and it introduces the following three header fields,
-which are always added [as a set](https://tools.ietf.org/html/rfc8617#section-3.1):
-- [`ARC-Authentication-Results`](https://tools.ietf.org/html/rfc8617#section-4.1.1)
+It's specified in [RFC 8617](https://datatracker.ietf.org/doc/html/rfc8617) and it introduces the following three header fields,
+which are always added [as a set](https://datatracker.ietf.org/doc/html/rfc8617#section-3.1):
+- [`ARC-Authentication-Results`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.1)
   is a copy of the [`Authentication-Results` header field](#authentication-results-header-field)
-  with the addition of an [instance tag](https://tools.ietf.org/html/rfc8617#section-4.2.1)
+  with the addition of an [instance tag](https://datatracker.ietf.org/doc/html/rfc8617#section-4.2.1)
   with the name `i` to indicate which three ARC header fields belong to the same set.
-- [`ARC-Message-Signature`](https://tools.ietf.org/html/rfc8617#section-4.1.2)
+- [`ARC-Message-Signature`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.2)
   is a [DKIM signature](#dkim-signature-header-field) over the potentially modified message,
   which may not cover ARC-related and [`Authentication-Results`](#authentication-results-header-field) header fields.
   The instance tag replaces DKIM's [`i` tag](#dkim-signature-header-field) and for some reason
   the version tag `v` is not defined for `ARC-Message-Signature`.
-- [`ARC-Seal`](https://tools.ietf.org/html/rfc8617#section-4.1.3) is a DKIM-like signature which covers
-  [all ARC-related header fields](https://tools.ietf.org/html/rfc8617#section-5.1.1) in increasing instance order.
+- [`ARC-Seal`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.3) is a DKIM-like signature which covers
+  [all ARC-related header fields](https://datatracker.ietf.org/doc/html/rfc8617#section-5.1.1) in increasing instance order.
   As it doesn't cover the body of the message and has a defined [canonicalization](#body-and-header-canonicalization),
   only the [DKIM tags](#dkim-signature-header-field) `a`, `b`, `d`, `s`, and `t`
   as well as the instance tag `i` can be used.
@@ -11914,8 +11914,8 @@ The ARC header fields that Gmail added to the message from which I took the
 </figcaption>
 </figure>
 
-Even after reading the whole [RFC](https://tools.ietf.org/html/rfc8617) and skimming through
-the [draft on recommended usage](https://tools.ietf.org/html/draft-ietf-dmarc-arc-usage-09),
+Even after reading the whole [RFC](https://datatracker.ietf.org/doc/html/rfc8617) and skimming through
+the [draft on recommended usage](https://datatracker.ietf.org/doc/html/draft-ietf-dmarc-arc-usage-09),
 I still question two aspects of ARC:
 - **Desirability**: When it comes to [spam prevention](#spam),
   trust based on [reputation](#reputation) is inevitable,
@@ -11961,8 +11961,8 @@ from your [command-line interface](#command-line-interface):
 [Brand Indicators for Message Identification (BIMI)](https://en.wikipedia.org/wiki/Brand_Indicators_for_Message_Identification) is an emerging standard,
 which allows mail clients to display the [logo](https://en.wikipedia.org/wiki/Logo) of the sending company
 for emails which passed [DMARC authentication](#domain-based-message-authentication-reporting-and-conformance).
-It is specified in [various](https://tools.ietf.org/html/draft-blank-ietf-bimi-02)
-[drafts](https://tools.ietf.org/html/draft-brotman-ietf-bimi-guidance-03).
+It is specified in [various](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02)
+[drafts](https://datatracker.ietf.org/doc/html/draft-brotman-ietf-bimi-guidance-03).
 Unlike [SPF](#sender-policy-framework), [DKIM](#domainkeys-identified-mail),
 and [DMARC](#domain-based-message-authentication-reporting-and-conformance),
 BIMI is not a [domain authentication](#domain-authentication) mechanism.
@@ -11990,33 +11990,33 @@ BIMI DNS record
 </summary>
 
 BIMI records are published as `TXT` records at `{Selector}._bimi.{Domain}`.
-[BIMI selectors](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.3) can contain periods.
+[BIMI selectors](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.3) can contain periods.
 A selector other than `default` has to be indicated with a [`BIMI-Selector` header field](#bimi-header-fields).
-Indirections with `CNAME` records [are allowed](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-6.3).
+Indirections with `CNAME` records [are allowed](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-6.3).
 If no BIMI record is found at the domain of the `From` address,
 a lookup at the [organizational domain](#organizational-domain) is performed.
 BIMI records have the same format as DKIM and DMARC records.
-The [following three tags](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2) are currently defined:
+The [following three tags](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2) are currently defined:
 - `v`: The version of the BIMI standard.
   This tag has to come first and the only supported value is `BIMI1`.
 - `l`: The location of the brand indicator.
   This tag is required but its value can be empty.
   If a value is provided,
   it has to be a single [HTTPS](/internet/#hypertext-transfer-protocol) [URL](https://en.wikipedia.org/wiki/URL),
-  which resolves to a [potentially GZIP-compressed SVG image](https://tools.ietf.org/html/rfc6170#section-5.2).
+  which resolves to a [potentially GZIP-compressed SVG image](https://datatracker.ietf.org/doc/html/rfc6170#section-5.2).
 - `a`: The authority evidence location.
   This tag is optional and its value can be empty but receivers may require it.
   If a value is provided, it has to be a single HTTPS URL,
   which resolves to a valid [verified mark certificate (VMC)](#verified-mark-certificate).
 
-BIMI records are valid [only if](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.1) the domain has a
+BIMI records are valid [only if](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.1) the domain has a
 [DMARC policy](#domain-based-message-authentication-reporting-and-conformance) of `quarantine` or `reject`.
 In the case of a `quarantine` policy, the rollout percentage has to be 100% (`pct=100`).
 This ensures that domain owners take care that all their messages pass DMARC authentication.
 Additionally, the [subdomain policy](#subdomain-policy)
 of the [organizational domain](#organizational-domain) may not be `none`.
 Including the location of the brand indicator in a new email header field
-[was considered](https://tools.ietf.org/html/draft-bkl-bimi-overview-00.html#section-4.1)
+[was considered](https://datatracker.ietf.org/doc/html/draft-bkl-bimi-overview-00.html#section-4.1)
 but rejected because the validation of the indicator couldn't be cached at the domain level.
 Here is an example BIMI record:
 
@@ -12041,28 +12041,28 @@ The files can be hosted on different domains.
 BIMI header fields
 </summary>
 
-The [BIMI draft](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-5)
+The [BIMI draft](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5)
 defines the following three header fields:
-- [`BIMI-Selector`](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-5.1):
+- [`BIMI-Selector`](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5.1):
   The sender can use this header field to specify a selector other than `default`.
   The format of the header field value is `v=BIMI1; s={Selector}`.
   The sender should cover this header field with a [DKIM signature](#domainkeys-identified-mail)
   and the recipient should ignore this header field otherwise.
-- [`BIMI-Location`](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-5.2):
+- [`BIMI-Location`](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5.2):
   The incoming mail server can use this header field to record the locations
   of the verified brand indicator and the certificate for the mail client.
   The format of the header field value is identical to the [BIMI record](#bimi-dns-record).
-  Incoming mail servers can [cache valid indicators](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-8.7) and
-  serve them [directly to their mail clients](https://tools.ietf.org/html/draft-brotman-ietf-bimi-guidance-03#section-7.1).
-- [`BIMI-Indicator`](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-5.3):
+  Incoming mail servers can [cache valid indicators](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-8.7) and
+  serve them [directly to their mail clients](https://datatracker.ietf.org/doc/html/draft-brotman-ietf-bimi-guidance-03#section-7.1).
+- [`BIMI-Indicator`](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5.3):
   The incoming mail server can use this header field to record the uncompressed brand indicator
   encoded in [Base64](#content-encoding) for the mail client after having verified the certificate.
   If the indicator is neither cached and served nor included in the email header by the incoming mail server,
   mail clients have to fetch the indicator
-  [from the sender](https://tools.ietf.org/html/draft-brotman-ietf-bimi-guidance-03#section-7.4)
+  [from the sender](https://datatracker.ietf.org/doc/html/draft-brotman-ietf-bimi-guidance-03#section-7.4)
   as [remote content](#remote-content).
 
-The incoming mail server has to [rename or remove](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.8)
+The incoming mail server has to [rename or remove](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.8)
 `BIMI-Location` and `BIMI-Indicator` header fields that were added by the sender.
 The incoming mail server should record the result of its BIMI evaluation in the
 [`Authentication-Results` header field](#authentication-results-header-field):
@@ -12078,13 +12078,13 @@ Authentication-Results: […]; bimi=[pass|fail|temperror|declined|skipped|none]
 
 How the BIMI results should be recorded.
 `[a|b]` means `a` or `b`.
-The values are described in the [BIMI draft](https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.7).
+The values are described in the [BIMI draft](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.7).
 
 </figcaption>
 </figure>
 
 Mail clients should rely on these header fields only if they know that their incoming mail server
-[supports BIMI](https://tools.ietf.org/html/draft-brotman-ietf-bimi-guidance-03#section-7)
+[supports BIMI](https://datatracker.ietf.org/doc/html/draft-brotman-ietf-bimi-guidance-03#section-7)
 and strips these header fields from incoming messages.
 Otherwise, a mail client is vulnerable to malicious header fields included by the sender.
 
@@ -12095,43 +12095,43 @@ Otherwise, a mail client is vulnerable to malicious header fields included by th
 Verified mark certificate (VMC)
 </summary>
 
-[This draft](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00)
+[This draft](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00)
 specifies several requirements for the [X.509 certificate](https://en.wikipedia.org/wiki/X.509)
 which is used to bind a brand indicator to a domain name:
-- [**Certificate encoding**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-3.3):
+- [**Certificate encoding**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-3.3):
   The certificate must be encoded in the [Privacy-Enhanced Mail (PEM)](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail)
-  format as specified in [RFC 7468](https://tools.ietf.org/html/rfc7468).
+  format as specified in [RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468).
   The filename specified in the `a` tag of the [BIMI record](#bimi-dns-record) should have a `.pem` extension.
   The file has to include the certificates of all intermediate certification authorities
   up to the root certification authority, whose certificate doesn't have to be included.
-- [**Logotype extension**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-4.1):
+- [**Logotype extension**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-4.1):
   The brand indicator must be included in the logotype extension for X.509 certificates
-  as specified in [RFC 3709](https://tools.ietf.org/html/rfc3709).
-  The [object identifier (OID)](https://tools.ietf.org/html/rfc3709#section-4.1) of this field is `1.3.6.1.5.5.7.1.12`.
-- [**SVG image**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-4.2):
+  as specified in [RFC 3709](https://datatracker.ietf.org/doc/html/rfc3709).
+  The [object identifier (OID)](https://datatracker.ietf.org/doc/html/rfc3709#section-4.1) of this field is `1.3.6.1.5.5.7.1.12`.
+- [**SVG image**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-4.2):
   The brand indicator must be a GZIP-compressed SVG image
   as specified in the [next box](#svg-tiny-portable-secure-profile).
   It has to be [Base64-encoded](#content-encoding)
   in a [`data` URL](https://en.wikipedia.org/wiki/Data_URI_scheme)
-  as specified by [RFC 2397](https://tools.ietf.org/html/rfc2397)
-  and [RFC 6170](https://tools.ietf.org/html/rfc6170).
-- [**Key usage**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-4.4):
-  BIMI introduces a new [extended key usage](https://tools.ietf.org/html/rfc5280#section-4.2.1.12)
+  as specified by [RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397)
+  and [RFC 6170](https://datatracker.ietf.org/doc/html/rfc6170).
+- [**Key usage**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-4.4):
+  BIMI introduces a new [extended key usage](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12)
   with an OID of `1.3.6.1.5.5.7.3.31`.
   This key usage must be listed in the verified mark certificate
   and in the certificate of the issuing certification authority.
-- [**Name matching**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-4.3):
+- [**Name matching**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-4.3):
   The domain of the [BIMI record](#bimi-dns-record) with or without the `{Selector}._bimi.` subdomain must be
-  included in the [Subject Alternative Name (SAN) field](https://tools.ietf.org/html/rfc5280#section-4.2.1.6)
+  included in the [Subject Alternative Name (SAN) field](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.6)
   of the verified mark certificate.
-- [**Certificate validation**](https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-5.1):
+- [**Certificate validation**](https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-5.1):
   The verified mark certificate must include a
   [certificate revocation list (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list)
-  distribution point as specified in [RFC 5280](https://tools.ietf.org/html/rfc5280#section-4.2.1.13).
+  distribution point as specified in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.13).
   The verified mark certificate must also include a
-  [signed certificate timestamp (SCT)](https://tools.ietf.org/html/rfc6962#section-3.2)
+  [signed certificate timestamp (SCT)](https://datatracker.ietf.org/doc/html/rfc6962#section-3.2)
   for [Certificate Transparency](https://en.wikipedia.org/wiki/Certificate_Transparency)
-  as specified in [RFC 6962](https://tools.ietf.org/html/rfc6962).
+  as specified in [RFC 6962](https://datatracker.ietf.org/doc/html/rfc6962).
 
 </details>
 
@@ -12144,13 +12144,13 @@ SVG Tiny Portable/Secure profile
 is a standard for, well, scalable vector graphics.
 Since the [full standard](https://www.w3.org/TR/SVG11/) is quite large,
 a subset of it has been standardized as [SVG Tiny](https://www.w3.org/TR/SVGTiny12/).
-[This draft](https://tools.ietf.org/html/draft-svg-tiny-ps-abrotman-01)
+[This draft](https://datatracker.ietf.org/doc/html/draft-svg-tiny-ps-abrotman-01)
 introduces a new SVG profile called SVG Tiny Portable/Secure, or SVG Tiny PS for short, for BIMI.
-It disallows the [following features](https://tools.ietf.org/html/draft-svg-tiny-ps-abrotman-01#section-2.3)
+It disallows the [following features](https://datatracker.ietf.org/doc/html/draft-svg-tiny-ps-abrotman-01#section-2.3)
 of SVG Tiny: raster images, multimedia elements, interactive elements,
 links to internal or external resources, scripting, and animation.
 The [`<svg>` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg) of SVG Tiny PS documents
-must have the [following attributes](https://tools.ietf.org/html/draft-svg-tiny-ps-abrotman-01#section-2.1):
+must have the [following attributes](https://datatracker.ietf.org/doc/html/draft-svg-tiny-ps-abrotman-01#section-2.1):
 `xmlns="http://www.w3.org/2000/svg"`, `version="1.2"`, and `baseProfile="tiny-ps"`.
 A [`<title>` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
 must be present once as a child element of the `<svg>` element.
@@ -12207,7 +12207,7 @@ While the opportunistic use of TLS is also a problem for [submission](#submissio
 [access](#access-protocols), and [filtering](#email-filtering) protocols,
 mail clients always communicate with the same few servers
 and should not fall back to insecure communication after the initial configuration.
-Additionally, [cleartext is considered obsolete](https://tools.ietf.org/html/rfc8314) for email submission and access.
+Additionally, [cleartext is considered obsolete](https://datatracker.ietf.org/doc/html/rfc8314) for email submission and access.
 For these reasons, we're interested only in securing [ESMTP for Relay](#submission-versus-relay) between
 the outgoing mail server of the sender and the incoming mail server of the recipient in this section.
 As discussed [earlier](#implicit-tls-versus-explicit-tls),
@@ -12229,7 +12229,7 @@ Server authentication
 
 Without the just mentioned improvements, [ESMTP](#extended-simple-mail-transfer-protocol)
 provides only [opportunistic security](https://en.wikipedia.org/wiki/Opportunistic_encryption)
-as defined in [RFC 7435](https://tools.ietf.org/html/rfc7435).
+as defined in [RFC 7435](https://datatracker.ietf.org/doc/html/rfc7435).
 Opportunistic security provides confidentiality only towards passive attackers,
 who merely eavesdrop on your communication but don't interfere with it.
 In the presence of an active attacker, who can modify and drop network packets,
@@ -12237,11 +12237,11 @@ opportunistic security provides neither confidentiality nor authenticity.
 Since opportunistic security provides no security against an active attacker anyway,
 many outgoing mail servers don't verify the identity of the incoming mail server they connect to
 but rather accept any certificate, even [self-signed ones](https://en.wikipedia.org/wiki/Self-signed_certificate).
-[RFC 3207](https://tools.ietf.org/html/rfc3207#section-4.1),
+[RFC 3207](https://datatracker.ietf.org/doc/html/rfc3207#section-4.1),
 which specifies the [STARTTLS extension](#starttls-extension),
 explicitly allows SMTP clients to continue without server authentication
 because encrypting the communication for an unknown endpoint is
-[still better](https://tools.ietf.org/html/rfc7435#section-4)
+[still better](https://datatracker.ietf.org/doc/html/rfc7435#section-4)
 than having no security at all with certainty.
 Requiring a valid server certificate makes sense only
 if the client doesn't fall back to insecure communication otherwise.
@@ -12266,7 +12266,7 @@ REQUIRETLS extension
 
 As a user, you might prefer a delivery failure over an insecure delivery for certain messages.
 The `REQUIRETLS` extension for [ESMTP](#extended-simple-mail-transfer-protocol),
-which is specified in [RFC 8689](https://tools.ietf.org/html/rfc8689) and is not yet widely supported,
+which is specified in [RFC 8689](https://datatracker.ietf.org/doc/html/rfc8689) and is not yet widely supported,
 allows you to require transport security between all involved mail servers when sending an email.
 For both [submission and relay](#submission-versus-relay),
 the ESMTP server indicates its support for this extension
@@ -12291,9 +12291,9 @@ to other servers which support `REQUIRETLS` as well.
 If a mail server accepts a message with the `REQUIRETLS` option,
 it may forward the message only with `REQUIRETLS` enabled.
 If the receiving server cannot be authenticated or doesn't support `REQUIRETLS`,
-the mail server [has to send](https://tools.ietf.org/html/rfc8689#section-4.2.1) a [bounce message](#bounce-messages)
-[with the `REQUIRETLS` option](https://tools.ietf.org/html/rfc8689#section-5) instead.
-`REQUIRETLS` may be used [only if](https://tools.ietf.org/html/rfc8689#section-2) the communication is secured with TLS,
+the mail server [has to send](https://datatracker.ietf.org/doc/html/rfc8689#section-4.2.1) a [bounce message](#bounce-messages)
+[with the `REQUIRETLS` option](https://datatracker.ietf.org/doc/html/rfc8689#section-5) instead.
+`REQUIRETLS` may be used [only if](https://datatracker.ietf.org/doc/html/rfc8689#section-2) the communication is secured with TLS,
 the `MX` record was validated with DNSSEC or an [MTA-STS policy](#mail-transfer-agent-strict-transport-security),
 and the identity of the receiving server was verified with [DANE](#dns-based-authentication-of-named-entities)
 or [PKIX](#server-authentication).
@@ -12304,8 +12304,8 @@ Please note that `REQUIRETLS` does not provide [end-to-end security](#end-to-end
 A malicious mail server has access to the content of a message
 and can leak it to anyone even without disabling `REQUIRETLS`.
 
-[RFC 8689](https://tools.ietf.org/html/rfc8689) also specifies the
-[`TLS-Required` header field](https://tools.ietf.org/html/rfc8689#section-3),
+[RFC 8689](https://datatracker.ietf.org/doc/html/rfc8689) also specifies the
+[`TLS-Required` header field](https://datatracker.ietf.org/doc/html/rfc8689#section-3),
 which allows the sender to prioritize delivery over security as follows:
 
 <figure markdown="block">
@@ -12334,7 +12334,7 @@ or [MTA-STS](#mail-transfer-agent-strict-transport-security) without supporting 
 messages with this header field can still bounce due to a failed TLS negotiation.
 This header field simply allows the sender to override the TLS policy of the recipient domain.
 If `REQUIRETLS` is enabled for a message, the `TLS-Required` header field
-[has to be ignored](https://tools.ietf.org/html/rfc8689#section-4.1).
+[has to be ignored](https://datatracker.ietf.org/doc/html/rfc8689#section-4.1).
 
 </details>
 
@@ -12342,9 +12342,9 @@ If `REQUIRETLS` is enabled for a message, the `TLS-Required` header field
 #### DNS-Based Authentication of Named Entities (DANE) {#dns-based-authentication-of-named-entities}
 
 [DNS-Based Authentication of Named Entities (DANE)](https://en.wikipedia.org/wiki/DNS-based_Authentication_of_Named_Entities)
-is specified in [RFC 6698](https://tools.ietf.org/html/rfc6698).
-[RFC 7671](https://tools.ietf.org/html/rfc7671) updates and clarifies some aspects of DANE
-and [RFC 7672](https://tools.ietf.org/html/rfc7672) specifies how DANE is applied to SMTP.
+is specified in [RFC 6698](https://datatracker.ietf.org/doc/html/rfc6698).
+[RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671) updates and clarifies some aspects of DANE
+and [RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672) specifies how DANE is applied to SMTP.
 DANE relies on [DNSSEC](/internet/#domain-name-system-security-extensions) for three different purposes:
 - **DNS authentication**:
   Domain names are used to reference services,
@@ -12353,7 +12353,7 @@ DANE relies on [DNSSEC](/internet/#domain-name-system-security-extensions) for t
   indirections with `MX`, `SRV`, and `CNAME` records are quite common in the Domain Name System.
   The same is true for security-related DNS records,
   such as [`TLSA` records](#tlsa-record-type), which are introduced by DANE.
-  ([Officially](https://tools.ietf.org/html/rfc6698#section-1.2),
+  ([Officially](https://datatracker.ietf.org/doc/html/rfc6698#section-1.2),
   `TLSA` is not an acronym but simply the name of the record type.
   Personally, I like to think of `TLSA` as Transport Layer Security Anchor.)
   Letting the service providers configure the necessary `TLSA` records
@@ -12417,7 +12417,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   is not accepted by your outgoing mail server.
   If this happens, you cannot do anything about it as a user.
 - **Strict issuing constraints**:
-  While PKIX certification authorities [can be constrained](https://tools.ietf.org/html/rfc5280#section-4.2.1.10)
+  While PKIX certification authorities [can be constrained](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.10)
   in what domain names they can attest, this feature is rarely used in practice.
   Since any PKIX certification authority can issue a certificate for any domain,
   a single compromised certification authority compromises the security of the whole system.
@@ -12469,23 +12469,23 @@ which differs from the traditional PKI, also known as PKIX, in several important
   [intermediate certificates](https://en.wikipedia.org/wiki/Public_key_certificate#Intermediate_certificate)
   each time a client connects to them unless the client uses a
   [resumed TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#Resumed_TLS_handshake)
-  or the cached information extension as specified in [RFC 7924](https://tools.ietf.org/html/rfc7924).
+  or the cached information extension as specified in [RFC 7924](https://datatracker.ietf.org/doc/html/rfc7924).
   In the case of DANE, a client fetches the chain of public-key assertions to the root zone separately through the DNS,
   which has the advantage that they are automatically [cached](https://en.wikipedia.org/wiki/Cache_(computing)).
   One downside of this is that you have to publish new `TLSA` records at least
-  [one validity period before using the corresponding keys](https://tools.ietf.org/html/rfc7671#section-8.1).
+  [one validity period before using the corresponding keys](https://datatracker.ietf.org/doc/html/rfc7671#section-8.1).
 - **Key revocation**:
   Due to their complicated issuance, PKIX certificates are usually valid for months or years.
   If a PKIX key is compromised, you can revoke the corresponding certificate only for clients who support either
   [Certificate Revocation Lists (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list),
-  as specified in [RFC 5280](https://tools.ietf.org/html/rfc5280#section-5),
+  as specified in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280#section-5),
   or the [Online Certificate Status Protocol (OCSP)](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol),
-  as specified in [RFC 6960](https://tools.ietf.org/html/rfc6960).
+  as specified in [RFC 6960](https://datatracker.ietf.org/doc/html/rfc6960).
   DNSSEC signatures, on the other hand, are valid until they expire and cannot be revoked.
   While you can remove a compromised DANE key immediately from your DNS zone,
   an attacker can replay the signed `TLSA` records until the `RRSIG` signature expires.
   For this reason, the validity of DNSSEC signatures should be
-  [in the order of days or at most weeks](https://tools.ietf.org/html/rfc7671#section-11).
+  [in the order of days or at most weeks](https://datatracker.ietf.org/doc/html/rfc7671#section-11).
   If you cannot ensure that your zone is signed reliably in relatively short intervals,
   you should deploy neither DNSSEC nor DANE.
 
@@ -12500,9 +12500,9 @@ and no modifications are needed in TLS server software.
 TLSA record type
 </summary>
 
-The `TLSA` record type is specified in [RFC 6698](https://tools.ietf.org/html/rfc6698#section-2).
+The `TLSA` record type is specified in [RFC 6698](https://datatracker.ietf.org/doc/html/rfc6698#section-2).
 A `TLSA` record consists of the following four fields:
-1. [**Certificate usage**](https://tools.ietf.org/html/rfc6698#section-2.1.1):
+1. [**Certificate usage**](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.1):
    This field captures two separate pieces of information in a single number.
    On the one hand, the number indicates whether the certificate referenced by the `TLSA` record
    belongs to a trust anchor, which certified the public key and the identity of the end entity,
@@ -12520,31 +12520,31 @@ A `TLSA` record consists of the following four fields:
    | **DANE** | DANE-TA (2) | DANE-EE (3)
    {:.table-with-vertical-border-after-column-1}
    <figcaption markdown="span">
-   The four certificate usages with the acronyms as introduced in [RFC 7218](https://tools.ietf.org/html/rfc7218).
+   The four certificate usages with the acronyms as introduced in [RFC 7218](https://datatracker.ietf.org/doc/html/rfc7218).
    </figcaption>
    </figure>
-2. [**Selector**](https://tools.ietf.org/html/rfc6698#section-2.1.2):
+2. [**Selector**](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.2):
    This field specifies which part of the certificate is referenced by the `TLSA` record.
    The possible values are `0` for the full certificate and `1` for the
    [SubjectPublicKeyInfo (SPKI)](https://en.wikipedia.org/wiki/X.509#Structure_of_a_certificate),
    which consists of the public-key algorithm and the subject's public key.
    The latter does not cover the names of the issuer and the subject, the validity period
-   or any [certification constraints](https://tools.ietf.org/html/rfc5280#section-4.2.1.9).
-3. [**Matching type**](https://tools.ietf.org/html/rfc6698#section-2.1.3):
+   or any [certification constraints](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.9).
+3. [**Matching type**](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.3):
    This field specifies how the selected content is presented in the certificate association field.
    `0` means that the selected content is included as is in the last field,
    `1` means that the certificate association data is the [SHA-256 hash](#secure-hash-algorithms)
    of the selected content, and `2` means that the [SHA-512 hash](#secure-hash-algorithms) is used instead.
-4. [**Certificate association data**](https://tools.ietf.org/html/rfc6698#section-2.1.4):
+4. [**Certificate association data**](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.4):
    This field contains the data which the certificate has to match according to the values
    in the selector and matching type fields.
 
-`TLSA` records have [a binary format](https://tools.ietf.org/html/rfc6698#section-2.1).
+`TLSA` records have [a binary format](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1).
 The first three fields are unsigned 8-bit integers,
 where `255` is reserved for private use and the remaining values are unassigned.
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
 maintains a [registry for these parameters](https://www.iana.org/assignments/dane-parameters/dane-parameters.xhtml).
-The certificate association field [has to be represented](https://tools.ietf.org/html/rfc6698#section-2.2)
+The certificate association field [has to be represented](https://datatracker.ietf.org/doc/html/rfc6698#section-2.2)
 as a string of [hexadecimal characters](/internet/#number-encoding).
 Here is an example:
 
@@ -12562,7 +12562,7 @@ One of the `TLSA` records at `_25._tcp.mail.protonmail.ch`.
 </figcaption>
 </figure>
 
-[RFC 7671](https://tools.ietf.org/html/rfc7671#section-5) specifies how DANE clients must verify
+[RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671#section-5) specifies how DANE clients must verify
 the server's certificate depending on the certificate usage of the server's `TLSA` record.
 As you can see in the table below, clients ignore all information from the server's certificate
 except the SubjectPublicKeyInfo in the case of DANE-EE.
@@ -12571,15 +12571,15 @@ and the certificate is accepted even if it has expired.
 Since the certificate belongs to the end entity itself,
 it doesn't have to have a valid certificate chain.
 In the case of the other certificate usages, certification constraints such as
-[maximum path length](https://tools.ietf.org/html/rfc5280#section-4.2.1.9) and
-[name space restrictions](https://tools.ietf.org/html/rfc5280#section-4.2.1.10) have to be verified.
+[maximum path length](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.9) and
+[name space restrictions](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.10) have to be verified.
 If a server hosts the service for different customers under several domain names,
 it should support the TLS extension [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication)
 in order to return the right certificate chain to each client.
 
 <figure markdown="block" class="allow-break-inside">
 
-| Requirements | [PKIX-TA](https://tools.ietf.org/html/rfc7671#section-5.4) | [PKIX-EE](https://tools.ietf.org/html/rfc7671#section-5.3) | [DANE-TA](https://tools.ietf.org/html/rfc7671#section-5.2) | [DANE-EE](https://tools.ietf.org/html/rfc7671#section-5.1)
+| Requirements | [PKIX-TA](https://datatracker.ietf.org/doc/html/rfc7671#section-5.4) | [PKIX-EE](https://datatracker.ietf.org/doc/html/rfc7671#section-5.3) | [DANE-TA](https://datatracker.ietf.org/doc/html/rfc7671#section-5.2) | [DANE-EE](https://datatracker.ietf.org/doc/html/rfc7671#section-5.1)
 |-:|:-:|:-:|:-:|:-:
 | [**Name matching**](#name-matching) | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
 | **Expiration date** | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
@@ -12591,13 +12591,13 @@ in order to return the right certificate chain to each client.
 <figcaption markdown="span">
 
 Which checks clients have to perform for each certificate usage
-according to [RFC 7671](https://tools.ietf.org/html/rfc7671#section-5).
+according to [RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671#section-5).
 
 </figcaption>
 </figure>
 
 Given that DANE-EE uses almost none of the information in the certificate,
-[RFC 7250](https://tools.ietf.org/html/rfc7250) specifies a TLS extension
+[RFC 7250](https://datatracker.ietf.org/doc/html/rfc7250) specifies a TLS extension
 to use just the raw public key instead of the complete certificate of the server
 during the [handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake).
 For the same reason, it is recommended to combine a certificate usage of `3` (DANE-EE) with a selector of `1` (SPKI).
@@ -12608,24 +12608,24 @@ The certificate usages PKIX-EE and PKIX-TA provide more security
 only if an [application layer protocol](/internet/#application-layer)
 forbids the certificate usages DANE-EE and DANE-TA.
 Otherwise, an attacker who compromised the DNS zone can simply change the certificate usage to DANE-EE or DANE-TA
-in order to [bypass the additional PKIX verification](https://tools.ietf.org/html/rfc7671#section-4).
+in order to [bypass the additional PKIX verification](https://datatracker.ietf.org/doc/html/rfc7671#section-4).
 
 <figure markdown="block" class="allow-break-inside">
 
 | Recommendation | Certificate usage | Selector | Matching type
 |-:|:-:|:-:|:-:
-| [**SHOULD**](https://tools.ietf.org/html/rfc7672#section-3.1) | DANE-EE (3) | SPKI (1) | SHA-256 (1)
-| [**MAY**](https://tools.ietf.org/html/rfc7672#section-3.1) | DANE-TA (2) | Full (0) | SHA-256 (1)
-| [**SHOULD NOT**](https://tools.ietf.org/html/rfc7671#section-10.1.2) | – | – | Complete (0)
+| [**SHOULD**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.1) | DANE-EE (3) | SPKI (1) | SHA-256 (1)
+| [**MAY**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.1) | DANE-TA (2) | Full (0) | SHA-256 (1)
+| [**SHOULD NOT**](https://datatracker.ietf.org/doc/html/rfc7671#section-10.1.2) | – | – | Complete (0)
 |-
-| [**SHOULD NOT**](https://tools.ietf.org/html/rfc7672#section-3.1.3) | PKIX-EE (1) | – | –
-| [**SHOULD NOT**](https://tools.ietf.org/html/rfc7672#section-3.1.3) | PKIX-TA (0) | – | –
+| [**SHOULD NOT**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.1.3) | PKIX-EE (1) | – | –
+| [**SHOULD NOT**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.1.3) | PKIX-TA (0) | – | –
 {:.table-with-vertical-border-after-column-1}
 
 <figcaption markdown="span">
 
 Which combinations of DANE parameters you should and should not use.<br>
-The verbs in the recommendation column are specified in [RFC 2119](https://tools.ietf.org/html/rfc2119).<br>
+The verbs in the recommendation column are specified in [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119).<br>
 The last two rows are applicable only to [SMTP for Relay](#submission-versus-relay) on port 25.
 
 </figcaption>
@@ -12646,7 +12646,7 @@ TLSA record location
 </summary>
 
 In order to keep the `TLSA` records of different services apart,
-they are [stored at a subdomain](https://tools.ietf.org/html/rfc6698#section-3),
+they are [stored at a subdomain](https://datatracker.ietf.org/doc/html/rfc6698#section-3),
 which includes the [port number](/internet/#port-numbers)
 and the [transport layer protocol](/internet/#transport-layer) of the service:
 `_{PortNumber}._{TransportProtocol}.{ProviderDomain}`.
@@ -12699,23 +12699,23 @@ Multiple TLSA records
 
 A server can have several `TLSA` records and its certificate has to be authenticated by just one of them.
 There are two situations in which you want to use multiple `TLSA` records:
-1. [**Key rotation**](https://tools.ietf.org/html/rfc7671#section-8.1):
+1. [**Key rotation**](https://datatracker.ietf.org/doc/html/rfc7671#section-8.1):
    Cryptographic keys have to be replaced from time to time.
    Since it takes [some time](https://en.wikipedia.org/wiki/Time_to_live)
    for new records to propagate through the Domain Name System,
    the `TLSA` record for a new key has to be published at least one validity period before it can be used.
    The `TLSA` record for the old key/certificate can be removed only once the new key is being used.
-2. [**Algorithm agility**](https://tools.ietf.org/html/rfc7671#section-9):
+2. [**Algorithm agility**](https://datatracker.ietf.org/doc/html/rfc7671#section-9):
    DANE clients don't have to support all [`TLSA` parameters](#tlsa-record-type) and combinations thereof.
    A service provider can publish several `TLSA` records with different parameters for the same key/certificate,
    which allows DANE clients to rely on the strongest `TLSA` record which they can use.
-   For example, DANE clients [should but don't have to support SHA-512](https://tools.ietf.org/html/rfc6698#section-6).
+   For example, DANE clients [should but don't have to support SHA-512](https://datatracker.ietf.org/doc/html/rfc6698#section-6).
    If [SHA-256](#secure-hash-algorithms) is deprecated at some point in the future,
    service providers can publish the same key/certificate in `TLSA` records
    with a [matching type](#tlsa-record-type) of `1` (SHA-256) and `2` (SHA-512).
    Clients which support the latter will use the latter record,
    all the others will continue to use the former one.
-   [RFC 7671](https://tools.ietf.org/html/rfc7671#section-8) requires that
+   [RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671#section-8) requires that
    each published combination of `TLSA` parameters covers the certificate chain in use
    so that DANE clients can [abort the connection](#client-behavior)
    if the server cannot be authenticated with one of the usable `TLSA` records.
@@ -12730,16 +12730,16 @@ Name matching
 If a [certificate usage](#tlsa-record-type) other than DANE-EE is being used,
 DANE clients have to verify that the validated certificate matches the server's identity.
 In order to do so, they carry out the following, rather complicated and boring procedure:
-1. [**Determine the `TLSA` domain**](https://tools.ietf.org/html/rfc7672#section-2.2.2):
+1. [**Determine the `TLSA` domain**](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.2):
    The `TLSA` lookup is usually performed on the server's domain
    after resolving any `CNAME`, `MX`, and `SRV` records.
-   [RFC 7672](https://tools.ietf.org/html/rfc7672#section-2.2.2), however,
+   [RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.2), however,
    makes things a bit more complicated for [ESMTP](#extended-simple-mail-transfer-protocol).
    First of all, the domain found after the `@` symbol in the email address is `CNAME`-expanded.
    If the whole expansion was [secure](#client-behavior), you look up its `MX` records.
    Any domain name listed in an `MX` record has to resolve directly to `A`/`AAAA` records
-   according to [RFC 2181](https://tools.ietf.org/html/rfc2181#section-10.3)
-   and [RFC 5321](https://tools.ietf.org/html/rfc5321#section-5.1).
+   according to [RFC 2181](https://datatracker.ietf.org/doc/html/rfc2181#section-10.3)
+   and [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-5.1).
    If the expanded `@` domain has no `MX` records,
    you [fall back to its `A`/`AAAA` records](#address-resolution).
    The `TLSA` domain is determined as follows:
@@ -12758,28 +12758,28 @@ In order to do so, they carry out the following, rather complicated and boring p
    I've marked the unexpected cases with<i class="ml-1 fas fa-exclamation-triangle color-orange"></i>.
    </figcaption>
    </figure>
-2. [**Determine the set of acceptable domains**](https://tools.ietf.org/html/rfc7672#section-3.2.2):
+2. [**Determine the set of acceptable domains**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.2.2):
    DANE clients accept a certificate issued for the `TLSA` domain or any domain to its left in the above table.
    In the first case, the set of acceptable domains consists of
    the `MX` domain, the expanded `@` domain, and the non-expanded `@` domain.
-   [RFC 7672](https://tools.ietf.org/html/rfc7672#section-2.2.1) allows ESMTP clients to use DANE
+   [RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1) allows ESMTP clients to use DANE
    even if the `MX` records were in a zone whose records aren't authenticated with DNSSEC.
    In this second last case according to the above table, the `MX` domain is the only acceptable domain.
    Accepting the `@` domain in all other cases allows different `MX` hosts to use the same certificate.
    Since the `MX` records couldn't be trusted before DNSSEC,
    pre-DANE ESMTP clients often look for the `@` domain in server certificates.
    Requiring DANE-capable ESMTP clients to accept the `@` domain as well helps with backward compatibility.
-3. [**Determine the set of certified domains**](https://tools.ietf.org/html/rfc7672#section-3.2.3):
+3. [**Determine the set of certified domains**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.2.3):
    In order to receive the right certificate chain from the server,
-   DANE clients [have to send the `TLSA` domain](https://tools.ietf.org/html/rfc7672#section-8.1) to the server
+   DANE clients [have to send the `TLSA` domain](https://datatracker.ietf.org/doc/html/rfc7672#section-8.1) to the server
    with the [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) extension.
    The server certificate can have several domain names in the
-   [Subject Alternative Name (SAN) field](https://tools.ietf.org/html/rfc5280#section-4.2.1.6).
+   [Subject Alternative Name (SAN) field](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.6).
    Only if this field contains no domain names,
-   clients may consider the subject's [Common Name (CN)](https://tools.ietf.org/html/rfc6125#section-1.8).
-   [RFC 6125](https://tools.ietf.org/html/rfc6125#section-2.3)
+   clients may consider the subject's [Common Name (CN)](https://datatracker.ietf.org/doc/html/rfc6125#section-1.8).
+   [RFC 6125](https://datatracker.ietf.org/doc/html/rfc6125#section-2.3)
    goes into more detail about subject naming in PKIX certificates.
-4. [**Intersect the set of certified domains with the set of acceptable domains**](https://tools.ietf.org/html/rfc7672#section-3.2.3):
+4. [**Intersect the set of certified domains with the set of acceptable domains**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.2.3):
    The certificate matches the server's identity
    if one of the acceptable domains is included in the set of certified domains.
    Even this step is not trivial as the certified domains may have the
@@ -12798,12 +12798,12 @@ Client behavior
 
 A DNS lookup with [DNSSEC](/internet/#domain-name-system-security-extensions) enabled
 leads to one of the following three results
-as specified in [RFC 4035](https://tools.ietf.org/html/rfc4035#section-4.3):
+as specified in [RFC 4035](https://datatracker.ietf.org/doc/html/rfc4035#section-4.3):
 - **Secure records**: The returned resource records have a valid DNSSEC signature,
   where the zone's signing key is confirmed recursively by the zone above up to the root zone.
 - **Insecure records**: The returned resource records belong to a zone which is either not signed
   or signed with [an algorithm](https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml)
-  which the client [doesn't support](https://tools.ietf.org/html/rfc4035#page-28).
+  which the client [doesn't support](https://datatracker.ietf.org/doc/html/rfc4035#page-28).
   Either case has to be confirmed by a secure parent zone.
   If a zone is insecure, all of its subzones are also insecure.
 - **Failure**: The returned resource records belong to a zone which is signed but they lack a valid DNSSEC signature.
@@ -12818,17 +12818,17 @@ Depending on the outcome of the `TLSA` lookup, DANE clients behave as follows:
 | DNS lookups | TLSA availability | TLSA usability | Client behavior
 |-
 | All secure | Available | Usable | DANE-authenticated TLS
-| All secure | Available | Unusable | `MX`: Unauthenticated TLS [↗](https://tools.ietf.org/html/rfc7672#section-2.2)<br>`SRV`: PKIX-authenticated TLS [↗](https://tools.ietf.org/html/rfc7673#section-4.1)
+| All secure | Available | Unusable | `MX`: Unauthenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2)<br>`SRV`: PKIX-authenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7673#section-4.1)
 | All secure | Unavailable | – | Pre-DANE TLS
-| Any insecure | – | – | Pre-DANE TLS (or<br>DANE-authenticated<br>TLS if `TLSA` records are<br>available and secure [↗](https://tools.ietf.org/html/rfc7672#section-2.2.1))
+| Any insecure | – | – | Pre-DANE TLS (or<br>DANE-authenticated<br>TLS if `TLSA` records are<br>available and secure [↗](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1))
 | Any failure | – | – | Continue with next host;<br>delay or abort if last host
 {:.table-with-vertical-border-after-column-3}
 
 <figcaption markdown="span">
 
 How the client has to handle the various situations according to
-[RFC 7672](https://tools.ietf.org/html/rfc7672#section-2.2) and
-[RFC 7673](https://tools.ietf.org/html/rfc7673#section-3.4).
+[RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2) and
+[RFC 7673](https://datatracker.ietf.org/doc/html/rfc7673#section-3.4).
 
 </figcaption>
 </figure>
@@ -12839,7 +12839,7 @@ A couple of remarks on the above table:
   including `CNAME` indirections of the `TLSA` record itself.
 - "Unusable" means that the DANE client does not support the [parameters of the `TLSA` record](#tlsa-record-type).
   By configuring `TLSA` records, DANE clients know that the server supports TLS
-  and [must not continue without it](https://tools.ietf.org/html/rfc7671#section-10.3).
+  and [must not continue without it](https://datatracker.ietf.org/doc/html/rfc7671#section-10.3).
 - "Unavailable" means that the client received an authenticated denial of existence of the `TLSA` records.
 - "Pre-DANE TLS" stands for whatever clients did before the introduction of DANE.
   In the case of [ESMTP](#extended-simple-mail-transfer-protocol),
@@ -12848,8 +12848,8 @@ A couple of remarks on the above table:
   this would mean PKIX-authenticated TLS once JMAP/HTTPS adopts DANE.
 - In the unexpected cases of the [previous box](#name-matching),
   DANE clients can enforce DANE-authentication even if some of the DNS lookups were insecure.
-- `MX` records [must be sorted by preference](https://tools.ietf.org/html/rfc7672#section-2.2.1)
-  and `SRV` records [must be sorted by priority and weight](https://tools.ietf.org/html/rfc7673#section-3.1)
+- `MX` records [must be sorted by preference](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1)
+  and `SRV` records [must be sorted by priority and weight](https://datatracker.ietf.org/doc/html/rfc7673#section-3.1)
   without considering which hosts use DNSSEC and DANE.
 - If you want to test your configuration, you can deploy DANE only for your first `MX` host.
   If there are any misconfigurations, DANE clients will deliver the message to the next `MX` host.
@@ -12871,7 +12871,7 @@ How to generate a TLSA record
 Before you deploy DANE,
 make sure that [all involved domains](#name-matching)
 support [DNSSEC](/internet/#domain-name-system-security-extensions).
-And even if you don't use DANE, you [should activate](https://tools.ietf.org/html/rfc7671#section-11)
+And even if you don't use DANE, you [should activate](https://datatracker.ietf.org/doc/html/rfc7671#section-11)
 the [transfer lock](https://docs.gandi.net/en/domain_names/transfer_out/transfer_lock.html) on all your domains.
 You can generate the [certificate association data](#tlsa-record-type) with the following command:
 
@@ -12948,10 +12948,10 @@ any PKIX certification authority can usually issue a certificate for any domain
 and thus a single compromised certification authority compromises the security of the whole system.
 This problem exists wherever PKIX is used, including the [Web](https://en.wikipedia.org/wiki/World_Wide_Web).
 On the Web, it was addressed by [HTTP Public-Key Pinning (HPKP)](https://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning),
-which is specified in [RFC 7469](https://tools.ietf.org/html/rfc7469)
+which is specified in [RFC 7469](https://datatracker.ietf.org/doc/html/rfc7469)
 and [is no longer supported](https://caniuse.com/publickeypinning) by any relevant browser.
 When accessing a website with HTTPS, the server could include a
-[`Public-Key-Pins` header field](https://tools.ietf.org/html/rfc7469#section-2.1) in its response
+[`Public-Key-Pins` header field](https://datatracker.ietf.org/doc/html/rfc7469#section-2.1) in its response
 to list hashes of [public keys](/internet/#digital-signatures).
 Browsers then stored these hashes for the specified validity period, during which they required
 that a public key in the server's certificate chain matched one of the hashes pinned for the given domain.
@@ -12964,7 +12964,7 @@ SPKI as the selector, and SHA-256 as the matching type with another encoding of 
 But unlike DANE, the information is conveyed in a previous HTTPS response instead of the DNS,
 which means that connections with expired or missing pins are not protected by HPKP.
 The standard requires that one of the pins matches no certificate in the certificate chain
-in order to force administrators to include a [backup pin](https://tools.ietf.org/html/rfc7469#section-4.3).
+in order to force administrators to include a [backup pin](https://datatracker.ietf.org/doc/html/rfc7469#section-4.3).
 This did not prevent people from making their domains unusable by losing access to their keys,
 which could also happen due to [ransomware](https://en.wikipedia.org/wiki/Ransomware).
 Additionally, an attacker who could compromise the first secure connection
@@ -12984,8 +12984,8 @@ Public-Key-Pins: max-age=2592000; includeSubDomains;
 <figcaption markdown="span">
 
 A `Public-Key-Pins` response header field with a validity period of 30 days
-and a [report URI](https://tools.ietf.org/html/rfc7469#section-2.1.4)
-for [validation failures](https://tools.ietf.org/html/rfc7469#section-3).
+and a [report URI](https://datatracker.ietf.org/doc/html/rfc7469#section-2.1.4)
+for [validation failures](https://datatracker.ietf.org/doc/html/rfc7469#section-3).
 
 </figcaption>
 </figure>
@@ -12997,7 +12997,7 @@ for [validation failures](https://tools.ietf.org/html/rfc7469#section-3).
 #### Mail Transfer Agent Strict Transport Security (MTA-STS) {#mail-transfer-agent-strict-transport-security}
 
 [Mail Transfer Agent Strict Transport Security (MTA-STS)](https://en.wikipedia.org/wiki/MTA-STS)
-is specified in [RFC 8461](https://tools.ietf.org/html/rfc8461).
+is specified in [RFC 8461](https://datatracker.ietf.org/doc/html/rfc8461).
 MTA-STS is a [PKIX](#server-authentication)-based [alternative to DANE](#comparison-to-dane) for those
 who cannot or don’t want to deploy [DNSSEC](/internet/#domain-name-system-security-extensions) on their domain.
 It lets receiving domains indicate their support for PKIX-authenticated TLS with the following two resources:
@@ -13056,7 +13056,7 @@ Comparison to DANE
 - **No strict downgrade resistance**:
   Unlike DANE, which provides downgrade resistance thanks to DNSSEC’s authenticated denial of existence,
   the DNS record and policy file of MTA-STS can be
-  [censored by an active attacker](https://tools.ietf.org/html/rfc8461#section-10.2).
+  [censored by an active attacker](https://datatracker.ietf.org/doc/html/rfc8461#section-10.2).
   MTA-STS provides downgrade resistance only for the duration for which the recipient's policy is cached.
   As we will see [later](#mta-sts-policy-file),
   MTA-STS has a provision which allows administrators to detect policy refresh failures.
@@ -13084,7 +13084,7 @@ As long as some [ESMTP](#extended-simple-mail-transfer-protocol) clients
 support [DANE](#dns-based-authentication-of-named-entities)
 but not [MTA-STS](#mail-transfer-agent-strict-transport-security) and vice versa,
 you can deploy both DANE and MTA-STS on your domain to achieve the best security.
-[RFC 8461](https://tools.ietf.org/html/rfc8461#section-2) states explicitly
+[RFC 8461](https://datatracker.ietf.org/doc/html/rfc8461#section-2) states explicitly
 that MTA-STS may not override a failed DANE validation.
 Unfortunately, it doesn't say anything about whether DANE can override a failed MTA-STS validation:
 
@@ -13122,8 +13122,8 @@ The only reason we have MTA-STS is because some large companies are reluctant to
 All I know is that [Google wants to get rid of](https://www.imperialviolet.org/2015/01/17/notdane.html)
 1024-bit [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
 and focuses on [Certificate Transparency](https://certificate.transparency.dev/).
-But given that [ECDSA](https://tools.ietf.org/html/rfc6605),
-[Ed25519, and Ed448](https://tools.ietf.org/html/rfc8080)
+But given that [ECDSA](https://datatracker.ietf.org/doc/html/rfc6605),
+[Ed25519, and Ed448](https://datatracker.ietf.org/doc/html/rfc8080)
 can be [used for DNSSEC](https://blog.apnic.net/2016/10/06/dnssec-and-ecdsa/)
 and that both the [root zone](https://en.wikipedia.org/wiki/DNS_root_zone)
 and the [`.com` domain](https://en.wikipedia.org/wiki/.com) use 2048-bit RSA at least for their key-signing keys,
@@ -13142,7 +13142,7 @@ whether it has a non-expired policy for the domain after the `@` symbol in the r
 If this is not the case, it queries for a `TXT` record at the `_mta-sts` subdomain of this domain.
 An MTA-STS record is a semicolon-separated list of key-value pairs encoded in [ASCII](#character-encoding),
 where the keys and values are separated by an equals sign.
-MTA-STS records have [two required fields](https://tools.ietf.org/html/rfc8461#section-3.1):
+MTA-STS records have [two required fields](https://datatracker.ietf.org/doc/html/rfc8461#section-3.1):
 - `v`: The version of the MTA-STS standard.
   This field has to come first and the only supported value is `STSv1` at the moment.
 - `id`: A unique identifier for the domain's current MTA-STS policy.
@@ -13182,15 +13182,15 @@ MTA-STS policy file
 If the [MTA-STS record](#mta-sts-dns-record) contains an unknown `id` value for the given domain,
 the outgoing mail server retrieves the new MTA-STS policy from `https://mta-sts.{Domain}/.well-known/mta-sts.txt`,
 where `Domain` is the domain after the `@` symbol in the recipient’s email address.
-The `Domain` is taken as is [without proceeding with the parent domain](https://tools.ietf.org/html/rfc8461#section-3.4)
+The `Domain` is taken as is [without proceeding with the parent domain](https://datatracker.ietf.org/doc/html/rfc8461#section-3.4)
 if the queried resource is not found for both the DNS and the HTTPS lookup.
-As specified in [RFC 8615](https://tools.ietf.org/html/rfc8615),
+As specified in [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615),
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
 maintains a [registry](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml)
 for the `.well-known` directory in order to prevent name collisions among unrelated standards.
 A subdomain is used to allow `CNAME` indirections.
 Moreover, the required DNS record prevents sites which allow untrusted users to claim subdomains from falling victim
-to [denial-of-service attacks](https://tools.ietf.org/html/rfc8461#section-10.3) with malicious policies.
+to [denial-of-service attacks](https://datatracker.ietf.org/doc/html/rfc8461#section-10.3) with malicious policies.
 Examples are [https://mta-sts.github.io](https://mta-sts.github.io/)
 and [https://mta-sts.blogspot.com](https://mta-sts.blogspot.com/).
 
@@ -13203,18 +13203,18 @@ have to be [Punycode-encoded](#punycode-encoding).
 An MTA-STS policy is specified with one key-value pair per line,
 where the keys and values are separated by a colon
 and the lines are separated by [`{CR}{LF}`](#newline-characters) or just `{LF}`.
-Each policy has to contain the [following four fields](https://tools.ietf.org/html/rfc8461#section-3.2),
+Each policy has to contain the [following four fields](https://datatracker.ietf.org/doc/html/rfc8461#section-3.2),
 which may appear in any order:
 - `version`: The version of the MTA-STS standard.
   Its value has to be `STSv1`.
 - `mode`: What the [ESMTP](#extended-simple-mail-transfer-protocol) client shall do
   if it cannot authenticate the [incoming mail server](#incoming-mail-server).
-  The [possible values](https://tools.ietf.org/html/rfc8461#section-5) are:
+  The [possible values](https://datatracker.ietf.org/doc/html/rfc8461#section-5) are:
   - `enforce`: The client must abort the connection if it cannot negotiate TLS with a valid server certificate.
     It continues with the next server which matches one of the `mx` keys
     and delays the delivery of the message when all of them fail validation.
     Before failing permanently, the client has to check via DNS and then HTTPS
-    [for an updated policy](https://tools.ietf.org/html/rfc8461#section-5).
+    [for an updated policy](https://datatracker.ietf.org/doc/html/rfc8461#section-5).
   - `testing`: MTA-STS validation failures don't affect the delivery of messages but they should be reported
     if both the sender and the recipient support [SMTP TLS Reporting (TLSRPT)](#smtp-tls-reporting-tlsrpt).
   - `none`: The receiving domain doesn't have an MTA-STS policy.
@@ -13223,10 +13223,10 @@ which may appear in any order:
     If clients cannot refresh a policy while the previous policy is still valid,
     they should alert the administrator unless the mode of the cached policy is `none`.
     For this reason, you should publish an MTA-STS policy with a mode of `none` until all previous policies have expired
-    before [removing MTA-STS on a domain](https://tools.ietf.org/html/rfc8461#section-8.3).
+    before [removing MTA-STS on a domain](https://datatracker.ietf.org/doc/html/rfc8461#section-8.3).
 - `max_age`: For how many seconds this policy can be cached.
   In order to give attackers fewer opportunities for downgrade attacks,
-  this value should be [as high as is practical](https://tools.ietf.org/html/rfc8461#section-10.2).
+  this value should be [as high as is practical](https://datatracker.ietf.org/doc/html/rfc8461#section-10.2).
   The maximum value is 31'557'600, which corresponds to [365.25 days](https://en.wikipedia.org/wiki/Tropical_year).
 - `mx`: This field authenticates the incoming mail servers of the receiving domain.
   Unlike the `MX` records of the domain, which are not authenticated when DNSSEC isn't used,
@@ -13295,17 +13295,17 @@ On the other hand, if a browser tries to fetch `https://www.example.com/` when t
 and falls back to `http://www.example.com/` only if the attempt fails,
 the attacker can simply drop the browser's TLS connection as [discussed above](#figure-transport-security-timeout).
 This is different from email, where we don't have a mechanism
-[to signal transport security policy in the address](https://tools.ietf.org/html/rfc7672#section-1.3.1).
+[to signal transport security policy in the address](https://datatracker.ietf.org/doc/html/rfc7672#section-1.3.1).
 
 The problem of [opportunistic security](https://en.wikipedia.org/wiki/Opportunistic_encryption) is addressed
 by [HTTP Strict Transport Security (HSTS)](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security),
-which is specified in [RFC 6797](https://tools.ietf.org/html/rfc6797).
+which is specified in [RFC 6797](https://datatracker.ietf.org/doc/html/rfc6797).
 HSTS allows [Web servers](https://en.wikipedia.org/wiki/Web_server) to indicate
-with the [`Strict-Transport-Security` HTTP response header field](https://tools.ietf.org/html/rfc6797#section-6.1)
+with the [`Strict-Transport-Security` HTTP response header field](https://datatracker.ietf.org/doc/html/rfc6797#section-6.1)
 that they should be accessed only with HTTPS.
-This header field has a required [`max-age` directive](https://tools.ietf.org/html/rfc6797#section-6.1.1),
+This header field has a required [`max-age` directive](https://datatracker.ietf.org/doc/html/rfc6797#section-6.1.1),
 which specifies the number of seconds for which the HSTS policy should be cached,
-and an optional [`includeSubDomains` directive](https://tools.ietf.org/html/rfc6797#section-6.1.2),
+and an optional [`includeSubDomains` directive](https://datatracker.ietf.org/doc/html/rfc6797#section-6.1.2),
 which signals that the HSTS policy should be applied to subdomains of the current domain as well.
 A `max-age` value of zero indicates that the current domain opts out HSTS.
 The `Strict-Transport-Security` response header field is ignored in insecure HTTP responses.
@@ -13326,7 +13326,7 @@ A `Strict-Transport-Security` response header field with a validity period of 36
 
 The problem with HSTS is that it doesn't protect the first connection to the server:
 An active attacker can prevent the browser from learning the server's HSTS policy.
-For this reason, browsers are delivered with an [HSTS preload list](https://tools.ietf.org/html/rfc6797#section-12.3).
+For this reason, browsers are delivered with an [HSTS preload list](https://datatracker.ietf.org/doc/html/rfc6797#section-12.3).
 All domains on this list are accessed only via HTTPS.
 [Chromium's HSTS preload list](https://source.chromium.org/chromium/chromium/src/+/master:net/http/transport_security_state_static.json) is 15 MB in size.
 All other browsers, for which we know how they source their HSTS preload list, rely on Chromium's HSTS preload list.
@@ -13348,12 +13348,12 @@ The following three security and privacy aspects of HSTS are worth mentioning:
   If a user enters a wrong address or [visits a fraudulent link](#phishing),
   an attacker can serve malicious content via HTTPS with a valid certificate for the fake domain
   or serve the content via HTTP given that the fake domain never used HSTS.
-- [**Network time attacks**](https://tools.ietf.org/html/rfc6797#section-14.7):
+- [**Network time attacks**](https://datatracker.ietf.org/doc/html/rfc6797#section-14.7):
   Unless a website is on the browser's HSTS preload list, its HSTS policy expires at some point.
   If an attacker can shift the time of the victim's computer into the future
   by attacking the [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol),
   they can circumvent cached HSTS policies.
-- [**Web tracking**](https://tools.ietf.org/html/rfc6797#section-14.9):
+- [**Web tracking**](https://datatracker.ietf.org/doc/html/rfc6797#section-14.9):
   Whether a domain uses HSTS is a piece of information which the browser stores
   and transmits to the server by accessing it via HTTPS instead of HTTP.
   By using many domains and enabling HSTS for a subset of them which is unique to each user,
@@ -13371,7 +13371,7 @@ STARTTLS Policy List
 Besides relying on [earlier connections](#mail-transfer-agent-strict-transport-security)
 or an [authenticated channel](#dns-based-authentication-of-named-entities),
 [transport security](#transport-security) can also be [required by the user](#requiretls-extension)
-or be [configured by the administrator](https://tools.ietf.org/html/rfc7672#section-1.3.3).
+or be [configured by the administrator](https://datatracker.ietf.org/doc/html/rfc7672#section-1.3.3).
 An administrator can configure an outgoing mail server to require TLS for specific recipient domains.
 In order to decrease the effort for administrators of outgoing mail servers,
 the [Electronic Frontier Foundation (EFF)](https://en.wikipedia.org/wiki/Electronic_Frontier_Foundation)
@@ -13389,7 +13389,7 @@ Since its discontinuation, no such policy list exists.
 #### SMTP TLS Reporting (TLSRPT)
 
 [SMTP TLS Reporting (TLSRPT)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol#SMTP_TLS_Reporting)
-is specified in [RFC 8460](https://tools.ietf.org/html/rfc8460).
+is specified in [RFC 8460](https://datatracker.ietf.org/doc/html/rfc8460).
 With it, domain owners can ask sending mail servers to report transport security failures to them,
 which allows them to detect [misconfigurations and attacks](#tlsrpt-report-conditions).
 If you're certain that all emails are still being delivered to you,
@@ -13397,7 +13397,7 @@ you're much more likely to [enforce strict transport security](#mta-sts-policy-f
 Just like [DMARC reporting](#domain-based-message-authentication-reporting-and-conformance),
 TLSRPT uses a [DNS record](#tlsrpt-dns-record) to specify the endpoints
 to which [reports](#tlsrpt-report-conditions) should be sent
-[once a day](https://tools.ietf.org/html/rfc8460#section-4.1).
+[once a day](https://datatracker.ietf.org/doc/html/rfc8460#section-4.1).
 
 The following tool queries the TLSRPT record with
 [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
@@ -13411,7 +13411,7 @@ TLSRPT DNS record
 </summary>
 
 The endpoints for the [report](#tlsrpt-report-format) are specified in a `TXT` record at `_smtp._tls.{RecipientDomain}`.
-The record has [two fields](https://tools.ietf.org/html/rfc8460#section-3):
+The record has [two fields](https://datatracker.ietf.org/doc/html/rfc8460#section-3):
 - `v`: The version of the TLSRPT standard.
   This field has to come first and the only supported value is `TLSRPTv1` at the moment.
 - `rua`: A comma-separated list of
@@ -13422,13 +13422,13 @@ The record has [two fields](https://tools.ietf.org/html/rfc8460#section-3):
     and the service type of the DKIM key should include TLSRPT.
     Any TLS-related failures must be ignored when delivering the report.
     [Unlike DMARC](#report-approval), recipients with a different domain don't have to approve TLSRPT reports
-    since [spam is less likely](https://tools.ietf.org/html/rfc8460#page-27).
+    since [spam is less likely](https://datatracker.ietf.org/doc/html/rfc8460#page-27).
   - `https`: The report is submitted via a [`POST` request](https://en.wikipedia.org/wiki/POST_(HTTP))
     to the specified Web address.
     Certificate validation errors may be ignored when submitting the report.
     Since the submitter is not authenticated, I advise you not to use this method.
     I have no idea why this shortcoming isn't mentioned in the
-    [security considerations](https://tools.ietf.org/html/rfc8460#section-7).
+    [security considerations](https://datatracker.ietf.org/doc/html/rfc8460#section-7).
 
 The fields are separated by a semicolon and the keys and values are separated by an equals sign.
 Here is an example record:
@@ -13455,15 +13455,15 @@ TLSRPT report format
 </summary>
 
 TLSRPT reports are formatted with the [JavaScript Object Notation (JSON)](https://en.wikipedia.org/wiki/JSON)
-according to [this schema](https://tools.ietf.org/html/rfc8460#section-4.4).
+according to [this schema](https://datatracker.ietf.org/doc/html/rfc8460#section-4.4).
 The reports should be compressed with [GZIP](https://en.wikipedia.org/wiki/Gzip)
 both when sent as an attachment via email and when submitted via [HTTPS](/internet/#hypertext-transfer-protocol).
-The [filename of the report](https://tools.ietf.org/html/rfc8460#section-5.1)
+The [filename of the report](https://datatracker.ietf.org/doc/html/rfc8460#section-5.1)
 should be `{SenderDomain}!{RecipientDomain}!{BeginTime}!{EndTime}[!{UniqueId}].json[.gz]`
-and the [subject of the email](https://tools.ietf.org/html/rfc8460#page-18)
+and the [subject of the email](https://datatracker.ietf.org/doc/html/rfc8460#page-18)
 `Report Domain: {RecipientDomain} Submitter: {SenderDomain} Report-ID: {ReportId}`,
 with all dates in [Unix time](#unix-time).
-In case of failures, the report [indicates the cause](https://tools.ietf.org/html/rfc8460#section-4.3).
+In case of failures, the report [indicates the cause](https://datatracker.ietf.org/doc/html/rfc8460#section-4.3).
 Here is an example report, which I've formatted for better readability:
 
 <figure markdown="block" class="allow-break-inside">
@@ -13501,7 +13501,7 @@ in an email with the subject
 I'm not sure what `total-successful-session-count` means if the `policy-type` is `no-policy-found`.
 Would it count as a failure if TLS cannot be negotiated?
 Or are all sessions successful if no policy was found?
-You find an example report with failure details in [RFC 8460](https://tools.ietf.org/html/rfc8460#appendix-B).
+You find an example report with failure details in [RFC 8460](https://datatracker.ietf.org/doc/html/rfc8460#appendix-B).
 
 </figcaption>
 </figure>
@@ -13515,17 +13515,17 @@ TLSRPT report conditions
 
 TLSRPT can be used with [MTA-STS](#mail-transfer-agent-strict-transport-security)
 and with [DANE](#dns-based-authentication-of-named-entities).
-[RFC 8461](https://tools.ietf.org/html/rfc8461#section-6) specifies which MTA-STS failures shall be reported:
+[RFC 8461](https://datatracker.ietf.org/doc/html/rfc8461#section-6) specifies which MTA-STS failures shall be reported:
 - Failure to fetch the [policy file](#mta-sts-policy-file) via HTTPS
   when a valid [DNS record](#mta-sts-dns-record) was found.
 - Failure to refresh a cached policy which is still valid unless its mode is `none`.
 - Failure to negotiate TLS with a valid server certificate when delivering a message.
 {:.compact}
 
-[RFC 8460](https://tools.ietf.org/html/rfc8460#section-4.3.2.2) adds invalid policies to this list.
-In the case of DANE, [RFC 8460](https://tools.ietf.org/html/rfc8460#section-4.3.2.1) mentions
+[RFC 8460](https://datatracker.ietf.org/doc/html/rfc8460#section-4.3.2.2) adds invalid policies to this list.
+In the case of DANE, [RFC 8460](https://datatracker.ietf.org/doc/html/rfc8460#section-4.3.2.1) mentions
 invalid [`TLSA` records](#tlsa-record-type) and no valid [DNSSEC signatures](#client-behavior) as reportable failures.
-[Other result types](https://tools.ietf.org/html/rfc8460#section-4.3.1) include
+[Other result types](https://datatracker.ietf.org/doc/html/rfc8460#section-4.3.1) include
 missing support for [`STARTTLS`](#starttls-extension) and certificates
 which expired, were not trusted, or had [no matching name](#name-matching).
 
@@ -13538,10 +13538,10 @@ Reporting in header fields
 
 Unfortunately, you cannot see in the [raw message](#raw-message)
 whether the outgoing mail server of the sender enforced [transport security](#transport-security).
-The introduction of a [`Transmitted` header field](https://tools.ietf.org/html/draft-ietf-dane-smtp-00#section-5)
+The introduction of a [`Transmitted` header field](https://datatracker.ietf.org/doc/html/draft-ietf-dane-smtp-00#section-5)
 to let the client record the checks it performed was once considered
 but then [dropped again](https://mailarchive.ietf.org/arch/msg/ietf-smtp/KO5JqiOB9RQ4Epfb38vD4tziR34/)
-in a [later revision](https://tools.ietf.org/html/draft-ietf-dane-smtp-01#appendix-B.1).
+in a [later revision](https://datatracker.ietf.org/doc/html/draft-ietf-dane-smtp-01#appendix-B.1).
 A client-side equivalent to the [`Received` header field](#trace-information) thus never made into
 the [list of message header fields](https://www.iana.org/assignments/message-headers/message-headers.xhtml).
 Such a header field would only make sense if it was covered by a [DKIM signature](#domainkeys-identified-mail).
@@ -13637,14 +13637,14 @@ Otherwise, they are quite similar.
 
 | Aspect | [Secure/Multipurpose Internet<br>Mail Extensions (S/MIME)](https://en.wikipedia.org/wiki/S/MIME) | [Pretty Good Privacy (PGP)](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)
 |-
-| Standards | [RFC 8551](https://tools.ietf.org/html/rfc8551): S/MIME formats<br>[RFC 8550](https://tools.ietf.org/html/rfc8550): Certificate handling<br>[RFC 5652](https://tools.ietf.org/html/rfc5652): Message syntax<br>[RFC 3370](https://tools.ietf.org/html/rfc3370): Algorithms | [RFC 4880](https://tools.ietf.org/html/rfc4880): OpenPGP formats<br>[RFC 3156](https://tools.ietf.org/html/rfc3156): Content types
-| Certificate format | [RFC 5280](https://tools.ietf.org/html/rfc5280): [X.509](https://en.wikipedia.org/wiki/X.509) | [Specific to OpenPGP](https://tools.ietf.org/html/rfc4880#section-5.2)
+| Standards | [RFC 8551](https://datatracker.ietf.org/doc/html/rfc8551): S/MIME formats<br>[RFC 8550](https://datatracker.ietf.org/doc/html/rfc8550): Certificate handling<br>[RFC 5652](https://datatracker.ietf.org/doc/html/rfc5652): Message syntax<br>[RFC 3370](https://datatracker.ietf.org/doc/html/rfc3370): Algorithms | [RFC 4880](https://datatracker.ietf.org/doc/html/rfc4880): OpenPGP formats<br>[RFC 3156](https://datatracker.ietf.org/doc/html/rfc3156): Content types
+| Certificate format | [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280): [X.509](https://en.wikipedia.org/wiki/X.509) | [Specific to OpenPGP](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2)
 | Public-key binding | [Certification authorities](/internet/#public-key-infrastructure) | [Web of trust](/internet/#public-key-infrastructure)
 | Public-key distribution<br>(before relying on [DNSSEC](/internet/#domain-name-system-security-extensions)) | Attached to the message<br>as part of the signature or<br>through an [internal directory](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) | Public [key server](https://en.wikipedia.org/wiki/Key_server_(cryptographic)),<br>personal website,<br>or [`Autocrypt` header field](https://autocrypt.org/level1.html#the-autocrypt-header)
-| Public-key revocation<br>(before relying on [DNSSEC](/internet/#domain-name-system-security-extensions)) | [Certificate Revocation Lists (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list) or<br>[Online Certificate Status Protocol (OCSP)](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)<br>by the issuing certification authority | [Key revocation signature](https://tools.ietf.org/html/rfc4880#page-21)<br>by the owner of the key
+| Public-key revocation<br>(before relying on [DNSSEC](/internet/#domain-name-system-security-extensions)) | [Certificate Revocation Lists (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list) or<br>[Online Certificate Status Protocol (OCSP)](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)<br>by the issuing certification authority | [Key revocation signature](https://datatracker.ietf.org/doc/html/rfc4880#page-21)<br>by the owner of the key
 | DANE resource record type | [`SMIMEA`](#smimea-resource-record) | [`OPENPGPKEY`](#openpgpkey-resource-record)
-| Content type for encryption | [`application/pkcs7-mime`](https://tools.ietf.org/html/rfc8551#section-3.2) | [`application/pgp-encrypted`](https://tools.ietf.org/html/rfc3156#section-4)
-| Content type for signature | [`application/pkcs7-signature`](https://tools.ietf.org/html/rfc8551#section-3.5.3) | [`application/pgp-signature`](https://tools.ietf.org/html/rfc3156#section-5)
+| Content type for encryption | [`application/pkcs7-mime`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.2) | [`application/pgp-encrypted`](https://datatracker.ietf.org/doc/html/rfc3156#section-4)
+| Content type for signature | [`application/pkcs7-signature`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.5.3) | [`application/pgp-signature`](https://datatracker.ietf.org/doc/html/rfc3156#section-5)
 | Primary user group | Business world | Security specialists
 | Costs for users | You have to pay for the certificate but<br>there are [free offers](https://www.comodo.com/home/email-security/free-email-certificate.php) for personal use | None
 
@@ -13748,30 +13748,30 @@ More is not always better.
 </figure>
 
 As we've seen in the [previous box](#modes-of-operation),
-both [S/MIME](https://tools.ietf.org/html/rfc8551#section-2.4.2)
-and [PGP](https://tools.ietf.org/html/rfc4880#section-5.2) support digital signatures.
+both [S/MIME](https://datatracker.ietf.org/doc/html/rfc8551#section-2.4.2)
+and [PGP](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2) support digital signatures.
 Ciphertext integrity has been added to S/MIME with the `Authenticated-Enveloped-Data` content type
-as specified in [RFC 5083](https://tools.ietf.org/html/rfc5083)
+as specified in [RFC 5083](https://datatracker.ietf.org/doc/html/rfc5083)
 (other than what its name suggests, this content type
-[does not provide authentication](https://tools.ietf.org/html/rfc8551#section-2.4.4))
-and to PGP with the [Modification Detection Code (MDC)](https://tools.ietf.org/html/rfc4880#section-5.13),
+[does not provide authentication](https://datatracker.ietf.org/doc/html/rfc8551#section-2.4.4))
+and to PGP with the [Modification Detection Code (MDC)](https://datatracker.ietf.org/doc/html/rfc4880#section-5.13),
 which consists of a [SHA-1 hash](#secure-hash-algorithms) appended to the message before encryption.
 PGP does not support deniable authentication,
 but you can [share a new private key](https://crypto.stackexchange.com/a/67324/76600) with the recipient
-or use [symmetric-key encryption](https://tools.ietf.org/html/rfc4880#section-5.3) with a shared key.
+or use [symmetric-key encryption](https://datatracker.ietf.org/doc/html/rfc4880#section-5.3) with a shared key.
 S/MIME doesn't really support deniable authentication either.
 You can use a non-interactive
 [Diffie-Hellman key exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
-to [encrypt the content-encryption key](https://tools.ietf.org/html/rfc5652#section-6) for each recipient.
-[RFC 6278](https://tools.ietf.org/html/rfc6278) even defines how to use
+to [encrypt the content-encryption key](https://datatracker.ietf.org/doc/html/rfc5652#section-6) for each recipient.
+[RFC 6278](https://datatracker.ietf.org/doc/html/rfc6278) even defines how to use
 [elliptic-curve Diffie–Hellman (ECDH)](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman)
 where the sender's and the recipient's key pair are [static](https://en.wikipedia.org/wiki/Static_key)
 instead of [ephemeral](https://en.wikipedia.org/wiki/Ephemeral_key).
-However, this approach [cannot be used](https://tools.ietf.org/html/rfc6278#section-7)
+However, this approach [cannot be used](https://datatracker.ietf.org/doc/html/rfc6278#section-7)
 when a message is sent to more than one recipient because the common content-encryption key
 is not bound to this set of recipients and could be used by a recipient to frame the sender
 in a private conversation with another recipient.
-Even the [`Authenticated-Data` content type](https://tools.ietf.org/html/rfc5652#section-9)
+Even the [`Authenticated-Data` content type](https://datatracker.ietf.org/doc/html/rfc5652#section-9)
 shares a single authentication key with all recipients
 instead of appending a different message authentication code for each recipient.
 
@@ -13782,8 +13782,8 @@ instead of appending a different message authentication code for each recipient.
 Compression before encryption
 </summary>
 
-Both [S/MIME](https://tools.ietf.org/html/rfc8551#section-3.6)
-and [PGP](https://tools.ietf.org/html/rfc4880#section-5.6)
+Both [S/MIME](https://datatracker.ietf.org/doc/html/rfc8551#section-3.6)
+and [PGP](https://datatracker.ietf.org/doc/html/rfc4880#section-5.6)
 support [compression](https://en.wikipedia.org/wiki/Data_compression).
 A corresponding [content type](#content-type) to use compression alone
 in a message exists [only for S/MIME](#message-compression), though.
@@ -13813,11 +13813,11 @@ When used to sign and encrypt emails, S/MIME and PGP are applied to [MIME body p
 Any part in the tree of a multipart message can be signed or encrypted
 but S/MIME and PGP are usually applied to the whole body of a message.
 The output is itself a MIME part with a [content type](#content-type) of
-[`application/pkcs7-mime`](https://tools.ietf.org/html/rfc8551#section-3.2),
-[`multipart/signed`](https://tools.ietf.org/html/rfc1847#section-2.1), or
-[`multipart/encrypted`](https://tools.ietf.org/html/rfc1847#section-2.2).
+[`application/pkcs7-mime`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.2),
+[`multipart/signed`](https://datatracker.ietf.org/doc/html/rfc1847#section-2.1), or
+[`multipart/encrypted`](https://datatracker.ietf.org/doc/html/rfc1847#section-2.2).
 Given that the output is just another MIME part, the operations can be applied
-[in any order](https://tools.ietf.org/html/rfc8551#section-3.7).
+[in any order](https://datatracker.ietf.org/doc/html/rfc8551#section-3.7).
 Therefore, a message can be first encrypted and then signed
 but [as we discussed](#modes-of-operation), this is not recommended.
 The flexibility of multipart nesting leads to a lot of complexity
@@ -13845,7 +13845,7 @@ Content-Transfer-Encoding: base64
 <figcaption markdown="span">
 
 **S/MIME signature** using the `application/pkcs7-mime` format.
-[↗](https://tools.ietf.org/html/rfc8551#section-3.5.2)
+[↗](https://datatracker.ietf.org/doc/html/rfc8551#section-3.5.2)
 
 </figcaption>
 </figure>
@@ -13876,8 +13876,8 @@ Content-Transfer-Encoding: base64
 <figcaption markdown="span" style="max-width: 750px;">
 
 **S/MIME signature** using the `multipart/signed` format.
-[↗](https://tools.ietf.org/html/rfc8551#section-3.5.3.3)
-`micalg` stands for [message integrity check (MIC) algorithm](https://tools.ietf.org/html/rfc1847#section-2.1).
+[↗](https://datatracker.ietf.org/doc/html/rfc8551#section-3.5.3.3)
+`micalg` stands for [message integrity check (MIC) algorithm](https://datatracker.ietf.org/doc/html/rfc1847#section-2.1).
 The advantage of this format is that users can read the message even if their mail client doesn't support S/MIME.
 
 </figcaption>
@@ -13897,7 +13897,7 @@ Content-Transfer-Encoding: base64
 <figcaption markdown="span">
 
 **S/MIME encryption** with [integrity protection](#deniable-authentication).
-[↗](https://tools.ietf.org/html/rfc8551#section-3.4)
+[↗](https://datatracker.ietf.org/doc/html/rfc8551#section-3.4)
 
 </figcaption>
 </figure>
@@ -13931,11 +13931,11 @@ Content-Disposition: attachment; filename=signature.asc
 <figcaption markdown="span" style="max-width: 620px;">
 
 **PGP signature** with the message in the first part.
-[↗](https://tools.ietf.org/html/rfc3156#section-5)
-The [checksum](https://tools.ietf.org/html/rfc4880#section-6) is a 24-bit
+[↗](https://datatracker.ietf.org/doc/html/rfc3156#section-5)
+The [checksum](https://datatracker.ietf.org/doc/html/rfc4880#section-6) is a 24-bit
 [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check).
 Some implementations use `BEGIN PGP SIGNATURE`
-[instead of](https://tools.ietf.org/html/rfc4880#section-6.2) `BEGIN PGP MESSAGE`.
+[instead of](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2) `BEGIN PGP MESSAGE`.
 
 </figcaption>
 </figure>
@@ -13969,7 +13969,7 @@ Content-Disposition: attachment; filename=encrypted.asc
 <figcaption markdown="span" style="max-width: 550px;">
 
 **PGP encryption** with metadata in the first part.
-[↗](https://tools.ietf.org/html/rfc3156#section-4)
+[↗](https://datatracker.ietf.org/doc/html/rfc3156#section-4)
 If the plaintext has been signed,
 you get the format of the previous example without `MIME-Version: 1.0` after decryption.
 
@@ -13994,16 +13994,16 @@ For example, when Alice sends "I have to cancel our meeting" to Bob,
 Bob shouldn't be able to forward the signed body to Carol.
 There are three ways to secure header fields.
 Before you rely on end-to-end security, make sure that your mail client uses one of them.
-- [RFC 8551](https://tools.ietf.org/html/rfc8551#section-3.1) suggests
+- [RFC 8551](https://datatracker.ietf.org/doc/html/rfc8551#section-3.1) suggests
   that mail clients can wrap the full message with a [content type](#content-type) of `message/rfc822`.
   The receiving mail client has to decide what to do
   when the protected header fields diverge from the unprotected header fields.
-- [RFC 7508](https://tools.ietf.org/html/rfc7508) specifies how a sending mail client can include header fields
-  in the [signed attributes](https://tools.ietf.org/html/rfc5652#section-5.3) of its S/MIME signature.
-- [This draft](https://tools.ietf.org/id/draft-autocrypt-lamps-protected-headers-02.html) specifies how
+- [RFC 7508](https://datatracker.ietf.org/doc/html/rfc7508) specifies how a sending mail client can include header fields
+  in the [signed attributes](https://datatracker.ietf.org/doc/html/rfc5652#section-5.3) of its S/MIME signature.
+- [This draft](https://datatracker.ietf.org/doc/html/draft-autocrypt-lamps-protected-headers-02.html) specifies how
   header fields can be repeated in the signed MIME part with a content-type parameter of `protected-headers="v1"`.
   If the message is encrypted, the original subject should be replaced
-  [with three periods](https://tools.ietf.org/id/draft-autocrypt-lamps-protected-headers-02.html#section-4.2).
+  [with three periods](https://datatracker.ietf.org/doc/html/draft-autocrypt-lamps-protected-headers-02.html#section-4.2).
 
 Thunderbird follows the last specification.
 A message with protected header fields looks as follows after decrypting it:
@@ -14046,7 +14046,7 @@ Content-Type: application/pgp-signature
 <figcaption markdown="span">
 
 **PGP signature** with protected header fields.
-[↗](https://tools.ietf.org/id/draft-autocrypt-lamps-protected-headers-02.html#section-9.1)
+[↗](https://datatracker.ietf.org/doc/html/draft-autocrypt-lamps-protected-headers-02.html#section-9.1)
 The original subject is replaced with three dots only when the message is encrypted.
 
 </figcaption>
@@ -14061,19 +14061,19 @@ SMIMEA resource record
 
 A challenge when using end-to-end security is to get the public key of the recipient
 and to verify the public key of the sender.
-[RFC 8162](https://tools.ietf.org/html/rfc8162) specifies an experimental standard
+[RFC 8162](https://datatracker.ietf.org/doc/html/rfc8162) specifies an experimental standard
 to anchor S/MIME certificates in the DNS just like [DANE](#dns-based-authentication-of-named-entities).
-For this purpose, it defines the [`SMIMEA` record type](https://tools.ietf.org/html/rfc8162#section-2),
+For this purpose, it defines the [`SMIMEA` record type](https://datatracker.ietf.org/doc/html/rfc8162#section-2),
 which has the same format and semantics as the [`TLSA` record type](#tlsa-record-type).
-All four [certificate usages](#tlsa-record-type) [can be used](https://tools.ietf.org/html/rfc8162#section-5)
+All four [certificate usages](#tlsa-record-type) [can be used](https://datatracker.ietf.org/doc/html/rfc8162#section-5)
 and, unlike DANE, publishing the full certificate in the `SMIMEA` record is not discouraged.
 As a sender, you need the unhashed public key of the recipient in order to encrypt the message for them.
 As a recipient, it's enough if you can verify the public key of the sender with its hash in the `SMIMEA` record.
 
-The [location of the `SMIMEA` record](https://tools.ietf.org/html/rfc8162#section-3) is determined
+The [location of the `SMIMEA` record](https://datatracker.ietf.org/doc/html/rfc8162#section-3) is determined
 by hashing the [UTF-8-encoded](#character-encoding) [local part](#address-syntax) of the email address
-after removing any [comments and folding whitespace](https://tools.ietf.org/html/rfc5322#section-3.2.2)
-and [enclosing double quotes](https://tools.ietf.org/html/rfc5322#section-3.2.4).
+after removing any [comments and folding whitespace](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.2)
+and [enclosing double quotes](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.4).
 The local part should be [NFC normalized](#unicode-normalization)
 before hashing it with [SHA-256](#secure-hash-algorithms).
 The [hexadecimal encoding](/internet/#number-encoding) of the first 28 of the 32 bytes of the hash
@@ -14081,7 +14081,7 @@ is used to form the domain name as follows: `{Hash}._smimecert.{Domain}`.
 The local part is hashed in order to support [internationalized email addresses](#email-address-internationalization).
 A problem of hashing is that provider-specific [normalizations of the local part](#normalization),
 such as lowercasing all characters and removing all periods,
-[cannot be considered](https://tools.ietf.org/html/rfc8162#section-4).
+[cannot be considered](https://datatracker.ietf.org/doc/html/rfc8162#section-4).
 Users should use the email address as written in the S/MIME certificate or PGP identity
 or publish a `SMIMEA` record for all common variants of their local part.
 Instead of publishing a separate record for each user,
@@ -14094,13 +14094,13 @@ which points to the much larger `SMIMEA` record at a single domain name.
 When it comes to privacy, publishing information about individual users in the DNS is not ideal.
 Unless a client uses [DNS over TLS](https://en.wikipedia.org/wiki/DNS_over_TLS),
 queries for `SMIMEA` records can be monitored by anyone in the user's network.
-Additionally, `SMIMEA` records [have to be authenticated](https://tools.ietf.org/html/rfc8162#section-6)
+Additionally, `SMIMEA` records [have to be authenticated](https://datatracker.ietf.org/doc/html/rfc8162#section-6)
 with [DNSSEC](/internet/#domain-name-system-security-extensions).
 If a domain uses `NSEC` instead of `NSEC3` records for authenticated denial of existence,
 anyone can [walk the zone](/internet/#domain-name-system-security-extensions)
 to determine the hash of all local parts with a `SMIMEA` record.
 Since the local part is hashed without the domain part of the email address,
-short and common local parts [can be found](https://tools.ietf.org/html/rfc8162#section-9.2)
+short and common local parts [can be found](https://datatracker.ietf.org/doc/html/rfc8162#section-9.2)
 with a single [rainbow table](#salts-against-pooled-brute-force-attacks) across domains.
 
 The following tool queries the `SMIMEA` record of an email address with
@@ -14118,22 +14118,22 @@ which I found [here](https://mailarchive.ietf.org/arch/msg/dane/BOfOUBjSp27jByN6
 OPENPGPKEY resource record
 </summary>
 
-[RFC 7929](https://tools.ietf.org/html/rfc7929) specifies how users can publish their OpenPGP keys in the DNS
-with the new [`OPENPGPKEY` record type](https://tools.ietf.org/html/rfc7929#section-2).
-`OPENPGPKEY` resource records are [transmitted in binary](https://tools.ietf.org/html/rfc7929#section-2.2)
-but [presented in Base64](https://tools.ietf.org/html/rfc7929#section-2.3).
-Even though `OPENPGPKEY` records [must be authenticated](https://tools.ietf.org/html/rfc7929#section-5)
+[RFC 7929](https://datatracker.ietf.org/doc/html/rfc7929) specifies how users can publish their OpenPGP keys in the DNS
+with the new [`OPENPGPKEY` record type](https://datatracker.ietf.org/doc/html/rfc7929#section-2).
+`OPENPGPKEY` resource records are [transmitted in binary](https://datatracker.ietf.org/doc/html/rfc7929#section-2.2)
+but [presented in Base64](https://datatracker.ietf.org/doc/html/rfc7929#section-2.3).
+Even though `OPENPGPKEY` records [must be authenticated](https://datatracker.ietf.org/doc/html/rfc7929#section-5)
 with [DNSSEC](/internet/#domain-name-system-security-extensions),
 a retrieved key must still be verified by the user out-of-band.
-The [location of `OPENPGPKEY` records](https://tools.ietf.org/html/rfc7929#section-3) is determined
+The [location of `OPENPGPKEY` records](https://datatracker.ietf.org/doc/html/rfc7929#section-3) is determined
 in the same way as it is done for [`SMIMEA` records](#smimea-resource-record)
 with the exception that the subdomain is `_openpgpkey` instead of `_smimecert`.
 Indirections with `CNAME` records are allowed as long as the original email address
 is listed as one of the user identities in the found OpenPGP key.
 A user identity can have the [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character) `*` as its local part
-so that the key can be used for [all addresses of the given domain](https://tools.ietf.org/html/rfc7929#section-5.3).
-Besides [obtaining the key for an email address](https://tools.ietf.org/html/rfc7929#section-5.1), `OPENPGPKEY`
-records allow others to detect [when a key has been revoked](https://tools.ietf.org/html/rfc7929#section-5.2).
+so that the key can be used for [all addresses of the given domain](https://datatracker.ietf.org/doc/html/rfc7929#section-5.3).
+Besides [obtaining the key for an email address](https://datatracker.ietf.org/doc/html/rfc7929#section-5.1), `OPENPGPKEY`
+records allow others to detect [when a key has been revoked](https://datatracker.ietf.org/doc/html/rfc7929#section-5.2).
 
 The following tool queries the `OPENPGPKEY` record of an email address with
 [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json).
@@ -14141,9 +14141,9 @@ You can test the tool with the email address `security@ef1p.com`.
 The [key's fingerprint](https://en.wikipedia.org/wiki/Public_key_fingerprint)
 is `7044 3D35 13F7 9AD9 2527  667F 6B14 3BF1 470C 9367`.
 You can use this key if you want to report security-related issues to me.
-The tool displays the key in [ASCII armor](https://tools.ietf.org/html/rfc4880#section-6.2).
+The tool displays the key in [ASCII armor](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2).
 The first two lines and the last two lines are not part of the `OPENPGPKEY` record.
-(The second last line is a [24-bit checksum](https://tools.ietf.org/html/rfc4880#section-6).)
+(The second last line is a [24-bit checksum](https://datatracker.ietf.org/doc/html/rfc4880#section-6).)
 
 <div id="tool-lookup-openpgpkey-records"></div>
 
@@ -14170,16 +14170,16 @@ After having seen how public keys can be published in the DNS for [TLS](#tlsa-re
 I just want to mention that this is also supported for the
 [Secure Shell Protocol (SSH)](https://en.wikipedia.org/wiki/Secure_Shell_Protocol),
 which has nothing to do with email.
-[RFC 4255](https://tools.ietf.org/html/rfc4255) specifies the
-[`SSHFP` record type](https://tools.ietf.org/html/rfc4255#section-3),
+[RFC 4255](https://datatracker.ietf.org/doc/html/rfc4255) specifies the
+[`SSHFP` record type](https://datatracker.ietf.org/doc/html/rfc4255#section-3),
 which consists of the following three fields:
-- [**Algorithm number**](https://tools.ietf.org/html/rfc4255#section-3.1.1):
+- [**Algorithm number**](https://datatracker.ietf.org/doc/html/rfc4255#section-3.1.1):
   The algorithm of the SSH key.
   IANA maintains the [registry of assigned values](https://www.iana.org/assignments/dns-sshfp-rr-parameters/dns-sshfp-rr-parameters.xhtml#dns-sshfp-rr-parameters-1).
-- [**Fingerprint type**](https://tools.ietf.org/html/rfc4255#section-3.1.2):
+- [**Fingerprint type**](https://datatracker.ietf.org/doc/html/rfc4255#section-3.1.2):
   The [hash function](#cryptographic-hash-functions) used to determine the key's fingerprint.
   IANA maintains the [registry of assigned values](https://www.iana.org/assignments/dns-sshfp-rr-parameters/dns-sshfp-rr-parameters.xhtml#dns-sshfp-rr-parameters-2).
-- [**Fingerprint**](https://tools.ietf.org/html/rfc4255#section-3.1.3):
+- [**Fingerprint**](https://datatracker.ietf.org/doc/html/rfc4255#section-3.1.3):
   The [fingerprint](https://en.wikipedia.org/wiki/Public_key_fingerprint) of the SSH key.
   The fingerprint is transmitted in binary and presented with [hexadecimal digits](/internet/#number-encoding).
 
@@ -14199,13 +14199,13 @@ to secure the initial connection to an SSH server.
 They are published at the domain of the server
 and you can look them up with the [DNS resolver](/internet/tools/#dns-resolver) from the first article.
 For example, the domain `ccczh.ch` has two `SSHFP` records
-and the server's public key has to match at least [one of them](https://tools.ietf.org/html/rfc4255#section-2.1).
+and the server's public key has to match at least [one of them](https://datatracker.ietf.org/doc/html/rfc4255#section-2.1).
 [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH) allows you to generate the `SSHFP` records with the
 [following command](https://man.openbsd.org/ssh-keygen.1#r) on the server: `ssh-keygen -r {Hostname}`.
 If your [name server](https://en.wikipedia.org/wiki/Name_server) does not support
-the [`SSHFP` presentation format](https://tools.ietf.org/html/rfc4255#section-3.2),
+the [`SSHFP` presentation format](https://datatracker.ietf.org/doc/html/rfc4255#section-3.2),
 you can use the [`-g` option](https://man.openbsd.org/ssh-keygen.1#g)
-to generate the DNS records in the [generic format](https://tools.ietf.org/html/rfc3597).
+to generate the DNS records in the [generic format](https://datatracker.ietf.org/doc/html/rfc3597).
 In order to use `SSHFP` records to verify a server's public key, you have to set the
 [`VerifyHostKeyDNS` configuration](https://man.openbsd.org/ssh_config.5#VerifyHostKeyDNS)
 of your SSH client to `yes` or `ask`.

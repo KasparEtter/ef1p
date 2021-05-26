@@ -5,7 +5,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2020-08-05
-modified: 2021-05-07
+modified: 2021-05-26
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 math: false
@@ -742,7 +742,7 @@ Sometimes, RFCs are written after the documented technique has already gained po
 Even though the most important Internet protocols are specified in RFCs,
 their conception and style is much more pragmatic than similar documents of other
 [standards organizations](https://en.wikipedia.org/wiki/Standards_organization).
-The [first RFC](https://tools.ietf.org/html/rfc1) was published in 1969.
+The [first RFC](https://datatracker.ietf.org/doc/html/rfc1) was published in 1969.
 Since then, [almost 9'000 RFCs](https://tools.ietf.org/rfc/index) have been published.
 Not all RFCs define [new standards](https://en.wikipedia.org/wiki/Request_for_Comments#Standards_Track),
 some are just [informational](https://en.wikipedia.org/wiki/Request_for_Comments#Informational),
@@ -943,7 +943,7 @@ IP over Avian Carriers (IPoAC)
 </summary>
 
 Written as an April Fools' joke,
-[RFC](#request-for-comments) [1149](https://tools.ietf.org/html/rfc1149)
+[RFC](#request-for-comments) [1149](https://datatracker.ietf.org/doc/html/rfc1149)
 describes a method for delivering packets on the link layer
 using [homing pigeons](https://en.wikipedia.org/wiki/Homing_pigeon).
 While this method is of no practical importance,
@@ -1142,7 +1142,7 @@ for example when a host could not be reached
 or when a packet exceeds its [time to live](https://en.wikipedia.org/wiki/Time_to_live).
 ICMP messages are attached to an [IP header](https://en.wikipedia.org/wiki/IPv4#Header),
 in which the [IP protocol number](https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers)
-is set to 1 according to [RFC 792](https://tools.ietf.org/html/rfc792).
+is set to 1 according to [RFC 792](https://datatracker.ietf.org/doc/html/rfc792).
 ICMP complements the Internet Protocol on the network layer.
 It has various [message types](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages),
 with two of them being commonly used to determine the round-trip time to a network destination.
@@ -2266,21 +2266,21 @@ besides the one which resolves a domain name to an IPv4 address:
 
 | Acronym | Name | Value | Example
 |-
-| [`A`](https://tools.ietf.org/html/rfc1035#section-3.4.1) | IPv4 address record | A single IPv4 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com" data-type="A" data-dnssec="false" title="Look up the A record of ef1p.com.">↗</a>
-| [`AAAA`](https://tools.ietf.org/html/rfc3596#section-2.1) | IPv6 address record | A single IPv6 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="google.com" data-type="AAAA" data-dnssec="false" title="Look up the AAAA record of google.com.">↗</a>
-| [`ANY`](https://tools.ietf.org/html/rfc1035#section-3.2.5) | Any record type query | Return all record types of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ietf.org" data-type="ANY" data-dnssec="false" title="Look up ANY records of ietf.org.">↗</a>
-| [`CAA`](https://tools.ietf.org/html/rfc8659#section-4) | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="wikipedia.org" data-type="CAA" data-dnssec="false" title="Look up the CAA records of wikipedia.org.">↗</a>
-| [`CNAME`](https://tools.ietf.org/html/rfc1035#section-3.3.1) | Canonical name record | Another domain name to continue the lookup with. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="www.facebook.com" data-type="CNAME" data-dnssec="false" title="Look up the CNAME record of www.facebook.com.">↗</a>
-| [`MX`](https://tools.ietf.org/html/rfc1035#section-3.3.9) | Mail exchange record | The server to deliver the mail for the queried domain to. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="gmail.com" data-type="MX" data-dnssec="false" title="Look up the MX records of gmail.com.">↗</a>
-| [`NS`](https://tools.ietf.org/html/rfc1035#section-3.3.11) | Name server record | The authoritative name server of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="youtube.com" data-type="NS" data-dnssec="false" title="Look up the NS records of youtube.com.">↗</a>
-| [`OPENPGPKEY`](https://tools.ietf.org/html/rfc7929#section-2) | OpenPGP key | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="5d2d3ceb7abe552344276d47d36a8175b7aeb250a9bf0bf00e850cd2._openpgpkey.ef1p.com" data-type="OPENPGPKEY" data-dnssec="false" title="Look up the OPENPGPKEY records of security@ef1p.com.">↗</a>
-| [`PTR`](https://tools.ietf.org/html/rfc1035#section-3.3.12) | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="47.224.172.17.in-addr.arpa" data-type="PTR" data-dnssec="false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">↗</a>
-| [`SMIMEA`](https://tools.ietf.org/html/rfc8162#section-2) | S/MIME certificate | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="b1a51af355b2082ce05911aa0cc98a2d816fb6bc6b2901d2c0ded2de._smimecert.spodhuis.org" data-type="SMIMEA" data-dnssec="false" title="Look up the SMIMEA records of ietf-dane-phil@spodhuis.org.">↗</a>
-| [`SOA`](https://tools.ietf.org/html/rfc1035#section-3.3.13) | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="amazon.com" data-type="SOA" data-dnssec="false" title="Look up the SOA record of amazon.com.">↗</a>
-| [`SRV`](https://tools.ietf.org/html/rfc2782) | Service record | The port number and domain name of the queried service. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_submission._tcp.gmail.com" data-type="SRV" data-dnssec="false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">↗</a>
-| [`SSHFP`](https://tools.ietf.org/html/rfc4255#section-3) | SSH fingerprint | The hash of the server's SSH key for initial authentication. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ccczh.ch" data-type="SSHFP" data-dnssec="false" title="Look up the SSHFP records of ccczh.ch.">↗</a>
-| [`TLSA`](https://tools.ietf.org/html/rfc6698#section-2) | Server certificate | See [DNS-Based Authentication of Named Entities (DANE)](/email/#dns-based-authentication-of-named-entities). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_25._tcp.mail.protonmail.ch" data-type="TLSA" data-dnssec="false" title="Look up the TLSA records of _25._tcp.mail.protonmail.ch.">↗</a>
-| [`TXT`](https://tools.ietf.org/html/rfc1035#section-3.3.14) | Text record | Arbitrary text used in place of introducing a new record type. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="hello.ef1p.com" data-type="TXT" data-dnssec="false" title="Look up the TXT records of hello.ef1p.com.">↗</a>
+| [`A`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.4.1) | IPv4 address record | A single IPv4 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com" data-type="A" data-dnssec="false" title="Look up the A record of ef1p.com.">↗</a>
+| [`AAAA`](https://datatracker.ietf.org/doc/html/rfc3596#section-2.1) | IPv6 address record | A single IPv6 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="google.com" data-type="AAAA" data-dnssec="false" title="Look up the AAAA record of google.com.">↗</a>
+| [`ANY`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.5) | Any record type query | Return all record types of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ietf.org" data-type="ANY" data-dnssec="false" title="Look up ANY records of ietf.org.">↗</a>
+| [`CAA`](https://datatracker.ietf.org/doc/html/rfc8659#section-4) | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="wikipedia.org" data-type="CAA" data-dnssec="false" title="Look up the CAA records of wikipedia.org.">↗</a>
+| [`CNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.1) | Canonical name record | Another domain name to continue the lookup with. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="www.facebook.com" data-type="CNAME" data-dnssec="false" title="Look up the CNAME record of www.facebook.com.">↗</a>
+| [`MX`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.9) | Mail exchange record | The server to deliver the mail for the queried domain to. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="gmail.com" data-type="MX" data-dnssec="false" title="Look up the MX records of gmail.com.">↗</a>
+| [`NS`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.11) | Name server record | The authoritative name server of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="youtube.com" data-type="NS" data-dnssec="false" title="Look up the NS records of youtube.com.">↗</a>
+| [`OPENPGPKEY`](https://datatracker.ietf.org/doc/html/rfc7929#section-2) | OpenPGP key | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="5d2d3ceb7abe552344276d47d36a8175b7aeb250a9bf0bf00e850cd2._openpgpkey.ef1p.com" data-type="OPENPGPKEY" data-dnssec="false" title="Look up the OPENPGPKEY records of security@ef1p.com.">↗</a>
+| [`PTR`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.12) | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="47.224.172.17.in-addr.arpa" data-type="PTR" data-dnssec="false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">↗</a>
+| [`SMIMEA`](https://datatracker.ietf.org/doc/html/rfc8162#section-2) | S/MIME certificate | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="b1a51af355b2082ce05911aa0cc98a2d816fb6bc6b2901d2c0ded2de._smimecert.spodhuis.org" data-type="SMIMEA" data-dnssec="false" title="Look up the SMIMEA records of ietf-dane-phil@spodhuis.org.">↗</a>
+| [`SOA`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.13) | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="amazon.com" data-type="SOA" data-dnssec="false" title="Look up the SOA record of amazon.com.">↗</a>
+| [`SRV`](https://datatracker.ietf.org/doc/html/rfc2782) | Service record | The port number and domain name of the queried service. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_submission._tcp.gmail.com" data-type="SRV" data-dnssec="false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">↗</a>
+| [`SSHFP`](https://datatracker.ietf.org/doc/html/rfc4255#section-3) | SSH fingerprint | The hash of the server's SSH key for initial authentication. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ccczh.ch" data-type="SSHFP" data-dnssec="false" title="Look up the SSHFP records of ccczh.ch.">↗</a>
+| [`TLSA`](https://datatracker.ietf.org/doc/html/rfc6698#section-2) | Server certificate | See [DNS-Based Authentication of Named Entities (DANE)](/email/#dns-based-authentication-of-named-entities). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_25._tcp.mail.protonmail.ch" data-type="TLSA" data-dnssec="false" title="Look up the TLSA records of _25._tcp.mail.protonmail.ch.">↗</a>
+| [`TXT`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.14) | Text record | Arbitrary text used in place of introducing a new record type. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="hello.ef1p.com" data-type="TXT" data-dnssec="false" title="Look up the TXT records of hello.ef1p.com.">↗</a>
 
 <figcaption markdown="span">
 Some of the more common [DNS record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types).
@@ -2362,10 +2362,10 @@ You would have to use [DNS over TLS](https://en.wikipedia.org/wiki/DNS_over_TLS)
 For most readers, it's enough to know that the integrity of DNS can be protected.
 For advanced readers, here is how DNSSEC works.
 DNSSEC introduces new types of resource records
-(as defined in [RFC 4034](https://tools.ietf.org/html/rfc4034))
+(as defined in [RFC 4034](https://datatracker.ietf.org/doc/html/rfc4034))
 and [backward-compatible](https://en.wikipedia.org/wiki/Backward_compatibility)
 modifications to the communication protocol
-(as defined in [RFC 4035](https://tools.ietf.org/html/rfc4035)).
+(as defined in [RFC 4035](https://datatracker.ietf.org/doc/html/rfc4035)).
 Before we can discuss these extensions,
 we first need to understand
 that the Domain Name System is split into [administrative zones](https://en.wikipedia.org/wiki/DNS_zone),
@@ -2444,7 +2444,7 @@ While DNSSEC fails spectacularly if the root key is compromised,
 TLS fails if the key of any certification authority is compromised.
 Having a [single point of failure](https://en.wikipedia.org/wiki/Single_point_of_failure)
 is preferable to having [many independent points of failure](https://twitter.com/csoandy/status/570239492386385921).
-There have been [attempts to address this issue for TLS](https://tools.ietf.org/html/rfc6698),
+There have been [attempts to address this issue for TLS](https://datatracker.ietf.org/doc/html/rfc6698),
 but, unfortunately, they weren't widely adopted.
 Let's have a look at some technical aspects of DNSSEC next.
 
@@ -2454,25 +2454,25 @@ DNSSEC introduced the following DNS record types:
 
 | Acronym | Name | Value |
 |-
-| [`DNSKEY`](https://tools.ietf.org/html/rfc4034#section-2) | DNS public key record | The public key used to sign the resource records of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="DNSKEY" data-dnssec="true" title="Look up the DNSKEY records of the root zone.">↗</a>
-| [`DS`](https://tools.ietf.org/html/rfc4034#section-5) | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="DS" data-dnssec="true" title="Look up the DS record for the com zone signed by the root zone.">↗</a>
-| [`RRSIG`](https://tools.ietf.org/html/rfc4034#section-3) | Resource record signature | A digital signature on the queried set of resource records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="RRSIG" data-dnssec="true" title="Look up the various RRSIG records of the root domain.">↗</a>
-| [`NSEC`](https://tools.ietf.org/html/rfc4034#section-4) | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">↗</a>
-| [`NSEC3`](https://tools.ietf.org/html/rfc5155#section-3) | `NSEC` version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="A" data-dnssec="true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">↗</a>
-| [`NSEC3PARAM`](https://tools.ietf.org/html/rfc5155#section-4) | `NSEC3` parameters | Used by authoritative name servers to generate the `NSEC3` records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com." data-type="NSEC3PARAM" data-dnssec="true" title="Look up the NSEC3PARAM record of ef1p.com.">↗</a>
-| [`CDS`](https://tools.ietf.org/html/rfc7344#section-3.1) | Child copy of `DS` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDS" data-dnssec="true" title="Look up the CDS record of switch.ch.">↗</a>
-| [`CDNSKEY`](https://tools.ietf.org/html/rfc7344#section-3.2) | Child copy of `DNSKEY` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDNSKEY" data-dnssec="true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">↗</a>
+| [`DNSKEY`](https://datatracker.ietf.org/doc/html/rfc4034#section-2) | DNS public key record | The public key used to sign the resource records of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="DNSKEY" data-dnssec="true" title="Look up the DNSKEY records of the root zone.">↗</a>
+| [`DS`](https://datatracker.ietf.org/doc/html/rfc4034#section-5) | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="DS" data-dnssec="true" title="Look up the DS record for the com zone signed by the root zone.">↗</a>
+| [`RRSIG`](https://datatracker.ietf.org/doc/html/rfc4034#section-3) | Resource record signature | A digital signature on the queried set of resource records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="RRSIG" data-dnssec="true" title="Look up the various RRSIG records of the root domain.">↗</a>
+| [`NSEC`](https://datatracker.ietf.org/doc/html/rfc4034#section-4) | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">↗</a>
+| [`NSEC3`](https://datatracker.ietf.org/doc/html/rfc5155#section-3) | `NSEC` version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="A" data-dnssec="true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">↗</a>
+| [`NSEC3PARAM`](https://datatracker.ietf.org/doc/html/rfc5155#section-4) | `NSEC3` parameters | Used by authoritative name servers to generate the `NSEC3` records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com." data-type="NSEC3PARAM" data-dnssec="true" title="Look up the NSEC3PARAM record of ef1p.com.">↗</a>
+| [`CDS`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.1) | Child copy of `DS` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDS" data-dnssec="true" title="Look up the CDS record of switch.ch.">↗</a>
+| [`CDNSKEY`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.2) | Child copy of `DNSKEY` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDNSKEY" data-dnssec="true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">↗</a>
 
 <figcaption markdown="span">
 The [DNS record types introduced for DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Resource_records)
-as defined in [RFC 4034](https://tools.ietf.org/html/rfc4034),
-[RFC 5155](https://tools.ietf.org/html/rfc5155),
-and [RFC 7344](https://tools.ietf.org/html/rfc7344).
+as defined in [RFC 4034](https://datatracker.ietf.org/doc/html/rfc4034),
+[RFC 5155](https://datatracker.ietf.org/doc/html/rfc5155),
+and [RFC 7344](https://datatracker.ietf.org/doc/html/rfc7344).
 </figcaption>
 </figure>
 
 Although DNSSEC validation treats all keys equally,
-[RFC 4033](https://tools.ietf.org/html/rfc4033)
+[RFC 4033](https://datatracker.ietf.org/doc/html/rfc4033)
 distinguishes between key-signing keys (KSKs)
 and zone-signing keys (ZSKs).
 A zone lists both types of keys with `DNSKEY` records.
@@ -2553,20 +2553,20 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   `RRSIG` records include an expiration date,
   after which the signature may no longer be used to authenticate the signed resource records.
   Suitable validity periods for DNSSEC signatures are discussed
-  in [section 4.4.2 of RFC 6781](https://tools.ietf.org/html/rfc6781#section-4.4.2).
+  in [section 4.4.2 of RFC 6781](https://datatracker.ietf.org/doc/html/rfc6781#section-4.4.2).
 - **Denial of existence**: How can you be sure that a domain name doesn't exist
   or doesn't have the queried record type
   without requiring the authoritative name server to sign such a statement on the fly?
   Since each label of a domain name (the part between two dots) can be up to 63 characters long,
   a domain can have more direct subdomains than there are
   [atoms in the observable universe](https://en.wikipedia.org/wiki/Observable_universe#Matter_content%E2%80%94number_of_atoms).
-  (The limit of 63 characters is imposed by [RFC 1035](https://tools.ietf.org/html/rfc1035)
+  (The limit of 63 characters is imposed by [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035)
   because the DNS protocol encodes the length of a label with a [6-bit number](https://stackoverflow.com/a/19341879/12917821).)
   This makes it impossible to generate and sign negative responses for all nonexistent subdomains in advance.
   A generic negative response, which doesn't depend on the queried domain name, doesn't work
   because an attacker could replay such a response even when the queried domain does exist.
   Instead of mentioning the nonexistent domain in the response,
-  DNSSEC achieves [authenticated denial of existence](https://tools.ietf.org/id/draft-gieben-auth-denial-of-existence-dns-01.html)
+  DNSSEC achieves [authenticated denial of existence](https://datatracker.ietf.org/doc/html/rfc7129)
   by returning that no subdomain exists in a given range,
   which includes the queried domain.
   Since all domains in a zone are known to the administrator of that zone,
@@ -2632,9 +2632,9 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   and <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="photo.">.photo</a>.
   For security and privacy reasons, many organizations prefer
   not to expose the content of their zone so easily.
-  This problem was first addressed by [RFC 4470](https://tools.ietf.org/html/rfc4470),
+  This problem was first addressed by [RFC 4470](https://datatracker.ietf.org/doc/html/rfc4470),
   which suggested generating and signing minimally covering `NSEC` records for nonexistent domains on the fly,
-  and later by [RFC 5155](https://tools.ietf.org/html/rfc5155),
+  and later by [RFC 5155](https://datatracker.ietf.org/doc/html/rfc5155),
   which introduced the new record type `NSEC3`.
   Since the former proposal abandons offline signing,
   thereby sacrificing security for better privacy,
@@ -2669,7 +2669,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   Besides protecting the domain names with a one-way function,
   `NSEC3` also allows to skip the names of unsigned subzones
   when determining the gaps to sign by setting the
-  [opt-out flag](https://tools.ietf.org/html/rfc5155#section-3.1.2.1).
+  [opt-out flag](https://datatracker.ietf.org/doc/html/rfc5155#section-3.1.2.1).
   By skipping all subzones that don't deploy DNSSEC,
   the size of a zone can be reduced as fewer `NSEC3` records are required.
   While easily guessable subdomains, such as `www` or `mail`, have to be considered public anyway,
@@ -2757,7 +2757,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   in the authority section of the response.
   If this is still confusing,
   you find a longer explanation of wildcards in DNSSEC
-  [here](https://tools.ietf.org/id/draft-gieben-auth-denial-of-existence-dns-01.html#rfc.section.3.10).
+  [here](https://datatracker.ietf.org/doc/html/rfc7129#section-5.5).
 
 Even though the Domain Name System is a core component of the Internet
 and should be secured accordingly,
@@ -2820,7 +2820,7 @@ Personally, I can think of the following reasons:
   why as of June 2019 still [only around 1%](https://taejoong.github.io/pubs/publications/spencer-2019-dnssec.pdf)
   of domains under `.com`, `.net`, and `.org` have a `DNSKEY` record published.
   While the support for DNSSEC by registrars is steadily increasing,
-  [RFC 7344](https://tools.ietf.org/html/rfc7344) and [RFC 8078](https://tools.ietf.org/html/rfc8078)
+  [RFC 7344](https://datatracker.ietf.org/doc/html/rfc7344) and [RFC 8078](https://datatracker.ietf.org/doc/html/rfc8078)
   propose a new way to publish and update the `DS` record in the parent zone.
   As you probably have learned by now,
   all shortcomings of DNS are addressed by introducing new record types
@@ -2831,7 +2831,7 @@ Personally, I can think of the following reasons:
   and that DNSSEC is already deployed in the child zone
   because otherwise these records are not authenticated.
   Such a mechanism is useful for
-  [changing the key-signing keys](https://tools.ietf.org/html/rfc6781#section-4.1.2).
+  [changing the key-signing keys](https://datatracker.ietf.org/doc/html/rfc6781#section-4.1.2).
   The latter RFC suggests policies
   that the parent can use to authenticate the `CDS` or `CDNSKEY` record of the child initially.
   It also specifies how the child can use such a record to ask for the deletion of the `DS` record.
@@ -2922,22 +2922,22 @@ and [computing](https://en.wikipedia.org/wiki/History_of_computing_hardware):
 | 1965 | Invention of [packet switching](#packet-switching) at the [National Physical Laboratory (NPL)](https://en.wikipedia.org/wiki/National_Physical_Laboratory_(United_Kingdom)) in the UK.
 | 1969 | The [US Department of Defense](https://en.wikipedia.org/wiki/United_States_Department_of_Defense) initiates and funds the development of the [ARPANET](https://en.wikipedia.org/wiki/ARPANET).
 | | Similar networks are built in London ([NPL](https://en.wikipedia.org/wiki/NPL_network)), Michigan ([MERIT](https://en.wikipedia.org/wiki/Merit_Network)), and France ([CYCLADES](https://en.wikipedia.org/wiki/CYCLADES)).
-| 1972 | [Jon Postel](https://en.wikipedia.org/wiki/Jon_Postel) establishes himself as [the czar of socket numbers](https://tools.ietf.org/html/rfc349), which leads to the [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority).
+| 1972 | [Jon Postel](https://en.wikipedia.org/wiki/Jon_Postel) establishes himself as [the czar of socket numbers](https://datatracker.ietf.org/doc/html/rfc349), which leads to the [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority).
 | 1973 | [Bob Kahn](https://en.wikipedia.org/wiki/Bob_Kahn) and [Vint Cerf](https://en.wikipedia.org/wiki/Vint_Cerf) publish research on [internetworking](https://en.wikipedia.org/wiki/Internetworking) leading to IP and TCP.
 | 1978 | Public discovery of the [first public-key cryptosystem](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) for encryption and signing,<br>which was [already discovered](https://en.wikipedia.org/wiki/Public-key_cryptography#Classified_discovery) in 1973 at the British intelligence agency [GCHQ](https://en.wikipedia.org/wiki/Government_Communications_Headquarters).
 | 1981 | Initial release of the text-based [MS-DOS](https://en.wikipedia.org/wiki/MS%2DDOS) by [Microsoft](https://en.wikipedia.org/wiki/Microsoft), licensed by [IBM](https://en.wikipedia.org/wiki/IBM) for its [PC](https://en.wikipedia.org/wiki/IBM_PC_compatible).
 | 1982 | The US Department of Defense makes IP the [only approved protocol on ARPANET](https://en.wikipedia.org/wiki/Internet_protocol_suite#Adoption).
-| 1982 | First definition of the [Simple Mail Transfer Protocol (SMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) for email in [RFC 821](https://tools.ietf.org/html/rfc821).
-| 1983 | Creation of the [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System) as specified in [RFC 882](https://tools.ietf.org/html/rfc882) and [RFC 883](https://tools.ietf.org/html/rfc883).
-| 1984 | Version 1 of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from a mailbox ([RFC 918](https://tools.ietf.org/html/rfc918)).
+| 1982 | First definition of the [Simple Mail Transfer Protocol (SMTP)](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) for email in [RFC 821](https://datatracker.ietf.org/doc/html/rfc821).
+| 1983 | Creation of the [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System) as specified in [RFC 882](https://datatracker.ietf.org/doc/html/rfc882) and [RFC 883](https://datatracker.ietf.org/doc/html/rfc883).
+| 1984 | Version 1 of the [Post Office Protocol (POP)](https://en.wikipedia.org/wiki/Post_Office_Protocol) to fetch emails from a mailbox ([RFC 918](https://datatracker.ietf.org/doc/html/rfc918)).
 | 1985 | [First commercial registration](https://en.wikipedia.org/wiki/Domain_name#Domain_name_registration) of a domain name in the `.com` [top-level domain](https://en.wikipedia.org/wiki/Top-level_domain).
-| 1986 | Design of the [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol), documented in [RFC 1064](https://tools.ietf.org/html/rfc1064).
+| 1986 | Design of the [Internet Message Access Protocol (IMAP)](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol), documented in [RFC 1064](https://datatracker.ietf.org/doc/html/rfc1064).
 | 1990 | Invention of the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web) by [Tim Berners-Lee](https://en.wikipedia.org/wiki/Sir_Timothy_John_Berners-Lee) at [CERN](https://en.wikipedia.org/wiki/CERN) in Switzerland,<br>which includes the [HyperText Transfer Protocol (HTTP)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), the [HyperText Markup<br>Language (HTML)](https://en.wikipedia.org/wiki/Hypertext_Markup_Language), the [Uniform Resource Locator (URL)](https://en.wikipedia.org/wiki/Uniform_resource_locator), a [web server](https://en.wikipedia.org/wiki/Web_server), and a [browser](https://en.wikipedia.org/wiki/Web_browser).
-| 1993 | Specification of the [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) in [RFC 1541](https://tools.ietf.org/html/rfc1541).
+| 1993 | Specification of the [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) in [RFC 1541](https://datatracker.ietf.org/doc/html/rfc1541).
 | 1995 | Release of the [Secure Sockets Layer (SSL)](https://en.wikipedia.org/wiki/Transport_Layer_Security) by [Netscape](https://en.wikipedia.org/wiki/Netscape), renamed to TLS in 1999.
-| 1995 | Standardization of [IPv6](https://en.wikipedia.org/wiki/IPv6) by the IETF in [RFC 1883](https://tools.ietf.org/html/rfc1883), obsoleted by [RFC 2460](https://tools.ietf.org/html/rfc2460) in 1998.
+| 1995 | Standardization of [IPv6](https://en.wikipedia.org/wiki/IPv6) by the IETF in [RFC 1883](https://datatracker.ietf.org/doc/html/rfc1883), obsoleted by [RFC 2460](https://datatracker.ietf.org/doc/html/rfc2460) in 1998.
 | 1998 | [Google](https://en.wikipedia.org/wiki/Google) is founded by [Larry Page](https://en.wikipedia.org/wiki/Larry_Page) and [Sergey Brin](https://en.wikipedia.org/wiki/Sergey_Brin) at [Stanford University](https://en.wikipedia.org/wiki/Stanford_University) in California.
-| 2005 | Specification of [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) in [RFC 4033](https://tools.ietf.org/html/rfc4033), [4034](https://tools.ietf.org/html/rfc4034) & [4035](https://tools.ietf.org/html/rfc4035) after [earlier attempts](https://tools.ietf.org/html/rfc2535) in 1995.
+| 2005 | Specification of [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) in [RFC 4033](https://datatracker.ietf.org/doc/html/rfc4033), [4034](https://datatracker.ietf.org/doc/html/rfc4034) & [4035](https://datatracker.ietf.org/doc/html/rfc4035) after [earlier attempts](https://datatracker.ietf.org/doc/html/rfc2535) in 1995.
 | 2007 | [Apple](https://en.wikipedia.org/wiki/Apple_Inc.) launches the [iPhone](https://en.wikipedia.org/wiki/IPhone) with the [iOS](https://en.wikipedia.org/wiki/IOS) operating system one year before [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
 | 2010 | Deployment of DNSSEC [in the root zone](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Deployment_at_the_DNS_root), eliminating intermediary [trust anchors](https://en.wikipedia.org/wiki/Trust_anchor).
 | 2018 | The [UN](https://en.wikipedia.org/wiki/International_Telecommunication_Union) estimates that [more than half](https://www.itu.int/en/ITU-D/Statistics/Documents/facts/FactsFigures2019.pdf) of the global population uses the Internet.

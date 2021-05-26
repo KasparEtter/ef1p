@@ -36,7 +36,7 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
     smimeaRecordsStore.setState(getDefaultRecordState());
     try {
         const [hash, domain] = splitAndHash(emailAddress);
-        const query = await makeQuery(hash + '._smimecert.' + domain, 'https://tools.ietf.org/html/rfc8162#section-6', 'SMIMEA');
+        const query = await makeQuery(hash + '._smimecert.' + domain, 'https://datatracker.ietf.org/doc/html/rfc8162#section-6', 'SMIMEA');
         if (query.records.length === 0) {
             query.remarks.push({
                 type: 'info',
@@ -66,28 +66,28 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: 'The certificate usage has to be smaller than 4.',
-                        link: 'https://tools.ietf.org/html/rfc6698#section-2.1.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.1',
                     });
                 }
                 if (selector > 1) {
                     record.remarks.push({
                         type: 'error',
                         text: 'The selector has to be smaller than 2.',
-                        link: 'https://tools.ietf.org/html/rfc6698#section-2.1.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.2',
                     });
                 }
                 if (matchingType > 2) {
                     record.remarks.push({
                         type: 'error',
                         text: 'The matching type has to be smaller than 3.',
-                        link: 'https://tools.ietf.org/html/rfc6698#section-2.1.3',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.3',
                     });
                 }
                 if (matchingType === 1 && certificateAssociationData.length !== 64 || matchingType === 2 && certificateAssociationData.length !== 128) {
                     record.remarks.push({
                         type: 'error',
                         text: 'The certificate association data is not of the expected length.',
-                        link: 'https://tools.ietf.org/html/rfc6698#section-2.1.4',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.4',
                     });
                 }
             }
@@ -104,7 +104,7 @@ const openpgpkeyRecordsStore = new Store<RecordState>(getDefaultRecordState(), u
 const OpenpgpkeyRecordsOutput = shareState<RecordState>(openpgpkeyRecordsStore)(RawRecordOutput);
 
 // tslint:disable:no-bitwise
-// https://tools.ietf.org/html/rfc4880#section-6.1
+// https://datatracker.ietf.org/doc/html/rfc4880#section-6.1
 function crc24(buffer: Buffer): string {
     let result = 0xB704CE;
     for (let i = 0; i < buffer.length; i++) {
@@ -132,7 +132,7 @@ async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
     openpgpkeyRecordsStore.setState(getDefaultRecordState());
     try {
         const [hash, domain] = splitAndHash(emailAddress);
-        const query = await makeQuery(hash + '._openpgpkey.' + domain, 'https://tools.ietf.org/html/rfc7929#section-5', 'OPENPGPKEY');
+        const query = await makeQuery(hash + '._openpgpkey.' + domain, 'https://datatracker.ietf.org/doc/html/rfc7929#section-5', 'OPENPGPKEY');
         if (query.records.length === 0) {
             query.remarks.push({
                 type: 'info',
@@ -153,7 +153,7 @@ async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
                 record.remarks.push({
                     type: 'warning',
                     text: 'This tool does not perform DNSSEC authentication. You must still verify this key with the recipient out-of-band.',
-                    link: 'https://tools.ietf.org/html/rfc7929#section-7',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7929#section-7',
                 });
                 record.buttons.push({
                     text: 'Download this key',

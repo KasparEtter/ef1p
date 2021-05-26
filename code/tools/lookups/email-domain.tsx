@@ -580,19 +580,19 @@ async function makeSpfQuery(domain: string, type: RecordType): Promise<Query> {
     if (spfRecordStore.state.queries.length >= 25) {
         throw Error('This tool aborted after 25 DNS queries to avoid getting stuck in an infinite loop. An SPF record may trigger at most 10 DNS lookups.');
     }
-    const query = await makeQuery(domain, 'https://tools.ietf.org/html/rfc7208#section-11.3', type);
+    const query = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc7208#section-11.3', type);
     if (spfRecordStore.state.queries.length >= limit) {
         query.remarks.push({
             type: 'error',
             text: 'An SPF record may trigger at most 10 DNS lookups.',
-            link: 'https://tools.ietf.org/html/rfc7208#section-4.6.4',
+            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4',
         });
     }
     if (type !== 'TXT' && query.records.length === 0) {
         query.remarks.push({
             type: 'warning',
             text: 'Void lookups, which return no DNS records, are allowed but should be limited to two.',
-            link: 'https://tools.ietf.org/html/rfc7208#section-4.6.4',
+            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4',
         });
     }
     return query;
@@ -649,7 +649,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             query.remarks.push({
                 type: 'warning',
                 text: 'The SPF record type has been deprecated. Use a TXT record instead.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-3.1',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-3.1',
             });
             spfRecordStore.state.queries.push(query);
             limit++;
@@ -663,20 +663,20 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             query.remarks.push({
                 type: 'error',
                 text: 'An inexistent SPF record results in a permanent error.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-5.2',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.2',
             });
         } else {
             query.remarks.push({
                 type: 'warning',
                 text: 'No SPF record has been published for this domain. All domains should have an SPF record.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-4.5',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-4.5',
             });
         }
     } else if (records.length > 1) {
         query.remarks.push({
             type: 'error',
             text: 'A domain may not have multiple TXT records which start with "v=spf1".',
-            link: 'https://tools.ietf.org/html/rfc7208#section-3.2',
+            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-3.2',
         });
     } else {
         const record = records[0];
@@ -686,14 +686,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'info',
                 text: 'SPF records are case-insensitive but they are usually published in lowercase.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
             });
         }
         if (lowercaseContent.includes('  ')) {
             record.remarks.push({
                 type: 'info',
                 text: 'The terms can be separated by multiple spaces but there is no reason to do so.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
             });
         }
         const terms = lowercaseContent.split(/ +/);
@@ -716,7 +716,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'warning',
                         text: `This tool doesn't know the modifier "${modifier.name}" and therefore cannot check its validity.`,
-                        link: 'https://tools.ietf.org/html/rfc7208#section-6',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-6',
                     });
                 }
             } else {
@@ -745,7 +745,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'error',
                         text: `There is no mechanism with the name "${mechanism}".`,
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5',
                     });
                 }
             }
@@ -754,7 +754,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'warning',
                 text: 'The "redirect" and "exp" modifiers should appear at the end of the record after all mechanisms.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-6',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-6',
             });
         }
         const explanations = modifiers.filter(modifier => modifier.name === 'exp');
@@ -762,7 +762,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'error',
                 text: 'The "exp" modifier may appear at most once in a record.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-6',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-6',
             });
         }
         if (explanations.length > 0) {
@@ -776,7 +776,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'error',
                 text: 'The "redirect" modifier may appear at most once in a record.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-6',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-6',
             });
         }
         let nonPassQualifierInInclude = false;
@@ -792,7 +792,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'warning',
                         text: 'All directives after "all" are ignored.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.1',
                     });
                 }
                 if (redirects.length > 0 && !warnedAboutIgnoredRedirectModifier) {
@@ -800,7 +800,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'warning',
                         text: 'The "redirect" modifier is ignored when there is an "all" directive in the record.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.1',
                     });
                 }
                 if (directive.qualifier === '+') {
@@ -839,7 +839,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'warning',
                 text: 'In an included SPF record, qualifiers other than "+" have an effect only if they are followed by a directive with an (implicit) "+". Unless this record is also used directly or through the "redirect" modifier, this is likely a mistake.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-5.2',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.2',
             });
         }
         if (informAboutIpMechanismOrder) {
@@ -852,7 +852,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'warning',
                 text: 'It is recommended to use the "all" mechanism or the "redirect" modifier to provide an explicit default. The implicit default is "neutral".',
-                link: 'https://tools.ietf.org/html/rfc7208#section-4.7',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-4.7',
             });
         }
         let hasMacro = false;
@@ -862,7 +862,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'error',
                         text: 'Each "include" mechanism must be followed by a domain or macro.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.2',
                     });
                 } else if (directive.address.includes('%')) {
                     hasMacro = true;
@@ -872,7 +872,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'warning',
                         text: 'This tool could not parse the "include" domain.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                     });
                 }
             } else if (directive.mechanism === 'a') {
@@ -890,14 +890,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                         record.remarks.push({
                             type: 'warning',
                             text: 'This tool could not parse the "a" domain.',
-                            link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                         });
                     }
                     if (!dualCidrRegex.test(cidr)) {
                         record.remarks.push({
                             type: 'error',
                             text: 'The "a" directive has an invalid CIDR suffix.',
-                            link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                         });
                     }
                 }
@@ -916,14 +916,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                         record.remarks.push({
                             type: 'warning',
                             text: 'This tool could not parse the "mx" domain.',
-                            link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                         });
                     }
                     if (!dualCidrRegex.test(cidr)) {
                         record.remarks.push({
                             type: 'error',
                             text: 'The "mx" directive has an invalid CIDR suffix.',
-                            link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                         });
                     }
                 }
@@ -933,14 +933,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'error',
                         text: 'This tool could not parse the "ip4" address.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5.6',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.6',
                     });
                 }
                 if (!ip4CidrRegex.test(cidr)) {
                     record.remarks.push({
                         type: 'error',
                         text: 'The "ip4" directive has an invalid CIDR suffix.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                     });
                 }
             } else if (directive.mechanism === 'ip6') {
@@ -949,14 +949,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                     record.remarks.push({
                         type: 'error',
                         text: 'This tool could not parse the "ip6" address.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-5.6',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.6',
                     });
                 }
                 if (!ip6CidrRegex.test(cidr)) {
                     record.remarks.push({
                         type: 'error',
                         text: 'The "ip6" directive has an invalid CIDR suffix.',
-                        link: 'https://tools.ietf.org/html/rfc7208#section-12',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
                     });
                 }
             }
@@ -969,7 +969,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'warning',
                 text: 'Use of the "ptr" mechanism is discouraged.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-5.5',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-5.5',
             });
         }
         if (directives.filter(directive => directive.mechanism === 'exists').length > 0) {
@@ -987,7 +987,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                 record.remarks.push({
                     type: 'warning',
                     text: 'This tool could not parse the "redirect" domain.',
-                    link: 'https://tools.ietf.org/html/rfc7208#section-6.1',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-6.1',
                 });
             }
         }
@@ -995,7 +995,7 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
             record.remarks.push({
                 type: 'info',
                 text: 'This tool cannot evaluate macros. You have to validate them differently.',
-                link: 'https://tools.ietf.org/html/rfc7208#section-7',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-7',
             });
         }
     }
@@ -1031,7 +1031,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
     dkimRecordStore.setState(getDefaultRecordState());
     try {
         const dkimDomain = dkimSelector + '._domainkey.' + domain;
-        const query = await makeQuery(dkimDomain, 'https://tools.ietf.org/html/rfc6376#section-8.5');
+        const query = await makeQuery(dkimDomain, 'https://datatracker.ietf.org/doc/html/rfc6376#section-8.5');
         dkimRecordStore.state.queries.push(query);
         if (query.records.length === 0) {
             query.remarks.push({
@@ -1042,7 +1042,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
             query.remarks.push({
                 type: 'error',
                 text: 'There may be only one DKIM record for a given selector at a given domain.',
-                link: 'https://tools.ietf.org/html/rfc6376#section-3.6.2.2',
+                link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.2.2',
             });
         } else {
             const state = getDefaultDkimState();
@@ -1051,7 +1051,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                 record.remarks.push({
                     type: 'info',
                     text: 'It is recommended but not mandatory to provide the version of the DKIM record.',
-                    link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                 });
             }
             const tags: Tag[] = [];
@@ -1066,14 +1066,14 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                         record.remarks.push({
                             type: 'warning',
                             text: `This tool doesn't know the tag name "${name}".`,
-                            link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                         });
                     }
                 } else if (tag.trim().length > 0) {
                     record.remarks.push({
                         type: 'error',
                         text: `"${tag.trim()}" is not a valid tag.`,
-                        link: 'https://tools.ietf.org/html/rfc6376#section-3.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.2',
                     });
                 }
             }
@@ -1084,7 +1084,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: `There may be only one tag with the name "${name}".`,
-                        link: 'https://tools.ietf.org/html/rfc6376#section-3.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.2',
                     });
                 }
                 return filteredTags.length > 0 ? filteredTags[0] : undefined;
@@ -1143,14 +1143,14 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: `The value of the "p" tag has to be Base64 encoded.`,
-                        link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                     });
                 }
             } else {
                 record.remarks.push({
                     type: 'error',
                     text: `This DKIM1 record doesn't have the required "p" tag.`,
-                    link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                 });
             }
 
@@ -1160,7 +1160,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                     record.remarks.push({
                         type: 'warning',
                         text: `This tool supports only a single value in the "h" tag.`,
-                        link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                     });
                 } else {
                     setState('hashAlgorithms', isOneOf(['sha256'], hTag));
@@ -1173,7 +1173,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                     record.remarks.push({
                         type: 'warning',
                         text: `This tool supports only a single value in the "s" tag.`,
-                        link: 'https://tools.ietf.org/html/rfc6376#section-3.6.1',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc6376#section-3.6.1',
                     });
                 } else {
                     setState('serviceTypes', isOneOf(['*', 'email'], sTag));
@@ -1235,7 +1235,7 @@ async function makeDmarcQuery(domain: string): Promise<[Query, Record[]]> {
     if (dmarcRecordStore.state.queries.length >= 10) {
         throw Error('This tool aborted after 10 DMARC queries. Something is not as it should be.');
     }
-    const query = await makeQuery(domain, 'https://tools.ietf.org/html/rfc7489#section-12.3');
+    const query = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc7489#section-12.3');
     dmarcRecordStore.state.queries.push(query);
     const records = query.records.filter(record => /^v[ \t]*=[ \t]*DMARC1[ \t]*(;.*)?$/.test(record.content));
     return [query, records];
@@ -1250,13 +1250,13 @@ async function checkDmarcRecord(domain: string): Promise<void> {
             query.remarks.push({
                 type: 'error',
                 text: 'Could not find a DMARC1 record at the given domain.',
-                link: 'https://tools.ietf.org/html/rfc7489#section-6.6.3',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3',
             });
         } else {
             query.remarks.push({
                 type: 'info',
                 text: 'Could not find a DMARC1 record at the given subdomain. Will query the organizational domain next.',
-                link: 'https://tools.ietf.org/html/rfc7489#section-6.6.3',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3',
             });
             await checkDmarcRecord(organizationalDomain);
         }
@@ -1264,7 +1264,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
         query.remarks.push({
             type: 'error',
             text: 'There may be only one DMARC1 record at a given domain.',
-            link: 'https://tools.ietf.org/html/rfc7489#section-6.6.3',
+            link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3',
         });
     } else {
         const state = getDefaultDmarcState();
@@ -1280,14 +1280,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                     record.remarks.push({
                         type: 'warning',
                         text: `This tool doesn't know the tag name "${name}".`,
-                        link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                     });
                 }
             } else if (parts.length > 1 || parts[0].length !== 0) { // Exclude empty tags.
                 record.remarks.push({
                     type: 'error',
                     text: `"${parts.join('=')}" is not a valid tag.`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.4',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.4',
                 });
             }
         }
@@ -1298,7 +1298,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                 record.remarks.push({
                     type: 'error',
                     text: `There may be only one tag with the name "${name}".`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.4',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.4',
                 });
             }
             return filteredTags.length > 0 ? filteredTags[0] : undefined;
@@ -1309,7 +1309,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                 record.remarks.push({
                     type: 'error',
                     text: `"${tag.value}" is not a valid value for "${tag.name}".`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                 });
                 return undefined;
             } else {
@@ -1327,7 +1327,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                         record.remarks.push({
                             type: 'error',
                             text: `"${value}" is not a valid value for "${tag.name}".`,
-                            link: 'https://tools.ietf.org/html/rfc7489#section-6.4',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.4',
                         });
                     }
                 }
@@ -1352,7 +1352,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                                 record.remarks.push({
                                     type: 'info',
                                     text: `Only reports smaller than ${parseReportSize(splits[1])} shall be sent to "${parts[0]}@${splits[0]}".`,
-                                    link: 'https://tools.ietf.org/html/rfc7489#section-6.2',
+                                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.2',
                                 });
                             }
                             const destinationDomain = splits[0];
@@ -1365,13 +1365,13 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                                         approvalQuery.remarks.push({
                                             type: 'error',
                                             text: `The destination domain "${destinationDomain}" didn't approve to receive reports for "${domain}".`,
-                                            link: 'https://tools.ietf.org/html/rfc7489#section-7.1',
+                                            link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-7.1',
                                         });
                                     } else if (approvalRecords.length > 1) {
                                         approvalQuery.remarks.push({
                                             type: 'error',
                                             text: 'There may be only one DMARC1 record at a given domain.',
-                                            link: 'https://tools.ietf.org/html/rfc7489#section-6.6.3',
+                                            link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3',
                                         });
                                     } else if (/^v[ \t]*=[ \t]*DMARC1[ \t]*$/.test(approvalRecords[0].content)) {
                                         approvalRecords[0].remarks.push({
@@ -1386,14 +1386,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                             record.remarks.push({
                                 type: 'error',
                                 text: `This tool doesn't recognize "${substring}" as an email address.`,
-                                link: 'https://tools.ietf.org/html/rfc7489#section-6.2',
+                                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.2',
                             });
                         }
                     } else {
                         record.remarks.push({
                             type: 'warning',
                             text: `"${address}" does not start with "mailto:".`,
-                            link: 'https://tools.ietf.org/html/rfc7489#section-6.2',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.2',
                         });
                     }
                 }
@@ -1421,13 +1421,13 @@ async function checkDmarcRecord(domain: string): Promise<void> {
             record.remarks.push({
                 type: 'error',
                 text: `A domain policy "p" is required for policy records.`,
-                link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
             });
         } else if (pTag.value === 'none') {
             record.remarks.push({
                 type: 'warning',
                 text: `The domain policy "p" should be "none" only if you still need to collect feedback during early rollout.`,
-                link: 'https://tools.ietf.org/html/rfc7489#section-6.7',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.7',
             });
         }
 
@@ -1438,14 +1438,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                 record.remarks.push({
                     type: 'warning',
                     text: `The subdomain policy "sp" has an effect only when specified on the organizational domain "${organizationalDomain}".`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3',
                 });
             }
             if (spTag.value === 'none') {
                 record.remarks.push({
                     type: 'warning',
                     text: `The subdomain policy "sp" should be "none" only if you still need to collect feedback during early rollout.`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.7',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.7',
                 });
             }
             if (pTag !== undefined) {
@@ -1453,7 +1453,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                     record.remarks.push({
                         type: 'info',
                         text: `If the subdomain policy "sp" is the same as the domain policy "p", it doesn't have to be provided.`,
-                        link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                     });
                 } else if (pTag.value === 'reject' && spTag.value !== 'reject' || pTag.value === 'quarantine' && spTag.value === 'none') {
                     record.remarks.push({
@@ -1474,14 +1474,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: `The rollout percentage "pct" has to be between 0 and 100.`,
-                        link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                     });
                 }
             } else {
                 record.remarks.push({
                     type: 'error',
                     text: `The rollout percentage "pct" has to be an integer.`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                 });
             }
         }
@@ -1501,14 +1501,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                     record.remarks.push({
                         type: 'warning',
                         text: `The receiving domain might not support issuing reports more frequently than hourly.`,
-                        link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                     });
                 }
             } else {
                 record.remarks.push({
                     type: 'error',
                     text: `The report interval "ri" has to be an integer.`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                 });
             }
         }
@@ -1525,7 +1525,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
             record.remarks.push({
                 type: 'warning',
                 text: `The report interval "ri" has no effect without aggregate report recipients in "rua".`,
-                link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
             });
         }
         if (!hasTag('ruf')) {
@@ -1533,14 +1533,14 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                 record.remarks.push({
                     type: 'warning',
                     text: `The report format "rf" has no effect without failure report recipients in "ruf".`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                 });
             }
             if (hasTag('fo')) {
                 record.remarks.push({
                     type: 'warning',
                     text: `The report options "fo" has no effect without failure report recipients in "ruf".`,
-                    link: 'https://tools.ietf.org/html/rfc7489#section-6.3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc7489#section-6.3',
                 });
             }
         }
@@ -1564,7 +1564,7 @@ async function loadDmarcRecord({ domain }: State): Promise<void> {
 const bimiRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
 const BimiRecordOutput = shareState<RecordState>(bimiRecordStore)(RawRecordOutput);
 
-// https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2
+// https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2
 const bimiTagNames = ['v', 'l', 'a'] as const;
 type BimiTagName = typeof bimiTagNames[number];
 
@@ -1578,13 +1578,13 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
             query.remarks.push({
                 type: 'error',
                 text: 'Could not find a BIMI record with the given selector at the given domain.',
-                link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.2',
+                link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.2',
             });
         } else {
             query.remarks.push({
                 type: 'info',
                 text: 'Could not find a BIMI record at the given subdomain. Will query the organizational domain next.',
-                link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.2',
+                link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.2',
             });
             await checkBimiRecord(organizationalDomain, bimiSelector);
         }
@@ -1592,7 +1592,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
         query.remarks.push({
             type: 'error',
             text: 'There may be only one BIMI record for a given selector at a given domain.',
-            link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-7.2',
+            link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-7.2',
         });
     } else {
         const record = query.records[0];
@@ -1600,7 +1600,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
             record.remarks.push({
                 type: 'error',
                 text: 'This BIMI record does not start with a valid "v" tag.',
-                link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
             });
         }
         const tags: Tag[] = [];
@@ -1615,14 +1615,14 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                     record.remarks.push({
                         type: 'warning',
                         text: `This tool doesn't know the tag name "${name}".`,
-                        link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                        link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                     });
                 }
             } else if (tag.trim().length > 0) {
                 record.remarks.push({
                     type: 'error',
                     text: `"${tag.trim()}" is not a valid tag.`,
-                    link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                    link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                 });
             }
         }
@@ -1633,7 +1633,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                 record.remarks.push({
                     type: 'error',
                     text: `There may be only one tag with the name "${name}".`,
-                    link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                    link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                 });
             }
             return filteredTags.length > 0 ? filteredTags[0] : undefined;
@@ -1656,7 +1656,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                 record.remarks.push({
                     type: 'error',
                     text: 'The value of the "l" tag has to start with "https://".',
-                    link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                    link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                 });
             }
         }
@@ -1668,7 +1668,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                     record.remarks.push({
                         type: 'warning',
                         text: 'The value of the "a" tag should end with ".pem".',
-                        link: 'https://tools.ietf.org/html/draft-fetch-validation-vmc-wchuang-00#section-3.3',
+                        link: 'https://datatracker.ietf.org/doc/html/draft-fetch-validation-vmc-wchuang-00#section-3.3',
                     });
                 }
                 record.remarks.push({
@@ -1684,7 +1684,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                 record.remarks.push({
                     type: 'error',
                     text: 'The value of the "a" tag has to start with "https://".',
-                    link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                    link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                 });
             }
         } else {
@@ -1692,7 +1692,7 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                 record.remarks.push({
                     type: 'warning',
                     text: `Mail clients won't display the icon without a valid certificate.`,
-                    link: 'https://tools.ietf.org/html/draft-blank-ietf-bimi-02#section-4.2',
+                    link: 'https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2',
                 });
             }
         }
@@ -1718,7 +1718,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
     tlsaRecordsStore.setState(getDefaultRecordState());
     try {
-        const mxQuery = await makeQuery(domain, 'https://tools.ietf.org/html/rfc6698#section-1.3', 'MX');
+        const mxQuery = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc6698#section-1.3', 'MX');
         if (mxQuery.records.length === 0) {
             mxQuery.remarks.push({
                 type: 'info',
@@ -1736,7 +1736,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
             } else {
                 const mxDomain = parts[1].slice(0, -1);
                 if (mxDomain !== '') {
-                    const tlsaQuery = await makeQuery('_25._tcp.' + mxDomain, 'https://tools.ietf.org/html/rfc6698#section-1.3', 'TLSA');
+                    const tlsaQuery = await makeQuery('_25._tcp.' + mxDomain, 'https://datatracker.ietf.org/doc/html/rfc6698#section-1.3', 'TLSA');
                     tlsaRecordsStore.state.queries.push(tlsaQuery);
                     if (tlsaQuery.records.length === 0) {
                         tlsaQuery.remarks.push({
@@ -1751,7 +1751,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
                                 tlsaRecord.remarks.push({
                                     type: 'warning',
                                     text: 'This TLSA record did not match the usual format.',
-                                    link: 'https://tools.ietf.org/html/rfc7672#section-3.1',
+                                    link: 'https://datatracker.ietf.org/doc/html/rfc7672#section-3.1',
                                 });
                             }
                         }
@@ -1800,7 +1800,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
             recordQuery.remarks.push({
                 type: 'error',
                 text: 'There may be only one MTA-STSv1 record at a given domain.',
-                link: 'https://tools.ietf.org/html/rfc8461#section-3.1',
+                link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.1',
             });
         } else {
             const record = records[0];
@@ -1808,7 +1808,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                 record.remarks.push({
                     type: 'warning',
                     text: 'The MTA-STS record does not match the expected format.',
-                    link: 'https://tools.ietf.org/html/rfc8461#section-3.1',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.1',
                 });
             }
         }
@@ -1847,7 +1847,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: field.trim() === '' ? 'Empty lines are not allowed according to the official grammar.' : `"${field.trim()}" is not a valid policy field as it lacks a colon.`,
-                        link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                     });
                 } else {
                     const name = field.substring(0, index);
@@ -1856,7 +1856,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                         record.remarks.push({
                             type: 'error',
                             text: `The name "${name}" contains whitespace.`,
-                            link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                            link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                         });
                     } else if (regex === undefined) {
                         record.remarks.push({
@@ -1870,7 +1870,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                             record.remarks.push({
                                 type: 'warning',
                                 text: `Duplicate occurrences of "${name}" are ignored.`,
-                                link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                                link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                             });
                         } else {
                             encountered.add(name);
@@ -1882,7 +1882,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                             record.remarks.push({
                                 type: 'error',
                                 text: `"${value}" is not a valid value for "${name}".`,
-                                link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                                link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                             });
                         }
                     }
@@ -1893,7 +1893,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                     record.remarks.push({
                         type: 'error',
                         text: `Each MTA-STS policy must have a "${name}".`,
-                        link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                        link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                     });
                 }
             }
@@ -1901,7 +1901,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                 record.remarks.push({
                     type: 'error',
                     text: `Each MTA-STS policy whose mode is not "none" must have at least one "mx" field.`,
-                    link: 'https://tools.ietf.org/html/rfc8461#section-3.2',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc8461#section-3.2',
                 });
             }
         } catch (error) {
@@ -1925,7 +1925,7 @@ async function queryTlsReporting({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
     tlsReportingStore.setState(getDefaultRecordState());
     try {
-        const query = await makeQuery('_smtp._tls.' + domain, 'https://tools.ietf.org/html/rfc8460#section-7');
+        const query = await makeQuery('_smtp._tls.' + domain, 'https://datatracker.ietf.org/doc/html/rfc8460#section-7');
         tlsReportingStore.state.queries.push(query);
         const records = query.records.filter(record => /^v=TLSRPTv1[ \t]*;.*$/.test(record.content));
         if (records.length === 0) {
@@ -1937,7 +1937,7 @@ async function queryTlsReporting({ domain }: State): Promise<void> {
             query.remarks.push({
                 type: 'error',
                 text: 'There may be only one TLSRPTv1 record at a given domain.',
-                link: 'https://tools.ietf.org/html/rfc8460#section-3',
+                link: 'https://datatracker.ietf.org/doc/html/rfc8460#section-3',
             });
         } else {
             const record = records[0];
@@ -1945,7 +1945,7 @@ async function queryTlsReporting({ domain }: State): Promise<void> {
                 record.remarks.push({
                     type: 'warning',
                     text: 'The TLSRPTv1 record does not match the expected format.',
-                    link: 'https://tools.ietf.org/html/rfc8460#section-3',
+                    link: 'https://datatracker.ietf.org/doc/html/rfc8460#section-3',
                 });
             }
         }

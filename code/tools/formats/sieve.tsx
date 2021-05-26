@@ -111,7 +111,7 @@ function ifAlways(state: State): boolean {
 }
 
 // Escaping backslashes and double quotes is correct:
-// https://tools.ietf.org/html/rfc5228#section-2.4.2
+// https://datatracker.ietf.org/doc/html/rfc5228#section-2.4.2
 const value: DynamicEntry<string, State> = {
     name: 'Value',
     description: 'The value to match the selected field.',
@@ -159,7 +159,7 @@ const action: DynamicEntry<string, State> = {
 };
 
 // Escaping backslashes and double quotes is correct:
-// https://tools.ietf.org/html/rfc5228#section-2.4.2
+// https://datatracker.ietf.org/doc/html/rfc5228#section-2.4.2
 const argument: DynamicEntry<string, State> = {
     name: 'Argument',
     description: 'The argument to the chosen action.',

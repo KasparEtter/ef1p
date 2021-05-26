@@ -103,7 +103,7 @@ const action: DynamicEntry<string, State> = {
 };
 
 // Escaping backslashes and double quotes is correct:
-// https://tools.ietf.org/html/rfc5804#section-4
+// https://datatracker.ietf.org/doc/html/rfc5804#section-4
 const name: DynamicEntry<string, State> = {
     name: 'Name',
     description: 'The name of the script.',

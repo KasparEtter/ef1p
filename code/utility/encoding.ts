@@ -240,7 +240,7 @@ export function encodeEncodedWord(text: string, charset: Charset): string {
     }
 }
 
-// https://tools.ietf.org/html/rfc2047#section-7
+// https://datatracker.ietf.org/doc/html/rfc2047#section-7
 function containsEncodedWord(text: string): boolean {
     return text.split(/\s+/).some(part => /^=\?.*\?=$/.test(part));
 }
@@ -254,7 +254,7 @@ export function encodeEncodedWordIfNecessary(text: string): string {
     }
 }
 
-// https://tools.ietf.org/html/rfc2231#section-5
+// https://datatracker.ietf.org/doc/html/rfc2231#section-5
 // https://en.wikipedia.org/wiki/ASCII#Printable_characters
 const encodedWordRegex = /^=\?(UTF-8|ISO-8859-1|US-ASCII)(\*[-a-z0-9]+)?\?(B\?[A-Z0-9\+/]*=?=?|Q\?([\x21-\x3C\x3E\x40-\x7E]*(=[0-9A-F]{2})?)*)\?=$/i;
 
@@ -308,11 +308,11 @@ export function decodePercent(text: string): string {
 /* ------------------------------ Extended-Parameter encoding ------------------------------ */
 
 function quoteIfNecessary(text: string): string {
-    // https://tools.ietf.org/html/rfc2045#section-5.1
+    // https://datatracker.ietf.org/doc/html/rfc2045#section-5.1
     return (/[ \n\r\t()<>@,;:\\"/[\]?=]/.test(text) || !isInAsciiRange(text)) ? doubleQuote(text) : text;
 }
 
-// https://tools.ietf.org/html/rfc2231#section-7 and https://tools.ietf.org/html/rfc2045#section-5.1
+// https://datatracker.ietf.org/doc/html/rfc2231#section-7 and https://datatracker.ietf.org/doc/html/rfc2045#section-5.1
 const forbidden = Array.from(`*'%()<>@,;:\\"/[]?=`).map(character => character.charCodeAt(0));
 
 function encodeParameterValue(value: string, charset: Charset): string {

@@ -40,7 +40,7 @@ function parseTimeToLive(ttl: number): string {
     }
 }
 
-// https://tools.ietf.org/html/rfc4034#section-2.2
+// https://datatracker.ietf.org/doc/html/rfc4034#section-2.2
 const dnskeyFlags: Dictionary = {
     '0': 'The DNS public key in this record may not be used to verify RRSIG records.',
     '256': 'The DNS public key in this record can be used to verify RRSIG records. It is marked as a zone-signing key (ZSK).',

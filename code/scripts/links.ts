@@ -27,8 +27,8 @@ jQuery(() => {
 
     // Count the number of referenced RFCs in the current article.
     // const set = new Set();
-    // $("a[href^='https://tools.ietf.org/html/rfc']").each(function() {
-    //     set.add((this as HTMLAnchorElement).pathname.substring(6));
+    // $("a[href^='https://datatracker.ietf.org/doc/html/rfc']").each(function() {
+    //     set.add((this as HTMLAnchorElement).pathname.substring(10));
     // });
     // console.log(`This article references ${set.size} different RFCs.`);
     // console.log(Array.from(set).sort());
