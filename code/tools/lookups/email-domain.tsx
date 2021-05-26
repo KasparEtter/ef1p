@@ -1376,13 +1376,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                                     } else if (/^v[ \t]*=[ \t]*DMARC1[ \t]*$/.test(approvalRecords[0].content)) {
                                         approvalRecords[0].remarks.push({
                                             type: 'warning',
-                                            text: 'The approval record should end with a semicolon.',
-                                            link: 'https://www.rfc-editor.org/errata/eid5440',
-                                        });
-                                    } else if (!/^v[ \t]*=[ \t]*DMARC1[ \t]*;[ \t]*$/.test(approvalRecords[0].content)) {
-                                        approvalRecords[0].remarks.push({
-                                            type: 'error',
-                                            text: 'The approval record has to be "v=DMARC1;" (ignoring optional whitespace).',
+                                            text: 'The version tag of the approval record should end with a semicolon.',
                                             link: 'https://www.rfc-editor.org/errata/eid5440',
                                         });
                                     }
