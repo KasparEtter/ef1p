@@ -5,7 +5,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-05-13
+modified: 2021-05-26
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 math: false
@@ -567,18 +567,18 @@ Sender field
 
 [RFC 5322](https://tools.ietf.org/html/rfc5322#section-3.6.2)
 differentiates between the author and the sender of a message.
-Usually, the person who writes the message is also the one who sends it.
-If the author and the sender are different,
+The person who writes the message is usually also the one who sends it.
+If the author and the sender are different, though,
 the sender should be provided in the `Sender` field.
 The standard also allows several addresses in the `From` field.
-If this is the case, the email has to include a `Sender` field with a single address.
+If this is the case, the email must include a `Sender` field with a single address.
 However, I'm not aware of any mail clients which support this.
 In practice, the addresses of the co-authors are simply added to the `Cc` field.
 Their contribution is made clear to the primary recipients
 by mentioning the names of all the authors at the end of the message.
 Remember that a sender can lie about their co-authors:
-Just because the address of a person is included in the `Cc` field
-doesn't mean that the email has been delivered to them
+The fact that a person's address is listed in the `Cc` field
+doesn't imply that the email has been delivered to them
 and that they agree with the content of the message.
 
 </details>
@@ -5040,7 +5040,7 @@ The protocol states and how to transition between them.
 </figure>
 
 A word on terminology:
-The standard and some mail clients, such as Apple Mail, speak of mailboxes rather than folders.
+The standard and some mail clients such as Apple Mail speak of mailboxes rather than folders.
 When I speak of mailboxes, I usually refer to the mail account as a whole.
 Thunderbird, on the other hand, avoids the term completely.
 I mostly ignore IMAP folders and how to
@@ -8791,8 +8791,8 @@ you can get rid of all their junk simply by blocking all traffic from these sour
 Historically, lists of blocked addresses are known as [blacklists](https://en.wikipedia.org/wiki/Blacklist_(computing))
 and lists of allowed addresses as [whitelists](https://en.wikipedia.org/wiki/Whitelisting).
 Since some consider the positive and negative connotations of white and black to be racially charged,
-the IT industry is moving to replace these terms with block or deny list and allow or pass list, even though the
-traditional terms [likely predate attribution to race](https://en.wikipedia.org/wiki/Blacklist_(computing)#Controversy).
+the IT industry is moving to replace these terms with block or deny list and allow or pass list,
+even though the traditional terms [likely predate attribution to race](https://en.wikipedia.org/w/index.php?title=Blacklist_(computing)&oldid=1018063818#Controversy_over_use_of_the_term).
 In the spirit of making the IT industry and our societies more inclusive, I welcome these changes.
 The main reason why I stuck with the old terms is the next box:
 The anti-spam technique is known only as [graylisting](#graylisting).
@@ -9317,8 +9317,8 @@ You can send the tracking link and the tracking image to someone
 using your mail client or the [ESMTP tool](#esmtp-tool) above.
 I've deployed the tracking server on [heroku.com](https://www.heroku.com/).
 As you can see in [its source code](https://github.com/KasparEtter/email-tracker/blob/main/main.ts),
-my server doesn't store anything but
-[Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
+my server doesn't store anything,
+but [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
 which includes the token, the link, and your IP address.
 I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file),
 but I might check it from time to time for troubleshooting.
@@ -10639,8 +10639,8 @@ An example `Received-SPF` header field. The values are intended to make the resu
 Protecting subdomains
 </summary>
 
-Incoming mail servers query only the domain of the `MAIL FROM` address
-(or the [HELO identity](#helo-identity) as a fallback) for an SPF record.
+Incoming mail servers query only the domain of the `MAIL` `FROM` address
+(or the [`HELO` identity](#helo-identity) as a fallback) for an SPF record.
 If `support.example.com` doesn't have an SPF record,
 SPF verifiers won't continue the lookup with `example.com`.
 Does this mean that you should configure an SPF record for all your subdomains?
@@ -10657,7 +10657,7 @@ On the other hand, DMARC policies also cover subdomains,
 where the [policy for subdomains](#subdomain-policy)
 can be different from the policy for the [organizational domain](#organizational-domain).
 If you do configure a DMARC record for unused domains,
-an SPF record is necessary only for mail servers that verify SPF but don't support DMARC.
+an SPF record is necessary only for mail servers which verify SPF but don't support DMARC.
 Given that SPF was introduced in [2006](https://tools.ietf.org/html/rfc4408)
 and DMARC in [2015](https://tools.ietf.org/html/rfc7489),
 such servers exist and won't vanish anytime soon.
@@ -10952,7 +10952,7 @@ splits longer strings for you, you don't have to worry about this size limit eit
 SPF record type
 </summary>
 
-There used to be an `SPF` record type for publishing SPF records
+There used to be an `SPF` record type for publishing SPF records,
 but since this type never gained enough traction,
 it was discontinued in favor of the unstructured `TXT` record type.
 Nowadays, SPF records [have to be published in `TXT` records](https://tools.ietf.org/html/rfc7208#section-3.1).
@@ -11057,7 +11057,7 @@ the final recipient can still verify the authenticity of the message.
 Another consequence of using digital signatures is that senders can
 [no longer repudiate](https://en.wikipedia.org/wiki/Non-repudiation) their messages.
 If a dispute arises from an oral conversation, it's one person's word against another person's word.
-For modern email, this is no longer the case and many people aren't aware of this.
+For modern email, this is no longer the case, and many people aren't aware of this.
 I don't know whether DKIM signatures would make much of a difference if an email dispute comes before a court.
 In the world of politics, however, the ability to cast or eliminate doubt can make a big difference.
 For example, when [WikiLeaks released personal emails](https://en.wikipedia.org/wiki/Podesta_emails)
@@ -11133,8 +11133,8 @@ An example `DKIM-Signature` header field from a message sent with Gmail.
 
 <figcaption markdown="span">
 
-The various tags of the `DKIM-Signature` header field. The last four tags are less common and the
-[IANA registry](https://www.iana.org/assignments/dkim-parameters/dkim-parameters.xhtml) lists even more tags.
+The various tags of the `DKIM-Signature` header field. The last four tags are less common.
+The [IANA registry](https://www.iana.org/assignments/dkim-parameters/dkim-parameters.xhtml) lists even more tags.
 
 </figcaption>
 </figure>
@@ -11931,13 +11931,13 @@ I still question two aspects of ARC:
   That messages modified by mail handlers are rejected because
   they no longer pass DMARC authentication is a feature, not a bug.
 - **Necessity**: [DKIM](#domainkeys-identified-mail) allows any domain to assume responsibility for a message.
-  Even without ARC, a mailing list which modifies the content of a message can add its own DKIM signature
+  Even without ARC, a mailing list which modifies the content of a message can add its own DKIM signature,
   and an incoming mail server is free to deliver the message based on such a signature.
   If an incoming mail server trusts a mailing list to authenticate received messages correctly,
   it can also trust the mailing list to reject messages which fail DMARC authentication.
   I don't understand what the advantage is of introducing yet another authentication mechanism.
 
-If you think that I've missed the point of ARC, which might very well be the case,
+If you think that I missed the point of ARC, which might very well be the case,
 please [let me know](mailto:contact@ef1p.com).
 
 </details>
@@ -12922,7 +12922,7 @@ DANE on outgoing mail server
 
 Configuring `TLSA` records for your incoming mail servers is only half the battle.
 If you run incoming mail servers, you almost certainly also operate an outgoing mail server.
-Having `TLSA` records for your incoming mail servers allows others to deliver email securely to you
+Having `TLSA` records for your incoming mail servers allows others to deliver email securely to you,
 but you also want to make sure that your messages are delivered securely to others.
 Even if you don't configure `TLSA` records for your incoming mail servers,
 you should activate DANE on your outgoing mail server
@@ -13024,8 +13024,8 @@ as a [proxy server](https://en.wikipedia.org/wiki/Proxy_server).
 This is necessary because the policy file is usually served without the header field which is required
 for [cross-origin resource sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
 As you can see in [its source code](https://github.com/KasparEtter/email-tracker/blob/main/main.ts),
-my proxy server doesn't store anything but
-[Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
+my proxy server doesn't store anything,
+but [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
 which includes the queried domain and your IP address.
 I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file)
 but I might check it from time to time for troubleshooting.
@@ -13098,10 +13098,10 @@ Unfortunately, it doesn't say anything about whether DANE can override a failed 
 | <i class="fas fa-times-circle color-red"></i> | <i class="fas fa-times-circle color-red"></i> | <i class="fas fa-times-circle color-red"></i>
 {:.table-with-vertical-border-after-column-2}
 
-<figcaption markdown="span" style="max-width: 300px;">
+<figcaption markdown="span" style="max-width: 320px;">
 
-Can DANE override MTA-STS validation?
-Unfortunately, the standard is silent on this.
+Can DANE override a failed MTA-STS validation?
+Unfortunately, the standards are silent on this.
 
 </figcaption>
 </figure>
@@ -13118,17 +13118,17 @@ assuming that your [domain name registrar](https://en.wikipedia.org/wiki/Domain_
 or [name server provider](https://en.wikipedia.org/wiki/Name_server)
 supports [DNSSEC](/internet/#domain-name-system-security-extensions).
 DANE is more elegant and provides better security than MTA-STS.
-The only reason we have DANE is because some large companies are reluctant to deploy DNSSEC.
-All I know is that [Google](https://www.imperialviolet.org/2015/01/17/notdane.html)
-wants to get rid of 1024-bit [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
-and focuses its efforts on [Certificate Transparency](https://certificate.transparency.dev/).
+The only reason we have MTA-STS is because some large companies are reluctant to deploy DNSSEC.
+All I know is that [Google wants to get rid of](https://www.imperialviolet.org/2015/01/17/notdane.html)
+1024-bit [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
+and focuses on [Certificate Transparency](https://certificate.transparency.dev/).
 But given that [ECDSA](https://tools.ietf.org/html/rfc6605),
 [Ed25519, and Ed448](https://tools.ietf.org/html/rfc8080)
 can be [used for DNSSEC](https://blog.apnic.net/2016/10/06/dnssec-and-ecdsa/)
 and that both the [root zone](https://en.wikipedia.org/wiki/DNS_root_zone)
 and the [`.com` domain](https://en.wikipedia.org/wiki/.com) use 2048-bit RSA at least for their key-signing keys,
-weak cryptography is no longer really an argument against DNSSEC,
-especially given that DNS records aren't authenticated at all otherwise.
+weak cryptography is no longer an argument against DNSSEC,
+especially given that most DNS records aren't authenticated at all otherwise.
 
 </details>
 
@@ -13725,10 +13725,10 @@ where only the signer can generate the signature but everyone can verify the sig
 Authenticity without non-repudiation is accomplished with a
 [message authentication code (MAC)](#applications-of-cryptographic-hash-functions),
 which require that the sender and the recipient have a [shared secret](https://en.wikipedia.org/wiki/Shared_secret).
-A message authentication code can be verified only by those who know the shared secret
+A message authentication code can be verified only by those who know the shared secret,
 and everyone who can verify a message authentication code can also generate it.
 As a consequence, the recipient cannot prove to a third party that a message was sent by the sender.
-This feature is important for [off-the-record messaging](https://en.wikipedia.org/wiki/Off-the-Record_Messaging) and it
+This feature is important for [off-the-record messaging](https://en.wikipedia.org/wiki/Off-the-Record_Messaging), and it
 can also be achieved with [designated verifier signatures](https://en.wikipedia.org/wiki/Designated_verifier_signature).
 Here is a summary of which mechanism provides which of the above properties:
 
@@ -13756,8 +13756,8 @@ as specified in [RFC 5083](https://tools.ietf.org/html/rfc5083)
 [does not provide authentication](https://tools.ietf.org/html/rfc8551#section-2.4.4))
 and to PGP with the [Modification Detection Code (MDC)](https://tools.ietf.org/html/rfc4880#section-5.13),
 which consists of a [SHA-1 hash](#secure-hash-algorithms) appended to the message before encryption.
-PGP does not support deniable authentication but
-you can [share a new private key](https://crypto.stackexchange.com/a/67324/76600) with the recipient
+PGP does not support deniable authentication,
+but you can [share a new private key](https://crypto.stackexchange.com/a/67324/76600) with the recipient
 or use [symmetric-key encryption](https://tools.ietf.org/html/rfc4880#section-5.3) with a shared key.
 S/MIME doesn't really support deniable authentication either.
 You can use a non-interactive
