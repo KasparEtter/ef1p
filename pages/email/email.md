@@ -141,14 +141,22 @@ which is sometimes also referred to as snail mail:
 2. Email enables instant global delivery at a [marginal cost](https://en.wikipedia.org/wiki/Marginal_cost) of zero.
    The only fee you pay is for your access to the Internet.
 3. Mailboxes for email are provided and operated by companies,
-   which are called [email service providers](https://en.wikipedia.org/wiki/Mailbox_provider).
+   which are called [mailbox providers](https://en.wikipedia.org/wiki/Mailbox_provider).
    While you could operate your own server since email is an open and decentralized system,
    this is rarely done in practice for reasons we discuss [later on](#reputation).
 {:.compact}
 
+**Terminology**: Earlier versions of this article used the term
+[email service provider (ESP)](https://en.wikipedia.org/wiki/Email_service_provider_(marketing))
+instead of [mailbox provider](https://en.wikipedia.org/wiki/Mailbox_provider).
+Since the former term is also used to refer to [email delivery vendors](#reputation),
+I decided to replace it with the latter term.
+Somewhat confusingly, [mail service provider (MSP)](https://datatracker.ietf.org/doc/html/rfc5598#section-2.3)
+is a synonym for mailbox provider even though mail and email are used interchangeably in the context of email.
+
 <details markdown="block">
-<summary markdown="span" id="popular-email-service-providers">
-Which are the most popular email service providers?
+<summary markdown="span" id="popular-mailbox-providers">
+Which are the most popular mailbox providers?
 </summary>
 
 It is [estimated](https://financesonline.com/number-of-email-users/)
@@ -179,7 +187,7 @@ The domain name allows the sender to first [determine](#address-resolution)
 and then [connect](#simple-mail-transfer-protocol) to the mail server of each recipient.
 The username allows the mail server to determine the mailbox to which a message should be delivered.
 The hierarchical [Domain Name System](/internet/#domain-name-system) ensures that the domain name is unique,
-whereas the email service provider has to ensure that the name of each user is unique within its domain.
+whereas the mailbox provider has to ensure that the name of each user is unique within its domain.
 There doesn't have to be a one-to-one correspondence between addresses and mailboxes:
 A mailbox can be identified [by several addresses](#subaddressing),
 and an email sent to a single address can be delivered [to multiple mailboxes](#alias-address).
@@ -230,7 +238,7 @@ In particular, implementations [must preserve the case](https://datatracker.ietf
 of the letters in the local part, but mail servers are encouraged to deliver messages case-independently.
 In other words, it is recommended but not mandatory
 that mail servers treat `John.Smith` and `john.smith` as the same user.
-Some email service providers go further than this:
+Some mailbox providers go further than this:
 Gmail, for example, [removes all dots](https://support.google.com/mail/answer/10313)
 from the local part of an address when determining the mailbox to deliver a message to.
 This means that emails addressed to `john.smith@gmail.com` and `johnsmith@gmail.com`
@@ -245,10 +253,10 @@ is called [normalization](https://en.wikipedia.org/wiki/Canonical_form#Computing
 Subaddressing
 </summary>
 
-Many email service providers support a technique known as
+Many mailbox providers support a technique known as
 [subaddressing](https://en.wikipedia.org/wiki/Email_address#Subaddressing) as part of their address normalization.
 By restricting the character set for usernames more than the standard demands,
-an email service provider can designate a special character,
+a mailbox provider can designate a special character,
 which is valid according to the standard but not in its set for usernames,
 to split the [local part](#normalization) into two.
 The part before this special character is used to determine the recipient of a message.
@@ -518,7 +526,7 @@ doesn't mean that they received the same message as you.
 The reason for this could be innocuous or malicious.
 On the one hand, it may be that the email could simply not be delivered to them.
 On the other hand, the sender might have delivered the message only to you in order to mislead you.
-Your email service provider has no way of verifying
+Your mailbox provider has no way of verifying
 that the same message has also been delivered to the other recipients.
 This allows a fraudster to fake a relationship that they do not have
 or to lead you to believe that they have done the introduction you asked them for,
@@ -666,7 +674,7 @@ Since various servers have to store your message at least temporarily,
 they are configured to reject messages larger than a certain size.
 Many providers have a size limit between around
 [25 to 50 MB](https://en.wikipedia.org/wiki/Comparison_of_webmail_providers).
-Even if your email service provider allows you to send larger messages,
+Even if your mailbox provider allows you to send larger messages,
 such messages might still be rejected by the mail server of the recipient.
 Since attachments have to be encoded in a [particular way](#content-encoding),
 their original size can be at most around 70% of the actual size limit.
@@ -744,14 +752,14 @@ Let's have a look at each of these interactions with regard to standardization:
   How clients submit and access emails doesn't have to be standardized
   for email to remain interoperable according to the previous point.
   Luckily, we do have [open standards](#access-protocols) for accessing one's mailbox.
-  Since these standards are older than all commercial email service providers,
-  most email service providers support at least one of them.
+  Since these standards are older than all commercial mailbox providers,
+  most mailbox providers support at least one of them.
   This has the advantage that you can switch the server without switching the client
   and that you can switch the client without switching the server.
   This reduces [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)
   on both the client- and the server-side,
   which leads to more choice for consumers.
-  However, email service providers can still support proprietary features,
+  However, mailbox providers can still support proprietary features,
   which only their client knows how to make use of.
 - **User ➞ client**:
   How users interact with mail clients is not standardized.
@@ -770,7 +778,7 @@ Let's have a look at each of these interactions with regard to standardization:
 Webmail
 </summary>
 
-[Email service providers](#provider) usually offer a web interface to their email service.
+[Mailbox providers](#provider) usually offer a web interface to their email service.
 Instead of [configuring a mail client](#configuration), which runs locally on your device,
 you can visit a provider-specific website with a [web browser](https://en.wikipedia.org/wiki/Web_browser)
 in order to access your messages.
@@ -809,7 +817,7 @@ such as [end-to-end encryption](#end-to-end-security) or interaction with a serv
 you have to find workarounds with [browser extensions](https://en.wikipedia.org/wiki/Browser_extension).
 [Open-source](https://en.wikipedia.org/wiki/Open_source) mail clients, on the other hand, can be modified at will.
 In order to give you more control over your messages,
-most email service providers offer an [application programming interface (API)](https://en.wikipedia.org/wiki/API) for
+most mailbox providers offer an [application programming interface (API)](https://en.wikipedia.org/wiki/API) for
 access to your mailbox, such as [IMAP](#internet-message-access-protocol) or [POP3](#post-office-protocol-version-3).
 In the case of Gmail, you have to [enable the API](https://support.google.com/mail/answer/7126229)
 through the web interface for your account before a mail client can use it.
@@ -946,13 +954,13 @@ Configuration
 
 When you add an email account to your mail client,
 you usually have to configure the incoming mail server and the outgoing mail server manually,
-unless you use a [popular email service provider](#popular-email-service-providers).
+unless you use a [popular mailbox provider](#popular-mailbox-providers).
 If manual configuration is required,
-you have to look through the documentation of your email service provider
+you have to look through the documentation of your mailbox provider
 to find the domain names of the two servers
 and then copy the information to the respective fields in your mail client.
-While most email service providers use the [default port numbers](#port-numbers),
-which means that you typically don't have to configure them,
+While most mailbox providers use the [default port numbers](#port-numbers),
+which means that you usually don't have to configure them,
 the domain names of the two servers aren't standardized.
 It's often the case that their addresses are
 subdomains of the domain after the @ symbol in your email address,
@@ -980,14 +988,14 @@ Please note that you cannot simply set up [`CNAME` records](https://en.wikipedia
 in your own domain for the incoming and outgoing mail servers
 if you want to avoid instructing your users to use an external domain
 because the [TLS](/internet/#transport-layer-security) [certificates](/internet/#public-key-infrastructure)
-used by the email service provider would no longer match.
+used by the mailbox provider would no longer match.
 For example, if I point `imap.ef1p.com` to `mail.gandi.net` with a `CNAME` record in my DNS zone
 and use the former in the [server settings](#configuration),
 then my mail client expects the TLS certificate to be issued for `imap.ef1p.com`
 and aborts the connection when it receives a certificate for `mail.gandi.net`.
 Besides vanity, such a setup could be desirable
 because it would allow the IT administrator of an organization
-to migrate all messages to another email service provider
+to migrate all messages to another mailbox provider
 without requiring every member of the organization to change their email settings.
 This can be realized with the technique that I cover in the [next box](#autoconfiguration).
 
@@ -999,7 +1007,7 @@ Autoconfiguration
 </summary>
 
 Wouldn't it be nice if mail clients could configure themselves automatically
-by fetching the required information directly from the email service providers?
+by fetching the required information directly from the mailbox providers?
 The good news is that we have a standard for exactly this purpose.
 The bad news is that almost no one is using it, even though it's simple and elegant.
 [RFC 6186](https://datatracker.ietf.org/doc/html/rfc6186) defines
@@ -1078,7 +1086,7 @@ I can see only three potential weaknesses with this standard:
    such as [the one used by Thunderbird](#configuration-database).
 
 Besides improving the experience of users,
-service records make it possible to migrate an organization to another email service provider
+service records make it possible to migrate an organization to another mailbox provider
 without requiring every member of the organization to change their email settings.
 According to [RFC 6186](https://datatracker.ietf.org/doc/html/rfc6186#section-4),
 mail clients should cache the resolved hosts
@@ -1106,7 +1114,7 @@ _submissions._tcp 10800 IN SRV 0 0 465 {Domain}.
 <figcaption markdown="span">
 
 Insert the appropriate `Domain` and use `0 0 0 .` for all the services
-which are not supported by your email service provider.
+which are not supported by your mailbox provider.
 
 </figcaption>
 </figure>
@@ -1120,7 +1128,7 @@ Configuration database
 
 At this point, you may be wondering how mail clients can often figure out the correct configuration by themselves
 despite the lack of an established standard.
-Most mail clients look up the configuration for [popular email service providers](#popular-email-service-providers)
+Most mail clients look up the configuration for [popular mailbox providers](#popular-mailbox-providers)
 in a database, which is either delivered with the client or centrally hosted by the software manufacturer.
 Some mail clients also use custom autoconfiguration protocols,
 which typically fetch an [XML](https://en.wikipedia.org/wiki/XML) file hosted at a specific subdomain via HTTPS.
@@ -1140,7 +1148,7 @@ Thunderbird goes through the following steps from top to bottom until it finds a
    This is useful for when the username is neither the email address nor the local part.
 3. Check `https://{Domain}/.well-known/autoconfig/mail/config-v1.1.xml`.
    The key difference between this and the previous lookup is that
-   the `autoconfig` subdomain in step 2 can point to a web server operated by your email service provider,
+   the `autoconfig` subdomain in step 2 can point to a web server operated by your mailbox provider,
    while the lookup in the current step must be handled by the `Domain` itself.
 4. Look for a configuration file in the central database at `https://autoconfig.thunderbird.net/v1.1/{Domain}`.
 5. Look up the [`MX` record](#address-resolution) of the domain in the Domain Name System
@@ -1303,9 +1311,9 @@ why outgoing mail servers are used in practice:
     is too much of a struggle for most Internet users and companies,
     the port restriction mentioned in the previous bullet point isn't much of a problem in practice.
   - **User authentication**:
-    Email service providers are incentivized to protect their reputation
+    Mailbox providers are incentivized to protect their reputation
     because users would no longer use their service if emails are no longer delivered reliably.
-    This is why email service providers impose sending limits on their users
+    This is why mailbox providers impose sending limits on their users
     and delete accounts when misbehavior is reported to them,
     which is possible only if they authenticate their users before relaying messages.
     For example, [Gmail limits](https://support.google.com/a/answer/166852)
@@ -1314,7 +1322,7 @@ why outgoing mail servers are used in practice:
     Vouching for users could also be done differently,
     for example by [delegating trust](/internet/#public-key-infrastructure)
     to mail clients with [digital signatures](/internet/#digital-signatures).
-    However, an email service provider could no longer rate limit and filter outgoing messages
+    However, a mailbox provider could no longer rate limit and filter outgoing messages
     if mail clients delivered them directly.
   - **Domain authentication**:
     When it comes to information security,
@@ -1962,7 +1970,7 @@ in a [secure way](#dns-based-authentication-of-named-entities).
 (In a [twist of history](https://en.wikipedia.org/wiki/SMTPS#History),
 port 465 was shortly registered for SMTP for Relay with Implicit TLS in 1997 before it was revoked again in 1998
 when [STARTTLS for SMTP](https://datatracker.ietf.org/doc/html/rfc2487) was standardized.
-Since some email service providers began to use this port for message submission with Implicit TLS,
+Since some mailbox providers began to use this port for message submission with Implicit TLS,
 port 465 was officially recognized for this purpose in [2018](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3).)
 
 </details>
@@ -2563,7 +2571,7 @@ If you need more help, [send me an email](mailto:contact@ef1p.com)
 
 ##### Tool instructions
 
-1. Create a new account at an email service provider of your choice.
+1. Create a new account at a mailbox provider of your choice.
    If you opt for Gmail, you should read [this box](#gmail-authentication-failure) first.
 2. Enter the address of your account in the `From` field and your password in the `Password` field.
    Set the `Mode` to `Submission`.
@@ -2600,7 +2608,7 @@ I showed you this attack for educational purposes only because I believe that se
 We can improve the state of email security only if consumers start demanding better security.
 In this spirit, I encourage you to relay spoofed emails only to your own mailbox.
 If such a spoofed email lands in your inbox,
-ask your email service provider to be more rigorous in filtering scam emails or use the service of a different provider.
+ask your mailbox provider to be more rigorous in filtering scam emails or use the service of a different provider.
 You're hopefully also more motivated now to read the rest of this article.
 In short, have fun with the above tool but always remember that with great power comes great responsibility!
 
@@ -3093,11 +3101,11 @@ not only during relay but also during submission?
 Or more precisely: Can you authenticate to an outgoing mail server as one user
 but then use the address of a different user in the `MAIL` `FROM` and `From` fields?
 According to [RFC 6409](https://datatracker.ietf.org/doc/html/rfc6409#section-6.1),
-outgoing mail servers may enforce submission rights but they don't have to.
-If you want to know how your email service provider handles such submissions, you have to try it.
+outgoing mail servers may enforce submission rights, but they don't have to.
+If you want to know how your mailbox provider handles such submissions, you have to try it.
 Some mail clients, such as [Thunderbird](https://support.mozilla.org/en-US/kb/using-identities)
 and [Roundcube](https://docs.roundcube.net/doc/help/0.9/en_US/settings/identities.html),
-support alternative sender identities to spoof the sender address for you.
+support so-called alternative sender identities to spoof the sender address for you.
 If you want to do this manually in order to see the response from the server,
 you can change the `From` address in the [above tool](#esmtp-tool)
 after you have already copied the `AUTH` command to your command-line interface.
@@ -3341,7 +3349,7 @@ Two techniques address this problem:
   you see an address which identifies you.
   The good thing about VERP is that it works very reliably.
   On the downside, mail clients can make use of this technique only with [subaddressing](#subaddressing).
-  Since the syntax for this is specific to each email service provider if subaddressing is supported at all,
+  Since the syntax for this is specific to each mailbox provider if subaddressing is supported at all,
   I'm not aware of any mail clients which use VERP to enhance the user experience of delivery failures.
   Moreover, VERP requires that the message is transmitted separately for each recipient.
   While a single message can be delivered to several recipients by using several `RCPT` `TO` commands,
@@ -3432,7 +3440,7 @@ the communication between the proxy and the server is exposed in the company's p
 
 - **Wrong server**: The user's mail client might be misconfigured
   and connect to a server controlled by the attacker.
-  Instead of communicating with the email service provider,
+  Instead of communicating with the mailbox provider,
   the client communicates with the attacker.
   In order to avoid detection by not raising any suspicion,
   the attacker may want to connect to the legitimate server themself
@@ -4247,8 +4255,8 @@ let me mention some aspects which are beyond the scope of this analysis:
    from the ones required for accessing the system.
    [OAuth](https://en.wikipedia.org/wiki/OAuth) achieves this with
    [restricted scopes](https://developers.google.com/gmail/api/auth/scopes).
-   Some email service providers (e.g. [Apple](https://support.apple.com/en-us/HT204397)
-   and [Google](https://support.google.com/accounts/answer/185833))
+   Some mailbox providers such as [Apple](https://support.apple.com/en-us/HT204397)
+   and [Google](https://support.google.com/accounts/answer/185833)
    allow users to generate app-specific passwords,
    which can be revoked individually and which aren't enough to change the user's password.
    Given that `PLAIN` is the dominant authentication mechanism,
@@ -5497,7 +5505,7 @@ such as [support for UTF-8](https://datatracker.ietf.org/doc/html/rfc6855)):
   `""` denotes the so-called quota root, which allows different folders to share the same resource limit.
 
 In addition to the extensions which are standardized by IETF,
-email service providers are free to define their own extensions.
+mailbox providers are free to define their own extensions.
 According to the IMAP standard, the name of an experimental or independent extension
 [has to start with an `X`](https://datatracker.ietf.org/doc/html/rfc3501#section-6.5.1).
 For example, [Gmail's custom extension](https://developers.google.com/gmail/imap/imap-extensions)
@@ -5743,17 +5751,17 @@ A simple Sieve script for an automatic vacation response, which I've adapted
 
 <details markdown="block">
 <summary markdown="span" id="sieve-support">
-Support by email service providers and mail clients
+Support by mailbox providers and mail clients
 </summary>
 
-Unfortunately, none of the [big free email service providers](#popular-email-service-providers) support Sieve.
+Unfortunately, none of the [big free mailbox providers](#popular-mailbox-providers) support Sieve.
 If you pay for your mailbox, though, chances are that you can use the Sieve language
 since it is implemented by the most popular [mail servers](http://sieve.info/servers).
 Providers with Sieve support include [Fastmail](https://www.fastmail.com/help/technical/sieve.html),
 [mailbox.org](https://kb.mailbox.org/pages/viewpage.action?pageId=1181543),
 [ProtonMail](https://protonmail.com/support/knowledge-base/sieve-advanced-custom-filters/),
 and [Gandi](https://docs.gandi.net/en/gandimail/sieve/index.html).
-Other email service providers support server-side filters with proprietary rules through their web interface.
+Other mailbox providers support server-side filters with proprietary rules through their web interface.
 One example is [Gmail](https://mail.google.com/):
 
 {% include image.md source="gmail-filter-options.png" caption="Gmail users can go to the [Filters and Blocked Addresses](https://mail.google.com/mail/u/0/#settings/filters) tab of their settings and click on \"Create a new filter\". While Gmail has an [API for managing filters](https://developers.google.com/gmail/api/guides/filter_settings), other mail clients won't support such a proprietary protocol." image-max-width="720" caption-max-width="700" %}
@@ -6020,7 +6028,7 @@ if you want to access the `~/Library/Mail/` folder from the command line because
 With full disk access enabled, you can find the message with a particular number
 with `find ~/Library/Mail/ -name '1234.*emlx'`.
 If you need to convert `.emlx` files back to `.eml` files,
-for example to migrate them to a different mail client or email service provider,
+for example to migrate them to a different mail client or mailbox provider,
 you may want to have a look at [this project](https://github.com/qqilihq/partial-emlx-converter).
 
 </details>
@@ -7312,16 +7320,16 @@ and the [message format](#format) to allow Unicode characters encoded in UTF-8 e
   incoming mail servers [normalize](#unicode-normalization) the local part of an email address
   ideally to NFKC but at least to NFC as part of the [address normalization](#normalization).
   Senders, however, [should not normalize the addresses of recipients](https://datatracker.ietf.org/doc/html/rfc6532#section-3.1).<br>
-  [Email service providers](#provider) which provide their service to the general public
+  [Mailbox providers](#provider) which provide their service to the general public
   need to be aware that allowing Unicode characters in the local part of email addresses
   makes it easier to impersonate their users [with homograph attacks](https://datatracker.ietf.org/doc/html/rfc6530#section-13).
   [Just as domain name registries](#homograph-attack),
-  public email service providers should either restrict the permitted characters to ASCII
+  public mailbox providers should either restrict the permitted characters to ASCII
   or a single [Unicode script](https://en.wikipedia.org/wiki/Script_(Unicode)#List_of_scripts_in_Unicode).
   Otherwise, they should bundle or block addresses with
   [confusable characters](https://www.unicode.org/reports/tr39/#Confusable_Detection).
   Other than domain names, which are case-insensitive,
-  email service providers may (but should not) distinguish between different addresses
+  mailbox providers may (but should not) distinguish between different addresses
   based on the capitalization of the local part.
   Therefore, mail clients cannot lowercase the local part before displaying it
   even though this would help to tell characters such as capital `i` and lowercase `L` apart.
@@ -7572,7 +7580,7 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 This example works as intended in Apple Mail, Gmail, and Thunderbird.
 We'll discuss in the [next box](#email-styling) how to style [HTML emails](https://en.wikipedia.org/wiki/HTML_email).
 For security reasons, mail clients don't execute sender-provided [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
-Gmail and some other email service providers still support [dynamic content](#dynamic-content), though.
+Gmail and some other mailbox providers still support [dynamic content](#dynamic-content), though.
 Furthermore, HTML messages cause serious [privacy issues](#remote-content), which I'll cover later.
 
 </details>
@@ -7841,7 +7849,7 @@ when using [AMP for emails](https://amp.dev/about/email/).
 It's basically a whitelisted [web framework](https://en.wikipedia.org/wiki/Web_framework).
 As with [email markup](#email-markup), you have to
 [register yourself as a sender](https://amp.dev/documentation/guides-and-tutorials/start/email_sender_distribution/)
-with the email service providers before they display your dynamic content to their users.
+with the mailbox providers before they display your dynamic content to their users.
 AMP messages must be [authenticated](#domain-authentication) and
 must contain an ordinary [HTML or plaintext version](#multipart-messages) of the same content,
 which is displayed when the mail client is offline or
@@ -8799,10 +8807,10 @@ The anti-spam technique is known only as [graylisting](#graylisting).
 If I were to speak of temporarily-reject listing, many would have no idea what I'm talking about.
 
 While block lists are already useful when every provider maintains their own list,
-they are much more powerful when they are shared among email service providers.
+they are much more powerful when they are shared among mailbox providers.
 The best-known maintainer of block lists is [The Spamhaus Project](https://en.wikipedia.org/wiki/The_Spamhaus_Project).
 Before you try to relay email directly with the [ESMTP tool](#esmtp-tool),
-you can check [here](https://www.spamhaus.org/lookup/) whether your IP address is blocked.
+you can check [on this page](https://www.spamhaus.org/lookup/) whether your IP address is blocked.
 If you use and misuse the ESMTP tool a lot, your address may get listed there.
 Once your address is on their block list, your chances of relaying emails successfully dwindle.
 Block lists are fed by spam filters, which in turn are trained by users, who mark unwanted messages as spam.
@@ -8932,8 +8940,9 @@ Especially as a company, you want all your customers to receive all your emails.
 In order to achieve a high delivery rate (also called *good deliverability*), you typically buy
 into the [reputation capital](https://en.wikipedia.org/wiki/Reputation_capital) of another company.
 A whole industry evolved around just this value proposition.
-Such companies are known as SMTP service providers or email delivery vendors,
-and they offer a transactional email service.
+Such companies are known as [email service providers](https://en.wikipedia.org/wiki/Email_service_provider_(marketing))
+or [email delivery vendors](https://sendgrid.com/docs/glossary/smtp-provider/),
+and they offer a [transactional email service](https://en.wikipedia.org/wiki/Email_marketing#Transactional_emails).
 The downside of this reputation system is that email is no longer really an open service
 if you have to purchase the qualification to send messages from another company.
 The upside of this system is that companies are incentivized to protect their reputation:
@@ -9028,22 +9037,22 @@ The recipient of a message often learns the following information about the send
   You can also use the tool to [locate the IP address](/internet/#ip-geolocation) of someone who sent you an email.
   The tool uses the geolocation API of [ipinfo.io](https://ipinfo.io/).
   <div id="tool-lookup-ip-address" class="mt-3"></div>
-  If you don't want your email service provider to leak your own IP address,
+  If you don't want your mailbox provider to leak your own IP address,
   you can use a [Virtual Private Network (VPN)](https://en.wikipedia.org/wiki/Virtual_private_network)
   or an [overlay network](https://en.wikipedia.org/wiki/Overlay_network) for anonymous communication,
   such as [Tor](https://www.torproject.org/).
-  Alternatively, you can use an email service provider which values your privacy,
+  Alternatively, you can use a mailbox provider which values your privacy,
   such as [ProtonMail](https://protonmail.com/security-details)
   or [Tutanota](https://tutanota.com/security/#enhanced-privacy-features).
-  Sending messages from the [web interface](#webmail) of an email service provider usually also helps.
+  Sending messages from the [web interface](#webmail) of a mailbox provider usually also helps.
   For example, if you compose an email on [gmail.com](https://gmail.com/),
   your IP address is not included in the outgoing message.
   If you submit a message from your desktop client to Gmail using [SMTP](#delivery-protocols),
   on the other hand, your IP address is added by `smtp.gmail.com` in a `Received` header field.
-  While [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.4) does say that
-  the IP address of the source should be included in the `Received` header field,
-  email service providers should ignore the standard in this regard, in my opinion.
-  I understand that email service providers may want to record the IP address of the sender
+  While [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-4.4) says that the IP address of the source
+  should be included in the `Received` header field during [message relay](#submission-versus-relay),
+  mailbox providers should ignore this instruction during [message submission](#submission-versus-relay), in my opinion.
+  I understand that mailbox providers may want to record the IP address of the sender
   to prevent abuse of their service,
   I just see no reason to share this information with the recipients of a message.
   In fact, it might even be illegal to do so.
@@ -9233,7 +9242,7 @@ Beyond fetching static content, Google also
 triggered by [dynamic content](#dynamic-content).
 Since webmail providers have access to your emails anyway,
 there is no privacy drawback when these companies fetch the remote content for you.
-Desktop clients, on the other hand, can fetch emails from any email service provider.
+Desktop clients, on the other hand, can fetch emails from any mailbox provider.
 If a desktop client were to use a [proxy server](https://en.wikipedia.org/wiki/Proxy_server)
 which is operated by the publisher of the client,
 the publisher would learn from which server you fetch the remote content
@@ -9547,10 +9556,10 @@ such as [password resets](https://en.wikipedia.org/wiki/Self-service_password_re
 Due to backward compatibility, the [email protocols](#protocols)
 are secure only against [passive attackers](#implicit-tls-versus-explicit-tls).
 I will cover the efforts to make email secure against active attackers in the [last chapter](#transport-security).
-
 In my opinion, mail clients should warn their users if the incoming mail server of one of the recipients
 doesn't support [strict transport security](#transport-security).
-You can increase the pressure on email service providers only by increasing the awareness of users.
+You can increase the pressure on mailbox providers only by increasing the awareness of users.
+
 Gmail provides an easy way to see whether a received message has been authenticated and encrypted in transit,
 which allows users to assess the authenticity and, [somewhat misleadingly](#reporting-in-header-fields),
 the confidentiality of a message at least after it has been transmitted:
@@ -10054,14 +10063,14 @@ In my view, the following limitations of early email are responsible for most of
   the mail submission protocol was forked from [ESMTP](#extended-simple-mail-transfer-protocol)
   rather than being incorporated into [access protocols](#access-protocols),
   such as [POP3](#post-office-protocol-version-3) and [IMAP](#internet-message-access-protocol).
-  Unless their email service provider is in a [configuration database](#configuration-database),
+  Unless their mailbox provider is in a [configuration database](#configuration-database),
   users have to [configure](#configuration) both their
   [incoming mail server](#incoming-mail-server) and their
   [outgoing mail server](#outgoing-mail-server) to this day.
   If they change their passwords, they usually have to enter it twice in their settings.
   Furthermore, it can happen that they can receive messages but cannot send them and vice versa.
   For ordinary users, this is really confusing.
-  This distinction between incoming mail server and outgoing mail server
+  The distinction between incoming mail server and outgoing mail server
   is also the reason why [messages have to be submitted twice](#double-submission-problem)
   if you want to record the sent messages in your mailbox.
   After two decades of little progress with regard to access protocols,
@@ -10229,12 +10238,12 @@ I can only speculate about the reasons for the lack of innovation:
   you don't gain anything by implementing a newer [access protocol](#access-protocols)
   such as [JMAP](#json-meta-application-protocol) as well.
   As long as all mail clients which people want to use support IMAP,
-  existing email service providers have little incentive to support JMAP.
+  existing mailbox providers have little incentive to support JMAP.
 - **Saturation**: The email market is saturated with free solutions for clients, servers, and hosting.
   The low willingness to pay for a product or service
   makes it really hard to build an innovative business in this space.
   Combined with the inertia of users, there is almost no economic pressure to innovate.
-  Email service providers with a strong focus on privacy are the only exception to this rule because
+  Mailbox providers with a strong focus on privacy are the only exception to this rule because
   more and more people realize that if they don't pay for a service, they're the product and not the customer.
 
 
@@ -10274,7 +10283,7 @@ I've mentioned plenty of ideas throughout this article.
 Among them are [sender approval](#spam), [automatic challenges](#challenges),
 [`Bcc` recovery](#bcc-recovery), [privacy features](#privacy) such as
 [proxying remote content](#proxying-remote-content) via [Tor](https://en.wikipedia.org/wiki/Tor_(anonymity_network))
-(and even submitting emails via Tor as long as email service providers leak the IP addresses of their users),
+(and even submitting emails via Tor as long as mailbox providers leak the IP addresses of their users),
 and [security features](#security) such as preventing [malicious display names](#malicious-display-names)
 and [different appearances](#different-appearances) of messages.
 It would be great if my mail client displayed whether a received message was successfully
@@ -10303,7 +10312,7 @@ to provide additional information.
 This is secure only if the records are authenticated with
 [DNSSEC](/internet/#domain-name-system-security-extensions).
 I will no longer mention this aspect in the remaining subsections.
-Some of the steps have to be performed by the owner of the domain rather than the email service provider.
+Some of the steps have to be performed by the owner of the domain rather than the mailbox provider.
 If you use a custom domain for your emails, you should definitely read the part about
 [domain authentication](#domain-authentication) to make sure that your domain is configured properly.
 Since email is a decentralized service, we can improve its security only in a collective effort.
@@ -10339,7 +10348,7 @@ how receiving mail servers can verify whether the sending mail server is indeed 
 The second part is usually solved with
 [password-based authentication mechanisms](#password-based-authentication-mechanisms).
 The following techniques don't prevent spoofing if the outgoing mail server of the sender is compromised
-or if the attacker can create an account at the same email service provider
+or if the attacker can create an account at the same mailbox provider
 and [impersonate another user during submission](#spoofed-sender-during-submission).
 
 Before you continue, make sure that you understand the difference between
@@ -10537,10 +10546,10 @@ your SPF record will consist of:
   Every SPF record has to start with `v=spf1`.
 - [**Includes**](https://datatracker.ietf.org/doc/html/rfc7208#section-5.2):
   An SPF record can `include` the IP addresses of another SPF record.
-  Search for the appropriate record from your email service provider.
+  Search for the appropriate record from your mailbox provider.
   For example, put `include:_spf.google.com` ([source](https://support.google.com/a/answer/33786))
   into your SPF record if you use [Google Workspace](https://workspace.google.com/products/gmail/).
-  Since mailing list providers such as [Mailchimp](https://mailchimp.com/)
+  Since mailing list providers, such as [Mailchimp](https://mailchimp.com/),
   use an address of their own in the `MAIL` `FROM` command
   so that they can handle [bounce messages](#bounce-messages) for you,
   you don't need to add the addresses of their servers to your SPF record.
@@ -10895,8 +10904,8 @@ In order to prevent [mail loops](#mail-loops), no `MAIL` `FROM` address is provi
 In such circumstances, the address `postmaster@` followed by the domain from the
 [`HELO`/`EHLO` command](https://datatracker.ietf.org/doc/html/rfc7208#section-1.1.4) is used for SPF evaluation.
 The [`HELO` identity](https://datatracker.ietf.org/doc/html/rfc7208#section-2.3) can also be verified separately
-by evaluating the SPF record of the `HELO`/`EHLO` domain.
-Email service providers would have to configure SPF records for each of their outgoing mail servers.
+by evaluating the SPF record of the `HELO` / `EHLO` domain.
+Mailbox providers would have to configure SPF records for each of their outgoing mail servers.
 As far as I can tell, this is rarely done in practice.
 I found SPF records only for the outgoing mail servers of Outlook.com.
 Unless you run your mail servers yourself, this aspect of SPF is nothing to worry about.
@@ -10993,7 +11002,7 @@ The standard [doesn't specify](https://datatracker.ietf.org/doc/html/rfc6376#sec
 which [entities](#entities) add and verify DKIM signatures.
 Since DKIM keys are valid for the whole domain and cannot be restricted to individual users,
 messages are usually signed by the outgoing mail server after authenticating the user.
-If you are the only user of your domain and your email service provider doesn't support DKIM,
+If you are the only user of your domain and your mailbox provider doesn't support DKIM,
 you could add a DKIM signature to a message before submitting it to the outgoing mail server,
 but I'm not aware of any mail client which supports this.
 Since DKIM keys can be revoked at any time after a message has been delivered,
@@ -11013,7 +11022,7 @@ It simply allows the recipient to use the [reputation of a domain](#reputation) 
 How a domain owner can ask recipients to reject emails which don't pass domain authentication
 is the topic of the [next subsection](#domain-based-message-authentication-reporting-and-conformance).
 
-If your email service provider supports DKIM for custom domains,
+If your mailbox provider supports DKIM for custom domains,
 it likely has an article on how to generate a DKIM key for your domain
 and how to publish the public key in your DNS zone.
 For example, [this guide](https://support.google.com/a/answer/174124)
@@ -11275,7 +11284,7 @@ but not its [envelope](#message-versus-envelope).
 If DKIM also covered the [`RCPT` `TO` addresses](#diverging-envelope-example) of the envelope,
 mail servers could no longer [forward emails](#email-forwarding)
 without breaking [domain authentication](#domain-authentication).
-One of the reasons [for using outgoing mail servers](#why-outgoing-mail-servers) is to allow email service providers
+One of the reasons [for using outgoing mail servers](#why-outgoing-mail-servers) is to allow mailbox providers
 to [limit the rate](https://en.wikipedia.org/wiki/Rate_limiting) at which their users can send emails.
 The problem with DKIM is that any user can get a valid DKIM on a message of their choosing
 by sending an email to themself.
@@ -11283,18 +11292,18 @@ Once they have received the email, they can relay the signed message to
 [an arbitrary number of recipients](https://datatracker.ietf.org/doc/html/rfc6376#section-8.6).
 The recipients might not see their email address in the `To` or `Cc` field
 but this is usually also the case for `Bcc` recipients.
-The email service provider who signed the message can stop such a
+The mailbox provider who signed the message can stop such a
 [replay attack](https://en.wikipedia.org/wiki/Replay_attack)
 only by revoking the corresponding signing key.
-If the email service provider doesn't use
+If the mailbox provider doesn't use
 [a different key for each user](https://datatracker.ietf.org/doc/html/rfc6376#section-8.7),
-which would increase the load on their domain name servers considerably,
+which would increase the load on their [name servers](https://en.wikipedia.org/wiki/Name_server) considerably,
 revoking the key immediately prevents delayed emails of other users from being delivered as well.
 Unless a key is compromised, it should be revoked only after around one week of no longer being in use.
-Even if the email service provider did use a different key for each user,
+Even if the mailbox provider did use a different key for each user,
 it would first have to learn that a user abuses their [reputation](#reputation) for [spamming](#spam).
 A lot of damage might already have been done before the key is revoked and the change is propagated through the DNS.
-The best that public email service providers can do to counter this attack is to reject outgoing messages
+The best that public mailbox providers can do to counter this attack is to reject outgoing messages
 with a high [spam score](#heuristics).
 
 </details>
@@ -11323,20 +11332,20 @@ Authorized Third-Party Signatures (ATPS)
 </summary>
 
 Many people and companies use a custom domain without running their mail servers themselves.
-Instead, they delegate the delivery and the receipt of messages to email service providers.
+Instead, they delegate the delivery and the receipt of emails to mailbox providers.
 [SPF](#sender-policy-framework) makes such a delegation very easy with the `include` [mechanism](#spf-mechanisms),
-which allows email service providers to change their outgoing mail servers without involving their customers.
+which allows mailbox providers to change their outgoing mail servers without involving their customers.
 If you want to achieve [the same with DKIM](https://datatracker.ietf.org/doc/html/rfc6376#appendix-B.1.1),
 you have to delegate a [DNS zone](https://en.wikipedia.org/wiki/DNS_zone)
-in the `_domainkey` subdomain to your email service provider.
+in the `_domainkey` subdomain to your mailbox provider.
 The next best thing is to configure a [`CNAME` record](https://en.wikipedia.org/wiki/CNAME_record)
-in this subdomain which points to the DKIM record of the email service provider.
+in this subdomain which points to the DKIM record of the mailbox provider.
 [Once again](#protecting-subdomains),
 the standard doesn't mention whether `CNAME` records can be used but this seems to be
 [a common practice](https://docs.gandi.net/en/gandimail/faq/spoofing.html#dkim).
-With this approach, the email service provider cannot change the selector of their signing key
+With this approach, the mailbox provider cannot change the selector of their signing key
 without involving their customers but if you set up several `CNAME` records,
-the email service provider can alternate between them.
+the mailbox provider can alternate between them.
 
 [RFC 6541](https://datatracker.ietf.org/doc/html/rfc6541) introduces a simpler solution,
 which is called Authorized Third-Party Signatures (ATPS).
@@ -11345,7 +11354,7 @@ which can be used to indicate a domain on whose behalf the message is signed.
 The delegator confirms the delegation with a `TXT` record at `{DelegateeDomain}._atps.{DelegatorDomain}`,
 which has to have a value of `v=ATPS1`.
 For example, if the domain of your organization is `example.org` and you use the email service of `example.com`,
-your email service provider adds a `DKIM-Signature` header field with `d=example.com` and `atps=example.org`.
+your mailbox provider adds a `DKIM-Signature` header field with `d=example.com` and `atps=example.org`.
 The verifier then checks whether there is a valid ATPS record at `example.com._atps.example.org`.
 So far, so good.
 
@@ -11486,7 +11495,7 @@ and keeping one label more than the longest suffix found in the list.
 The most popular [public suffix list (PSL)](https://en.wikipedia.org/wiki/Public_Suffix_List)
 is maintained by the [Mozilla Foundation](https://en.wikipedia.org/wiki/Mozilla_Foundation)
 and available [here](https://publicsuffix.org/list/).
-If different email service providers use different lists,
+If different mailbox providers use different lists,
 they can come to different conclusions whether two identifiers align.
 In order not to add [another big dependency](https://www.npmjs.com/package/psl),
 the above tool determines the organizational domain by looking for the closest `SOA` record.
@@ -11720,7 +11729,7 @@ in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489#section-7.3.1).
 </figure>
 
 As far as your privacy is concerned,
-your email service provider has your message anyway if you submit it through the outgoing mail server.
+your mailbox provider has your message anyway if you submit it through the outgoing mail server.
 If your message failed DMARC authentication because you bypassed the outgoing mail server,
 you shouldn't have an expectation of privacy in the first place.
 DMARC's failure reporting does increase the chance that your message is screened by an IT administrator, though.
@@ -12394,8 +12403,8 @@ It doesn't validate whether DNSSEC and DANE are deployed correctly.
 If you want to check this, you can use [this validator](https://dane.sys4.de/).
 I cover how you can [generate](#how-to-generate-a-tlsa-record)
 and [verify](#how-to-verify-a-tlsa-record) `TLSA` records yourself below.
-You can deploy DANE only if your email service provider supports it.
-If your email service provider has configured `TLSA` records for their servers,
+You can deploy DANE only if your mailbox provider supports it.
+If your mailbox provider has configured `TLSA` records for their servers,
 all that you have to do is to enable DNSSEC on your custom domain.
 
 <div id="tool-lookup-tlsa-records"></div>
@@ -13066,12 +13075,12 @@ Comparison to DANE
   MTA-STS, on the other hand, has an explicit mode for testing,
   which is intended to be used in combination with [SMTP TLS Reporting (TLSRPT)](#smtp-tls-reporting-tlsrpt).
   Such a test mode is necessary because the MTA-STS policy affects the whole domain.
-- **No support from email service providers required**:
+- **No support from mailbox providers required**:
   If your incoming mail server uses a valid PKIX certificate for its domain,
-  you can deploy MTA-STS on your custom domain without explicit support from your email service provider.
-  It's unlikely that your email service provider stops using valid PKIX certificates for their servers
+  you can deploy MTA-STS on your custom domain without explicit support from your mailbox provider.
+  It's unlikely that your mailbox provider stops using valid PKIX certificates for their servers
   unless they start using DANE.
-  In order to be on the safe side, you may want to contact your email service provider in any case.
+  In order to be on the safe side, you may want to contact your mailbox provider in any case.
 
 </details>
 
@@ -13108,8 +13117,8 @@ Unfortunately, the standards are silent on this.
 
 In my opinion, a successful DANE authentication should take precedence over a failed MTA-STS validation
 as this would allow domain owners to deploy [transport security](#transport-security)
-without the support of their email service provider by deploying DNSSEC and MTA-STS.
-If the email service provider switches to DANE with self-signed certificates,
+without the support of their mailbox provider by deploying DNSSEC and MTA-STS.
+If the mailbox provider switches to DANE with self-signed certificates,
 clients which support DANE and MTA-STS would continue to deliver emails to this domain
 even if MTA-STS validation now fails.
 
@@ -13583,13 +13592,13 @@ none of the mail servers have to be trusted (beyond delivering or storing the me
 
 End-to-end security has two advantages:
 - **No trust in mail servers required**:
-  In theory, if you don't trust any email service provider, you can just host your emails yourself.
+  In theory, if you don't trust any mailbox provider, you can just host your emails yourself.
   In practice, however, running your own mail server on your own hardware is [a hassle](#reputation).
   Beyond the technical complexity of running a mail server,
   you may want to share the infrastructure with other users in order to reduce costs.
   Without end-to-end security, everyone has to trust the administrator of the mail servers.
   If you employ end-to-end security on all your messages,
-  you can choose any free email service provider who delivers your messages reliably.
+  you can choose any free mailbox provider who delivers your messages reliably.
 - **Secrets on clients instead of servers**:
   In order to receive emails from anyone, incoming mail servers have to be reachable from anywhere on the Internet.
   If a security hole is found in the used software, mail servers become vulnerable immediately.
@@ -14274,6 +14283,7 @@ If no such folder or file exists in your user directory, you can create them wit
 *[EE]: End Entity
 *[EFF]: Electronic Frontier Foundation
 *[ESMTP]: Extended/Enhanced Simple Mail Transfer Protocol
+*[ESP]: Email Service Provider
 *[FAQ]: Frequently Asked Questions
 *[FQDN]: Fully Qualified Domain Name
 *[GMT]: Greenwich Mean Time
@@ -14323,6 +14333,7 @@ If no such folder or file exists in your user directory, you can create them wit
 *[MS]: Message Store
 *[MSA]: Mail Submission Agent (your outgoing mail server requiring authentication)
 *[MSF]: Mail Summary File as used by Thunderbird
+*[MSP]: Mail Service Provider
 *[MSRC]: Microsoft Security Response Center
 *[MSS]: Mail Submission Server
 *[MTA]: Mail Transfer Agent (SMTP for Relay client and server)

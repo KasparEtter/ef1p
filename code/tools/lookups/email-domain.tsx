@@ -305,7 +305,7 @@ function RawConfigurationDatabaseOutput({ requests, configuration }: Readonly<Co
             configuration !== undefined &&
             <Fragment>
                 <p className="text-center">
-                    According to the found configuration file, the email service provider of <a href={'http://' + domain}>{domain}</a>{' '}
+                    According to the found configuration file, the mailbox provider of <a href={'http://' + domain}>{domain}</a>{' '}
                     is {configuration.webmail ? <a href={configuration.webmail}>{configuration.name}</a> : configuration.name}.
                 </p>
                 <p className="text-center">
