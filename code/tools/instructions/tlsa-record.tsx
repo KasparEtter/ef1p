@@ -25,7 +25,7 @@ const certificateFile: DynamicEntry<string> = {
     defaultValue: 'certificate.pem',
     inputType: 'text',
     labelWidth: 105,
-    inputWidth: 140,
+    inputWidth: 135,
 };
 
 const selector: DynamicEntry<string, State> = {

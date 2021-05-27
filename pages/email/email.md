@@ -5,7 +5,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-05-26
+modified: 2021-05-27
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 math: false
@@ -12463,7 +12463,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   (assuming your [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar)
   supports DNSSEC at no additional costs).
 - **Clear domain bindings**:
-  As we will see [soon](#name-matching),
+  As we will see [soon](#name-checks),
   there are various ways to include domain names in [X.509 certificates](https://en.wikipedia.org/wiki/X.509).
   While DANE supports [different modes of operation](#tlsa-record-type) and inherits the problem in some of them,
   it paves the way for a truly simple domain-based public-key infrastructure.
@@ -12590,7 +12590,7 @@ in order to return the right certificate chain to each client.
 
 | Requirements | [PKIX-TA](https://datatracker.ietf.org/doc/html/rfc7671#section-5.4) | [PKIX-EE](https://datatracker.ietf.org/doc/html/rfc7671#section-5.3) | [DANE-TA](https://datatracker.ietf.org/doc/html/rfc7671#section-5.2) | [DANE-EE](https://datatracker.ietf.org/doc/html/rfc7671#section-5.1)
 |-:|:-:|:-:|:-:|:-:
-| [**Name matching**](#name-matching) | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
+| [**Name matching**](#name-checks) | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
 | **Expiration date** | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
 | **Certificate chain** | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
 | **Certification constraints** | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-check-circle color-green"></i> | <i class="fas fa-times-circle color-red"></i>
@@ -12685,7 +12685,7 @@ Requiring the `TLSA` record to be located at the `ProviderDomain` has three adva
   (The `TLSA` record for ESMTP is at `_25._tcp.internet.nl`
   only because `internet.nl` points its `MX` record to itself.)
 - **Easier virtual hosting**:
-  The `ProviderDomain` is also used for verifying the [subject of the certificate](#name-matching).
+  The `ProviderDomain` is also used for verifying the [subject of the certificate](#name-checks).
   By using the domain of the provider rather than the customer,
   the service provider can use a single certificate for an arbitrary number of customers.
   Otherwise, the service provider would have to obtain a separate certificate for each customer.
@@ -12732,23 +12732,25 @@ There are two situations in which you want to use multiple `TLSA` records:
 </details>
 
 <details markdown="block">
-<summary markdown="span" id="name-matching">
-Name matching
+<summary markdown="span" id="name-checks">
+Name checks
 </summary>
 
 If a [certificate usage](#tlsa-record-type) other than DANE-EE is being used,
 DANE clients have to verify that the validated certificate matches the server's identity.
-In order to do so, they carry out the following, rather complicated and boring procedure:
+In order to do so, they carry out the following procedure:
 1. [**Determine the `TLSA` domain**](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.2):
    The `TLSA` lookup is usually performed on the server's domain
    after resolving any `CNAME`, `MX`, and `SRV` records.
    [RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.2), however,
    makes things a bit more complicated for [ESMTP](#extended-simple-mail-transfer-protocol).
-   First of all, the domain found after the `@` symbol in the email address is `CNAME`-expanded.
+   In a first step, the domain found after the `@` symbol in the email address is `CNAME`-expanded.
    If the whole expansion was [secure](#client-behavior), you look up its `MX` records.
    Any domain name listed in an `MX` record has to resolve directly to `A`/`AAAA` records
    according to [RFC 2181](https://datatracker.ietf.org/doc/html/rfc2181#section-10.3)
    and [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-5.1).
+   (Some mail servers support `CNAME` expansion of the `MX` domain,
+   but I decided not to cover this case for the sake of simplicity.)
    If the expanded `@` domain has no `MX` records,
    you [fall back to its `A`/`AAAA` records](#address-resolution).
    The `TLSA` domain is determined as follows:
@@ -12757,14 +12759,17 @@ In order to do so, they carry out the following, rather complicated and boring p
    |-
    | Secure `CNAME` record | Secure `MX` records | Secure `A`/`AAAA`<br>and `TLSA` records | `MX` domain <i class="ml-1 fas fa-check-circle color-green"></i>
    | Secure `CNAME` record | Secure `A`/`AAAA`<br>and `TLSA` records | – | Expanded `@` domain <i class="ml-1 fas fa-check-circle color-green"></i>
-   | Secure `CNAME` record,<br>secure `TLSA` records | Insecure `A`/`AAAA`<br>records | – | Non-expanded `@` domain <i class="ml-1 fas fa-exclamation-triangle color-orange"></i>
+   | Secure `CNAME` record,<br>secure `TLSA` records | Secure or insecure<br>`A`/`AAAA` records | – | Non-expanded `@` domain <i class="ml-1 fas fa-exclamation-triangle color-orange"></i>
    | Secure `MX` records | – | Secure `A`/`AAAA`<br>and `TLSA` records | `MX` domain <i class="ml-1 fas fa-check-circle color-green"></i>
-   | Insecure `MX` records | – | Secure `A`/`AAAA`<br>and `TLSA` records | `MX` domain <i class="ml-1 fas fa-exclamation-triangle color-orange"></i>
+   | Insecure `MX` records | (Before or after<br>`CNAME` expansion) | Secure `A`/`AAAA`<br>and `TLSA` records | `MX` domain <i class="ml-1 fas fa-exclamation-triangle color-orange"></i><br>(for opportunistic security)
    | Secure `A`/`AAAA`<br>and `TLSA` records | – | – | Non-expanded `@` domain <i class="ml-1 fas fa-check-circle color-green"></i>
    {:.table-with-vertical-border-after-column-3}
-   <figcaption markdown="span">
+   <figcaption markdown="span" style="max-width: 830px;">
+   The `TLSA` domain is where the `TLSA` records were found.
    In all other cases, [DANE does not apply](#client-behavior).
-   I've marked the unexpected cases with<i class="ml-1 fas fa-exclamation-triangle color-orange"></i>.
+   I've marked the unexpected cases, where the `TLSA` domain is not the rightmost domain
+   or where DANE may be used even if the `@` domain is insecure,
+   with<i class="ml-1 fas fa-exclamation-triangle color-orange"></i>.
    </figcaption>
    </figure>
 2. [**Determine the set of acceptable domains**](https://datatracker.ietf.org/doc/html/rfc7672#section-3.2.2):
@@ -12793,10 +12798,7 @@ In order to do so, they carry out the following, rather complicated and boring p
    if one of the acceptable domains is included in the set of certified domains.
    Even this step is not trivial as the certified domains may have the
    [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character) `*` as the leftmost label.
-   For example, `*.example.com` matches `mail.example.com`.
-
-If you implement an ESMTP client, you can avoid all of this complexity
-by supporting only the certificate usage DANE-EE.
+   For example, `*.example.com` would match `mail.example.com`.
 
 </details>
 
@@ -12843,7 +12845,7 @@ How the client has to handle the various situations according to
 </figure>
 
 A couple of remarks on the above table:
-- "All secure" means that all the DNS lookups to [determine the `TLSA` domain](#name-matching)
+- "All secure" means that all the DNS lookups to [determine the `TLSA` domain](#name-checks)
   as well as the [`TLSA` lookup](#tlsa-record-location) are secure,
   including `CNAME` indirections of the `TLSA` record itself.
 - "Unusable" means that the DANE client does not support the [parameters of the `TLSA` record](#tlsa-record-type).
@@ -12855,7 +12857,7 @@ A couple of remarks on the above table:
   this means [opportunistic TLS](#transport-security).
   In the case of [JMAP](#json-meta-application-protocol), which is used only with TLS,
   this would mean PKIX-authenticated TLS once JMAP/HTTPS adopts DANE.
-- In the unexpected cases of the [previous box](#name-matching),
+- In the unexpected cases of the [previous box](#name-checks),
   DANE clients can enforce DANE-authentication even if some of the DNS lookups were insecure.
 - `MX` records [must be sorted by preference](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1)
   and `SRV` records [must be sorted by priority and weight](https://datatracker.ietf.org/doc/html/rfc7673#section-3.1)
@@ -12878,7 +12880,7 @@ How to generate a TLSA record
 </summary>
 
 Before you deploy DANE,
-make sure that [all involved domains](#name-matching)
+make sure that [all involved domains](#name-checks)
 support [DNSSEC](/internet/#domain-name-system-security-extensions).
 And even if you don't use DANE, you [should activate](https://datatracker.ietf.org/doc/html/rfc7671#section-11)
 the [transfer lock](https://docs.gandi.net/en/domain_names/transfer_out/transfer_lock.html) on all your domains.
@@ -12895,7 +12897,7 @@ How to verify a TLSA record
 
 [OpenSSL but not LibreSSL](#openssl-versus-libressl) has the option
 [`-dane_tlsa_domain`](https://www.openssl.org/docs/manmaster/man1/openssl-s_client.html#dane_tlsa_domain-domain)
-to configure the [`TLSA` domain](#name-matching) and the option
+to configure the [`TLSA` domain](#name-checks) and the option
 [-dane_tlsa_rrdata](https://www.openssl.org/docs/manmaster/man1/openssl-s_client.html#dane_tlsa_rrdata-rrdata)
 to provide one or several [`TLSA` records](#tlsa-record-type).
 I covered how to install OpenSSL on macOS in an [earlier box](#install-openssl-on-macos).
@@ -13023,7 +13025,7 @@ It lets receiving domains indicate their support for PKIX-authenticated TLS with
   if it cannot authenticate the incoming mail server of the recipient with the presented PKIX certificate.
   Since MTA-STS doesn't require that DNS records are authenticated with DNSSEC,
   the policy file is also used to authenticate the `MX` records of the receiving domain.
-  This allows clients to match the presented certificate against [the name of the mail server](#name-matching).
+  This allows clients to match the presented certificate against [the name of the mail server](#name-checks).
 
 The tool below queries the MTS-STS record and the policy file of the given domain.
 It uses [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json) for the DNS query
@@ -13061,7 +13063,7 @@ Comparison to DANE
   The [`TXT` record](#mta-sts-dns-record) and the [policy file](#mta-sts-policy-file)
   of MTA-STS are stored on the domain after the `@` symbol in the recipient's email address,
   whereas the [`TLSA` records](#tlsa-record-type) of DANE are configured on the domains listed in the `MX` records
-  (at least in [ordinary setups](#name-matching)).
+  (at least in [ordinary setups](#name-checks)).
 - **No strict downgrade resistance**:
   Unlike DANE, which provides downgrade resistance thanks to DNSSEC’s authenticated denial of existence,
   the DNS record and policy file of MTA-STS can be
@@ -13536,7 +13538,7 @@ In the case of DANE, [RFC 8460](https://datatracker.ietf.org/doc/html/rfc8460#se
 invalid [`TLSA` records](#tlsa-record-type) and no valid [DNSSEC signatures](#client-behavior) as reportable failures.
 [Other result types](https://datatracker.ietf.org/doc/html/rfc8460#section-4.3.1) include
 missing support for [`STARTTLS`](#starttls-extension) and certificates
-which expired, were not trusted, or had [no matching name](#name-matching).
+which expired, were not trusted, or had [no matching name](#name-checks).
 
 </details>
 
