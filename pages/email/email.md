@@ -66,6 +66,26 @@ Before we roll up our sleeves and change this, here are a few things that you sh
 </details>
 
 <details markdown="block">
+<summary markdown="span" id="impact">
+Impact
+</summary>
+
+This article had the following impact in the email industry (beyond [additional DNS records](#fixes)):
+- The mail client [Mutt](https://en.wikipedia.org/wiki/Mutt_(email_client)) gained an option to
+  [conceal the sender's time zone](https://gitlab.com/muttmua/mutt/-/commit/4c786d8795fa55eca3685d58edc60361ddf4de37)
+  for [more privacy](#sender-towards-recipients).
+- [Mail-in-a-Box](https://en.wikipedia.org/wiki/Mail-in-a-Box) added [null `MX` records](#null-mx-record)
+  for [subdomains with address records](https://github.com/mail-in-a-box/mailinabox/commit/e283a1204728024c3e0cf77fdb5292fbdecde85f).
+- [Gandi.net](https://www.gandi.net/en-US/domain/email) no longer includes
+  the [sender's IP address](#sender-towards-recipients) in sent messages.
+{:.compact}
+
+If you made changes in your software project because of this article,
+[let me know](mailto:contact@ef1p.com) so that I can add your change to the list above.
+
+</details>
+
+<details markdown="block">
 <summary markdown="span" id="terminology">
 Terminology
 </summary>
@@ -260,11 +280,13 @@ a mailbox provider can designate a special character,
 which is valid according to the standard but not in its set for usernames,
 to split the [local part](#normalization) into two.
 The part before this special character is used to determine the recipient of a message.
-The part after this special character is a tag that the user chose when they shared their address.
+The part after this special character is a tag that the user can choose when they share their address.
+Since subaddressing can be implemented by the receiving mail system at will, it has never been formalized
+beyond [this draft](https://datatracker.ietf.org/doc/html/draft-newman-email-subaddr-01) from 2007.
 [Gmail](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html) and
 [Microsoft Exchange](https://docs.microsoft.com/en-us/exchange/recipients-in-exchange-online/plus-addressing-in-exchange-online)
 support subaddressing with a plus.
-For example, emails to `user+tag@gmail.com` will be delivered to `user@gmail.com`.
+For example, emails to `user+tag@gmail.com` are delivered to `user@gmail.com`.
 
 If you reply to an email that you received at a subaddress with a plus,
 Gmail still uses your main address in the `From` field, unfortunately.
@@ -1584,7 +1606,8 @@ who might have simply mistyped the address of the recipient.
 In order to prevent this from happening,
 [RFC 7505](https://datatracker.ietf.org/doc/html/rfc7505) defines a "null `MX` record" as `0 .`
 similar to how [`SRV` records](#autoconfiguration) indicate the unavailability of a service.
-You should configure a null `MX` record on all your domains which neither send nor receive emails.
+You should configure a null `MX` record on all your [organizational domains](#organizational-domain)
+which neither send nor receive emails.
 
 </details>
 
@@ -9097,7 +9120,7 @@ The recipient of a message often learns the following information about the send
   how they [style messages](#email-styling),
   how they [quote messages](#quoting-html-messages), and so on.
   This is known as [fingerprinting](https://en.wikipedia.org/wiki/Device_fingerprint),
-  and it allows a recipient to determine whether separate messages were sent from the same client.
+  and it allows a recipient to determine how likely separate messages were sent from the same client.
 - **Display names**: Your mail client not just adds your name
   as a [display name](#display-name) in the `From` address,
   it also adds a display name for each recipient it knows.
@@ -10212,6 +10235,16 @@ So here comes the list of things which should never have been approved or implem
 - [**Domain lookup**](#address-resolution):
   Falling back to `A` and `AAAA` records if a recipient domain has no `MX` records
   causes [problems](#null-mx-record) without bringing any substantial benefits.
+- [**Flat email header**](#header-fields-and-body):
+  Header fields are added by different [entities](#entities),
+  which is not reflected in the flat structure of header fields.
+  This is not ideal for header fields which convey information
+  from the incoming mail server to the mail clients of the recipient.
+  Mail clients can rely on such header fields only if they know
+  that the incoming mail server removes these header fields from incoming messages.
+  Otherwise, a malicious sender can mislead the mail clients of the recipient.
+  Examples of such header fields are [`Authentication-Results`](#authentication-results-header-field),
+  [`BIMI-Location`](#bimi-header-fields), and [`BIMI-Indicator`](#bimi-header-fields).
 
 If you want to have something added to or removed from this list, [let me know](mailto:contact@ef1p.com).
 
