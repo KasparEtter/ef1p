@@ -4,11 +4,11 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { clientAlice, envelopeFromAlice, envelopeToBob, envelopeToCarol, envelopeToDavid, messageFromAlice, messageToBob, outgoingExampleOrg, printEnvelope } from './message-envelope';
+import { clientAlice, envelopeFromAlice, envelopeToBob, envelopeToCarol, envelopeToDave, messageFromAlice, messageToBob, outgoingExampleOrg, printEnvelope } from './message-envelope';
 
 printEnvelope(
     clientAlice,
     outgoingExampleOrg,
-    [envelopeFromAlice, envelopeToBob, envelopeToCarol, envelopeToDavid],
+    [envelopeFromAlice, envelopeToBob, envelopeToCarol, envelopeToDave],
     [messageFromAlice, messageToBob],
 );

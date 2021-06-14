@@ -25,9 +25,9 @@ export const messageToBob: TextLine = 'To: Bob <bob@example.com>';
 export const messageCcCarol: TextLine = 'Cc: Carol <carol@example.com>';
 export const messageBccIetf: TextLine = T('Bcc: ', uppercase('ietf'), ' <ietf@ietf.org>');
 export const messageBccCarol: TextLine = 'Bcc: Carol <carol@example.com>';
-export const messageBccDavid: TextLine = 'Bcc: David <david@example.net>';
+export const messageBccDave: TextLine = 'Bcc: Dave <dave@example.net>';
 export const messageBccBoth1: TextLine = 'Bcc: Carol <carol@example.com>,';
-export const messageBccBoth2: TextLine = T(preserveWhitespace('          '), 'David <david@example.net>');
+export const messageBccBoth2: TextLine = T(preserveWhitespace('          '), 'Dave <dave@example.net>');
 export const messageBccEmpty: TextLine = 'Bcc:';
 export const messageLines = [messageFromAlice, messageToBob, messageCcCarol];
 
@@ -38,7 +38,7 @@ export const envelopeToCarol: TextLine = 'RCPT TO:<carol@example.com>';
 export const envelopeToCaroline: TextLine = 'RCPT TO:<caroline@example.net>';
 export const envelopeToIetf: TextLine = 'RCPT TO:<ietf@ietf.org>';
 export const envelopeFromAdmin: TextLine = 'MAIL FROM:<admin@ietf.org>';
-export const envelopeToDavid: TextLine = 'RCPT TO:<david@example.net>';
+export const envelopeToDave: TextLine = 'RCPT TO:<dave@example.net>';
 
 export const clientAlice: TextLine[] = [T(bold('Mail client'), ' of'), 'alice@example.org'];
 export const outgoingExampleOrg: TextLine[] = [bold('Outgoing'), bold('mail server'), 'of example.org'];

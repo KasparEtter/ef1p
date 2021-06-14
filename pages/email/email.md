@@ -5,7 +5,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-05-27
+modified: 2021-06-14
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 math: false
@@ -2210,7 +2210,7 @@ so it does that.
 </figure>
 
 <figure markdown="block">
-{% include_relative generated/message-envelope-david.embedded.svg %}
+{% include_relative generated/message-envelope-dave.embedded.svg %}
 <figcaption markdown="span">
 
 **Mailing list**: It turns out that `ietf@ietf.org` is a [mailing list](#mailing-list).
@@ -2275,7 +2275,7 @@ when it comes to `Bcc` recipients, which we'll study on the basis of another exa
 ```
 From: Alice <alice@example.org>
 To: Bob <bob@example.com>
-Bcc: Carol <carol@example.com>, David <david@example.net>
+Bcc: Carol <carol@example.com>, Dave <dave@example.net>
 Subject: Followup to previous message
 Date: Thu, 01 Oct 2020 15:04:26 +0200
 Message-ID: <another-identifier@example.org>
@@ -2347,9 +2347,9 @@ Carol in `Bcc` gets her own version of the message.
 </figure>
 
 <figure markdown="block">
-{% include_relative generated/message-envelope-bcc-david.embedded.svg %}
+{% include_relative generated/message-envelope-bcc-dave.embedded.svg %}
 <figcaption markdown="span">
-And so does David.
+And so does Dave.
 </figcaption>
 </figure>
 
