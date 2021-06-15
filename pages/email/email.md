@@ -5,7 +5,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-06-14
+modified: 2021-06-15
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 math: false
@@ -2682,7 +2682,7 @@ and paste the clipboard once a second with the [`watch` command](https://en.wiki
 <div id="code-clipboard-verification"></div>
 <figcaption markdown="span">
 How to watch your clipboard in your command-line interface.
-Press "control c" to exit the program.
+Press "Control C" (^C) to exit the program.
 </figcaption>
 </figure>
 
@@ -4622,7 +4622,7 @@ to all but one of the [above properties](#desirable-properties-of-authentication
     it forces different servers to use separate authentication databases.
     For example, an attacker who compromised the outgoing mail server
     would no longer be able to retrieve the user's mail at the incoming mail server.
-    These precautions only make sense, though,
+    However, these precautions make sense only
     if the `Password` is never shared with the server, not even when setting the password.
     This means that the client has to choose the `Salt` and the `IterationCount`
     and then generate the string `Salt + IterationCount + HashedKey`
@@ -5624,7 +5624,7 @@ and addresses the following shortcomings of IMAP (and [message submission](#subm
   It just relieves programmers who want to integrate email
   from having to take care of encoding and decoding messages correctly.
 - **Message submission**:
-  The previous point only makes sense if clients can also
+  The previous point makes sense only if clients can also
   [submit messages](#submission-versus-relay) for delivery in the same format.
   If the JMAP server [supports submission](https://jmap.io/spec-mail.html#urnietfparamsjmapsubmission),
   a client can [instruct it](https://jmap.io/spec-mail.html#email-submission)
@@ -6280,7 +6280,7 @@ that were added by mail servers through which the message already passed.
 In addition, not all mail servers might support the newer protocol values,
 and [relays over a private network](#local-mail-transfer-protocol) are often not protected with TLS.
 A message typically has at least four `Received` header fields,
-which only makes sense if you look at the [official architecture](#official-architecture)
+which makes sense only when you look at the [official architecture](#official-architecture)
 instead of the [simplified architecture](#simplified-architecture).
 A `Received` header field is added by the mail submission agent (MSA), the outgoing mail transfer agent (MTA),
 the incoming mail transfer agent (MTA), and the mail delivery agent (MDA).
@@ -6432,7 +6432,7 @@ must be encoded with one of the following two methods:
   Since some mail servers add or remove trailing whitespace,
   tabs and spaces which are followed by `{CR}{LF}` also need to be encoded with hexadecimal digits.
   Any sequence of bytes can be encoded with this method.
-  The Quoted-Printable encoding only makes sense, though,
+  However, the Quoted-Printable encoding makes sense only
   if most of the bytes are printable ASCII characters.
   This is the case for those European languages which share most of their characters
   with the [English alphabet](https://en.wikipedia.org/wiki/English_alphabet).
@@ -10238,8 +10238,8 @@ So here comes the list of things which should never have been approved or implem
 - [**Flat email header**](#header-fields-and-body):
   Header fields are added by different [entities](#entities),
   which is not reflected in the flat structure of header fields.
-  This is not ideal for header fields which convey information
-  from the incoming mail server to the mail clients of the recipient.
+  This is not ideal for [DKIM signatures](#dkim-signature-header-field)
+  and for header fields which convey information from the incoming mail server to the mail clients of the recipient.
   Mail clients can rely on such header fields only if they know
   that the incoming mail server removes these header fields from incoming messages.
   Otherwise, a malicious sender can mislead the mail clients of the recipient.
@@ -10335,7 +10335,7 @@ Whenever I submit a responsible disclosure, I do this manually.
 
 ## Fixes
 
-The last chapter of this article is dedicated to recent standards
+The last chapter of this article is dedicated to more recent standards
 which address some of the aforementioned [security issues](#security).
 We'll study how [spoofing](#spoofing) is prevented with [domain authentication](#domain-authentication)
 and how [confidentiality and integrity](#confidentiality-and-integrity) is ensured in the presence of an
@@ -10353,7 +10353,7 @@ Since email is a decentralized service, we can improve its security only in a co
 
 ### Domain authentication
 
-Historically, the sender of an email was not authenticated:
+Historically, the sender of an email was not authenticated.
 Anyone could [relay a message](#submission-versus-relay) to anyone
 using any [`From` address](#sender) they wanted.
 Impersonating another sender is known as [spoofing](#spoofing).
@@ -10361,7 +10361,8 @@ While the prevention of spoofing won't eliminate [spam](#spam) and [phishing](#p
 because spammers can implement the following standards as well and phishing remains possible
 with [similar domains](#homograph-attack) and [malicious display names](#malicious-display-names),
 it's an important prerequisite for other techniques, such as [flagging unknown senders](#spam).
-As we've seen [earlier](#why-outgoing-mail-servers), email spoofing is addressed in two steps:
+As we saw [earlier](#why-outgoing-mail-servers),
+[email spoofing](https://en.wikipedia.org/wiki/Email_spoofing) is addressed in two steps:
 The incoming mail server of the recipient verifies
 that the other party is authorized to send emails on behalf of the sender's domain
 and the outgoing mail server of this domain ensures that the local part of the `From` address
@@ -10375,7 +10376,7 @@ and the outgoing mail server of the sender authenticates the user who submits th
 </figcaption>
 </figure>
 
-As the title suggests, this subsection is only about the first part of the problem, namely
+As the title suggests, this subsection covers only the first part of the problem, namely
 how a domain owner can specify which mail servers are authorized to send messages on behalf of the domain and
 how receiving mail servers can verify whether the sending mail server is indeed authorized for the claimed domain.
 The second part is usually solved with
@@ -10392,12 +10393,12 @@ There are three complementary standards for domain authentication:
   List the [IP addresses](/internet/#network-layer) of your outgoing mail servers in a DNS record at your domain.
   SPF protects only the `MAIL` `FROM` address,
   which is used for [bounce messages](#bounce-messages).
-  SPF can cause problems with [email forwarding](#email-forwarding).
+  SPF authentication fails when [emails are forwarded](#email-forwarding).
 - [**DomainKeys Identified Mail (DKIM)**](#domainkeys-identified-mail):
   Let the outgoing mail servers sign outgoing messages
   and publish the [public key](/internet/#digital-signatures) in a DNS record at the sender's domain.
   The signature usually survives email forwarding but introduces [non-repudiation](#non-repudiation).
-- [**Domain-based Message Authentication, Reporting and Conformance (DMARC)**](#domain-based-message-authentication-reporting-and-conformance):
+- [**Domain-based Message Authentication, Reporting, and Conformance (DMARC)**](#domain-based-message-authentication-reporting-and-conformance):
   Publish a policy, which tells recipients what to do with messages
   that fail both SPF and DKIM, in a DNS record at your domain.
   Without a DMARC record, the recipient [cannot know](#author-domain-signing-practices) whether the sender uses DKIM.
@@ -10433,7 +10434,7 @@ as they benefit the people who deploy them on their domains as well:
   without losing the reputation that you've built so far.
 
 Unfortunately, these benefits apply only to the domains which you use to send emails from.
-From a security perspective, however, it's just as important to configure SPF and DMARC records for the domains
+From a security perspective, however, it's just as important to configure SPF and DMARC records on the domains
 [which you don't use to send emails from](https://www.gov.uk/guidance/protect-domains-that-dont-send-email).
 Since the above incentives exist only for the former category of domains but not the latter,
 mail server authorization is widely deployed on primary domains but less so on
@@ -10448,26 +10449,26 @@ Domain owner
 
 Knowing with certainty that a message was sent from a specific domain is important for
 algorithms such as [reputation systems](#reputation) and [email filters](#email-filtering),
-but domain authentication can give human users a false sense of security, which is dangerous.
+but domain authentication can also give human users a false sense of security, which is dangerous.
 On the one hand, it can be difficult for us to tell different domain names apart,
 i.e. we easily fall victim to [homograph attacks](#homograph-attack).
 On the other hand, it can be really hard to figure out who owns the domain in question.
-There are around [1'500 top-level domains](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains)
-and you likely don't know which top-level domain each of your contact uses.
+There are around [1'500 top-level domains](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains),
+and you likely don't know which top-level domain each of your contacts uses.
 Do they use a [generic top-level domain](https://en.wikipedia.org/wiki/Generic_top-level_domain)
 or a [country-code top-level domain](https://en.wikipedia.org/wiki/Country_code_top-level_domain)?
 Is the [second-level domain](https://en.wikipedia.org/wiki/Second-level_domain) only the company name
 or did they have to prefix it with something because the other name was already taken?
 How can you determine whether a domain indeed belongs to the company you think it belongs to?
-Unfortunately, there's no simple answer to this question.
+Unfortunately, there's no simple answer to the last question.
 The easiest thing you can do is to search for the company with your favorite search engine.
 If the domain in the email matches their web presence, you're done.
 If a company doesn't use a single domain across all channels (such as myself with this blog),
 the best you can do is to query the [WHOIS](https://en.wikipedia.org/wiki/WHOIS) database.
 
 WHOIS is a simple protocol to query information about registered domain names.
-It is specified in [RFC 3912](https://datatracker.ietf.org/doc/html/rfc3912)
-and is typically used with the `whois` command-line utility.
+It is specified in [RFC 3912](https://datatracker.ietf.org/doc/html/rfc3912),
+and it is typically used with the `whois` command-line utility.
 If you want to look up the information for `ef1p.com`,
 you enter `whois ef1p.com` into your [command-line interface](#command-line-interface).
 The `whois` utility opens a [TCP](/internet/#transmission-control-protocol) connection
@@ -10493,23 +10494,23 @@ As soon as the server has sent the answer, it closes the connection.
 
 If you perform the above steps, you'll find that almost all information is
 [redacted for privacy](https://en.wikipedia.org/wiki/Domain_privacy).
-This practice has become the norm rather than the exception and there is a
+This practice has become the norm rather than the exception, and there is a
 [proposal to abolish the WHOIS system](https://en.wikipedia.org/wiki/WHOIS#ICANN_proposal_to_abolish_WHOIS)
 as we know it altogether.
 And even if you do get a useful answer,
 the provided information might not be trustworthy
 since domain registrars don't verify their customers.
 
-You might be tempted to simply enter the domain in a web browser
+You might be tempted to simply enter the domain in a web browser,
 but this is dangerous because you might get infected with malware.
 You also don't learn anything by doing so:
-Any website can look like the legitimate website
+Any website can look like the legitimate website,
 and any website can [redirect your browser](https://en.wikipedia.org/wiki/URL_redirection) to the legitimate website.
 The only way to be quite certain that a domain belongs to a given company is when the connection is secured
 with an [extended-validation certificate](https://en.wikipedia.org/wiki/Extended_Validation_Certificate)
 before any redirects occur.
 Unfortunately, [domain-validated certificates](https://en.wikipedia.org/wiki/Domain-validated_certificate)
-are much more common nowadays and many browsers hide the name of the owner
+are much more common nowadays, and many browsers hide the name of the owner
 even if this information is present in the certificate.
 In summary, you should be vigilant even if the domain looks trustworthy.
 
@@ -10525,7 +10526,7 @@ domain authentication triggers requests from the receiver.
 As a sender, the company which runs the name servers of your domain
 might learn the domains to which you send emails.
 As a recipient, the sender might learn the domains to which you forward incoming messages.
-Thus, email leaves more traces with domain authentication than without.
+Email leaves more traces with domain authentication than without.
 
 </details>
 
@@ -10573,12 +10574,12 @@ without access to the target's local network,
 this procedure authenticates the sender's domain.
 
 So how do you create the SPF record for your domain?
-If you don't run your email server yourself,
+If you don't run your mail servers yourself,
 your SPF record will consist of:
 - [**Version**](https://datatracker.ietf.org/doc/html/rfc7208#section-4.5):
   Every SPF record has to start with `v=spf1`.
 - [**Includes**](https://datatracker.ietf.org/doc/html/rfc7208#section-5.2):
-  An SPF record can `include` the IP addresses of another SPF record.
+  An SPF record can include the IP addresses of another SPF record.
   Search for the appropriate record from your mailbox provider.
   For example, put `include:_spf.google.com` ([source](https://support.google.com/a/answer/33786))
   into your SPF record if you use [Google Workspace](https://workspace.google.com/products/gmail/).
@@ -10698,7 +10699,7 @@ On the one hand, DMARC protects the identity which is actually visible to users:
 On the other hand, DMARC policies also cover subdomains,
 where the [policy for subdomains](#subdomain-policy)
 can be different from the policy for the [organizational domain](#organizational-domain).
-If you do configure a DMARC record for unused domains,
+If you configure a DMARC record for unused domains,
 an SPF record is necessary only for mail servers which verify SPF but don't support DMARC.
 Given that SPF was introduced in [2006](https://datatracker.ietf.org/doc/html/rfc4408)
 and DMARC in [2015](https://datatracker.ietf.org/doc/html/rfc7489),
@@ -10740,7 +10741,8 @@ In practice, most mail servers also accept emails with failed SPF checks
 if the [reputation of the forwarder](#reputation) is high enough.
 As a consequence, forwarding usually works even without rewriting the `MAIL` `FROM` address,
 which defeats the purpose of SPF to some degree.
-[RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D) also discusses some other approaches to this problem.
+[RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D)
+also discusses some other solutions to the forwarding problem.
 
 </details>
 
@@ -10779,7 +10781,7 @@ The four qualifiers are:
 |:-:|:-:|:-
 | `+` | `pass` | The sender is authorized to send messages on behalf of the given domain.
 | `-` | `fail` | The sender is not authorized to send messages on behalf of the given domain.
-| `?` | `neutral` | The domain owner makes no assertion. This result has to be treated like `none`.
+| `?` | `neutral` | The domain owner makes no assertion. This result has to be treated like [`none`](#spf-received-header-field).
 | `~` | `softfail` | Between `fail` and `neutral`. The message can be flagged but not rejected.
 
 <figcaption markdown="span">
@@ -10802,8 +10804,8 @@ SPF mechanisms
 
 [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-5) defines eight mechanisms
 to match the sender's IP address:
-- [`all`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.1)
-  matches all IP addresses and is used to provide an explicit default result as the rightmost mechanism.
+- [`all`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.1) matches all IP addresses.
+  It is used to provide an explicit default result as the rightmost mechanism.
 - [`ip4` and `ip6`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.6)
   produce a match if the sender's IP address is in the network specified after a colon.
   The network is written in the [classless inter-domain routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation):
@@ -10828,7 +10830,8 @@ to match the sender's IP address:
   These lookups count towards the [limit of 10 DNS queries](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4)
   after the initial record retrieval.
   Therefore, use the `mx` mechanism only if absolutely necessary.
-  A different domain can be specified after a colon and the address range can be extended with a CIDR suffix.
+  A different domain can be specified after a colon,
+  and the address range can be extended with a CIDR suffix.
 - [`include`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.2)
   matches if the evaluation of the referenced SPF record results in a `pass` for the sender's IP address.
   This is the most confusing of all mechanisms because the referenced SPF record is not actually included.
@@ -10844,19 +10847,19 @@ to match the sender's IP address:
   This causes the `include` mechanism of `example.com` to match
   and since the qualifier of the `include` mechanism is `-`,
   the evaluation of `example.com`'s SPF record results in a `fail`.
-  Records with such exclusions are quite rare but being able to exclude some addresses before authorizing
+  Records with such exclusions are quite rare, but being able to exclude some addresses before authorizing
   other addresses can be useful when a range of IP addresses shall be authorized with a few exceptions.
 - [`exists`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.7)
   matches if the domain name provided after the colon has an `A` record.
   This is useful only in combination with [macros](#spf-macros), where parts of the provided domain name
   can be replaced with the local part of the `MAIL` `FROM` address or the sender's IP address.
-  This makes it possible to produce different results for different users.
+  This makes it possible to produce different results for different users of the same mail server.
 - [`ptr`](https://datatracker.ietf.org/doc/html/rfc7208#section-5.5)
   matches if the [reverse DNS entry](#reverse-dns-entry) of the sender's IP address
   returns a subdomain of the target domain.
   The target domain can be provided after a colon similar to the `a` and `mx` mechanisms.
   If no such domain is provided, the target domain is the current domain of the SPF evaluation.
-  Since the sender controls the reverse DNS entry of its IP address,
+  Since the sender controls the reverse DNS entries of its IP address,
   the returned domain name has to include the sender's IP address in one of its `A` or `AAAA` records.
   This is known as [forward-confirmed reverse DNS](https://en.wikipedia.org/wiki/Forward-confirmed_reverse_DNS).
   According to [RFC 7208](https://datatracker.ietf.org/doc/html/rfc7208#section-5.5),
@@ -10885,10 +10888,10 @@ SPF modifiers
 which affect the evaluation of SPF records outside the matching behavior of [mechanisms](#spf-mechanisms):
 - [`redirect`](https://datatracker.ietf.org/doc/html/rfc7208#section-6.1)
   tells the SPF verifier to continue the evaluation with the SPF record of a different domain
-  if none of the mechanisms in the current SPF record matched the sender's IP address.
+  if no mechanism in the current SPF record matched the sender's IP address.
   The target domain is provided after an equals sign, such as `redirect=_spf.example.com`.
-  Unlike the `include` mechanism, which matches if the included SPF record results in a `pass`,
-  the `redirect` modifier adopts the result of the redirected SPF record for the original record.
+  Unlike the `include` mechanism, which produces a match if the included SPF record results in a `pass`,
+  the `redirect` modifier adopts the result of the redirected SPF record as the result of the original record.
 - [`exp`](https://datatracker.ietf.org/doc/html/rfc7208#section-6.2)
   allows the domain owner to specify an explanation for a `fail` result.
   If you include `exp=_exp.example.com` in your SPF record,
@@ -10914,10 +10917,10 @@ with information from the SMTP session.
 Since the [above tool](#tool-lookup-spf-record) doesn't have this information, it cannot evaluate macros.
 If you want to use SPF macros, you have to read the [RFC](https://datatracker.ietf.org/doc/html/rfc7208#section-7).
 Let me just give you [one example](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D.1):
-`i` stands for the sender's IP address and `r` reverses the value, splitting on dots by default.
-If you are worried about breaking [email forwarding](#email-forwarding) when introducing SPF,
-you could specify a `neutral` result for trusted mail servers by including
+If you are worried about breaking [email forwarding](#email-forwarding) when using SPF,
+you can specify a `neutral` result for trusted mail servers by including
 `?exists:%{ir}.whitelist.example.org` in your SPF record.
+`i` stands for the sender's IP address and `r` reverses the value, splitting on dots by default.
 [Other use cases of macros](https://datatracker.ietf.org/doc/html/rfc7208#appendix-D.1) are to provide
 a different policy for each user or to rate-limit messages coming from certain IP addresses.
 Macros can cause problems with [internationalized email addresses](#email-address-internationalization)
@@ -10933,11 +10936,12 @@ Such a tracking example can be found at <a class="bind-spf-query" href="#tool-lo
 HELO identity
 </summary>
 
-In order to prevent [mail loops](#mail-loops), no `MAIL` `FROM` address is provided in automatic responses.
+In order to prevent [mail loops](#mail-loops),
+no `MAIL` `FROM` address is provided in [automatic responses](#automatic-responses).
 In such circumstances, the address `postmaster@` followed by the domain from the
 [`HELO`/`EHLO` command](https://datatracker.ietf.org/doc/html/rfc7208#section-1.1.4) is used for SPF evaluation.
 The [`HELO` identity](https://datatracker.ietf.org/doc/html/rfc7208#section-2.3) can also be verified separately
-by evaluating the SPF record of the `HELO` / `EHLO` domain.
+by evaluating the SPF record of the `HELO`/`EHLO` domain.
 Mailbox providers would have to configure SPF records for each of their outgoing mail servers.
 As far as I can tell, this is rarely done in practice.
 I found SPF records only for the outgoing mail servers of Outlook.com.
@@ -10951,12 +10955,12 @@ TXT size limits
 </summary>
 
 DNS queries and replies use the [User Datagram Protocol (UDP)](/internet/#user-datagram-protocol) when possible
-and fall back on using the [Transmission Control Protocol (TCP)](/internet/#transmission-control-protocol)
+and fall back on the [Transmission Control Protocol (TCP)](/internet/#transmission-control-protocol)
 on the [transport layer](/internet/#transport-layer) if necessary.
 Since UDP is a [connectionless communication protocol](https://en.wikipedia.org/wiki/Connectionless_communication),
 no additional messages have to be sent back and forth to set up the connection, which makes it more efficient than
 [TCP with its handshake](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Connection_establishment).
-Historically, UDP messages have been [limited to 512 bytes](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4).
+Historically, UDP messages were [limited to 512 bytes](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4).
 This limit was raised [in 1999](https://datatracker.ietf.org/doc/html/rfc2671#section-4.5) with the introduction
 of the [Extension Mechanisms for DNS (EDNS)](https://en.wikipedia.org/wiki/Extension_Mechanisms_for_DNS).
 EDNS allows the sender to indicate a higher UDP payload size in a so-called
@@ -10977,7 +10981,7 @@ to ask for [DNSSEC](/internet/#domain-name-system-security-extensions) records.
 
 As an ordinary domain administrator, you likely don't have to worry about these size limits.
 If you operate a large email service or run into problems with certain providers,
-it can make sense to split one large SPF record into several smaller ones, though.
+it can make sense to split a large SPF record into several smaller ones, though.
 
 There is another limit in DNS: Each character string is
 [limited to 255 bytes](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3).
@@ -11007,7 +11011,7 @@ Nowadays, SPF records [have to be published in `TXT` records](https://datatracke
 [DomainKeys Identified Mail (DKIM)](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
 is specified in [RFC 6376](https://datatracker.ietf.org/doc/html/rfc6376).
 ([DomainKeys](https://en.wikipedia.org/wiki/DomainKeys) was a predecessor
-designed by [Yahoo](https://en.wikipedia.org/wiki/Yahoo)
+designed by [Yahoo](https://en.wikipedia.org/wiki/Yahoo),
 and the name survived the IETF standardization process.)
 DKIM allows a domain owner to take responsibility for a message
 by signing its body and selected header fields.
@@ -11022,7 +11026,7 @@ The owner of a domain can publish several [public keys](/internet/#digital-signa
 so that different servers can use different [private keys](/internet/#digital-signatures) for signing.
 The ability to publish several keys is also useful for introducing a new key before revoking an old one.
 Each public key is identified by a unique `Selector` within its `Domain`
-and is published in `TXT` record at `{Selector}._domainkey.{Domain}`.
+and is published in a `TXT` record at `{Selector}._domainkey.{Domain}`.
 The selector can contain periods, which allows large organizations to split the namespace
 of their DKIM keys into several [administrative zones](https://en.wikipedia.org/wiki/DNS_zone).
 Both the `Domain` and the `Selector` are included in the
@@ -11045,7 +11049,7 @@ While the mail client of the recipient could verify DKIM signatures as well,
 it would have to record the result before the signature expires.
 Since emails are usually synchronized to new mail clients via [IMAP](#internet-message-access-protocol),
 the DKIM-verifying mail client would have to replace the messages in the user's remote mailbox for archiving.
-As [noted earlier](#confidentiality-and-integrity), Gmail displays the domain which signed a message.
+As noted [earlier](#confidentiality-and-integrity), Gmail displays the domain which signed a message.
 Similar functionality can be added to Thunderbird through
 [an add-on](https://addons.thunderbird.net/en-US/thunderbird/addon/dkim-verifier/).
 Another reason for verifying DKIM signatures on incoming mail servers is
@@ -11106,7 +11110,7 @@ For example, when [WikiLeaks released personal emails](https://en.wikipedia.org/
 of [John Podesta](https://en.wikipedia.org/wiki/John_Podesta),
 the chairman of [Hillary Clinton's 2016 presidential campaign](https://en.wikipedia.org/wiki/Hillary_Clinton_2016_presidential_campaign),
 DKIM signatures proved the [authenticity of emails](https://www.wikileaks.org/DKIM-Verification.html)
-that leading Democrats claimed to be fabricated by Russian intelligence agencies.
+which leading Democrats claimed to be fabricated by Russian intelligence agencies.
 On the other hand, signing all outgoing emails makes it more difficult for others
 to frame you for things that you've never written.
 While nothing speaks against deploying [SPF](#sender-policy-framework) and
@@ -11159,14 +11163,14 @@ An example `DKIM-Signature` header field from a message sent with Gmail.
 
 | Tag | Necessity | Description
 |:-:|:-:|:-
-| `v` | required | The version of the DKIM specification. The current version is `1`.
+| `v` | required | The used version of the DKIM specification. The current version is `1`.
 | `a` | required | The signature algorithm. The value is `rsa-sha256` or `ed25519-sha256` as introduced in [RFC 8463](https://datatracker.ietf.org/doc/html/rfc8463).
 | `c` | optional | The [canonicalization](#body-and-header-canonicalization) of the header fields and the body separated by a slash. Either `simple` or `relaxed`.
 | `d` | required | The domain of the signer.
 | `s` | required | The selector, which identifies the used key.
 | `h` | required | A colon-separated list of the names of the header fields which are covered by the signature.
 | `bh`| required | The Base64-encoded hash of the canonicalized message body (see [below](#body-and-header-canonicalization)).
-| `b` | required | The Base64-encoded signature. We'll discuss below how the signed hash is computed.
+| `b` | required | The Base64-encoded signature (see the text below this table for how the signed hash is determined).
 |-
 | `l` | optional | How many bytes of the canonicalized message body are hashed (see [below](#allow-others-to-extend-the-body)).
 | `i` | optional | The email address for which the signer takes responsibility (see [below](#signing-messages-of-subdomains)).
@@ -11188,9 +11192,9 @@ DKIM signatures cannot cover all header fields as they would be invalidated imme
 DKIM lets the signer decide [which header fields it wants to sign](https://datatracker.ietf.org/doc/html/rfc6376#section-5.4).
 The signer then lists the names of all the header fields it wants to sign in the `h` tag
 in the order in which they are to be fed into the [cryptographic hash function](#cryptographic-hash-functions).
-The `From` header field has to be in the list and the `DKIM-Signature` header field which is being generated
+The `From` header field has to be in the list, and the `DKIM-Signature` header field which is being generated
 may not be included as it's fed into the hash function with an empty `b` tag implicitly.
-The header field names in the `h` tag are case-insensitive
+The header field names in the `h` tag are case-insensitive,
 and the same name may appear in the list several times.
 The first occurrence of a header field name refers to the last header field with the same name in the message,
 the second occurrence to the second last header field, and so on.
@@ -11198,7 +11202,7 @@ The `h` tag can list header fields which don't appear in the message.
 If this is the case, nothing is fed into the hash function,
 which means that no such header field can be added without invalidating the DKIM signature.
 Since the hash of the message body is included in the `bh` tag of the `DKIM-Signature` header field,
-it no longer needs to be fed into the hash function separately,
+it isn't fed into the hash function separately,
 which is clarified in [this errata](https://www.rfc-editor.org/errata/eid5252).
 
 Since DKIM signatures guarantee the authenticity of a message,
@@ -11207,8 +11211,8 @@ I have no idea why Gmail signs the [`MIME-Version` header field](#content-encodi
 but not the [`Content-Type` header field](#content-type).
 The latter is much more important as it includes the [multipart type](#multipart-messages)
 as well as the [boundary delimiter](#boundary-delimiter).
-Moreover, Gmail includes only the [`Cc` header field](#recipients) in the `h` tag
-if the message has `Cc` recipients.
+Moreover, Gmail includes the [`Cc` header field](#recipients) in the `h` tag
+only if the message has `Cc` recipients.
 By not always including `Cc` (and `Bcc`) in the list of signed header fields,
 such a field can be added by a relaying mail server without invalidating the signature.
 Header fields like [`Sender`](#sender-field) and [`Reply-To`](#sender)
@@ -11245,17 +11249,17 @@ To make DKIM signatures more robust,
   If there is no `{CR}{LF}` at the end of the body, insert one.
 - [`relaxed` body canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.4):
   Delete spaces and tabs before `{CR}{LF}`,
-  reduce all sequences of whitespace within a line to a single space,
+  reduce all sequences of [whitespace](https://en.wikipedia.org/wiki/Whitespace_character) within a line to a single space,
   and apply the `simple` body canonicalization with the exception that an empty body remains empty.
 - [`simple` header canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.1):
   Don't change header fields in any way.
 - [`relaxed` header canonicalization](https://datatracker.ietf.org/doc/html/rfc6376#section-3.4.2):
   Convert header field names to lowercase, [unfold](#line-length-limit) folded lines,
-  remove any whitespace characters around the colon which separates the name of the header field from its value,
+  remove any whitespace characters around the colons which separate the name of a header field from its value,
   and apply the `relaxed` body canonicalization to each header field.
 
 The signer can decide how to canonicalize the header fields and the body.
-The format of the `c` tag is `{HeaderCanonicalization}/{BodyCanonicalization}`
+The format of the `c` tag is `{HeaderCanonicalization}/{BodyCanonicalization}`,
 and its default value is `simple/simple`.
 
 </details>
@@ -11284,7 +11288,8 @@ Unfortunately, there are three problems with this idea:
   mail clients have to be strict in how they parse the message
   to prevent [content overlays](#quoting-html-messages).
 
-For these reasons, DKIM verifiers may ignore signatures which use the `l` tag.
+For these reasons, DKIM verifiers [may ignore](https://datatracker.ietf.org/doc/html/rfc6376#section-8.2)
+signatures which use the `l` tag.
 
 </details>
 
@@ -11323,7 +11328,7 @@ The problem with DKIM is that any user can get a valid DKIM on a message of thei
 by sending an email to themself.
 Once they have received the email, they can relay the signed message to
 [an arbitrary number of recipients](https://datatracker.ietf.org/doc/html/rfc6376#section-8.6).
-The recipients might not see their email address in the `To` or `Cc` field
+The recipients might not see their email address in the `To` or `Cc` field,
 but this is usually also the case for `Bcc` recipients.
 The mailbox provider who signed the message can stop such a
 [replay attack](https://en.wikipedia.org/wiki/Replay_attack)
@@ -11354,7 +11359,7 @@ I covered how to install OpenSSL on macOS in an [earlier box](#install-openssl-o
 <div id="tool-generate-keys"></div>
 <div id="code-generate-keys"></div>
 
-Copy the part between `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----`
+Copy the public key between `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----`
 into [your DKIM record](#tool-format-dkim).
 
 </details>
@@ -11374,10 +11379,10 @@ in the `_domainkey` subdomain to your mailbox provider.
 The next best thing is to configure a [`CNAME` record](https://en.wikipedia.org/wiki/CNAME_record)
 in this subdomain which points to the DKIM record of the mailbox provider.
 [Once again](#protecting-subdomains),
-the standard doesn't mention whether `CNAME` records can be used but this seems to be
+the standard doesn't mention whether `CNAME` records can be used, but this seems to be
 [a common practice](https://docs.gandi.net/en/gandimail/faq/spoofing.html#dkim).
 With this approach, the mailbox provider cannot change the selector of their signing key
-without involving their customers but if you set up several `CNAME` records,
+without involving their customers, but if you set up several `CNAME` records,
 the mailbox provider can alternate between them.
 
 [RFC 6541](https://datatracker.ietf.org/doc/html/rfc6541) introduces a simpler solution,
@@ -11385,7 +11390,7 @@ which is called Authorized Third-Party Signatures (ATPS).
 It adds an additional tag with the name `atps` to the [`DKIM-Signature` header field](#dkim-signature-header-field),
 which can be used to indicate a domain on whose behalf the message is signed.
 The delegator confirms the delegation with a `TXT` record at `{DelegateeDomain}._atps.{DelegatorDomain}`,
-which has to have a value of `v=ATPS1`.
+which must have a value of `v=ATPS1`.
 For example, if the domain of your organization is `example.org` and you use the email service of `example.com`,
 your mailbox provider adds a `DKIM-Signature` header field with `d=example.com` and `atps=example.org`.
 The verifier then checks whether there is a valid ATPS record at `example.com._atps.example.org`.
@@ -11417,14 +11422,14 @@ I said [earlier](#domain-authentication) that the recipient cannot know
 whether the sender uses DKIM when they receive a message without a DKIM signature.
 At least historically, a domain owner could indicate that all emails are signed with the now deprecated
 [Author Domain Signing Practices (ADSP)](https://en.wikipedia.org/wiki/Author_Domain_Signing_Practices)
-as specified in [RFC 5617](https://datatracker.ietf.org/doc/html/rfc5617) by configuring a `TXT` record
-with a content of `dkim=all` at the `_adsp._domainkey` subdomain.
+as specified in [RFC 5617](https://datatracker.ietf.org/doc/html/rfc5617)
+by configuring a `TXT` record with a content of `dkim=all` at the `_adsp._domainkey` subdomain.
 Since ADSP is no longer in use, you don't have to configure such a record at your domains.
 
 </details>
 
 
-#### Domain-based Message Authentication, Reporting and Conformance (DMARC) {#domain-based-message-authentication-reporting-and-conformance}
+#### Domain-based Message Authentication, Reporting, and Conformance (DMARC) {#domain-based-message-authentication-reporting-and-conformance}
 
 Increasing the security of a decentralized system is always difficult because enforcing
 new requirements prematurely disrupts the [reliability](#reliable-delivery-availability) of the system.
@@ -11438,13 +11443,13 @@ To authenticate emails, the outgoing mail server of the sender has to implement
 [SPF](#sender-policy-framework) and/or [DKIM](#domainkeys-identified-mail),
 email forwarders may not break the authentication,
 and the incoming mail server of the recipient has to verify the authentication.
-It only makes sense to authenticate emails if unauthentic emails are somehow penalized.
+It makes sense to authenticate emails only if unauthentic emails are somehow penalized.
 In the short term, this could mean that unauthentic emails are quarantined as potential spam.
 In the long term, the goal should be to reject or discard all unauthentic emails
 even if they are delivered by a [reputable mail server](#reputation).
 While it is always up to the mail system of the recipient to decide what to do with incoming messages,
 it can enforce domain authentication only if just a small percentage of legitimate mail is affected by it.
-[Domain-based Message Authentication, Reporting and Conformance (DMARC)](https://en.wikipedia.org/wiki/DMARC),
+[Domain-based Message Authentication, Reporting, and Conformance (DMARC)](https://en.wikipedia.org/wiki/DMARC),
 which is specified in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489),
 allows domain owners to deploy [domain authentication](#domain-authentication) gradually,
 to monitor its effect on the delivery of their emails,
@@ -11458,7 +11463,7 @@ There are three aspects to understanding DMARC:
   in which case the domains have to be identical, or `relaxed`,
   in which case only the [organizational domains](#organizational-domain)
   after removing any subdomains have to be the same.
-  This is known as [identifier alignment](https://datatracker.ietf.org/doc/html/rfc7489#section-3.1)
+  This is known as [identifier alignment](https://datatracker.ietf.org/doc/html/rfc7489#section-3.1),
   and the alignment can be configured separately for SPF and DKIM.
   If the `From` field consists of several addresses,
   which is valid according to [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.2),
@@ -11471,24 +11476,24 @@ There are three aspects to understanding DMARC:
   and [continuous integration systems](https://en.wikipedia.org/wiki/Continuous_integration),
   and to be informed immediately when their domain is abused for phishing.
 - **Policies**: Domain owners can specify how receiving mail servers shall handle unauthentic messages.
-  If your domain doesn't yet have a DMARC record (see below),
+  If your domain doesn't yet have a DMARC record (see [below](#tool-format-dmarc)),
   you should start with aggregate reports and a domain policy of `none`.
   This allows you to be informed about authentication failures
   without affecting how unauthentic messages are handled.
-  Once you're confident that you've authorized all legitimate sources of email with SPF,
+  Once you're confident that you've authorized all legitimate sources of email with [SPF](#sender-policy-framework),
   you should set the domain policy to `quarantine`,
   which requests receiving mail servers to treat unauthentic emails as suspicious.
   Since it's not under your control whether your recipients use [alias addresses](#alias-address),
-  you should move to the `reject` policy only once you've also deployed DKIM.
+  you should move to the `reject` policy only once you've also deployed [DKIM](#domainkeys-identified-mail).
   Otherwise, your messages might not even reach the spam folder of your recipients
   if they use [email forwarding](#email-forwarding).
 
 Domain owners publish their preferences in a `TXT` record at `_dmarc.{Domain}`.
 The following two tools help you generate and validate the DMARC record for your domain.
 Given the remarks above, most parameters should be self-explanatory.
-If this is not the case, you can hover your mouse over them to read a short description and
-all options are also documented in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489#section-6.3), of course.
-Domains which aren't used to send emails from should have a DMARC record of `v=DMARC1; p=reject`.
+If this is not the case, you can hover your mouse over them to read a short description.
+All options are also documented in [RFC 7489](https://datatracker.ietf.org/doc/html/rfc7489#section-6.3), of course.
+Domains which aren't used to send emails from should have a DMARC record of `v=DMARC1;` `p=reject`.
 If you want to be informed about spoofing attempts, you can also include a reporting address.
 The second tool uses [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
 to query the DMARC record of the given domain.
@@ -11749,7 +11754,7 @@ Subject: Your credit card is about to expire
 <figcaption markdown="span" style="max-width: 865px;">
 
 The structure of failure reports.
-`[A|B]` means either `A` or `B` and `[…]` stands for more header fields.
+`[A|B]` means either `A` or `B`, and `[…]` stands for more header fields.
 `multipart/report` and `text/rfc822-headers` are specified in [RFC 6522](https://datatracker.ietf.org/doc/html/rfc6522),
 `message/rfc822` is specified in [RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046#section-5.2.1), and
 `message/feedback-report` is specified in [RFC 5965](https://datatracker.ietf.org/doc/html/rfc5965#section-3).
@@ -11783,7 +11788,7 @@ by listing his or her address in the `rua` or `ruf` tag of their DMARC record,
 a receiving domain has to approve each domain for which it is willing to receive DMARC reports
 [with a special DMARC record](https://datatracker.ietf.org/doc/html/rfc7489#section-7.1)
 unless they belong to the same [organizational domain](#organizational-domain).
-The content of such approval records is [`v=DMARC1;`](https://www.rfc-editor.org/errata/eid5440)
+The content of such approval records is [`v=DMARC1;`](https://www.rfc-editor.org/errata/eid5440),
 and they are published as `TXT` records at `{PolicyDomain}._report._dmarc.{ReceivingDomain}`.
 For example, if the DMARC record of `example.org` includes `rua=mailto:dmarc@example.com`,
 there has to be an approval record at `example.org._report._dmarc.example.com`.
@@ -11824,13 +11829,13 @@ Authentication-Results: {Verifier} [{Version}][;
 
 The format of the `Authentication-Results` as specified in [RFC 8601](https://datatracker.ietf.org/doc/html/rfc8601#section-2.2).
 The curly brackets need to be replaced with actual values.
-The content in square brackets is optional and
-the asterisk indicates that the preceding content can be repeated.
+The content in square brackets is optional,
+and the asterisk indicates that the preceding content can be repeated.
 
 </figcaption>
 </figure>
 
-The `Verifier` is an identifier for the entity which performed the verification
+The `Verifier` is an identifier for the entity which performed the verification,
 and the optional `Version` indicates which version of the field format is in use,
 where its current and default value is `1`.
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) maintains a long list of
@@ -11838,7 +11843,7 @@ where its current and default value is `1`.
 The `Method` is usually `spf`, `dkim`, or `dmarc`, and the `Result` is usually `pass` or `fail`.
 The `PropertyType` is usually `smtp` or `header`, depending on whether the verified property
 is from the [SMTP envelope](#message-versus-envelope) or the [message header](#header-fields-and-body).
-Example:
+For example:
 
 <figure markdown="block">
 
@@ -11897,7 +11902,8 @@ Authenticated Received Chain (ARC)
 [Authenticated Received Chain (ARC)](https://en.wikipedia.org/wiki/Authenticated_Received_Chain)
 is an [experimental](https://datatracker.ietf.org/doc/html/rfc2026#section-4.2.1) protocol
 to convey [authentication results](#authentication-results-header-field) across trust boundaries.
-It's specified in [RFC 8617](https://datatracker.ietf.org/doc/html/rfc8617) and it introduces the following three header fields,
+It's specified in [RFC 8617](https://datatracker.ietf.org/doc/html/rfc8617),
+and it introduces the following three header fields,
 which are always added [as a set](https://datatracker.ietf.org/doc/html/rfc8617#section-3.1):
 - [`ARC-Authentication-Results`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.1)
   is a copy of the [`Authentication-Results` header field](#authentication-results-header-field)
@@ -11906,15 +11912,15 @@ which are always added [as a set](https://datatracker.ietf.org/doc/html/rfc8617#
 - [`ARC-Message-Signature`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.2)
   is a [DKIM signature](#dkim-signature-header-field) over the potentially modified message,
   which may not cover ARC-related and [`Authentication-Results`](#authentication-results-header-field) header fields.
-  The instance tag replaces DKIM's [`i` tag](#dkim-signature-header-field) and for some reason
+  The instance tag replaces DKIM's [`i` tag](#dkim-signature-header-field), and for some reason,
   the version tag `v` is not defined for `ARC-Message-Signature`.
 - [`ARC-Seal`](https://datatracker.ietf.org/doc/html/rfc8617#section-4.1.3) is a DKIM-like signature which covers
   [all ARC-related header fields](https://datatracker.ietf.org/doc/html/rfc8617#section-5.1.1) in increasing instance order.
   As it doesn't cover the body of the message and has a defined [canonicalization](#body-and-header-canonicalization),
   only the [DKIM tags](#dkim-signature-header-field) `a`, `b`, `d`, `s`, and `t`
   as well as the instance tag `i` can be used.
-  A new `cv` tag is used to record the chain validation status.
-  Its value can be `pass`, `fail`, or `none`.
+  A new `cv` tag is used to record the [chain validation status](https://datatracker.ietf.org/doc/html/rfc8617#section-4.4),
+  whose value can be `pass`, `fail`, or `none`.
 
 Intermediary message handlers seal their authentication results
 so that the incoming mail server of the recipient can consider to deliver even those messages
@@ -11965,13 +11971,13 @@ I still question two aspects of ARC:
   By specifying a [DMARC policy](#domain-based-message-authentication-reporting-and-conformance) of `reject`,
   a domain owner requests that incoming mail servers deliver messages from their domain
   based on strict authentication rather than a historic assessment of the sender's reputation.
-  A mail server, which accepts a message from a [mailing list](#mailing-list)
+  A mail server which accepts a message from a [mailing list](#mailing-list)
   just because it sealed its authentication results
-  even though it broke the original DKIM signature by changing the body or the subject,
+  even though it broke the original DKIM signature by changing the body or the subject
   subverts the purpose of [domain authentication](#domain-authentication),
   namely knowing with certainty that the delivered messages were not [spoofed](#spoofing).
-  That messages modified by mail handlers are rejected because
-  they no longer pass DMARC authentication is a feature, not a bug.
+  That messages modified by mail handlers are rejected because they no longer pass DMARC authentication
+  is [a feature, not a bug](https://mailarchive.ietf.org/arch/msg/ietf-smtp/ssXOFPkZneQMbuT4mO2VEHYUyYs/).
 - **Necessity**: [DKIM](#domainkeys-identified-mail) allows any domain to assume responsibility for a message.
   Even without ARC, a mailing list which modifies the content of a message can add its own DKIM signature,
   and an incoming mail server is free to deliver the message based on such a signature.
@@ -12040,14 +12046,14 @@ a lookup at the [organizational domain](#organizational-domain) is performed.
 BIMI records have the same format as DKIM and DMARC records.
 The [following three tags](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2) are currently defined:
 - `v`: The version of the BIMI standard.
-  This tag has to come first and the only supported value is `BIMI1`.
+  This tag has to come first, and the only supported value is `BIMI1`.
 - `l`: The location of the brand indicator.
-  This tag is required but its value can be empty.
+  This tag is required, but its value can be empty.
   If a value is provided,
   it has to be a single [HTTPS](/internet/#hypertext-transfer-protocol) [URL](https://en.wikipedia.org/wiki/URL),
   which resolves to a [potentially GZIP-compressed SVG image](https://datatracker.ietf.org/doc/html/rfc6170#section-5.2).
 - `a`: The authority evidence location.
-  This tag is optional and its value can be empty but receivers may require it.
+  This tag is optional and its value can be empty, but receivers may require it.
   If a value is provided, it has to be a single HTTPS URL,
   which resolves to a valid [verified mark certificate (VMC)](#verified-mark-certificate).
 
@@ -12088,7 +12094,7 @@ defines the following three header fields:
 - [`BIMI-Selector`](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5.1):
   The sender can use this header field to specify a selector other than `default`.
   The format of the header field value is `v=BIMI1; s={Selector}`.
-  The sender should cover this header field with a [DKIM signature](#domainkeys-identified-mail)
+  The sender should cover this header field with a [DKIM signature](#domainkeys-identified-mail),
   and the recipient should ignore this header field otherwise.
 - [`BIMI-Location`](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-5.2):
   The incoming mail server can use this header field to record the locations
@@ -12262,7 +12268,6 @@ without sacrificing backward compatibility:
    [DANE](#dns-based-authentication-of-named-entities) works like this.
 3. **User configuration**: Let the user require that their messages may be delivered only with TLS.
    [REQUIRETLS](#requiretls-extension) makes this possible.
-{:.compact}
 
 <details markdown="block">
 <summary markdown="span" id="server-authentication">
@@ -12306,7 +12311,7 @@ and [DNSSEC](/internet/#domain-name-system-security-extensions).
 REQUIRETLS extension
 </summary>
 
-As a user, you might prefer a delivery failure over an insecure delivery for certain messages.
+As a user, you may prefer a delivery failure over an insecure delivery for certain messages.
 The `REQUIRETLS` extension for [ESMTP](#extended-simple-mail-transfer-protocol),
 which is specified in [RFC 8689](https://datatracker.ietf.org/doc/html/rfc8689) and is not yet widely supported,
 allows you to require transport security between all involved mail servers when sending an email.
@@ -12385,7 +12390,7 @@ If `REQUIRETLS` is enabled for a message, the `TLS-Required` header field
 
 [DNS-Based Authentication of Named Entities (DANE)](https://en.wikipedia.org/wiki/DNS-based_Authentication_of_Named_Entities)
 is specified in [RFC 6698](https://datatracker.ietf.org/doc/html/rfc6698).
-[RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671) updates and clarifies some aspects of DANE
+[RFC 7671](https://datatracker.ietf.org/doc/html/rfc7671) updates and clarifies some aspects of DANE,
 and [RFC 7672](https://datatracker.ietf.org/doc/html/rfc7672) specifies how DANE is applied to SMTP.
 DANE relies on [DNSSEC](/internet/#domain-name-system-security-extensions) for three different purposes:
 - **DNS authentication**:
@@ -12468,7 +12473,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   but it caused such severe problems that it was not successful.
   DNSSEC, on the other hand, is strictly hierarchical:
   Any domain can certify only its subdomains.
-  This gives the administrators of the [root zone](https://en.wikipedia.org/wiki/DNS_root_zone) an awful lot of power
+  This gives the administrators of the [root zone](https://en.wikipedia.org/wiki/DNS_root_zone) an awful lot of power,
   but when it comes to eligible certification authorities for a given domain,
   the risk of compromise is not shared among them but rather accumulated across them.
   In computer security, the fewer parties you have to trust, the better.
@@ -12478,7 +12483,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   Most websites are secured with [domain-validated certificates](https://en.wikipedia.org/wiki/Domain-validated_certificate),
   where certification authorities verify only that you control the domain for which you
   [request a certificate](https://en.wikipedia.org/wiki/Certificate_signing_request).
-  How your control over the domain is verified is up to the certification authority
+  How your control over the domain is verified is up to the certification authority,
   but it usually involves publishing a [nonce](#nonces-against-replay-attacks)
   in a `TXT` record at your domain or at a certain path on your web server.
   While the non-profit organization [Let's Encrypt](https://en.wikipedia.org/wiki/Let%27s_Encrypt)
@@ -12486,14 +12491,14 @@ which differs from the traditional PKI, also known as PKIX, in several important
   [Automatic Certificate Management Environment (ACME)](https://en.wikipedia.org/wiki/Automated_Certificate_Management_Environment) protocol,
   PKIX entails a parallel infrastructure to the Domain Name System
   (as long as we ignore [extended-validation certificates](https://en.wikipedia.org/wiki/Extended_Validation_Certificate),
-  which also assert the legal entity of the domain owner).
+  which also assert the legal name of the domain owner).
   DANE gets rid of this additional loop
   by letting you publish the public key of your server instead of a nonce at your domain
   and letting clients do the domain validation themselves
   instead of relying on a certification authority to do this for them.
   While you no longer have to pay for PKIX certificates thanks to [Let's Encrypt](https://letsencrypt.org/),
   you can configure `TLSA` records for your servers at no additional costs
-  (assuming your [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar)
+  (as long as your [domain name registrar](https://en.wikipedia.org/wiki/Domain_name_registrar)
   supports DNSSEC at no additional costs).
 - **Clear domain bindings**:
   As we will see [soon](#name-checks),
@@ -12519,9 +12524,9 @@ which differs from the traditional PKI, also known as PKIX, in several important
 - **Key revocation**:
   Due to their complicated issuance, PKIX certificates are usually valid for months or years.
   If a PKIX key is compromised, you can revoke the corresponding certificate only for clients who support either
-  [Certificate Revocation Lists (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list),
-  as specified in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280#section-5),
-  or the [Online Certificate Status Protocol (OCSP)](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol),
+  [Certificate Revocation Lists (CRL)](https://en.wikipedia.org/wiki/Certificate_revocation_list)
+  as specified in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280#section-5)
+  or the [Online Certificate Status Protocol (OCSP)](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)
   as specified in [RFC 6960](https://datatracker.ietf.org/doc/html/rfc6960).
   DNSSEC signatures, on the other hand, are valid until they expire and cannot be revoked.
   While you can remove a compromised DANE key immediately from your DNS zone,
@@ -12532,7 +12537,7 @@ which differs from the traditional PKI, also known as PKIX, in several important
   you should deploy neither DNSSEC nor DANE.
 
 It's important to note that DANE changes only how TLS clients verify server certificates.
-DANE also uses [X.509 certificates](https://en.wikipedia.org/wiki/X.509)
+DANE also uses [X.509 certificates](https://en.wikipedia.org/wiki/X.509),
 and no modifications are needed in TLS server software.
 
 </details>
@@ -12570,7 +12575,7 @@ A `TLSA` record consists of the following four fields:
    The possible values are `0` for the full certificate and `1` for the
    [SubjectPublicKeyInfo (SPKI)](https://en.wikipedia.org/wiki/X.509#Structure_of_a_certificate),
    which consists of the public-key algorithm and the subject's public key.
-   The latter does not cover the names of the issuer and the subject, the validity period
+   The latter does not cover the names of the issuer and the subject, the validity period,
    or any [certification constraints](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.9).
 3. [**Matching type**](https://datatracker.ietf.org/doc/html/rfc6698#section-2.1.3):
    This field specifies how the selected content is presented in the certificate association field.
@@ -12608,13 +12613,13 @@ One of the `TLSA` records at `_25._tcp.mail.protonmail.ch`.
 the server's certificate depending on the certificate usage of the server's `TLSA` record.
 As you can see in the table below, clients ignore all information from the server's certificate
 except the SubjectPublicKeyInfo in the case of DANE-EE.
-In particular, the certificate can be issued for any name
+In particular, the certificate can be issued for any name,
 and the certificate is accepted even if it has expired.
 Since the certificate belongs to the end entity itself,
 it doesn't have to have a valid certificate chain.
-In the case of the other certificate usages, certification constraints such as
+In the case of the other certificate usages, certification constraints, such as
 [maximum path length](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.9) and
-[name space restrictions](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.10) have to be verified.
+[namespace restrictions](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.10), have to be verified.
 If a server hosts the service for different customers under several domain names,
 it should support the TLS extension [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication)
 in order to return the right certificate chain to each client.
@@ -12709,7 +12714,7 @@ Requiring the `TLSA` record to be located at the `ProviderDomain` has three adva
   By having the service provider configure the `TLSA` record at their domain,
   they can change the server certificates without involving their customers.
 - **No unnecessary records**:
-  Such a delegation of authority is also possible with `CNAME` records
+  Such a delegation of authority is also possible with `CNAME` records,
   but this would require domain owners to point to each of their service providers twice:
   once for the hostname of the server and once for the `TLSA` record of the server.
   Requiring clients to resolve DNS indirections before making the `TLSA` lookup avoids this duplication.
@@ -12723,13 +12728,13 @@ Requiring the `TLSA` record to be located at the `ProviderDomain` has three adva
   the service provider can use a single certificate for an arbitrary number of customers.
   Otherwise, the service provider would have to obtain a separate certificate for each customer.
   Since [X.509 certificates](https://en.wikipedia.org/wiki/X.509) are not constrained to a single service such as email,
-  this is not just undesirable from an operational perspective
-  but also from a security perspective in the case of PKIX-TA and PKIX-EE.
+  this is not just undesirable from an operational perspective but also from a security perspective
+  because your mailbox provider could intercept your Web traffic with the certificate for your domain.
 
 A disadvantage of this approach is that it's up to your service provider to support DANE,
 whereas you can deploy [MTA-STS](#mail-transfer-agent-strict-transport-security) yourself
 if your service provider uses a certificate issued by a widely accepted certification authority.
-Another consequence of domain-based authentication is that DANE (and MTA-STS)
+Another consequence of domain-based transport security is that DANE and MTA-STS
 cannot be used with [address literals](#address-syntax), such as `user@[192.0.2.1]`.
 
 </details>
@@ -12739,7 +12744,7 @@ cannot be used with [address literals](#address-syntax), such as `user@[192.0.2.
 Multiple TLSA records
 </summary>
 
-A server can have several `TLSA` records and its certificate has to be authenticated by just one of them.
+A server can have several `TLSA` records, and its certificate has to be authenticated by just one of them.
 There are two situations in which you want to use multiple `TLSA` records:
 1. [**Key rotation**](https://datatracker.ietf.org/doc/html/rfc7671#section-8.1):
    Cryptographic keys have to be replaced from time to time.
@@ -12850,7 +12855,7 @@ as specified in [RFC 4035](https://datatracker.ietf.org/doc/html/rfc4035#section
   which the client [doesn't support](https://datatracker.ietf.org/doc/html/rfc4035#page-28).
   Either case has to be confirmed by a secure parent zone.
   If a zone is insecure, all of its subzones are also insecure.
-- **Failure**: The returned resource records belong to a zone which is signed but they lack a valid DNSSEC signature.
+- **Failure**: The returned resource records belong to a zone which is signed, but they lack a valid DNSSEC signature.
   The lookup also fails if the client doesn't receive a response to one of its queries.
 
 If a lookup involves indirections with `CNAME`, `MX`, or `SRV` records,
@@ -12862,10 +12867,10 @@ Depending on the outcome of the `TLSA` lookup, DANE clients behave as follows:
 | DNS lookups | TLSA availability | TLSA usability | Client behavior
 |-
 | All secure | Available | Usable | DANE-authenticated TLS
-| All secure | Available | Unusable | `MX`: Unauthenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2)<br>`SRV`: PKIX-authenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7673#section-4.1)
+| All secure | Available | Unusable | `MX`: Unauthenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2)<br>`SRV`: PKIX-authenticated TLS [↗](https://datatracker.ietf.org/doc/html/rfc7673#section-4.1)<br>Abort if authenticated TLS is mandatory [↗](https://datatracker.ietf.org/doc/html/rfc7671#section-10.3)
 | All secure | Unavailable | – | Pre-DANE TLS
 | Any insecure | – | – | Pre-DANE TLS (or<br>DANE-authenticated<br>TLS if `TLSA` records are<br>available and secure [↗](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1))
-| Any failure | – | – | Continue with next host;<br>delay or abort if last host
+| Any failure | – | – | Continue with the next host;<br>delay or abort if it's the last host
 {:.table-with-vertical-border-after-column-3}
 
 <figcaption markdown="span">
@@ -12880,10 +12885,13 @@ How the client has to handle the various situations according to
 A couple of remarks on the above table:
 - "All secure" means that all the DNS lookups to [determine the `TLSA` domain](#name-checks)
   as well as the [`TLSA` lookup](#tlsa-record-location) are secure,
-  including `CNAME` indirections of the `TLSA` record itself.
-- "Unusable" means that the DANE client does not support the [parameters of the `TLSA` record](#tlsa-record-type).
-  By configuring `TLSA` records, DANE clients know that the server supports TLS
-  and [must not continue without it](https://datatracker.ietf.org/doc/html/rfc7671#section-10.3).
+  including potential `CNAME` indirections of the `TLSA` records.
+- "Unusable" means that the DANE client does not support the
+  [parameter combination of any `TLSA` record](#multiple-tlsa-records).
+  By finding `TLSA` records, DANE clients know that the server supports TLS
+  and [must not continue without it](https://datatracker.ietf.org/doc/html/rfc7671#section-10.3)
+  unless the protocol does not require authenticated TLS,
+  which is the case for [ESMTP](#extended-simple-mail-transfer-protocol).
 - "Unavailable" means that the client received an authenticated denial of existence of the `TLSA` records.
 - "Pre-DANE TLS" stands for whatever clients did before the introduction of DANE.
   In the case of [ESMTP](#extended-simple-mail-transfer-protocol),
@@ -12891,14 +12899,14 @@ A couple of remarks on the above table:
   In the case of [JMAP](#json-meta-application-protocol), which is used only with TLS,
   this would mean PKIX-authenticated TLS once JMAP/HTTPS adopts DANE.
 - In the unexpected cases of the [previous box](#name-checks),
-  DANE clients can enforce DANE-authentication even if some of the DNS lookups were insecure.
+  DANE clients can enforce DANE-authentication even when some of the DNS lookups were insecure.
 - `MX` records [must be sorted by preference](https://datatracker.ietf.org/doc/html/rfc7672#section-2.2.1)
   and `SRV` records [must be sorted by priority and weight](https://datatracker.ietf.org/doc/html/rfc7673#section-3.1)
   without considering which hosts use DNSSEC and DANE.
 - If you want to test your configuration, you can deploy DANE only for your first `MX` host.
   If there are any misconfigurations, DANE clients will deliver the message to the next `MX` host.
   Once your DANE configuration works, you should deploy DANE for all your hosts.
-  Otherwise an attacker can cause DANE clients to continue
+  Otherwise, an attacker can cause DANE clients to continue
   without [server authentication](#server-authentication) or even TLS.
 - DANE is backward compatible for all domains which deploy DNSSEC correctly.
   As long as a domain deploys neither DNSSEC nor DANE with `TLSA` records,
@@ -12930,7 +12938,7 @@ How to verify a TLSA record
 
 [OpenSSL but not LibreSSL](#openssl-versus-libressl) has the option
 [`-dane_tlsa_domain`](https://www.openssl.org/docs/manmaster/man1/openssl-s_client.html#dane_tlsa_domain-domain)
-to configure the [`TLSA` domain](#name-checks) and the option
+to configure the [`TLSA` domain](#name-checks), and the option
 [-dane_tlsa_rrdata](https://www.openssl.org/docs/manmaster/man1/openssl-s_client.html#dane_tlsa_rrdata-rrdata)
 to provide one or several [`TLSA` records](#tlsa-record-type).
 I covered how to install OpenSSL on macOS in an [earlier box](#install-openssl-on-macos).
@@ -12988,7 +12996,7 @@ HTTP Public-Key Pinning (HPKP)
 </summary>
 
 As mentioned in the [PKI comparison](#pki-comparison),
-any PKIX certification authority can usually issue a certificate for any domain
+any PKIX certification authority can usually issue a certificate for any domain,
 and thus a single compromised certification authority compromises the security of the whole system.
 This problem exists wherever PKIX is used, including the [Web](https://en.wikipedia.org/wiki/World_Wide_Web).
 On the Web, it was addressed by [HTTP Public-Key Pinning (HPKP)](https://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning),
@@ -13071,9 +13079,9 @@ As you can see in [its source code](https://github.com/KasparEtter/email-tracker
 my proxy server doesn't store anything,
 but [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
 which includes the queried domain and your IP address.
-I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file)
+I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file),
 but I might check it from time to time for troubleshooting.
-The tool checks the syntax of the DNS record and the policy file
+The tool checks the syntax of the DNS record and the policy file,
 but it verifies neither the `MX` records nor whether the mail server has a valid PKIX certificate.
 
 <div id="tool-lookup-mta-sts-policy"></div>
@@ -13090,18 +13098,19 @@ Comparison to DANE
   based on [X.509 certificates](https://en.wikipedia.org/wiki/X.509)
   issued by pre-configured [certification authorities (CAs)](https://en.wikipedia.org/wiki/Certificate_authority).
   DANE, on the other hand, relies on [DNSSEC](/internet/#domain-name-system-security-extensions)
-  to bind [public keys](/internet/#digital-signatures) to domains.
+  to bind [public keys](/internet/#digital-signatures) to domain names.
   I've compared the two approaches in a [previous box](#pki-comparison).
 - **`@` domain instead of `MX` domain**:
   The [`TXT` record](#mta-sts-dns-record) and the [policy file](#mta-sts-policy-file)
   of MTA-STS are stored on the domain after the `@` symbol in the recipient's email address,
-  whereas the [`TLSA` records](#tlsa-record-type) of DANE are configured on the domains listed in the `MX` records
+  whereas the [`TLSA` records](#tlsa-record-type) of DANE are configured
+  [on the domains listed in the `MX` records](#tlsa-record-location)
   (at least in [ordinary setups](#name-checks)).
 - **No strict downgrade resistance**:
   Unlike DANE, which provides downgrade resistance thanks to DNSSEC’s authenticated denial of existence,
-  the DNS record and policy file of MTA-STS can be
+  the DNS record and the policy file of MTA-STS can be
   [censored by an active attacker](https://datatracker.ietf.org/doc/html/rfc8461#section-10.2).
-  MTA-STS provides downgrade resistance only for the duration for which the recipient's policy is cached.
+  MTA-STS provides downgrade resistance only for the duration for which the recipient's policy is being cached.
   As we will see [later](#mta-sts-policy-file),
   MTA-STS has a provision which allows administrators to detect policy refresh failures.
 - **Different test modes**:
@@ -13184,11 +13193,11 @@ MTA-STS DNS record
 When delivering an email, an outgoing mail server which supports MTA-STS checks
 whether it has a non-expired policy for the domain after the `@` symbol in the recipient’s email address.
 If this is not the case, it queries for a `TXT` record at the `_mta-sts` subdomain of this domain.
-An MTA-STS record is a semicolon-separated list of key-value pairs encoded in [ASCII](#character-encoding),
+An MTA-STS record is a semicolon-separated list of key-value pairs [encoded in ASCII](#character-encoding),
 where the keys and values are separated by an equals sign.
 MTA-STS records have [two required fields](https://datatracker.ietf.org/doc/html/rfc8461#section-3.1):
 - `v`: The version of the MTA-STS standard.
-  This field has to come first and the only supported value is `STSv1` at the moment.
+  This field has to come first, and the only supported value is `STSv1` at the moment.
 - `id`: A unique identifier for the domain's current MTA-STS policy.
   It consists of at least 1 and at most 32 letters and digits.
 
@@ -13226,8 +13235,9 @@ MTA-STS policy file
 If the [MTA-STS record](#mta-sts-dns-record) contains an unknown `id` value for the given domain,
 the outgoing mail server retrieves the new MTA-STS policy from `https://mta-sts.{Domain}/.well-known/mta-sts.txt`,
 where `Domain` is the domain after the `@` symbol in the recipient’s email address.
-The `Domain` is taken as is [without proceeding with the parent domain](https://datatracker.ietf.org/doc/html/rfc8461#section-3.4)
-if the queried resource is not found for both the DNS and the HTTPS lookup.
+The `Domain` is taken as is for both the DNS and the HTTPS lookup
+[without proceeding with the parent domain](https://datatracker.ietf.org/doc/html/rfc8461#section-3.4)
+if the queried resource is not found.
 As specified in [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615),
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
 maintains a [registry](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml)
@@ -13238,15 +13248,16 @@ to [denial-of-service attacks](https://datatracker.ietf.org/doc/html/rfc8461#sec
 Examples are [https://mta-sts.github.io](https://mta-sts.github.io/)
 and [https://mta-sts.blogspot.com](https://mta-sts.blogspot.com/).
 
-The policy file is fetched with a [`GET` request](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)
-and the response must have a [status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) of 200
+The policy file is fetched with a [`GET` request](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods).
+The response must have a [status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) of 200
 and a [content type](#content-type) of `text/plain`.
-Its content is parsed as ASCII,
+The content is parsed as ASCII,
 which means that [internationalized domain names](#internationalized-domain-names)
 have to be [Punycode-encoded](#punycode-encoding).
 An MTA-STS policy is specified with one key-value pair per line,
 where the keys and values are separated by a colon
-and the lines are separated by [`{CR}{LF}`](#newline-characters) or just `{LF}`.
+and the lines are separated by [`{CR}{LF}`](#newline-characters)
+or [just `{LF}`](https://datatracker.ietf.org/doc/html/rfc8461#page-9).
 Each policy has to contain the [following four fields](https://datatracker.ietf.org/doc/html/rfc8461#section-3.2),
 which may appear in any order:
 - `version`: The version of the MTA-STS standard.
@@ -13259,7 +13270,7 @@ which may appear in any order:
     and delays the delivery of the message when all of them fail validation.
     Before failing permanently, the client has to check via DNS and then HTTPS
     [for an updated policy](https://datatracker.ietf.org/doc/html/rfc8461#section-5).
-  - `testing`: MTA-STS validation failures don't affect the delivery of messages but they should be reported
+  - `testing`: MTA-STS validation failures don't affect the delivery of messages, but they should be reported
     if both the sender and the recipient support [SMTP TLS Reporting (TLSRPT)](#smtp-tls-reporting-tlsrpt).
   - `none`: The receiving domain doesn't have an MTA-STS policy.
     In order to detect [downgrade attacks](https://en.wikipedia.org/wiki/Downgrade_attack),
@@ -13267,7 +13278,7 @@ which may appear in any order:
     If clients cannot refresh a policy while the previous policy is still valid,
     they should alert the administrator unless the mode of the cached policy is `none`.
     For this reason, you should publish an MTA-STS policy with a mode of `none` until all previous policies have expired
-    before [removing MTA-STS on a domain](https://datatracker.ietf.org/doc/html/rfc8461#section-8.3).
+    [before removing MTA-STS on a domain](https://datatracker.ietf.org/doc/html/rfc8461#section-8.3).
 - `max_age`: For how many seconds this policy can be cached.
   In order to give attackers fewer opportunities for downgrade attacks,
   this value should be [as high as is practical](https://datatracker.ietf.org/doc/html/rfc8461#section-10.2).
@@ -13457,12 +13468,12 @@ TLSRPT DNS record
 The endpoints for the [report](#tlsrpt-report-format) are specified in a `TXT` record at `_smtp._tls.{RecipientDomain}`.
 The record has [two fields](https://datatracker.ietf.org/doc/html/rfc8460#section-3):
 - `v`: The version of the TLSRPT standard.
-  This field has to come first and the only supported value is `TLSRPTv1` at the moment.
+  This field has to come first, and the only supported value is `TLSRPTv1` at the moment.
 - `rua`: A comma-separated list of
   [Uniform Resource Identifiers (URIs)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) as endpoints.
   The following two [schemes](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) are supported:
   - `mailto`: The report is sent to the specified email address.
-    The email must have a valid [DKIM signature](#domainkeys-identified-mail)
+    The email must have a valid [DKIM signature](#domainkeys-identified-mail),
     and the service type of the DKIM key should include TLSRPT.
     Any TLS-related failures must be ignored when delivering the report.
     [Unlike DMARC](#report-approval), recipients with a different domain don't have to approve TLSRPT reports
@@ -13474,7 +13485,7 @@ The record has [two fields](https://datatracker.ietf.org/doc/html/rfc8460#sectio
     I have no idea why this shortcoming isn't mentioned in the
     [security considerations](https://datatracker.ietf.org/doc/html/rfc8460#section-7).
 
-The fields are separated by a semicolon and the keys and values are separated by an equals sign.
+The fields are separated by a semicolon, and the keys and values are separated by an equals sign.
 Here is an example record:
 
 <figure markdown="block">
@@ -13486,7 +13497,7 @@ v=TLSRPTv1;rua=mailto:sts-reports@google.com
 <figcaption markdown="span">
 
 The `TXT` record at `_smtp._tls.gmail.com`.
-Whitespace is allowed before and after semicolons.
+[Whitespace](https://en.wikipedia.org/wiki/Whitespace_character) is allowed before and after semicolons.
 
 </figcaption>
 </figure>
@@ -13538,7 +13549,7 @@ Here is an example report, which I've formatted for better readability:
 
 <figcaption markdown="span" style="max-width: 870px;">
 
-A report which I've received from Google with the filename
+A report which I have received from Google with the filename
 `google.com!ef1p.com!1617926400!1618012799!001.json.gz`
 in an email with the subject
 `Report Domain: ef1p.com Submitter: google.com Report-ID: <2021.04.09T00.00.00Z+ef1p.com@google.com>`.
@@ -13588,7 +13599,7 @@ but then [dropped again](https://mailarchive.ietf.org/arch/msg/ietf-smtp/KO5JqiO
 in a [later revision](https://datatracker.ietf.org/doc/html/draft-ietf-dane-smtp-01#appendix-B.1).
 A client-side equivalent to the [`Received` header field](#trace-information) thus never made into
 the [list of message header fields](https://www.iana.org/assignments/message-headers/message-headers.xhtml).
-Such a header field would only make sense if it was covered by a [DKIM signature](#domainkeys-identified-mail).
+Such a header field would make sense only if it was covered by a [DKIM signature](#domainkeys-identified-mail).
 Otherwise, a [man in the middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) can simply replace it,
 which prevents the recipient from detecting whether a man in the middle was present or not.
 Since a man in the middle can encrypt its communication with the incoming mail server of the recipient,
@@ -13608,8 +13619,8 @@ senders and recipients can take matters into their own hands and secure their co
 This idea is often referred to as [end-to-end encryption (E2EE)](https://en.wikipedia.org/wiki/End-to-end_encryption).
 Since protecting the authenticity of the content is usually just as important as protecting its confidentiality,
 I prefer the term end-to-end security.
-As we've seen [earlier](#multipart-messages), arbitrary content can be sent via email.
-As long as the sender and the recipient agree on which cryptographic algorithms and which encoding they want to use,
+As we saw [earlier](#multipart-messages), arbitrary content can be sent via email.
+As long as the sender and the recipients agree on which cryptographic algorithms and which encoding they want to use,
 they can use any technique they want, such as [one-time pad encryption](#exclusive-or-operation-for-perfect-encryption)
 combined with a [message authentication code (MAC)](#applications-of-cryptographic-hash-functions).
 While end-to-end security doesn't have to be [standardized](#standardization), doing so is valuable for two reasons:
@@ -13690,7 +13701,7 @@ Otherwise, they are quite similar.
 | Content type for encryption | [`application/pkcs7-mime`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.2) | [`application/pgp-encrypted`](https://datatracker.ietf.org/doc/html/rfc3156#section-4)
 | Content type for signature | [`application/pkcs7-signature`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.5.3) | [`application/pgp-signature`](https://datatracker.ietf.org/doc/html/rfc3156#section-5)
 | Primary user group | Business world | Security specialists
-| Costs for users | You have to pay for the certificate but<br>there are [free offers](https://www.comodo.com/home/email-security/free-email-certificate.php) for personal use | None
+| Costs for users | You have to pay for the certificate, but<br>there are [free offers](https://www.comodo.com/home/email-security/free-email-certificate.php) for personal use | None
 
 <figcaption markdown="span">
 
@@ -13765,10 +13776,10 @@ of the plaintext to the plaintext before encrypting both.
 If the checksum is no longer valid after decryption,
 the recipient knows that someone tampered with the ciphertext.
 Non-repudiation is achieved with digital signatures,
-where only the signer can generate the signature but everyone can verify the signature.
+where only the signer can generate the signature, but everyone can verify the signature.
 Authenticity without non-repudiation is accomplished with a
 [message authentication code (MAC)](#applications-of-cryptographic-hash-functions),
-which require that the sender and the recipient have a [shared secret](https://en.wikipedia.org/wiki/Shared_secret).
+which requires that the sender and the recipient have a [shared secret](https://en.wikipedia.org/wiki/Shared_secret).
 A message authentication code can be verified only by those who know the shared secret,
 and everyone who can verify a message authentication code can also generate it.
 As a consequence, the recipient cannot prove to a third party that a message was sent by the sender.
@@ -13839,7 +13850,7 @@ If you use GPG to encrypt computer-generated text such as reports or notificatio
 you [should disable compression](https://security.stackexchange.com/a/43425/228462)
 with [`-z` `0`](https://www.gnupg.org/gph/en/manual/r1460.html)
 in order not to leak how similar the dynamic part of your message is to the static part.
-Encryption does not conceal the length of the input
+Encryption does not conceal the length of the input,
 and compression produces a shorter output when more parts of the message are the same.
 If an attacker can influence the dynamic part of the message,
 for example by triggering the generated notification,
@@ -13854,7 +13865,7 @@ Multipart message nesting
 </summary>
 
 When used to sign and encrypt emails, S/MIME and PGP are applied to [MIME body parts](#multipart-messages).
-Any part in the tree of a multipart message can be signed or encrypted
+Any part in the tree of a multipart message can be signed or encrypted,
 but S/MIME and PGP are usually applied to the whole body of a message.
 The output is itself a MIME part with a [content type](#content-type) of
 [`application/pkcs7-mime`](https://datatracker.ietf.org/doc/html/rfc8551#section-3.2),
@@ -13862,11 +13873,11 @@ The output is itself a MIME part with a [content type](#content-type) of
 [`multipart/encrypted`](https://datatracker.ietf.org/doc/html/rfc1847#section-2.2).
 Given that the output is just another MIME part, the operations can be applied
 [in any order](https://datatracker.ietf.org/doc/html/rfc8551#section-3.7).
-Therefore, a message can be first encrypted and then signed
+Therefore, a message can be first encrypted and then signed,
 but [as we discussed](#modes-of-operation), this is not recommended.
-The flexibility of multipart nesting leads to a lot of complexity
-and complexity is detrimental to security,
-which is not ideal for end-to-end security.
+The flexibility of multipart nesting leads to a lot of complexity.
+Since complexity is detrimental to security,
+this is not ideal for end-to-end security.
 Security researchers [published several attacks on S/MIME and PGP](https://efail.de/) in 2018.
 Among other things, they showed that several mail clients, including Apple Mail and Thunderbird,
 allowed [HTML content](#html-emails) to span several MIME parts.
@@ -14050,7 +14061,7 @@ Before you rely on end-to-end security, make sure that your mail client uses one
   [with three periods](https://datatracker.ietf.org/doc/html/draft-autocrypt-lamps-protected-headers-02.html#section-4.2).
 
 Thunderbird follows the last specification.
-A message with protected header fields looks as follows after decrypting it:
+A message with protected header fields looks as follows after decrypting its body:
 
 <figure markdown="block" class="allow-break-inside">
 
@@ -14109,8 +14120,8 @@ and to verify the public key of the sender.
 to anchor S/MIME certificates in the DNS just like [DANE](#dns-based-authentication-of-named-entities).
 For this purpose, it defines the [`SMIMEA` record type](https://datatracker.ietf.org/doc/html/rfc8162#section-2),
 which has the same format and semantics as the [`TLSA` record type](#tlsa-record-type).
-All four [certificate usages](#tlsa-record-type) [can be used](https://datatracker.ietf.org/doc/html/rfc8162#section-5)
-and, unlike DANE, publishing the full certificate in the `SMIMEA` record is not discouraged.
+All four [certificate usages](#tlsa-record-type) [can be used](https://datatracker.ietf.org/doc/html/rfc8162#section-5),
+and unlike DANE, publishing the full certificate in the `SMIMEA` record is not discouraged.
 As a sender, you need the unhashed public key of the recipient in order to encrypt the message for them.
 As a recipient, it's enough if you can verify the public key of the sender with its hash in the `SMIMEA` record.
 
@@ -14168,14 +14179,15 @@ with the new [`OPENPGPKEY` record type](https://datatracker.ietf.org/doc/html/rf
 but [presented in Base64](https://datatracker.ietf.org/doc/html/rfc7929#section-2.3).
 Even though `OPENPGPKEY` records [must be authenticated](https://datatracker.ietf.org/doc/html/rfc7929#section-5)
 with [DNSSEC](/internet/#domain-name-system-security-extensions),
-a retrieved key must still be verified by the user out-of-band.
+retrieved keys should still be verified by the user out-of-band.
 The [location of `OPENPGPKEY` records](https://datatracker.ietf.org/doc/html/rfc7929#section-3) is determined
 in the same way as it is done for [`SMIMEA` records](#smimea-resource-record)
 with the exception that the subdomain is `_openpgpkey` instead of `_smimecert`.
 Indirections with `CNAME` records are allowed as long as the original email address
 is listed as one of the user identities in the found OpenPGP key.
 A user identity can have the [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character) `*` as its local part
-so that the key can be used for [all addresses of the given domain](https://datatracker.ietf.org/doc/html/rfc7929#section-5.3).
+so that a single key can be used
+[for all addresses of the given domain](https://datatracker.ietf.org/doc/html/rfc7929#section-5.3).
 Besides [obtaining the key for an email address](https://datatracker.ietf.org/doc/html/rfc7929#section-5.1), `OPENPGPKEY`
 records allow others to detect [when a key has been revoked](https://datatracker.ietf.org/doc/html/rfc7929#section-5.2).
 
@@ -14200,7 +14212,7 @@ supports the `OPENPGPKEY` presentation format
 <div id="code-gpg-key-export"></div>
 
 You can configure GnuPG to look for `OPENPGPKEY` records automatically with the
-[`--auto-key-locate` command](https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html).
+[`--auto-key-locate` configuration option](https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html).
 
 </details>
 
@@ -14240,10 +14252,10 @@ then all future connections will be compromised as well.
 
 `SSHFP` records leverage the authentication provided by [DNSSEC](/internet/#domain-name-system-security-extensions)
 to secure the initial connection to an SSH server.
-They are published at the domain of the server
+They are published at the domain of the server,
 and you can look them up with the [DNS resolver](/internet/tools/#dns-resolver) from the first article.
-For example, the domain `ccczh.ch` has two `SSHFP` records
-and the server's public key has to match at least [one of them](https://datatracker.ietf.org/doc/html/rfc4255#section-2.1).
+For example, the domain `ccczh.ch` has two `SSHFP` records,
+and the server's public key has to match [at least one of them](https://datatracker.ietf.org/doc/html/rfc4255#section-2.1).
 [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH) allows you to generate the `SSHFP` records with the
 [following command](https://man.openbsd.org/ssh-keygen.1#r) on the server: `ssh-keygen -r {Hostname}`.
 If your [name server](https://en.wikipedia.org/wiki/Name_server) does not support
