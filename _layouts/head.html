@@ -41,7 +41,7 @@
         <script defer src="https://unpkg.com/react@17.0.1/umd/react.production.min.js" integrity="sha384-YF0qbrX3+TW1Oyow2MYZpkEMq34QcYzbTJbSb9K0sdeykm4i4kTCSrsYeH8HX11w" crossorigin="anonymous"></script>
         <script defer src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" integrity="sha384-DHlzXk2aXirrhqAkoaI5lzdgwWB07jUHz7DJGmS4Vlvt5U/ztRy+Yr8oSgQw5QaE" crossorigin="anonymous"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk=" crossorigin="anonymous"></script>
-        <script defer src="https://analytics.{{ site.domain }}/js/index.js" data-domain="{{ site.domain }}"></script><!-- integrity="sha384-sgd5l61tA+inRan4TEpkTFpEeCgFZO2SGl5kbKT1ib4h10qWtD03weRNl22y3X+G" crossorigin="anonymous" -->
+        <script defer src="{{ '/assets/scripts/external/plausible.min.js' | relative_url }}" data-domain="{{ site.domain }}" data-api="https://plausible.io/api/event"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     {% else %}
         <script defer src="{{ '/assets/scripts/external/jquery.min.js' | relative_url }}"></script>{% comment %}
@@ -60,7 +60,7 @@
     {% endif %}
         <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
         <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=10"></script>
-        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v=11"></script>
+        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v=12"></script>
 
         <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicons/favicon.svg' | relative_url }}">
         <link rel="alternate icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
