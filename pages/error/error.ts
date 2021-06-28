@@ -18,7 +18,7 @@ import { report } from '../../code/utility/analytics';
             report(
                 'Not found',
                 { Type: 'Subdirectory' },
-                () => window.location.replace(path.substring(0, index + 1)),
+                () => window.location.replace(path.substring(0, index + 1).replace('/pages/', '/')),
             );
             return;
         }
