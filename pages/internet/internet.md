@@ -1,13 +1,13 @@
 ---
 title: The Internet
-icon: network-wired
 category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2020-08-05
-modified: 2021-05-26
+modified: 2021-07-12
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
+icon: network-wired
 math: false
 ---
 
@@ -66,8 +66,8 @@ which we're all too familiar with:
 </figcaption>
 </figure>
 
-This is a [sequence diagram](https://en.wikipedia.org/wiki/Sequence_diagram)
-and it highlights the temporal dimension of a protocol
+This is a [sequence diagram](https://en.wikipedia.org/wiki/Sequence_diagram).
+It highlights the temporal dimension of a protocol
 in which messages are exchanged sequentially.
 
 
@@ -350,7 +350,7 @@ A mesh network with six nodes, three routers, and ten links.
 </figcaption>
 </figure>
 
-In this graph, any of the three routers can go down
+In this graph, any of the three routers can go down,
 and communication is still possible between the nodes
 that are connected not only to the unavailable router.
 There are also five links that can break one at a time
@@ -712,8 +712,8 @@ Standards need to be proposed, discussed, published,
 and updated to changing circumstances.
 I'm not aware of any laws that impose specific networking standards
 outside of governmental agencies.
-The Internet is an open architecture
-and technology-wise you're free to do pretty much anything you want.
+The Internet is an open architecture,
+and technology-wise, you're free to do pretty much anything you want.
 This doesn't mean, though, that others will play along.
 If different companies shall adopt the same standards to improve interoperability,
 it's very useful to have independent working groups,
@@ -730,9 +730,9 @@ The IETF publishes its official documents as
 [Requests for Comments (RFCs)](https://en.wikipedia.org/wiki/Request_for_Comments).
 This name was originally chosen to avoid a commanding appearance and to encourage discussions.
 In the meantime, early versions of potential RFCs are published as
-[Internet Drafts](https://en.wikipedia.org/wiki/Internet_Draft)
+[Internet Drafts](https://en.wikipedia.org/wiki/Internet_Draft),
 and RFCs are only approved after several rounds of peer review.
-RFCs are numbered sequentially and, once published,
+RFCs are numbered sequentially, and once published,
 they are no longer modified.
 If a document needs to be revised,
 a new RFC with a new number is published.
@@ -765,9 +765,9 @@ removes the header of the link layer,
 determines on the network layer on which link to forward the packet,
 and then wraps the packet according to the protocol spoken on that link.
 Link layer protocols typically detect [bit errors](https://en.wikipedia.org/wiki/Bit_error)
-caused by noise, interference, distortion and faulty synchronization.
+caused by noise, interference, distortion, and faulty synchronization.
 If several devices want to send a packet over the same medium at the same time,
-the signals collide and the packets must be retransmitted
+the signals collide, and the packets must be retransmitted
 after a randomly chosen [backoff period](https://en.wikipedia.org/wiki/Exponential_backoff).
 
 <details markdown="block">
@@ -782,7 +782,7 @@ a number must be either larger than, less than, or equal to any other number
 Numbers can therefore be thought of as [points on a line](https://en.wikipedia.org/wiki/Number_line).
 While numbers as concepts exist independently of the human mind
 (if we assume [mathematical realism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Mathematical_realism)),
-we need a way to express numbers when thinking, speaking and writing about them.
+we need a way to express numbers when thinking, speaking, and writing about them.
 We do so by assigning labels and symbols to them
 according to a [numeral system](https://en.wikipedia.org/wiki/Numeral_system).
 For practical reasons, we have to rely on a finite set of symbols
@@ -830,7 +830,7 @@ the [base](https://en.wikipedia.org/wiki/Radix)
 for exponentiation is 2 instead of 10.
 If we count the positions from the right to the left [starting at zero](https://en.wikipedia.org/wiki/Zero-based_numbering),
 each bit is multiplied by two raised to the power of its position.
-4 bits allow you to represent 2<sup>4</sup> = 16 numbers and
+4 bits allow you to represent 2<sup>4</sup> = 16 numbers, and
 8 bits allow you to represent 2<sup>8</sup> = 256 numbers.
 
 Virtually all modern computers use the binary numeral system
@@ -863,7 +863,7 @@ by using the leftmost bit for the [sign](https://en.wikipedia.org/wiki/Sign_(mat
 Positive numbers start with a zero, negative numbers with a one.
 The [actual encoding](https://en.wikipedia.org/wiki/Two%27s_complement)
 is a bit more complicated because it is chosen such
-that the implementation of addition, subtraction and multiplication
+that the implementation of addition, subtraction, and multiplication
 is the same for signed and unsigned integers.
 [Floating point numbers](https://en.wikipedia.org/wiki/Floating-point_arithmetic)
 are even more complicated and beyond the scope of this article.
@@ -880,7 +880,7 @@ is commonly used as the [network address](#network-addresses) on the link layer.
 It is a 48-bit number, which is typically displayed as six pairs of
 [hexadecimal digits](#number-encoding).
 (One hexadecimal digit represents 4 bits, so twelve hexadecimal digits represent 48 bits.)
-MAC addresses are used in Ethernet, Wi-Fi and Bluetooth to address other devices in the same network.
+MAC addresses are used in Ethernet, Wi-Fi, and Bluetooth to address other devices in the same network.
 Historically, they were assigned by the manufacturer of the [networking device](https://en.wikipedia.org/wiki/Networking_hardware)
 and then remained the same throughout the lifetime of the device.
 Since this allows your device to be tracked,
@@ -1058,7 +1058,7 @@ is assessed based on the following measures:
 
 The term **[throughput](https://en.wikipedia.org/wiki/Throughput)**
 is sometimes used interchangeably with bandwidth.
-Other times it is used to refer to the actual rate
+Other times, it is used to refer to the actual rate
 at which useful data is being transferred.
 The effective throughput is lower than the maximum bandwidth
 due to the overhead of protocol headers,
@@ -1139,7 +1139,7 @@ Internet Control Message Protocol (ICMP)
 The [Internet Control Message Protocol (ICMP)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)
 is used by routers to send error messages to the sender of a packet,
 for example when a host could not be reached
-or when a packet exceeds its [time to live](https://en.wikipedia.org/wiki/Time_to_live).
+or when a packet exceeds its [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live).
 ICMP messages are attached to an [IP header](https://en.wikipedia.org/wiki/IPv4#Header),
 in which the [IP protocol number](https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers)
 is set to 1 according to [RFC 792](https://datatracker.ietf.org/doc/html/rfc792).
@@ -1220,11 +1220,11 @@ such as [volatile memory](https://en.wikipedia.org/wiki/Volatile_memory)
 and [non-volatile memory](https://en.wikipedia.org/wiki/Non-volatile_memory)
 like your [solid-state drive (SSD)](https://en.wikipedia.org/wiki/Solid-state_drive),
 [input/output (I/O) devices](https://en.wikipedia.org/wiki/Input/output),
-such as [keyboard](https://en.wikipedia.org/wiki/Computer_keyboard)
-and [mouse](https://en.wikipedia.org/wiki/Computer_mouse) for input,
-[monitor](https://en.wikipedia.org/wiki/Computer_monitor)
+such as a [keyboard](https://en.wikipedia.org/wiki/Computer_keyboard)
+and a [mouse](https://en.wikipedia.org/wiki/Computer_mouse) for input,
+a [monitor](https://en.wikipedia.org/wiki/Computer_monitor)
 and [speakers](https://en.wikipedia.org/wiki/Computer_speakers) for output,
-as well as [network interface controllers (NIC)](https://en.wikipedia.org/wiki/Network_interface_controller)
+as well as a [network interface controller (NIC)](https://en.wikipedia.org/wiki/Network_interface_controller)
 to communicate with other devices on the same network.
 
 An operating system fulfills three different purposes:
@@ -1325,7 +1325,7 @@ Transmission Control Protocol (TCP)
 </summary>
 
 The problem with packet-switched networks, such as the Internet, is
-that packets can get lost, arrive out of order and with an arbitrary delay.
+that packets can get lost or arrive out of order with an arbitrary delay.
 However, it is desirable for many applications
 that what the receiver receives is exactly what the sender sent.
 So how can we get reliable, in-order transfer of data over an unreliable network?
@@ -1353,7 +1353,7 @@ TCP headers also include a [checksum](https://en.wikipedia.org/wiki/Checksum) to
 On top of that,
 TCP allows each party to specify
 how many packets beyond the last acknowledged sequence number they are willing to receive.
-This is known as [flow control](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Flow_control)
+This is known as [flow control](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Flow_control),
 and it ensures that the sender does not overwhelm the receiver.
 Last but not least,
 the sender slows down its sending rate
@@ -1972,7 +1972,7 @@ many application layer protocols are
 which means that the transmitted messages can be meaningfully displayed in a text editor.
 This is in contrast to [binary protocols](https://en.wikipedia.org/wiki/Binary_protocol),
 whose messages are difficult to read for humans without specialized analysis software.
-As we just learned, text is also encoded with binary numbers
+As we just learned, text is also encoded with binary numbers,
 and text editors can be considered as specialized software.
 The real difference between the two categories of protocols is
 that text-based protocols delimit different pieces of information
@@ -1997,9 +1997,9 @@ where only text is permitted or reliably supported.
 This is the case for [email attachments](https://en.wikipedia.org/wiki/Email_attachment)
 because email originally only supported 7-bit ASCII.
 If you attach a picture to an email, for example,
-then the picture is split into chunks of 6 bits
+then the picture is split into chunks of 6 bits,
 and each chunk is encoded with one of 64 characters.
-This encoding is called [Base64](https://en.wikipedia.org/wiki/Base64)
+This encoding is called [Base64](https://en.wikipedia.org/wiki/Base64),
 and it needs to be reverted by the recipient
 in order to display the picture.
 Base64 uses the characters `A` – `Z`, `a` – `z`, `0` – `9`, `+`, and `/`
@@ -2025,7 +2025,7 @@ HTTP is one of the most widely used application layer protocols.
 If we ignore newer versions of the protocol and rarely used features,
 HTTP is a fairly simple protocol and thus an excellent first example.
 HTTP works according to the [client-server model](#client-server-model):
-The client sends a request and the server sends back a response.
+The client sends a request, and the server sends back a response.
 The first line of the request starts with the
 [request method](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods),
 which specifies whether the request is about
@@ -2052,7 +2052,7 @@ such as your username and password in a login form,
 the request contains this data in its body,
 whereas the body of the response could be empty,
 for example, when your browser is being redirected to a different page.
-We have encountered the concept of [header and payload](#packet-switching) several times already
+We have encountered the concept of [header and payload](#packet-switching) several times already,
 and HTTP follows the same logic.
 Let's look at a slightly modified example from
 [Wikipedia](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Example_session):
@@ -2211,18 +2211,18 @@ From a technical point of view,
 DNS acts as a [distributed database](https://en.wikipedia.org/wiki/Distributed_database),
 which stores the information associated with domain names
 on numerous machines distributed all over the Internet.
-These machines are called [name servers](https://en.wikipedia.org/wiki/Name_server)
+These machines are called [name servers](https://en.wikipedia.org/wiki/Name_server),
 and each entry they store is called a [resource record (RR)](https://en.wikipedia.org/wiki/Domain_Name_System#Resource_records).
 While some name servers provide the [authoritative answer](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer)
 to queries regarding the domain names for which they are responsible,
 others simply store these answers for a limited period of time.
-Such temporary storage is known as [caching](https://en.wikipedia.org/wiki/Cache_(computing))
-and it allows other machines in the same network to look up the information faster.
+Such temporary storage is known as [caching](https://en.wikipedia.org/wiki/Cache_(computing)),
+and it allows other devices in the same network to look up the information faster.
 Caching is also important to distribute the load more evenly among name servers,
 which improves the scalability of the Domain Name System.
 Each record specifies how long it can be [cached](https://en.wikipedia.org/wiki/Domain_Name_System#Record_caching),
 which limits how outdated the answer to a query can be.
-This expiration period is called [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live)
+This expiration period is called [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live),
 and a common value for this is one hour.
 This means that if you change a DNS record with such a TTL value,
 you have to wait for up to one hour
@@ -2335,7 +2335,7 @@ such a [race attack](https://en.wikipedia.org/wiki/DNS_spoofing#Prevention_and_m
 becomes much harder as the attacker has to guess the correct timing of the response,
 the correct DNS query ID used to match answers to questions,
 as well as the correct [source port](#port-numbers) from which the query was sent.
-For this reason, DNS queries should always be sent from a random source port
+For this reason, DNS queries should always be sent from a random source port,
 and also [NAT routers](#network-address-translation) should choose external ports unpredictably.
 Since DNS is often used to determine the destination address of requests,
 a successful attack on the DNS resolution of your computer
@@ -2615,7 +2615,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   I built one for you,
   using the same [Google API](https://developers.google.com/speed/public-dns/docs/doh/json) as before:
   <div id="tool-lookup-zone-domains" class="mt-3"></div>
-  Unfortunately, not many domains have DNSSEC records
+  Unfortunately, not many domains have DNSSEC records,
   and most of them which do use `NSEC3` rather than `NSEC`.
   It's therefore not easy to find domains to feed into this tool.
   Besides the domain of the [Internet Engineering Task Force (IETF)](https://www.ietf.org/),
@@ -2641,7 +2641,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   we will focus on the latter proposal.
   Instead of determining the gaps between domain names directly,
   all domain names in a zone are hashed in the case of `NSEC3`.
-  These hashes are then sorted
+  These hashes are then sorted,
   and an `NSEC3` record is created for each gap in this list.
   If a DNS resolver queries a domain name that doesn't exist,
   the name server responds with the `NSEC3` record
@@ -2694,7 +2694,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   For example, if an ordinary record is declared at `mail.example.com.`
   and a wildcard record is declared at `*.example.com.`,
   with `*` being the [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character),
-  then a query for `mail.example.com.` will return the former record
+  a query for `mail.example.com.` will return the former record,
   and a query for `anything-else.example.com.` will return the latter.
   The wildcard can only be used as the leftmost DNS label
   and cannot be combined with other characters on that level.
@@ -2823,7 +2823,7 @@ Personally, I can think of the following reasons:
   [RFC 7344](https://datatracker.ietf.org/doc/html/rfc7344) and [RFC 8078](https://datatracker.ietf.org/doc/html/rfc8078)
   propose a new way to publish and update the `DS` record in the parent zone.
   As you probably have learned by now,
-  all shortcomings of DNS are addressed by introducing new record types
+  all shortcomings of DNS are addressed by introducing new record types,
   and these two RFCs are no different.
   The former RFC introduces the record types `CDS` and `CDNSKEY` (where the `C` stands for child),
   with which the child zone can indicate to the parent zone the desired content of the `DS` record.
@@ -2871,10 +2871,10 @@ Personally, I can think of the following reasons:
   Additionally, [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))
   is always a good idea.
   But more importantly,
-  not all communication is protected by TLS
+  not all communication is protected by TLS,
   and not all DNS records are used to establish TLS connections.
   For example, `TXT` records are used extensively for
-  [email authentication](https://en.wikipedia.org/wiki/Email_authentication).
+  [email authentication](/email/#domain-authentication).
   While email providers, such as [gmail.com](https://gmail.com),
   [yahoo.com](https://yahoo.com), and [outlook.com](https://outlook.com),
   all have such records,
@@ -2888,7 +2888,7 @@ Personally, I can think of the following reasons:
   with the key-signing keys of their
   [country's top-level domain](https://en.wikipedia.org/wiki/Country_code_top-level_domain).
   Nothing prevents anyone from introducing additional trust anchors.<br>
-  In my opinion the most serious problem is that DNSSEC increases the size of DNS responses significantly.
+  In my opinion, the most serious problem is that DNSSEC increases the size of DNS responses significantly.
   This allows an attacker with limited bandwidth to send a multiple of their bandwidth to the victim's computer
   simply by changing the source address of ignored DNS requests to the victim's IP address.
   This is known as a [DNS amplification attack](https://en.wikipedia.org/wiki/Denial-of-service_attack#Amplification).
