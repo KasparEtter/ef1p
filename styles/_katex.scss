@@ -4,9 +4,15 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-.katex,
-.katex-display {
+.katex {
+  font-size: $font-size-base * 1.1;
   user-select: all;
+
+  .mathsf,
+  .textsf {
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-base;
+  }
 }
 
 .katex-display {

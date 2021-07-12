@@ -47,6 +47,31 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     flex-wrap: nowrap;
   }
 
+  ul.tabs {
+    li {
+      background-color: #fff;
+      border: 1px solid #000;
+    }
+
+    li.active {
+      font-weight: bold;
+      color: #000;
+      background-color: #fff;
+    }
+  }
+
+  details ul.tabs li {
+    background-color: #fff;
+  }
+
+  div.notation {
+    border: 1px solid #000;
+
+    .shown + .shown {
+      border-top: 1px solid #000;
+    }
+  }
+
   body,
   code,
   table,

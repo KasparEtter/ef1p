@@ -1,0 +1,89 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
+ul.tabs {
+  padding-left: 0;
+  text-align: center;
+  user-select: none;
+
+  li {
+    display: inline-block;
+    padding: 0 4px;
+    margin-top: 0;
+    margin-left: -1px;
+    font-size: $small-font-size;
+    list-style: none;
+    cursor: pointer;
+    background-color: $body-bg;
+    border: 1px solid $body-color;
+  }
+
+  li.active {
+    color: $body-bg;
+    background-color: $body-color;
+  }
+
+  li:first-child {
+    padding-left: 6px;
+    border-top-left-radius: 11px;
+    border-bottom-left-radius: 11px;
+  }
+
+  li:last-child {
+    padding-right: 6px;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+  }
+}
+
+details ul.tabs li {
+  background-color: $jumbotron-bg;
+}
+
+div.notation {
+  position: relative;
+  padding-top: 10px;
+  margin-top: 26px;
+  margin-bottom: $paragraph-margin-bottom;
+  border: 1px solid $body-color;
+  border-radius: $border-radius;
+
+  > * {
+    display: none;
+    padding: $paragraph-margin-bottom;
+    margin: 0;
+  }
+
+  > ul,
+  > ol {
+    padding-left: 32px;
+
+    li:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .shown {
+    display: block;
+  }
+
+  .shown + .shown {
+    border-top: 1px solid $body-color;
+  }
+
+  ul.tabs {
+    position: absolute;
+    top: -14px;
+    right: 0;
+    left: 0;
+    display: block;
+    padding: 0;
+  }
+
+  .katex-display {
+    margin: 0;
+  }
+}
