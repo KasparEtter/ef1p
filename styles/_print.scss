@@ -14,7 +14,9 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
   details,
   pre,
-  .custom-card {
+  .custom-card,
+  .bordered,
+  div.notation {
     border: 1px solid #000;
   }
 
@@ -65,8 +67,6 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   }
 
   div.notation {
-    border: 1px solid #000;
-
     .shown + .shown {
       border-top: 1px solid #000;
     }

@@ -29,6 +29,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   .label {
     display: block;
     min-height: 28px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

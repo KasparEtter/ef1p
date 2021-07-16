@@ -43,13 +43,20 @@ details ul.tabs li {
   background-color: $jumbotron-bg;
 }
 
-div.notation {
-  position: relative;
-  padding-top: 10px;
-  margin-top: 26px;
+.bordered {
+  padding: $paragraph-margin-bottom;
+  padding-bottom: 0;
   margin-bottom: $paragraph-margin-bottom;
   border: 1px solid $body-color;
   border-radius: $border-radius;
+}
+
+div.notation {
+  @extend .bordered;
+  position: relative;
+  padding: 0;
+  padding-top: 10px;
+  margin-top: 26px;
 
   > * {
     display: none;
