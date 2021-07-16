@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { ChangeEvent, Component, Fragment, MouseEvent } from 'react';
 
+import { colorClass } from '../utility/color';
 import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
 import { Button, ObjectButNotFunction } from '../utility/types';
 
@@ -145,7 +146,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private renderEntry = (key: string, hasErrors: boolean, labelWidth: number) => {
         const entry = this.props.entries[key as keyof State] as DynamicEntry<ValueType, State>;
-        const input = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
+        const value = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
         const disabled = !error && (hasErrors ? true : (entry.disable ? entry.disable(this.props.store.state.inputs) : false));
         const history = inputTypesWithHistory.includes(entry.inputType);
@@ -153,6 +154,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         return <label
             key={key}
             title={entry.description + (disabled ? ' (Currently disabled.)' : '' )}
+            className={colorClass(entry.inputColor?.(value, this.props.store.state.inputs), '')}
         >
             {
                 !this.props.noLabels &&
@@ -171,7 +173,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                             name={key}
                             type="checkbox"
                             className={'custom-control-input' + (error ? ' is-invalid' : '')}
-                            checked={input as boolean}
+                            checked={value as boolean}
                             disabled={disabled}
                             onChange={this.onChange}
                         />
@@ -192,7 +194,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                             <option
                                 key={key}
                                 value={key}
-                                selected={entry.inputType === 'multiple' ? (input as string[]).includes(key) : key === input}
+                                selected={entry.inputType === 'multiple' ? (value as string[]).includes(key) : key === value}
                             >{text}</option>,
                         )}
                     </select>
@@ -207,10 +209,11 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                         autoCapitalize="off"
                         spellCheck="false"
                         placeholder={normalizeToValue(entry.placeholder, state)}
+                        readOnly={entry.readOnly}
                         disabled={disabled}
                         onChange={this.onChange}
                         onInput={this.onInput}
-                        value={input as string}
+                        value={value as string}
                         rows={entry.rows ?? 5}
                         style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                     />
@@ -224,7 +227,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                                 {normalizeToValue(entry.suggestedValues ?? [], state).concat(
                                     this.props.store.state.states.map(object => object[key as keyof State] as unknown as ValueType),
                                 ).reverse().filter(
-                                    (option, index, self) => option !== input && self.indexOf(option) === index,
+                                    (option, index, self) => option !== value && self.indexOf(option) === index,
                                 ).map(
                                     option => <option key={'' + option} value={'' + option}/>,
                                 )}
@@ -238,11 +241,12 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                             autoCapitalize="off"
                             spellCheck="false"
                             className={(entry.inputType === 'range' ? 'custom-range' : (entry.inputType === 'color' ? 'custom-color' : 'form-control')) + (error ? ' is-invalid' : '')}
-                            value={input as string | number}
+                            value={value as string | number}
                             min={entry.minValue as string | number | undefined}
                             max={entry.maxValue as string | number | undefined}
                             step={entry.stepValue as string | number | undefined}
                             placeholder={normalizeToValue(entry.placeholder, state)}
+                            readOnly={entry.readOnly}
                             disabled={disabled}
                             onChange={this.onChange}
                             onInput={this.onInput}
@@ -261,7 +265,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
             </span>
             {
                 entry.inputType === 'range' &&
-                <span className={'range-value' + (disabled ? ' color-gray' : '')}>{input}</span>
+                <span className={'range-value' + (disabled ? ' color-gray' : '')}>{value}</span>
             }
             {
                 entry.determine &&

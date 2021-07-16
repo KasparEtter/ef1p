@@ -78,6 +78,9 @@ export const inputTypesWithHistory: InputType[] = ['text', 'number'];
  * Dynamic entries can be input by the user and thus have an associated state.
  */
 export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFunction = {}> extends Entry<T, State> {
+    /**
+     * Input type.
+     */
     readonly inputType: InputType;
 
     /**
@@ -128,10 +131,21 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     readonly selectOptions?: ValueOrFunction<Record<string, string>, State>;
 
     /**
+     * Whether this input is read-only.
+     */
+    readonly readOnly?: boolean;
+
+    /**
      * Determines whether this input is disabled.
      * The function is called with potentially invalid inputs.
      */
     readonly disable?: (inputs: State) => boolean;
+
+    /**
+     * The color of the input label.
+     * The function is called with potentially invalid inputs.
+     */
+    inputColor?: (value: T, inputs: State) => Color;
 
     /**
      * Validates this input.
