@@ -94,6 +94,14 @@ export class Rectangle extends VisualElement<RectangleProps> {
         return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ignoreForClipping, ...props });
     }
 
+    public withText(
+        text: TextLine | TextLine[],
+        props: Omit<TextProps, 'position' | 'text'> = {},
+        margin: Point = textMargin,
+    ): [this, Text] {
+        return [this, this.text(text, props, margin)];
+    }
+
     public move(vector: Point): Rectangle {
         return new Rectangle({ ...this.props, position: this.props.position.add(vector) });
     }

@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { round3 } from './math';
+import { radiansToDegrees, round3 } from './math';
 
 export type LineSide = 'left' | 'right';
 
@@ -44,6 +44,14 @@ export class Point {
 
     public invert(): Point {
         return new Point(-this.x, -this.y);
+    }
+
+    public invertX(): Point {
+        return new Point(-this.x, this.y);
+    }
+
+    public invertY(): Point {
+        return new Point(this.x, -this.y);
     }
 
     public add(that: Point): Point {
@@ -135,7 +143,7 @@ export class Point {
     /**
      * Creates the given number of evenly spaced points in a circle with the given radius around this point.
      */
-    public radial(radius: number, amount: number, offsetAngle: number = 0): Point[] {
+    public radial(radius: number, amount: number, offsetAngle: number = -Math.PI / 2): Point[] {
         const angle = Math.PI * 2 / amount;
         const points: Point[] = new Array(amount);
         for (let i = 0; i < amount; i++) {
@@ -153,10 +161,17 @@ export class Point {
     }
 
     /**
-     * Returns the angle of this vector.
+     * Returns the angle of this vector in radians.
      */
-    public angle(): number {
+    public angleInRadians(): number {
         return Math.atan(this.y / this.x);
+    }
+
+    /**
+     * Returns the angle of this vector in degrees.
+     */
+    public angleInDegrees(): number {
+        return radiansToDegrees(this.angleInRadians());
     }
 
     public encode(): string {

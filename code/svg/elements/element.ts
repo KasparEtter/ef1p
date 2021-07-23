@@ -40,6 +40,10 @@ export interface ElementWithChildrenProps<C extends Element> {
     style?: string;
     classes?: string | string[];
     children?: C[];
+    /**
+     * This is the SVG transform attribute (https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform),
+     * not the CSS transform property (https://developer.mozilla.org/en-US/docs/Web/CSS/transform).
+     */
     transform?: string; // Transformations don't affect the bounding box!
     ignoreForClipping?: boolean; // Set to true to ignore the bounding box for clipping.
 }

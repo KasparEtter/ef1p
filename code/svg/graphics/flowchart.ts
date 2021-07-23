@@ -31,7 +31,7 @@ export function generateFlowchart(
     for (const step of steps) {
         const size = estimateTextSizeWithMargin(step.text);
         const rectangle = new Rectangle({ position: P(-size.x / 2, y), size, color: step.color });
-        elements.push(rectangle, rectangle.text(step.text));
+        elements.push(...rectangle.withText(step.text));
         if (previousRectangle !== undefined) {
             elements.unshift(Line.connectBoxes(previousRectangle, 'bottom', rectangle, 'top'));
         }

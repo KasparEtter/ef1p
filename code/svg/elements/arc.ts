@@ -169,7 +169,8 @@ export class Arc extends VisualElement<ArcProps> {
     public text(
         text: TextLine | TextLine[],
         side: ArcSide,
-        props: Omit<TextProps, 'position' | 'text' | 'horizontalAlignment' | 'verticalAlignment'> = {},
+        distance: number = textToLineDistance,
+        props: Omit<TextProps, 'position' | 'text'> = {},
     ): Text {
         const { start, startSide, end, endSide, radius = defaultArcRadius, color } = this.props;
         const rotation = this.rotation();
@@ -228,13 +229,22 @@ export class Arc extends VisualElement<ArcProps> {
         }
 
         // Determine the position on the desired arc side.
-        let offset = vector.normalize(textToLineDistance);
+        let offset = vector.normalize(distance);
         if (side === 'inside') {
             offset = offset.invert();
         }
         const position = center.add(vector).add(offset);
 
         return new Text({ position, text, ...determineAlignment(offset), color, ...props });
+    }
+
+    public withText(
+        text: TextLine | TextLine[],
+        side: ArcSide,
+        distance: number = textToLineDistance,
+        props: Omit<TextProps, 'position' | 'text'> = {},
+    ): [this, Text] {
+        return [this, this.text(text, side, distance, props)];
     }
 
     public move(vector: Point): Arc {

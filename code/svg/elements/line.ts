@@ -124,13 +124,21 @@ export class Line extends VisualElement<LineProps> {
         text: TextLine | TextLine[],
         side: LineSide = 'left',
         distance: number = textToLineDistance,
-        // Horizontal and vertical alignment are intentionally not excluded because the defaults should be overridable.
         props: Omit<TextProps, 'position' | 'text'> = {},
     ): Text {
         const offset = this.vector().rotate(side).normalize(distance);
         const position = this.center().add(offset);
         const color = this.props.color;
         return new Text({ position, text, ...determineAlignment(offset), color, ...props });
+    }
+
+    public withText(
+        text: TextLine | TextLine[],
+        side: LineSide = 'left',
+        distance: number = textToLineDistance,
+        props: Omit<TextProps, 'position' | 'text'> = {},
+    ): [this, Text] {
+        return [this, this.text(text, side, distance, props)];
     }
 
     public move(vector: Point): Line {

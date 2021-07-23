@@ -81,7 +81,7 @@ export function generateProtocol(
         const end = P(message.to * distance, y);
         const line = new Line({ start, end, marker: ['middle', 'end'], color: message.color }).shorten(0, strokeRadius);
         const position = line.center().subtractY(textToLineDistance).add(message.textOffset ?? zeroPoint);
-        const transform = message.latency ? rotate(end.subtract(start), position) : undefined;
+        const transform = message.latency ? rotate(position, end.subtract(start).angleInDegrees()) : undefined;
         const text = new Text({
             position,
             text: message.text,
