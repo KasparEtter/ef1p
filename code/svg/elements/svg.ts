@@ -258,6 +258,20 @@ const staticStyles: Style[] = [
         },
     },
     {
+        filter: collector => collector.classes.has('thin'),
+        selector: '.thin',
+        properties: {
+            'stroke-width': '1.25',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('thick'),
+        selector: '.thick',
+        properties: {
+            'stroke-width': '5',
+        },
+    },
+    {
         filter: collector => collector.classes.has('angular'),
         selector: '.angular',
         properties: {
