@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { P, zeroPoint } from '../../../code/svg/utility/point';
 
+import { VisualElement } from '../../../code/svg/elements/element';
 import { Line } from '../../../code/svg/elements/line';
 import { Rectangle } from '../../../code/svg/elements/rectangle';
 import { printSVG } from '../../../code/svg/elements/svg';
@@ -13,12 +14,14 @@ import { bold, estimateTextSizeWithMargin, estimateTextWidthWithMargin } from '.
 
 const size = estimateTextSizeWithMargin(bold('Server'));
 
+const elements = new Array<VisualElement>();
+
 const clientRectangle = new Rectangle({ position: zeroPoint, size });
-const clientText = clientRectangle.text(bold('Client'));
+elements.push(...clientRectangle.withText(bold('Client')));
 
 const serverRectangle = new Rectangle({ position: P(size.x + estimateTextWidthWithMargin('Response', 3), 0), size });
-const serverText = serverRectangle.text(bold('Server'));
+elements.push(...serverRectangle.withText(bold('Server')));
 
-const line = Line.connectBoxes(clientRectangle, 'right', serverRectangle, 'left');
+elements.unshift(Line.connectBoxes(clientRectangle, 'right', serverRectangle, 'left'));
 
-printSVG(line, clientRectangle, clientText, serverRectangle, serverText);
+printSVG(...elements);

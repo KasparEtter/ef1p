@@ -1,12 +1,12 @@
 <svg id="figure-private-and-public-key" class="figure" data-name="private-and-public-key" width="315.595" height="63.5" viewBox="-1.25 -11 315.595 63.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <line class="green" x1="104.78" y1="13.75" x2="207.378" y2="13.75" marker-end="url(#arrow-green)" stroke-dasharray="96"></line>
-    <text class="green" text-anchor="middle">
-        <tspan x="156.547" y="1.75">Efficient</tspan>
-    </text>
     <line class="red" x1="208.315" y1="25.75" x2="105.717" y2="25.75" marker-end="url(#arrow-red)" stroke-dasharray="96"></line>
     <text class="red" text-anchor="middle">
         <tspan x="156.547" y="49.25">Infeasible</tspan>
+    </text>
+    <line class="green" x1="104.78" y1="13.75" x2="207.378" y2="13.75" marker-end="url(#arrow-green)" stroke-dasharray="96"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="156.547" y="1.75">Efficient</tspan>
     </text>
     <rect x="0" y="0" width="104.467" height="39.5" rx="8" ry="8"></rect>
     <text text-anchor="middle">

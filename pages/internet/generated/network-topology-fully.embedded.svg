@@ -1,19 +1,19 @@
 <svg id="figure-network-topology-fully" class="figure" data-name="network-topology-fully" width="217.102" height="208.166" viewBox="-108.551 -113.25 217.102 208.166" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
+    <line class="yellow" x1="13.956" y1="-85.861" x2="77.346" y2="-39.805" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
+    <line class="yellow" x1="5.331" y1="-79.594" x2="51.097" y2="61.26" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
+    <line class="yellow" x1="-5.331" y1="-79.594" x2="-51.097" y2="61.26" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
+    <line class="yellow" x1="-13.956" y1="-85.861" x2="-77.346" y2="-39.805" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
+    <line class="yellow" x1="85.971" y1="-13.26" x2="61.758" y2="61.26" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
+    <line class="yellow" x1="77.346" y1="-19.526" x2="-42.472" y2="67.526" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
+    <line class="yellow" x1="74.051" y1="-29.666" x2="-74.051" y2="-29.666" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
     <line class="yellow" x1="39.177" y1="77.666" x2="-39.177" y2="77.666" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
     <line class="yellow" x1="42.472" y1="67.526" x2="-77.346" y2="-19.526" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
-    <line class="yellow" x1="51.097" y1="61.26" x2="5.331" y2="-79.594" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
-    <line class="yellow" x1="61.758" y1="61.26" x2="85.971" y2="-13.26" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
     <line class="yellow" x1="-61.758" y1="61.26" x2="-85.971" y2="-13.26" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
-    <line class="yellow" x1="-51.097" y1="61.26" x2="-5.331" y2="-79.594" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
-    <line class="yellow" x1="-42.472" y1="67.526" x2="77.346" y2="-19.526" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
-    <line class="yellow" x1="-77.346" y1="-39.805" x2="-13.956" y2="-85.861" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
-    <line class="yellow" x1="-74.051" y1="-29.666" x2="74.051" y2="-29.666" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="134" stroke-dashoffset="261"></line>
-    <line class="yellow" x1="13.956" y1="-85.861" x2="77.346" y2="-39.805" marker-start="url(#arrow-yellow)" marker-end="url(#arrow-yellow)" stroke-dasharray="64" stroke-dashoffset="121"></line>
+    <circle class="green" cx="0" cy="-96" r="16"></circle>
+    <circle class="green" cx="91.301" cy="-29.666" r="16"></circle>
     <circle class="green" cx="56.427" cy="77.666" r="16"></circle>
     <circle class="green" cx="-56.427" cy="77.666" r="16"></circle>
     <circle class="green" cx="-91.301" cy="-29.666" r="16"></circle>
-    <circle class="green" cx="0" cy="-96" r="16"></circle>
-    <circle class="green" cx="91.301" cy="-29.666" r="16"></circle>
 
 </svg>

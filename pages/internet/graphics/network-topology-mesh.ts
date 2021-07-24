@@ -4,7 +4,6 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { textToLineDistance } from '../../../code/svg/utility/constants';
 import { zeroPoint } from '../../../code/svg/utility/point';
 
 import { Circle } from '../../../code/svg/elements/circle';

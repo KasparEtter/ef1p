@@ -56,21 +56,21 @@
     </style>
 
     <defs>
-        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
-            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
-        </marker>
         <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
             <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
         </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
     </defs>
 
-    <line class="blue" x1="71.495" y1="13.75" x2="173.517" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="95"></line>
-    <text class="blue" text-anchor="middle">
-        <tspan x="122.974" y="1.75">Request</tspan>
-    </text>
     <line class="green" x1="174.454" y1="25.75" x2="72.432" y2="25.75" marker-end="url(#arrow-green)" stroke-dasharray="95"></line>
     <text class="green" text-anchor="middle">
         <tspan x="122.974" y="49.25">Response</tspan>
+    </text>
+    <line class="blue" x1="71.495" y1="13.75" x2="173.517" y2="13.75" marker-end="url(#arrow-blue)" stroke-dasharray="95"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="122.974" y="1.75">Request</tspan>
     </text>
     <rect x="0" y="0" width="71.182" height="39.5" rx="8" ry="8"></rect>
     <text text-anchor="middle">

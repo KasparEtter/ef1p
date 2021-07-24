@@ -11,5 +11,5 @@ import { Circle } from '../../../code/svg/elements/circle';
 import { defaultDistance, nodeProperties } from './network-topology';
 
 export const amount = 5;
-const points = zeroPoint.radial(defaultDistance, amount, Math.PI / amount / 2 * 3);
+const points = zeroPoint.radial(defaultDistance, amount);
 export const nodes = points.map(point => new Circle({ center: point, ...nodeProperties }));
