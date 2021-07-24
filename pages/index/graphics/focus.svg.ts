@@ -31,8 +31,4 @@ const content: TextLine[][] = [
 
 const colors: Color[] = ['yellow', 'orange', 'red'];
 
-printSVG(...content.map((row, index) => {
-    const circle = new Circle({ center: P(index * horizontalGap, index * verticalGap), radius, color: colors[index] });
-    const text = circle.text(row);
-    return G(circle, text);
-}));
+printSVG(...content.map((row, index) => G(...new Circle({ center: P(index * horizontalGap, index * verticalGap), radius, color: colors[index] }).withText(row))));
