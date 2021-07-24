@@ -14,11 +14,11 @@ import { Rectangle } from '../../../code/svg/elements/rectangle';
 import { printSVG } from '../../../code/svg/elements/svg';
 import { bold, estimateTextSizeWithMargin, Text } from '../../../code/svg/elements/text';
 
-const messageText = bold('Message');
-const hash1Text = 'hash(Message + 1)';
-const hash2Text = 'hash(Message + 2)';
-const hash3Text = 'hash(Message + 3)';
-const hashXText = 'hash(Message + X)';
+const contentText = bold('Content');
+const hash1Text = 'hash(Content + 1)';
+const hash2Text = 'hash(Content + 2)';
+const hash3Text = 'hash(Content + 3)';
+const hashXText = 'hash(Content + X)';
 
 const horizontalGap = 90;
 const outputRange = 120;
@@ -32,9 +32,9 @@ const hash3 = hash1 + outputRange * rejectRatio / 3;
 
 const elements = new Array<VisualElement>();
 
-const messageSize = estimateTextSizeWithMargin(messageText);
-const messageRectangle = new Rectangle({ position: P(-horizontalGap - messageSize.x, (outputRange - messageSize.y) / 2), size: messageSize });
-elements.push(messageRectangle, messageRectangle.text(messageText));
+const contentSize = estimateTextSizeWithMargin(contentText);
+const contentRectangle = new Rectangle({ position: P(-horizontalGap - contentSize.x, (outputRange - contentSize.y) / 2), size: contentSize });
+elements.push(...contentRectangle.withText(contentText));
 
 const classes = 'angular'
 elements.push(new Line({ start: P(0, 0), end: P(0, outputRange * rejectRatio), color: 'red', classes }));
@@ -42,7 +42,7 @@ elements.push(new Line({ start: P(0, outputRange * rejectRatio), end: P(0, outpu
 elements.push(new Line({ start: P(-boundary, 0), end: P(boundary, 0) }));
 elements.push(new Line({ start: P(-boundary, outputRange), end: P(boundary, outputRange) }));
 
-const start = messageRectangle.boundingBox().pointAt('right', markerOffset([], 'start'));
+const start = contentRectangle.boundingBox().pointAt('right', markerOffset([], 'start'));
 elements.unshift(new Line({ start, end: P(-strokeRadius, hashX), marker: 'end', color: 'green'}));
 elements.unshift(new Line({ start, end: P(-strokeRadius, hash1), marker: 'end', color: 'red'}));
 elements.unshift(new Line({ start, end: P(-strokeRadius, hash2), marker: 'end', color: 'red'}));

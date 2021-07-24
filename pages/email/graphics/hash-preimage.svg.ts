@@ -18,10 +18,10 @@ const horizontalGap = size.y;
 const elements = new Array<VisualElement>();
 
 const inputRectangle = new Rectangle({ position: P(0, 0), size, color: 'green' });
-elements.push(inputRectangle, inputRectangle.text(bold('Find input')));
+elements.push(...inputRectangle.withText(bold('Find input')));
 
 const outputRectangle = new Rectangle({ position: P(size.x + horizontalGap, 0), size, color: 'blue' });
-elements.push(outputRectangle, outputRectangle.text(bold('Given output')));
+elements.push(...outputRectangle.withText(bold('Given output')));
 
 elements.unshift(Line.connectBoxes(inputRectangle, 'right', outputRectangle, 'left'));
 

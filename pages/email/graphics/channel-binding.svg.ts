@@ -33,7 +33,7 @@ elements.push(attackerRectangle);
 elements.push(Line.connectBoxes(clientRectangle, 'right', serverRectangle, 'left', { color: 'green' }).move(offset.multiply(-1)));
 elements.push(Line.connectBoxes(serverRectangle, 'left', clientRectangle, 'right', { color: 'green' }).move(offset.multiply(1)));
 
-elements.push(clientRectangle, clientRectangle.text(bold('Client')));
-elements.push(serverRectangle, serverRectangle.text(bold('Server')));
+elements.push(...clientRectangle.withText(bold('Client')));
+elements.push(...serverRectangle.withText(bold('Server')));
 
 printSVG(...elements);

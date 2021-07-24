@@ -13,7 +13,10 @@ import { elements, incomingMailServerOfRecipientBox, mailClientOfSenderBox, outg
 elements.push(...outgoingMailServerOfSenderBox.cross(0, 'red'));
 elements.push(...outgoingMailServerOfRecipientBox.cross(0, 'gray'));
 
-const arc = Arc.connectBoxes(mailClientOfSenderBox, 'top', incomingMailServerOfRecipientBox, 'left', { color: 'red' });
-elements.splice(elements.indexOf(mailClientOfSenderBox), 0, arc, arc.text([T(SMTP, ' for'), 'direct', 'message', 'delivery?'], 'inside'));
+elements.splice(
+    elements.indexOf(mailClientOfSenderBox),
+    0,
+    ...Arc.connectBoxes(mailClientOfSenderBox, 'top', incomingMailServerOfRecipientBox, 'left', { color: 'red' }).withText([T(SMTP, ' for'), 'direct', 'message', 'delivery?'], 'inside'),
+);
 
 printSVG(...elements);

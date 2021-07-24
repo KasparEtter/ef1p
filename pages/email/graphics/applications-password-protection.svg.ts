@@ -23,20 +23,17 @@ const elements = new Array<VisualElement>();
 
 const clientSize = estimateTextSizeWithMargin(clientText);
 const clientRectangle = new Rectangle({ position: P(0, 0), size: clientSize });
-elements.push(clientRectangle, clientRectangle.text(clientText));
+elements.push(...clientRectangle.withText(clientText));
 
 const serverSize = estimateTextSizeWithMargin(serverText);
 const serverRectangle = new Rectangle({ position: P(clientSize.x + estimateTextWidthWithMargin(passwordText, 3), 0), size: serverSize });
-elements.push(serverRectangle, serverRectangle.text(serverText));
+elements.push(...serverRectangle.withText(serverText));
 
 const databaseSize = estimateTextSizeWithMargin(databaseText);
 const databaseRectangle = new Rectangle({ position: P(serverRectangle.props.position.x + serverSize.x + estimateTextWidthWithMargin(saltText, 3), 0), size: databaseSize });
-elements.push(databaseRectangle, databaseRectangle.text(databaseText));
+elements.push(...databaseRectangle.withText(databaseText));
 
-const line1 = Line.connectBoxes(clientRectangle, 'right', serverRectangle, 'left', { color });
-elements.unshift(line1, line1.text(passwordText));
-
-const line2 = Line.connectBoxes(databaseRectangle, 'left', serverRectangle, 'right', { color });
-elements.unshift(line2, line2.text(saltText, 'right'));
+elements.unshift(...Line.connectBoxes(clientRectangle, 'right', serverRectangle, 'left', { color }).withText(passwordText));
+elements.unshift(...Line.connectBoxes(databaseRectangle, 'left', serverRectangle, 'right', { color }).withText(saltText, 'right'));
 
 printSVG(...elements);

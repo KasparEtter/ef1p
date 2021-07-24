@@ -41,54 +41,54 @@ const rootSize = estimateTextSizeWithMargin(rootText);
 
 const elements = new Array<VisualElement>();
 
-// Leafs
+// Leaves
 
 const heightAndGap = rectangleHeight + verticalGap;
 
 const leaf1Rectangle = new Rectangle({ position: P(0, 0 * heightAndGap), size: leaf1Size });
-elements.push(leaf1Rectangle, leaf1Rectangle.text(leaf1Text));
+elements.push(...leaf1Rectangle.withText(leaf1Text));
 
 const leaf2Rectangle = new Rectangle({ position: P(0, 1 * heightAndGap), size: leaf1Size, color: computeColor });
-elements.push(leaf2Rectangle, leaf2Rectangle.text(leaf2Text));
+elements.push(...leaf2Rectangle.withText(leaf2Text));
 
 const leaf3Rectangle = new Rectangle({ position: P(0, 2 * heightAndGap), size: leaf1Size });
-elements.push(leaf3Rectangle, leaf3Rectangle.text(leaf3Text));
+elements.push(...leaf3Rectangle.withText(leaf3Text));
 
 const leaf4Rectangle = new Rectangle({ position: P(0, 3 * heightAndGap), size: leaf1Size });
-elements.push(leaf4Rectangle, leaf4Rectangle.text(leaf4Text));
+elements.push(...leaf4Rectangle.withText(leaf4Text));
 
 // Nodes level 1
 
 const level1X = leaf1Size.x + horizontalGap;
 
 const node1Rectangle = new Rectangle({ position: P(level1X, 0 * heightAndGap), size: node1Size, color: provideColor });
-elements.push(node1Rectangle, node1Rectangle.text(node1Text));
+elements.push(...node1Rectangle.withText(node1Text));
 
 const node2Rectangle = new Rectangle({ position: P(level1X, 1 * heightAndGap), size: node1Size, color: computeColor });
-elements.push(node2Rectangle, node2Rectangle.text(node2Text));
+elements.push(...node2Rectangle.withText(node2Text));
 
 const node3Rectangle = new Rectangle({ position: P(level1X, 2 * heightAndGap), size: node1Size });
-elements.push(node3Rectangle, node3Rectangle.text(node3Text));
+elements.push(...node3Rectangle.withText(node3Text));
 
 const node4Rectangle = new Rectangle({ position: P(level1X, 3 * heightAndGap), size: node1Size });
-elements.push(node4Rectangle, node4Rectangle.text(node4Text));
+elements.push(...node4Rectangle.withText(node4Text));
 
 // Nodes level 2
 
 const level2X = level1X + node1Size.x + horizontalGap;
 
 const node5Rectangle = new Rectangle({ position: P(level2X, 0.5 * heightAndGap), size: node5Size, color: computeColor });
-elements.push(node5Rectangle, node5Rectangle.text(node5Text));
+elements.push(...node5Rectangle.withText(node5Text));
 
 const node6Rectangle = new Rectangle({ position: P(level2X, 2.5 * heightAndGap), size: node5Size, color: provideColor });
-elements.push(node6Rectangle, node6Rectangle.text(node6Text));
+elements.push(...node6Rectangle.withText(node6Text));
 
 // Root
 
 const rootX = level2X + node5Size.x + horizontalGap;
 
 const rootRectangle = new Rectangle({ position: P(rootX, 1.5 * heightAndGap), size: rootSize, color: computeColor });
-elements.push(rootRectangle, rootRectangle.text(rootText));
+elements.push(...rootRectangle.withText(rootText));
 
 // Arrows
 

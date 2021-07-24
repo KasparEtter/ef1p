@@ -19,13 +19,13 @@ const offset = P(0, 5);
 const elements = new Array<VisualElement>();
 
 const clientRectangle = new Rectangle({ position: P(0, 0), size });
-elements.push(clientRectangle, clientRectangle.text(bold('Client')));
+elements.push(...clientRectangle.withText(bold('Client')));
 
 const proxyRectangle = new Rectangle({ position: P(horizontalGap, 0), size });
-elements.push(proxyRectangle, proxyRectangle.text(bold('Proxy')));
+elements.push(...proxyRectangle.withText(bold('Proxy')));
 
 const serverRectangle = new Rectangle({ position: P(2 * horizontalGap, 0), size });
-elements.push(serverRectangle, serverRectangle.text(bold('Server')));
+elements.push(...serverRectangle.withText(bold('Server')));
 
 elements.unshift(Line.connectBoxes(clientRectangle, 'right', proxyRectangle, 'left', { color: 'green' }).move(offset.multiply(-1)));
 elements.unshift(Line.connectBoxes(proxyRectangle, 'left', clientRectangle, 'right', { color: 'green' }).move(offset.multiply(1)));

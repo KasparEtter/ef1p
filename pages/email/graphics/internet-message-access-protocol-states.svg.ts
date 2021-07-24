@@ -24,33 +24,24 @@ const elements = new Array<VisualElement>();
 
 const notAuthenticatedSize = estimateTextSizeWithMargin(notAuthenticatedText);
 const notAuthenticatedRectangle = new Rectangle({ position: P(-notAuthenticatedSize.x / 2, 0), size: notAuthenticatedSize });
-elements.push(notAuthenticatedRectangle, notAuthenticatedRectangle.text(notAuthenticatedText));
+elements.push(...notAuthenticatedRectangle.withText(notAuthenticatedText));
 
 const authenticatedSize = estimateTextSizeWithMargin(authenticatedText);
 const authenticatedRectangle = new Rectangle({ position: P(-authenticatedSize.x / 2, gap), size: authenticatedSize });
-elements.push(authenticatedRectangle, authenticatedRectangle.text(authenticatedText));
+elements.push(...authenticatedRectangle.withText(authenticatedText));
 
 const selectedSize = estimateTextSizeWithMargin(selectedText);
 const selectedRectangle = new Rectangle({ position: P(-selectedSize.x / 2, 2 * gap), size: selectedSize });
-elements.push(selectedRectangle, selectedRectangle.text(selectedText));
+elements.push(...selectedRectangle.withText(selectedText));
 
 const logoutSize = estimateTextSizeWithMargin(logoutText);
 const logoutRectangle = new Rectangle({ position: P(-logoutSize.x / 2, 3 * gap), size: logoutSize });
-elements.push(logoutRectangle, logoutRectangle.text(logoutText));
+elements.push(...logoutRectangle.withText(logoutText));
 
-const line1 = Line.connectBoxes(notAuthenticatedRectangle, 'bottom', authenticatedRectangle, 'top', { color }).moveRight();
-elements.unshift(line1, line1.text(['LOGIN', '  AUTHENTICATE'].map(code), 'right')); // The leading spaces make the graphic symmetric.
-
-const line2 = Line.connectBoxes(authenticatedRectangle, 'top', notAuthenticatedRectangle, 'bottom', { color }).moveRight();
-elements.unshift(line2, line2.text(['UNAUTHENTICATE'].map(code), 'right'));
-
-const line3 = Line.connectBoxes(authenticatedRectangle, 'bottom', selectedRectangle, 'top', { color }).moveRight();
-elements.unshift(line3, line3.text(['SELECT', 'EXAMINE'].map(code), 'right'));
-
-const line4 = Line.connectBoxes(selectedRectangle, 'top', authenticatedRectangle, 'bottom', { color }).moveRight();
-elements.unshift(line4, line4.text(['CLOSE', 'UNSELECT'].map(code), 'right'));
-
-const line5 = Line.connectBoxes(selectedRectangle, 'bottom', logoutRectangle, 'top', { color });
-elements.unshift(line5, line5.text(['LOGOUT'].map(code), 'right'));
+elements.unshift(...Line.connectBoxes(notAuthenticatedRectangle, 'bottom', authenticatedRectangle, 'top', { color }).moveRight().withText(['LOGIN', '  AUTHENTICATE'].map(code), 'right')); // The leading spaces make the graphic symmetric.
+elements.unshift(...Line.connectBoxes(authenticatedRectangle, 'top', notAuthenticatedRectangle, 'bottom', { color }).moveRight().withText(['UNAUTHENTICATE'].map(code), 'right'));
+elements.unshift(...Line.connectBoxes(authenticatedRectangle, 'bottom', selectedRectangle, 'top', { color }).moveRight().withText(['SELECT', 'EXAMINE'].map(code), 'right'));
+elements.unshift(...Line.connectBoxes(selectedRectangle, 'top', authenticatedRectangle, 'bottom', { color }).moveRight().withText(['CLOSE', 'UNSELECT'].map(code), 'right'));
+elements.unshift(...Line.connectBoxes(selectedRectangle, 'bottom', logoutRectangle, 'top', { color }).withText(['LOGOUT'].map(code), 'right'));
 
 printSVG(...elements);

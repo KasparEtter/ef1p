@@ -19,13 +19,13 @@ const verticalGap = size.y;
 const elements = new Array<VisualElement>();
 
 const input1Rectangle = new Rectangle({ position: P(0, 0), size, color: 'green' });
-elements.push(input1Rectangle, input1Rectangle.text(bold('Find input 1')));
+elements.push(...input1Rectangle.withText(bold('Find input 1')));
 
 const input2Rectangle = new Rectangle({ position: P(0, 2 * verticalGap), size, color: 'green' });
-elements.push(input2Rectangle, input2Rectangle.text(bold('Find input 2')));
+elements.push(...input2Rectangle.withText(bold('Find input 2')));
 
 const outputRectangle = new Rectangle({ position: P(size.x + horizontalGap, verticalGap), size, color: 'green' });
-elements.push(outputRectangle, outputRectangle.text(bold('Same output')));
+elements.push(...outputRectangle.withText(bold('Same output')));
 
 elements.unshift(Line.connectBoxes(input1Rectangle, 'right', outputRectangle, 'left'));
 elements.unshift(Line.connectBoxes(input2Rectangle, 'right', outputRectangle, 'left'));

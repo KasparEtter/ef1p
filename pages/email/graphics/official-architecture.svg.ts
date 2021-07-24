@@ -29,34 +29,34 @@ const elements = new Array<VisualElement>();
 const color = 'gray' ;
 
 const sMUA = new Rectangle({ position: P(size.x + (gap - size.x) / 2, 2 * size.y + gap + distance), size });
-elements.push(sMUA, sMUA.text(['Mail user', T('agent ', MUA)].map(bold)));
+elements.push(...sMUA.withText(['Mail user', T('agent ', MUA)].map(bold)));
 
 const sMSA = new Rectangle({ position: P(size.x + gap, size.y + gap), size });
-elements.push(sMSA, sMSA.text(['Mail submission', T('agent ', MSA)].map(bold)));
+elements.push(...sMSA.withText(['Mail submission', T('agent ', MSA)].map(bold)));
 
 const sMTA = new Rectangle({ position: P(size.x + gap, 0), size });
-elements.push(sMTA, sMTA.text(['Mail transfer', T('agent ', MTA)].map(bold)));
+elements.push(...sMTA.withText(['Mail transfer', T('agent ', MTA)].map(bold)));
 
 const sMDA = new Rectangle({ position: P(0, 0), size, color });
-elements.push(sMDA, sMDA.text(['Mail delivery', T('agent ', MDA)].map(bold)));
+elements.push(...sMDA.withText(['Mail delivery', T('agent ', MDA)].map(bold)));
 
 const sMS = new Rectangle({ position: P(0, size.y + gap), size });
-elements.push(sMS, sMS.text(['Message', T('store ', MS)].map(bold)));
+elements.push(...sMS.withText(['Message', T('store ', MS)].map(bold)));
 
 const rMUA = new Rectangle({ position: P(3 * size.x + gap + distance + (gap - size.x) / 2, 2 * size.y + gap + distance), size });
-elements.push(rMUA, rMUA.text(['Mail user', T('agent ', MUA)].map(bold)));
+elements.push(...rMUA.withText(['Mail user', T('agent ', MUA)].map(bold)));
 
 const rMSA = new Rectangle({ position: P(2 * size.x + gap + distance, size.y + gap), size, color });
-elements.push(rMSA, rMSA.text(['Mail submission', T('agent ', MSA)].map(bold)));
+elements.push(...rMSA.withText(['Mail submission', T('agent ', MSA)].map(bold)));
 
 const rMTA = new Rectangle({ position: P(2 * size.x + gap + distance, 0), size });
-elements.push(rMTA, rMTA.text(['Mail transfer', T('agent ', MTA)].map(bold)));
+elements.push(...rMTA.withText(['Mail transfer', T('agent ', MTA)].map(bold)));
 
 const rMDA = new Rectangle({ position: P(3 * size.x + 2 * gap + distance, 0), size });
-elements.push(rMDA, rMDA.text(['Mail delivery', T('agent ', MDA)].map(bold)));
+elements.push(...rMDA.withText(['Mail delivery', T('agent ', MDA)].map(bold)));
 
 const rMS = new Rectangle({ position: P(3 * size.x + 2 * gap + distance, size.y + gap), size });
-elements.push(rMS, rMS.text(['Message', T('store ', MS)].map(bold)));
+elements.push(...rMS.withText(['Message', T('store ', MS)].map(bold)));
 
 const smtpColor: Pick<LineProps, 'color'> = { color: 'green' };
 const imapColor: Pick<LineProps, 'color'> = { color: 'blue' };

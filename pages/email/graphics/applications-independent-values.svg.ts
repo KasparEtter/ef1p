@@ -25,16 +25,16 @@ const elements = new Array<VisualElement>();
 
 const seedSize = estimateTextSizeWithMargin(seedText);
 const seedRectangle = new Rectangle({ position: P(0, 0), size: seedSize });
-elements.push(seedRectangle, seedRectangle.text(seedText));
+elements.push(...seedRectangle.withText(seedText));
 
 const value1Rectangle = new Rectangle({ position: P(seedSize.x + horizontalGap, -size.y - verticalGap), size });
-elements.push(value1Rectangle, value1Rectangle.text(value1Text));
+elements.push(...value1Rectangle.withText(value1Text));
 
 const value2Rectangle = new Rectangle({ position: P(seedSize.x + horizontalGap, 0), size });
-elements.push(value2Rectangle, value2Rectangle.text(value2Text));
+elements.push(...value2Rectangle.withText(value2Text));
 
 const valueXRectangle = new Rectangle({ position: P(seedSize.x + horizontalGap, size.y + verticalGap), size });
-elements.push(valueXRectangle, valueXRectangle.text(valueXText));
+elements.push(...valueXRectangle.withText(valueXText));
 
 elements.unshift(Line.connectBoxes(seedRectangle, 'right', value1Rectangle, 'left', { color: 'green' }));
 elements.unshift(Line.connectBoxes(seedRectangle, 'right', value2Rectangle, 'left', { color: 'green' }));

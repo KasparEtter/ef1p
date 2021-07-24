@@ -4,13 +4,13 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { defaultCornerRadius, strokeWidthMargin } from '../../../code/svg/utility/constants';
 import { P, zeroPoint } from '../../../code/svg/utility/point';
 
 import { VisualElement } from '../../../code/svg/elements/element';
 import { Rectangle } from '../../../code/svg/elements/rectangle';
 import { printSVG } from '../../../code/svg/elements/svg';
 import { bold, estimateTextSizeWithMargin, uppercase } from '../../../code/svg/elements/text';
-import { defaultCornerRadius, strokeWidthMargin } from '../../../code/svg/utility/constants';
 
 const size = estimateTextSizeWithMargin([bold('ISO-8859-1'), '8 bits']);
 const margin = strokeWidthMargin.multiply(2);

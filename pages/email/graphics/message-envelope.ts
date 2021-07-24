@@ -56,7 +56,7 @@ export function printEnvelope(
     const elements = new Array<VisualElement>();
 
     const leftBox = new Rectangle({ position: P(0, -size.y / 2), size });
-    elements.push(leftBox, leftBox.text(left));
+    elements.push(...leftBox.withText(left));
 
     const messageLines = [messageTitle, ...message];
     const messageSize = P(messageWidth, calculateTextHeight(messageLines)).add(doubleTextMargin);
@@ -74,7 +74,7 @@ export function printEnvelope(
         color: 'green',
         classes: 'angular',
     });
-    elements.push(envelopeBox, envelopeBox.text(envelopeLines, alignment, textMargin.add(P(envelopeMargin, envelopeMargin))));
+    elements.push(...envelopeBox.withText(envelopeLines, alignment, textMargin.add(P(envelopeMargin, envelopeMargin))));
 
     const messageBox = new Rectangle({
         position: P(size.x + gap + envelopeMargin, envelopeSize.y / 2 - envelopeMargin - messageSize.y),
@@ -83,10 +83,10 @@ export function printEnvelope(
         color: 'blue',
         classes: 'angular',
     });
-    elements.push(messageBox, messageBox.text(messageLines, alignment));
+    elements.push(...messageBox.withText(messageLines, alignment));
 
     const rightBox = new Rectangle({ position: P(size.x + 2 * gap + envelopeSize.x, -size.y / 2), size });
-    elements.push(rightBox, rightBox.text(right));
+    elements.push(...rightBox.withText(right));
 
     elements.unshift(Line.connectBoxes(leftBox, 'right', envelopeBox, 'left', { color: 'green', marker: [] }));
     elements.unshift(Line.connectBoxes(envelopeBox, 'right', rightBox, 'left', { color: 'green' }));

@@ -22,16 +22,16 @@ const elements = new Array<VisualElement>();
 
 const passwordRectangleSize = estimateTextSizeWithMargin(passwordText);
 const passwordRectangle = new Rectangle({ position: P(0, 0), size: passwordRectangleSize });
-elements.push(passwordRectangle, passwordRectangle.text(passwordText));
+elements.push(...passwordRectangle.withText(passwordText));
 
 const radius = estimateTextSizeWithMargin(circleText).x / 2;
 const keyRectangle = new Rectangle({ position: P(passwordRectangleSize.x + 3 * radius, 0), size: estimateTextSizeWithMargin(keyText) });
-elements.push(keyRectangle, keyRectangle.text(keyText));
+elements.push(...keyRectangle.withText(keyText));
 
 const line = Line.connectBoxes(passwordRectangle, 'right', keyRectangle, 'left', { color: 'blue' });
-elements.unshift(line, line.text(lineText));
+elements.unshift(...line.withText(lineText));
 
 const circle = new Circle({ center: line.center().addY(radius), radius, color: 'blue' });
-elements.unshift(circle, circle.text(circleText));
+elements.unshift(...circle.withText(circleText));
 
 printSVG(...elements);

@@ -26,19 +26,19 @@ const color = 'gray';
 const elements = new Array<VisualElement>();
 
 const mailClientOfSenderBox = new Rectangle({ position: P(0, 0), size });
-elements.push(mailClientOfSenderBox, mailClientOfSenderBox.text(mailClientOfSenderText));
+elements.push(...mailClientOfSenderBox.withText(mailClientOfSenderText));
 
 const outgoingMailServerOfSenderBox = new Rectangle({ position: P(size.x + horizontalGap, 0), size });
-elements.push(outgoingMailServerOfSenderBox, outgoingMailServerOfSenderBox.text(outgoingMailServerOfSenderText));
+elements.push(...outgoingMailServerOfSenderBox.withText(outgoingMailServerOfSenderText));
 
 const incomingMailServerOfRecipientBox = new Rectangle({ position: P(2 * (size.x + horizontalGap), 0), size, color: 'green' });
-elements.push(incomingMailServerOfRecipientBox, incomingMailServerOfRecipientBox.text(incomingMailServerOfRecipientText));
+elements.push(...incomingMailServerOfRecipientBox.withText(incomingMailServerOfRecipientText));
 
 const offlineMailClientOfRecipientBox = new Rectangle({ position: P(3 * (size.x + horizontalGap), -(size.y + verticalGap) / 2), size, color });
-elements.push(offlineMailClientOfRecipientBox, offlineMailClientOfRecipientBox.text(offlineMailClientOfRecipientText));
+elements.push(...offlineMailClientOfRecipientBox.withText(offlineMailClientOfRecipientText));
 
 const onlineMailClientOfRecipientBox = new Rectangle({ position: P(3 * (size.x + horizontalGap), (size.y + verticalGap) / 2), size, color: 'blue' });
-elements.push(onlineMailClientOfRecipientBox, onlineMailClientOfRecipientBox.text(onlineMailClientOfRecipientText));
+elements.push(...onlineMailClientOfRecipientBox.withText(onlineMailClientOfRecipientText));
 
 elements.unshift(Line.connectBoxes(mailClientOfSenderBox, 'right', outgoingMailServerOfSenderBox, 'left'));
 elements.unshift(Line.connectBoxes(outgoingMailServerOfSenderBox, 'right', incomingMailServerOfRecipientBox, 'left'));

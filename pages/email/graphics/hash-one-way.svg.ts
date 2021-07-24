@@ -17,16 +17,13 @@ const elements = new Array<VisualElement>();
 const inputText = [T(bold('Input'), ' of'), 'any size'];
 const size = estimateTextSizeWithMargin(inputText);
 const inputRectangle = new Rectangle({ position: P(0, 0), size });
-elements.push(inputRectangle, inputRectangle.text(inputText));
+elements.push(...inputRectangle.withText(inputText));
 
 const outputText = [T(bold('Output'), ' of'), 'fixed size'];
 const outputRectangle = new Rectangle({ position: P(size.x + estimateTextWidthWithMargin('Infeasible', 3), 0), size: estimateTextSizeWithMargin(outputText) });
-elements.push(outputRectangle, outputRectangle.text(outputText));
+elements.push(...outputRectangle.withText(outputText));
 
-const efficientLine = Line.connectBoxes(inputRectangle, 'right', outputRectangle, 'left', { color: 'green' }).moveLeft();
-elements.unshift(efficientLine, efficientLine.text('Efficient'));
-
-const infeasibleLine = Line.connectBoxes(outputRectangle, 'left', inputRectangle, 'right', { color: 'red' }).moveLeft();
-elements.unshift(infeasibleLine, infeasibleLine.text('Infeasible'));
+elements.unshift(...Line.connectBoxes(inputRectangle, 'right', outputRectangle, 'left', { color: 'green' }).moveLeft().withText('Efficient'));
+elements.unshift(...Line.connectBoxes(outputRectangle, 'left', inputRectangle, 'right', { color: 'red' }).moveLeft().withText('Infeasible'));
 
 printSVG(...elements);

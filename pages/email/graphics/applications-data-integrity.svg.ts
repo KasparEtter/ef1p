@@ -26,22 +26,17 @@ const gap = 20;
 const elements = new Array<VisualElement>();
 
 const producerRectangle = new Rectangle({ position: P(0, 0), size });
-elements.push(producerRectangle, producerRectangle.text(producerText));
+elements.push(...producerRectangle.withText(producerText));
 
 const providerRectangle = new Rectangle({ position: P(size.x + gap, -2 * size.y), size });
-elements.push(providerRectangle, providerRectangle.text(providerText));
+elements.push(...providerRectangle.withText(providerText));
 
 const consumerSize = estimateTextSizeWithMargin(consumerText);
 const consumerRectangle = new Rectangle({ position: P(2 * size.x + 2 * gap, 0), size: consumerSize });
-elements.push(consumerRectangle, consumerRectangle.text(consumerText));
+elements.push(...consumerRectangle.withText(consumerText));
 
-const line1 = Line.connectBoxes(producerRectangle, 'right', providerRectangle, 'bottom', { color: fileColor });
-elements.unshift(line1, line1.text(fileText));
-
-const line2 = Line.connectBoxes(providerRectangle, 'bottom', consumerRectangle, 'left', { color: fileColor });
-elements.unshift(line2, line2.text(fileText));
-
-const line3 = Line.connectBoxes(producerRectangle, 'right', consumerRectangle, 'left', { color: hashColor });
-elements.unshift(line3, line3.text(hashText, 'right'));
+elements.unshift(...Line.connectBoxes(producerRectangle, 'right', providerRectangle, 'bottom', { color: fileColor }).withText(fileText));
+elements.unshift(...Line.connectBoxes(providerRectangle, 'bottom', consumerRectangle, 'left', { color: fileColor }).withText(fileText));
+elements.unshift(...Line.connectBoxes(producerRectangle, 'right', consumerRectangle, 'left', { color: hashColor }).withText(hashText, 'right'));
 
 printSVG(...elements);

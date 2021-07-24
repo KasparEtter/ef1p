@@ -10,10 +10,7 @@ import { printSVG } from '../../../code/svg/elements/svg';
 
 import { elements, incomingMailServerBox, mailClientBox, outgoingMailServerBox } from './double-submission';
 
-const arc = Arc.connectBoxes(mailClientBox, 'right', outgoingMailServerBox, 'bottom', { color: 'green' });
-elements.unshift(arc, arc.text('1. Submit', 'inside'));
-
-const line = Line.connectBoxes(outgoingMailServerBox, 'left', incomingMailServerBox, 'right', { color: 'green' });
-elements.unshift(line, line.text('2. Send', 'right'));
+elements.unshift(...Arc.connectBoxes(mailClientBox, 'right', outgoingMailServerBox, 'bottom', { color: 'green' }).withText('1. Submit', 'inside'));
+elements.unshift(...Line.connectBoxes(outgoingMailServerBox, 'left', incomingMailServerBox, 'right', { color: 'green' }).withText('2. Send', 'right'));
 
 printSVG(...elements);

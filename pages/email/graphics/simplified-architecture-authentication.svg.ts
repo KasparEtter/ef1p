@@ -15,16 +15,9 @@ elements.splice(elements.indexOf(smtpForRelayArrow), 2);
 elements.splice(elements.indexOf(imapForRetrievalArrow), 2);
 elements.splice(elements.indexOf(imapForStorageArc), 2);
 
-export const line1 = Line.connectBoxes(outgoingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'top', { color: 'green' });
-elements.unshift(line1, line1.text(['User', 'authen-', 'tication'], 'right'));
-
-export const line2 = Line.connectBoxes(incomingMailServerOfRecipientBox, 'left', outgoingMailServerOfSenderBox, 'right', { color: 'green' });
-elements.unshift(line2, line2.text(['Domain', 'authentication'], 'right'));
-
-export const line3 = Line.connectBoxes(incomingMailServerOfRecipientBox, 'bottom', mailClientOfRecipientBox, 'top');
-elements.unshift(line3, line3.text(['User', 'authen-', 'tication'], 'left'));
-
-export const arc1 = Arc.connectBoxes(incomingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'left', { color: 'gray' });
-elements.unshift(arc1, arc1.text(['User', 'authen-', 'tication'], 'outside'));
+elements.unshift(...Line.connectBoxes(outgoingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'top', { color: 'green' }).withText(['User', 'authen-', 'tication'], 'right'));
+elements.unshift(...Line.connectBoxes(incomingMailServerOfRecipientBox, 'left', outgoingMailServerOfSenderBox, 'right', { color: 'green' }).withText(['Domain', 'authentication'], 'right'));
+elements.unshift(...Line.connectBoxes(incomingMailServerOfRecipientBox, 'bottom', mailClientOfRecipientBox, 'top').withText(['User', 'authen-', 'tication'], 'left'));
+elements.unshift(...Arc.connectBoxes(incomingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'left', { color: 'gray' }).withText(['User', 'authen-', 'tication'], 'outside'));
 
 printSVG(...elements);

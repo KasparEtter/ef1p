@@ -45,7 +45,7 @@ sides.forEach((side, column) => {
         if (row > 0) {
             elements.unshift(Line.connectBoxes(box, 'top', boxes[column][row - 1], 'bottom', { color: colors[row] }));
         }
-        elements.push(box, box.text(bold(entity)));
+        elements.push(...box.withText(bold(entity)));
     });
 });
 

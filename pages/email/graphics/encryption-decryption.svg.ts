@@ -34,10 +34,10 @@ const elements = new Array<VisualElement>();
 const marker = 'end';
 
 const encryptionRectangle = new Rectangle({ position: P(horizontalGap, -size.y / 2), size, color: 'blue' });
-elements.push(encryptionRectangle, encryptionRectangle.text(encryptionText));
+elements.push(...encryptionRectangle.withText(encryptionText));
 
 const decryptionRectangle = new Rectangle({ position: P(2 * horizontalGap + size.x, -size.y / 2), size, color: 'blue' });
-elements.push(decryptionRectangle, decryptionRectangle.text(decryptionText));
+elements.push(...decryptionRectangle.withText(decryptionText));
 
 const leftPlaintextLine = new Line({
     start: P(0, 0),
@@ -45,10 +45,10 @@ const leftPlaintextLine = new Line({
     marker,
     color: 'green',
 });
-elements.unshift(leftPlaintextLine, leftPlaintextLine.text(plaintextText));
+elements.unshift(...leftPlaintextLine.withText(plaintextText));
 
 const ciphertextLine = Line.connectBoxes(encryptionRectangle, 'right', decryptionRectangle, 'left', { color: 'red' });
-elements.unshift(ciphertextLine, ciphertextLine.text(ciphertextText));
+elements.unshift(...ciphertextLine.withText(ciphertextText));
 
 const rightPlaintextLine = new Line({
     start: decryptionRectangle.boundingBox().pointAt('right'),
@@ -56,7 +56,7 @@ const rightPlaintextLine = new Line({
     marker,
     color: 'green',
 });
-elements.unshift(rightPlaintextLine, rightPlaintextLine.text(plaintextText));
+elements.unshift(...rightPlaintextLine.withText(plaintextText));
 
 function addKeyLine(rectangle: Rectangle): void {
     const end = rectangle.boundingBox().pointAt('top');

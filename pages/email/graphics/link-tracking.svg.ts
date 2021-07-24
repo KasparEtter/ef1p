@@ -19,33 +19,24 @@ const y = size.y * 1.5;
 const elements = new Array<VisualElement>();
 
 const mailServerRectangle = new Rectangle({ position: zeroPoint, size, color: 'blue' });
-elements.push(mailServerRectangle, mailServerRectangle.text(['Mail', 'server'].map(bold)));
+elements.push(...mailServerRectangle.withText(['Mail', 'server'].map(bold)));
 
 const mailClientRectangle = new Rectangle({ position: P(0, size.y + y), size, color: 'green' });
-elements.push(mailClientRectangle, mailClientRectangle.text(['Mail', 'client'].map(bold)));
+elements.push(...mailClientRectangle.withText(['Mail', 'client'].map(bold)));
 
 const webBrowserRectangle = new Rectangle({ position: P(size.x + x, size.y + y), size, color: 'green' });
-elements.push(webBrowserRectangle, webBrowserRectangle.text(['Web', 'browser'].map(bold)));
+elements.push(...webBrowserRectangle.withText(['Web', 'browser'].map(bold)));
 
 const redirectServerRectangle = new Rectangle({ position: P(size.x + x, 0), size, color: 'orange' });
-elements.push(redirectServerRectangle, redirectServerRectangle.text(['Tracking', 'server'].map(bold)));
+elements.push(...redirectServerRectangle.withText(['Tracking', 'server'].map(bold)));
 
 const webServerRectangle = new Rectangle({ position: P(2 * (size.x + x), 0), size, color: 'orange' });
-elements.push(webServerRectangle, webServerRectangle.text(['Web', 'server'].map(bold)));
+elements.push(...webServerRectangle.withText(['Web', 'server'].map(bold)));
 
-const line1 = Line.connectBoxes(mailClientRectangle, 'top', mailServerRectangle, 'bottom');
-elements.unshift(line1, line1.text('1. Fetch'));
-
-const line2 = Line.connectBoxes(mailClientRectangle, 'right', webBrowserRectangle, 'left');
-elements.unshift(line2, line2.text('2. Open'));
-
-const line3 = Line.connectBoxes(webBrowserRectangle, 'top', redirectServerRectangle, 'bottom').moveLeft();
-elements.unshift(line3, line3.text('3. Request'));
-
-const line4 = Line.connectBoxes(redirectServerRectangle, 'bottom', webBrowserRectangle, 'top').moveLeft();
-elements.unshift(line4, line4.text('4. Redirect'));
-
-const line5 = Line.connectBoxes(webBrowserRectangle, 'right', webServerRectangle, 'bottom');
-elements.unshift(line5, line5.text('5. Request', 'right'));
+elements.unshift(...Line.connectBoxes(mailClientRectangle, 'top', mailServerRectangle, 'bottom').withText('1. Fetch'));
+elements.unshift(...Line.connectBoxes(mailClientRectangle, 'right', webBrowserRectangle, 'left').withText('2. Open'));
+elements.unshift(...Line.connectBoxes(webBrowserRectangle, 'top', redirectServerRectangle, 'bottom').moveLeft().withText('3. Request'));
+elements.unshift(...Line.connectBoxes(redirectServerRectangle, 'bottom', webBrowserRectangle, 'top').moveLeft().withText('4. Redirect'));
+elements.unshift(...Line.connectBoxes(webBrowserRectangle, 'right', webServerRectangle, 'bottom').withText('5. Request', 'right'));
 
 printSVG(...elements);
