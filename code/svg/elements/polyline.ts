@@ -4,10 +4,10 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { Box, BoxSide } from '../utility/box';
+import { boundingBox, Box, BoxSide } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
-import { Point } from '../utility/point';
+import { length, Point } from '../utility/point';
 
 import { Circle } from './circle';
 import { VisualElement, VisualElementProps } from './element';
@@ -66,24 +66,17 @@ export class Polyline extends VisualElement<PolylineProps> {
     }
 
     protected _boundingBox({ points }: PolylineProps): Box {
-        const min = points.reduce((previous, current) => previous.min(current), points[0]);
-        const max = points.reduce((previous, current) => previous.max(current), points[0]);
-        return new Box(min, max);
+        return boundingBox(points);
     }
 
     public length(): number {
-        let length = 0;
-        const points = this.props.points;
-        for (let i = 1; i < points.length; i++) {
-            length += points[i - 1].distanceTo(points[i]);
-        }
-        return length;
+        return length(this.props.points);
     }
 
     protected _encode(collector: Collector, prefix: string, { points, marker, color }: PolylineProps): string {
         collector.elements.add('polyline');
         return prefix + `<polyline${this.attributes(collector)}`
-            + ` points="${points.map(point => point.round3().encode()).join(' ')}"`
+            + ` points="${points.map(point => point.encode()).join(' ')}"`
             + markerAttributes(collector, this.length.bind(this), marker, color, true)
             + `>${this.children(collector, prefix)}</polyline>\n`;
     }

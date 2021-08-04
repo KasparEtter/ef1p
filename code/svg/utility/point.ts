@@ -175,11 +175,11 @@ export class Point {
     }
 
     public encode(): string {
-        return `${this.x},${this.y}`;
+        return `${round3(this.x)},${round3(this.y)}`;
     }
 
     public toString(): string {
-        return `(${this.x}, ${this.y})`;
+        return `(${round3(this.x)}, ${round3(this.y)})`;
     }
 }
 
@@ -188,3 +188,11 @@ export function P(x: number, y: number): Point {
 }
 
 export const zeroPoint = new Point(0, 0);
+
+export function length(points: Point[]): number {
+    let length = 0;
+    for (let i = 1; i < points.length; i++) {
+        length += points[i - 1].distanceTo(points[i]);
+    }
+    return length;
+}

@@ -161,7 +161,7 @@ export class Arc extends VisualElement<ArcProps> {
         const {x, y} = this.radius().round3(); // This rounding (and numeric imprecision) could introduce problems in case of half ellipses.
         collector.elements.add('path');
         return prefix + `<path${this.attributes(collector)}`
-            + ` d="M ${start.round3().encode()} A ${x} ${y} 0 0 ${this.rotation()} ${end.encode()}"`
+            + ` d="M ${start.encode()} A ${x} ${y} 0 0 ${this.rotation()} ${end.encode()}"`
             + markerAttributes(collector, this.length.bind(this), marker, color)
             + `>${this.children(collector, prefix)}</path>\n`;
     }

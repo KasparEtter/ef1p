@@ -12,7 +12,7 @@ import { Collector } from '../utility/collector';
 import { indentation, strokeRadiusMargin, strokeWidth } from '../utility/constants';
 import { getArrowMarkers, getCircleMarkers } from '../utility/definitions';
 import { round3 } from '../utility/math';
-import { P } from '../utility/point';
+import { Point } from '../utility/point';
 
 import { ElementWithChildren, StructuralElement, StructuralElementProps } from './element';
 
@@ -50,13 +50,13 @@ export class SVG extends StructuralElement<SVGProps> {
                 // The picture is too high.
                 const dy = size.y * thumbnailMargin * thumbnailRatio;
                 const dx = ((size.y + 2 * dy) * thumbnailRatio - size.x) / 2;
-                box = box.addMargin(P(dx, dy)).round3();
+                box = box.addMargin(new Point(dx, dy)).round3();
                 margin = dy;
             } else {
                 // The picture is too wide.
                 const dx = size.x * thumbnailMargin;
                 const dy = ((size.x + 2 * dx) / thumbnailRatio - size.y) / 2;
-                box = box.addMargin(P(dx, dy)).round3();
+                box = box.addMargin(new Point(dx, dy)).round3();
                 margin = dx;
             }
             size = box.size();

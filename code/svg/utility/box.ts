@@ -87,3 +87,9 @@ export class Box {
         return `[${this.topLeft.toString()}, ${this.bottomRight.toString()}]`;
     }
 }
+
+export function boundingBox(points: Point[]): Box {
+    const min = points.reduce((previous, current) => previous.min(current), points[0]);
+    const max = points.reduce((previous, current) => previous.max(current), points[0]);
+    return new Box(min, max);
+}
