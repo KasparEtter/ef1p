@@ -63,8 +63,8 @@ const text = new Text({
     position: P(startX + lineGap / 2, startY - defaultTimeUnit),
     text: bold('?'),
     color,
-    horizontalAlignment: 'center',
-    verticalAlignment: 'center',
+    horizontalAlignment: 'middle',
+    verticalAlignment: 'middle',
 });
 
 printSVG(polyline, text, ...entityGroups, ...messageGroups);

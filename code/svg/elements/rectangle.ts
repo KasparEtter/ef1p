@@ -64,13 +64,13 @@ export class Rectangle extends VisualElement<RectangleProps> {
         let y: number;
         const box = this.boundingBox();
         const center = box.center();
-        const horizontalAlignment = props.horizontalAlignment ?? 'center';
-        const verticalAlignment = props.verticalAlignment ?? 'center';
+        const horizontalAlignment = props.horizontalAlignment ?? 'middle';
+        const verticalAlignment = props.verticalAlignment ?? 'middle';
         switch (horizontalAlignment) {
             case 'left':
                 x = box.topLeft.x + margin.x;
                 break;
-            case 'center':
+            case 'middle':
                 x = center.x;
                 break;
             case 'right':
@@ -81,7 +81,7 @@ export class Rectangle extends VisualElement<RectangleProps> {
             case 'top':
                 y = box.topLeft.y + margin.y;
                 break;
-            case 'center':
+            case 'middle':
                 y = center.y;
                 break;
             case 'bottom':

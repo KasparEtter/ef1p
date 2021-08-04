@@ -24,7 +24,7 @@ const allowedText = new Text({
     position: P(-allowedRadius - estimateTextSizeWithMargin(allowedString).x, 0),
     text: allowedString,
     horizontalAlignment: 'left',
-    verticalAlignment: 'center',
+    verticalAlignment: 'middle',
     color: 'green',
 });
 
@@ -42,7 +42,7 @@ const usedText = new Text({
     position: P(allowedRadius + usedRadius / 2 + estimateTextSizeWithMargin(usedString).x - 8, 0),
     text: usedString,
     horizontalAlignment: 'right',
-    verticalAlignment: 'center',
+    verticalAlignment: 'middle',
     color: 'blue',
 });
 

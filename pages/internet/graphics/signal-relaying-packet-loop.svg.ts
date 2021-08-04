@@ -23,6 +23,6 @@ const route = [
     Line.connectEllipses(C, A, props),
 ];
 
-const packets = route.map(line => line.text('■', 'left', 18, { horizontalAlignment: 'center', verticalAlignment: 'center' }));
+const packets = route.map(line => line.text('■', 'left', 18, { horizontalAlignment: 'middle', verticalAlignment: 'middle' }));
 
 printSVG(...links, ...route, ...packets, ...nodes, ...relays);

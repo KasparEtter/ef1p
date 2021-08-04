@@ -16,8 +16,8 @@ export abstract class CenterTextElement<P extends VisualElementProps> extends Vi
         offset: Point = zeroPoint,
     ): Text {
         const position = this.center().add(offset);
-        const horizontalAlignment = 'center';
-        const verticalAlignment = 'center';
+        const horizontalAlignment = 'middle';
+        const verticalAlignment = 'middle';
         const color = this.props.color;
         const ignoreForClipping = true;
         return new Text({ position, text, horizontalAlignment, verticalAlignment, color, ignoreForClipping, ...props });

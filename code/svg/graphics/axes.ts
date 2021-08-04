@@ -41,7 +41,7 @@ export function addAxes(elements: VisualElement[], scale: number, topLeft: Point
             elements.push(new Line({ start: P(x1, y), end: P(x2, y), color, classes, ignoreForClipping }));
         }
         if (labels) {
-            elements.push(new Text({ position: P(x, y), text: (-i).toString(), horizontalAlignment: 'right', verticalAlignment: 'center', color }));
+            elements.push(new Text({ position: P(x, y), text: (-i).toString(), horizontalAlignment: 'right', verticalAlignment: 'middle', color }));
         }
     }
 
@@ -56,7 +56,7 @@ export function addAxes(elements: VisualElement[], scale: number, topLeft: Point
             elements.push(new Line({ start: P(x, y1), end: P(x, y2), color, classes, ignoreForClipping }));
         }
         if (labels) {
-            elements.push(new Text({ position: P(x, y), text: i.toString(), horizontalAlignment: 'center', verticalAlignment: 'top', color }));
+            elements.push(new Text({ position: P(x, y), text: i.toString(), horizontalAlignment: 'middle', verticalAlignment: 'top', color }));
         }
     }
 }

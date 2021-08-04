@@ -27,7 +27,7 @@ labels.forEach((label, column) => {
     elements.push(new Text({
         text: bold(label),
         position: P(column * columnDistance, -offsetTop),
-        horizontalAlignment: 'center',
+        horizontalAlignment: 'middle',
         verticalAlignment: 'top',
     }));
     let previousBox: Rectangle | undefined;
@@ -64,8 +64,8 @@ positions.forEach((position, index) => {
     elements.push(new Text({
         text: large(symbols[index]),
         position: position.addY(3),
-        horizontalAlignment: 'center',
-        verticalAlignment: 'center',
+        horizontalAlignment: 'middle',
+        verticalAlignment: 'middle',
     }));
 });
 

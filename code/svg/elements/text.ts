@@ -213,8 +213,8 @@ export function estimateTextSizeWithMargin(text: TextLine | TextLine[], factor =
 
 /* ------------------------------ Alignment ------------------------------ */
 
-export type HorizontalAlignment = 'left' | 'center' | 'right';
-export type VerticalAlignment = 'top' | 'center' | 'bottom';
+export type HorizontalAlignment = 'left' | 'middle' | 'right';
+export type VerticalAlignment = 'top' | 'middle' | 'bottom';
 
 export interface Alignment {
     horizontalAlignment: HorizontalAlignment;
@@ -224,7 +224,7 @@ export interface Alignment {
 export function translateHorizontalAlignment(value: HorizontalAlignment): string {
     switch (value) {
         case 'left': return 'start';
-        case 'center': return 'middle';
+        case 'middle': return 'middle';
         case 'right': return 'end';
     }
 }
@@ -232,7 +232,7 @@ export function translateHorizontalAlignment(value: HorizontalAlignment): string
 export function translateVerticalAlignment(value: VerticalAlignment): string {
     switch (value) {
         case 'top': return 'hanging';
-        case 'center': return 'central';
+        case 'middle': return 'central';
         case 'bottom': return 'baseline';
     }
 }
@@ -240,7 +240,7 @@ export function translateVerticalAlignment(value: VerticalAlignment): string {
 export function horizontalAlignmentFactor(value: HorizontalAlignment): number {
     switch (value) {
         case 'left': return 0;
-        case 'center': return 0.5;
+        case 'middle': return 0.5;
         case 'right': return 1;
     }
 }
@@ -248,7 +248,7 @@ export function horizontalAlignmentFactor(value: HorizontalAlignment): number {
 export function verticalAlignmentFactor(value: VerticalAlignment): number {
     switch (value) {
         case 'top': return 0;
-        case 'center': return 0.5;
+        case 'middle': return 0.5;
         case 'bottom': return 1;
     }
 }
@@ -311,7 +311,7 @@ export class Text extends VisualElement<TextProps> {
             case 'top':
                 y = position.y + textHeight;
                 break;
-            case 'center':
+            case 'middle':
                 y = position.y - (text.length - 1) * lineHeight / 2 + 5.9;
                 break;
             case 'bottom':

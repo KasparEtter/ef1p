@@ -85,7 +85,7 @@ export function generateProtocol(
         const text = new Text({
             position,
             text: message.text,
-            horizontalAlignment: 'center',
+            horizontalAlignment: 'middle',
             verticalAlignment: 'bottom',
             color: message.color,
             transform,

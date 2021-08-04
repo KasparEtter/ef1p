@@ -21,7 +21,7 @@ export function determineAlignment(offset: Point): Alignment {
     const absoluteOffset = offset.absolute();
     let horizontalAlignment: HorizontalAlignment;
     if (absoluteOffset.y > absoluteOffset.x * 4) {
-        horizontalAlignment = 'center';
+        horizontalAlignment = 'middle';
     } else if (offset.x > 0) {
         horizontalAlignment = 'left';
     } else {
@@ -29,7 +29,7 @@ export function determineAlignment(offset: Point): Alignment {
     }
     let verticalAlignment: VerticalAlignment;
     if (absoluteOffset.x > absoluteOffset.y * 4) {
-        verticalAlignment = 'center';
+        verticalAlignment = 'middle';
     } else if (offset.y > 0) {
         verticalAlignment = 'top';
     } else {
