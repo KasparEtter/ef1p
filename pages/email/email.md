@@ -156,7 +156,7 @@ There are three things that set email apart from the
 [traditional postal system](https://en.wikipedia.org/wiki/Mail),
 which is sometimes also referred to as snail mail:
 1. Email conveys [digital data](https://en.wikipedia.org/wiki/Digital_data),
-   whereas a letter is an [analog item](https://en.wikipedia.org/wiki/Analog_signal).
+   whereas a letter is a physical item.
    The former is much more useful for further processing.
 2. Email enables instant global delivery at a [marginal cost](https://en.wikipedia.org/wiki/Marginal_cost) of zero.
    The only fee you pay is for your access to the Internet.
@@ -179,20 +179,21 @@ is a synonym for mailbox provider even though mail and email are used interchang
 Which are the most popular mailbox providers?
 </summary>
 
+*Please treat all the numbers in this box with caution.
+They were surprisingly hard to come by, with the sources being scattered and not necessarily trustworthy.
+Additionally, the numbers were reported in different years,
+which distorts the market share of these companies.*
+
 It is [estimated](https://financesonline.com/number-of-email-users/)
 that around half of the human population uses email,
 with an average of 1.75 active accounts per user.
-(Please treat all the numbers in this box with caution.
-They were surprisingly hard to come by, with the sources being scattered and not necessarily trustworthy.
-Additionally, the following numbers were reported in different years,
-which distorts the actual market share of these companies.)
 In the Western world, the consumer market is dominated by [Google](https://en.wikipedia.org/wiki/Google)
 with their [Gmail](https://en.wikipedia.org/wiki/Gmail) service, which has 1.5 billion active users.
 In China, the biggest player is [Tencent QQ](https://en.wikipedia.org/wiki/Tencent_QQ) with 900 million active accounts.
 [Outlook](https://en.wikipedia.org/wiki/Outlook.com) by [Microsoft](https://en.wikipedia.org/wiki/Microsoft)
 has 400 million active users,
 which is followed by [Yahoo! Mail](https://en.wikipedia.org/wiki/Yahoo!_Mail) with 225 million active users.
-[Apple](https://en.wikipedia.org/wiki/Apple_Inc.)'s [iCloud](https://en.wikipedia.org/wiki/ICloud) has 850 million users
+[Apple](https://en.wikipedia.org/wiki/Apple_Inc.)'s [iCloud](https://en.wikipedia.org/wiki/ICloud) has 850 million users,
 but it's not known how many of those use its email functionality.
 
 </details>
@@ -408,7 +409,7 @@ My understanding of this is
 that a local part with several unescaped spaces (<code class="preserve-whitespace">"  "</code>)
 is the same as a local part with a single space (<code class="preserve-whitespace">" "</code>).
 It's not clear to me, though, whether `" "` is to be interpreted as `""`.
-The reason why I think this might be the case is
+I think this might be the case
 because spaces are clearly excluded from the set of characters which don't need to be escaped.
 The [`qtext` rule](https://datatracker.ietf.org/doc/html/rfc5322#page-14)
 doesn't include the space character, which is `%d32` in ASCII,
@@ -621,7 +622,7 @@ No reply
 Many emails are sent from automated systems, which cannot handle replies.
 Examples of such emails are notifications about events on a platform and reports about some usage statistics.
 [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#page-21)
-demanded that there is a `From` field with one or several addresses.
+required each email to have a `From` field with one or several addresses.
 [RFC 6854](https://datatracker.ietf.org/doc/html/rfc6854) updated the standard in 2013
 to allow the [group construct](#group-construct) to be used in the `From` field as well.
 This allows automated systems to provide no reply address by using an empty group in the `From` field,
@@ -889,12 +890,13 @@ with each of them having a more complicated name and, of course, an associated
 | MDA | [Mail delivery agent](https://en.wikipedia.org/wiki/Mail_delivery_agent) | Server to receive emails from the local mail transfer agent (MTA)<br>and to store them in the message store (MS) of the recipient.
 | MS<br>*MAS* | [Message store](https://en.wikipedia.org/wiki/Email_box)<br>*[Mail access server](https://datatracker.ietf.org/doc/html/rfc8314#section-2)* | Server to store the emails received from the mail delivery agent (MDA)<br>and to deliver them to the mail user agent (MUA) of the recipient.
 
-<figcaption markdown="span" style="max-width: 704px;">
+<figcaption markdown="span" style="max-width: 718px;">
 
 The terminology used by the
 [Internet Engineering Task Force (IETF)](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)
-in its official documents, such as [this one](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.3).
-The terms in italics are used in some newer documents, such as [this one](https://datatracker.ietf.org/doc/html/rfc8314#section-2).
+in its official documents, such as [RFC 5321](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.3).
+The terms in italics are used in some newer documents,
+such as [RFC 8314](https://datatracker.ietf.org/doc/html/rfc8314#section-2).
 I added them because I like them better.
 
 </figcaption>
@@ -1156,9 +1158,9 @@ Some mail clients also use custom autoconfiguration protocols,
 which typically fetch an [XML](https://en.wikipedia.org/wiki/XML) file hosted at a specific subdomain via HTTPS.
 
 Let's have a look at how [Thunderbird](https://www.thunderbird.net/en-US/) does it.
-It's autoconfiguration process is
+Its autoconfiguration process is
 [well documented](https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration)
-and it's configuration database is free to use for any mail client.
+and its configuration database is free to use for any mail client.
 Given an email address `{Address}` `=` `{LocalPart}@{Domain}`,
 Thunderbird goes through the following steps from top to bottom until it finds a suitable configuration:
 1. Check the installation directory for a
@@ -1963,18 +1965,19 @@ here is a table with all the relevant information for future reference:
 | [JMAP](#json-meta-application-protocol) via [HTTPS](/internet/#hypertext-transfer-protocol) | 443 | –
 | [ManageSieve](#filter-management-protocol) | – | 4190
 
-<figcaption markdown="span" style="max-width: 400px;">
+<figcaption markdown="span" style="max-width: 380px;">
 
 The port numbers used by the various email protocols.<br>
 Since [RFC 8314](https://datatracker.ietf.org/doc/html/rfc8314),
 Implicit TLS is the preferred option and cleartext is considered obsolete on the port for Explicit TLS.
+(I put the discouraged ports for Explicit TLS in parentheses.)
 
 </figcaption>
 </figure>
 
 <details markdown="block">
 <summary markdown="span" id="smtp-for-relay-with-implicit-tls">
-Why has SMTP for Relay no port for Implicit TLS?
+Why does SMTP for Relay have no port for Implicit TLS?
 </summary>
 
 First of all, we'll talk in a minute about why SMTP is different for [submission and relay](#submission-versus-relay).
@@ -2565,7 +2568,7 @@ Let's put theory into practice.
 The following tool generates the command sequence to [submit or relay](#submission-versus-relay) an email
 with parameters of your choice.
 One way of using the tool is simply to observe how parameter changes affect the protocol flow.
-The reason why I built this tool, however,
+The reason for building this tool, however,
 is that you can copy the commands to your [command-line interface](#command-line-interface)
 and send messages without the assistance of a mail client.
 Since you shouldn't enter your email password on a random website like this one,
@@ -2781,8 +2784,8 @@ Gmail's outgoing mail server supports the following SMTP extensions:
   which makes the command non-interactive.
   The server then returns all the status codes at once,
   matching the order of the transmitted commands.
-  The reason why I've implemented pipelining in the [above tool](#esmtp-tool)
-  is because it makes copying the commands much quicker.
+  I've implemented pipelining in the [above tool](#esmtp-tool)
+  to make copying the commands easier.
 - `CHUNKING` ([Section 2 of RFC 3030](https://datatracker.ietf.org/doc/html/rfc3030#section-2)):
   This extension allows the client to split the message into several chunks and transfer each chunk separately,
   which is especially useful for large messages.
@@ -2841,9 +2844,9 @@ STARTTLS extension
 
 [Explicit TLS](#use-of-tls) is implemented with an extension called `STARTTLS`,
 which is specified in [RFC 3207](https://datatracker.ietf.org/doc/html/rfc3207).
-The reason why [Gmail didn't list this extension](#common-smtp-extensions)
-is because we used SMTP with Implicit TLS on port 465.
-If we open a TCP connection on port 587, it's there:
+[Gmail didn't list this extension](#common-smtp-extensions)
+because we used SMTP with Implicit TLS on port 465.
+If we open a TCP connection on port 587, `STARTTLS` is listed as well:
 
 <figure markdown="block" class="allow-break-inside">
 <div id="code-starttls-extension"></div>
@@ -2929,10 +2932,10 @@ We're interested in only four of them:
   The [`echo`](https://man7.org/linux/man-pages/man1/echo.1.html) command writes the argument to
   its [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)),
   which is then [piped](https://en.wikipedia.org/wiki/Anonymous_pipe) to `openssl` for the Base64 encoding.
-  The `-n` option to `echo` suppresses the trailing newline in its output
+  The `-n` option to `echo` suppresses the trailing newline in its output,
   and the `-e` option enables interpretation of backslash escapes.
-  The reason why I used four zeros instead of just two in the escape sequence
-  is to not cause any troubles if your username or password starts with a number.
+  I use four zeros instead of just two in the escape sequence
+  to avoid problems if your username or password starts with a number.
   And if you're wondering why there is a leading null character:
   The standard supports an [additional field](https://datatracker.ietf.org/doc/html/rfc4616#section-2)
   at the beginning, which is usually left empty in the case of SMTP.
@@ -3452,7 +3455,7 @@ can fail to protect sensitive information:
   and for accelerating the cryptographic operations with
   [special hardware](https://en.wikipedia.org/wiki/TLS_acceleration).
   On the downside, an employee or an attacker who compromised the company's network
-  has potentially access to the transmitted information, which is no longer protected by TLS.
+  potentially has access to the transmitted information, which is no longer protected by TLS.
 
 <figure markdown="block">
 {% include_relative generated/man-in-the-middle-proxy-server.embedded.svg %}
@@ -3463,7 +3466,7 @@ the communication between the proxy and the server is exposed in the company's p
 </figure>
 
 - **Wrong server**: The user's mail client might be misconfigured
-  and connect to a server controlled by the attacker.
+  to connect to a server controlled by the attacker.
   Instead of communicating with the mailbox provider,
   the client communicates with the attacker.
   In order to avoid detection by not raising any suspicion,
@@ -3480,7 +3483,7 @@ the communication between the proxy and the server is exposed in the company's p
   it's also possible in the case of mail clients:
   The user just has to follow malicious instructions.
   On the other hand, the mail client might be attacked during [autoconfiguration](#autoconfiguration).
-  Possible attack vectors are spoofed DNS entries if the client doesn't require DNSSEC
+  Possible attack vectors are spoofed DNS entries if the client doesn't require DNSSEC,
   or a compromised [configuration database](#configuration-database).
   Even if the client checks the domain name with some heuristic,
   the heuristic might be vulnerable to similar attacks,
@@ -3575,9 +3578,9 @@ The output of a hash function is called the hash of the input.
 As a verb, hashing refers to applying the hash function to an input.
 More formally, cryptographic hash functions have to fulfill the
 [following properties](https://en.wikipedia.org/wiki/Cryptographic_hash_function#Properties).
-A function which maps arbitrary inputs to fixed-sized outputs without fulfilling these properties
+(A function which maps arbitrary inputs to fixed-sized outputs without fulfilling these properties
 is just a [hash function](https://en.wikipedia.org/wiki/Hash_function).
-Unless noted otherwise, I always mean the former.
+In this article, I always mean the former, though.)
 
 - **Preimage resistance** (also known as [one-way function](https://en.wikipedia.org/wiki/One-way_function)):
   It's infeasible to find an input which hashes to a given output.
@@ -3758,7 +3761,7 @@ of cryptographic hash functions:
   the large file can be downloaded from an untrusted source
   because you can detect potentially malicious changes to the file
   by computing the hash of the file and comparing it with the trusted hash.
-  You can compute the hash of a file with `openssl sha256 /path/to/file`.
+  You can compute the [SHA-256](#secure-hash-algorithms) hash of a file with `openssl sha256 /path/to/file`.
   Eliminating trust in the storage provider is really useful for
   [content delivery networks (CDN)](https://en.wikipedia.org/wiki/Content_delivery_network),
   which you might have encountered as [mirror sites](https://en.wikipedia.org/wiki/Mirror_site)
@@ -6376,7 +6379,7 @@ Being able to reject a message for individual recipients frees LMTP servers from
 
 LMTP is specified in [RFC 2033](https://datatracker.ietf.org/doc/html/rfc2033) and may be used only in a local network.
 LMTP uses `LHLO` instead of `EHLO` to greet the server.
-The reason why I mention LMTP is because you might encounter it as `LMTP[S][A]`
+I've included LMTP only because you might encounter it as `LMTP[S][A]`
 in the `with` clause of a `Received` header field.
 LMTP also pops up in other places,
 for example in the [code](https://github.com/libressl-portable/openbsd/blob/6b643cda77ab1b4fede5c692cebfb21f8ef16f95/src/usr.bin/openssl/s_client.c#L1176-L1205)
@@ -8757,7 +8760,7 @@ This is similar to how I almost never accept calls from numbers that I haven't s
 Even though this feature has to be tremendously useful for anyone who doesn't want to be bothered
 by random sales people and their never-ending followups,
 [HEY](https://hey.com/features/the-screener/) is the only mail client I know of
-which let's you screen your email senders.
+which lets you screen your email senders.
 And just like I block call centers, I also block email senders, of course.
 However, the default shouldn't be "allowed unless blocked"
 but rather "blocked unless allowed".
@@ -8834,7 +8837,8 @@ While block lists are already useful when every provider maintains their own lis
 they are much more powerful when they are shared among mailbox providers.
 The best-known maintainer of block lists is [The Spamhaus Project](https://en.wikipedia.org/wiki/The_Spamhaus_Project).
 Before you try to relay email directly with the [ESMTP tool](#esmtp-tool),
-you can check [on this page](https://www.spamhaus.org/lookup/) whether your IP address is blocked.
+you can use the [Spamhaus IP and Domain Reputation Checker](https://www.spamhaus.org/lookup/)
+to determine whether your IP address is blocked.
 If you use and misuse the ESMTP tool a lot, your address may get listed there.
 Once your address is on their block list, your chances of relaying emails successfully dwindle.
 Block lists are fed by spam filters, which in turn are trained by users, who mark unwanted messages as spam.
@@ -8917,7 +8921,7 @@ pose a hurdle for impatient spammers:
 Challenges
 </summary>
 
-Spamming is an economic activity and economic activities are worthwhile only if the benefits are higher than the costs.
+Spamming is an economic activity, and economic activities are worthwhile only if the benefits are higher than the costs.
 The reason why there is so much spam is because
 the [marginal cost](https://en.wikipedia.org/wiki/Marginal_cost) of sending an email is almost zero.
 If we increase the cost of sending emails by just a little bit, most spammers would go out of business.
@@ -10284,8 +10288,8 @@ I can only speculate about the reasons for the lack of innovation:
 #### Format innovation
 
 Since [Skype](https://en.wikipedia.org/wiki/Skype) failed to innovate,
-it was superseded by [Zoom](https://en.wikipedia.org/wiki/Zoom_(software)).
-The same fate is happening to [WhatsApp](https://en.wikipedia.org/wiki/WhatsApp):
+it was superseded by [Zoom](https://en.wikipedia.org/wiki/Zoom_(software)) and other applications.
+[WhatsApp](https://en.wikipedia.org/wiki/WhatsApp) might share a similar fate:
 [Telegram](https://en.wikipedia.org/wiki/Telegram_(software)) is showing us
 how much [room for innovation](https://telegram.org/blog/6-years) there is for a messaging app.
 There's plenty of features I would like to see in email.
@@ -10293,7 +10297,7 @@ For a start, we still have no [`No-Reply` header field](#no-reply),
 no [`Proof-Of-Work` header field](#challenges),
 no header field to [reference the previous message](#different-appearances)
 by its [hash](#cryptographic-hash-functions)
-(ideally using a [Merkle tree](#applications-of-cryptographic-hash-functions) for MIME parts
+(ideally using a [hash tree](#applications-of-cryptographic-hash-functions) for MIME parts
 so that attachments can be removed from a message without invalidating its hash),
 no header fields for the sender's contact details
 to replace [email signatures](https://en.wikipedia.org/wiki/Signature_block),
