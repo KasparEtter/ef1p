@@ -71,10 +71,7 @@ export interface AllEntries<State extends ObjectButNotFunction> {
     readonly entries: DynamicEntries<State>;
 
     /**
-     * There is no more specific 'onSubmit' callback
-     * because pressing enter would trigger both 'onChange' and 'onSubmit'.
-     * Since the caller might want to trigger the same action in either case but only once,
-     * it's easier if we guarantee a single invocation here.
+     * The given handlers are called when any value changed or when the user pressed enter.
      */
     readonly onChange?: ValueOrArray<(newState: State, fromHistory: boolean) => any>;
 }
@@ -106,9 +103,10 @@ export function hasNoErrors<State extends ObjectButNotFunction>(
 function updateState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State>,
-    callOnChangeEvenWhenNoChange: boolean = false,
+    callMetaOnChangeEvenWhenNothingChanged: boolean = false,
     partialErrors: Partial<Errors<State>> = {},
     createNewState: boolean = true,
+    callChangeHandlers: boolean = true,
 ): void {
     const inputs = { ...store.state.inputs, ...partialNewState };
     store.state.inputs = inputs;
@@ -159,19 +157,23 @@ function updateState<State extends ObjectButNotFunction>(
             } else {
                 store.state.states[store.state.index] = { ...inputs };
             }
-        }
-        store.update('input', 'state');
-        changeCounter++;
-        // Local copy of the change counter in case one of the handlers triggers another change synchronously.
-        const changeId = changeCounter;
-        for (const key of changed) {
-            normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false, changeId));
-        }
-        if (changed.length > 0 || callOnChangeEvenWhenNoChange) {
-            normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
-        }
-        if (changed.length > 0 && createNewState) {
-            report('Use tool', { Identifier: store.identifier });
+            store.update('input', 'state');
+            if (callChangeHandlers) {
+                changeCounter++;
+                // Local copy of the change counter in case one of the handlers triggers another change synchronously.
+                const changeId = changeCounter;
+                for (const key of changed) {
+                    normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false, changeId));
+                }
+            }
+            if (callMetaOnChangeEvenWhenNothingChanged) {
+                normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
+            }
+            if (createNewState) {
+                report('Use tool', { Identifier: store.identifier });
+            }
+        } else {
+            store.update('input');
         }
     } else {
         store.update('input');
@@ -182,9 +184,9 @@ function updateState<State extends ObjectButNotFunction>(
 export function setState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State> = {},
-    callOnChangeEvenWhenNoChange: boolean = false,
+    callMetaOnChangeEvenWhenNothingChanged: boolean = false,
 ): void {
-    updateState(store, partialNewState, callOnChangeEvenWhenNoChange);
+    updateState(store, partialNewState, callMetaOnChangeEvenWhenNothingChanged);
 }
 
 // For state updates triggered by a change handler.
@@ -192,8 +194,9 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
     partialNewState: Partial<State> = {},
     partialErrors: Partial<Errors<State>> = {},
+    callChangeHandlers: boolean = true,
 ): void {
-    updateState(store, partialNewState, false, partialErrors, false);
+    updateState(store, partialNewState, false, partialErrors, false, callChangeHandlers);
 }
 
 export function clearErrors<State extends ObjectButNotFunction>(

@@ -96,8 +96,21 @@ export function singleQuote(text: string): string {
     return `'${escapeSingleQuote(text)}'`;
 }
 
-export function toHex(value: number, minLength = 0): string {
-    return value.toString(16).toUpperCase().padStart(minLength, '0');
+export function toHex(value: number, minLength = 0, upperCase = true): string {
+    let hex = value.toString(16);
+    if (upperCase) {
+        hex = hex.toUpperCase();
+    }
+    return hex.padStart(minLength, '0');
+}
+
+export function removeThousandSeparators(value: string): string {
+    return value.replace(/[',]/g, '');
+}
+
+export function insertThousandSeparators(value: string | number | bigint): string {
+    // https://stackoverflow.com/a/2901298/12917821
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 }
 
 /**

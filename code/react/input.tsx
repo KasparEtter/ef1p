@@ -68,10 +68,10 @@ function getValue(target: HTMLInputElement | HTMLSelectElement): ValueType {
 }
 
 export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
-    private readonly handle = (event: Event | ChangeEvent<any>, callOnChangeEvenWhenNoChange: boolean) => {
+    private readonly handle = (event: Event | ChangeEvent<any>, callMetaOnChangeEvenWhenNothingChanged: boolean) => {
         const target = event.currentTarget as HTMLInputElement | HTMLSelectElement;
         const partialNewState = { [target.name]: getValue(target) } as unknown as Partial<State>;
-        setState(this.props.store, partialNewState, callOnChangeEvenWhenNoChange);
+        setState(this.props.store, partialNewState, callMetaOnChangeEvenWhenNothingChanged);
     }
 
     private readonly onChange = (event: Event | ChangeEvent<any>) => {
