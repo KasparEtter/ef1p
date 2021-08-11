@@ -1,13 +1,13 @@
 ---
 title: Email
-icon: envelope
 category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-06-15
+modified: 2021-08-11
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
+icon: envelope
 math: false
 ---
 
@@ -2444,7 +2444,7 @@ While mail clients [should remove](#bcc-removal) the `Bcc` field
 when submitting a message to an outgoing mail server,
 they store the message with the `Bcc` field in the sent folder of the user's mailbox.
 As you might remember, [Gmail does things differently](#double-submission-problem), though.
-Instead of letting the mail client submit a copy of the message for the sent folder,
+Instead of letting the mail client submit a copy of the message to the sent folder,
 the outgoing mail server stores all sent messages in the user's mailbox automatically.
 This leads to the following question:
 If mail clients remove the `Bcc` field from a message before sending it,
@@ -2461,15 +2461,16 @@ This procedure works reasonably well as long as the mail client submits the mess
 with all recipients in the envelope.
 If the mail client opts to deliver a [separate version](#bcc-removal) of the message to `Bcc` recipients,
 Gmail fails to merge the `Bcc` recipients from the second submission into the message from the first submission.
-It just ignores the second message with additional `Bcc` recipients and the same [`Message-ID`](#message-identification)
-even when it is submitted in the same session
-(by continuing with another `MAIL` `FROM` command after submitting the `DATA`).
+It just ignores the second message with additional `Bcc` recipients
+and the same [`Message-ID`](#message-identification) for archiving
+even if it is submitted in the same session
+by continuing with another `MAIL` `FROM` command after submitting the `DATA`.
 If you think you can use this to bypass Gmail's sent archive,
 I must disappoint you:
-If you send another message with the same `Message-ID` but a different body,
-then Gmail stores the second message in the sent folder as well.
-Moreover, Gmail always removes the `Bcc` field,
-no matter whether you submit the message via SMTP or the web interface.
+If you submit another message with the same `Message-ID` but a different body,
+Gmail stores the second message in the sent folder as well.
+Moreover, Gmail always removes the `Bcc` field for recipients,
+no matter whether you send the email via SMTP or the website.
 
 </details>
 
@@ -2958,7 +2959,7 @@ We're interested in only four of them:
   but has [much better properties](#desirable-properties-of-authentication-mechanisms).
   Unfortunately, it's not widely used so I didn't bother to implement it in the above tool.
   In my opinion, all weaker [password-based authentication mechanisms](#password-based-authentication-mechanisms)
-  should be replaced with `SCRAM` (or another, similarly secure mechanism).
+  should be replaced with `SCRAM` or another, similarly secure mechanism.
   Therefore, it also deserves its [own box](#salted-challenge-response-authentication-mechanism).
 
 Please note that the tool hides the password in the input field but unless you use `CRAM-MD5`,
@@ -3588,7 +3589,7 @@ In these graphics, the given values are displayed in blue and the values to find
 </figcaption>
 </figure>
 
-- **Second preimage resistance**:
+- **Second-preimage resistance**:
   It's infeasible to find a different input which hashes to the same output as a given input.
 
 <figure markdown="block">
@@ -3966,7 +3967,7 @@ A message authentication code is appended to each message.
 {% include_relative generated/applications-proof-of-inclusion.embedded.svg %}
 <figcaption markdown="span">
 In order to verify that the green leaf is included in the root,
-a verifier needs to know only the hashes and positions of the blue nodes.
+a verifier needs to know only the hashes and the positions of the blue nodes.
 </figcaption>
 </figure>
 
@@ -4006,7 +4007,7 @@ a verifier needs to know only the hashes and positions of the blue nodes.
 <figure markdown="block">
 {% include_relative generated/applications-proof-of-work.embedded.svg %}
 <figcaption markdown="span">
-Finding a nonce which makes the hash of a message fall into a certain range requires many attempts.
+Finding a nonce which makes the hash of the content fall into a certain range requires many attempts.
 </figcaption>
 </figure>
 
@@ -4468,7 +4469,7 @@ and improves on CRAM with the following, now mostly familiar techniques:
 </figure>
 
 What follows is a simplified version of the SCRAM protocol.
-I believe it has the same properties as the official protocol
+I believe it has the same properties as the official protocol,
 and I'm not aware of any vulnerabilities.
 However, be aware that my simplifications haven't been reviewed.
 The SCRAM standard might do things differently for good reasons,
@@ -4995,7 +4996,7 @@ Make sure you fully understand a command before using it.
 This tool also uses [Thunderbird's configuration database](https://autoconfig.thunderbird.net/v1.1/)
 and [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
 to resolve the server you want to connect to.
-Neither IMAP nor the tool are self-explanatory.
+Neither IMAP nor the tool is self-explanatory.
 You find more information in the [tooltips](https://en.wikipedia.org/wiki/Tooltip) and the boxes below.
 
 <div id="tool-protocol-imap"></div>
@@ -10403,7 +10404,7 @@ There are three complementary standards for domain authentication:
   that fail both SPF and DKIM, in a DNS record at your domain.
   Without a DMARC record, the recipient [cannot know](#author-domain-signing-practices) whether the sender uses DKIM.
   By publishing a DMARC policy, you also require the domain in the `From` address
-  to match the domain in the `MAIL` `FROM` address and the [DKIM header field](#dkim-signature-header-field).
+  to match the SPF-authenticated domain in the `MAIL` `FROM` address or the domain of a valid DKIM signature.
   Moreover, you can specify an email address
   to which receiving mail servers can send [aggregate reports](#aggregate-reports)
   so that you know how your DMARC policy affects the delivery of your own messages.
