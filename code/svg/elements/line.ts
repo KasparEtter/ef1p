@@ -54,14 +54,18 @@ export class Line extends VisualElement<LineProps> {
         endElement: VisualElement,
         endSide: BoxSide,
         props: Omit<LineProps, 'start' | 'end' | 'startOffset' | 'endOffset'> = {},
+        adjustPoints?: (start: Point, end: Point) => [Point, Point],
         startOffset?: number,
         endOffset: number | undefined = startOffset,
     ): Line {
         const marker = props.marker ?? 'end';
         startOffset ??= markerOffset(marker, 'start');
         endOffset ??= markerOffset(marker, 'end');
-        const start = startElement.boundingBox().pointAt(startSide, startOffset);
-        const end = endElement.boundingBox().pointAt(endSide, endOffset);
+        let start = startElement.boundingBox().pointAt(startSide, startOffset);
+        let end = endElement.boundingBox().pointAt(endSide, endOffset);
+        if (adjustPoints !== undefined) {
+            [start, end] = adjustPoints(start, end);
+        }
         return new Line({ start, end, marker, startOffset, endOffset, ...props });
     }
 

@@ -61,7 +61,7 @@ function generateSquares(x: number, layer: number, shorten = 5) {
             startSide = 'right';
             endSide = 'left';
         }
-        elements.push(Line.connectBoxes(previousSquare, startSide, square!, endSide, { color: previousColor }, 2 * strokeRadius, strokeRadius).shorten(shorten));
+        elements.push(Line.connectBoxes(previousSquare, startSide, square!, endSide, { color: previousColor }, undefined, 2 * strokeRadius, strokeRadius).shorten(shorten));
     }
     previousSquare = square;
     previousCenter = center;

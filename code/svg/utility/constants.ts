@@ -28,4 +28,6 @@ export function getTextHeight(numberOfLines: number): number {
 export const textMargin = new Point(12, 14);
 export const doubleTextMargin = textMargin.multiply(2);
 export const textToLineDistance = 12;
-export const singleLineWithMarginHeight = textHeight + doubleTextMargin.y;
+export const singleLineWithMarginHeight = getTextHeight(1) + doubleTextMargin.y;
+export const doubleLineWithMarginHeight = getTextHeight(2) + doubleTextMargin.y;
+export const tripleLineWithMarginHeight = getTextHeight(3) + doubleTextMargin.y;
