@@ -10,11 +10,9 @@ import { Argument, DynamicArgument } from '../../react/argument';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry, ErrorType } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultState, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
 
 import { emailAddressRegexString, regex } from '../protocols/esmtp';
 
@@ -230,9 +228,9 @@ const entries: DynamicEntries<DmarcState> = {
     reportOptions,
 };
 
-const store = new PersistedStore<VersionedState<DmarcState>, AllEntries<DmarcState>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'format-dmarc');
-const Input = shareStore<VersionedState<DmarcState>, ProvidedDynamicEntries<DmarcState> & InputProps<DmarcState>, AllEntries<DmarcState>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<DmarcState>, ProvidedEntries & OutputEntriesProps, AllEntries<DmarcState>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'format-dmarc');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 export function getDefaultDmarcState(): DmarcState {
     return getDefaultState(entries);
@@ -254,7 +252,7 @@ const version: Argument<string, DmarcState> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolFormatDmarc = <Fragment>
-    <Input entries={entries} newColumnAt={8}/>
+    <Input newColumnAt={8}/>
     <CodeBlock wrapped>
         <ClickToCopy>
             <OutputEntries entries={{

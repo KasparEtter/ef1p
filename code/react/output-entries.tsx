@@ -12,8 +12,9 @@ import { ObjectButNotFunction } from '../utility/types';
 
 import { isArgument } from './argument';
 import { isDynamicEntry, ValueType } from './entry';
-import { ProvidedStore } from './share';
+import { ProvidedStore, shareStore } from './share';
 import { AllEntries, getCurrentState, ProvidedEntries, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
 
 export interface OutputEntriesProps {
     /**
@@ -74,4 +75,8 @@ export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props:
             }
         })}
     </Fragment>;
+}
+
+export function getOutputEntries<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
+    return shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
 }

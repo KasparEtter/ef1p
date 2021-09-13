@@ -10,10 +10,10 @@ import { copyToClipboard } from '../../utility/clipboard';
 
 import { DynamicOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { Store } from '../../react/store';
 
 import { getReverseLookupDomain } from '../../apis/dns-lookup';
 import { setDnsResolverInputs } from './dns-records';
@@ -81,7 +81,7 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
 }
 
 const ipInfoResponseStore = new Store<IpInfoResponseState>({}, undefined);
-const IpInfoResponseParagraph = shareState<IpInfoResponseState>(ipInfoResponseStore)(RawIpInfoResponseParagraph);
+const IpInfoResponseParagraph = shareState(ipInfoResponseStore)(RawIpInfoResponseParagraph);
 
 async function updateIpInfoResponseParagraph({ ipAddress }: State): Promise<void> {
     try {
@@ -113,8 +113,8 @@ const entries: DynamicEntries<State> = {
     ipAddress,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateIpInfoResponseParagraph }, 'lookup-ip-address');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'lookup-ip-address', updateIpInfoResponseParagraph);
+const Input = getInput(store);
 
 export function setIpInfoInput(ipAddress: string): void {
     setState(store, { ipAddress });
@@ -124,7 +124,6 @@ export function setIpInfoInput(ipAddress: string): void {
 
 export const toolLookupIpAddress = <Fragment>
     <Input
-        entries={entries}
         submit={{
             text: 'Locate',
             title: 'Locate the given IPv4 address.',

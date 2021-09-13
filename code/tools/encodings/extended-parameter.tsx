@@ -7,10 +7,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { decodeExtendedParameter, encodeExtendedParameter } from '../../utility/encoding';
 
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { DynamicEntries, getPersistedStore, setState } from '../../react/state';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -63,12 +61,12 @@ const entries: DynamicEntries<State> = {
     encoded,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'encoding-extended-parameter');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'encoding-extended-parameter');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingExtendedParameter = <Input entries={entries}/>;
+export const toolEncodingExtendedParameter = <Input/>;
 
 /* ------------------------------ Element bindings ------------------------------ */
 

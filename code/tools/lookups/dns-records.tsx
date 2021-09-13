@@ -11,10 +11,10 @@ import { Dictionary } from '../../utility/types';
 
 import { DynamicOutput, StaticOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { Store } from '../../react/store';
 import { getUniqueKey, join } from '../../react/utility';
 
 import { DnsRecord, DnsResponse, getReverseLookupDomain, mapRecordTypeFromGoogle, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
@@ -378,7 +378,7 @@ function turnRecordsIntoTable(records: DnsRecord[]): JSX.Element {
     </table>;
 }
 
-function RawDnsResponseTable({ response, error }: Readonly<DnsResponseState>): JSX.Element | null {
+function RawDnsResponseTable({ response, error }: DnsResponseState): JSX.Element | null {
     if (error) {
         return <p>The domain name could not be resolved. Reason: {error}</p>;
     } else if (response) {
@@ -420,7 +420,7 @@ function RawDnsResponseTable({ response, error }: Readonly<DnsResponseState>): J
 }
 
 const dnsResponseStore = new Store<DnsResponseState>({}, undefined);
-const DnsResponseTable = shareState<DnsResponseState>(dnsResponseStore)(RawDnsResponseTable);
+const DnsResponseTable = shareState(dnsResponseStore)(RawDnsResponseTable);
 
 async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: State): Promise<void> {
     try {
@@ -478,8 +478,8 @@ const entries: DynamicEntries<State> = {
     dnssecOk,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: updateDnsResponseTable }, 'lookup-dns-records');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'lookup-dns-records', updateDnsResponseTable);
+const Input = getInput(store);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
     setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
@@ -489,7 +489,6 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
 
 export const toolLookupDnsRecords = <Fragment>
     <Input
-        entries={entries}
         submit={{
             text: 'Query',
             title: 'Query the records of the given domain name.',

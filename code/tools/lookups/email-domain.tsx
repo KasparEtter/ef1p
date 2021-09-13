@@ -14,11 +14,11 @@ import { Button, Dictionary } from '../../utility/types';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry, ValueType } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { Store } from '../../react/store';
 import { getUniqueKey } from '../../react/utility';
 
 import { getAllRecords, getDataOfFirstRecord, isAuthenticated, RecordType, resolveDomainName } from '../../apis/dns-lookup';
@@ -123,7 +123,7 @@ function RawSrvRecordsOutput({ available, unavailable, dnssec, error }: Readonly
 }
 
 const srvRecordsStore = new Store<SrvRecordsState>({ available: [], unavailable: [], dnssec: false }, undefined);
-const SrvRecordsOutput = shareState<SrvRecordsState>(srvRecordsStore)(RawSrvRecordsOutput);
+const SrvRecordsOutput = shareState(srvRecordsStore)(RawSrvRecordsOutput);
 
 async function querySrvRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -322,7 +322,7 @@ function RawConfigurationDatabaseOutput({ requests, configuration }: Readonly<Co
 }
 
 const configurationDatabaseStore = new Store<ConfigurationDatabaseState>({ requests: [] }, undefined);
-const ConfigurationDatabaseOutput = shareState<ConfigurationDatabaseState>(configurationDatabaseStore)(RawConfigurationDatabaseOutput);
+const ConfigurationDatabaseOutput = shareState(configurationDatabaseStore)(RawConfigurationDatabaseOutput);
 
 async function queryConfigurationDatabase({ domain }: State): Promise<void> {
     const requests: string[] = [];
@@ -406,7 +406,7 @@ function RawMxRecordsOutput({ mxRows, adRows, dnssec, error }: Readonly<MxRecord
 }
 
 const mxRecordsStore = new Store<MxRecordsState>({ mxRows: [], adRows: [], dnssec: false }, undefined);
-const MxRecordsOutput = shareState<MxRecordsState>(mxRecordsStore)(RawMxRecordsOutput);
+const MxRecordsOutput = shareState(mxRecordsStore)(RawMxRecordsOutput);
 
 async function queryMxRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -572,7 +572,7 @@ export function RawRecordOutput({ queries, error }: Readonly<RecordState>): JSX.
 /* ------------------------------ SPF record ------------------------------ */
 
 const spfRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const SpfRecordOutput = shareState<RecordState>(spfRecordStore)(RawRecordOutput);
+const SpfRecordOutput = shareState(spfRecordStore)(RawRecordOutput);
 
 let limit = 11;
 
@@ -1015,7 +1015,7 @@ async function querySpfRecord({ domain }: State): Promise<void> {
 /* ------------------------------ DKIM record ------------------------------ */
 
 const dkimRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const DkimRecordOutput = shareState<RecordState>(dkimRecordStore)(RawRecordOutput);
+const DkimRecordOutput = shareState(dkimRecordStore)(RawRecordOutput);
 
 interface Tag {
     name: string;
@@ -1193,7 +1193,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
 /* ------------------------------ DMARC record ------------------------------ */
 
 const dmarcRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const DmarcRecordOutput = shareState<RecordState>(dmarcRecordStore)(RawRecordOutput);
+const DmarcRecordOutput = shareState(dmarcRecordStore)(RawRecordOutput);
 
 async function getOrganizationalDomain(domain: string): Promise<string> {
     const response = await resolveDomainName(domain, 'SOA', false);
@@ -1562,7 +1562,7 @@ async function loadDmarcRecord({ domain }: State): Promise<void> {
 /* ------------------------------ BIMI record ------------------------------ */
 
 const bimiRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const BimiRecordOutput = shareState<RecordState>(bimiRecordStore)(RawRecordOutput);
+const BimiRecordOutput = shareState(bimiRecordStore)(RawRecordOutput);
 
 // https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2
 const bimiTagNames = ['v', 'l', 'a'] as const;
@@ -1712,7 +1712,7 @@ async function queryBimiRecord({ domain, bimiSelector }: State): Promise<void> {
 /* ------------------------------ TLSA records ------------------------------ */
 
 const tlsaRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const TlsaRecordsOutput = shareState<RecordState>(tlsaRecordsStore)(RawRecordOutput);
+const TlsaRecordsOutput = shareState(tlsaRecordsStore)(RawRecordOutput);
 
 async function queryTlsaRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -1775,7 +1775,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
 /* ------------------------------ MTA-STS file ------------------------------ */
 
 const mtaStsFileStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const MtaStsFileOutput = shareState<RecordState>(mtaStsFileStore)(RawRecordOutput);
+const MtaStsFileOutput = shareState(mtaStsFileStore)(RawRecordOutput);
 
 const policyFields: { [key: string]: RegExp | undefined } = {
     version: /^STSv1$/,
@@ -1919,7 +1919,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
 /* ------------------------------ TLS reporting ------------------------------ */
 
 const tlsReportingStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const TlsReportingOutput = shareState<RecordState>(tlsReportingStore)(RawRecordOutput);
+const TlsReportingOutput = shareState(tlsReportingStore)(RawRecordOutput);
 
 async function queryTlsReporting({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -2010,9 +2010,9 @@ const entries: DynamicEntries<State> = {
     bimiSelector,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'lookup-email-domain');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'lookup-email-domain');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ User interface ------------------------------ */
 

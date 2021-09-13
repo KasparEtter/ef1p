@@ -9,10 +9,7 @@ import { Component, ComponentType, ReactNode } from 'react';
 import { ObjectButNotFunction } from '../utility/types';
 
 import { Default, Store } from './store';
-
-function getDisplayName(component: ComponentType<any>): string {
-    return component.displayName || (component as any).name || 'Component';
-}
+import { getDisplayName } from './utility';
 
 export interface ProvidedStore<SharedState extends ObjectButNotFunction, Meta = undefined, Event extends string = Default> {
     store: Store<SharedState, Meta, Event>;
@@ -65,14 +62,13 @@ export function shareStore<SharedState extends ObjectButNotFunction, ProvidedPro
  *     store.setState({ value: store.state.value + 1});
  * }
  *
- * class Counter extends Component<SharedProps> {
+ * class RawCounter extends Component<SharedProps> {
  *     public render(): ReactNode {
  *         return <div onClick={incrementValue}>Value: { this.props.value }</div>;
  *     }
  * }
  *
- * const HOC = shareState(store)(Counter);
- * export { HOC as Counter };
+ * export const Counter = shareState(store)(RawCounter);
  * ```
  */
 export function shareState<SharedState extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}, Meta = undefined, Event extends string = Default>(

@@ -12,8 +12,9 @@ import { Button, ObjectButNotFunction } from '../utility/types';
 
 import { CustomInput, CustomTextarea } from './custom';
 import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
-import { ProvidedStore } from './share';
+import { ProvidedStore, shareStore } from './share';
 import { AllEntries, clearErrors, clearState, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
 
 export interface InputProps<State extends ObjectButNotFunction> {
     /**
@@ -67,7 +68,9 @@ function getValue(target: HTMLInputElement | HTMLSelectElement): ValueType {
     }
 }
 
-export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & InputProps<State>> {
+export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Partial<ProvidedDynamicEntries<State>> & InputProps<State>> {
+    private readonly entries = this.props.entries !== undefined ? this.props.entries : this.props.store.meta.entries;
+
     private readonly handle = (event: Event | ChangeEvent<any>, callMetaOnChangeEvenWhenNothingChanged: boolean) => {
         const target = event.currentTarget as HTMLInputElement | HTMLSelectElement;
         const partialNewState = { [target.name]: getValue(target) } as unknown as Partial<State>;
@@ -92,7 +95,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         this.props.store.state.inputs[key] = value as any;
         clearErrors(this.props.store);
         this.props.store.update('input');
-        const entry: DynamicEntry<any, State> = this.props.entries[key]!;
+        const entry: DynamicEntry<any, State> = this.entries[key]!;
         const state = getCurrentState(this.props.store);
         normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
     }
@@ -100,7 +103,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     private readonly onDetermine = async (event: MouseEvent<HTMLButtonElement>) => {
         const target = event.currentTarget as HTMLButtonElement;
         const key = target.name as keyof State;
-        const entry: DynamicEntry<any, State> = this.props.entries[key]!;
+        const entry: DynamicEntry<any, State> = this.entries[key]!;
         const state = getCurrentState(this.props.store);
         const [value, error] = await entry.determine!.onClick(state);
         if (error) {
@@ -145,7 +148,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     private readonly randomID = '-' + getRandomString();
 
     private renderEntry = (key: string, hasErrors: boolean, labelWidth: number) => {
-        const entry = this.props.entries[key as keyof State] as DynamicEntry<ValueType, State>;
+        const entry = this.entries[key as keyof State] as DynamicEntry<ValueType, State>;
         const value = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
         const disabled = !error && (hasErrors ? true : (entry.disable ? entry.disable(this.props.store.state.inputs) : false));
@@ -341,11 +344,10 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     };
 
     public render(): JSX.Element {
-        const entries = this.props.entries;
-        const keys = Object.keys(entries);
+        const keys = Object.keys(this.entries);
         const hasErrors = !hasNoErrors(this.props.store);
         const labelWidth = this.props.individualLabelWidth || !this.props.newColumnAt ?
-            0 : Math.max(...Object.values(entries).map(entry => entry!.labelWidth));
+            0 : Math.max(...Object.values(this.entries).map(entry => entry!.labelWidth));
         const newColumn = this.props.newColumnAt;
         if (newColumn) {
             return <div className="block-form vertical-form row">
@@ -364,4 +366,8 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
             </div>;
         }
     }
+}
+
+export function getInput<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
+    return shareStore<VersionedState<State>, Partial<ProvidedDynamicEntries<State>> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
 }

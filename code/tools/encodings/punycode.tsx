@@ -9,10 +9,8 @@ import punycode from 'punycode/'; // Refers to Node's deprecated library without
 import { countOccurrences } from '../../utility/functions';
 
 import { DynamicEntry, ErrorType } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, mergeIntoCurrentState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -132,9 +130,9 @@ const entries: DynamicEntries<State> = {
     domain,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'encoding-punycode');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'encoding-punycode');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingPunycode = <Input entries={entries}/>;
+export const toolEncodingPunycode = <Input/>;

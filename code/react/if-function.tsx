@@ -8,8 +8,9 @@ import { Fragment } from 'react';
 
 import { ObjectButNotFunction } from '../utility/types';
 
-import { ProvidedStore } from './share';
+import { ProvidedStore, shareStore } from './share';
 import { AllEntries, getCurrentState, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
 import { Children } from './utility';
 
 export interface IfFunctionProps<State extends ObjectButNotFunction> {
@@ -20,4 +21,8 @@ export function RawIfFunction<State extends ObjectButNotFunction>(props: Readonl
     return <Fragment>
         {props.function(getCurrentState(props.store)) && props.children}
     </Fragment>;
+}
+
+export function getIfFunction<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
+    return shareStore<VersionedState<State>, IfFunctionProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfFunction);
 }

@@ -7,10 +7,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { Store } from '../../react/store';
 import { join } from '../../react/utility';
 
 import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../../apis/dns-lookup';
@@ -80,7 +80,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
 }
 
 const zoneWalkerResponseStore = new Store<ZoneWalkerResponseState>({ rows: [] }, undefined);
-const ZoneWalkerResponseTable = shareState<ZoneWalkerResponseState>(zoneWalkerResponseStore)(RawZoneWalkerResponseTable);
+const ZoneWalkerResponseTable = shareState(zoneWalkerResponseStore)(RawZoneWalkerResponseTable);
 
 function resetResponseTable(): void {
     zoneWalkerResponseStore.setState({ rows: [], message: undefined, nextQuery: undefined });
@@ -181,8 +181,8 @@ const entries: DynamicEntries<State> = {
     resultLimit,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: resetResponseTable }, 'lookup-zone-domains');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'lookup-zone-domains', resetResponseTable);
+const Input = getInput(store);
 
 export function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
     setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });
@@ -192,7 +192,6 @@ export function setZoneWalkerInputFields(startDomain: string, resultLimit?: numb
 
 export const toolLookupZoneDomains = <Fragment>
     <Input
-        entries={entries}
         submit={{
             text: 'Walk',
             title: 'List the domain names in the given zone.',

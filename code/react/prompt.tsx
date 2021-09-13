@@ -11,8 +11,9 @@ import { normalizeToValue } from '../utility/functions';
 
 import { ClickToCopy } from './copy';
 import { DynamicEntry } from './entry';
-import { ProvidedStore } from './share';
+import { ProvidedStore, shareStore } from './share';
 import { AllEntries, getCurrentState, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
 import { Children } from './utility';
 
 export const prompt: DynamicEntry<string> = {
@@ -25,7 +26,7 @@ export const prompt: DynamicEntry<string> = {
     validate: (value: string) => value.length === 0 && 'The prompt may not be empty.',
 };
 
-function getPrompt(value: string, children: ReactNode, noNewline?: boolean): JSX.Element {
+function renderPrompt(value: string, children: ReactNode, noNewline?: boolean): JSX.Element {
     return <div className="prompt">
         <span
             title={prompt.name + ': ' + normalizeToValue(prompt.description, value)}
@@ -48,13 +49,17 @@ export interface PromptProps {
 }
 
 export function StaticPrompt({ children, noNewline }: Children & PromptProps): JSX.Element {
-    return getPrompt(normalizeToValue(prompt.defaultValue, undefined), children, noNewline);
+    return renderPrompt(normalizeToValue(prompt.defaultValue, undefined), children, noNewline);
 }
 
 export interface StateWithPrompt {
     prompt: string;
 }
 
-export function RawPrompt<State extends StateWithPrompt>({ store, children, noNewline }: ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Children & PromptProps): JSX.Element {
-    return getPrompt(getCurrentState(store).prompt, children, noNewline);
+export function RawPrompt<State extends StateWithPrompt>({ store, children, noNewline }: ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & PromptProps & Children): JSX.Element {
+    return renderPrompt(getCurrentState(store).prompt, children, noNewline);
+}
+
+export function getPrompt<State extends StateWithPrompt>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
+    return shareStore<VersionedState<State>, PromptProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawPrompt);
 }

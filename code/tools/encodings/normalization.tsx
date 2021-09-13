@@ -11,10 +11,8 @@ import { filterUndefined, toHex } from '../../utility/functions';
 
 import { DynamicOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { DynamicEntries, getPersistedStore, setState, shareInputs } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -54,8 +52,8 @@ const entries: DynamicEntries<State> = {
     normalization,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'encoding-normalization');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'encoding-normalization');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
@@ -105,8 +103,7 @@ function escapeNonAscii(points: number[]): string {
     return result;
 }
 
-function RawNormalizationOutput(versionedState: VersionedState<State>): JSX.Element {
-    const { input, normalization } = versionedState.inputs;
+function RawNormalizationOutput({ input, normalization }: State): JSX.Element {
     const parsed = input.replace(/\\u\{([0-9A-Fa-f]{1,6})\}|\\u([0-9A-Fa-f]{4})|\\x([0-9A-Fa-f]{2})/g, (_, g1, g2, g3) => {
         const hex = g1 ?? g2 ?? g3;
         if (hex === undefined) {
@@ -149,10 +146,10 @@ function RawNormalizationOutput(versionedState: VersionedState<State>): JSX.Elem
     </p>;
 }
 
-const NormalizationOutput = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'input')(RawNormalizationOutput);
+const NormalizationOutput = shareInputs(store)(RawNormalizationOutput);
 
 export const toolEncodingNormalization = <Fragment>
-    <Input entries={entries}/>
+    <Input/>
     <NormalizationOutput/>
 </Fragment>;
 

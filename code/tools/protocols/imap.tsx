@@ -13,15 +13,12 @@ import { Dictionary } from '../../utility/types';
 import { DynamicArgument } from '../../react/argument';
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';
-import { IfEntriesProps, RawIfEntries } from '../../react/if-entries';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { OutputFunctionProps, RawOutputFunction } from '../../react/output-function';
+import { getIfEntries } from '../../react/if-entries';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { getOutputFunction } from '../../react/output-function';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, mergeIntoCurrentState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
-import { Children } from '../../react/utility';
+import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
@@ -431,11 +428,11 @@ const entries: DynamicEntries<State> = {
     idle,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-imap');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
-const OutputFunction = shareStore<VersionedState<State>, OutputFunctionProps<State>, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputFunction);
-const IfEntries = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
+const store = getPersistedStore(entries, 'protocol-imap');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
+const OutputFunction = getOutputFunction(store);
+const IfEntries = getIfEntries(store);
 
 /* ------------------------------ Tag entries ------------------------------ */
 
@@ -862,7 +859,7 @@ function entry(value: string): Entry<string> {
 }
 
 export const toolProtocolImap = <Fragment>
-    <Input entries={entries} newColumnAt={9}/>
+    <Input newColumnAt={9}/>
     <CodeBlock>
         <StaticPrompt>
             <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>

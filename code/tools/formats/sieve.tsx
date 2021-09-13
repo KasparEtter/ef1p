@@ -11,11 +11,9 @@ import { doubleQuote } from '../../utility/functions';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry, Entry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -192,9 +190,9 @@ const entries: DynamicEntries<State> = {
     argument,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'format-sieve');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'format-sieve');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ Static entries ------------------------------ */
 
@@ -247,7 +245,7 @@ const field: Entry<string, State> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolFormatSieve = <Fragment>
-    <Input entries={entries} newColumnAt={4}/>
+    <Input newColumnAt={4}/>
     <CodeBlock>
         <ClickToCopy newline>
             <OutputEntries entries={{ _require }}/>

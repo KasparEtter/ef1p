@@ -7,10 +7,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { decodeEncodedWord, encodeEncodedWordIfNecessary } from '../../utility/encoding';
 
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -61,9 +59,9 @@ const entries: DynamicEntries<State> = {
     encoded,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'encoding-encoded-word');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'encoding-encoded-word');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingEncodedWord = <Input entries={entries}/>;
+export const toolEncodingEncodedWord = <Input/>;

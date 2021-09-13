@@ -8,8 +8,9 @@ import { Fragment } from 'react';
 
 import { KeysOf, ObjectButNotFunction } from '../utility/types';
 
-import { ProvidedStore } from './share';
+import { ProvidedStore, shareStore } from './share';
 import { AllEntries, getCurrentState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
 import { Children } from './utility';
 
 export interface IfEntriesProps {
@@ -22,4 +23,8 @@ export function RawIfEntries<State extends ObjectButNotFunction>(props: Readonly
     return <Fragment>
         {(Object.keys(props.entries) as KeysOf<State>)[props.or ? 'some' : 'every'](key => currentState[key]) === !props.not && props.children}
     </Fragment>;
+}
+
+export function getIfEntries<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
+    return shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
 }

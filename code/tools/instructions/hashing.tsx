@@ -12,11 +12,9 @@ import { singleQuote } from '../../utility/functions';
 import { CodeBlock, DynamicOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
+import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { DynamicEntries, getPersistedStore, shareInputs } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -68,13 +66,12 @@ const entries: DynamicEntries<State> = {
     uppercase,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'instruction-hashing');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'instruction-hashing');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-function RawHashOutput(versionedState: VersionedState<State>): JSX.Element {
-    const { input, algorithm, uppercase } = versionedState.inputs;
+function RawHashOutput({ input, algorithm, uppercase }: State): JSX.Element {
     // https://nodejs.org/api/crypto.html#crypto_hash_update_data_inputencoding ('utf-8' is enforced.)
     const hash = createHash(algorithm as any).update(input).digest('hex');
     return <CodeBlock>
@@ -87,9 +84,9 @@ function RawHashOutput(versionedState: VersionedState<State>): JSX.Element {
     </CodeBlock>;
 }
 
-const HashOutput = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'input')(RawHashOutput);
+const HashOutput = shareInputs(store)(RawHashOutput);
 
 export const toolInstructionHashing = <Fragment>
-    <Input entries={entries}/>
+    <Input/>
     <HashOutput/>
 </Fragment>;

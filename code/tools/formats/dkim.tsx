@@ -10,11 +10,9 @@ import { Argument, DynamicArgument } from '../../react/argument';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultState, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -116,9 +114,9 @@ const entries: DynamicEntries<DkimState> = {
     flags,
 };
 
-const store = new PersistedStore<VersionedState<DkimState>, AllEntries<DkimState>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'format-dkim');
-const Input = shareStore<VersionedState<DkimState>, ProvidedDynamicEntries<DkimState> & InputProps<DkimState>, AllEntries<DkimState>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<DkimState>, ProvidedEntries & OutputEntriesProps, AllEntries<DkimState>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'format-dkim');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 export function getDefaultDkimState(): DkimState {
     return getDefaultState(entries);
@@ -140,7 +138,7 @@ const version: Argument<string, DkimState> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolFormatDkim = <Fragment>
-    <Input entries={entries} newColumnAt={3}/>
+    <Input newColumnAt={3}/>
     <CodeBlock wrapped>
         <ClickToCopy>
             <OutputEntries entries={{

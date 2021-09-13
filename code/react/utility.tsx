@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { Fragment, FunctionComponentElement, ReactNode } from 'react';
+import { ComponentType, Fragment, FunctionComponentElement, ReactNode } from 'react';
 import { render } from 'react-dom';
 
 /**
@@ -52,4 +52,8 @@ export function join(elements: JSX.Element[], separator: JSX.Element = <Fragment
 
 export function inject(elementId: string, element: FunctionComponentElement<any>): void {
     render(element, document.getElementById(elementId));
+}
+
+export function getDisplayName(component: ComponentType<any>): string {
+    return component.displayName || (component as any).name || 'Component';
 }

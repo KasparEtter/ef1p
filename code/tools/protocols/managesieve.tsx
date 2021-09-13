@@ -11,15 +11,12 @@ import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines } from '../../u
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';
-import { IfCaseProps, RawIfCase } from '../../react/if-case';
-import { IfEntriesProps, RawIfEntries } from '../../react/if-entries';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
+import { getIfCase } from '../../react/if-case';
+import { getIfEntries } from '../../react/if-entries';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getCurrentState, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
-import { Children } from '../../react/utility';
+import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 
 import { connect, crlf, domainRegex, quiet, usernameRegex } from './esmtp';
 
@@ -149,11 +146,11 @@ const entries: DynamicEntries<State> = {
     script,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-managesieve');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
-const IfCase = shareStore<VersionedState<State>, IfCaseProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfCase);
-const IfEntries = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
+const store = getPersistedStore(entries, 'protocol-managesieve');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
+const IfCase = getIfCase(store);
+const IfEntries = getIfEntries(store);
 
 export function setOpenSslCommand(openssl: string): void {
     setState(store, { openssl });
@@ -358,7 +355,7 @@ const LOGOUT: Entry<string> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolProtocolManageSieve = <Fragment>
-    <Input entries={entries} newColumnAt={6}/>
+    <Input newColumnAt={6}/>
     <CodeBlock>
         <StaticPrompt>
             <OutputEntries entries={{ openssl, sClient, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>

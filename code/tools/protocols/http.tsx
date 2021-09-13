@@ -9,11 +9,9 @@ import { Fragment } from 'react';
 import { CodeBlock, DynamicOutput, StaticOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
+import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { DynamicEntries, getPersistedStore, shareVersionedState } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -41,14 +39,12 @@ const entries: DynamicEntries<State> = {
     webAddress,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-http');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const HttpCommand = shareState<VersionedState<State>, {}, AllEntries<State>, VersioningEvent>(store, 'state')(RawHttpCommand);
+const store = getPersistedStore(entries, 'protocol-http');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-function RawHttpCommand({ states, index }: Readonly<VersionedState<State>>): JSX.Element {
-    const webAddress = states[index].webAddress;
+function RawHttpCommand({ webAddress }: State): JSX.Element {
     const [, protocol, domain, port, path] = /^(http|https):\/\/([a-z0-9-\.]+)(?::(\d+))?(\/.*)?$/i.exec(webAddress)!;
     return <CodeBlock>
         <StaticPrompt>
@@ -94,7 +90,9 @@ function RawHttpCommand({ states, index }: Readonly<VersionedState<State>>): JSX
     </CodeBlock>;
 }
 
+const HttpCommand = shareVersionedState(store)(RawHttpCommand);
+
 export const toolProtocolHttp = <Fragment>
-    <Input entries={entries}/>
+    <Input/>
     <HttpCommand/>
 </Fragment>;

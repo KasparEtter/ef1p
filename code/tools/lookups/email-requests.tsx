@@ -12,10 +12,10 @@ import { Time } from '../../utility/time';
 
 import { ClickToCopy } from '../../react/copy';
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getPersistedStore, setState } from '../../react/state';
+import { Store } from '../../react/store';
 
 import { getIpInfo, IpInfoResponse } from '../../apis/ip-geolocation';
 
@@ -143,7 +143,7 @@ function RawRequestsTable({ subscribing, requests, message, token, link }: Reado
 }
 
 const requestsStore = new Store<RequestsState>({ subscribing: false, requests: [] }, undefined);
-const RequestsTable = shareState<RequestsState>(requestsStore)(RawRequestsTable);
+const RequestsTable = shareState(requestsStore)(RawRequestsTable);
 
 function clearRequestsTable(): void {
     requestsStore.setState({
@@ -257,14 +257,13 @@ const entries: DynamicEntries<State> = {
     link,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange: clearRequestsTable }, 'lookup-email-requests');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'lookup-email-requests', clearRequestsTable);
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolLookupEmailRequests = <Fragment>
     <Input
-        entries={entries}
         submit={{
             text: 'Subscribe',
             title: 'Subscribe to the requests which are made with the given token.',

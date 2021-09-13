@@ -4,13 +4,16 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { Component, ComponentType, ReactNode } from 'react';
+
 import { report } from '../utility/analytics';
 import { normalizeToArray, normalizeToValue } from '../utility/functions';
 import { removeItem } from '../utility/storage';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 
 import { DynamicEntry, Entry, equalValues, ErrorType, ValueType } from './entry';
-import { PersistedState, Store } from './store';
+import { PersistedState, PersistedStore, Store } from './store';
+import { getDisplayName } from './utility';
 
 export type Entries = {
     readonly [key: string]: Entry<any, any>;
@@ -67,22 +70,76 @@ export function getDefaultVersionedState<State extends ObjectButNotFunction>(ent
     };
 }
 
+export type ChangeHandler<State extends ObjectButNotFunction> = ValueOrArray<(newState: State, fromHistory: boolean) => any>;
+
 export interface AllEntries<State extends ObjectButNotFunction> {
     readonly entries: DynamicEntries<State>;
 
     /**
      * The given handlers are called when any value changed or when the user pressed enter.
      */
-    readonly onChange?: ValueOrArray<(newState: State, fromHistory: boolean) => any>;
+    readonly onChange?: ChangeHandler<State>;
 }
 
 export type VersioningEvent = 'input' | 'state';
+
+export function getPersistedStore<State extends ObjectButNotFunction>(entries: DynamicEntries<State>, identifier: string, onChange?: ChangeHandler<State>): PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> {
+    return new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries, onChange }, identifier);
+}
 
 export function getCurrentState<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>): State {
     return store.state.states[store.state.index];
 }
 
-let changeCounter = 0;
+export function shareVersionedState<State extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+) {
+    return function decorator(
+        WrappedComponent: ComponentType<State & ProvidedProps>,
+    ) {
+        return class Share extends Component<ProvidedProps & Partial<State>> {
+            public static displayName = `ShareVersionedState(${getDisplayName(WrappedComponent)})`;
+
+            public componentDidMount(): void {
+                store.subscribe(this, 'state');
+            }
+
+            public componentWillUnmount(): void {
+                store.unsubscribe(this, 'state');
+            }
+
+            public render(): ReactNode {
+                // This order allows the parent component to override the state with properties.
+                return <WrappedComponent {...getCurrentState(store)} {...this.props} />;
+            }
+        };
+    };
+}
+
+export function shareInputs<State extends ObjectButNotFunction, ProvidedProps extends ObjectButNotFunction = {}>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+) {
+    return function decorator(
+        WrappedComponent: ComponentType<State & ProvidedProps>,
+    ) {
+        return class Share extends Component<ProvidedProps & Partial<State>> {
+            public static displayName = `ShareInputs(${getDisplayName(WrappedComponent)})`;
+
+            public componentDidMount(): void {
+                store.subscribe(this, 'input');
+            }
+
+            public componentWillUnmount(): void {
+                store.unsubscribe(this, 'input');
+            }
+
+            public render(): ReactNode {
+                // This order allows the parent component to override the inputs with properties.
+                return <WrappedComponent {...store.state.inputs} {...this.props} />;
+            }
+        };
+    };
+}
 
 export function validateInputs<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
@@ -99,6 +156,8 @@ export function hasNoErrors<State extends ObjectButNotFunction>(
 ): boolean {
     return Object.values(store.state.errors).every(error => !error);
 }
+
+let changeCounter = 0;
 
 function updateState<State extends ObjectButNotFunction>(
     store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,

@@ -12,15 +12,12 @@ import { Dictionary } from '../../utility/types';
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';
-import { IfCaseProps, RawIfCase } from '../../react/if-case';
-import { IfEntriesProps, RawIfEntries } from '../../react/if-entries';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
+import { getIfCase } from '../../react/if-case';
+import { getIfEntries } from '../../react/if-entries';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, mergeIntoCurrentState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
-import { Children } from '../../react/utility';
+import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
@@ -213,11 +210,11 @@ const entries: DynamicEntries<State> = {
     deletion,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-pop3');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
-const IfCase = shareStore<VersionedState<State>, IfCaseProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfCase);
-const IfEntries = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
+const store = getPersistedStore(entries, 'protocol-pop3');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
+const IfCase = getIfCase(store);
+const IfEntries = getIfEntries(store);
 
 /* ------------------------------ Command entries ------------------------------ */
 
@@ -358,7 +355,7 @@ const apopResponse: Entry<string, State> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolProtocolPop3 = <Fragment>
-    <Input entries={entries} newColumnAt={5}/>
+    <Input newColumnAt={5}/>
     <CodeBlock>
         <StaticPrompt>
             <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>

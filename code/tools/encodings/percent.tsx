@@ -7,10 +7,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { decodePercent, encodePercent } from '../../utility/encoding';
 
 import { DynamicEntry, ErrorType } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, mergeIntoCurrentState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { getInput } from '../../react/input';
+import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -117,9 +115,9 @@ const entries: DynamicEntries<State> = {
     strict,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'encoding-percent');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
+const store = getPersistedStore(entries, 'encoding-percent');
+const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingPercent = <Input entries={entries} newColumnAt={2} individualLabelWidth/>;
+export const toolEncodingPercent = <Input newColumnAt={2} individualLabelWidth/>;

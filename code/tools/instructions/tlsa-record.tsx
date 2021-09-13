@@ -8,14 +8,11 @@ import { Fragment } from 'react';
 
 import { CodeBlock } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
-import { IfCaseProps, RawIfCase } from '../../react/if-case';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
+import { getIfCase } from '../../react/if-case';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
-import { Children } from '../../react/utility';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -64,15 +61,15 @@ const entries: DynamicEntries<State> = {
     matchingType,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'instruction-tlsa-record');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
-const IfCase = shareStore<VersionedState<State>, IfCaseProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfCase);
+const store = getPersistedStore(entries, 'instruction-tlsa-record');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
+const IfCase = getIfCase(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolInstructionTlsaRecord = <Fragment>
-    <Input entries={entries}/>
+    <Input/>
     <CodeBlock>
         <StaticPrompt>
             openssl x509 -in <OutputEntries entries={{ certificateFile }}/>

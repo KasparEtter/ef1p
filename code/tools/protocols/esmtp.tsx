@@ -13,16 +13,13 @@ import { Dictionary, KeysOf } from '../../utility/types';
 import { Argument, DynamicArgument } from '../../react/argument';
 import { CodeBlock, DynamicOutput, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry, ErrorType, isDynamicEntry } from '../../react/entry';
-import { IfCaseProps, RawIfCase } from '../../react/if-case';
-import { IfEntriesProps, RawIfEntries } from '../../react/if-entries';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { OutputFunctionProps, RawOutputFunction } from '../../react/output-function';
+import { getIfCase } from '../../react/if-case';
+import { getIfEntries } from '../../react/if-entries';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { getOutputFunction } from '../../react/output-function';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, mergeIntoCurrentState, ProvidedDynamicEntries, ProvidedEntries, setState, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
-import { Children } from '../../react/utility';
+import { DynamicEntries, getPersistedStore, mergeIntoCurrentState, setState } from '../../react/state';
 
 import { getReverseLookupDomain, resolveDomainName } from '../../apis/dns-lookup';
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
@@ -558,12 +555,12 @@ const entries: DynamicEntries<State> = {
     body,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'protocol-esmtp');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
-const OutputFunction = shareStore<VersionedState<State>, OutputFunctionProps<State>, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputFunction);
-const IfCase = shareStore<VersionedState<State>, IfCaseProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfCase);
-const IfEntries = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
+const store = getPersistedStore(entries, 'protocol-esmtp');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
+const OutputFunction = getOutputFunction(store);
+const IfCase = getIfCase(store);
+const IfEntries = getIfEntries(store);
 
 /* ------------------------------ Prompt entries ------------------------------ */
 
@@ -891,7 +888,7 @@ function angleAddress(address: string, title: string): JSX.Element {
 }
 
 export const toolProtocolEsmtp = <Fragment>
-    <Input entries={entries} newColumnAt={12}/>
+    <Input newColumnAt={12}/>
     <CodeBlock>
         <StaticPrompt>
             <IfCase entry="security" value="none">

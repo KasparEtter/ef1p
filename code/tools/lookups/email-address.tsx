@@ -11,11 +11,11 @@ import { Buffer } from 'safe-buffer';
 import { download } from '../../utility/download';
 
 import { DynamicEntry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
-import { shareState, shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore, Store } from '../../react/store';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
+import { shareState } from '../../react/share';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Store } from '../../react/store';
 
 import { getDefaultRecordState, makeQuery, RawRecordOutput, RecordState } from './email-domain';
 
@@ -30,7 +30,7 @@ function splitAndHash(emailAddress: string): [string, string] {
 /* ------------------------------ SMIMEA records ------------------------------ */
 
 const smimeaRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const SmimeaRecordsOutput = shareState<RecordState>(smimeaRecordsStore)(RawRecordOutput);
+const SmimeaRecordsOutput = shareState(smimeaRecordsStore)(RawRecordOutput);
 
 async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
     smimeaRecordsStore.setState(getDefaultRecordState());
@@ -101,7 +101,7 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
 /* ------------------------------ OPENPGPKEY records ------------------------------ */
 
 const openpgpkeyRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const OpenpgpkeyRecordsOutput = shareState<RecordState>(openpgpkeyRecordsStore)(RawRecordOutput);
+const OpenpgpkeyRecordsOutput = shareState(openpgpkeyRecordsStore)(RawRecordOutput);
 
 // tslint:disable:no-bitwise
 // https://datatracker.ietf.org/doc/html/rfc4880#section-6.1
@@ -193,19 +193,19 @@ const entries: DynamicEntries<State> = {
     emailAddress,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'lookup-email-address');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'lookup-email-address');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolLookupSmimeaRecords = <Fragment>
-    <Input entries={entries} submit={{ text: 'Query', title: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
+    <Input submit={{ text: 'Query', title: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
     <SmimeaRecordsOutput/>
 </Fragment>;
 
 export const toolLookupOpenpgpkeyRecords = <Fragment>
-    <Input entries={entries} submit={{ text: 'Query', title: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
+    <Input submit={{ text: 'Query', title: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
     <OpenpgpkeyRecordsOutput/>
 </Fragment>;
 

@@ -8,12 +8,10 @@ import { Fragment } from 'react';
 
 import { CodeBlock } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';
-import { InputProps, RawInput } from '../../react/input';
-import { OutputEntriesProps, RawOutputEntries } from '../../react/output-entries';
+import { getInput } from '../../react/input';
+import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { shareStore } from '../../react/share';
-import { AllEntries, DynamicEntries, getDefaultVersionedState, ProvidedDynamicEntries, ProvidedEntries, VersionedState, VersioningEvent } from '../../react/state';
-import { PersistedStore } from '../../react/store';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -64,9 +62,9 @@ const entries: DynamicEntries<State> = {
     loggingLevel,
 };
 
-const store = new PersistedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>(getDefaultVersionedState(entries), { entries }, 'instruction-thunderbird');
-const Input = shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & InputProps<State>, AllEntries<State>, VersioningEvent>(store, 'input')(RawInput);
-const OutputEntries = shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
+const store = getPersistedStore(entries, 'instruction-thunderbird');
+const Input = getInput(store);
+const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ Static entries ------------------------------ */
 
@@ -162,7 +160,7 @@ const thunderbird: Entry<string, State> = {
 /* ------------------------------ User interface ------------------------------ */
 
 export const toolInstructionThunderbird = <Fragment>
-    <Input entries={entries} noHistory/>
+    <Input noHistory/>
     <CodeBlock>
         <StaticPrompt>
             <OutputEntries entries={{ command, MOZ_LOG }}/>=
