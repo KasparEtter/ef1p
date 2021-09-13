@@ -8,6 +8,11 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   font-size: $font-size-base * 1.1;
   user-select: all;
 
+  a {
+    position: relative;
+    z-index: 1; // Make all links clickable.
+  }
+
   .mathsf,
   .textsf {
     font-family: $font-family-sans-serif;
