@@ -16,9 +16,9 @@ import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '..
 import { Store } from '../../react/store';
 
 import { getReverseLookupDomain } from '../../apis/dns-lookup';
-import { setDnsResolverInputs } from './dns-records';
-
 import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from '../../apis/ip-geolocation';
+
+import { setDnsResolverInputs } from './dns-records';
 
 /* ------------------------------ Utility ------------------------------ */
 

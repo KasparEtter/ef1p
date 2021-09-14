@@ -138,7 +138,7 @@ const port: DynamicEntry<number, State> = {
     inputWidth: inputWidth / 2,
     minValue: 1,
     maxValue: 65535,
-    suggestedValues: [143, 993],
+    // suggestedValues: [143, 993],
     validate: value => (value < 1 || value > 65535) && 'The port has to be a number between 1 and 65535.',
 };
 

@@ -105,7 +105,7 @@ export function toHex(value: number, minLength = 0, upperCase = true): string {
 }
 
 export function removeThousandSeparators(value: string): string {
-    return value.replace(/[',]/g, '');
+    return value.replace(/[', ]/g, '');
 }
 
 export function insertThousandSeparators(value: string | number | bigint): string {

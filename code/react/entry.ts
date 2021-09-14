@@ -70,9 +70,9 @@ export type ArrayInputType = typeof arrayInputTypes[number];
 export type InputType = BooleanInputType | NumberInputType | StringInputType | ArrayInputType;
 
 /**
- * 'text' and 'number' provide suggestions based on their history.
+ * 'text' inputs provide suggestions based on their history.
  */
-export const inputTypesWithHistory: InputType[] = ['text', 'number'];
+export const inputTypesWithHistory: InputType[] = ['text'];
 
 /**
  * Dynamic entries can be input by the user and thus have an associated state.
@@ -120,13 +120,13 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
 
     /**
      * The suggested values are added to the datalist but not to the history.
-     * The function is only called with a valid state.
+     * The function is called only with a valid state.
      */
     readonly suggestedValues?: ValueOrFunction<T[], State>;
 
     /**
      * Only relevant for 'select' inputs.
-     * The function is only called with a valid state.
+     * The function is called only with a valid state.
      */
     readonly selectOptions?: ValueOrFunction<Record<string, string>, State>;
 
@@ -156,7 +156,7 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     /**
      * Only use onChange for reactions specific to this entry.
      * Otherwise use the meta property of the store.
-     * The function is only called with a valid value and a valid state.
+     * The function is called only with a valid value and a valid state.
      *
      * @argument fromHistory Derived entries shouldn't be overwritten when stepping through the history.
      * @argument changeId This value allows callees to determine that the same change triggered several invocations of the same handler.
