@@ -104,8 +104,9 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const target = event.currentTarget as HTMLButtonElement;
         const key = target.name as keyof State;
         const entry: DynamicEntry<any, State> = this.entries[key]!;
-        const state = getCurrentState(this.props.store);
-        const [value, error] = await entry.determine!.onClick(state);
+        const index = Number(event.currentTarget.dataset.index);
+        const input = this.props.store.state.inputs[key];
+        const [value, error] = await normalizeToArray(entry.determine)[index].onClick(input);
         if (error) {
             this.props.store.state.inputs[key] = value;
             this.props.store.state.errors[key] = error;
@@ -151,7 +152,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const entry = this.entries[key as keyof State] as DynamicEntry<ValueType, State>;
         const value = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
-        const disabled = !error && (hasErrors ? true : (entry.disable ? entry.disable(this.props.store.state.inputs) : false));
+        const disabled = !error && (hasErrors ? true : entry.disable !== undefined && entry.disable(this.props.store.state.inputs));
         const history = inputTypesWithHistory.includes(entry.inputType);
         const state = getCurrentState(this.props.store);
         return <label
@@ -271,8 +272,16 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 <span className={'range-value' + (disabled ? ' color-gray' : '')}>{value}</span>
             }
             {
-                entry.determine &&
-                <button name={key} type="button" className="btn btn-primary btn-sm align-top ml-2" onClick={this.onDetermine} disabled={disabled} title={entry.determine.title}>{entry.determine.text}</button>
+                normalizeToArray(entry.determine).map((button, index) =>
+                <button
+                    name={key}
+                    data-index={index}
+                    type="button"
+                    className="btn btn-primary btn-sm align-top ml-2"
+                    disabled={disabled || button.disable !== undefined && button.disable(value)}
+                    onClick={this.onDetermine}
+                    title={button.title}
+                >{button.text}</button>)
             }
         </label>;
     };

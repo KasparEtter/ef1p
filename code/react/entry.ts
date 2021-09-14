@@ -172,9 +172,9 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
 
     /**
      * Creates a button which the user can press in order to determine a suitable value for this entry.
-     * The handler is only called with a valid state.
+     * The functions are called with the potentially invalid input value of this entry.
      */
-    readonly determine?: Button<State, Promise<[T, ErrorType]>>;
+    readonly determine?: ValueOrArray<Button<T, Promise<[T, ErrorType]>>>;
 }
 
 export function isDynamicEntry<T extends ValueType, State extends ObjectButNotFunction = {}>(entry: Entry<T, State>): entry is DynamicEntry<T, State> {

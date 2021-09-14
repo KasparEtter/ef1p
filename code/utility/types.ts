@@ -50,7 +50,8 @@ export type EventHandler = (event: Event) => any;
  * A button with the given text, title, and handler.
  */
 export interface Button<I = undefined, O = any> {
-    text: string;
-    title: string;
-    onClick: (input: I) => O;
+    readonly text: string;
+    readonly title: string;
+    readonly onClick: (input: I) => O;
+    readonly disable?: (input: I) => boolean;
 };

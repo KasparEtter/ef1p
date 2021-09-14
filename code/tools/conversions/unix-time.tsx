@@ -54,8 +54,8 @@ function onGregorianTimeInput(): void {
     store.update('input');
 }
 
-async function determineGregorianTime(state: State): Promise<[string, ErrorType]> {
-    store.state.inputs.gregorianTime = Time.fromGregorian(state.gregorianTime).floorToDay().toGregorianDateWithTime();
+async function determineGregorianTime(gregorianTime: string): Promise<[string, ErrorType]> {
+    store.state.inputs.gregorianTime = Time.fromGregorian(gregorianTime).floorToDay().toGregorianDateWithTime();
     convertToUnixTime();
     return [store.state.inputs.gregorianTime, false];
 }
@@ -99,6 +99,7 @@ const gregorianTime: DynamicEntry<string, State> = {
         text: 'Round',
         title: 'Round down to the start of the day.',
         onClick: determineGregorianTime,
+        disable: value => !gregorianFormat.test(value),
     },
 };
 
