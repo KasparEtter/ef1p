@@ -14,6 +14,17 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   margin-top: 0;
 }
 
+.table-with-borders {
+  td,
+  th {
+    border: $table-border-width solid $table-border-color;
+  }
+
+  thead th {
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+  }
+}
+
 .table-with-vertical-border-after-column-1 {
   td:nth-child(1),
   th:nth-child(1) {
@@ -39,5 +50,15 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   td:nth-child(4),
   th:nth-child(4) {
     border-right: (2 * $table-border-width) solid $table-border-color;
+  }
+}
+
+.square-cells-39 {
+  td,
+  th {
+    width: 39px;
+    height: 39px;
+    text-align: center;
+    vertical-align: middle;
   }
 }

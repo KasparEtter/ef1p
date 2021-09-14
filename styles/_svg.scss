@@ -47,6 +47,10 @@ $svg-colors: map-merge(
   .color-#{$color} {
     color: $value;
   }
+
+  .background-color-#{$color} {
+    background-color: rgba($value, .3);
+  }
 }
 
 svg.figure {
