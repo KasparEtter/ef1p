@@ -5,7 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { Color, colorSuffix } from '../../utility/color';
-import { normalizeToArray } from '../../utility/functions';
+import { normalizeToArray } from '../../utility/normalization';
 
 import { Collector } from './collector';
 import { strokeRadius } from './constants';

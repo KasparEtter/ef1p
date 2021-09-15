@@ -5,7 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { fetchWithErrorAndTimeout } from '../utility/fetch';
-import { normalizeToArray } from '../utility/functions';
+import { normalizeToArray } from '../utility/normalization';
 
 /* ------------------------------ Record types ------------------------------ */
 

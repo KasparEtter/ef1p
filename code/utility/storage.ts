@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { getInitialized } from './functions';
+import { getInitializedArray } from './array';
 
 if (typeof(Storage) === 'undefined') {
     console.warn('Your browser does not support local storage.');
@@ -39,7 +39,7 @@ function notify(key: string | null, value: string | null): void {
         }
     } else {
         const item = parse(value); // The new value is null if the item has been removed.
-        for (const callback of getInitialized(callbacks, key)) {
+        for (const callback of getInitializedArray(callbacks, key)) {
             callback(item);
         }
     }
@@ -58,7 +58,7 @@ window.addEventListener('storage', event => {
  */
 export function getItem<T = any>(key: string, callback?: Callback<T>): T | undefined {
     if (callback !== undefined) {
-        getInitialized(callbacks, key).push(callback);
+        getInitializedArray(callbacks, key).push(callback);
     }
     if (typeof(Storage) !== 'undefined') {
         return parse(localStorage.getItem(key));

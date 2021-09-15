@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { toPlainEncoding } from '../../utility/encoding';
-import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines } from '../../utility/functions';
+import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines } from '../../utility/string';
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';

@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment, ReactNode } from 'react';
 
 import { colorClass } from '../utility/color';
-import { normalizeToValue } from '../utility/functions';
+import { normalizeToValue } from '../utility/normalization';
 import { ObjectButNotFunction } from '../utility/types';
 
 import { isArgument } from './argument';

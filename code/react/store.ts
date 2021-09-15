@@ -6,7 +6,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Component } from 'react';
 
-import { deepCopy, getInitialized } from '../utility/functions';
+import { getInitializedArray } from '../utility/array';
+import { deepCopy } from '../utility/object';
 import { getItem, setItem } from '../utility/storage';
 import { ObjectButNotFunction } from '../utility/types';
 
@@ -30,7 +31,7 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined, Event e
      */
     public subscribe(component: Component, ...events: Event[]): void {
         for (const event of normalizeEvents(events)) {
-            getInitialized(this.components, event).push(component);
+            getInitializedArray(this.components, event).push(component);
         }
     }
 
@@ -39,7 +40,7 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined, Event e
      */
     public unsubscribe(component: Component, ...events: Event[]): void {
         for (const event of normalizeEvents(events)) {
-            const components = getInitialized(this.components, event);
+            const components = getInitializedArray(this.components, event);
             const index = components.indexOf(component);
             if (index === -1) {
                 console.error('store.ts: Tried to unsubscribe a component which was not subscribed.');
@@ -56,7 +57,7 @@ export class Store<State extends ObjectButNotFunction, Meta = undefined, Event e
         // Copying the arrays is important because the original arrays can change during the update.
         const components = [];
         for (const event of normalizeEvents(events)) {
-            components.push(...getInitialized(this.components, event));
+            components.push(...getInitializedArray(this.components, event));
         }
         for (const component of components) {
             component.forceUpdate();

@@ -5,7 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { Color } from '../../utility/color';
-import { normalizeToArray } from '../../utility/functions';
+import { normalizeToArray } from '../../utility/normalization';
 
 import { lineHeight, strokeRadius, textToLineDistance } from '../utility/constants';
 import { P, Point, zeroPoint } from '../utility/point';

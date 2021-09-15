@@ -8,7 +8,9 @@ import createHash from 'create-hash';
 import createHmac from 'create-hmac';
 import { Buffer } from 'safe-buffer';
 
-import { doubleQuote, filterUndefined, getInitialized, normalizeNewlines, reverseLookup, splitOutsideOfDoubleQuotes, toHex } from './functions';
+import { filterUndefined, getInitializedArray } from './array';
+import { reverseLookup } from './record';
+import { doubleQuote, normalizeNewlines, splitOutsideOfDoubleQuotes, toHex } from './string';
 
 /* ------------------------------ Charset ------------------------------ */
 
@@ -412,7 +414,7 @@ export function decodeExtendedParameter(text: string): string {
                 const value = quotedValue.startsWith('"') && quotedValue.endsWith('"') ? quotedValue.slice(1, -1) : quotedValue;
                 const parts = name.split('*');
                 if ((parts.length === 2 || parts.length === 3 && parts[2].length === 0) && /^\d+$/.test(parts[1])) {
-                    getInitialized(continuations, parts[0])[Number.parseInt(parts[1], 10)] = { encoded: parts.length === 3, value };
+                    getInitializedArray(continuations, parts[0])[Number.parseInt(parts[1], 10)] = { encoded: parts.length === 3, value };
                 } else if (parts.length === 2 && parts[1].length === 0) {
                     current = parts[0] + '=' + quoteIfNecessary(decodeInitialParameterValue(value)[0]);
                 } else {

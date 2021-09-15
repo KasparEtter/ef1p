@@ -4,8 +4,9 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { filterUndefined } from '../../utility/array';
 import { Color } from '../../utility/color';
-import { filterUndefined, normalizeToArray } from '../../utility/functions';
+import { normalizeToArray } from '../../utility/normalization';
 
 import { Box } from '../utility/box';
 import { Collector, createEmptyCollector } from '../utility/collector';

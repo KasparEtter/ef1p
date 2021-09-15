@@ -6,10 +6,12 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { flatten } from '../../utility/array';
 import { copyToClipboard } from '../../utility/clipboard';
 import { fetchWithError } from '../../utility/fetch';
-import { flatten, splitOnFirstOccurrence } from '../../utility/functions';
-import { Button, Dictionary } from '../../utility/types';
+import { Dictionary } from '../../utility/record';
+import { splitOnFirstOccurrence } from '../../utility/string';
+import { Button } from '../../utility/types';
 
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';

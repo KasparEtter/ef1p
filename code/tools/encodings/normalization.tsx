@@ -6,8 +6,9 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment, ReactNode } from 'react';
 
+import { filterUndefined } from '../../utility/array';
 import { copyToClipboard } from '../../utility/clipboard';
-import { filterUndefined, toHex } from '../../utility/functions';
+import { toHex } from '../../utility/string';
 
 import { DynamicOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';

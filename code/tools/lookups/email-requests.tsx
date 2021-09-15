@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { copyToClipboard } from '../../utility/clipboard';
-import { getRandomString } from '../../utility/functions';
+import { getRandomString } from '../../utility/string';
 import { Time } from '../../utility/time';
 
 import { ClickToCopy } from '../../react/copy';

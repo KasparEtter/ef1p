@@ -6,8 +6,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { Dictionary } from '../../utility/record';
 import { Time } from '../../utility/time';
-import { Dictionary } from '../../utility/types';
 
 import { DynamicOutput, StaticOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';

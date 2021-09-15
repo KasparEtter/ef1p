@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { bind } from '../../code/utility/functions';
+import { bind } from '../../code/utility/event';
 import { Time } from '../../code/utility/time';
 
 import { CodeBlock, Comment, SystemReply, UserCommand } from '../../code/react/code';

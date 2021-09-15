@@ -7,7 +7,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { ChangeEvent, Component, Fragment, MouseEvent } from 'react';
 
 import { colorClass } from '../utility/color';
-import { getRandomString, normalizeToArray, normalizeToValue } from '../utility/functions';
+import { normalizeToArray, normalizeToValue } from '../utility/normalization';
+import { getRandomString } from '../utility/string';
 import { Button, ObjectButNotFunction } from '../utility/types';
 
 import { CustomInput, CustomTextarea } from './custom';

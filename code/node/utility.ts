@@ -8,7 +8,7 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import glob from 'glob';
 
-import { sleep } from '../utility/functions';
+import { sleep } from '../utility/async';
 
 const watchMode = process.argv[2] === 'watch';
 

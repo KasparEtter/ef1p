@@ -7,8 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { toApopEncoding } from '../../utility/encoding';
-import { reverseLookup } from '../../utility/functions';
-import { Dictionary } from '../../utility/types';
+import { Dictionary, reverseLookup } from '../../utility/record';
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
 import { DynamicEntry, Entry } from '../../react/entry';

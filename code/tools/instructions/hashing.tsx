@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import createHash from 'create-hash';
 import { Fragment } from 'react';
 
-import { singleQuote } from '../../utility/functions';
+import { singleQuote } from '../../utility/string';
 
 import { CodeBlock, DynamicOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';

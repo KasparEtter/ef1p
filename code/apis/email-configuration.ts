@@ -4,8 +4,8 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { filterUndefined } from '../utility/array';
 import { fetchWithErrorAndTimeout } from '../utility/fetch';
-import { filterUndefined } from '../utility/functions';
 
 import { getAllRecords, getDataOfFirstRecord, resolveDomainName } from './dns-lookup';
 

@@ -5,14 +5,14 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { Color } from '../../utility/color';
-import { normalizeToArray } from '../../utility/functions';
-import { estimateStringWidth, monospaceWidth, multiplier, TextStyle } from '../utility/string';
+import { normalizeToArray } from '../../utility/normalization';
 
 import { Box } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { getTextHeight, indentation, lineHeight, textHeight, textMargin } from '../utility/constants';
 import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
+import { estimateStringWidth, monospaceWidth, multiplier, TextStyle } from '../utility/string';
 
 import { VisualElement, VisualElementProps } from './element';
 

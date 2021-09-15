@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { Dictionary } from './types';
+import { Dictionary } from './record';
 
 type Properties = Dictionary<string | number | boolean | null>;
 type Callback = () => any;

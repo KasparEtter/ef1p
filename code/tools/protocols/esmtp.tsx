@@ -6,9 +6,12 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { flatten, unique } from '../../utility/array';
 import { base64Regex, encodeBase64, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
-import { createRecord, flatten, getRandomString, nonEmpty, normalizeToValue, reverseLookup, splitOutsideOfDoubleQuotes, unique } from '../../utility/functions';
-import { Dictionary, KeysOf } from '../../utility/types';
+import { normalizeToValue } from '../../utility/normalization';
+import { arrayToRecord, Dictionary, reverseLookup } from '../../utility/record';
+import { getRandomString, nonEmpty, splitOutsideOfDoubleQuotes } from '../../utility/string';
+import { KeysOf } from '../../utility/types';
 
 import { Argument, DynamicArgument } from '../../react/argument';
 import { CodeBlock, DynamicOutput, SystemReply, UserCommand } from '../../react/code';
@@ -286,7 +289,7 @@ const domain: DynamicEntry<string, State> = {
     defaultValue: 'example.org',
     inputType: 'select',
     labelWidth: 60,
-    selectOptions: state => createRecord((state.mode === 'submission' ? getAddresses(state, 'from') : getRecipientAddresses(state)).map(getDomain)),
+    selectOptions: state => arrayToRecord((state.mode === 'submission' ? getAddresses(state, 'from') : getRecipientAddresses(state)).map(getDomain)),
     disable: ({ mode }) => mode === 'submission',
     onChange: [updatePort, updateServer],
 };
@@ -492,7 +495,7 @@ const content: DynamicEntry<string, State> = {
     defaultValue: 'text/plain',
     inputType: 'select',
     labelWidth: 63,
-    selectOptions: createRecord(contentOptions),
+    selectOptions: arrayToRecord(contentOptions),
 };
 
 const body: DynamicEntry<string, State> = {

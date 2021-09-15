@@ -6,9 +6,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { doubleQuote, reverseLookup, sortNumbers, unique } from '../../utility/functions';
+import { sortNumbers, unique } from '../../utility/array';
+import { Dictionary, reverseLookup } from '../../utility/record';
+import { doubleQuote } from '../../utility/string';
 import { Time } from '../../utility/time';
-import { Dictionary } from '../../utility/types';
 
 import { DynamicArgument } from '../../react/argument';
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';

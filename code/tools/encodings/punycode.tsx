@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import punycode from 'punycode/'; // Refers to Node's deprecated library without the trailing slash.
 
-import { countOccurrences } from '../../utility/functions';
+import { countOccurrences } from '../../utility/string';
 
 import { DynamicEntry, ErrorType } from '../../react/entry';
 import { getInput } from '../../react/input';

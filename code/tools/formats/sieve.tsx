@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { doubleQuote } from '../../utility/functions';
+import { doubleQuote } from '../../utility/string';
 
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';

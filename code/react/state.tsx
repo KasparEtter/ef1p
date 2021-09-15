@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Component, ComponentType, ReactNode } from 'react';
 
 import { report } from '../utility/analytics';
-import { normalizeToArray, normalizeToValue } from '../utility/functions';
+import { normalizeToArray, normalizeToValue } from '../utility/normalization';
 import { removeItem } from '../utility/storage';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 

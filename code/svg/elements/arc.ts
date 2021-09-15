@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { normalizeToArray } from '../../utility/functions';
+import { normalizeToArray } from '../../utility/normalization';
 
 import { Box, BoxSide, opposite } from '../utility/box';
 import { Collector } from '../utility/collector';
