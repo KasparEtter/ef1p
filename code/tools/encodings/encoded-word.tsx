@@ -33,7 +33,6 @@ const decoded: DynamicEntry<string, State> = {
     description: 'The decoded word.',
     defaultValue: '¡Buenos días!',
     inputType: 'text',
-    labelWidth: 68,
     inputWidth,
     onInput: encode,
 };
@@ -43,7 +42,6 @@ const encoded: DynamicEntry<string, State> = {
     description: 'The encoded word.',
     defaultValue: '=?ISO-8859-1?Q?=A1Buenos_d=EDas!?=',
     inputType: 'textarea',
-    labelWidth: 66,
     inputWidth,
     rows: 2,
     onInput: decode,

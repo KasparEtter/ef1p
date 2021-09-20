@@ -177,7 +177,6 @@ const emailAddress: DynamicEntry<string> = {
     description: 'The email address you want to query.',
     defaultValue: 'security@ef1p.com',
     inputType: 'text',
-    labelWidth: 102,
     inputWidth: 270,
     validate: value =>
         value === '' && 'The email address may not be empty.' ||

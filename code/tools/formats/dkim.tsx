@@ -21,7 +21,6 @@ const minimalOutput: DynamicEntry<boolean, DkimState> = {
     description: 'Whether to only output the parameters which are different from their default value.',
     defaultValue: true,
     inputType: 'switch',
-    labelWidth: 113,
 };
 
 const keyType: DynamicArgument<string, DkimState> = {
@@ -30,7 +29,6 @@ const keyType: DynamicArgument<string, DkimState> = {
     description: 'The name of the used signing algorithm.',
     defaultValue: 'rsa',
     inputType: 'select',
-    labelWidth: 66,
     selectOptions: {
         rsa: 'RSA',
         ed25519: 'ED25519',
@@ -44,7 +42,6 @@ const publicKey: DynamicArgument<string, DkimState> = {
     description: 'The public key encoded with Base64. An empty value means that this public key has been revoked.',
     defaultValue: '',
     inputType: 'textarea',
-    labelWidth: 76,
     inputWidth: 280,
     rows: 3,
     skip: () => false,
@@ -58,7 +55,6 @@ const hashAlgorithms: DynamicArgument<string, DkimState> = {
     description: 'A colon-separated list of acceptable hash algorithms. By not specifying this tag, all algorithms are allowed.',
     defaultValue: 'all',
     inputType: 'select',
-    labelWidth: 119,
     selectOptions: {
         all: 'All',
         sha256: 'SHA-256',
@@ -72,7 +68,6 @@ const serviceTypes: DynamicArgument<string, DkimState> = {
     description: 'A colon-separated list of the services for which this key is used.',
     defaultValue: '*',
     inputType: 'select',
-    labelWidth: 98,
     selectOptions: {
         '*': 'All',
         'email': 'Email',
@@ -88,7 +83,6 @@ const flags: DynamicArgument<string[], DkimState> = {
     defaultValue: [],
     valueSeparator: ':',
     inputType: 'multiple',
-    labelWidth: 41,
     selectOptions: {
         'y': 'Just testing, ignore signatures',
         's': 'No subdomain in user identifier',

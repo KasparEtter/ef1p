@@ -241,7 +241,6 @@ const mode: DynamicEntry<string, State> = {
     description: 'Select whether you want to use SMTP for submission or for relay.',
     defaultValue: 'submission',
     inputType: 'select',
-    labelWidth: 46,
     selectOptions: {
         submission: 'Submission',
         relay: 'Relay',
@@ -254,7 +253,6 @@ const security: DynamicEntry<string, State> = {
     description: 'Select which variant of TLS you want to use.',
     defaultValue: 'implicit',
     inputType: 'select',
-    labelWidth: 63,
     selectOptions: (state: State) => (state.mode === 'submission' ? {
         implicit: 'Implicit TLS',
         explicit: 'Explicit TLS',
@@ -270,7 +268,6 @@ const recipients: DynamicEntry<string, State> = {
     description: 'Select the group of recipients to which you want to send the message.',
     defaultValue: 'all',
     inputType: 'select',
-    labelWidth: 78,
     selectOptions: state => {
         const result: Record<string, string> = { all: 'All' };
         if (getAddresses(state, 'to').length > 0 || getAddresses(state, 'cc').length > 0) {
@@ -288,7 +285,6 @@ const domain: DynamicEntry<string, State> = {
     description: 'Select the email domain to which you want to submit or relay the message. The value can only be changed in the case of relay.',
     defaultValue: 'example.org',
     inputType: 'select',
-    labelWidth: 60,
     selectOptions: state => arrayToRecord((state.mode === 'submission' ? getAddresses(state, 'from') : getRecipientAddresses(state)).map(getDomain)),
     disable: ({ mode }) => mode === 'submission',
     onChange: [updatePort, updateServer],
@@ -299,7 +295,6 @@ const server: DynamicEntry<string, State> = {
     description: 'The server to connect to. The server is determined automatically if possible but you can also set it manually.',
     defaultValue: 'submission.example.org',
     inputType: 'text',
-    labelWidth: 51,
     inputWidth,
     validate: value => !domainRegex.test(value) && 'Please enter a domain name in the preferred name syntax.',
 };
@@ -309,7 +304,6 @@ const port: DynamicEntry<number, State> = {
     description: 'The port number of the server. The port number is determined automatically but you can also set the value manually.',
     defaultValue: 465,
     inputType: 'number',
-    labelWidth: 36,
     inputWidth: inputWidth / 2,
     minValue: 1,
     maxValue: 65535,
@@ -322,7 +316,6 @@ const client: DynamicEntry<string, State> = {
     description: 'The IP or DNS address of your machine. Click on "Determine" to look it up or set it manually.',
     defaultValue: 'localhost',
     inputType: 'text',
-    labelWidth: 47,
     inputWidth: inputWidth - 90,
     validate: value => !deviceAddressRegex.test(value) && 'Please enter a domain name or an IPv4 address in brackets.',
     determine: {
@@ -337,7 +330,6 @@ const pipelining: DynamicEntry<boolean, State> = {
     description: 'Whether to send several commands at once. Only activate this if the server lists PIPELINING in its response to the EHLO command.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 74,
 }
 
 const username: DynamicEntry<string, State> = {
@@ -345,7 +337,6 @@ const username: DynamicEntry<string, State> = {
     description: 'Select how to determine the username for authentication. This is only relevant for submission.',
     defaultValue: 'full',
     inputType: 'select',
-    labelWidth: 77,
     selectOptions: {
         full: 'Full address',
         local: 'Local part',
@@ -358,7 +349,6 @@ const credential: DynamicEntry<string, State> = {
     description: 'Select how to authenticate towards the server. This is only relevant for submission.',
     defaultValue: 'plain',
     inputType: 'select',
-    labelWidth: 79,
     selectOptions: {
         plain: 'Plain password (PLAIN)',
         login: 'Plain password (LOGIN)',
@@ -372,7 +362,6 @@ const password: DynamicEntry<string, State> = {
     description: 'The password of your account. I recommend you to set up a test account for this. This is only relevant for submission.',
     defaultValue: '',
     inputType: 'password',
-    labelWidth: 73,
     inputWidth,
     placeholder: 'Your password',
     disable: ({ mode }) => mode === 'relay',
@@ -383,7 +372,6 @@ const challenge: DynamicEntry<string, State> = {
     description: 'The challenge received from the server when using the hashed password as the credential for submission.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 75,
     inputWidth,
     placeholder: 'CRAM-MD5 challenge from the server',
     disable: ({ mode, credential }) => mode !== 'submission' || credential !== 'hashed',
@@ -397,7 +385,6 @@ const from: DynamicArgument<string, State> = {
     description: 'A single "From" address with an optional display name.',
     defaultValue: 'Alice <alice@example.org>',
     inputType: 'text',
-    labelWidth: 42,
     inputWidth,
     validate: value => !addressWithNameRegex.test(value) && 'Please enter a single address with an optional display name.',
     onChange: updateMessageHeaders,
@@ -414,7 +401,6 @@ const to: DynamicArgument<string, State> = {
     description: 'One or several "To" addresses with optional display names.',
     defaultValue: 'Bob <bob@example.com>',
     inputType: 'text',
-    labelWidth: 22,
     inputWidth,
     validate: validateRecipientField,
     onChange: updateMessageHeaders,
@@ -426,7 +412,6 @@ const cc: DynamicArgument<string, State> = {
     description: 'One or several "Cc" addresses with optional display names.',
     defaultValue: 'Carol <carol@example.com>',
     inputType: 'text',
-    labelWidth: 23,
     inputWidth,
     validate: validateRecipientField,
     onChange: updateMessageHeaders,
@@ -438,7 +423,6 @@ const bcc: DynamicArgument<string, State> = {
     description: 'One or several "Bcc" addresses with optional display names.',
     defaultValue: 'Dave <dave@example.net>',
     inputType: 'text',
-    labelWidth: 30,
     inputWidth,
     validate: validateRecipientField,
     onChange: updateMessageHeaders,
@@ -450,7 +434,6 @@ const subject: DynamicArgument<string, State> = {
     description: 'The subject of the message you want to send.',
     defaultValue: 'Yet another message',
     inputType: 'text',
-    labelWidth: 57,
     inputWidth,
     transform: encodeEncodedWordIfNecessary,
     onChange: updateMessageHeaders,
@@ -462,7 +445,6 @@ const date: DynamicArgument<string, State> = {
     description: 'The date and time at which the message was completed. This field is updated automatically but you can also set the value manually.',
     defaultValue: determineDate(),
     inputType: 'text',
-    labelWidth: 40,
     inputWidth,
     placeholder: determineDate(),
     validate: value => !dateRegex.test(value) && 'Please enter a date in the same format as provided.',
@@ -474,7 +456,6 @@ const identifier: DynamicArgument<string, State> = {
     description: 'An identifier which uniquely identifies this message. This field is updated automatically but you can also set the value manually.',
     defaultValue: '<unique-identifier@example.org>',
     inputType: 'text',
-    labelWidth: 70,
     inputWidth,
     placeholder: '<unique-identifier@example.org>',
     validate: value => !identifierRegex.test(value) && 'Please enter a message ID in the same format as provided.',
@@ -494,7 +475,6 @@ const content: DynamicEntry<string, State> = {
     description: 'Select the content type of the message. See the format section for more information.',
     defaultValue: 'text/plain',
     inputType: 'select',
-    labelWidth: 63,
     selectOptions: arrayToRecord(contentOptions),
 };
 
@@ -503,7 +483,6 @@ const body: DynamicEntry<string, State> = {
     description: 'The content of the message you want to send.',
     defaultValue: 'Hello,\n\nIt\'s me. Again.\n\nAlice',
     inputType: 'textarea',
-    labelWidth: 41,
     inputWidth,
     rows: 4,
     transform: encodeQuotedPrintableIfNecessary,

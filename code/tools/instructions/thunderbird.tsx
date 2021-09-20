@@ -28,7 +28,6 @@ const operatingSystem: DynamicEntry<string, State> = {
         }
     },
     inputType: 'select',
-    labelWidth: 129,
     selectOptions: {
         windows: 'Windows',
         macos: 'macOS',
@@ -41,7 +40,6 @@ const loggingLevel: DynamicEntry<string, State> = {
     description: 'All entries up to the specified level are logged. Use Info to log the communication without too much noise.',
     defaultValue: '3',
     inputType: 'select',
-    labelWidth: 95,
     selectOptions: {
         0: 'Disabled',
         1: 'Error',

@@ -25,7 +25,6 @@ const minimalOutput: DynamicEntry<boolean, DmarcState> = {
     description: 'Whether to only output the parameters which are different from their default value.',
     defaultValue: true,
     inputType: 'switch',
-    labelWidth: 113,
 };
 
 const domainPolicy: DynamicArgument<string, DmarcState> = {
@@ -34,7 +33,6 @@ const domainPolicy: DynamicArgument<string, DmarcState> = {
     description: 'What the receiver shall do with messages that fail the authentication or the alignment check.',
     defaultValue: 'reject',
     inputType: 'select',
-    labelWidth: 105,
     selectOptions: {
         none: 'None',
         quarantine: 'Quarantine',
@@ -48,7 +46,6 @@ const subdomainPolicy: DynamicArgument<string, DmarcState> = {
     description: 'The policy which shall be applied to subdomains. Only set this on organizational domains.',
     defaultValue: 'inherit',
     inputType: 'select',
-    labelWidth: 128,
     selectOptions: {
         inherit: 'Inherit',
         none: 'None',
@@ -71,7 +68,6 @@ const rolloutPercentage: DynamicArgument<number, DmarcState> = {
     minValue: 0,
     maxValue: 100,
     stepValue: 1,
-    labelWidth: 138,
     skip: (state, value) => noPolicy(state) || state.minimalOutput && value === 100,
     disable: noPolicy,
 };
@@ -86,7 +82,6 @@ const spfAlignment: DynamicArgument<string, DmarcState> = {
     description: 'Indicate whether strict or relaxed SPF identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
     defaultValue: 'r',
     inputType: 'select',
-    labelWidth: 105,
     selectOptions: {
         r: 'relaxed',
         s: 'strict',
@@ -100,7 +95,6 @@ const dkimAlignment: DynamicArgument<string, DmarcState> = {
     description: 'Indicate whether strict or relaxed DKIM identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
     defaultValue: 'r',
     inputType: 'select',
-    labelWidth: 120,
     selectOptions: {
         r: 'relaxed',
         s: 'strict',
@@ -128,7 +122,6 @@ const aggregateReports: DynamicArgument<string, DmarcState> = {
     description: 'A comma-separated list of email addresses to which aggregate feedback is to be sent.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 133,
     inputWidth,
     placeholder: 'Email address',
     validate: validateAddresses,
@@ -141,7 +134,6 @@ const reportInterval: DynamicArgument<number, DmarcState> = {
     description: 'The desired interval between aggregate reports. In the input in hours, in the output in seconds.',
     defaultValue: 24,
     inputType: 'number',
-    labelWidth: 111,
     inputWidth: inputWidth / 2,
     minValue: 1,
     stepValue: 1,
@@ -157,7 +149,6 @@ const failureReports: DynamicArgument<string, DmarcState> = {
     description: 'A comma-separated list of email addresses to which individual failures are to be reported.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 109,
     inputWidth,
     placeholder: 'Email address',
     validate: validateAddresses,
@@ -171,7 +162,6 @@ const reportFormat: DynamicArgument<string[], DmarcState> = {
     defaultValue: ['afrf'],
     valueSeparator: ':',
     inputType: 'multiple',
-    labelWidth: 105,
     selectOptions: {
         // https://www.iana.org/assignments/dmarc-parameters/dmarc-parameters.xhtml#report-format
         afrf: 'Authentication Failure Reporting Format (AFRF)',
@@ -188,7 +178,6 @@ const reportOptions: DynamicArgument<string[], DmarcState> = {
     defaultValue: ['0'],
     valueSeparator: ':',
     inputType: 'multiple',
-    labelWidth: 95,
     selectOptions: {
         '0': 'All authentication mechanisms fail (incl. alignment)',
         '1': 'Any authentication mechanism fails (incl. alignment)',

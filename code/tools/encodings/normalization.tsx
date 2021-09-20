@@ -22,7 +22,6 @@ const input: DynamicEntry<string> = {
     description: 'The input that you want to normalize.',
     defaultValue: 'Café',
     inputType: 'text',
-    labelWidth: 43,
     inputWidth: 280,
 };
 
@@ -39,7 +38,6 @@ const normalization: DynamicEntry<string> = {
     description: 'The form to which you want to normalize the input.',
     defaultValue: 'none',
     inputType: 'select',
-    labelWidth: 105,
     selectOptions: normalizations,
 };
 

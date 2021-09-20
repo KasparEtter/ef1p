@@ -221,7 +221,6 @@ const token: DynamicEntry<string> = {
     description: 'The token used to identify the requests.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 47,
     inputWidth: 150,
     validate: value => !/^[a-z0-9]*$/i.test(value) && 'The token has to consist of just letters and digits.',
     determine: {
@@ -236,7 +235,6 @@ const link: DynamicEntry<string> = {
     description: 'The web address for which you want to track when someone clicks on it.',
     defaultValue: 'https://ef1p.com/email',
     inputType: 'text',
-    labelWidth: 35,
     inputWidth: 300,
     validate: value =>
         // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.

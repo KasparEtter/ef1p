@@ -23,7 +23,6 @@ const input: DynamicEntry<string> = {
     description: 'The input that you want to hash.',
     defaultValue: 'Hello',
     inputType: 'text',
-    labelWidth: 43,
     inputWidth: 300,
 };
 
@@ -42,7 +41,6 @@ const algorithm: DynamicEntry<string> = {
     description: 'The cryptographic hash function that you want to apply to the input.',
     defaultValue: 'sha256',
     inputType: 'select',
-    labelWidth: 76,
     selectOptions: hashFunctions,
 };
 
@@ -51,7 +49,6 @@ const uppercase: DynamicEntry<boolean> = {
     description: 'Whether to output the hexadecimal characters in uppercase.',
     defaultValue: false,
     inputType: 'switch',
-    labelWidth: 80,
 };
 
 interface State {

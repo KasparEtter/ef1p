@@ -76,7 +76,6 @@ const unixTime: DynamicEntry<number, State> = {
     description: 'The number of seconds since 1970-01-01 at 00:00:00 UTC without leap seconds.',
     defaultValue: () => Time.current().toUnixTime(),
     inputType: 'number',
-    labelWidth: 72,
     inputWidth: 130,
     onInput: onUnixTimeInput,
     determine: {
@@ -91,7 +90,6 @@ const gregorianTime: DynamicEntry<string, State> = {
     description: 'The time in the familiar Gregorian calendar format: {Year}-{Month}-{Day} at {Hour}:{Minute}:{Second}.',
     defaultValue: Time.current().toGregorianDateWithTime(),
     inputType: 'text',
-    labelWidth: 111,
     inputWidth: 200,
     validate: value => !gregorianFormat.test(value) && errorMessage,
     onInput: onGregorianTimeInput,
@@ -108,7 +106,6 @@ const utc: DynamicEntry<boolean, State> = {
     description: 'Whether the Gregorian time is in UTC or in your local time zone.',
     defaultValue: true,
     inputType: 'switch',
-    labelWidth: 36,
     onChange: onUtcChange,
 };
 
@@ -117,7 +114,6 @@ const lastInput: DynamicEntry<string, State> = {
     description: 'This field should never be visible to users.',
     defaultValue: 'unixTime',
     inputType: 'select',
-    labelWidth: 74,
     selectOptions: {
         unixTime: 'Unix time',
         gregorianTime: 'Gregorian time',

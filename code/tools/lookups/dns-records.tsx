@@ -438,7 +438,6 @@ const domainName: DynamicEntry<string> = {
     description: 'The domain name you are interested in.',
     defaultValue: 'ef1p.com',
     inputType: 'text',
-    labelWidth: 60,
     inputWidth: 250,
     validate: value =>
         value === '' && 'The domain name may not be empty.' ||
@@ -454,7 +453,6 @@ const recordType: DynamicEntry<string> = {
     description: 'The DNS record type you want to query.',
     defaultValue: 'A',
     inputType: 'select',
-    labelWidth: 38,
     selectOptions: recordTypes,
 };
 
@@ -463,7 +461,6 @@ const dnssecOk: DynamicEntry<boolean> = {
     description: 'Whether to include DNSSEC records in the answer.',
     defaultValue: false,
     inputType: 'switch',
-    labelWidth: 66,
 };
 
 interface State {

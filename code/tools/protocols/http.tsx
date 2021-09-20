@@ -20,7 +20,6 @@ const webAddress: DynamicEntry<string> = {
     description: 'The web address you would like to fetch manually from the command line.',
     defaultValue: 'https://explained-from-first-principles.com/internet/',
     inputType: 'text',
-    labelWidth: 96,
     inputWidth: 450,
     validate: value =>
         // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.

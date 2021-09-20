@@ -60,7 +60,6 @@ const decoded: DynamicEntry<string, State> = {
     description: 'The Quoted-Printable-decoded string.',
     defaultValue: '¡Buenos días!',
     inputType: 'textarea',
-    labelWidth: 68,
     inputWidth,
     rows,
     onInput: onDecodedInput,
@@ -71,7 +70,6 @@ const encoded: DynamicEntry<string, State> = {
     description: 'The Quoted-Printable-encoded string.',
     defaultValue: '=A1Buenos d=EDas!',
     inputType: 'textarea',
-    labelWidth: 66,
     inputWidth,
     rows,
     validate: value => !encodedRegex.test(value) && encodedError,
@@ -83,7 +81,6 @@ const charset: DynamicEntry<string, State> = {
     description: 'The character set used to encode/decode the string.',
     defaultValue: 'latin1',
     inputType: 'select',
-    labelWidth: 61,
     selectOptions: {
         latin1: 'ISO-8859-1',
         utf8: 'UTF-8',
@@ -101,7 +98,6 @@ const lastInput: DynamicEntry<string, State> = {
     description: 'This field should never be visible to users.',
     defaultValue: 'decoded',
     inputType: 'select',
-    labelWidth: 74,
     selectOptions: {
         decoded: 'Decoded',
         encoded: 'Encoded',

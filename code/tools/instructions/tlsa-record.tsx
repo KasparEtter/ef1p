@@ -21,7 +21,6 @@ const certificateFile: DynamicEntry<string> = {
     description: 'The name of the end-entity or trust-anchor certificate.',
     defaultValue: 'certificate.pem',
     inputType: 'text',
-    labelWidth: 105,
     inputWidth: 135,
 };
 
@@ -30,7 +29,6 @@ const selector: DynamicEntry<string, State> = {
     description: 'Which part of the certificate is referenced by the TLSA record.',
     defaultValue: 'spki',
     inputType: 'select',
-    labelWidth: 63,
     selectOptions: {
         spki: 'SubjectPublicKeyInfo (SPKI)',
         full: 'Full DER-encoded certificate',
@@ -42,7 +40,6 @@ const matchingType: DynamicEntry<string, State> = {
     description: 'How the selected content is presented in the certificate association field.',
     defaultValue: 'sha256',
     inputType: 'select',
-    labelWidth: 106,
     selectOptions: {
         sha256: 'SHA-256',
         sha512: 'SHA-512',

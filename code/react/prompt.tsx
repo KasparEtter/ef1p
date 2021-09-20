@@ -22,7 +22,6 @@ export const prompt: DynamicEntry<string> = {
     defaultValue: '$',
     outputColor: 'pink',
     inputType: 'text',
-    labelWidth: 58,
     validate: (value: string) => value.length === 0 && 'The prompt may not be empty.',
 };
 

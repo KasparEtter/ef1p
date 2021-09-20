@@ -11,6 +11,8 @@ import { normalizeToArray, normalizeToValue } from '../utility/normalization';
 import { getRandomString } from '../utility/string';
 import { Button, ObjectButNotFunction } from '../utility/types';
 
+import { estimateStringWidth } from '../svg/utility/string';
+
 import { CustomInput, CustomTextarea } from './custom';
 import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore, shareStore } from './share';
@@ -66,6 +68,14 @@ function getValue(target: HTMLInputElement | HTMLSelectElement): ValueType {
         return Number(target.value);
     } else {
         return target.value;
+    }
+}
+
+function getLabelWidth(entry: DynamicEntry<any, any>): number {
+    if (entry.labelWidth !== undefined) {
+        return entry.labelWidth;
+    } else {
+        return Math.ceil(estimateStringWidth(entry.name + ':') + 0.1);
     }
 }
 
@@ -165,7 +175,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 !this.props.noLabels &&
                 <span
                     className={'label-text' + (['multiple', 'textarea'].includes(entry.inputType) ? ' label-for-textarea' : '') + ' cursor-help' + (disabled ? ' color-gray' : '')}
-                    style={this.props.newColumnAt ? { width: (this.props.individualLabelWidth ? entry.labelWidth : labelWidth) + 'px' } : {}}
+                    style={this.props.newColumnAt ? { width: (this.props.individualLabelWidth ? getLabelWidth(entry) : labelWidth) + 'px' } : {}}
                 >
                     {entry.name}:
                 </span>
@@ -357,7 +367,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const keys = Object.keys(this.entries);
         const hasErrors = !hasNoErrors(this.props.store);
         const labelWidth = this.props.individualLabelWidth || !this.props.newColumnAt ?
-            0 : Math.max(...Object.values(this.entries).map(entry => entry!.labelWidth));
+            0 : Math.max(...Object.values(this.entries).map(entry => getLabelWidth(entry)));
         const newColumn = this.props.newColumnAt;
         if (newColumn) {
             return <div className="block-form vertical-form row">

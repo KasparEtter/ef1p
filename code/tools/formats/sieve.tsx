@@ -24,7 +24,6 @@ const condition: DynamicEntry<string, State> = {
     description: 'Under what condition the action shall be executed.',
     defaultValue: 'Subject',
     inputType: 'select',
-    labelWidth: 75,
     selectOptions: {
         From: 'From',
         To: 'To',
@@ -59,7 +58,6 @@ const addressPart: DynamicEntry<string, State> = {
     description: 'Which part of the address shall be matched.',
     defaultValue: 'all',
     inputType: 'select',
-    labelWidth: 95,
     selectOptions: {
         all: 'Whole address',
         localpart: 'Local part',
@@ -75,7 +73,6 @@ const matchType: DynamicEntry<string, State> = {
     description: 'How the field has to match the value.',
     defaultValue: 'contains',
     inputType: 'select',
-    labelWidth: 85,
     selectOptions: {
         contains: 'Contains',
         beginsWith: 'Begins with',
@@ -115,7 +112,6 @@ const value: DynamicEntry<string, State> = {
     description: 'The value to match the selected field.',
     defaultValue: 'Test',
     inputType: 'text',
-    labelWidth: 45,
     inputWidth,
     transform: (value, { matchType }) =>
         matchType === 'beginsWith' ?
@@ -135,7 +131,6 @@ const negation: DynamicEntry<boolean, State> = {
     description: 'Whether to negate the condition.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 70,
     transform: () => 'not',
     skip: ({ condition }, value) => condition === 'Always' || !value,
     disable: ifAlways,
@@ -146,7 +141,6 @@ const action: DynamicEntry<string, State> = {
     description: 'What you want to do with the messages which satisfy the condition.',
     defaultValue: 'addflag',
     inputType: 'select',
-    labelWidth: 51,
     selectOptions: {
         fileinto: 'Move',
         redirect: 'Forward',
@@ -163,7 +157,6 @@ const argument: DynamicEntry<string, State> = {
     description: 'The argument to the chosen action.',
     defaultValue: '\\Seen',
     inputType: 'text',
-    labelWidth: 76,
     inputWidth,
     transform: doubleQuote,
     skip: ({ action }) => action === 'discard',

@@ -87,7 +87,6 @@ const address: DynamicEntry<string, State> = {
     description: 'The address of your mailbox.',
     defaultValue: 'alice@example.org',
     inputType: 'text',
-    labelWidth: 63,
     inputWidth,
     validate: value => !emailAddressRegex.test(value) && 'Please enter a single email address.',
     onChange: updateServer,
@@ -98,7 +97,6 @@ const password: DynamicEntry<string, State> = {
     description: 'The password of your account. I recommend you to set up a test account for this.',
     defaultValue: '',
     inputType: 'password',
-    labelWidth: 73,
     inputWidth,
     placeholder: 'Your password',
 };
@@ -108,7 +106,6 @@ const security: DynamicEntry<string, State> = {
     description: 'Select which variant of TLS you want to use.',
     defaultValue: 'implicit',
     inputType: 'select',
-    labelWidth: 63,
     selectOptions: {
         implicit: 'Implicit TLS',
         explicit: 'Explicit TLS',
@@ -121,7 +118,6 @@ const server: DynamicEntry<string, State> = {
     description: 'The server to connect to. The server is determined automatically if possible but you can also set it manually.',
     defaultValue: 'pop3.example.org',
     inputType: 'text',
-    labelWidth: 51,
     inputWidth,
     validate: value => !domainRegex.test(value) && 'Please enter a domain name in the preferred name syntax.',
 };
@@ -131,7 +127,6 @@ const port: DynamicEntry<number, State> = {
     description: 'The port number of the server. The port number is determined automatically but you can also set the value manually.',
     defaultValue: 995,
     inputType: 'number',
-    labelWidth: 36,
     inputWidth: inputWidth / 2,
     minValue: 1,
     maxValue: 65535,
@@ -144,7 +139,6 @@ const username: DynamicEntry<string, State> = {
     description: 'Select how to determine the username for authentication.',
     defaultValue: 'full',
     inputType: 'select',
-    labelWidth: 77,
     selectOptions: {
         full: 'Full address',
         local: 'Local part',
@@ -156,7 +150,6 @@ const credential: DynamicEntry<string, State> = {
     description: 'Select how to authenticate towards the server.',
     defaultValue: 'plain',
     inputType: 'select',
-    labelWidth: 79,
     selectOptions: {
         plain: 'Plain password (PLAIN)',
         hashed: 'Hashed password (APOP)',
@@ -168,7 +161,6 @@ const challenge: DynamicEntry<string, State> = {
     description: 'The challenge received from the server when using the hashed password as the credential.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 75,
     inputWidth,
     placeholder: ({ address }) => `<unique@${getDomain(address)}>`,
     disable: ({ credential }) => credential !== 'hashed',
@@ -182,7 +174,6 @@ const deletion: DynamicEntry<boolean, State> = {
     description: 'Whether to delete the retrieved message on the server.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 52,
 };
 
 interface State {

@@ -29,7 +29,6 @@ const openssl: DynamicEntry<string, State> = {
     description: 'The name or path of your OpenSSL command.',
     defaultValue: 'openssl',
     inputType: 'text',
-    labelWidth: 69,
     inputWidth,
     transform: doubleQuoteIfWhitespace,
 };
@@ -39,7 +38,6 @@ const server: DynamicEntry<string, State> = {
     description: 'The server to connect to. This time you have to configure it manually.',
     defaultValue: 'sieve.example.org',
     inputType: 'text',
-    labelWidth: 51,
     inputWidth,
     validate: value => !domainRegex.test(value) && 'Please enter a domain name in the preferred name syntax.',
 };
@@ -49,7 +47,6 @@ const port: DynamicEntry<number, State> = {
     description: 'The port number of the ManageSieve protocol on the server.',
     defaultValue: 4190,
     inputType: 'number',
-    labelWidth: 36,
     inputWidth: inputWidth / 2,
     minValue: 1,
     maxValue: 65535,
@@ -61,7 +58,6 @@ const username: DynamicEntry<string, State> = {
     description: 'The username of your account.',
     defaultValue: 'alice@example.org',
     inputType: 'text',
-    labelWidth: 77,
     inputWidth,
     validate: value => !usernameRegex.test(value) && 'Please enter a valid email address or local part.',
 };
@@ -71,7 +67,6 @@ const password: DynamicEntry<string, State> = {
     description: 'The password of your account. I recommend you to set up a test account for this.',
     defaultValue: '',
     inputType: 'password',
-    labelWidth: 73,
     inputWidth,
     placeholder: 'Your password',
 };
@@ -81,7 +76,6 @@ const list: DynamicEntry<boolean, State> = {
     description: 'Whether to list existing scripts on the server.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 30,
 };
 
 const action: DynamicEntry<string, State> = {
@@ -89,7 +83,6 @@ const action: DynamicEntry<string, State> = {
     description: 'What you want to do.',
     defaultValue: 'PUTSCRIPT',
     inputType: 'select',
-    labelWidth: 51,
     selectOptions: {
         'PUTSCRIPT': 'Upload',
         'GETSCRIPT': 'Download',
@@ -106,7 +99,6 @@ const name: DynamicEntry<string, State> = {
     description: 'The name of the script.',
     defaultValue: 'MyScript',
     inputType: 'text',
-    labelWidth: 47,
     inputWidth,
     transform: doubleQuote,
 };
@@ -116,7 +108,6 @@ const script: DynamicEntry<string, State> = {
     description: 'The ManageSieve script to upload to the server.',
     defaultValue: 'require "body";\nif body :contains "Test" {\n    discard;\n}',
     inputType: 'textarea',
-    labelWidth: 46,
     inputWidth,
     rows: 4,
     disable: ({ action }) => action !== 'PUTSCRIPT',

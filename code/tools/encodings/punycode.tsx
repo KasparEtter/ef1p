@@ -92,7 +92,6 @@ const decoded: DynamicEntry<string, State> = {
     description: 'The decoded Unicode string.',
     defaultValue: 'Zürich',
     inputType: 'text',
-    labelWidth: 68,
     inputWidth,
     validate: (value, { domain }) => domain && !unicodeDomainRegex.test(value) && encodingError,
     onInput: onDecodedInput,
@@ -103,7 +102,6 @@ const encoded: DynamicEntry<string, State> = {
     description: 'The encoded Punycode string.',
     defaultValue: 'Zrich-kva',
     inputType: 'text',
-    labelWidth: 66,
     inputWidth,
     validate: validateEncoded,
     onInput: onEncodedInput,
@@ -114,7 +112,6 @@ const domain: DynamicEntry<boolean, State> = {
     description: 'Whether to encode/decode the string as a domain name.',
     defaultValue: false,
     inputType: 'switch',
-    labelWidth: 60,
     onChange: onDomainChange,
 };
 

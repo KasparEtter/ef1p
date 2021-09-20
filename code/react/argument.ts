@@ -24,7 +24,6 @@ export const shortForm: DynamicEntry<boolean> = {
     description: 'Use the short form of arguments.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 80,
 };
 
 export interface StateWithArguments {

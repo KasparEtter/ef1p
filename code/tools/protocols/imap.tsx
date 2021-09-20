@@ -90,7 +90,6 @@ const address: DynamicEntry<string, State> = {
     description: 'The address of your mailbox.',
     defaultValue: 'alice@example.org',
     inputType: 'text',
-    labelWidth: 63,
     inputWidth,
     validate: value => !emailAddressRegex.test(value) && 'Please enter a single email address.',
     transform: (value, state) => getUsername(state.username, value),
@@ -102,7 +101,6 @@ const password: DynamicEntry<string, State> = {
     description: 'The password of your account. I recommend you to set up a test account for this.',
     defaultValue: '',
     inputType: 'password',
-    labelWidth: 73,
     inputWidth,
     placeholder: 'Your password',
 };
@@ -112,7 +110,6 @@ const security: DynamicEntry<string, State> = {
     description: 'Select which variant of TLS you want to use.',
     defaultValue: 'implicit',
     inputType: 'select',
-    labelWidth: 63,
     selectOptions: {
         implicit: 'Implicit TLS',
         explicit: 'Explicit TLS',
@@ -125,7 +122,6 @@ const server: DynamicEntry<string, State> = {
     description: 'The server to connect to. The server is determined automatically if possible but you can also set it manually.',
     defaultValue: 'imap.example.org',
     inputType: 'text',
-    labelWidth: 51,
     inputWidth,
     validate: value => !domainRegex.test(value) && 'Please enter a domain name in the preferred name syntax.',
 };
@@ -135,7 +131,6 @@ const port: DynamicEntry<number, State> = {
     description: 'The port number of the server. The port number is determined automatically but you can also set the value manually.',
     defaultValue: 993,
     inputType: 'number',
-    labelWidth: 36,
     inputWidth: inputWidth / 2,
     minValue: 1,
     maxValue: 65535,
@@ -148,7 +143,6 @@ const username: DynamicEntry<string, State> = {
     description: 'Select how to determine the username for authentication.',
     defaultValue: 'full',
     inputType: 'select',
-    labelWidth: 77,
     selectOptions: {
         full: 'Full address',
         local: 'Local part',
@@ -160,7 +154,6 @@ const list: DynamicEntry<boolean, State> = {
     description: 'Whether to list all folders.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 30,
 };
 
 const write: DynamicEntry<boolean, State> = {
@@ -168,7 +161,6 @@ const write: DynamicEntry<boolean, State> = {
     description: 'Whether to allow modifications to the selected folder.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 46,
 };
 
 const fetch: DynamicEntry<string, State> = {
@@ -176,7 +168,6 @@ const fetch: DynamicEntry<string, State> = {
     description: 'Select what you want to fetch.',
     defaultValue: '(BODY[])',
     inputType: 'select',
-    labelWidth: 44,
     selectOptions: {
         'INTERNALDATE': 'Date',
         'FLAGS': 'Flags',
@@ -192,7 +183,6 @@ const search: DynamicArgument<boolean, State> = {
     description: 'Whether to fetch (and delete) the search result instead of the specified messages.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 53,
     longForm: 'ESEARCH SEARCHRES',
 };
 
@@ -211,7 +201,6 @@ const messages: DynamicEntry<string, State> = {
     description: 'The message numbers you want to fetch. Examples: "4", "6:8", "4,6:8", or "1:*".',
     defaultValue: '4',
     inputType: 'text',
-    labelWidth: 74,
     inputWidth: inputWidth / 2,
     disable: ({ search }) => search,
     validate: value =>
@@ -314,7 +303,6 @@ const criterion: DynamicEntry<string, State> = {
     description: 'Select the criteria you want to search for.',
     defaultValue: 'SUBJECT',
     inputType: 'select',
-    labelWidth: 69,
     selectOptions,
     disable: ({ search }) => !search,
 };
@@ -324,7 +312,6 @@ const value: DynamicEntry<string, State> = {
     description: 'The value you want to search for.',
     defaultValue: '',
     inputType: 'text',
-    labelWidth: 44,
     inputWidth,
     disable: ({ search, criterion }) => !search || !criteria[criterion].value,
     skip: ({ criterion }) => !criteria[criterion].value,
@@ -356,7 +343,6 @@ const date: DynamicEntry<string, State> = {
     description: 'The date you want to search for.',
     defaultValue: Time.current().toLocalTime().toGregorianDate(),
     inputType: 'date',
-    labelWidth: 40,
     disable: ({ search, criterion }) => !search || !criteria[criterion].date,
     skip: ({ criterion }) => !criteria[criterion].date,
     transform: toImapFormat,
@@ -367,7 +353,6 @@ const deletion: DynamicEntry<boolean, State> = {
     description: 'Whether to delete the fetched message on the server.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 52,
     disable: ({ write }) => !write,
 };
 
@@ -376,7 +361,6 @@ const append: DynamicEntry<boolean, State> = {
     description: 'Whether to add a message to the selected folder.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 60,
     disable: ({ write }) => !write,
 };
 
@@ -385,7 +369,6 @@ const idle: DynamicArgument<boolean, State> = {
     description: 'Whether to listen for changes to the selected folder.',
     defaultValue: false,
     inputType: 'checkbox',
-    labelWidth: 31,
     longForm: 'IDLE',
 };
 

@@ -86,7 +86,7 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     /**
      * Width in pixels.
      */
-    readonly labelWidth: number;
+    readonly labelWidth?: number;
 
     /**
      * Width in pixels.

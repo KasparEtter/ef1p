@@ -1969,7 +1969,6 @@ const domain: DynamicEntry<string> = {
     defaultValue: 'gmail.com',
     suggestedValues: ['outlook.com', 'hotmail.com', 'yahoo.com', 'me.com', 'ef1p.com', 'explained-from-first-principles.com'],
     inputType: 'text',
-    labelWidth: 60,
     inputWidth,
     validate: value =>
         value === '' && 'The domain name may not be empty.' ||
@@ -1985,7 +1984,6 @@ const dkimSelector: DynamicEntry<string> = {
     description: 'The name of the DKIM key you want to query.',
     defaultValue: '20161025',
     inputType: 'text',
-    labelWidth: 63,
     inputWidth: inputWidth / 2,
     validate: value => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(value) && 'The selector has the same format as a domain name.',
 };
@@ -1995,7 +1993,6 @@ const bimiSelector: DynamicEntry<string> = {
     description: 'The name of the brand indicator you want to query.',
     defaultValue: 'default',
     inputType: 'text',
-    labelWidth: 63,
     inputWidth: inputWidth / 2,
     validate: value => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(value) && 'The selector has the same format as a domain name.',
 };

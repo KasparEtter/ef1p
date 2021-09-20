@@ -149,7 +149,6 @@ const startDomain: DynamicEntry<string> = {
     description: 'The domain name from which you would like to list the next domain names.',
     defaultValue: 'ietf.org',
     inputType: 'text',
-    labelWidth: 95,
     inputWidth: 220,
     validate: value =>
         value === '' && 'The domain name may not be empty.' ||
@@ -165,7 +164,6 @@ const resultLimit: DynamicEntry<number> = {
     description: 'Configure the maximum number of results to be returned.',
     defaultValue: 20,
     inputType: 'range',
-    labelWidth: 84,
     minValue: 10,
     maxValue: 150,
     stepValue: 10,
