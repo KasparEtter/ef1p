@@ -8,7 +8,7 @@ import createHash from 'create-hash';
 import createHmac from 'create-hmac';
 import { Buffer } from 'safe-buffer';
 
-import { filterUndefined, getInitializedArray } from './array';
+import { filterUndefined, getInitializedArray, getLastElement } from './array';
 import { reverseLookup } from './record';
 import { doubleQuote, normalizeNewlines, splitOutsideOfDoubleQuotes, toHex } from './string';
 
@@ -392,7 +392,7 @@ function decodeOtherParameterValue(value: string, charset: Charset): string {
 function decodeInitialParameterValue(value: string): [string, Charset] {
     const parts = value.split(`'`);
     const charset = reverseLookup(charsets, parts[0].toUpperCase()) as Charset | undefined ?? 'utf8';
-    return [decodeOtherParameterValue(parts[parts.length - 1], charset), charset];
+    return [decodeOtherParameterValue(getLastElement(parts), charset), charset];
 }
 
 export function decodeExtendedParameter(text: string): string {

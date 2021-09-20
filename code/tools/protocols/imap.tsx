@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { sortNumbers, unique } from '../../utility/array';
+import { getFirstElement, getLastElement, sortNumbers, unique } from '../../utility/array';
 import { Dictionary, reverseLookup } from '../../utility/record';
 import { doubleQuote } from '../../utility/string';
 import { Time } from '../../utility/time';
@@ -223,8 +223,8 @@ function getAllMessageNumbers(state: State): string[] {
         const sequences = state.messages.split(',');
         for (const sequence of sequences) {
             const parts = sequence.split(':').map(value => Number.parseInt(value, 10));
-            const value1 = parts[0];
-            const value2 = parts[parts.length - 1];
+            const value1 = getFirstElement(parts);
+            const value2 = getLastElement(parts);
             const smallerValue = Math.min(value1, value2);
             const largerValue = Math.max(value1, value2);
             for (let i = smallerValue; i <= largerValue; i++) {

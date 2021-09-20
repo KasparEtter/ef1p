@@ -4,6 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { getLastElement } from '../../utility/array';
 import { Color } from '../../utility/color';
 
 import { lineHeight, textHeight, textToLineDistance } from '../utility/constants';
@@ -29,9 +30,9 @@ export function addGrid(elements: VisualElement[], scale: number, xAxis: string,
         elements.push(new Line({ start: P(0, y), end: P(x, y), color, classes: 'thin' }));
         elements.push(new Text({ position: P(-textToLineDistance, y), text: yLabels[i], horizontalAlignment: 'right', verticalAlignment: 'middle', color }));
     }
-    const xAxisPosition = P(x / 2, textToLineDistance + (rotated ? estimateTextWidth(xLabels[xLabels.length - 1]) + textToLineDistance : lineHeight));
+    const xAxisPosition = P(x / 2, textToLineDistance + (rotated ? estimateTextWidth(getLastElement(xLabels)) + textToLineDistance : lineHeight));
     elements.push(new Text({ position: xAxisPosition, text: bold(xAxis), horizontalAlignment: 'middle', verticalAlignment: 'top', color }));
-    const yAxisPosition = P(-2 * textToLineDistance - estimateTextWidth(yLabels[yLabels.length - 1]), y / 2);
+    const yAxisPosition = P(-2 * textToLineDistance - estimateTextWidth(getLastElement(yLabels)), y / 2);
     elements.push(new Text({ position: yAxisPosition, text: bold(yAxis), horizontalAlignment: rotated ? 'middle' : 'right', verticalAlignment: rotated ? 'bottom' : 'middle', color, transform: rotated ? rotate(yAxisPosition, -90) : undefined, ignoreForClipping: rotated }));
     if (rotated) {
         elements.push(new InvisiblePoint({ point: P(x + textHeight / 2, 0) }));

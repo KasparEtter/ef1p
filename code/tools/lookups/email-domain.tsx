@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { flatten } from '../../utility/array';
+import { flatten, getLastElement } from '../../utility/array';
 import { copyToClipboard } from '../../utility/clipboard';
 import { fetchWithError } from '../../utility/fetch';
 import { Dictionary } from '../../utility/record';
@@ -1758,7 +1758,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
                             }
                         }
                         if (allValid) {
-                            tlsaQuery.records[tlsaQuery.records.length - 1].buttons.push({
+                            getLastElement(tlsaQuery.records).buttons.push({
                                 text: 'Copy the OpenSSL command',
                                 title: 'Copy the OpenSSL command with the DANE constraint to your clipboard.',
                                 onClick: () => copyToClipboard(`${getOpenSslCommand()} s_client -starttls smtp -connect ${mxDomain}:25 -verify_return_error -dane_tlsa_domain "${mxDomain}" ${tlsaQuery.records.map(record => `-dane_tlsa_rrdata "${record}"`).join(' ')}`),
@@ -1838,7 +1838,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
             fileQuery.records.push(record);
             fileQuery.remarks = [];
             const fields = content.split('\n');
-            if (fields[fields.length - 1] === '') {
+            if (getLastElement(fields) === '') {
                 fields.pop();
             }
             const encountered: Set<string> = new Set();

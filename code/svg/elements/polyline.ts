@@ -4,6 +4,8 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+import { getFirstElement, getLastElement } from '../../utility/array';
+
 import { boundingBox, Box, BoxSide } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
@@ -60,8 +62,8 @@ export class Polyline extends VisualElement<PolylineProps> {
             throw Error('A polyline requires at least one intermediate point.');
         }
         const marker = props.marker ?? 'end';
-        const start = startElement.pointTowards(intermediatePoints[0], startOffset ?? markerOffset(marker, 'start'));
-        const end = endElement.pointTowards(intermediatePoints[intermediatePoints.length - 1], endOffset ?? markerOffset(marker, 'end'));
+        const start = startElement.pointTowards(getFirstElement(intermediatePoints), startOffset ?? markerOffset(marker, 'start'));
+        const end = endElement.pointTowards(getLastElement(intermediatePoints), endOffset ?? markerOffset(marker, 'end'));
         return new Polyline({ points: [start, ...intermediatePoints, end], marker, ...props });
     }
 

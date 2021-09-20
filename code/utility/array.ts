@@ -43,12 +43,12 @@ export function popFromArray<T extends Equality<T>>(array: T[], element: T): T[]
     return array;
 }
 
-export function arrayEquals<T extends Equality<T>>(a: T[], b: T[]): boolean {
-    if (a.length !== b.length) {
+export function arrayEquals<T extends Equality<T>>(array1: T[], array2: T[]): boolean {
+    if (array1.length !== array2.length) {
         return false;
     }
-    for (let i = 0; i < a.length; i++) {
-        if (!a[i].equals(b[i])) {
+    for (let i = 0; i < array1.length; i++) {
+        if (!array1[i].equals(array2[i])) {
             return false;
         }
     }
@@ -80,4 +80,22 @@ export function unique<T>(array: T[]): T[] {
 
 export function sortNumbers(array: number[]): number[] {
     return array.sort((a, b) => a - b);
+}
+
+export function shorterAndLonger<T>(array1: T[], array2: T[]): [T[], T[]] {
+    return array1.length < array2.length ? [array1, array2] : [array2, array1];
+}
+
+/**
+ * The caller has to ensure that the given array is not empty.
+ */
+export function getFirstElement<T>(array: T[]): T {
+    return array[0];
+}
+
+/**
+ * The caller has to ensure that the given array is not empty.
+ */
+export function getLastElement<T>(array: T[]): T {
+    return array[array.length - 1];
 }
