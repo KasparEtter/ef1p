@@ -156,7 +156,7 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     /**
      * Only use onChange for reactions specific to this entry.
      * Otherwise use the meta property of the store.
-     * The function is called only with a valid value and a valid state.
+     * The handlers are called only with a valid value and a valid state.
      *
      * @argument fromHistory Derived entries shouldn't be overwritten when stepping through the history.
      * @argument changeId This value allows callees to determine that the same change triggered several invocations of the same handler.

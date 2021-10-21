@@ -76,7 +76,8 @@ export interface AllEntries<State extends ObjectButNotFunction> {
     readonly entries: DynamicEntries<State>;
 
     /**
-     * The given handlers are called when any value changed or when the user pressed enter.
+     * The given handlers are called when any value changed, when the user pressed enter, or when the user clicked on the submit button.
+     * The handlers are called only with a valid state.
      */
     readonly onChange?: ChangeHandler<State>;
 }
@@ -147,7 +148,19 @@ export function validateInputs<State extends ObjectButNotFunction>(
     const inputs = store.state.inputs;
     const entries = store.meta.entries;
     for (const key of Object.keys(entries) as KeysOf<State>) {
-        store.state.errors[key] = entries[key].validate?.(inputs[key], inputs) ?? false;
+        const entry = entries[key];
+        const value = inputs[key];
+        if (entry.inputType === 'number') {
+            if (entry.minValue !== undefined && value < entry.minValue) {
+                store.state.errors[key] = `This value may not be less than ${entry.minValue}.`;
+                continue;
+            }
+            if (entry.maxValue !== undefined && value > entry.maxValue) {
+                store.state.errors[key] = `This value may not be greater than ${entry.maxValue}.`;
+                continue;
+            }
+        }
+        store.state.errors[key] = entry.validate?.(value, inputs) ?? false;
     }
 }
 
@@ -225,14 +238,15 @@ function updateState<State extends ObjectButNotFunction>(
                     normalizeToArray(entries[key].onChange).forEach(handler => handler(inputs[key], inputs, false, changeId));
                 }
             }
-            if (callMetaOnChangeEvenWhenNothingChanged) {
-                normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
-            }
+            normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
             if (createNewState) {
                 report('Use tool', { Identifier: store.identifier });
             }
         } else {
             store.update('input');
+            if (callMetaOnChangeEvenWhenNothingChanged) {
+                normalizeToArray(store.meta.onChange).forEach(handler => handler(inputs, false));
+            }
         }
     } else {
         store.update('input');
