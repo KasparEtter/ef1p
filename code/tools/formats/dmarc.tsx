@@ -67,7 +67,6 @@ const rolloutPercentage: DynamicArgument<number, DmarcState> = {
     inputType: 'range',
     minValue: 0,
     maxValue: 100,
-    stepValue: 1,
     skip: (state, value) => noPolicy(state) || state.minimalOutput && value === 100,
     disable: noPolicy,
 };
@@ -136,10 +135,8 @@ const reportInterval: DynamicArgument<number, DmarcState> = {
     inputType: 'number',
     inputWidth: inputWidth / 2,
     minValue: 1,
-    stepValue: 1,
     skip: (state, value) => !state.aggregateReports || state.minimalOutput && value === 24,
     disable: state => !state.aggregateReports,
-    validate: value => value < 1 && 'The value has to be at least 1.',
     transform: value => String(3600 * value),
 };
 

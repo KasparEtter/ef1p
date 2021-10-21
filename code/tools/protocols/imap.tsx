@@ -23,7 +23,7 @@ import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
-import { connect, crlf, domainRegex, emailAddressRegex, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, openssl, quiet } from './esmtp';
+import { connect, crlf, domainRegex, emailAddressRegex, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, maxPortNumber, minPortNumber, openssl, quiet } from './esmtp';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -132,10 +132,9 @@ const port: DynamicEntry<number, State> = {
     defaultValue: 993,
     inputType: 'number',
     inputWidth: inputWidth / 2,
-    minValue: 1,
-    maxValue: 65535,
+    minValue: minPortNumber,
+    maxValue: maxPortNumber,
     // suggestedValues: [143, 993],
-    validate: value => (value < 1 || value > 65535) && 'The port has to be a number between 1 and 65535.',
 };
 
 const username: DynamicEntry<string, State> = {

@@ -299,16 +299,18 @@ const server: DynamicEntry<string, State> = {
     validate: value => !domainRegex.test(value) && 'Please enter a domain name in the preferred name syntax.',
 };
 
+export const minPortNumber = 1;
+export const maxPortNumber = 65535;
+
 const port: DynamicEntry<number, State> = {
     name: 'Port',
     description: 'The port number of the server. The port number is determined automatically but you can also set the value manually.',
     defaultValue: 465,
     inputType: 'number',
     inputWidth: inputWidth / 2,
-    minValue: 1,
-    maxValue: 65535,
+    minValue: minPortNumber,
+    maxValue: maxPortNumber,
     // suggestedValues: [25, 465, 587],
-    validate: value => (value < 1 || value > 65535) && 'The port has to be a number between 1 and 65535.',
 };
 
 const client: DynamicEntry<string, State> = {

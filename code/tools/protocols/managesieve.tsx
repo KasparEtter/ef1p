@@ -18,7 +18,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 
-import { connect, crlf, domainRegex, quiet, usernameRegex } from './esmtp';
+import { connect, crlf, domainRegex, maxPortNumber, minPortNumber, quiet, usernameRegex } from './esmtp';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -48,9 +48,8 @@ const port: DynamicEntry<number, State> = {
     defaultValue: 4190,
     inputType: 'number',
     inputWidth: inputWidth / 2,
-    minValue: 1,
-    maxValue: 65535,
-    validate: value => (value < 1 || value > 65535) && 'The port has to be a number between 1 and 65535.',
+    minValue: minPortNumber,
+    maxValue: maxPortNumber,
 };
 
 const username: DynamicEntry<string, State> = {
