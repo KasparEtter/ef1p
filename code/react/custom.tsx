@@ -34,7 +34,8 @@ export class CustomTextarea extends Component<Omit<TextareaHTMLAttributes<HTMLTe
 /* ------------------------------ Input ------------------------------ */
 
 export interface CustomInputProps extends CustomTextareaProps {
-    onEnter?: EventHandler;
+    onEnter?: EventHandler<KeyboardEvent>;
+    onUpOrDown?: EventHandler<KeyboardEvent>;
 }
 
 /**
@@ -54,13 +55,21 @@ export class CustomInput extends Component<Omit<InputHTMLAttributes<HTMLInputEle
         if (element) {
             element.onchange = this.props.onChange ?? null;
             element.oninput = this.props.onInput ?? null;
-            if ((this.props.type === 'text' || this.props.type === 'number') && this.props.onEnter) {
-                element.onkeydown = (event: KeyboardEvent) => {
+            if (this.props.type === 'text' || this.props.type === 'number') {
+                element.addEventListener('keydown', (event: KeyboardEvent) => {
                     if (event.key === 'Enter' && this.props.onEnter) {
                         this.props.onEnter(event);
                         event.preventDefault();
                     }
-                };
+                });
+            }
+            if (this.props.type === 'number') {
+                element.addEventListener('keydown', (event: KeyboardEvent) => {
+                    if (['ArrowUp', 'ArrowDown'].includes(event.key) && this.props.onUpOrDown) {
+                        this.props.onUpOrDown(event);
+                        event.preventDefault();
+                    }
+                });
             }
         }
     };

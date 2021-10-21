@@ -52,6 +52,7 @@ export interface InputProps<State extends ObjectButNotFunction> {
     /**
      * For submit actions specific to this instantiation of the form.
      * It is triggered when the user presses enter in one of the fields or clicks on the button.
+     * When there are no errors, the general change handler is called before the click handler.
      */
     submit?: Button<State>;
 }
@@ -111,11 +112,39 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
     }
 
+    private readonly onUpOrDown = (event: KeyboardEvent) => {
+        const target = event.currentTarget as HTMLInputElement;
+        const key = target.name as keyof State;
+        const entry: DynamicEntry<number, State> = this.entries[key]!;
+        const inputs = this.props.store.state.inputs;
+        const step = (entry.stepValue ?? 1) * (event.key === 'ArrowUp' ? 1 : -1);
+        while (true) {
+            const value = inputs[key] as unknown as number + step;
+            if (entry.minValue !== undefined && value < entry.minValue) {
+                inputs[key] = entry.minValue as any;
+                break;
+            } else if (entry.maxValue !== undefined && value > entry.maxValue) {
+                inputs[key] = entry.maxValue as any;
+                break;
+            } else {
+                inputs[key] = value as any;
+                validateInputs(this.props.store);
+                if (hasNoErrors(this.props.store)) {
+                    break;
+                }
+            }
+        }
+        const value = inputs[key] as unknown as number;
+        const state = getCurrentState(this.props.store);
+        normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
+        setState(this.props.store);
+    }
+
     private readonly onDetermine = async (event: MouseEvent<HTMLButtonElement>) => {
         const target = event.currentTarget as HTMLButtonElement;
         const key = target.name as keyof State;
         const entry: DynamicEntry<any, State> = this.entries[key]!;
-        const index = Number(event.currentTarget.dataset.index);
+        const index = Number(target.dataset.index);
         const input = this.props.store.state.inputs[key];
         const [value, error] = await normalizeToArray(entry.determine)[index].onClick(input);
         if (error) {
@@ -266,6 +295,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                             onChange={this.onChange}
                             onInput={this.onInput}
                             onEnter={this.onEnter}
+                            onUpOrDown={this.onUpOrDown}
                             list={history ? key + this.randomID : undefined}
                             style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                         />
