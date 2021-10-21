@@ -4,7 +4,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2020-08-05
-modified: 2021-07-12
+modified: 2021-10-21
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 icon: network-wired
@@ -32,7 +32,7 @@ this article contains a lot of acronyms.
 Many of them are [three-letter acronyms (TLA)](https://en.wikipedia.org/wiki/Three-letter_acronym),
 but some are longer,
 which makes them extended three-letter acronyms (ETLA).
-While I introduce most of the acronyms before using them,
+While I introduce all acronyms before using them,
 you can simply hover over a TLA or an ETLA with your mouse
 if you forgot what they stand for.
 If you are reading this on a touch device,
@@ -1673,7 +1673,7 @@ this is what it provides:
   Or put another way: A party can plausibly dispute
   that it communicated the statements inside a TLS connection.
   This is because message authentication codes are [symmetric](https://en.wikipedia.org/wiki/Message_authentication_code#Security),
-  i.e. whoever can verify them can also generate them.
+  which means that whoever can verify them can also generate them.
 
 Since TLS requires reliable communication,
 it uses [TCP](#transmission-control-protocol) on the [transport layer](#transport-layer).

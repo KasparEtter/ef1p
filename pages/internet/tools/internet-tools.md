@@ -1,5 +1,7 @@
 ---
 title: Internet tools
+author: Kaspar Etter
+license: CC BY 4.0
 teaser: Play around with the tools from the article about the Internet.
 permalink: /internet/tools/
 redirect_from: /tools/
