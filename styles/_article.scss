@@ -94,7 +94,9 @@ article {
       padding: .3rem .6rem;
     }
 
-    th {
+    thead th,
+    > tr:first-child td,
+    > tr:first-child th {
       border-top: 0;
     }
   }
