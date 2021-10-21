@@ -51,8 +51,8 @@
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body, { strict: false, trust: true });"></script>
     {% endif %}
         <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
-        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=11"></script>
         <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v=12"></script>
+        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=11"></script>
 
         <link rel="stylesheet" id="theme" href="{{ '/assets/styles/dark.min.css?v=11' | relative_url }}">
         <script>
