@@ -4,7 +4,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-08-11
+modified: 2021-10-21
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 icon: envelope
@@ -95,7 +95,7 @@ Since the term *electronic mail* applies to any mail that is transferred electro
 [fax](https://en.wikipedia.org/wiki/Fax), [SMS](https://en.wikipedia.org/wiki/SMS), and other systems.
 For this reason, I use only the short form *email* in this article and always mean the decentralized system
 to transfer messages over the Internet as documented in numerous [RFCs](/internet/#request-for-comments).
-The term *email* doesn't appear in the [original RFC](https://datatracker.ietf.org/doc/html/rfc821)
+The term *email* doesn't appear in the [original RFC](https://datatracker.ietf.org/doc/html/rfc821),
 and many RFCs just use *mail* or *(Internet) message* instead.
 In ordinary language, *email* refers both to the system of standards
 and to individual messages transmitted via these standards.
@@ -735,7 +735,7 @@ The following entities and protocols are involved in the transmission of a messa
 <figcaption markdown="span">
 
 The simplified email architecture.
-We'll discuss each entity in the [next section](#entities) and the protocols [thereafter](#protocols).
+We'll discuss each entity in the [next chapter](#entities) and the protocols [thereafter](#protocols).
 
 </figcaption>
 </figure>
@@ -1262,7 +1262,7 @@ why outgoing mail servers are used in practice:
   its mail client is offline for several hours.
   Thus, it makes sense to implement the following features on a server:
   - **Retry after unsuccessful delivery**:
-    As we will see in the [next subsection](#incoming-mail-server),
+    As we will see in the [next section](#incoming-mail-server),
     an incoming mail server can reject a message for a number of reasons.
     One reason is simply to [deter spammers](#graylisting),
     who often won't attempt to transmit the message again.
@@ -1981,7 +1981,8 @@ Why does SMTP for Relay have no port for Implicit TLS?
 </summary>
 
 First of all, we'll talk in a minute about why SMTP is different for [submission and relay](#submission-versus-relay).
-The [official argument](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3) for why SMTP for Relay has no port for Implicit TLS
+The [official argument](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3)
+for why SMTP for Relay has no port for Implicit TLS
 is that [`MX` records](#address-resolution) have no way to indicate which port to use and thus port 25 has to be used.
 In my opinion, this argumentation is misleading.
 A more accurate answer is that the outgoing mail server had no secure way to discover
@@ -1997,7 +1998,7 @@ in a [secure way](#dns-based-authentication-of-named-entities).
 port 465 was shortly registered for SMTP for Relay with Implicit TLS in 1997 before it was revoked again in 1998
 when [STARTTLS for SMTP](https://datatracker.ietf.org/doc/html/rfc2487) was standardized.
 Since some mailbox providers began to use this port for message submission with Implicit TLS,
-port 465 was officially recognized for this purpose in [2018](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3).)
+port 465 was [officially recognized](https://datatracker.ietf.org/doc/html/rfc8314#section-7.3) for this purpose in 2018.)
 
 </details>
 
@@ -2083,8 +2084,8 @@ of a mail client is `_submission` and not `_smtp`.
 Header fields and body
 </summary>
 
-We'll have a closer look at the format of messages in the [next section](#format)
-but, because we already want to transmit messages in this section,
+We'll have a closer look at the format of messages in the [next chapter](#format),
+but since we already want to transmit messages in this section,
 we have to cover the basics now.
 A message consists of several [header fields](https://datatracker.ietf.org/doc/html/rfc5322#section-2.2)
 and an optional [body](https://datatracker.ietf.org/doc/html/rfc5322#section-2.3),
@@ -4128,14 +4129,15 @@ This makes the [distribution of keys](https://en.wikipedia.org/wiki/Key_distribu
 either by sharing them in advance
 or by [deriving them](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange) when needed.
 
-The one-time pad encryption scheme is highly [malleable](https://en.wikipedia.org/wiki/Malleability_(cryptography)).
+The one-time pad encryption scheme is highly [malleable](https://en.wikipedia.org/wiki/Malleability_(cryptography)):
 An attacker can truncate the message at an arbitrary position
 and [flip bits in the ciphertext](https://en.wikipedia.org/wiki/Bit-flipping_attack)
 to cause a bit flip at the same position in the plaintext,
 which allows the attacker to replace all parts of the plaintext which are known to them.
-Such attacks can be prevented by appending a [checksum](https://en.wikipedia.org/wiki/Checksum) to the plaintext
-before encrypting it and requiring the recipient to validate the checksum after decryption.
-We'll revisit this in the [last section of this article](#deniable-authentication).
+Such attacks can be prevented by protecting the ciphertext
+with a [message authentication code (MAC)](#applications-of-cryptographic-hash-functions)
+and requiring the recipient to validate the MAC before decryption.
+We'll revisit this [towards the end of this article](#modes-of-operation).
 
 </details>
 
@@ -7999,7 +8001,7 @@ Additionally, the email protocols in general and the Quoted-Printable encoding i
 are designed to be human-readable.
 Compressed data, on the other hand, would have to be encoded with Base64
 and can be decompressed only with specialized software.
-As we will see in the [next subsection](#multipart-messages),
+As we will see in the [next section](#multipart-messages),
 it's much easier to introduce new content types than to change the encoding of existing ones
 because the new and potentially unknown content type can be complemented with known types.
 Since the goal of compression is to decrease the size of messages,
@@ -8080,7 +8082,7 @@ compresses the messages which it stores locally.
 Internationalized parameter values
 </summary>
 
-As we will see in the [next subsection](#multipart-messages),
+As we will see in the [next section](#multipart-messages),
 MIME parameters are sometimes used to convey user-chosen information,
 such as the filename of attachments.
 [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231) specifies
@@ -8090,8 +8092,8 @@ The sender indicates that the value is encoded by putting an asterisk before the
 The value itself then starts with the name of the [character set](#character-encoding),
 followed by optional language information and the encoded value.
 These three pieces of information are separated by a single quote.
-The encoding is similar to the [percent encoding](#percent-encoding)
-but the reserved characters which have to be encoded are different
+The encoding is similar to the [percent encoding](#percent-encoding),
+but the reserved characters, which have to be encoded, are different
 and the character set doesn't have to be UTF-8.
 See the formal syntax in [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-7)
 and [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1) for more information.
@@ -8100,7 +8102,7 @@ Let's look at <a class="bind-extended-parameter" href="#tool-encoding-extended-p
 
 <div id="tool-encoding-extended-parameter"></div>
 
-Remarks on the above tool:
+Remarks on the above tool and the Extended-Parameter encoding:
 - **Invalid inputs**: In both directions, the tool doesn't complain about invalid inputs
   and simply encodes or decodes the input as good as it can.
   If your input is invalid, the output of the tool is likely also invalid.
@@ -8684,7 +8686,7 @@ in [RFC 8058](https://datatracker.ietf.org/doc/html/rfc8058#section-8.3).
 These two header fields are not only convenient for users,
 they also make unsubscribing more secure since mail clients don't include them when forwarding a message.
 If you want to prevent others from unsubscribing you from a mailing list,
-you have to remove the unsubscribe link at the bottom of a message manually before forwarding the message.
+you have to remove the unsubscribe link at the bottom of a message yourself before forwarding the message.
 
 
 ### Custom header fields

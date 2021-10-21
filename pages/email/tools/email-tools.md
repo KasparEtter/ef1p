@@ -1,5 +1,7 @@
 ---
 title: Email tools
+author: Kaspar Etter
+license: CC BY 4.0
 teaser: Play around with the tools from the article about email.
 permalink: /email/tools/
 ---
