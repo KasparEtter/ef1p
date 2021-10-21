@@ -67,3 +67,7 @@ export function colorSuffix(color?: Color): string {
 export function colorClass(color?: Color, prefix: string = ' '): string {
     return color ? prefix + 'color-' + color : '';
 }
+
+export function backgroundColorClass(color?: Color, prefix: string = ''): string {
+    return color ? prefix + 'background-color-' + color : '';
+}

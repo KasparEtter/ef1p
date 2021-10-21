@@ -39,7 +39,7 @@ export type ValueOrFunction<O extends NotFunction | undefined, I = undefined> = 
 /**
  * Handles an arbitrary event.
  */
-export type EventHandler = (event: Event) => any;
+export type EventHandler<E extends Event = Event> = (event: E) => any;
 
 /**
  * A button with the given text, title, and handler.
