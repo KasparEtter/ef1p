@@ -471,7 +471,7 @@ export interface Record {
     content: string;
     remarks: Remark[];
     image?: string;
-    buttons: Button<React.MouseEvent<HTMLButtonElement, MouseEvent>, void>[];
+    buttons: Button<React.MouseEvent<HTMLButtonElement, MouseEvent>>[];
 }
 
 export interface Query {
@@ -549,7 +549,7 @@ export function renderQuery(query: Query): JSX.Element {
                 <img src={record.image} style={{ width: 80, height: 80, margin: 0, marginTop: '.75rem' }} title="The SVG image referenced in the 'l' tag of the record."/>
             }
             {record.buttons.length > 0 &&
-                <div style={{ marginTop: '.75rem' }}>
+                <div style={{ marginTop: '.75rem', marginLeft: '3px' }}>
                     {record.buttons.map(button => <button key={getUniqueKey()} type="button" className="btn btn-primary btn-sm mr-2" onClick={button.onClick} title={button.title}>{button.text}</button>)}
                 </div>
             }

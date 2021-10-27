@@ -7,6 +7,9 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Color } from '../utility/color';
 import { Button, ObjectButNotFunction, ValueOrArray, ValueOrFunction } from '../utility/types';
 
+import { AllEntries, VersionedState, VersioningEvent } from './state';
+import { Store } from './store';
+
 export type ValueType = boolean | number | string | string[];
 export type ErrorType = string | false;
 
@@ -75,9 +78,14 @@ export type InputType = BooleanInputType | NumberInputType | StringInputType | A
 export const inputTypesWithHistory: InputType[] = ['text'];
 
 /**
+ * The input types whose 'onInput' handlers are triggered artificially.
+ */
+export const inputTypesWithArtificialOnInput: InputType[] = ['checkbox', 'switch', 'select', 'multiple'];
+
+/**
  * Dynamic entries can be input by the user and thus have an associated state.
  */
-export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFunction = {}> extends Entry<T, State> {
+export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFunction = any> extends Entry<T, State> {
     /**
      * Input type.
      */
@@ -166,15 +174,14 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     /**
      * For live updates based on the non-validated input value and the last valid state.
      * You likely also want to listen for changes as onInput is not triggered when stepping through the history.
-     * Note that onInput is also not triggered for boolean and 'select' inputs.
      */
-    readonly onInput?: ValueOrArray<(newValue: T, currentState: State) => any>;
+    readonly onInput?: ValueOrArray<(newValue: T, currentState: State, store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) => any>;
 
     /**
      * Creates a button which the user can press in order to determine a suitable value for this entry.
-     * The functions are called with the potentially invalid input value of this entry.
+     * The functions are called with the potentially invalid input value of this entry and a valid state.
      */
-    readonly determine?: ValueOrArray<Button<T, Promise<[T, ErrorType]>>>;
+    readonly determine?: ValueOrArray<Button<T, Promise<[T, ErrorType]>, State>>;
 }
 
 export function isDynamicEntry<T extends ValueType, State extends ObjectButNotFunction = {}>(entry: Entry<T, State>): entry is DynamicEntry<T, State> {

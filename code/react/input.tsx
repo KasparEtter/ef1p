@@ -14,7 +14,7 @@ import { Button, ObjectButNotFunction } from '../utility/types';
 import { estimateStringWidth } from '../svg/utility/string';
 
 import { CustomInput, CustomTextarea } from './custom';
-import { DynamicEntry, ErrorType, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
+import { DynamicEntry, ErrorType, inputTypesWithArtificialOnInput, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore, shareStore } from './share';
 import { AllEntries, clearErrors, clearState, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
 import { Store } from './store';
@@ -85,7 +85,14 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly handle = (event: Event | ChangeEvent<any>, callMetaOnChangeEvenWhenNothingChanged: boolean) => {
         const target = event.currentTarget as HTMLInputElement | HTMLSelectElement;
-        const partialNewState = { [target.name]: getValue(target) } as unknown as Partial<State>;
+        const key = target.name as keyof State;
+        const value = getValue(target);
+        const entry: DynamicEntry<any, State> = this.entries[key]!;
+        if (inputTypesWithArtificialOnInput.includes(entry.inputType)) {
+            const state = getCurrentState(this.props.store);
+            normalizeToArray(entry.onInput).forEach(handler => handler(value, state, this.props.store));
+        }
+        const partialNewState = { [key]: value } as unknown as Partial<State>;
         setState(this.props.store, partialNewState, callMetaOnChangeEvenWhenNothingChanged);
     }
 
@@ -93,7 +100,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         this.handle(event, false);
     }
 
-    private readonly onEnter = (event: Event) => {
+    private readonly onEnter = (event: KeyboardEvent) => {
         this.handle(event, true);
         if (hasNoErrors(this.props.store)) {
             this.props.submit?.onClick(getCurrentState(this.props.store));
@@ -102,14 +109,14 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
 
     private readonly onInput = (event: Event) => {
         const target = event.currentTarget as HTMLInputElement;
-        const value = getValue(target);
         const key = target.name as keyof State;
+        const value = getValue(target);
         this.props.store.state.inputs[key] = value as any;
         clearErrors(this.props.store);
         this.props.store.update('input');
         const entry: DynamicEntry<any, State> = this.entries[key]!;
         const state = getCurrentState(this.props.store);
-        normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
+        normalizeToArray(entry.onInput).forEach(handler => handler(value, state, this.props.store));
     }
 
     private readonly onUpOrDown = (event: KeyboardEvent) => {
@@ -136,7 +143,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         }
         const value = inputs[key] as unknown as number;
         const state = getCurrentState(this.props.store);
-        normalizeToArray(entry.onInput).forEach(handler => handler(value, state));
+        normalizeToArray(entry.onInput).forEach(handler => handler(value, state, this.props.store));
         setState(this.props.store);
     }
 
@@ -144,15 +151,21 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const target = event.currentTarget as HTMLButtonElement;
         const key = target.name as keyof State;
         const entry: DynamicEntry<any, State> = this.entries[key]!;
-        const index = Number(target.dataset.index);
-        const input = this.props.store.state.inputs[key];
-        const [value, error] = await normalizeToArray(entry.determine)[index].onClick(input);
-        if (error) {
-            this.props.store.state.inputs[key] = value;
-            this.props.store.state.errors[key] = error;
-            this.props.store.update('input');
+        const text = target.dataset.text;
+        const buttons = normalizeToArray(entry.determine).filter(button => button.text === text);
+        if (buttons.length === 1) {
+            const input = this.props.store.state.inputs[key];
+            const state = getCurrentState(this.props.store);
+            const [value, error] = await buttons[0].onClick(input, state);
+            if (error) {
+                this.props.store.state.inputs[key] = value;
+                this.props.store.state.errors[key] = error;
+                this.props.store.update('input');
+            } else {
+                setState(this.props.store, { [key]: value } as Partial<State>);
+            }
         } else {
-            setState(this.props.store, { [key]: value } as Partial<State>);
+            throw new Error(`Could not find the button with the text '${text}'.`);
         }
     }
 
@@ -313,16 +326,18 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 <span className={'range-value' + (disabled ? ' color-gray' : '')}>{value}</span>
             }
             {
-                normalizeToArray(entry.determine).map((button, index) =>
-                <button
-                    name={key}
-                    data-index={index}
-                    type="button"
-                    className="btn btn-primary btn-sm align-top ml-2"
-                    disabled={disabled || button.disable !== undefined && button.disable(value)}
-                    onClick={this.onDetermine}
-                    title={button.title}
-                >{button.text}</button>)
+                normalizeToArray(entry.determine).filter(button => button.hide === undefined || !button.hide(value, state)).map(button =>
+                    <button
+                        name={key}
+                        key={button.text}
+                        data-text={button.text}
+                        type="button"
+                        className="btn btn-primary btn-sm align-top ml-2"
+                        disabled={disabled || button.disable !== undefined && button.disable(value, state)}
+                        onClick={this.onDetermine}
+                        title={button.title}
+                    >{button.text}</button>,
+                )
             }
         </label>;
     };

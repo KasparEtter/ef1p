@@ -29,12 +29,12 @@ export type ValueOrArray<T> = T | T[];
 /**
  * A function which returns a value of the given type.
  */
-export type Function<O, I = undefined> = (input: I) => O;
+export type Function<O, I = void> = (input: I) => O;
 
 /**
  * Value or function which returns a value of the same type.
  */
-export type ValueOrFunction<O extends NotFunction | undefined, I = undefined> = O | Function<O, I>;
+export type ValueOrFunction<O extends NotFunction | undefined, I = void> = O | Function<O, I>;
 
 /**
  * Handles an arbitrary event.
@@ -44,9 +44,10 @@ export type EventHandler<E extends Event = Event> = (event: E) => any;
 /**
  * A button with the given text, title, and handler.
  */
-export interface Button<I = undefined, O = any> {
+export interface Button<I1 = void, O = any, I2 = void> {
     readonly text: string;
     readonly title: string;
-    readonly onClick: (input: I) => O;
-    readonly disable?: (input: I) => boolean;
+    readonly onClick: (input1: I1, input2: I2) => O;
+    readonly disable?: (input1: I1, input2: I2) => boolean;
+    readonly hide?: (input1: I1, input2: I2) => boolean;
 };
