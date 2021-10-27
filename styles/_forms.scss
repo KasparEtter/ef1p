@@ -133,6 +133,18 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   }
 }
 
+.custom-select,
+.custom-color,
+.custom-range,
+.custom-checkbox,
+.custom-switch {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
 .is-invalid {
   margin-bottom: 20px;
 
