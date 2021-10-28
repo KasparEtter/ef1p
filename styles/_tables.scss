@@ -16,7 +16,9 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 .table-with-borders {
   td,
-  th {
+  th,
+  > tr:first-child td,
+  > tr:first-child th {
     border: $table-border-width solid $table-border-color;
   }
 
