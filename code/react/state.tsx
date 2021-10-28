@@ -149,8 +149,8 @@ export function validateInputs<State extends ObjectButNotFunction>(
     const entries = store.meta.entries;
     for (const key of Object.keys(entries) as KeysOf<State>) {
         const entry = entries[key];
-        const value = inputs[key];
         if (entry.inputType === 'number') {
+            const value = inputs[key] as unknown as number;
             if (entry.minValue !== undefined && value < entry.minValue) {
                 store.state.errors[key] = `This value may not be less than ${entry.minValue}.`;
                 continue;
@@ -160,7 +160,7 @@ export function validateInputs<State extends ObjectButNotFunction>(
                 continue;
             }
         }
-        store.state.errors[key] = entry.validate?.(value, inputs) ?? false;
+        store.state.errors[key] = entry.validate?.(inputs[key], inputs) ?? false;
     }
 }
 

@@ -61,11 +61,7 @@ export class CustomInput extends Component<Omit<InputHTMLAttributes<HTMLInputEle
                         this.props.onEnter(event);
                         event.preventDefault();
                     }
-                });
-            }
-            if (this.props.type === 'number') {
-                element.addEventListener('keydown', (event: KeyboardEvent) => {
-                    if (['ArrowUp', 'ArrowDown'].includes(event.key) && this.props.onUpOrDown) {
+                    if ((event.key === 'ArrowUp' || event.key === 'ArrowDown') && this.props.onUpOrDown) {
                         this.props.onUpOrDown(event);
                         event.preventDefault();
                     }

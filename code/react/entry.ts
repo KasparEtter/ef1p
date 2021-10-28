@@ -87,17 +87,18 @@ export const inputTypesWithArtificialOnInput: InputType[] = ['checkbox', 'switch
  */
 export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFunction = any> extends Entry<T, State> {
     /**
-     * Input type.
+     * One of the above input types.
      */
     readonly inputType: InputType;
 
     /**
-     * Width in pixels.
+     * Width of the label in pixels.
+     * Provide this only if you want to override the estimated label width.
      */
     readonly labelWidth?: number;
 
     /**
-     * Width in pixels.
+     * Width of the input field in pixels.
      */
     readonly inputWidth?: number;
 
@@ -107,17 +108,20 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
     readonly rows?: number;
 
     /**
-     * Only relevant for 'range' inputs. Defaults to 0.
+     * Only relevant for 'number', 'range', and 'date' inputs.
+     * Defaults to 0 for 'range' inputs.
      */
     readonly minValue?: T;
 
     /**
-     * Only relevant for 'range' inputs. Defaults to 100.
+     * Only relevant for 'number', 'range', and 'date' inputs.
+     * Defaults to 100 for 'range' inputs.
      */
     readonly maxValue?: T;
 
     /**
-     * Only relevant for 'range' inputs. Defaults to 1.
+     * Only relevant for 'number' and 'range' inputs.
+     * Defaults to 1.
      */
     readonly stepValue?: T;
 
@@ -160,6 +164,13 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
      * The function is called with potentially invalid inputs.
      */
     readonly validate?: (value: T, inputs: State) => ErrorType;
+
+    /**
+     * Handles the up or down arrow keys on 'text' inputs.
+     * The function is called with a potentially invalid value and potentially invalid inputs.
+     * Please note that providing such a handler disables the history feature of 'text' inputs.
+     */
+    readonly onUpOrDown?: (event: 'up' | 'down', value: T, inputs: State) => T;
 
     /**
      * Only use onChange for reactions specific to this entry.

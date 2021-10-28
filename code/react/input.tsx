@@ -14,7 +14,7 @@ import { Button, ObjectButNotFunction } from '../utility/types';
 import { estimateStringWidth } from '../svg/utility/string';
 
 import { CustomInput, CustomTextarea } from './custom';
-import { DynamicEntry, ErrorType, inputTypesWithArtificialOnInput, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
+import { DynamicEntry, ErrorType, InputType, inputTypesWithArtificialOnInput, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore, shareStore } from './share';
 import { AllEntries, clearErrors, clearState, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
 import { Store } from './store';
@@ -122,26 +122,30 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     private readonly onUpOrDown = (event: KeyboardEvent) => {
         const target = event.currentTarget as HTMLInputElement;
         const key = target.name as keyof State;
-        const entry: DynamicEntry<number, State> = this.entries[key]!;
+        const entry: DynamicEntry<ValueType, State> = this.entries[key]!;
         const inputs = this.props.store.state.inputs;
-        const step = (entry.stepValue ?? 1) * (event.key === 'ArrowUp' ? 1 : -1);
-        while (true) {
-            const value = inputs[key] as unknown as number + step;
-            if (entry.minValue !== undefined && value < entry.minValue) {
-                inputs[key] = entry.minValue as any;
-                break;
-            } else if (entry.maxValue !== undefined && value > entry.maxValue) {
-                inputs[key] = entry.maxValue as any;
-                break;
-            } else {
-                inputs[key] = value as any;
-                validateInputs(this.props.store);
-                if (hasNoErrors(this.props.store)) {
+        if (entry.inputType === 'number') {
+            const step = (entry.stepValue as number | undefined ?? 1) * (event.key === 'ArrowUp' ? 1 : -1);
+            while (true) {
+                const value = inputs[key] as unknown as number + step;
+                if (entry.minValue !== undefined && value < entry.minValue) {
+                    inputs[key] = entry.minValue as any;
                     break;
+                } else if (entry.maxValue !== undefined && value > entry.maxValue) {
+                    inputs[key] = entry.maxValue as any;
+                    break;
+                } else {
+                    inputs[key] = value as any;
+                    validateInputs(this.props.store);
+                    if (hasNoErrors(this.props.store)) {
+                        break;
+                    }
                 }
             }
+        } else if (entry.onUpOrDown) {
+            inputs[key] = entry.onUpOrDown(event.key === 'ArrowUp' ? 'up' : 'down', inputs[key] as unknown as string, inputs) as any;
         }
-        const value = inputs[key] as unknown as number;
+        const value = inputs[key] as any;
         const state = getCurrentState(this.props.store);
         normalizeToArray(entry.onInput).forEach(handler => handler(value, state, this.props.store));
         setState(this.props.store);
@@ -206,7 +210,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const value = this.props.store.state.inputs[key as keyof State] as unknown as ValueType;
         const error = this.props.store.state.errors[key as keyof State] as ErrorType;
         const disabled = !error && (hasErrors ? true : entry.disable !== undefined && entry.disable(this.props.store.state.inputs));
-        const history = inputTypesWithHistory.includes(entry.inputType);
+        const history = inputTypesWithHistory.includes(entry.inputType) && !entry.onUpOrDown;
         const state = getCurrentState(this.props.store);
         return <label
             key={key}
@@ -308,7 +312,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                             onChange={this.onChange}
                             onInput={this.onInput}
                             onEnter={this.onEnter}
-                            onUpOrDown={this.onUpOrDown}
+                            onUpOrDown={entry.inputType === 'number' || (entry.inputType === 'text' && entry.onUpOrDown) ? this.onUpOrDown : undefined}
                             list={history ? key + this.randomID : undefined}
                             style={entry.inputWidth ? { width: entry.inputWidth + 'px' } : {}}
                         />
