@@ -39,12 +39,12 @@ function listener(event: MediaQueryListEvent): void {
 
 const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
 
-function setTheme(newTheme: Theme | undefined, newSetByUser = true, siteLoaded = true): void {
+function setTheme(newTheme: Theme | null, newSetByUser = true, siteLoaded = true): void {
     // Support on Safari and Edge is relatively new: https://caniuse.com/mdn-api_mediaquerylistevent
     if (!setByUser && newSetByUser && typeof mediaQuery.removeEventListener !== 'undefined') {
         mediaQuery.removeEventListener('change', listener);
     }
-    if (newTheme !== undefined) {
+    if (newTheme !== null) {
         theme = newTheme;
         setByUser = newSetByUser;
     } else {
@@ -63,15 +63,10 @@ function setTheme(newTheme: Theme | undefined, newSetByUser = true, siteLoaded =
 setTheme(getItem('theme', setTheme), true, false);
 document.write('<link rel="stylesheet" id="theme" href="' + themes[theme] + '"/>');
 
-function storeTheme(newTheme: Theme) {
-    setTheme(newTheme);
-    setItem('theme', theme);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     setTogglerText();
     const toggler = document.getElementById('theme-toggler');
     if (toggler) {
-        toggler.onclick = () => storeTheme(theme === 'dark' ? 'light' : 'dark');
+        toggler.onclick = () => setItem('theme', theme === 'dark' ? 'light' : 'dark');
     }
 });

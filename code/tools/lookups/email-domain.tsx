@@ -1967,7 +1967,7 @@ const domain: DynamicEntry<string> = {
     name: 'Domain',
     description: 'The domain name you want to query.',
     defaultValue: 'gmail.com',
-    suggestedValues: ['outlook.com', 'hotmail.com', 'yahoo.com', 'me.com', 'ef1p.com', 'explained-from-first-principles.com'],
+    suggestedValues: ['gmail.com', 'outlook.com', 'hotmail.com', 'yahoo.com', 'me.com', 'ef1p.com', 'explained-from-first-principles.com'],
     inputType: 'text',
     inputWidth,
     validate: value =>

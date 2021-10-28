@@ -6,39 +6,51 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { getInitializedArray } from './array';
 
-if (typeof(Storage) === 'undefined') {
-    console.warn('Your browser does not support local storage.');
+function isQuotaExceededError(error: unknown): boolean {
+    return error instanceof DOMException && (error.code === 22 || error.name === 'QuotaExceededError');
 }
 
-/**
- * Stores the given item with the given key in the local storage.
- */
-export function setItem<T = any>(key: string, item: T): void {
-    if (typeof(Storage) !== 'undefined') {
-        localStorage.setItem(key, JSON.stringify(item));
+// Inspired by https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#feature-detecting_localstorage
+function isLocalStorageAvailable(): boolean {
+    if (typeof localStorage !== 'undefined') {
+        try {
+            const key = '_test_availability';
+            localStorage.setItem(key, '1');
+            localStorage.removeItem(key);
+            return true;
+        } catch (error: unknown) {
+            return isQuotaExceededError(error) && localStorage.length !== 0;
+        }
+    } else {
+        return false;
+    }
+}
+
+const localStorageIsAvailable = isLocalStorageAvailable();
+
+if (!localStorageIsAvailable) {
+    console.warn('Your browser does not support local storage. As a consequence, entered values are not persisted across sessions.');
+}
+
+function parse<T = any>(item: string | null): T | null {
+    try {
+        return item !== null ? JSON.parse(item) : null;
+    } catch (error: unknown) {
+        console.log('Failed to parse the following string as JSON:', item);
+        throw error;
     }
 }
 
 /**
- * If the callback is called with an undefined item, then the item has been removed.
+ * The callback is called with null when the item has been removed.
  */
-export type Callback<T> = (item: T | undefined) => any;
+export type Callback<T> = (item: T | null) => any;
 
 const callbacks: { [key: string]: Callback<any>[] | undefined } = {};
 
-function parse<T>(item: string | null): T | undefined {
-    return item !== null ? JSON.parse(item) : undefined;
-}
-
-function notify(key: string | null, value: string | null): void {
-    if (key === null) { // All items have been removed.
-        for (const key of Object.keys(callbacks)) {
-            for (const callback of callbacks[key] ?? []) {
-                callback(undefined);
-            }
-        }
-    } else {
-        const item = parse(value); // The new value is null if the item has been removed.
+function notify<T>(key: string | null, item: T | null): void {
+    const keys = key !== null ? [key] : Object.keys(callbacks);
+    for (const key of keys) {
         for (const callback of getInitializedArray(callbacks, key)) {
             callback(item);
         }
@@ -46,34 +58,94 @@ function notify(key: string | null, value: string | null): void {
 }
 
 window.addEventListener('storage', event => {
-    notify(event.key, event.newValue);
+    notify(event.key, parse(event.newValue));
 });
 
 /**
  * Retrieves the item with the given key from the local storage.
  * If another window changes the item with the given key,
  * the callback is called with the new value of the item
- * or undefined if the item has been removed.
+ * or null when the item has been removed.
  * The callback is also called if the item has been removed in this window.
  */
-export function getItem<T = any>(key: string, callback?: Callback<T>): T | undefined {
+export function getItem<T>(key: string, callback?: Callback<T>): T | null {
     if (callback !== undefined) {
         getInitializedArray(callbacks, key).push(callback);
     }
-    if (typeof(Storage) !== 'undefined') {
+    if (localStorageIsAvailable) {
         return parse(localStorage.getItem(key));
     }
-    return undefined;
+    return null;
+}
+
+/**
+ * We have to trigger the storage event for other scripts in the same window ourselves.
+ */
+function dispatchStorageEvent(key: string | null, newValue: string | null): void {
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue }));
+}
+
+function setItemAndDispatchStorageEvent<T>(key: string, item: T): void {
+    const newValue = JSON.stringify(item);
+    localStorage.setItem(key, newValue);
+    dispatchStorageEvent(key, newValue);
+}
+
+/**
+ * Prunes the history of all persisted states from the local storage.
+ */
+ export function prune(): void {
+    if (localStorageIsAvailable) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i)!;
+            const item = parse(localStorage.getItem(key))!;
+            if (item.states !== undefined && item.index !== undefined && item.events !== undefined) {
+                item.states = [item.states[item.index]];
+                item.index = 0;
+                item.events = ['input'];
+                setItemAndDispatchStorageEvent(key, item);
+            }
+        }
+    }
+}
+
+/**
+ * Stores the given item with the given key in the local storage.
+ */
+export function setItem<T>(key: string, item: T): void {
+    if (localStorageIsAvailable) {
+        try {
+            setItemAndDispatchStorageEvent(key, item);
+        } catch (error: unknown) {
+            if (isQuotaExceededError(error)) {
+                const warning = 'The data could not be stored in your browser because this website ran out of local storage.';
+                console.warn(warning);
+                if (confirm(
+                    `Warning: ${warning} ` +
+                    'If you continue, the histories of all tools are removed in order to make space for newly entered values. ' +
+                    'Alternatively, you can cancel this dialog, increase the local storage quota of your browser, and then reload this page.',
+                )) {
+                    prune();
+                    setItem(key, item);
+                }
+            } else {
+                throw error;
+            }
+        }
+    } else {
+        notify(key, item);
+    }
 }
 
 /**
  * Removes the item with the given key from the local storage.
  */
 export function removeItem(key: string): void {
-    if (typeof(Storage) !== 'undefined') {
+    if (localStorageIsAvailable) {
         localStorage.removeItem(key);
-        // We have to trigger the storage event for other scripts in the same window manually.
-        window.dispatchEvent(new StorageEvent('storage', { key, newValue: null }));
+        dispatchStorageEvent(key, null);
+    } else {
+        notify(key, null);
     }
 }
 
@@ -81,10 +153,11 @@ export function removeItem(key: string): void {
  * Removes all items from the local storage.
  */
 export function clear(): void {
-    if (typeof(Storage) !== 'undefined') {
+    if (localStorageIsAvailable) {
         localStorage.clear();
-        // We have to trigger the storage event for other scripts in the same window manually.
-        window.dispatchEvent(new StorageEvent('storage', { key: null, newValue: null }));
+        dispatchStorageEvent(null, null);
+    } else {
+        notify(null, null);
     }
 }
 
@@ -92,8 +165,9 @@ export function clear(): void {
  * Returns the number of items in the local storage.
  */
 export function getNumberOfItems(): number {
-    if (typeof(Storage) !== 'undefined') {
+    if (localStorageIsAvailable) {
         return localStorage.length;
+    } else {
+        return 0;
     }
-    return 0;
 }

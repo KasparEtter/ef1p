@@ -106,8 +106,8 @@ export class PersistedStore<State extends PersistedState<Event>, Meta = undefine
                 ...deepCopy(defaultState),
                 ...getItem(
                     identifier,
-                    (state: State | undefined) => {
-                        if (state !== undefined) {
+                    (state: State | null) => {
+                        if (state !== null) {
                             this.state = state;
                             super.update(...state.events ?? []);
                         } else {
@@ -123,7 +123,6 @@ export class PersistedStore<State extends PersistedState<Event>, Meta = undefine
     }
 
     public update(...events: Event[]): void {
-        super.update(...events);
         this.state.events = events;
         setItem(this.identifier, this.state);
     }
