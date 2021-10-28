@@ -91,18 +91,26 @@ function setItemAndDispatchStorageEvent<T>(key: string, item: T): void {
     dispatchStorageEvent(key, newValue);
 }
 
+function pruneHistoryIfPossible(item: any): boolean {
+    if (item.states !== undefined && item.index !== undefined && item.events !== undefined) {
+        item.states = [item.states[item.index]];
+        item.index = 0;
+        item.events = ['input'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
 /**
  * Prunes the history of all persisted states from the local storage.
  */
- export function prune(): void {
+ export function pruneAllHistories(): void {
     if (localStorageIsAvailable) {
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i)!;
             const item = parse(localStorage.getItem(key))!;
-            if (item.states !== undefined && item.index !== undefined && item.events !== undefined) {
-                item.states = [item.states[item.index]];
-                item.index = 0;
-                item.events = ['input'];
+            if (pruneHistoryIfPossible(item)) {
                 setItemAndDispatchStorageEvent(key, item);
             }
         }
@@ -125,8 +133,9 @@ export function setItem<T>(key: string, item: T): void {
                     'If you continue, the histories of all tools are removed in order to make space for newly entered values. ' +
                     'Alternatively, you can cancel this dialog, increase the local storage quota of your browser, and then reload this page.',
                 )) {
-                    prune();
-                    setItem(key, item);
+                    pruneAllHistories();
+                    pruneHistoryIfPossible(item);
+                    setItemAndDispatchStorageEvent(key, item);
                 }
             } else {
                 throw error;
