@@ -41,7 +41,7 @@ export interface CustomInputProps extends CustomTextareaProps {
 /**
  * This custom input component restores the 'onChange' and 'onInput' behavior of JavaScript.
  *
- * Please note that 'onChange' is always triggered on text and number inputs
+ * Please note that the generic 'onChange' handler of entries is triggered on text and number inputs
  * when the user presses enter in order to retrigger API requests.
  *
  * See:
@@ -67,6 +67,11 @@ export class CustomInput extends Component<Omit<InputHTMLAttributes<HTMLInputEle
                     }
                 });
             }
+            element.addEventListener('wheel', (event: WheelEvent) => {
+                if (document.activeElement === element) {
+                    event.preventDefault();
+                }
+            });
         }
     };
 
