@@ -7,7 +7,11 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { NotFunction } from './types';
 
 export interface Equality<T> {
-    equals(other: T): boolean;
+    equals(that: T): boolean;
+}
+
+export interface StrictEquality<T> extends Equality<T> {
+    strictlyEquals(that: T): boolean;
 }
 
 /**
@@ -17,4 +21,13 @@ export interface Equality<T> {
  */
 export function deepCopy<T extends NotFunction>(object: T): T {
     return JSON.parse(JSON.stringify(object));
+}
+
+// Object.fromEntries(Object.entries(object).map(([k, v]) => [k, v * v])) requires ES2019.
+export function mapEntries<K extends string | number | symbol, I, O>(object: { [key in K]: I }, map: (value: I) => O): { [key in K]: O } {
+    const result: any = {};
+    for (const [key, value] of Object.entries(object)) {
+        result[key] = map(value as I);
+    }
+    return result;
 }

@@ -10,7 +10,7 @@ import { flatten, unique } from '../../utility/array';
 import { base64Regex, encodeBase64, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
 import { normalizeToValue } from '../../utility/normalization';
 import { arrayToRecord, Dictionary, reverseLookup } from '../../utility/record';
-import { getRandomString, nonEmpty, splitOutsideOfDoubleQuotes } from '../../utility/string';
+import { getRandomString, nonEmpty, regex, splitOutsideOfDoubleQuotes } from '../../utility/string';
 import { KeysOf } from '../../utility/types';
 
 import { Argument, DynamicArgument } from '../../react/argument';
@@ -217,7 +217,6 @@ const emailAddressesRegexString = `(${emailAddressRegexString}(, *${emailAddress
 const addressWithNameRegexString = `( *(${emailAddressRegexString}|(${displayNameRegexString}? *\\<${emailAddressRegexString}\\>)) *)`;
 const addressesWithNameRegexString = `(${addressWithNameRegexString}(,${addressWithNameRegexString})*)?`;
 
-export const regex = (pattern: string) => new RegExp(`^${pattern}$`, 'i');
 export const domainRegex = regex(domainRegexString);
 const deviceAddressRegex = regex(deviceAddressRegexString);
 export const emailAddressRegex = regex(emailAddressRegexString);

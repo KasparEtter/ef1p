@@ -6,6 +6,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { regex } from '../../utility/string';
+
 import { Argument, DynamicArgument } from '../../react/argument';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
@@ -14,7 +16,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
 
-import { emailAddressRegexString, regex } from '../protocols/esmtp';
+import { emailAddressRegexString } from '../protocols/esmtp';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 

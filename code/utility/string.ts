@@ -32,6 +32,10 @@ export function singleQuote(text: string): string {
     return `'${escapeSingleQuote(text)}'`;
 }
 
+export function capitalizeFirstLetter(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 export function toHex(value: number, minLength = 0, upperCase = true): string {
     let hex = value.toString(16);
     if (upperCase) {
@@ -61,6 +65,15 @@ export function normalizeNewlines(text: string): string {
  */
 export function normalizeWhitespace(text: string): string {
     return text.replace(/\s+/g, ' ');
+}
+
+export function regex(pattern: string, ignoreCase = true): RegExp {
+    return new RegExp(`^${pattern}$`, ignoreCase ? 'i' : undefined);
+}
+
+export function regexIndexOf(text: string, regex: RegExp, position = 0) {
+    const index = text.substring(position).search(regex);
+    return index >= 0 ? position + index : index;
 }
 
 /**

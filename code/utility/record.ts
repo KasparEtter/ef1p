@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 /**
  * Create a record from the given array by mapping each element to itself.
  */
-export function arrayToRecord<T extends keyof any>(array: T[]): Record<T, T> {
+export function arrayToRecord<T extends keyof any>(array: readonly T[]): Record<T, T> {
     const result = {} as Record<T, T>;
     for (const element of array) {
         result[element] = element;
