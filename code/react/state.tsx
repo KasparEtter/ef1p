@@ -147,6 +147,7 @@ export function validateInputs<State extends ObjectButNotFunction>(
 ): void {
     const inputs = store.state.inputs;
     const entries = store.meta.entries;
+    const state = getCurrentState(store);
     for (const key of Object.keys(entries) as KeysOf<State>) {
         const entry = entries[key];
         if (entry.inputType === 'number') {
@@ -160,7 +161,7 @@ export function validateInputs<State extends ObjectButNotFunction>(
                 continue;
             }
         }
-        store.state.errors[key] = entry.validate?.(inputs[key], inputs) ?? false;
+        store.state.errors[key] = entry.validate?.(inputs[key], inputs, state) ?? false;
     }
 }
 

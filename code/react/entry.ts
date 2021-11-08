@@ -161,9 +161,9 @@ export interface DynamicEntry<T extends ValueType, State extends ObjectButNotFun
 
     /**
      * Validates this input.
-     * The function is called with potentially invalid inputs.
+     * The function is called with a potentially invalid new state.
      */
-    readonly validate?: (value: T, inputs: State) => ErrorType;
+    readonly validate?: (value: T, newState: State, oldState: State) => ErrorType;
 
     /**
      * Handles the up or down arrow keys on 'text' inputs.
