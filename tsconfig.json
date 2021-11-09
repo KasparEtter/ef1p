@@ -15,7 +15,7 @@
         "removeComments": true,
         "sourceMap": true,
         "strict": true,
-        "target": "ES6",
+        "target": "es2016",
         "typeRoots": ["./node_modules/@types/"],
     },
     "exclude": [
