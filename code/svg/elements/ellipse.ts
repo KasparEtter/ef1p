@@ -42,9 +42,9 @@ export class Ellipse extends CenterTextElement<EllipseProps> {
             + `${this.children(collector, prefix)}</ellipse>\n`;
     }
 
-    public pointTowards(other: Point, offset: number = strokeRadius): Point {
+    public pointTowards(point: Point, offset: number = strokeRadius): Point {
         const { center, radius } = this.props;
-        const vector = other.subtract(center);
+        const vector = point.subtract(center);
         // https://math.stackexchange.com/questions/432902/how-to-get-the-radius-of-an-ellipse-at-a-specific-angle-by-knowing-its-semi-majo
         const angle = Math.atan(vector.y / vector.x);
         const {x, y} = radius;
