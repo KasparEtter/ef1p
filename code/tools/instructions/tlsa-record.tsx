@@ -13,6 +13,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -65,15 +66,18 @@ const IfCase = getIfCase(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolInstructionTlsaRecord = <Fragment>
-    <Input/>
-    <CodeBlock>
-        <StaticPrompt>
-            openssl x509 -in <OutputEntries entries={{ certificateFile }}/>
-            <IfCase entry="selector" value="spki">
-                {' '}-noout -pubkey | openssl pkey -pubin
-            </IfCase>
-            {' '}-outform DER | openssl <OutputEntries entries={{ matchingType }}/>
-        </StaticPrompt>
-    </CodeBlock>
-</Fragment>;
+export const toolInstructionTlsaRecord: Tool = [
+    <Fragment>
+        <Input/>
+        <CodeBlock>
+            <StaticPrompt>
+                openssl x509 -in <OutputEntries entries={{ certificateFile }}/>
+                <IfCase entry="selector" value="spki">
+                    {' '}-noout -pubkey | openssl pkey -pubin
+                </IfCase>
+                {' '}-outform DER | openssl <OutputEntries entries={{ matchingType }}/>
+            </StaticPrompt>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

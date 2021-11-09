@@ -13,7 +13,8 @@ import { toHex } from '../../utility/string';
 import { DynamicOutput } from '../../react/code';
 import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
-import { DynamicEntries, getPersistedStore, setState, shareInputs } from '../../react/state';
+import { DynamicEntries, getPersistedStore, shareInputs } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -147,25 +148,10 @@ function RawNormalizationOutput({ input, normalization }: State): JSX.Element {
 
 const NormalizationOutput = shareInputs(store)(RawNormalizationOutput);
 
-export const toolEncodingNormalization = <Fragment>
-    <Input/>
-    <NormalizationOutput/>
-</Fragment>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-function clickHandler(this: HTMLElement): void {
-    const { input, normalization } = this.dataset;
-    setState(store, { input, normalization });
-}
-
-export function bindUnicodeNormalizations() {
-    for (const element of document.getElementsByClassName('bind-unicode-normalization') as HTMLCollectionOf<HTMLElement>) {
-        const { input, normalization } = element.dataset;
-        if (input === undefined || !Object.keys(normalizations).includes(normalization!)) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', clickHandler);
-        }
-    }
-}
+export const toolEncodingNormalization: Tool = [
+    <Fragment>
+        <Input/>
+        <NormalizationOutput/>
+    </Fragment>,
+    store,
+];

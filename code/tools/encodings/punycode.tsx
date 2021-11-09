@@ -11,6 +11,7 @@ import { countOccurrences } from '../../utility/string';
 import { DynamicEntry, ErrorType } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -85,7 +86,7 @@ function onDomainChange(): void {
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
-const inputWidth = 245;
+const inputWidth = 235;
 
 const decoded: DynamicEntry<string, State> = {
     name: 'Decoded',
@@ -132,4 +133,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingPunycode = <Input/>;
+export const toolEncodingPunycode: Tool = [<Input/>, store];

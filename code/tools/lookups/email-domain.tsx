@@ -19,9 +19,9 @@ import { DynamicEntry, ValueType } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { shareState } from '../../react/share';
-import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { DynamicEntries, getCurrentState, getPersistedStore } from '../../react/state';
 import { Store } from '../../react/store';
-import { getUniqueKey } from '../../react/utility';
+import { getUniqueKey, Tool } from '../../react/utility';
 
 import { getAllRecords, getDataOfFirstRecord, isAuthenticated, RecordType, resolveDomainName } from '../../apis/dns-lookup';
 import { Configuration, Documentation, findConfigurationFile, Server } from '../../apis/email-configuration';
@@ -2015,75 +2015,96 @@ const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupSrvRecords = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SRV records of the given domain name.', onClick: querySrvRecords }}/>
-    <SrvRecordsOutput/>
-</Fragment>;
+export const toolLookupSrvRecords: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SRV records of the given domain name.', onClick: querySrvRecords }}/>
+        <SrvRecordsOutput/>
+    </Fragment>,
+    store,
+    querySrvRecords,
+];
 
-export const toolLookupConfigurationDatabase = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the configuration database for the given domain name.', onClick: queryConfigurationDatabase }}/>
-    <ConfigurationDatabaseOutput/>
-</Fragment>;
+export const toolLookupConfigurationDatabase: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the configuration database for the given domain name.', onClick: queryConfigurationDatabase }}/>
+        <ConfigurationDatabaseOutput/>
+    </Fragment>,
+    store,
+    queryConfigurationDatabase,
+];
 
-export const toolLookupMxRecords = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MX records of the given domain name.', onClick: queryMxRecords }}/>
-    <MxRecordsOutput/>
-</Fragment>;
+export const toolLookupMxRecords: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MX records of the given domain name.', onClick: queryMxRecords }}/>
+        <MxRecordsOutput/>
+    </Fragment>,
+    store,
+    queryMxRecords,
+];
 
-export const toolLookupSpfRecord = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SPF record of the given domain name.', onClick: querySpfRecord }}/>
-    <SpfRecordOutput/>
-</Fragment>;
+export const toolLookupSpfRecord: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SPF record of the given domain name.', onClick: querySpfRecord }}/>
+        <SpfRecordOutput/>
+    </Fragment>,
+    store,
+    querySpfRecord,
+];
 
-export const toolLookupDkimRecord = <Fragment>
-    <Input entries={{ domain, dkimSelector }} submit={{ text: 'Load', title: 'Load the DKIM record of the given domain name.', onClick: loadDkimRecord }}/>
-    <DkimRecordOutput/>
-</Fragment>;
+export const toolLookupDkimRecord: Tool = [
+    <Fragment>
+        <Input entries={{ domain, dkimSelector }} submit={{ text: 'Load', title: 'Load the DKIM record of the given domain name.', onClick: loadDkimRecord }}/>
+        <DkimRecordOutput/>
+    </Fragment>,
+    store,
+    loadDkimRecord,
+];
 
-export const toolLookupDmarcRecord = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Load', title: 'Load the DMARC record of the given domain name.', onClick: loadDmarcRecord }}/>
-    <DmarcRecordOutput/>
-</Fragment>;
+export const toolLookupDmarcRecord: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Load', title: 'Load the DMARC record of the given domain name.', onClick: loadDmarcRecord }}/>
+        <DmarcRecordOutput/>
+    </Fragment>,
+    store,
+    loadDmarcRecord,
+];
 
-export const toolLookupBimiRecord = <Fragment>
-    <Input entries={{ domain, bimiSelector }} submit={{ text: 'Query', title: 'Query the BIMI record of the given domain name.', onClick: queryBimiRecord }}/>
-    <BimiRecordOutput/>
-</Fragment>;
+export const toolLookupBimiRecord: Tool = [
+    <Fragment>
+        <Input entries={{ domain, bimiSelector }} submit={{ text: 'Query', title: 'Query the BIMI record of the given domain name.', onClick: queryBimiRecord }}/>
+        <BimiRecordOutput/>
+    </Fragment>,
+    store,
+    queryBimiRecord,
+];
 
-export const toolLookupTlsaRecords = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLSA records of the given domain name.', onClick: queryTlsaRecords }}/>
-    <TlsaRecordsOutput/>
-</Fragment>;
+export const toolLookupTlsaRecords: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLSA records of the given domain name.', onClick: queryTlsaRecords }}/>
+        <TlsaRecordsOutput/>
+    </Fragment>,
+    store,
+    queryTlsaRecords,
+];
 
-export const toolLookupMtaStsPolicy = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MTA-STS policy of the given domain name.', onClick: queryMtaStsPolicy }}/>
-    <MtaStsFileOutput/>
-</Fragment>;
+export const toolLookupMtaStsPolicy: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MTA-STS policy of the given domain name.', onClick: queryMtaStsPolicy }}/>
+        <MtaStsFileOutput/>
+    </Fragment>,
+    store,
+    queryMtaStsPolicy,
+];
 
-export const toolLookupTlsReporting = <Fragment>
-    <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLS reporting record of the given domain name.', onClick: queryTlsReporting }}/>
-    <TlsReportingOutput/>
-</Fragment>;
+export const toolLookupTlsReporting: Tool = [
+    <Fragment>
+        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLS reporting record of the given domain name.', onClick: queryTlsReporting }}/>
+        <TlsReportingOutput/>
+    </Fragment>,
+    store,
+    queryTlsReporting,
+];
 
 export const emailDomainInput = <Input entries={{ domain, dkimSelector }}/>;
 export const emailDomainOutput = <OutputEntries entries={{ domain }}/>;
 export const emailDkimSelectorOutput = <OutputEntries entries={{ dkimSelector }}/>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-function spfClickHandler(this: HTMLElement): void {
-    const { domain } = this.dataset;
-    setState(store, { domain });
-    querySpfRecord(getCurrentState(store));
-}
-
-export function bindSpfQuery() {
-    for (const element of document.getElementsByClassName('bind-spf-query') as HTMLCollectionOf<HTMLElement>) {
-        const { domain } = element.dataset;
-        if (domain === undefined || !domainRegex.test(domain)) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', spfClickHandler);
-        }
-    }
-}

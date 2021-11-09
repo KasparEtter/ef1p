@@ -14,6 +14,7 @@ import { getInput } from '../../react/input';
 import { shareState } from '../../react/share';
 import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
+import { Tool } from '../../react/utility';
 
 import { getReverseLookupDomain } from '../../apis/dns-lookup';
 import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from '../../apis/ip-geolocation';
@@ -121,13 +122,16 @@ export function setIpInfoInput(ipAddress: string): void {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupIpAddress = <Fragment>
-    <Input
-        submit={{
-            text: 'Locate',
-            title: 'Locate the given IPv4 address.',
-            onClick: () => {},
-        }}
-    />
-    <IpInfoResponseParagraph/>
-</Fragment>;
+export const toolLookupIpAddress: Tool = [
+    <Fragment>
+        <Input
+            submit={{
+                text: 'Locate',
+                title: 'Locate the given IPv4 address.',
+                onClick: () => {},
+            }}
+        />
+        <IpInfoResponseParagraph/>
+    </Fragment>,
+    store,
+];

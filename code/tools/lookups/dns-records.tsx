@@ -15,7 +15,7 @@ import { getInput } from '../../react/input';
 import { shareState } from '../../react/share';
 import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { getUniqueKey, join } from '../../react/utility';
+import { getUniqueKey, join, Tool } from '../../react/utility';
 
 import { DnsRecord, DnsResponse, getReverseLookupDomain, mapRecordTypeFromGoogle, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
 
@@ -438,7 +438,7 @@ const domainName: DynamicEntry<string> = {
     description: 'The domain name you are interested in.',
     defaultValue: 'ef1p.com',
     inputType: 'text',
-    inputWidth: 250,
+    inputWidth: 222,
     validate: value =>
         value === '' && 'The domain name may not be empty.' ||
         value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
@@ -484,31 +484,16 @@ export function setDnsResolverInputs(domainName: string, recordType: RecordType,
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupDnsRecords = <Fragment>
-    <Input
-        submit={{
-            text: 'Query',
-            title: 'Query the records of the given domain name.',
-            onClick: () => {},
-        }}
-    />
-    <DnsResponseTable/>
-</Fragment>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-function clickHandler(this: HTMLElement): void {
-    const { domain, type, dnssec } = this.dataset;
-    setDnsResolverInputs(domain!, type as RecordType, dnssec === 'true');
-}
-
-export function bindDnsQueries() {
-    for (const element of document.getElementsByClassName('bind-dns-query') as HTMLCollectionOf<HTMLElement>) {
-        const { domain, type, dnssec } = element.dataset;
-        if (domain === undefined || !Object.keys(recordTypes).includes(type!) || !['true', 'false'].includes(dnssec!)) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', clickHandler);
-        }
-    }
-}
+export const toolLookupDnsRecords: Tool = [
+    <Fragment>
+        <Input
+            submit={{
+                text: 'Query',
+                title: 'Query the records of the given domain name.',
+                onClick: () => {},
+            }}
+        />
+        <DnsResponseTable/>
+    </Fragment>,
+    store,
+];

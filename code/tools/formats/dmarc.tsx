@@ -15,6 +15,7 @@ import { DynamicEntry, ErrorType } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 import { emailAddressRegexString } from '../protocols/esmtp';
 
@@ -239,26 +240,29 @@ const version: Argument<string, DmarcState> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolFormatDmarc = <Fragment>
-    <Input newColumnAt={8}/>
-    <CodeBlock wrapped>
-        <ClickToCopy>
-            <OutputEntries entries={{
-                    version,
-                    domainPolicy,
-                    subdomainPolicy,
-                    rolloutPercentage,
-                    spfAlignment,
-                    dkimAlignment,
-                    aggregateReports,
-                    reportInterval,
-                    failureReports,
-                    reportFormat,
-                    reportOptions,
-                }}
-                outputSeparator={'; '}
-                argumentSeparator={'='}
-            />
-        </ClickToCopy>
-    </CodeBlock>
-</Fragment>;
+export const toolFormatDmarc: Tool = [
+    <Fragment>
+        <Input newColumnAt={8}/>
+        <CodeBlock wrapped>
+            <ClickToCopy>
+                <OutputEntries entries={{
+                        version,
+                        domainPolicy,
+                        subdomainPolicy,
+                        rolloutPercentage,
+                        spfAlignment,
+                        dkimAlignment,
+                        aggregateReports,
+                        reportInterval,
+                        failureReports,
+                        reportFormat,
+                        reportOptions,
+                    }}
+                    outputSeparator={'; '}
+                    argumentSeparator={'='}
+                />
+            </ClickToCopy>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

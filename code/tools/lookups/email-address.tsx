@@ -16,6 +16,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { shareState } from '../../react/share';
 import { DynamicEntries, getPersistedStore } from '../../react/state';
 import { Store } from '../../react/store';
+import { Tool } from '../../react/utility';
 
 import { getDefaultRecordState, makeQuery, RawRecordOutput, RecordState } from './email-domain';
 
@@ -198,14 +199,22 @@ const OutputEntries = getOutputEntries(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupSmimeaRecords = <Fragment>
-    <Input submit={{ text: 'Query', title: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
-    <SmimeaRecordsOutput/>
-</Fragment>;
+export const toolLookupSmimeaRecords: Tool = [
+    <Fragment>
+        <Input submit={{ text: 'Query', title: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
+        <SmimeaRecordsOutput/>
+    </Fragment>,
+    store,
+    querySmimeaRecords,
+];
 
-export const toolLookupOpenpgpkeyRecords = <Fragment>
-    <Input submit={{ text: 'Query', title: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
-    <OpenpgpkeyRecordsOutput/>
-</Fragment>;
+export const toolLookupOpenpgpkeyRecords: Tool = [
+    <Fragment>
+        <Input submit={{ text: 'Query', title: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
+        <OpenpgpkeyRecordsOutput/>
+    </Fragment>,
+    store,
+    queryOpenpgpkeyRecords,
+];
 
 export const emailAddressOutput = <OutputEntries entries={{ emailAddress }}/>;

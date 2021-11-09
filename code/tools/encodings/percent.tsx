@@ -4,11 +4,12 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { decodePercent, encodePercent } from '../../utility/encoding';
+import { decodePercent, encodePercent } from '../../utility/string';
 
 import { DynamicEntry, ErrorType } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -120,4 +121,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingPercent = <Input newColumnAt={2} individualLabelWidth/>;
+export const toolEncodingPercent: Tool = [<Input newColumnAt={2} individualLabelWidth/>, store];

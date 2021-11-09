@@ -12,6 +12,7 @@ import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore, shareVersionedState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -91,7 +92,10 @@ function RawHttpCommand({ webAddress }: State): JSX.Element {
 
 const HttpCommand = shareVersionedState(store)(RawHttpCommand);
 
-export const toolProtocolHttp = <Fragment>
-    <Input/>
-    <HttpCommand/>
-</Fragment>;
+export const toolProtocolHttp: Tool = [
+    <Fragment>
+        <Input/>
+        <HttpCommand/>
+    </Fragment>,
+    store,
+];

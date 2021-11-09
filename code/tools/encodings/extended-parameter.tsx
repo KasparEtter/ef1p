@@ -8,7 +8,8 @@ import { decodeExtendedParameter, encodeExtendedParameter } from '../../utility/
 
 import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
-import { DynamicEntries, getPersistedStore, setState } from '../../react/state';
+import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -26,7 +27,7 @@ function decode(): void {
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
-const inputWidth = 300;
+const inputWidth = 290;
 const rows = 3;
 
 const decoded: DynamicEntry<string, State> = {
@@ -64,28 +65,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingExtendedParameter = <Input/>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-function clickHandler(this: HTMLElement): void {
-    const { decoded, encoded } = this.dataset;
-    if (decoded !== undefined) {
-        setState(store, { decoded: decoded.replace(/\\n/g, '\n') });
-        encode();
-    } else if (encoded !== undefined) {
-        setState(store, { encoded: encoded.replace(/\\n/g, '\n') });
-        decode();
-    }
-}
-
-export function bindExtendedParameters() {
-    for (const element of document.getElementsByClassName('bind-extended-parameter') as HTMLCollectionOf<HTMLElement>) {
-        const { decoded, encoded } = element.dataset;
-        if ((decoded === undefined) === (encoded === undefined)) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', clickHandler);
-        }
-    }
-}
+export const toolEncodingExtendedParameter: Tool = [<Input/>, store];

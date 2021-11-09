@@ -23,6 +23,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { getOutputFunction } from '../../react/output-function';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState, setState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 import { getReverseLookupDomain, resolveDomainName } from '../../apis/dns-lookup';
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
@@ -545,6 +546,10 @@ const OutputFunction = getOutputFunction(store);
 const IfCase = getIfCase(store);
 const IfEntries = getIfEntries(store);
 
+export function setBody(content: string, body: string): void {
+    setState(store, { content, body: body.replace(/\\n/g, '\n') });
+}
+
 /* ------------------------------ Prompt entries ------------------------------ */
 
 const telnet: Entry<string> = {
@@ -870,185 +875,45 @@ function angleAddress(address: string, title: string): JSX.Element {
     return <DynamicOutput title={title}>&lt;{address}&gt;</DynamicOutput>;
 }
 
-export const toolProtocolEsmtp = <Fragment>
-    <Input newColumnAt={12}/>
-    <CodeBlock>
-        <StaticPrompt>
-            <IfCase entry="security" value="none">
-                <OutputEntries entries={{ telnet, server, port }}/>
-            </IfCase>
-            <IfCase entry="security" value="none" not>
-                <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
-            </IfCase>
-        </StaticPrompt>
-        <SystemReply>
-            <OutputEntries entries={{ status220, server, protocol, implementation }}/>
-        </SystemReply>
-        <UserCommand>
-            <OutputEntries entries={{ EHLO, client }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ server, greets, client }}/>
-        </SystemReply>
-        <IfEntries entries={{ pipelining }} not>
-            <IfCase entry="mode" value="relay">
-                <SystemReply>
-                    <OutputEntries entries={{ status250, ENHANCEDSTATUSCODES }}/>
-                </SystemReply>
-            </IfCase>
-            <IfCase entry="mode" value="submission">
-                <SystemReply>
-                    <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ ENHANCEDSTATUSCODES }}/>
-                </SystemReply>
-                <IfCase entry="credential" value="plain">
-                    <SystemReply>
-                        <OutputEntries entries={{ status250, AUTH, PLAIN }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ AUTH, PLAIN, plainArgument }}/>
-                    </UserCommand>
+export const toolProtocolEsmtp: Tool = [
+    <Fragment>
+        <Input newColumnAt={12}/>
+        <CodeBlock>
+            <StaticPrompt>
+                <IfCase entry="security" value="none">
+                    <OutputEntries entries={{ telnet, server, port }}/>
                 </IfCase>
-                <IfCase entry="credential" value="login">
-                    <SystemReply>
-                        <OutputEntries entries={{ status250, AUTH, LOGIN }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ AUTH, LOGIN }}/>
-                    </UserCommand>
-                    <SystemReply>
-                        <OutputEntries entries={{ status334, loginUsernameChallenge }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ loginUsernameResponse }}/>
-                    </UserCommand>
-                    <SystemReply>
-                        <OutputEntries entries={{ status334, loginPasswordChallenge }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ loginPasswordResponse }}/>
-                    </UserCommand>
+                <IfCase entry="security" value="none" not>
+                    <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
                 </IfCase>
-                <IfCase entry="credential" value="hashed">
-                    <SystemReply>
-                        <OutputEntries entries={{ status250, AUTH, CRAM_MD5 }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ AUTH, CRAM_MD5 }}/>
-                    </UserCommand>
-                    <SystemReply>
-                        <OutputEntries entries={{ status334, challenge }}/>
-                    </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ cramMd5Response }}/>
-                    </UserCommand>
-                </IfCase>
-                <SystemReply>
-                    <OutputEntries entries={{ status235, enhancedStatus270, successful }}/>
-                </SystemReply>
-            </IfCase>
-            <UserCommand>
-                <OutputEntries entries={{ MAIL_FROM }}/>
-                <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/>
-            </UserCommand>
+            </StaticPrompt>
             <SystemReply>
-                <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
-            </SystemReply>
-            <OutputFunction function={state =>
-                getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
-                    <UserCommand>
-                        <OutputEntries entries={{ RCPT_TO }}/>
-                        <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/>
-                    </UserCommand>
-                    <SystemReply>
-                        <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
-                    </SystemReply>
-                </Fragment>)
-            }/>
-            <UserCommand>
-                <OutputEntries entries={{ DATA }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ status354, endData }}/>
+                <OutputEntries entries={{ status220, server, protocol, implementation }}/>
             </SystemReply>
             <UserCommand>
-                <OutputEntries entries={{ from, to, cc }} outputSeparator={<br/>}/><br/>
-                <IfCase entry="recipients" value="onlyBcc">
-                    <OutputEntries entries={{ bcc }}/><br/>
-                </IfCase>
-                <OutputEntries entries={{ subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
-                <OutputEntries entries={{ dotStuffedBody, period }} outputSeparator={<br/>}/>
+                <OutputEntries entries={{ EHLO, client }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ status250, enhancedStatus200, ok }}/>
+                <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ server, greets, client }}/>
             </SystemReply>
-            <UserCommand>
-                <OutputEntries entries={{ QUIT }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ status221, enhancedStatus200, bye }}/>
-            </SystemReply>
-        </IfEntries>
-        <IfEntries entries={{ pipelining }}>
-            <SystemReply>
-                <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ ENHANCEDSTATUSCODES }}/>
-            </SystemReply>
-            <IfCase entry="mode" value="relay">
-                <SystemReply>
-                    <OutputEntries entries={{ status250, PIPELINING }}/>
-                </SystemReply>
-                <UserCommand>
-                    <OutputEntries entries={{ MAIL_FROM }}/>
-                    <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/><br/>
-                    <OutputFunction function={state =>
-                        getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
-                            <OutputEntries entries={{ RCPT_TO }}/>
-                            <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/><br/>
-                        </Fragment>)
-                    }/>
-                    <OutputEntries entries={{ DATA }}/>
-                </UserCommand>
-                <SystemReply>
-                    <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
-                </SystemReply>
-                <OutputFunction function={state =>
-                    getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(_ => <SystemReply>
-                        <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
-                    </SystemReply>)
-                }/>
-            </IfCase>
-            <IfCase entry="mode" value="submission">
-                <SystemReply>
-                    <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ PIPELINING }}/>
-                </SystemReply>
-                <IfCase entry="credential" value="plain">
+            <IfEntries entries={{ pipelining }} not>
+                <IfCase entry="mode" value="relay">
                     <SystemReply>
-                        <OutputEntries entries={{ status250, AUTH, PLAIN }}/>
+                        <OutputEntries entries={{ status250, ENHANCEDSTATUSCODES }}/>
                     </SystemReply>
-                    <UserCommand>
-                        <OutputEntries entries={{ AUTH, PLAIN, plainArgument }}/><br/>
-                        <OutputEntries entries={{ MAIL_FROM }}/>
-                        <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/><br/>
-                        <OutputFunction function={state =>
-                            getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
-                                <OutputEntries entries={{ RCPT_TO }}/>
-                                <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/><br/>
-                            </Fragment>)
-                        }/>
-                        <OutputEntries entries={{ DATA }}/>
-                    </UserCommand>
-                    <SystemReply>
-                        <OutputEntries entries={{ status235, enhancedStatus270, successful }}/>
-                    </SystemReply>
-                    <SystemReply>
-                        <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
-                    </SystemReply>
-                    <OutputFunction function={state =>
-                        getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(_ => <SystemReply>
-                            <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
-                        </SystemReply>)
-                    }/>
                 </IfCase>
-                <IfCase entry="credential" value="plain" not>
+                <IfCase entry="mode" value="submission">
+                    <SystemReply>
+                        <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ ENHANCEDSTATUSCODES }}/>
+                    </SystemReply>
+                    <IfCase entry="credential" value="plain">
+                        <SystemReply>
+                            <OutputEntries entries={{ status250, AUTH, PLAIN }}/>
+                        </SystemReply>
+                        <UserCommand>
+                            <OutputEntries entries={{ AUTH, PLAIN, plainArgument }}/>
+                        </UserCommand>
+                    </IfCase>
                     <IfCase entry="credential" value="login">
                         <SystemReply>
                             <OutputEntries entries={{ status250, AUTH, LOGIN }}/>
@@ -1086,6 +951,57 @@ export const toolProtocolEsmtp = <Fragment>
                     <SystemReply>
                         <OutputEntries entries={{ status235, enhancedStatus270, successful }}/>
                     </SystemReply>
+                </IfCase>
+                <UserCommand>
+                    <OutputEntries entries={{ MAIL_FROM }}/>
+                    <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
+                </SystemReply>
+                <OutputFunction function={state =>
+                    getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
+                        <UserCommand>
+                            <OutputEntries entries={{ RCPT_TO }}/>
+                            <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/>
+                        </UserCommand>
+                        <SystemReply>
+                            <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
+                        </SystemReply>
+                    </Fragment>)
+                }/>
+                <UserCommand>
+                    <OutputEntries entries={{ DATA }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ status354, endData }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ from, to, cc }} outputSeparator={<br/>}/><br/>
+                    <IfCase entry="recipients" value="onlyBcc">
+                        <OutputEntries entries={{ bcc }}/><br/>
+                    </IfCase>
+                    <OutputEntries entries={{ subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
+                    <OutputEntries entries={{ dotStuffedBody, period }} outputSeparator={<br/>}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ status250, enhancedStatus200, ok }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ QUIT }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ status221, enhancedStatus200, bye }}/>
+                </SystemReply>
+            </IfEntries>
+            <IfEntries entries={{ pipelining }}>
+                <SystemReply>
+                    <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ ENHANCEDSTATUSCODES }}/>
+                </SystemReply>
+                <IfCase entry="mode" value="relay">
+                    <SystemReply>
+                        <OutputEntries entries={{ status250, PIPELINING }}/>
+                    </SystemReply>
                     <UserCommand>
                         <OutputEntries entries={{ MAIL_FROM }}/>
                         <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/><br/>
@@ -1106,27 +1022,119 @@ export const toolProtocolEsmtp = <Fragment>
                         </SystemReply>)
                     }/>
                 </IfCase>
-            </IfCase>
-            <SystemReply>
-                <OutputEntries entries={{ status354, endData }}/>
-            </SystemReply>
-            <UserCommand>
-                <OutputEntries entries={{ from, to, cc }} outputSeparator={<br/>}/><br/>
-                <IfCase entry="recipients" value="onlyBcc">
-                    <OutputEntries entries={{ bcc }}/><br/>
+                <IfCase entry="mode" value="submission">
+                    <SystemReply>
+                        <OutputEntries entries={{ status250 }}/>-<OutputEntries entries={{ PIPELINING }}/>
+                    </SystemReply>
+                    <IfCase entry="credential" value="plain">
+                        <SystemReply>
+                            <OutputEntries entries={{ status250, AUTH, PLAIN }}/>
+                        </SystemReply>
+                        <UserCommand>
+                            <OutputEntries entries={{ AUTH, PLAIN, plainArgument }}/><br/>
+                            <OutputEntries entries={{ MAIL_FROM }}/>
+                            <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/><br/>
+                            <OutputFunction function={state =>
+                                getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
+                                    <OutputEntries entries={{ RCPT_TO }}/>
+                                    <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/><br/>
+                                </Fragment>)
+                            }/>
+                            <OutputEntries entries={{ DATA }}/>
+                        </UserCommand>
+                        <SystemReply>
+                            <OutputEntries entries={{ status235, enhancedStatus270, successful }}/>
+                        </SystemReply>
+                        <SystemReply>
+                            <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
+                        </SystemReply>
+                        <OutputFunction function={state =>
+                            getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(_ => <SystemReply>
+                                <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
+                            </SystemReply>)
+                        }/>
+                    </IfCase>
+                    <IfCase entry="credential" value="plain" not>
+                        <IfCase entry="credential" value="login">
+                            <SystemReply>
+                                <OutputEntries entries={{ status250, AUTH, LOGIN }}/>
+                            </SystemReply>
+                            <UserCommand>
+                                <OutputEntries entries={{ AUTH, LOGIN }}/>
+                            </UserCommand>
+                            <SystemReply>
+                                <OutputEntries entries={{ status334, loginUsernameChallenge }}/>
+                            </SystemReply>
+                            <UserCommand>
+                                <OutputEntries entries={{ loginUsernameResponse }}/>
+                            </UserCommand>
+                            <SystemReply>
+                                <OutputEntries entries={{ status334, loginPasswordChallenge }}/>
+                            </SystemReply>
+                            <UserCommand>
+                                <OutputEntries entries={{ loginPasswordResponse }}/>
+                            </UserCommand>
+                        </IfCase>
+                        <IfCase entry="credential" value="hashed">
+                            <SystemReply>
+                                <OutputEntries entries={{ status250, AUTH, CRAM_MD5 }}/>
+                            </SystemReply>
+                            <UserCommand>
+                                <OutputEntries entries={{ AUTH, CRAM_MD5 }}/>
+                            </UserCommand>
+                            <SystemReply>
+                                <OutputEntries entries={{ status334, challenge }}/>
+                            </SystemReply>
+                            <UserCommand>
+                                <OutputEntries entries={{ cramMd5Response }}/>
+                            </UserCommand>
+                        </IfCase>
+                        <SystemReply>
+                            <OutputEntries entries={{ status235, enhancedStatus270, successful }}/>
+                        </SystemReply>
+                        <UserCommand>
+                            <OutputEntries entries={{ MAIL_FROM }}/>
+                            <OutputFunction function={state => angleAddress(getFromAddress(state), mailFromTitle)}/><br/>
+                            <OutputFunction function={state =>
+                                getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(recipient => <Fragment>
+                                    <OutputEntries entries={{ RCPT_TO }}/>
+                                    <OutputFunction function={_ => angleAddress(recipient, rcptToTitle)}/><br/>
+                                </Fragment>)
+                            }/>
+                            <OutputEntries entries={{ DATA }}/>
+                        </UserCommand>
+                        <SystemReply>
+                            <OutputEntries entries={{ status250, enhancedStatus210, ok }}/>
+                        </SystemReply>
+                        <OutputFunction function={state =>
+                            getRecipientAddresses(state).filter(address => state.mode !== 'relay' || getDomain(address) === state.domain).map(_ => <SystemReply>
+                                <OutputEntries entries={{ status250, enhancedStatus215, ok }}/>
+                            </SystemReply>)
+                        }/>
+                    </IfCase>
                 </IfCase>
-                <OutputEntries entries={{ subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
-                <OutputEntries entries={{ dotStuffedBody, period, QUIT }} outputSeparator={<br/>}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ status250, enhancedStatus200, ok }}/>
-            </SystemReply>
-            <SystemReply>
-                <OutputEntries entries={{ status221, enhancedStatus200, bye }}/>
-            </SystemReply>
-        </IfEntries>
-    </CodeBlock>
-</Fragment>;
+                <SystemReply>
+                    <OutputEntries entries={{ status354, endData }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ from, to, cc }} outputSeparator={<br/>}/><br/>
+                    <IfCase entry="recipients" value="onlyBcc">
+                        <OutputEntries entries={{ bcc }}/><br/>
+                    </IfCase>
+                    <OutputEntries entries={{ subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
+                    <OutputEntries entries={{ dotStuffedBody, period, QUIT }} outputSeparator={<br/>}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ status250, enhancedStatus200, ok }}/>
+                </SystemReply>
+                <SystemReply>
+                    <OutputEntries entries={{ status221, enhancedStatus200, bye }}/>
+                </SystemReply>
+            </IfEntries>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];
 
 export const toolProtocolEsmtpClient = <Input entries={{ client }} noHistory/>;
 
@@ -1150,24 +1158,3 @@ export const esmtpMessageLength = <OutputFunction function={state => {
     length += encodeQuotedPrintableIfNecessary(state.body).length + 4; // 2 * (CR + LF)
     return <DynamicOutput title="Length: The length of the message in bytes.">{`{${length}}`}</DynamicOutput>;
 }}/>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-export function setBody(content: string, body: string): void {
-    setState(store, { content, body: body.replace(/\\n/g, '\n') });
-}
-
-function clickHandler(this: HTMLElement): void {
-    setBody(this.dataset.content!, this.dataset.body!);
-}
-
-export function bindEsmtpExamples() {
-    for (const element of document.getElementsByClassName('bind-esmtp-example') as HTMLCollectionOf<HTMLElement>) {
-        const { content, body } = element.dataset;
-        if (content === undefined || !contentOptions.includes(content) || body === undefined) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', clickHandler);
-        }
-    }
-}

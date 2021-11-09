@@ -12,6 +12,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -157,22 +158,25 @@ const thunderbird: Entry<string, State> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolInstructionThunderbird = <Fragment>
-    <Input noHistory/>
-    <CodeBlock>
-        <StaticPrompt>
-            <OutputEntries entries={{ command, MOZ_LOG }}/>=
-            <OutputEntries entries={{ timestamp, append }} outputSeparator=","/>,
-            <OutputEntries entries={{ SMTP }}/>:<OutputEntries entries={{ loggingLevel }}/>,
-            <OutputEntries entries={{ POP3 }}/>:<OutputEntries entries={{ loggingLevel }}/>,
-            <OutputEntries entries={{ IMAP }}/>:<OutputEntries entries={{ loggingLevel }}/>
-        </StaticPrompt>
-        <StaticPrompt>
-            <OutputEntries entries={{ command, MOZ_LOG_FILE }}/>=
-            <OutputEntries entries={{ location }}/>
-        </StaticPrompt>
-        <StaticPrompt>
-            <OutputEntries entries={{ thunderbird }}/>
-        </StaticPrompt>
-    </CodeBlock>
-</Fragment>;
+export const toolInstructionThunderbird: Tool = [
+    <Fragment>
+        <Input/>
+        <CodeBlock>
+            <StaticPrompt>
+                <OutputEntries entries={{ command, MOZ_LOG }}/>=
+                <OutputEntries entries={{ timestamp, append }} outputSeparator=","/>,
+                <OutputEntries entries={{ SMTP }}/>:<OutputEntries entries={{ loggingLevel }}/>,
+                <OutputEntries entries={{ POP3 }}/>:<OutputEntries entries={{ loggingLevel }}/>,
+                <OutputEntries entries={{ IMAP }}/>:<OutputEntries entries={{ loggingLevel }}/>
+            </StaticPrompt>
+            <StaticPrompt>
+                <OutputEntries entries={{ command, MOZ_LOG_FILE }}/>=
+                <OutputEntries entries={{ location }}/>
+            </StaticPrompt>
+            <StaticPrompt>
+                <OutputEntries entries={{ thunderbird }}/>
+            </StaticPrompt>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

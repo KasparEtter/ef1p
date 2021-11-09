@@ -290,23 +290,6 @@ export function decodeEncodedWord(text: string): string {
     return result;
 }
 
-/* ------------------------------ Percent encoding ------------------------------ */
-
-export function encodePercent(text: string, form: boolean = false, strict: boolean = false): string {
-    let result = encodeURIComponent(text);
-    if (strict) {
-        result = result.replace(/[!'()*]/g, char => '%' + char.charCodeAt(0).toString(16));
-    }
-    if (form) {
-        result = result.replace(/%20/g, '+');
-    }
-    return result;
-}
-
-export function decodePercent(text: string): string {
-    return decodeURIComponent(text.replace(/\+/g, '%20'));
-}
-
 /* ------------------------------ Extended-Parameter encoding ------------------------------ */
 
 function quoteIfNecessary(text: string): string {

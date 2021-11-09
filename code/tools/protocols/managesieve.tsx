@@ -17,6 +17,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 import { connect, crlf, domainRegex, maxPortNumber, minPortNumber, quiet, usernameRegex } from './esmtp';
 
@@ -344,96 +345,99 @@ const LOGOUT: Entry<string> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolProtocolManageSieve = <Fragment>
-    <Input newColumnAt={6}/>
-    <CodeBlock>
-        <StaticPrompt>
-            <OutputEntries entries={{ openssl, sClient, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
-        </StaticPrompt>
-        <SystemReply>
-            <OutputEntries entries={{ IMPLEMENTATION, NOTIFY, SASL, SIEVE, VERSION }} outputSeparator={<br/>}/><br/>
-            <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ STARTTLS, completed }}/>"
-        </SystemReply>
-        <UserCommand>
-            <OutputEntries entries={{ AUTHENTICATE, PLAIN, usernameAndPassword }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ AUTHENTICATE, completed }}/>"
-        </SystemReply>
-        <IfEntries entries={{ list }}>
+export const toolProtocolManageSieve: Tool = [
+    <Fragment>
+        <Input newColumnAt={6}/>
+        <CodeBlock>
+            <StaticPrompt>
+                <OutputEntries entries={{ openssl, sClient, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
+            </StaticPrompt>
+            <SystemReply>
+                <OutputEntries entries={{ IMPLEMENTATION, NOTIFY, SASL, SIEVE, VERSION }} outputSeparator={<br/>}/><br/>
+                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ STARTTLS, completed }}/>"
+            </SystemReply>
             <UserCommand>
-                <OutputEntries entries={{ LISTSCRIPTS }}/>
+                <OutputEntries entries={{ AUTHENTICATE, PLAIN, usernameAndPassword }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ ActiveScript, ACTIVE }}/><br/>
-                <OutputEntries entries={{ InactiveScript }}/><br/>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ LISTSCRIPTS, completed }}/>"
+                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ AUTHENTICATE, completed }}/>"
             </SystemReply>
-        </IfEntries>
-        <IfCase entry="action" value="PUTSCRIPT">
+            <IfEntries entries={{ list }}>
+                <UserCommand>
+                    <OutputEntries entries={{ LISTSCRIPTS }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ ActiveScript, ACTIVE }}/><br/>
+                    <OutputEntries entries={{ InactiveScript }}/><br/>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ LISTSCRIPTS, completed }}/>"
+                </SystemReply>
+            </IfEntries>
+            <IfCase entry="action" value="PUTSCRIPT">
+                <UserCommand>
+                    <OutputEntries entries={{ CHECKSCRIPT, calculatedLength }}/><br/>
+                    <OutputEntries entries={{ script }}/><br/>
+                </UserCommand><br/>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ CHECKSCRIPT, completed }}/>"
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ PUTSCRIPT, name, calculatedLength }}/><br/>
+                    <OutputEntries entries={{ script }}/><br/>
+                </UserCommand><br/>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ PUTSCRIPT, completed }}/>"
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ SETACTIVE, name }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ SETACTIVE, completed }}/>"
+                </SystemReply>
+            </IfCase>
+            <IfCase entry="action" value="GETSCRIPT">
+                <UserCommand>
+                    <OutputEntries entries={{ GETSCRIPT, name }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ staticLength }}/><br/>
+                    <OutputEntries entries={{ staticScript }}/><br/><br/>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ GETSCRIPT, completed }}/>"
+                </SystemReply>
+            </IfCase>
+            <IfCase entry="action" value="SETACTIVE">
+                <UserCommand>
+                    <OutputEntries entries={{ SETACTIVE, name }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ SETACTIVE, completed }}/>"
+                </SystemReply>
+            </IfCase>
+            <IfCase entry="action" value="DELETESCRIPT">
+                <UserCommand>
+                    <OutputEntries entries={{ DELETESCRIPT, name }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ DELETESCRIPT, completed }}/>"
+                </SystemReply>
+            </IfCase>
+            <IfCase entry="action" value="RENAMESCRIPT">
+                <UserCommand>
+                    <OutputEntries entries={{ RENAMESCRIPT, name, newName }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ RENAMESCRIPT, completed }}/>"
+                </SystemReply>
+            </IfCase>
             <UserCommand>
-                <OutputEntries entries={{ CHECKSCRIPT, calculatedLength }}/><br/>
-                <OutputEntries entries={{ script }}/><br/>
-            </UserCommand><br/>
-            <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ CHECKSCRIPT, completed }}/>"
-            </SystemReply>
-            <UserCommand>
-                <OutputEntries entries={{ PUTSCRIPT, name, calculatedLength }}/><br/>
-                <OutputEntries entries={{ script }}/><br/>
-            </UserCommand><br/>
-            <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ PUTSCRIPT, completed }}/>"
-            </SystemReply>
-            <UserCommand>
-                <OutputEntries entries={{ SETACTIVE, name }}/>
+                <OutputEntries entries={{ LOGOUT }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ SETACTIVE, completed }}/>"
+                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ LOGOUT, completed }}/>"
             </SystemReply>
-        </IfCase>
-        <IfCase entry="action" value="GETSCRIPT">
-            <UserCommand>
-                <OutputEntries entries={{ GETSCRIPT, name }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ staticLength }}/><br/>
-                <OutputEntries entries={{ staticScript }}/><br/><br/>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ GETSCRIPT, completed }}/>"
-            </SystemReply>
-        </IfCase>
-        <IfCase entry="action" value="SETACTIVE">
-            <UserCommand>
-                <OutputEntries entries={{ SETACTIVE, name }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ SETACTIVE, completed }}/>"
-            </SystemReply>
-        </IfCase>
-        <IfCase entry="action" value="DELETESCRIPT">
-            <UserCommand>
-                <OutputEntries entries={{ DELETESCRIPT, name }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ DELETESCRIPT, completed }}/>"
-            </SystemReply>
-        </IfCase>
-        <IfCase entry="action" value="RENAMESCRIPT">
-            <UserCommand>
-                <OutputEntries entries={{ RENAMESCRIPT, name, newName }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ RENAMESCRIPT, completed }}/>"
-            </SystemReply>
-        </IfCase>
-        <UserCommand>
-            <OutputEntries entries={{ LOGOUT }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ OK }}/> "<OutputEntries entries={{ LOGOUT, completed }}/>"
-        </SystemReply>
-    </CodeBlock>
-</Fragment>;
+        </CodeBlock>
+    </Fragment>,
+    store,
+];
 
-export const toolProtocolManageSieveOpenSsl = <Input entries={{ openssl }}/>;
+export const toolProtocolManageSieveOpenSsl = <Input entries={{ openssl }} noHistory/>;
 export const openSslCommand = <OutputEntries entries={{ openssl }}/>;

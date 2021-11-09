@@ -9,6 +9,7 @@ import { gregorianFormat, Time } from '../../utility/time';
 import { DynamicEntry, ErrorType } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -139,4 +140,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolConversionUnixTime = <Input entries={{ unixTime, gregorianTime, utc }}/>;
+export const toolConversionUnixTime: Tool = [<Input entries={{ unixTime, gregorianTime, utc }}/>, store];

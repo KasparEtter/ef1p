@@ -16,6 +16,7 @@ import { getInput } from '../../react/input';
 import { shareState } from '../../react/share';
 import { DynamicEntries, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
+import { Tool } from '../../react/utility';
 
 import { getIpInfo, IpInfoResponse } from '../../apis/ip-geolocation';
 
@@ -260,13 +261,17 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupEmailRequests = <Fragment>
-    <Input
-        submit={{
-            text: 'Subscribe',
-            title: 'Subscribe to the requests which are made with the given token.',
-            onClick: subscribe,
-        }}
-    />
-    <RequestsTable/>
-</Fragment>;
+export const toolLookupEmailRequests: Tool = [
+    <Fragment>
+        <Input
+            submit={{
+                text: 'Subscribe',
+                title: 'Subscribe to the requests which are made with the given token.',
+                onClick: subscribe,
+            }}
+        />
+        <RequestsTable/>
+    </Fragment>,
+    store,
+    subscribe,
+];

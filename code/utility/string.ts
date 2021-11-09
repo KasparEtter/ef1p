@@ -44,6 +44,21 @@ export function toHex(value: number, minLength = 0, upperCase = true): string {
     return hex.padStart(minLength, '0');
 }
 
+export function encodePercent(text: string, form: boolean = true, strict: boolean = true): string {
+    let result = encodeURIComponent(text);
+    if (strict) {
+        result = result.replace(/[!'()*]/g, char => '%' + char.charCodeAt(0).toString(16));
+    }
+    if (form) {
+        result = result.replace(/%20/g, '+');
+    }
+    return result;
+}
+
+export function decodePercent(text: string): string {
+    return decodeURIComponent(text.replace(/\+/g, '%20'));
+}
+
 export function removeThousandSeparators(value: string): string {
     return value.replace(/[', ]/g, '');
 }

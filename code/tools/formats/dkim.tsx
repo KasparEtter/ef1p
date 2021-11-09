@@ -13,6 +13,7 @@ import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -131,21 +132,24 @@ const version: Argument<string, DkimState> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolFormatDkim = <Fragment>
-    <Input newColumnAt={3}/>
-    <CodeBlock wrapped>
-        <ClickToCopy>
-            <OutputEntries entries={{
-                    version,
-                    keyType,
-                    hashAlgorithms,
-                    serviceTypes,
-                    flags,
-                    publicKey,
-                }}
-                outputSeparator={'; '}
-                argumentSeparator={'='}
-            />
-        </ClickToCopy>
-    </CodeBlock>
-</Fragment>;
+export const toolFormatDkim: Tool = [
+    <Fragment>
+        <Input newColumnAt={3}/>
+        <CodeBlock wrapped>
+            <ClickToCopy>
+                <OutputEntries entries={{
+                        version,
+                        keyType,
+                        hashAlgorithms,
+                        serviceTypes,
+                        flags,
+                        publicKey,
+                    }}
+                    outputSeparator={'; '}
+                    argumentSeparator={'='}
+                />
+            </ClickToCopy>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

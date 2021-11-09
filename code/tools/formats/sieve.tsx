@@ -14,6 +14,7 @@ import { DynamicEntry, Entry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -237,14 +238,17 @@ const field: Entry<string, State> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolFormatSieve = <Fragment>
-    <Input newColumnAt={4}/>
-    <CodeBlock>
-        <ClickToCopy newline>
-            <OutputEntries entries={{ _require }}/>
-            <OutputEntries entries={{ _if, negation, condition, addressPart, matchType, field, value }}/> {'{'}<br/>
-            {'    '}<OutputEntries entries={{ action, argument }}/>;<br/>
-            {'}'}
-        </ClickToCopy>
-    </CodeBlock>
-</Fragment>;
+export const toolFormatSieve: Tool = [
+    <Fragment>
+        <Input newColumnAt={4}/>
+        <CodeBlock>
+            <ClickToCopy newline>
+                <OutputEntries entries={{ _require }}/>
+                <OutputEntries entries={{ _if, negation, condition, addressPart, matchType, field, value }}/> {'{'}<br/>
+                {'    '}<OutputEntries entries={{ action, argument }}/>;<br/>
+                {'}'}
+            </ClickToCopy>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

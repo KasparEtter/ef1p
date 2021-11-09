@@ -20,6 +20,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { getOutputFunction } from '../../react/output-function';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
@@ -841,148 +842,151 @@ function entry(value: string): Entry<string> {
     };
 }
 
-export const toolProtocolImap = <Fragment>
-    <Input newColumnAt={9}/>
-    <CodeBlock>
-        <StaticPrompt>
-            <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
-        </StaticPrompt>
-        <SystemReply>
-            <OutputEntries entries={{ asterisk, OK, implementation, ready }}/>
-        </SystemReply>
-        <UserCommand>
-            <OutputEntries entries={{ tagI, LOGIN, address, password }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ tagI, OK, LOGIN, completed }}/>
-        </SystemReply>
-        <IfEntries entries={{ search, idle }} or>
+export const toolProtocolImap: Tool = [
+    <Fragment>
+        <Input newColumnAt={9}/>
+        <CodeBlock>
+            <StaticPrompt>
+                <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
+            </StaticPrompt>
+            <SystemReply>
+                <OutputEntries entries={{ asterisk, OK, implementation, ready }}/>
+            </SystemReply>
             <UserCommand>
-                <OutputEntries entries={{ tagC, CAPABILITY }}/>
+                <OutputEntries entries={{ tagI, LOGIN, address, password }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ asterisk, CAPABILITY, IMAP4rev1, search, idle }}/><br/>
-                <OutputEntries entries={{ tagC, OK, CAPABILITY, completed }}/>
+                <OutputEntries entries={{ tagI, OK, LOGIN, completed }}/>
             </SystemReply>
-        </IfEntries>
-        <IfEntries entries={{ list }}>
+            <IfEntries entries={{ search, idle }} or>
+                <UserCommand>
+                    <OutputEntries entries={{ tagC, CAPABILITY }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ asterisk, CAPABILITY, IMAP4rev1, search, idle }}/><br/>
+                    <OutputEntries entries={{ tagC, OK, CAPABILITY, completed }}/>
+                </SystemReply>
+            </IfEntries>
+            <IfEntries entries={{ list }}>
+                <UserCommand>
+                    <OutputEntries entries={{ tagL, LIST, context, pattern }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren }}/>) <OutputEntries entries={{ delimiter, INBOX }}/><br/>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, all }}/>) <OutputEntries entries={{ delimiter, allFolder }}/><br/>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, sent }}/>) <OutputEntries entries={{ delimiter, sentFolder }}/><br/>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, drafts }}/>) <OutputEntries entries={{ delimiter, draftsFolder }}/><br/>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, trash }}/>) <OutputEntries entries={{ delimiter, trashFolder }}/><br/>
+                    <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, junk }}/>) <OutputEntries entries={{ delimiter, spamFolder }}/><br/>
+                    <OutputEntries entries={{ tagL, OK, LIST, completed }}/>
+                </SystemReply>
+            </IfEntries>
             <UserCommand>
-                <OutputEntries entries={{ tagL, LIST, context, pattern }}/>
+                <OutputEntries entries={{ tagE, EXAMINE, SELECT, INBOX }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren }}/>) <OutputEntries entries={{ delimiter, INBOX }}/><br/>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, all }}/>) <OutputEntries entries={{ delimiter, allFolder }}/><br/>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, sent }}/>) <OutputEntries entries={{ delimiter, sentFolder }}/><br/>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, drafts }}/>) <OutputEntries entries={{ delimiter, draftsFolder }}/><br/>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, trash }}/>) <OutputEntries entries={{ delimiter, trashFolder }}/><br/>
-                <OutputEntries entries={{ asterisk, LIST }}/> (<OutputEntries entries={{ hasNoChildren, junk }}/>) <OutputEntries entries={{ delimiter, spamFolder }}/><br/>
-                <OutputEntries entries={{ tagL, OK, LIST, completed }}/>
+                <OutputEntries entries={{ asterisk, EXISTS }}/><br/>
+                <OutputEntries entries={{ asterisk, RECENT }}/><br/>
+                <OutputEntries entries={{ asterisk, OK, UNSEEN }}/><br/>
+                <OutputEntries entries={{ asterisk, OK, UIDNEXT }}/><br/>
+                <OutputEntries entries={{ asterisk, OK, UIDVALIDITY }}/><br/>
+                <OutputEntries entries={{ asterisk, OK, PERMANENTFLAGS }}/><br/>
+                <OutputEntries entries={{ asterisk, FLAGS }}/><br/>
+                <OutputEntries entries={{ tagE, OK, READ_ONLY, READ_WRITE, EXAMINE, SELECT, completed }}/>
             </SystemReply>
-        </IfEntries>
-        <UserCommand>
-            <OutputEntries entries={{ tagE, EXAMINE, SELECT, INBOX }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ asterisk, EXISTS }}/><br/>
-            <OutputEntries entries={{ asterisk, RECENT }}/><br/>
-            <OutputEntries entries={{ asterisk, OK, UNSEEN }}/><br/>
-            <OutputEntries entries={{ asterisk, OK, UIDNEXT }}/><br/>
-            <OutputEntries entries={{ asterisk, OK, UIDVALIDITY }}/><br/>
-            <OutputEntries entries={{ asterisk, OK, PERMANENTFLAGS }}/><br/>
-            <OutputEntries entries={{ asterisk, FLAGS }}/><br/>
-            <OutputEntries entries={{ tagE, OK, READ_ONLY, READ_WRITE, EXAMINE, SELECT, completed }}/>
-        </SystemReply>
-        <IfEntries entries={{ search }}>
+            <IfEntries entries={{ search }}>
+                <UserCommand>
+                    <OutputEntries entries={{ tagS, SEARCH, RETURN_SAVE, criterion, value, date }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ tagS, OK, SEARCH, completed }}/>
+                </SystemReply>
+            </IfEntries>
             <UserCommand>
-                <OutputEntries entries={{ tagS, SEARCH, RETURN_SAVE, criterion, value, date }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ tagS, OK, SEARCH, completed }}/>
-            </SystemReply>
-        </IfEntries>
-        <UserCommand>
-            <OutputEntries entries={{ tagF, FETCH, messages }}/> (<OutputEntries entries={{ fetch }}/>)
-        </UserCommand>
-        <SystemReply>
-            <OutputFunction function={state =>
-                ['INTERNALDATE', 'FLAGS'].includes(state.fetch) ?
-                    getAllMessageNumbers(state).map(value => <Fragment>
-                        <OutputEntries entries={{ asterisk, e: entry(value), FETCH }}/> (<OutputEntries entries={{ fetch, data }}/>)<br/>
-                    </Fragment>)
-                :
-                    getAllMessageNumbers(state).map(value => <Fragment>
-                        <OutputEntries entries={{ asterisk, e: entry(value), FETCH }}/> (<OutputEntries entries={{ fetch, length }}/><br/>
-                        <OutputEntries entries={{ data }}/><br/>)<br/>
-                    </Fragment>)
-            }/>
-            <OutputEntries entries={{ tagF, OK, FETCH, completed }}/>
-        </SystemReply>
-        <IfEntries entries={{ write, deletion }}>
-            <UserCommand>
-                <OutputEntries entries={{ tagD, STORE, messages, ADD_FLAGS, deleted }}/>
+                <OutputEntries entries={{ tagF, FETCH, messages }}/> (<OutputEntries entries={{ fetch }}/>)
             </UserCommand>
             <SystemReply>
                 <OutputFunction function={state =>
-                    getAllMessageNumbers(state).map(value => <Fragment>
-                        <OutputEntries entries={{ asterisk, e: entry(value), FETCH, newFlags }}/><br/>
-                    </Fragment>)
+                    ['INTERNALDATE', 'FLAGS'].includes(state.fetch) ?
+                        getAllMessageNumbers(state).map(value => <Fragment>
+                            <OutputEntries entries={{ asterisk, e: entry(value), FETCH }}/> (<OutputEntries entries={{ fetch, data }}/>)<br/>
+                        </Fragment>)
+                    :
+                        getAllMessageNumbers(state).map(value => <Fragment>
+                            <OutputEntries entries={{ asterisk, e: entry(value), FETCH }}/> (<OutputEntries entries={{ fetch, length }}/><br/>
+                            <OutputEntries entries={{ data }}/><br/>)<br/>
+                        </Fragment>)
                 }/>
-                <OutputEntries entries={{ tagD, OK, STORE, completed }}/>
+                <OutputEntries entries={{ tagF, OK, FETCH, completed }}/>
             </SystemReply>
+            <IfEntries entries={{ write, deletion }}>
+                <UserCommand>
+                    <OutputEntries entries={{ tagD, STORE, messages, ADD_FLAGS, deleted }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputFunction function={state =>
+                        getAllMessageNumbers(state).map(value => <Fragment>
+                            <OutputEntries entries={{ asterisk, e: entry(value), FETCH, newFlags }}/><br/>
+                        </Fragment>)
+                    }/>
+                    <OutputEntries entries={{ tagD, OK, STORE, completed }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ tagX, EXPUNGE }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputFunction function={state =>
+                        getAllMessageNumbers(state).map(value => <Fragment>
+                            <OutputEntries entries={{ asterisk, e: entry(value), EXPUNGE }}/><br/>
+                        </Fragment>)
+                    }/>
+                    <OutputEntries entries={{ asterisk, expungeExists }}/><br/>
+                    <OutputEntries entries={{ tagX, OK, EXPUNGE, completed }}/>
+                </SystemReply>
+            </IfEntries>
+            <IfEntries entries={{ write, append }}>
+                <UserCommand>
+                    <OutputEntries entries={{ tagA, APPEND, INBOX, appendFlags }}/> {esmtpMessageLength}
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ goAhead }}/>
+                </SystemReply>
+                <UserCommand>
+                    {esmtpMessage}
+                </UserCommand><br/>
+                <SystemReply>
+                    <OutputEntries entries={{ asterisk, appendExists }}/><br/>
+                    <OutputEntries entries={{ tagA, OK, APPEND, completed }}/>
+                </SystemReply>
+            </IfEntries>
+            <IfEntries entries={{ idle }}>
+                <UserCommand>
+                    <OutputEntries entries={{ tagW, IDLE }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ idling }}/><br/>
+                    <OutputEntries entries={{ timePassesMessageArrived }}/><br/>
+                    <OutputEntries entries={{ asterisk, messageArrived }}/><br/>
+                    <OutputEntries entries={{ timePassesMessageDeleted }}/><br/>
+                    <OutputEntries entries={{ asterisk, messageDeleted }}/><br/>
+                    <OutputEntries entries={{ asterisk, messageTotal }}/><br/>
+                    <OutputEntries entries={{ timePassesClientLogout }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ DONE }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ tagW, OK, IDLE, terminated }}/>
+                </SystemReply>
+            </IfEntries>
             <UserCommand>
-                <OutputEntries entries={{ tagX, EXPUNGE }}/>
+                <OutputEntries entries={{ tagO, LOGOUT }}/>
             </UserCommand>
             <SystemReply>
-                <OutputFunction function={state =>
-                    getAllMessageNumbers(state).map(value => <Fragment>
-                        <OutputEntries entries={{ asterisk, e: entry(value), EXPUNGE }}/><br/>
-                    </Fragment>)
-                }/>
-                <OutputEntries entries={{ asterisk, expungeExists }}/><br/>
-                <OutputEntries entries={{ tagX, OK, EXPUNGE, completed }}/>
+                <OutputEntries entries={{ asterisk, BYE, loggingOut }}/><br/>
+                <OutputEntries entries={{ tagO, OK, LOGOUT, completed }}/>
             </SystemReply>
-        </IfEntries>
-        <IfEntries entries={{ write, append }}>
-            <UserCommand>
-                <OutputEntries entries={{ tagA, APPEND, INBOX, appendFlags }}/> {esmtpMessageLength}
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ goAhead }}/>
-            </SystemReply>
-            <UserCommand>
-                {esmtpMessage}
-            </UserCommand><br/>
-            <SystemReply>
-                <OutputEntries entries={{ asterisk, appendExists }}/><br/>
-                <OutputEntries entries={{ tagA, OK, APPEND, completed }}/>
-            </SystemReply>
-        </IfEntries>
-        <IfEntries entries={{ idle }}>
-            <UserCommand>
-                <OutputEntries entries={{ tagW, IDLE }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ idling }}/><br/>
-                <OutputEntries entries={{ timePassesMessageArrived }}/><br/>
-                <OutputEntries entries={{ asterisk, messageArrived }}/><br/>
-                <OutputEntries entries={{ timePassesMessageDeleted }}/><br/>
-                <OutputEntries entries={{ asterisk, messageDeleted }}/><br/>
-                <OutputEntries entries={{ asterisk, messageTotal }}/><br/>
-                <OutputEntries entries={{ timePassesClientLogout }}/>
-            </SystemReply>
-            <UserCommand>
-                <OutputEntries entries={{ DONE }}/>
-            </UserCommand>
-            <SystemReply>
-                <OutputEntries entries={{ tagW, OK, IDLE, terminated }}/>
-            </SystemReply>
-        </IfEntries>
-        <UserCommand>
-            <OutputEntries entries={{ tagO, LOGOUT }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ asterisk, BYE, loggingOut }}/><br/>
-            <OutputEntries entries={{ tagO, OK, LOGOUT, completed }}/>
-        </SystemReply>
-    </CodeBlock>
-</Fragment>;
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

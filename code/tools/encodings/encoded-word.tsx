@@ -9,6 +9,7 @@ import { decodeEncodedWord, encodeEncodedWordIfNecessary } from '../../utility/e
 import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { DynamicEntries, getPersistedStore } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -26,7 +27,7 @@ function decode(): void {
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
-const inputWidth = 310;
+const inputWidth = 300;
 
 const decoded: DynamicEntry<string, State> = {
     name: 'Decoded',
@@ -62,4 +63,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingEncodedWord = <Input/>;
+export const toolEncodingEncodedWord: Tool = [<Input/>, store];

@@ -17,6 +17,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
@@ -343,71 +344,74 @@ const apopResponse: Entry<string, State> = {
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolProtocolPop3 = <Fragment>
-    <Input newColumnAt={5}/>
-    <CodeBlock>
-        <StaticPrompt>
-            <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
-        </StaticPrompt>
-        <SystemReply>
-            <OutputEntries entries={{ OK, implementation, ready, challenge }}/>
-        </SystemReply>
-        <IfCase entry="credential" value="plain">
-            <UserCommand>
-                <OutputEntries entries={{ USER, actualUsername }}/>
-            </UserCommand>
+export const toolProtocolPop3: Tool = [
+    <Fragment>
+        <Input newColumnAt={5}/>
+        <CodeBlock>
+            <StaticPrompt>
+                <OutputEntries entries={{ openssl, quiet, crlf, starttls, connect, server }}/>:<OutputEntries entries={{ port }}/>
+            </StaticPrompt>
             <SystemReply>
-                <OutputEntries entries={{ OK }}/>
+                <OutputEntries entries={{ OK, implementation, ready, challenge }}/>
+            </SystemReply>
+            <IfCase entry="credential" value="plain">
+                <UserCommand>
+                    <OutputEntries entries={{ USER, actualUsername }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK }}/>
+                </SystemReply>
+                <UserCommand>
+                    <OutputEntries entries={{ PASS, password }}/>
+                </UserCommand>
+            </IfCase>
+            <IfCase entry="credential" value="hashed">
+                <UserCommand>
+                    <OutputEntries entries={{ APOP, actualUsername, apopResponse }}/>
+                </UserCommand>
+            </IfCase>
+            <SystemReply>
+                <OutputEntries entries={{ OK, loggedIn }}/>
             </SystemReply>
             <UserCommand>
-                <OutputEntries entries={{ PASS, password }}/>
-            </UserCommand>
-        </IfCase>
-        <IfCase entry="credential" value="hashed">
-            <UserCommand>
-                <OutputEntries entries={{ APOP, actualUsername, apopResponse }}/>
-            </UserCommand>
-        </IfCase>
-        <SystemReply>
-            <OutputEntries entries={{ OK, loggedIn }}/>
-        </SystemReply>
-        <UserCommand>
-            <OutputEntries entries={{ LIST }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ OK, messages }}/>
-        </SystemReply>
-        <SystemReply>
-            <OutputEntries entries={{ messageNumber, messageSize }}/>
-        </SystemReply>
-        <SystemReply>
-            <OutputEntries entries={{ period }}/>
-        </SystemReply>
-        <UserCommand>
-            <OutputEntries entries={{ RETR, messageNumber }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ OK, messageFollows }}/>
-        </SystemReply>
-        <SystemReply>
-            <OutputEntries entries={{ messagePlaceholder }}/>
-        </SystemReply>
-        <SystemReply>
-            <OutputEntries entries={{ period }}/>
-        </SystemReply>
-        <IfEntries entries={{ deletion }}>
-            <UserCommand>
-                <OutputEntries entries={{ DELE, messageNumber }}/>
+                <OutputEntries entries={{ LIST }}/>
             </UserCommand>
             <SystemReply>
-                <OutputEntries entries={{ OK, messageDeletion }}/>
+                <OutputEntries entries={{ OK, messages }}/>
             </SystemReply>
-        </IfEntries>
-        <UserCommand>
-            <OutputEntries entries={{ QUIT }}/>
-        </UserCommand>
-        <SystemReply>
-            <OutputEntries entries={{ OK, loggingOut }}/>
-        </SystemReply>
-    </CodeBlock>
-</Fragment>;
+            <SystemReply>
+                <OutputEntries entries={{ messageNumber, messageSize }}/>
+            </SystemReply>
+            <SystemReply>
+                <OutputEntries entries={{ period }}/>
+            </SystemReply>
+            <UserCommand>
+                <OutputEntries entries={{ RETR, messageNumber }}/>
+            </UserCommand>
+            <SystemReply>
+                <OutputEntries entries={{ OK, messageFollows }}/>
+            </SystemReply>
+            <SystemReply>
+                <OutputEntries entries={{ messagePlaceholder }}/>
+            </SystemReply>
+            <SystemReply>
+                <OutputEntries entries={{ period }}/>
+            </SystemReply>
+            <IfEntries entries={{ deletion }}>
+                <UserCommand>
+                    <OutputEntries entries={{ DELE, messageNumber }}/>
+                </UserCommand>
+                <SystemReply>
+                    <OutputEntries entries={{ OK, messageDeletion }}/>
+                </SystemReply>
+            </IfEntries>
+            <UserCommand>
+                <OutputEntries entries={{ QUIT }}/>
+            </UserCommand>
+            <SystemReply>
+                <OutputEntries entries={{ OK, loggingOut }}/>
+            </SystemReply>
+        </CodeBlock>
+    </Fragment>,
+    store,
+];

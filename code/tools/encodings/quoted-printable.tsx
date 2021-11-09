@@ -9,6 +9,7 @@ import { Charset, decodeQuotedPrintable, encodeQuotedPrintable, isInLatin1Range 
 import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { DynamicEntries, getPersistedStore, mergeIntoCurrentState } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -52,7 +53,7 @@ function onCharsetChange(): void {
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
-const inputWidth = 210;
+const inputWidth = 200;
 const rows = 3;
 
 const decoded: DynamicEntry<string, State> = {
@@ -123,4 +124,4 @@ const Input = getInput(store);
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolEncodingQuotedPrintable = <Input entries={{ decoded, encoded, charset }}/>;
+export const toolEncodingQuotedPrintable: Tool = [<Input entries={{ decoded, encoded, charset }}/>, store];

@@ -15,6 +15,7 @@ import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
 import { DynamicEntries, getPersistedStore, shareInputs } from '../../react/state';
+import { Tool } from '../../react/utility';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -83,7 +84,10 @@ function RawHashOutput({ input, algorithm, uppercase }: State): JSX.Element {
 
 const HashOutput = shareInputs(store)(RawHashOutput);
 
-export const toolInstructionHashing = <Fragment>
-    <Input/>
-    <HashOutput/>
-</Fragment>;
+export const toolInstructionHashing: Tool = [
+    <Fragment>
+        <Input/>
+        <HashOutput/>
+    </Fragment>,
+    store,
+];

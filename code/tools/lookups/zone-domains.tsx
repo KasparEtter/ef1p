@@ -11,7 +11,7 @@ import { getInput } from '../../react/input';
 import { shareState } from '../../react/share';
 import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { join } from '../../react/utility';
+import { join, Tool } from '../../react/utility';
 
 import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../../apis/dns-lookup';
 
@@ -188,26 +188,17 @@ export function setZoneWalkerInputFields(startDomain: string, resultLimit?: numb
 
 /* ------------------------------ User interface ------------------------------ */
 
-export const toolLookupZoneDomains = <Fragment>
-    <Input
-        submit={{
-            text: 'Walk',
-            title: 'List the domain names in the given zone.',
-            onClick: walkZone,
-        }}
-    />
-    <ZoneWalkerResponseTable/>
-</Fragment>;
-
-/* ------------------------------ Element bindings ------------------------------ */
-
-export function bindZoneWalks() {
-    for (const element of document.getElementsByClassName('bind-zone-walk') as HTMLCollectionOf<HTMLElement>) {
-        const domain = element.dataset.domain;
-        if (domain === undefined) {
-            console.error('The data attributes of the following element are invalid:', element);
-        } else {
-            element.addEventListener('click', () => setZoneWalkerInputFields(domain, 25));
-        }
-    }
-}
+export const toolLookupZoneDomains: Tool = [
+    <Fragment>
+        <Input
+            submit={{
+                text: 'Walk',
+                title: 'List the domain names in the given zone.',
+                onClick: walkZone,
+            }}
+        />
+        <ZoneWalkerResponseTable/>
+    </Fragment>,
+    store,
+    walkZone,
+];
