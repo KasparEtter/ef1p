@@ -6,22 +6,19 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { CodeBlock, SystemReply } from '../../code/react/code';
 import { StaticPrompt } from '../../code/react/prompt';
-import { inject } from '../../code/react/utility';
+import { injectElement, injectTool } from '../../code/react/utility';
 
-import { bindDnsQueries, toolLookupDnsRecords } from '../../code/tools/lookups/dns-records';
+import { toolLookupDnsRecords } from '../../code/tools/lookups/dns-records';
 import { toolLookupIpAddress } from '../../code/tools/lookups/ip-address';
-import { bindZoneWalks, toolLookupZoneDomains } from '../../code/tools/lookups/zone-domains';
+import { toolLookupZoneDomains } from '../../code/tools/lookups/zone-domains';
 import { toolProtocolHttp } from '../../code/tools/protocols/http';
 
-inject('tool-lookup-ip-address', toolLookupIpAddress);
-inject('tool-protocol-http', toolProtocolHttp);
-inject('tool-lookup-dns-records', toolLookupDnsRecords);
-inject('tool-lookup-zone-domains', toolLookupZoneDomains);
+injectTool('tool-lookup-ip-address', toolLookupIpAddress);
+injectTool('tool-protocol-http', toolProtocolHttp);
+injectTool('tool-lookup-dns-records', toolLookupDnsRecords);
+injectTool('tool-lookup-zone-domains', toolLookupZoneDomains);
 
-bindDnsQueries();
-bindZoneWalks();
-
-inject('code-ping-example', <CodeBlock>
+injectElement('code-ping-example', <CodeBlock>
     <StaticPrompt>ping -c 5 example.com</StaticPrompt>
     <SystemReply>PING example.com (93.184.216.34): 56 data bytes</SystemReply>
     <SystemReply>64 bytes from 93.184.216.34: icmp_seq=0 ttl=50 time=87.363 ms</SystemReply>

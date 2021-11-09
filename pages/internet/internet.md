@@ -2266,21 +2266,21 @@ besides the one which resolves a domain name to an IPv4 address:
 
 | Acronym | Name | Value | Example
 |-
-| [`A`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.4.1) | IPv4 address record | A single IPv4 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com" data-type="A" data-dnssec="false" title="Look up the A record of ef1p.com.">↗</a>
-| [`AAAA`](https://datatracker.ietf.org/doc/html/rfc3596#section-2.1) | IPv6 address record | A single IPv6 address. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="google.com" data-type="AAAA" data-dnssec="false" title="Look up the AAAA record of google.com.">↗</a>
-| [`ANY`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.5) | Any record type query | Return all record types of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ietf.org" data-type="ANY" data-dnssec="false" title="Look up ANY records of ietf.org.">↗</a>
-| [`CAA`](https://datatracker.ietf.org/doc/html/rfc8659#section-4) | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="wikipedia.org" data-type="CAA" data-dnssec="false" title="Look up the CAA records of wikipedia.org.">↗</a>
-| [`CNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.1) | Canonical name record | Another domain name to continue the lookup with. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="www.facebook.com" data-type="CNAME" data-dnssec="false" title="Look up the CNAME record of www.facebook.com.">↗</a>
-| [`MX`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.9) | Mail exchange record | The server to deliver the mail for the queried domain to. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="gmail.com" data-type="MX" data-dnssec="false" title="Look up the MX records of gmail.com.">↗</a>
-| [`NS`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.11) | Name server record | The authoritative name server of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="youtube.com" data-type="NS" data-dnssec="false" title="Look up the NS records of youtube.com.">↗</a>
-| [`OPENPGPKEY`](https://datatracker.ietf.org/doc/html/rfc7929#section-2) | OpenPGP key | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="5d2d3ceb7abe552344276d47d36a8175b7aeb250a9bf0bf00e850cd2._openpgpkey.ef1p.com" data-type="OPENPGPKEY" data-dnssec="false" title="Look up the OPENPGPKEY records of security@ef1p.com.">↗</a>
-| [`PTR`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.12) | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="47.224.172.17.in-addr.arpa" data-type="PTR" data-dnssec="false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">↗</a>
-| [`SMIMEA`](https://datatracker.ietf.org/doc/html/rfc8162#section-2) | S/MIME certificate | The local part of the user's email address is hashed. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="b1a51af355b2082ce05911aa0cc98a2d816fb6bc6b2901d2c0ded2de._smimecert.spodhuis.org" data-type="SMIMEA" data-dnssec="false" title="Look up the SMIMEA records of ietf-dane-phil@spodhuis.org.">↗</a>
-| [`SOA`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.13) | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="amazon.com" data-type="SOA" data-dnssec="false" title="Look up the SOA record of amazon.com.">↗</a>
-| [`SRV`](https://datatracker.ietf.org/doc/html/rfc2782) | Service record | The port number and domain name of the queried service. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_submission._tcp.gmail.com" data-type="SRV" data-dnssec="false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">↗</a>
-| [`SSHFP`](https://datatracker.ietf.org/doc/html/rfc4255#section-3) | SSH fingerprint | The hash of the server's SSH key for initial authentication. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ccczh.ch" data-type="SSHFP" data-dnssec="false" title="Look up the SSHFP records of ccczh.ch.">↗</a>
-| [`TLSA`](https://datatracker.ietf.org/doc/html/rfc6698#section-2) | Server certificate | See [DNS-Based Authentication of Named Entities (DANE)](/email/#dns-based-authentication-of-named-entities). | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="_25._tcp.mail.protonmail.ch" data-type="TLSA" data-dnssec="false" title="Look up the TLSA records of _25._tcp.mail.protonmail.ch.">↗</a>
-| [`TXT`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.14) | Text record | Arbitrary text used in place of introducing a new record type. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="hello.ef1p.com" data-type="TXT" data-dnssec="false" title="Look up the TXT records of hello.ef1p.com.">↗</a>
+| [`A`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.4.1) | IPv4 address record | A single IPv4 address. | <a href="#tool-lookup-dns-records&domainName=ef1p.com&recordType=A&dnssecOk=false" title="Look up the A record of ef1p.com.">↗</a>
+| [`AAAA`](https://datatracker.ietf.org/doc/html/rfc3596#section-2.1) | IPv6 address record | A single IPv6 address. | <a href="#tool-lookup-dns-records&domainName=google.com&recordType=AAAA&dnssecOk=false" title="Look up the AAAA record of google.com.">↗</a>
+| [`ANY`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.5) | Any record type query | Return all record types of the queried domain. | <a href="#tool-lookup-dns-records&domainName=ietf.org&recordType=ANY&dnssecOk=false" title="Look up ANY records of ietf.org.">↗</a>
+| [`CAA`](https://datatracker.ietf.org/doc/html/rfc8659#section-4) | CA authorization record | The CA authorized to issue certificates for this domain.<br>Only checked by CAs before issuing a certificate. | <a href="#tool-lookup-dns-records&domainName=wikipedia.org&recordType=CAA&dnssecOk=false" title="Look up the CAA records of wikipedia.org.">↗</a>
+| [`CNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.1) | Canonical name record | Another domain name to continue the lookup with. | <a href="#tool-lookup-dns-records&domainName=www.facebook.com&recordType=CNAME&dnssecOk=false" title="Look up the CNAME record of www.facebook.com.">↗</a>
+| [`MX`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.9) | Mail exchange record | The server to deliver the mail for the queried domain to. | <a href="#tool-lookup-dns-records&domainName=gmail.com&recordType=MX&dnssecOk=false" title="Look up the MX records of gmail.com.">↗</a>
+| [`NS`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.11) | Name server record | The authoritative name server of the queried domain. | <a href="#tool-lookup-dns-records&domainName=youtube.com&recordType=NS&dnssecOk=false" title="Look up the NS records of youtube.com.">↗</a>
+| [`OPENPGPKEY`](https://datatracker.ietf.org/doc/html/rfc7929#section-2) | OpenPGP key | The local part of the user's email address is hashed. | <a href="#tool-lookup-dns-records&domainName=5d2d3ceb7abe552344276d47d36a8175b7aeb250a9bf0bf00e850cd2._openpgpkey.ef1p.com&recordType=OPENPGPKEY&dnssecOk=false" title="Look up the OPENPGPKEY records of security@ef1p.com.">↗</a>
+| [`PTR`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.12) | Pointer record | Another domain name without continuing the lookup.<br>Primarily used for implementing [reverse DNS lookups](https://en.wikipedia.org/wiki/Reverse_DNS_lookup). | <a href="#tool-lookup-dns-records&domainName=47.224.172.17.in-addr.arpa&recordType=PTR&dnssecOk=false" title="Do a reverse lookup on one of apple.com's IP addresses. Yeah, the result is rather weird and I have no idea either why these records exist.">↗</a>
+| [`SMIMEA`](https://datatracker.ietf.org/doc/html/rfc8162#section-2) | S/MIME certificate | The local part of the user's email address is hashed. | <a href="#tool-lookup-dns-records&domainName=b1a51af355b2082ce05911aa0cc98a2d816fb6bc6b2901d2c0ded2de._smimecert.spodhuis.org&recordType=SMIMEA&dnssecOk=false" title="Look up the SMIMEA records of ietf-dane-phil@spodhuis.org.">↗</a>
+| [`SOA`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.13) | Start of authority record | Administrative information for [secondary name servers](https://en.wikipedia.org/wiki/Name_server#Authoritative_answer). | <a href="#tool-lookup-dns-records&domainName=amazon.com&recordType=SOA&dnssecOk=false" title="Look up the SOA record of amazon.com.">↗</a>
+| [`SRV`](https://datatracker.ietf.org/doc/html/rfc2782) | Service record | The port number and domain name of the queried service. | <a href="#tool-lookup-dns-records&domainName=_submission._tcp.gmail.com&recordType=SRV&dnssecOk=false" title="Look up the SRV record of _submission._tcp.gmail.com. As an email client, you can use the subdomain _submission._tcp to figure out which server to submit outgoing emails to. Unfortunately, this standard is not widely used.">↗</a>
+| [`SSHFP`](https://datatracker.ietf.org/doc/html/rfc4255#section-3) | SSH fingerprint | The hash of the server's SSH key for initial authentication. | <a href="#tool-lookup-dns-records&domainName=ccczh.ch&recordType=SSHFP&dnssecOk=false" title="Look up the SSHFP records of ccczh.ch.">↗</a>
+| [`TLSA`](https://datatracker.ietf.org/doc/html/rfc6698#section-2) | Server certificate | See [DNS-Based Authentication of Named Entities (DANE)](/email/#dns-based-authentication-of-named-entities). | <a href="#tool-lookup-dns-records&domainName=_25._tcp.mail.protonmail.ch&recordType=TLSA&dnssecOk=false" title="Look up the TLSA records of _25._tcp.mail.protonmail.ch.">↗</a>
+| [`TXT`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.3.14) | Text record | Arbitrary text used in place of introducing a new record type. | <a href="#tool-lookup-dns-records&domainName=hello.ef1p.com&recordType=TXT&dnssecOk=false" title="Look up the TXT records of hello.ef1p.com.">↗</a>
 
 <figcaption markdown="span">
 Some of the more common [DNS record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types).
@@ -2386,9 +2386,9 @@ and provide you with the addresses of the authoritative name servers of that zon
 If you query one of those name servers for `ef1p.com.`,
 it will tell you again that other name servers are responsible for this domain.
 You can query all these name servers with the tool at the end of the previous box:
-<a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="NS" data-dnssec="false">the root name servers</a>,
-<a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="NS" data-dnssec="false">the .com name servers</a>,
-and <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com." data-type="NS" data-dnssec="false">the ef1p.com name servers</a>.
+<a href="#tool-lookup-dns-records&domainName=.&recordType=NS&dnssecOk=false">the root name servers</a>,
+<a href="#tool-lookup-dns-records&domainName=com.&recordType=NS&dnssecOk=false">the .com name servers</a>,
+and <a href="#tool-lookup-dns-records&domainName=ef1p.com.&recordType=NS&dnssecOk=false">the ef1p.com name servers</a>.
 Somewhat confusingly, the name servers are listed with a domain name rather than an IP address.
 In order to avoid the [circular dependency](https://en.wikipedia.org/wiki/Circular_dependency)
 that [you already need to have used DNS in order to use DNS](https://en.wikipedia.org/wiki/DNS_root_zone#Initialization_of_DNS_service),
@@ -2454,14 +2454,14 @@ DNSSEC introduced the following DNS record types:
 
 | Acronym | Name | Value |
 |-
-| [`DNSKEY`](https://datatracker.ietf.org/doc/html/rfc4034#section-2) | DNS public key record | The public key used to sign the resource records of the queried domain. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="DNSKEY" data-dnssec="true" title="Look up the DNSKEY records of the root zone.">↗</a>
-| [`DS`](https://datatracker.ietf.org/doc/html/rfc4034#section-5) | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="DS" data-dnssec="true" title="Look up the DS record for the com zone signed by the root zone.">↗</a>
-| [`RRSIG`](https://datatracker.ietf.org/doc/html/rfc4034#section-3) | Resource record signature | A digital signature on the queried set of resource records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="RRSIG" data-dnssec="true" title="Look up the various RRSIG records of the root domain.">↗</a>
-| [`NSEC`](https://datatracker.ietf.org/doc/html/rfc4034#section-4) | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">↗</a>
-| [`NSEC3`](https://datatracker.ietf.org/doc/html/rfc5155#section-3) | `NSEC` version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="com." data-type="A" data-dnssec="true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">↗</a>
-| [`NSEC3PARAM`](https://datatracker.ietf.org/doc/html/rfc5155#section-4) | `NSEC3` parameters | Used by authoritative name servers to generate the `NSEC3` records. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="ef1p.com." data-type="NSEC3PARAM" data-dnssec="true" title="Look up the NSEC3PARAM record of ef1p.com.">↗</a>
-| [`CDS`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.1) | Child copy of `DS` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDS" data-dnssec="true" title="Look up the CDS record of switch.ch.">↗</a>
-| [`CDNSKEY`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.2) | Child copy of `DNSKEY` | Used by the child zone to update its `DS` record in the parent zone. | <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="switch.ch." data-type="CDNSKEY" data-dnssec="true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">↗</a>
+| [`DNSKEY`](https://datatracker.ietf.org/doc/html/rfc4034#section-2) | DNS public key record | The public key used to sign the resource records of the queried domain. | <a href="#tool-lookup-dns-records&domainName=.&recordType=DNSKEY&dnssecOk=true" title="Look up the DNSKEY records of the root zone.">↗</a>
+| [`DS`](https://datatracker.ietf.org/doc/html/rfc4034#section-5) | Delegation signer record | The hash of the key-signing key (KSK) used in the delegated DNS zone. | <a href="#tool-lookup-dns-records&domainName=com.&recordType=DS&dnssecOk=true" title="Look up the DS record for the com zone signed by the root zone.">↗</a>
+| [`RRSIG`](https://datatracker.ietf.org/doc/html/rfc4034#section-3) | Resource record signature | A digital signature on the queried set of resource records. | <a href="#tool-lookup-dns-records&domainName=.&recordType=RRSIG&dnssecOk=true" title="Look up the various RRSIG records of the root domain.">↗</a>
+| [`NSEC`](https://datatracker.ietf.org/doc/html/rfc4034#section-4) | Next secure record | The next existing subdomain used for authenticated denial of existence. | <a href="#tool-lookup-dns-records&domainName=nonexistent.example.com.&recordType=A&dnssecOk=true" title="See the NSEC record returned when looking up the A record of the nonexistent domain nonexistent.example.com.">↗</a>
+| [`NSEC3`](https://datatracker.ietf.org/doc/html/rfc5155#section-3) | `NSEC` version 3 | A salted hash of the next existing subdomain to prevent "zone walking". | <a href="#tool-lookup-dns-records&domainName=com.&recordType=A&dnssecOk=true" title="See the NSEC3 record returned when looking up the nonexistent A record of the domain com.">↗</a>
+| [`NSEC3PARAM`](https://datatracker.ietf.org/doc/html/rfc5155#section-4) | `NSEC3` parameters | Used by authoritative name servers to generate the `NSEC3` records. | <a href="#tool-lookup-dns-records&domainName=ef1p.com.&recordType=NSEC3PARAM&dnssecOk=true" title="Look up the NSEC3PARAM record of ef1p.com.">↗</a>
+| [`CDS`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.1) | Child copy of `DS` | Used by the child zone to update its `DS` record in the parent zone. | <a href="#tool-lookup-dns-records&domainName=switch.ch.&recordType=CDS&dnssecOk=true" title="Look up the CDS record of switch.ch.">↗</a>
+| [`CDNSKEY`](https://datatracker.ietf.org/doc/html/rfc7344#section-3.2) | Child copy of `DNSKEY` | Used by the child zone to update its `DS` record in the parent zone. | <a href="#tool-lookup-dns-records&domainName=switch.ch.&recordType=CDNSKEY&dnssecOk=true" title="Look up the CDNSKEY record of switch.ch. Unfortunately, Google's API doesn't yet return the data in the same format as for DNSKEY.">↗</a>
 
 <figcaption markdown="span">
 The [DNS record types introduced for DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#Resource_records)
@@ -2501,7 +2501,7 @@ As mentioned above, the key-signing key of the root zone acts as the trust ancho
 Its hash is published [on the website of IANA](https://www.iana.org/dnssec/files)
 together with a scan of handwritten signatures by [trusted community representatives](https://www.iana.org/dnssec/tcrs),
 attesting the output of the used [hardware security module (HSM)](https://en.wikipedia.org/wiki/Hardware_security_module).
-You can inspect the root public key <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="." data-type="DNSKEY" data-dnssec="true">with the above tool</a>
+You can inspect the root public key <a href="#tool-lookup-dns-records&domainName=.&recordType=DNSKEY&dnssecOk=true">with the above tool</a>
 or by entering `dig . dnskey +dnssec` into your command-line interface.
 (The key-signing key is in the record which starts with 257.
 The other record, starting with 256, contains the zone-signing key.)
@@ -2571,7 +2571,7 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   which includes the queried domain.
   Since all domains in a zone are known to the administrator of that zone,
   the gaps between the subdomains can be determined and signed in advance.
-  For example, if you <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="nonexistent.example.com." data-type="A" data-dnssec="true">query the nonexistent domain</a>
+  For example, if you <a href="#tool-lookup-dns-records&domainName=nonexistent.example.com.&recordType=A&dnssecOk=true">query the nonexistent domain</a>
   `nonexistent.example.com.`, you get an `NSEC` record in the authority section of the response,
   which says that the next domain name in the zone after `example.com.` is `www.example.com.`,
   and an `RRSIG` record, which signs the `NSEC` record.
@@ -2582,13 +2582,13 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   which is `example.com.` in our example,
   is not just at the beginning of this list but also at its end.
   If you click on `www.example.com.` in the data column of the `NSEC` record
-  in order to <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="www.example.com." data-type="NSEC" data-dnssec="true">query its `NSEC` record</a>,
+  in order to <a href="#tool-lookup-dns-records&domainName=www.example.com.&recordType=NSEC&dnssecOk=true">query its `NSEC` record</a>,
   you see that the next domain after `www.example.com.` is `example.com.`.
   In other words, the list of subdomains wraps around
   for the purpose of determining the gaps to sign.
   Each `NSEC` record also specifies the types of records
   that the domain which owns the specific `NSEC` record has.
-  If you query, for example, the <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="www.example.com." data-type="MX" data-dnssec="true">`MX` record of `www.example.com.`</a>,
+  If you query, for example, the <a href="#tool-lookup-dns-records&domainName=www.example.com.&recordType=MX&dnssecOk=true">`MX` record of `www.example.com.`</a>,
   you get the `NSEC` record of that domain instead.
   Since `MX` is not listed in this `NSEC` record,
   you can be certain that no such record exists.
@@ -2622,14 +2622,14 @@ Allowing the signatures to be computed in advance makes DNSSEC more complicated 
   [some top-level domains](https://www.farsightsecurity.com/blog/txt-record/zone-walking-20170901/)
   also still use `NSEC` records for authenticated denial of existence.
   Among those are [country code top-level domains](https://en.wikipedia.org/wiki/Country_code_top-level_domain)
-  such as <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="br.">.br (Brazil)</a>,
-  <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="bg.">.bg (Bulgaria)</a>,
-  <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="lk.">.lk (Sri Lanka)</a>,
-  and <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="tn.">.tn (Tunisia)</a>,
+  such as <a href="#tool-lookup-zone-domains&startDomain=br.">.br (Brazil)</a>,
+  <a href="#tool-lookup-zone-domains&startDomain=bg.">.bg (Bulgaria)</a>,
+  <a href="#tool-lookup-zone-domains&startDomain=lk.">.lk (Sri Lanka)</a>,
+  and <a href="#tool-lookup-zone-domains&startDomain=tn.">.tn (Tunisia)</a>,
   as well as [generic top-level domains](https://en.wikipedia.org/wiki/Generic_top-level_domain)
-  such as <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="help.">.help</a>,
-  <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="link.">.link</a>,
-  and <a class="bind-zone-walk" href="#tool-lookup-zone-domains" data-domain="photo.">.photo</a>.
+  such as <a href="#tool-lookup-zone-domains&startDomain=help.">.help</a>,
+  <a href="#tool-lookup-zone-domains&startDomain=link.">.link</a>,
+  and <a href="#tool-lookup-zone-domains&startDomain=photo.">.photo</a>.
   For security and privacy reasons, many organizations prefer
   not to expose the content of their zone so easily.
   This problem was first addressed by [RFC 4470](https://datatracker.ietf.org/doc/html/rfc4470),
@@ -2778,7 +2778,7 @@ Personally, I can think of the following reasons:
   which is geographically close to the requester.
   This is used by [content delivery networks (CDN)](https://en.wikipedia.org/wiki/Content_delivery_network)
   to make downloading a lot of content faster for the consumer and cheaper for the provider.
-  For example, if I <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="google.com" data-type="A" data-dnssec="false">resolve `google.com`</a>
+  For example, if I <a href="#tool-lookup-dns-records&domainName=google.com&recordType=A&dnssecOk=false">resolve `google.com`</a>
   and then do a reverse lookup by clicking on the returned IP address,
   I get `zrh11s03-in-f14.1e100.net.` with `zrh` standing for Zurich in Switzerland.
   (`1e100` is the scientific notation for one [googol](https://en.wikipedia.org/wiki/Googol).)
