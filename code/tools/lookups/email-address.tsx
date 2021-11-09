@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import { Buffer } from 'safe-buffer';
 
 import { download } from '../../utility/download';
+import { getErrorMessage } from '../../utility/error';
 
 import { DynamicEntry } from '../../react/entry';
 import { getInput } from '../../react/input';
@@ -95,7 +96,7 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
         }
         smimeaRecordsStore.update();
     } catch (error) {
-        smimeaRecordsStore.setState({ ...getDefaultRecordState(), error: error.message });
+        smimeaRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -165,7 +166,7 @@ async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
         }
         openpgpkeyRecordsStore.update();
     } catch (error) {
-        openpgpkeyRecordsStore.setState({ ...getDefaultRecordState(), error: error.message });
+        openpgpkeyRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 

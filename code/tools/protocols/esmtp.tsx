@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 
 import { flatten, unique } from '../../utility/array';
 import { base64Regex, encodeBase64, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
+import { getErrorMessage } from '../../utility/error';
 import { normalizeToValue } from '../../utility/normalization';
 import { arrayToRecord, Dictionary, reverseLookup } from '../../utility/record';
 import { getRandomString, nonEmpty, regex, splitOutsideOfDoubleQuotes } from '../../utility/string';
@@ -174,7 +175,7 @@ async function updateServer(_: string, state: State, fromHistory: boolean): Prom
                     mergeIntoCurrentState(store, { 'server': domain });
                 }
             } catch (error) {
-                mergeIntoCurrentState(store, { 'server': '' }, { 'server': error.message });
+                mergeIntoCurrentState(store, { 'server': '' }, { 'server': getErrorMessage(error) });
             }
         }
     }
@@ -191,7 +192,7 @@ async function updateClient(): Promise<[string, ErrorType]> {
             return [`[${ip}]`, false];
         }
     } catch (error) {
-        return ['', error.message];
+        return ['', getErrorMessage(error)];
     }
 }
 

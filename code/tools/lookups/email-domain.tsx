@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 
 import { flatten, getLastElement } from '../../utility/array';
 import { copyToClipboard } from '../../utility/clipboard';
+import { getErrorMessage } from '../../utility/error';
 import { fetchWithError } from '../../utility/fetch';
 import { Dictionary } from '../../utility/record';
 import { splitOnFirstOccurrence } from '../../utility/string';
@@ -164,7 +165,7 @@ async function querySrvRecords({ domain }: State): Promise<void> {
             srvRecordsStore.setState({ available, unavailable, dnssec, error: undefined });
         }
     } catch (error) {
-        srvRecordsStore.setState({ available: [], unavailable: [], dnssec: false, error: error.message });
+        srvRecordsStore.setState({ available: [], unavailable: [], dnssec: false, error: getErrorMessage(error) });
     }
 }
 
@@ -445,7 +446,7 @@ async function queryMxRecords({ domain }: State): Promise<void> {
             }
         }
     } catch (error) {
-        mxRecordsStore.setState({ mxRows: [], adRows: [], dnssec: false, error: error.message });
+        mxRecordsStore.setState({ mxRows: [], adRows: [], dnssec: false, error: getErrorMessage(error) });
     }
 }
 
@@ -1010,7 +1011,7 @@ async function querySpfRecord({ domain }: State): Promise<void> {
         await checkSpfRecord(domain.toLowerCase());
         spfRecordStore.update();
     } catch (error) {
-        spfRecordStore.setState({ ...getDefaultRecordState(), error: error.message });
+        spfRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1188,7 +1189,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
         }
         dkimRecordStore.update();
     } catch (error) {
-        dkimRecordStore.setState({ ...getDefaultRecordState(), error: error.message });
+        dkimRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1557,7 +1558,7 @@ async function loadDmarcRecord({ domain }: State): Promise<void> {
         await checkDmarcRecord(domain.toLowerCase());
         dmarcRecordStore.update();
     } catch (error) {
-        dmarcRecordStore.setState({ ...getDefaultRecordState(), error: error.message });
+        dmarcRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1707,7 +1708,7 @@ async function queryBimiRecord({ domain, bimiSelector }: State): Promise<void> {
         await checkBimiRecord(domain.toLowerCase(), bimiSelector);
         bimiRecordStore.update();
     } catch (error) {
-        bimiRecordStore.setState({ ...getDefaultRecordState(), error: error.message });
+        bimiRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1770,7 +1771,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
         }
         tlsaRecordsStore.update();
     } catch (error) {
-        tlsaRecordsStore.setState({ ...getDefaultRecordState(), error: error.message });
+        tlsaRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1914,7 +1915,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
         }
         mtaStsFileStore.update();
     } catch (error) {
-        mtaStsFileStore.setState({ ...getDefaultRecordState(), error: error.message });
+        mtaStsFileStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 
@@ -1953,7 +1954,7 @@ async function queryTlsReporting({ domain }: State): Promise<void> {
         }
         tlsReportingStore.update();
     } catch (error) {
-        tlsReportingStore.setState({ ...getDefaultRecordState(), error: error.message });
+        tlsReportingStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
     }
 }
 

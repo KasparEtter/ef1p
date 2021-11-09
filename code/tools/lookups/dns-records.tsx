@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { getErrorMessage } from '../../utility/error';
 import { Dictionary } from '../../utility/record';
 import { Time } from '../../utility/time';
 
@@ -427,7 +428,7 @@ async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: Stat
         const response = await resolveDomainName(domainName, recordType as RecordType, dnssecOk);
         dnsResponseStore.setState({ response, error: undefined });
     } catch (error) {
-        dnsResponseStore.setState({ error: error.message });
+        dnsResponseStore.setState({ error: getErrorMessage(error) });
     }
 }
 
