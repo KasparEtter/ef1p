@@ -3004,7 +3004,7 @@ For example, when the [Internet Assigned Numbers Authority (IANA)](https://en.wi
 allocated the IP address block `123.xxx.xxx.xxx` to
 the [Asia-Pacific Network Information Centre (APNIC)](https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre),
 it also delegated the DNS zone `123.in-addr.arpa` to APNIC.
-You can <a class="bind-dns-query" href="#tool-lookup-dns-records" data-domain="123.in-addr.arpa" data-type="SOA" data-dnssec="false" title="Look up the SOA record of 123.in-addr.arpa.">check this</a>
+You can <a href="#tool-lookup-dns-records&domainName=123.in-addr.arpa&recordType=SOA&dnssecOk=false" title="Look up the SOA record of 123.in-addr.arpa.">check this</a>
 with the [DNS tool](/internet/#domain-name-system) below:
 
 <div id="tool-lookup-dns-records"></div>
@@ -6881,53 +6881,53 @@ which means that you can specify a code point with two, four, or a variable numb
 [**Examples of canonical equivalence**](https://unicode.org/reports/tr15/#Canonical_Equivalence_Figure):
 - [Combining characters](https://en.wikipedia.org/wiki/Combining_character)
   such as [diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ü" data-normalization="NFD">ü ↔ u◌̈</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="í" data-normalization="NFD">í ↔ i◌́</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="è" data-normalization="NFD">è ↔ e◌̀</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ñ" data-normalization="NFD">ñ ↔ n◌̃</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ñ" data-normalization="NFD">ç ↔ c◌̧</a> ,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="≠" data-normalization="NFD">≠ ↔ =◌̸</a>
+  <a href="#tool-encoding-normalization&input=%C3%BC&normalization=NFD">ü ↔ u◌̈</a>,
+  <a href="#tool-encoding-normalization&input=%C3%AD&normalization=NFD">í ↔ i◌́</a>,
+  <a href="#tool-encoding-normalization&input=%C3%A8&normalization=NFD">è ↔ e◌̀</a>,
+  <a href="#tool-encoding-normalization&input=%C3%B1&normalization=NFD">ñ ↔ n◌̃</a>,
+  <a href="#tool-encoding-normalization&input=%C3%A7&normalization=NFD">ç ↔ c◌̧</a> ,
+  <a href="#tool-encoding-normalization&input=%E2%89%A0&normalization=NFD">≠ ↔ =◌̸</a>
 - The order of combining marks is irrelevant:
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="a\u0307\u0323" data-normalization="NFD">a◌̇◌̣ → a◌̣◌̇</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ạ̇" data-normalization="NFC">a◌̣◌̇ ↔ ạ◌̇</a>
+  <a href="#tool-encoding-normalization&input=a%5Cu0307%5Cu0323&normalization=NFD">a◌̇◌̣ → a◌̣◌̇</a>,
+  <a href="#tool-encoding-normalization&input=a%CC%A3%CC%87&normalization=NFC">a◌̣◌̇ ↔ ạ◌̇</a>
 - [Same symbol with different semantics](https://en.wikipedia.org/wiki/Unicode_compatibility_characters#Semantically_distinct_characters):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="K" data-normalization="NFD">Kelvin K → Latin K</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="Ω" data-normalization="NFD">Ohm Sign Ω → Greek Omega Ω</a>
+  <a href="#tool-encoding-normalization&input=%E2%84%AA&normalization=NFD">Kelvin K → Latin K</a>,
+  <a href="#tool-encoding-normalization&input=%E2%84%A6&normalization=NFD">Ohm Sign Ω → Greek Omega Ω</a>
 {:.compact}
 
 [**Examples of compatibility equivalence**](https://unicode.org/reports/tr15/#Compatibility_Equivalence_Figure):
 - [Style variants](https://unicode-table.com/en/search/?q=Mathematical+N):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ℕ" data-normalization="NFKC">ℕ → N</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="𝐍" data-normalization="NFKC">𝐍 → N</a>
+  <a href="#tool-encoding-normalization&input=%E2%84%95&normalization=NFKC">ℕ → N</a>,
+  <a href="#tool-encoding-normalization&input=%F0%9D%90%8D&normalization=NFKC">𝐍 → N</a>
 - [Enclosed alphanumerics](https://unicode-table.com/en/blocks/enclosed-alphanumerics/):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="⒈" data-normalization="NFKC">⒈ → 1.</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="⑴" data-normalization="NFKC">⑴ → (1)</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="①" data-normalization="NFKC">① → 1</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="⒜" data-normalization="NFKC">⒜ → (a)</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ⓐ" data-normalization="NFKC">ⓐ → a</a>
+  <a href="#tool-encoding-normalization&input=%E2%92%88&normalization=NFKC">⒈ → 1.</a>,
+  <a href="#tool-encoding-normalization&input=%E2%91%B4&normalization=NFKC">⑴ → (1)</a>,
+  <a href="#tool-encoding-normalization&input=%E2%91%A0&normalization=NFKC">① → 1</a>,
+  <a href="#tool-encoding-normalization&input=%E2%92%9C&normalization=NFKC">⒜ → (a)</a>,
+  <a href="#tool-encoding-normalization&input=%E2%93%90&normalization=NFKC">ⓐ → a</a>
 - [Halfwidth and fullwidth forms](https://unicode-table.com/en/blocks/halfwidth-and-fullwidth-forms/):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="Ａ" data-normalization="NFKC">Ａ → A</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ｶ" data-normalization="NFKC">ｶ → カ</a>
+  <a href="#tool-encoding-normalization&input=%EF%BC%A1&normalization=NFKC">Ａ → A</a>,
+  <a href="#tool-encoding-normalization&input=%EF%BD%B6&normalization=NFKC">ｶ → カ</a>
 - [Superscripts and subscripts](https://unicode-table.com/en/blocks/superscripts-and-subscripts/):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="¹" data-normalization="NFKC">¹ → 1</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="₁" data-normalization="NFKC">₁ → 1</a>
+  <a href="#tool-encoding-normalization&input=%C2%B9&normalization=NFKC">¹ → 1</a>,
+  <a href="#tool-encoding-normalization&input=%E2%82%81&normalization=NFKC">₁ → 1</a>
 - [Number forms](https://unicode-table.com/en/blocks/number-forms/):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="⅔" data-normalization="NFKC">⅔ → 2⁄3</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="Ⅳ" data-normalization="NFKC">Ⅳ → IV</a>
+  <a href="#tool-encoding-normalization&input=%E2%85%94&normalization=NFKC">⅔ → 2⁄3</a>,
+  <a href="#tool-encoding-normalization&input=%E2%85%A3&normalization=NFKC">Ⅳ → IV</a>
 - [Ligatures](https://en.wikipedia.org/wiki/Orthographic_ligature):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ﬀ" data-normalization="NFKC">ﬀ → ff</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ﬁ" data-normalization="NFKC">ﬁ → fi</a>
+  <a href="#tool-encoding-normalization&input=%EF%AC%80&normalization=NFKC">ﬀ → ff</a>,
+  <a href="#tool-encoding-normalization&input=%EF%AC%81&normalization=NFKC">ﬁ → fi</a>
   (The ligature on the right-hand side of the second example is created by the font on this website.)
 - [Digraphs](https://en.wikipedia.org/wiki/Digraph_(orthography)):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ĳ" data-normalization="NFKC">ĳ → ij</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="ǆ" data-normalization="NFKC">ǆ → dž</a>
+  <a href="#tool-encoding-normalization&input=%C4%B3&normalization=NFKC">ĳ → ij</a>,
+  <a href="#tool-encoding-normalization&input=%C7%86&normalization=NFKC">ǆ → dž</a>
 - [Letter-like symbols](https://unicode-table.com/en/blocks/letterlike-symbols/):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="℃" data-normalization="NFKC">℃ → °C</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="℅" data-normalization="NFKC">℅ → c/o</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="™" data-normalization="NFKC">™ → TM</a>
+  <a href="#tool-encoding-normalization&input=%E2%84%83&normalization=NFKC">℃ → °C</a>,
+  <a href="#tool-encoding-normalization&input=%E2%84%85&normalization=NFKC">℅ → c/o</a>,
+  <a href="#tool-encoding-normalization&input=%E2%84%A2&normalization=NFKC">™ → TM</a>
 - [Line-breaking behavior](https://en.wikipedia.org/wiki/Non-breaking_space):
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="\xA0" data-normalization="NFKC">non-breaking space → space</a>,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="\u2011" data-normalization="NFKC">non-breaking hyphen → hyphen</a>
+  <a href="#tool-encoding-normalization&input=%5CxA0&normalization=NFKC">non-breaking space → space</a>,
+  <a href="#tool-encoding-normalization&input=%5Cu2011&normalization=NFKC">non-breaking hyphen → hyphen</a>
   (≠ [hyphen-minus](https://unicode-table.com/en/002D/))
 {:.compact}
 
@@ -6998,11 +6998,11 @@ A few additional remarks:
   change the appearance of the preceding emoji.
   This is how skin tones, hair styles, gender, professions, and families are encoded.
   Click on the following emojis to see what they're made of:
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="👍🏻" data-normalization="none">👍🏻</a> ,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="👨🏼‍🦱" data-normalization="none">👨🏼‍🦱</a> ,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="🤷🏽‍♂️" data-normalization="none">🤷🏽‍♂️</a> ,
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="👩🏾‍🔬" data-normalization="none">👩🏾‍🔬</a> , and
-  <a class="bind-unicode-normalization" href="#tool-encoding-normalization" data-input="👨‍👩‍👧‍👦" data-normalization="none">👨‍👩‍👧‍👦</a> .
+  <a href="#tool-encoding-normalization&input=%F0%9F%91%8D%F0%9F%8F%BB&normalization=none">👍🏻</a> ,
+  <a href="#tool-encoding-normalization&input=%F0%9F%91%A8%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B1&normalization=none">👨🏼‍🦱</a> ,
+  <a href="#tool-encoding-normalization&input=%F0%9F%A4%B7%F0%9F%8F%BD%E2%80%8D%E2%99%82%EF%B8%8F&normalization=none">🤷🏽‍♂️</a> ,
+  <a href="#tool-encoding-normalization&input=%F0%9F%91%A9%F0%9F%8F%BE%E2%80%8D%F0%9F%94%AC&normalization=none">👩🏾‍🔬</a> , and
+  <a href="#tool-encoding-normalization&input=%F0%9F%91%A8%E2%80%8D%F0%9F%91%A9%E2%80%8D%F0%9F%91%A7%E2%80%8D%F0%9F%91%A6&normalization=none">👨‍👩‍👧‍👦</a> .
   The [zero-width joiner (ZWJ)](https://en.wikipedia.org/wiki/Zero-width_joiner)
   is used to combine characters which also exist separately,
   and the [variation selector 16](https://en.wikipedia.org/wiki/Variation_Selectors_(Unicode_block))
@@ -7258,7 +7258,7 @@ If your input matches the regular expression,
 I [lowercase](#unicode-case-folding) your input,
 [NFKC normalize](#unicode-normalization) it, and
 make sure that the Unicode normalization has introduced no additional dots,
-such as [⒈ → 1.](#unicode-normalization).
+such as [⒈ → 1.](#tool-encoding-normalization&input=%E2%92%88&normalization=NFKC).
 After [Punycode encoding](#punycode-encoding) the internationalized domain,
 I also check that each label of the domain name consists of at most 63 characters.
 If you have a suggestion for how I can improve my validation, [let me know](mailto:contact@ef1p.com).
@@ -7564,7 +7564,7 @@ Content-Type: text/enriched; charset=us-ascii
 
 <figcaption markdown="span">
 An example Enriched Text message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/enriched" data-body="<bold>Roses</bold> <italic>are</italic>\n<color><param>red</param>red</color>." title="Set the body of the ESMTP tool to this Enriched Text example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fenriched&body=%3Cbold%3ERoses%3C%2Fbold%3E+%3Citalic%3Eare%3C%2Fitalic%3E%0A%3Ccolor%3E%3Cparam%3Ered%3C%2Fparam%3Ered%3C%2Fcolor%3E." title="Set the body of the ESMTP tool to this Enriched Text example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 </figcaption>
 </figure>
@@ -7601,7 +7601,7 @@ Content-Type: text/html; charset=us-ascii
 
 <figcaption markdown="span">
 An example HTML message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <body>\n    <b>Roses</b> <i>are</i>\n    <span style=&quot;color:red;&quot;>red</span>.\n  </body>\n</html>" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Cb%3ERoses%3C%2Fb%3E+%3Ci%3Eare%3C%2Fi%3E%0A++++%3Cspan+style%3D%22color%3Ared%3B%22%3Ered%3C%2Fspan%3E.%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 </figcaption>
 </figure>
@@ -7736,7 +7736,7 @@ Let's look at an example:
 
 <figcaption markdown="span">
 Styling the color of links.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      a { color: red; }\n    </style>\n  </head>\n  <body>\n    <a href=&quot;https://en.wikipedia.org/wiki/Roses_Are_Red&quot;>Roses are red</a>.\n  </body>\n</html>" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++a+%7B+color%3A+red%3B+%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Ca+href%3D%22https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRoses_Are_Red%22%3ERoses+are+red%3C%2Fa%3E.%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 </figcaption>
 </figure>
@@ -7795,7 +7795,7 @@ on your style (`a { color: red !important; }`) or by wrapping the message with a
 <figcaption markdown="span" style="max-width: 650px;">
 
 How to solve Gmail's link rendering problem.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      #body a { color: red; }\n    </style>\n  </head>\n  <body>\n    <div id=&quot;body&quot;>\n      <a href=&quot;https://en.wikipedia.org/wiki/Roses_Are_Red&quot;>Roses are red</a>.\n    </div>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++%23body+a+%7B+color%3A+red%3B+%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Cdiv+id%3D%22body%22%3E%0A++++++%3Ca+href%3D%22https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRoses_Are_Red%22%3ERoses+are+red%3C%2Fa%3E.%0A++++%3C%2Fdiv%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this HTML example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 While the [ID](https://www.campaignmonitor.com/css/selectors/id/) and the
 [descendant](https://www.campaignmonitor.com/css/selectors/descendant/) selectors are supported by almost everyone,
@@ -8098,7 +8098,7 @@ and the character set doesn't have to be UTF-8.
 See the formal syntax in [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231#section-7)
 and [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1) for more information.
 I've implemented a tool which encodes and decodes extended parameters for you.
-Let's look at <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="filename*=iso-8859-1'es'%A1Buenos%20d%EDas!.txt" title="Set the value of the Extended-Parameter tool.">an example</a>:
+Let's look at <a href="#tool-encoding-extended-parameter&decoded=filename%3D%22%C2%A1Buenos+d%C3%ADas%21.txt%22&encoded=filename%2a%3Diso-8859-1%27es%27%25A1Buenos%2520d%25EDas%21.txt" title="Set the value of the Extended-Parameter tool.">an example</a>:
 
 <div id="tool-encoding-extended-parameter"></div>
 
@@ -8115,13 +8115,13 @@ Remarks on the above tool and the Extended-Parameter encoding:
   in order to adhere to the [line-length limit](#line-length-limit).
   You can use several parameters to encode a single parameter value
   by enumerating the parameter name with a decimal number after an asterisk.
-  For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*0=&quot;Hello, &quot;;\nname*1=World!" title="Set the value of the Extended-Parameter tool.">`name*0="Hello, "; name*1=World!`</a>
+  For example, <a href="#tool-encoding-extended-parameter&decoded=name%3D%22Hello%2C+World%21%22&encoded=name%2a0%3D%22Hello%2C+%22%3B%0Aname%2a1%3DWorld%21" title="Set the value of the Extended-Parameter tool.">`name*0="Hello, "; name*1=World!`</a>
   decodes to `name="Hello, World!"`.
   Please note that the above tool only decodes parameter continuations but doesn't generate them.
 - **Parameter ordering**: According to [RFC 2045](https://datatracker.ietf.org/doc/html/rfc2045#section-5),
   the ordering of parameters is not significant.
   In order to remain backward compatible, this is also the case for parameter continuations:
-  <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*1=World!;\nname*0=&quot;Hello, &quot;" title="Set the value of the Extended-Parameter tool.">`name*1=World!; name*0="Hello, "`</a>
+  <a href="#tool-encoding-extended-parameter&decoded=name%3D%22Hello%2C+World%21%22&encoded=name%2a1%3DWorld%21%3B%0Aname%2a0%3D%22Hello%2C+%22" title="Set the value of the Extended-Parameter tool.">`name*1=World!; name*0="Hello, "`</a>
   also decodes to `name="Hello, World!"`.
 - **Combining encodings and continuations**: You can combine value encodings and parameter continuations.
   Encoded and unencoded segments can be mixed.
@@ -8129,11 +8129,11 @@ Remarks on the above tool and the Extended-Parameter encoding:
   and it contains the character set and the language information for all the encoded segments.
   Further encoded segments don't repeat the character set and the language information,
   which means that you cannot mix character sets with parameter continuations.
-  For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="name*2*=d%EDas!;\nname*0*=iso-8859-1'es'%A1;\nname*1=&quot;Buenos &quot;" title="Set the value of the Extended-Parameter tool.">`name*2*=d%EDas!; name*0*=iso-8859-1'es'%A1; name*1="Buenos "`</a>
+  For example, <a href="#tool-encoding-extended-parameter&decoded=name%3D%22%C2%A1Buenos+d%C3%ADas%21%22&encoded=name%2a2%2a%3Dd%25EDas%21%3B%0Aname%2a0%2a%3Diso-8859-1%27es%27%25A1%3B%0Aname%2a1%3D%22Buenos+%22" title="Set the value of the Extended-Parameter tool.">`name*2*=d%EDas!; name*0*=iso-8859-1'es'%A1; name*1="Buenos "`</a>
   decodes to `name="¡Buenos días!"`.
 - **Parameter separations**: Not only do you have to reorder continued parameters,
   you also can't just split the parameters at the semicolons because semicolons are allowed in quoted strings.
-  For example, <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-decoded="name=&quot;\&quot;;😬 &quot;" title="Set the value of the Extended-Parameter tool.">`name="\";😬 "`</a>
+  For example, <a href="#tool-encoding-extended-parameter&decoded=name%3D%22%5C%22%3B%F0%9F%98%AC+%22&encoded=name%2a%3Dutf-8%27%27%2522%253B%25F0%259F%2598%25AC%2520" title="Set the value of the Extended-Parameter tool.">`name="\";😬 "`</a>
   is a single parameter and has to be encoded as such.
 - **Language information**: The format of the language tag
   is specified in [RFC 5646](https://datatracker.ietf.org/doc/html/rfc5646).
@@ -8153,12 +8153,12 @@ Remarks on the above tool and the Extended-Parameter encoding:
   who [thought differently](https://en.wikipedia.org/wiki/Think_different)
   and normalizes filenames in [macOS](https://en.wikipedia.org/wiki/MacOS) to NFD.
   If you send a file called `¡Buenos días!.txt` with Apple Mail,
-  the filename is encoded as <a class="bind-extended-parameter" href="#tool-encoding-extended-parameter" data-encoded="filename*=utf-8''%C2%A1Buenos%20di%CC%81as%21.txt" title="Set the value of the Extended-Parameter tool.">`filename*=utf-8''%C2%A1Buenos%20di%CC%81as%21.txt`</a>.
+  the filename is encoded as <a href="#tool-encoding-extended-parameter&decoded=filename%3D%22%C2%A1Buenos+di%CC%81as%21.txt%22&encoded=filename%2a%3Dutf-8%27%27%25C2%25A1Buenos%2520di%25CC%2581as%2521.txt" title="Set the value of the Extended-Parameter tool.">`filename*=utf-8''%C2%A1Buenos%20di%CC%81as%21.txt`</a>.
   `i%CC%81` encodes the [Latin small letter i](https://unicode-table.com/en/0069/)
   followed by the [combining acute accent](https://unicode-table.com/en/0301/).
   You don't even need to send an email to verify this:
   You can just paste an NFC normalized string into a filename on macOS
-  and then copy the filename back to the [Unicode normalization tool](#unicode-normalization)
+  and then copy the filename back to the [Unicode normalization tool](#tool-encoding-normalization)
   with the normalization option `None` to see that the string is now normalized to NFD.
 
 </details>
@@ -8221,7 +8221,7 @@ and leave the rest for the boxes below.
   <figcaption markdown="span">
 
   An example `multipart/mixed` message.
-  <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="--UniqueBoundary\nContent-Type: text/plain\nContent-Transfer-Encoding: 7bit\n\nThis message has an attachment.\n\n--UniqueBoundary\nContent-Type: image/png\nContent-Transfer-Encoding: base64\n\niVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL\nEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH+BhBP/UEAxKv/AN3jG\n/1ATPeqlJr169WRpi/NmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW\ngkR02KvDFj4+hxMCpUq5T4h1d7LU3Zulbo+X5GQBGToC2XzC1vML1lmtPGMiciQ5\nI/xgBRmtBSFHpPS+0O0rRzzz/JWf5kxf3CKSQneusea8whGyjbIQ4kI+lMHHkTou\nTpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI+HxvZvfIeem9wihKhO09EKWuG\nD4KDC4WKITpJAUbnQnREugOR3+RjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff\nYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId\nrvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC+Hkp7ytKwFU2w29CKK1Wk70e0seN\n8otSpW0+CO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs/xqrGrXb2xmzqx6Jpik6IX\nJbq+8i90heGQs+zvwXZzOFQdX+7ess5EmZ2Nk7/ja/+AHXkDdiQDduLObPeA3fEL\nmMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this multipart/mixed example.">Click here</a>
+  <a href="#tool-protocol-esmtp&content=multipart%2Fmixed&body=--UniqueBoundary%0AContent-Type%3A+text%2Fplain%0AContent-Transfer-Encoding%3A+7bit%0A%0AThis+message+has+an+attachment.%0A%0A--UniqueBoundary%0AContent-Type%3A+image%2Fpng%0AContent-Transfer-Encoding%3A+base64%0A%0AiVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL%0AEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH%2BBhBP%2FUEAxKv%2FAN3jG%0A%2F1ATPeqlJr169WRpi%2FNmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW%0AgkR02KvDFj4%2BhxMCpUq5T4h1d7LU3Zulbo%2BX5GQBGToC2XzC1vML1lmtPGMiciQ5%0AI%2FxgBRmtBSFHpPS%2B0O0rRzzz%2FJWf5kxf3CKSQneusea8whGyjbIQ4kI%2BlMHHkTou%0ATpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI%2BHxvZvfIeem9wihKhO09EKWuG%0AD4KDC4WKITpJAUbnQnREugOR3%2BRjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff%0AYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId%0ArvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC%2BHkp7ytKwFU2w29CKK1Wk70e0seN%0A8otSpW0%2BCO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs%2FxqrGrXb2xmzqx6Jpik6IX%0AJbq%2B8i90heGQs%2BzvwXZzOFQdX%2B7ess5EmZ2Nk7%2Fja%2F%2BAHXkDdiQDduLObPeA3fEL%0AmMvYTwWJ6Hb%2BAn4Bgrjq%2Ffe5%2BzgAAAAASUVORK5CYII%3D%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this multipart/mixed example.">Click here</a>
   to use this example in the [ESMTP tool](#esmtp-tool) above.
 
   </figcaption>
@@ -8278,7 +8278,7 @@ and leave the rest for the boxes below.
   <figcaption markdown="span">
 
   An example `multipart/alternative` message.
-  <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/alternative" data-body="--UniqueBoundary\nContent-Type: text/plain\n\nRoses are red.\n\n--UniqueBoundary\nContent-Type: text/enriched\n\n<bold>Roses</bold> <italic>are</italic>\n<color><param>red</param>red</color>.\n\n--UniqueBoundary\nContent-Type: text/html\n\n<html>\n  <body>\n    <b>Roses</b> <i>are</i>\n    <span style=&quot;color:red;&quot;>red</span>.\n  </body>\n</html>\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this multipart/alternative example.">Click here</a>
+  <a href="#tool-protocol-esmtp&content=multipart%2Falternative&body=--UniqueBoundary%0AContent-Type%3A+text%2Fplain%0A%0ARoses+are+red.%0A%0A--UniqueBoundary%0AContent-Type%3A+text%2Fenriched%0A%0A%3Cbold%3ERoses%3C%2Fbold%3E+%3Citalic%3Eare%3C%2Fitalic%3E%0A%3Ccolor%3E%3Cparam%3Ered%3C%2Fparam%3Ered%3C%2Fcolor%3E.%0A%0A--UniqueBoundary%0AContent-Type%3A+text%2Fhtml%0A%0A%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Cb%3ERoses%3C%2Fb%3E+%3Ci%3Eare%3C%2Fi%3E%0A++++%3Cspan+style%3D%22color%3Ared%3B%22%3Ered%3C%2Fspan%3E.%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this multipart/alternative example.">Click here</a>
   to use this example in the [ESMTP tool](#esmtp-tool) above.
 
   </figcaption>
@@ -8351,7 +8351,7 @@ Epilogue, which is ignored by MIME-supporting clients.
 <figcaption markdown="span">
 
 The various parts of a  `multipart` message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="Preamble, which is ignored by MIME-supporting clients.\n\n--UniqueBoundary\n\nPart 1 with an implicit content type of text/plain.\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nPart 2 with an explicit content type of text/plain.\n\n--UniqueBoundary--\n\nEpilogue, which is ignored by MIME-supporting clients." title="Set the body of the ESMTP tool to this boundary example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=multipart%2Fmixed&body=Preamble%2C+which+is+ignored+by+MIME-supporting+clients.%0A%0A--UniqueBoundary%0A%0APart+1+with+an+implicit+content+type+of+text%2Fplain.%0A%0A--UniqueBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0APart+2+with+an+explicit+content+type+of+text%2Fplain.%0A%0A--UniqueBoundary--%0A%0AEpilogue%2C+which+is+ignored+by+MIME-supporting+clients." title="Set the body of the ESMTP tool to this boundary example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 </figcaption>
@@ -8420,7 +8420,7 @@ int main() {
 <figcaption markdown="span">
 
 How to attach a file with a name.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/mixed" data-body="--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nHello, I've attached the source code of the exercise.\n\n--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\nContent-Disposition: attachment; filename=HelloWorld.c\n\n#include <stdio.h>\n\nint main() {\n  printf(&quot;Hello, World!&quot;);\n  return 0;\n}\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this attachment example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=multipart%2Fmixed&body=--UniqueBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0AHello%2C+I%27ve+attached+the+source+code+of+the+exercise.%0A%0A--UniqueBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0AContent-Disposition%3A+attachment%3B+filename%3DHelloWorld.c%0A%0A%23include+%3Cstdio.h%3E%0A%0Aint+main%28%29+%7B%0A++printf%28%22Hello%2C+World%21%22%29%3B%0A++return+0%3B%0A%7D%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this attachment example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 </figcaption>
@@ -8545,7 +8545,7 @@ mMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=
 <figcaption markdown="span" style="max-width: 600px;">
 
 `<img src="cid:logo@ef1p.com">` references the part with `Content-ID: <logo@ef1p.com>`.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/related" data-body="--UniqueBoundary\nContent-Type: multipart/alternative; boundary=&quot;InnerBoundary&quot;\n\n--InnerBoundary\nContent-Type: text/plain; charset=us-ascii\n\nhttps://ef1p.com\n\n--InnerBoundary\nContent-Type: text/html; charset=us-ascii\n\n<html>\n  <body>\n    <a href=&quot;https://ef1p.com&quot; style=&quot;text-decoration: none; font-weight: bold; color: #0D4073;&quot;>\n      <img src=&quot;cid:logo@ef1p.com&quot; style=&quot;vertical-align: middle;&quot;> ef1p.com\n    </a>\n  </body>\n</html>\n\n--InnerBoundary--\n\n--UniqueBoundary\nContent-Type: image/png\nContent-ID: <logo@ef1p.com>\nContent-Transfer-Encoding: base64\nContent-Disposition: inline; filename=logo.png\n\niVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL\nEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH+BhBP/UEAxKv/AN3jG\n/1ATPeqlJr169WRpi/NmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW\ngkR02KvDFj4+hxMCpUq5T4h1d7LU3Zulbo+X5GQBGToC2XzC1vML1lmtPGMiciQ5\nI/xgBRmtBSFHpPS+0O0rRzzz/JWf5kxf3CKSQneusea8whGyjbIQ4kI+lMHHkTou\nTpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI+HxvZvfIeem9wihKhO09EKWuG\nD4KDC4WKITpJAUbnQnREugOR3+RjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff\nYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId\nrvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC+Hkp7ytKwFU2w29CKK1Wk70e0seN\n8otSpW0+CO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs/xqrGrXb2xmzqx6Jpik6IX\nJbq+8i90heGQs+zvwXZzOFQdX+7ess5EmZ2Nk7/ja/+AHXkDdiQDduLObPeA3fEL\nmMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this aggregation example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=multipart%2Frelated&body=--UniqueBoundary%0AContent-Type%3A+multipart%2Falternative%3B+boundary%3D%22InnerBoundary%22%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0Ahttps%3A%2F%2Fef1p.com%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fhtml%3B+charset%3Dus-ascii%0A%0A%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Ca+href%3D%22https%3A%2F%2Fef1p.com%22+style%3D%22text-decoration%3A+none%3B+font-weight%3A+bold%3B+color%3A+%230D4073%3B%22%3E%0A++++++%3Cimg+src%3D%22cid%3Alogo%40ef1p.com%22+style%3D%22vertical-align%3A+middle%3B%22%3E+ef1p.com%0A++++%3C%2Fa%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A%0A--InnerBoundary--%0A%0A--UniqueBoundary%0AContent-Type%3A+image%2Fpng%0AContent-ID%3A+%3Clogo%40ef1p.com%3E%0AContent-Transfer-Encoding%3A+base64%0AContent-Disposition%3A+inline%3B+filename%3Dlogo.png%0A%0AiVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL%0AEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH%2BBhBP%2FUEAxKv%2FAN3jG%0A%2F1ATPeqlJr169WRpi%2FNmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW%0AgkR02KvDFj4%2BhxMCpUq5T4h1d7LU3Zulbo%2BX5GQBGToC2XzC1vML1lmtPGMiciQ5%0AI%2FxgBRmtBSFHpPS%2B0O0rRzzz%2FJWf5kxf3CKSQneusea8whGyjbIQ4kI%2BlMHHkTou%0ATpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI%2BHxvZvfIeem9wihKhO09EKWuG%0AD4KDC4WKITpJAUbnQnREugOR3%2BRjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff%0AYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId%0ArvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC%2BHkp7ytKwFU2w29CKK1Wk70e0seN%0A8otSpW0%2BCO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs%2FxqrGrXb2xmzqx6Jpik6IX%0AJbq%2B8i90heGQs%2BzvwXZzOFQdX%2B7ess5EmZ2Nk7%2Fja%2F%2BAHXkDdiQDduLObPeA3fEL%0AmMvYTwWJ6Hb%2BAn4Bgrjq%2Ffe5%2BzgAAAAASUVORK5CYII%3D%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this aggregation example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 </figcaption>
@@ -8553,15 +8553,15 @@ to use this example in the [ESMTP tool](#esmtp-tool) above.
 
 The parts can also be aggregated differently.
 Click on the list title to use the corresponding variant in the [ESMTP tool](#esmtp-tool) above.
-- <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/related" data-body="--UniqueBoundary\nContent-Type: multipart/alternative; boundary=&quot;InnerBoundary&quot;\n\n--InnerBoundary\nContent-Type: text/plain; charset=us-ascii\n\nhttps://ef1p.com\n\n--InnerBoundary\nContent-Type: text/html; charset=us-ascii\n\n<html>\n  <body>\n    <a href=&quot;https://ef1p.com&quot; style=&quot;text-decoration: none; font-weight: bold; color: #0D4073;&quot;>\n      <img src=&quot;logo.png&quot; style=&quot;vertical-align: middle;&quot;> ef1p.com\n    </a>\n  </body>\n</html>\n\n--InnerBoundary--\n\n--UniqueBoundary\nContent-Type: image/png\nContent-Location: logo.png\nContent-Transfer-Encoding: base64\nContent-Disposition: inline; filename=logo.png\n\niVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL\nEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH+BhBP/UEAxKv/AN3jG\n/1ATPeqlJr169WRpi/NmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW\ngkR02KvDFj4+hxMCpUq5T4h1d7LU3Zulbo+X5GQBGToC2XzC1vML1lmtPGMiciQ5\nI/xgBRmtBSFHpPS+0O0rRzzz/JWf5kxf3CKSQneusea8whGyjbIQ4kI+lMHHkTou\nTpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI+HxvZvfIeem9wihKhO09EKWuG\nD4KDC4WKITpJAUbnQnREugOR3+RjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff\nYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId\nrvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC+Hkp7ytKwFU2w29CKK1Wk70e0seN\n8otSpW0+CO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs/xqrGrXb2xmzqx6Jpik6IX\nJbq+8i90heGQs+zvwXZzOFQdX+7ess5EmZ2Nk7/ja/+AHXkDdiQDduLObPeA3fEL\nmMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this content-location example.">**Relative `Content-Location`**</a>:
+- <a href="#tool-protocol-esmtp&content=multipart%2Frelated&body=--UniqueBoundary%0AContent-Type%3A+multipart%2Falternative%3B+boundary%3D%22InnerBoundary%22%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0Ahttps%3A%2F%2Fef1p.com%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fhtml%3B+charset%3Dus-ascii%0A%0A%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Ca+href%3D%22https%3A%2F%2Fef1p.com%22+style%3D%22text-decoration%3A+none%3B+font-weight%3A+bold%3B+color%3A+%230D4073%3B%22%3E%0A++++++%3Cimg+src%3D%22logo.png%22+style%3D%22vertical-align%3A+middle%3B%22%3E+ef1p.com%0A++++%3C%2Fa%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A%0A--InnerBoundary--%0A%0A--UniqueBoundary%0AContent-Type%3A+image%2Fpng%0AContent-Location%3A+logo.png%0AContent-Transfer-Encoding%3A+base64%0AContent-Disposition%3A+inline%3B+filename%3Dlogo.png%0A%0AiVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL%0AEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH%2BBhBP%2FUEAxKv%2FAN3jG%0A%2F1ATPeqlJr169WRpi%2FNmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW%0AgkR02KvDFj4%2BhxMCpUq5T4h1d7LU3Zulbo%2BX5GQBGToC2XzC1vML1lmtPGMiciQ5%0AI%2FxgBRmtBSFHpPS%2B0O0rRzzz%2FJWf5kxf3CKSQneusea8whGyjbIQ4kI%2BlMHHkTou%0ATpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI%2BHxvZvfIeem9wihKhO09EKWuG%0AD4KDC4WKITpJAUbnQnREugOR3%2BRjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff%0AYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId%0ArvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC%2BHkp7ytKwFU2w29CKK1Wk70e0seN%0A8otSpW0%2BCO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs%2FxqrGrXb2xmzqx6Jpik6IX%0AJbq%2B8i90heGQs%2BzvwXZzOFQdX%2B7ess5EmZ2Nk7%2Fja%2F%2BAHXkDdiQDduLObPeA3fEL%0AmMvYTwWJ6Hb%2BAn4Bgrjq%2Ffe5%2BzgAAAAASUVORK5CYII%3D%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this content-location example.">**Relative `Content-Location`**</a>:
   Use `<img src="logo.png">` in the HTML part and `Content-Location: logo.png` in the image part.
   Apple Mail, Outlook.com, and Yahoo Mail fail to display the message correctly.
   Only Gmail and Thunderbird implement this part of the RFC.
-- <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/related" data-body="--UniqueBoundary\nContent-Type: multipart/alternative; boundary=&quot;InnerBoundary&quot;\n\n--InnerBoundary\nContent-Type: text/plain; charset=us-ascii\n\nhttps://ef1p.com\n\n--InnerBoundary\nContent-Type: text/html; charset=us-ascii\n\n<html>\n  <body>\n    <a href=&quot;https://ef1p.com&quot; style=&quot;text-decoration: none; font-weight: bold; color: #0D4073;&quot;>\n      <img src=&quot;https://ef1p.com/logo.png&quot; style=&quot;vertical-align: middle;&quot;> ef1p.com\n    </a>\n  </body>\n</html>\n\n--InnerBoundary--\n\n--UniqueBoundary\nContent-Type: image/png\nContent-Transfer-Encoding: base64\nContent-Location: https://ef1p.com/logo.png\nContent-Disposition: inline; filename=logo.png\n\niVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL\nEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH+BhBP/UEAxKv/AN3jG\n/1ATPeqlJr169WRpi/NmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW\ngkR02KvDFj4+hxMCpUq5T4h1d7LU3Zulbo+X5GQBGToC2XzC1vML1lmtPGMiciQ5\nI/xgBRmtBSFHpPS+0O0rRzzz/JWf5kxf3CKSQneusea8whGyjbIQ4kI+lMHHkTou\nTpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI+HxvZvfIeem9wihKhO09EKWuG\nD4KDC4WKITpJAUbnQnREugOR3+RjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff\nYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId\nrvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC+Hkp7ytKwFU2w29CKK1Wk70e0seN\n8otSpW0+CO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs/xqrGrXb2xmzqx6Jpik6IX\nJbq+8i90heGQs+zvwXZzOFQdX+7ess5EmZ2Nk7/ja/+AHXkDdiQDduLObPeA3fEL\nmMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this content-location example.">**Absolute `Content-Location`**</a>:
+- <a href="#tool-protocol-esmtp&content=multipart%2Frelated&body=--UniqueBoundary%0AContent-Type%3A+multipart%2Falternative%3B+boundary%3D%22InnerBoundary%22%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0Ahttps%3A%2F%2Fef1p.com%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fhtml%3B+charset%3Dus-ascii%0A%0A%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Ca+href%3D%22https%3A%2F%2Fef1p.com%22+style%3D%22text-decoration%3A+none%3B+font-weight%3A+bold%3B+color%3A+%230D4073%3B%22%3E%0A++++++%3Cimg+src%3D%22https%3A%2F%2Fef1p.com%2Flogo.png%22+style%3D%22vertical-align%3A+middle%3B%22%3E+ef1p.com%0A++++%3C%2Fa%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A%0A--InnerBoundary--%0A%0A--UniqueBoundary%0AContent-Type%3A+image%2Fpng%0AContent-Transfer-Encoding%3A+base64%0AContent-Location%3A+https%3A%2F%2Fef1p.com%2Flogo.png%0AContent-Disposition%3A+inline%3B+filename%3Dlogo.png%0A%0AiVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL%0AEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH%2BBhBP%2FUEAxKv%2FAN3jG%0A%2F1ATPeqlJr169WRpi%2FNmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW%0AgkR02KvDFj4%2BhxMCpUq5T4h1d7LU3Zulbo%2BX5GQBGToC2XzC1vML1lmtPGMiciQ5%0AI%2FxgBRmtBSFHpPS%2B0O0rRzzz%2FJWf5kxf3CKSQneusea8whGyjbIQ4kI%2BlMHHkTou%0ATpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI%2BHxvZvfIeem9wihKhO09EKWuG%0AD4KDC4WKITpJAUbnQnREugOR3%2BRjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff%0AYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId%0ArvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC%2BHkp7ytKwFU2w29CKK1Wk70e0seN%0A8otSpW0%2BCO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs%2FxqrGrXb2xmzqx6Jpik6IX%0AJbq%2B8i90heGQs%2BzvwXZzOFQdX%2B7ess5EmZ2Nk7%2Fja%2F%2BAHXkDdiQDduLObPeA3fEL%0AmMvYTwWJ6Hb%2BAn4Bgrjq%2Ffe5%2BzgAAAAASUVORK5CYII%3D%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this content-location example.">**Absolute `Content-Location`**</a>:
   Use `<img src="https://ef1p.com/logo.png">` in the HTML part
   and `Content-Location: https://ef1p.com/logo.png` in the image part.
   Only the same mail clients as before display the message correctly.
-- <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="multipart/alternative" data-body="--UniqueBoundary\nContent-Type: text/plain; charset=us-ascii\n\nhttps://ef1p.com\n\n--UniqueBoundary\nContent-Type: multipart/related; boundary=&quot;InnerBoundary&quot;; type=&quot;text/html&quot;\n\n--InnerBoundary\nContent-Type: text/html; charset=us-ascii\n\n<html>\n  <body>\n    <a href=&quot;https://ef1p.com&quot; style=&quot;text-decoration: none; font-weight: bold; color: #0D4073;&quot;>\n      <img src=&quot;cid:logo@ef1p.com&quot; style=&quot;vertical-align: middle;&quot;> ef1p.com\n    </a>\n  </body>\n</html>\n\n--InnerBoundary\nContent-Type: image/png\nContent-ID: <logo@ef1p.com>\nContent-Transfer-Encoding: base64\nContent-Disposition: inline; filename=logo.png\n\niVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL\nEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH+BhBP/UEAxKv/AN3jG\n/1ATPeqlJr169WRpi/NmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW\ngkR02KvDFj4+hxMCpUq5T4h1d7LU3Zulbo+X5GQBGToC2XzC1vML1lmtPGMiciQ5\nI/xgBRmtBSFHpPS+0O0rRzzz/JWf5kxf3CKSQneusea8whGyjbIQ4kI+lMHHkTou\nTpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI+HxvZvfIeem9wihKhO09EKWuG\nD4KDC4WKITpJAUbnQnREugOR3+RjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff\nYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId\nrvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC+Hkp7ytKwFU2w29CKK1Wk70e0seN\n8otSpW0+CO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs/xqrGrXb2xmzqx6Jpik6IX\nJbq+8i90heGQs+zvwXZzOFQdX+7ess5EmZ2Nk7/ja/+AHXkDdiQDduLObPeA3fEL\nmMvYTwWJ6Hb+An4Bgrjq/fe5+zgAAAAASUVORK5CYII=\n\n--InnerBoundary--\n\n--UniqueBoundary--" title="Set the body of the ESMTP tool to this nesting example.">**Nesting `related` in `alternative`**</a>:
+- <a href="#tool-protocol-esmtp&content=multipart%2Falternative&body=--UniqueBoundary%0AContent-Type%3A+text%2Fplain%3B+charset%3Dus-ascii%0A%0Ahttps%3A%2F%2Fef1p.com%0A%0A--UniqueBoundary%0AContent-Type%3A+multipart%2Frelated%3B+boundary%3D%22InnerBoundary%22%3B+type%3D%22text%2Fhtml%22%0A%0A--InnerBoundary%0AContent-Type%3A+text%2Fhtml%3B+charset%3Dus-ascii%0A%0A%3Chtml%3E%0A++%3Cbody%3E%0A++++%3Ca+href%3D%22https%3A%2F%2Fef1p.com%22+style%3D%22text-decoration%3A+none%3B+font-weight%3A+bold%3B+color%3A+%230D4073%3B%22%3E%0A++++++%3Cimg+src%3D%22cid%3Alogo%40ef1p.com%22+style%3D%22vertical-align%3A+middle%3B%22%3E+ef1p.com%0A++++%3C%2Fa%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A%0A--InnerBoundary%0AContent-Type%3A+image%2Fpng%0AContent-ID%3A+%3Clogo%40ef1p.com%3E%0AContent-Transfer-Encoding%3A+base64%0AContent-Disposition%3A+inline%3B+filename%3Dlogo.png%0A%0AiVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAAL%0AEgHS3X78AAAB4klEQVQ4y5VVwU7CQBDdKl5IVz8Fg95ZQH%2BBhBP%2FUEAxKv%2FAN3jG%0A%2F1ATPeqlJr169WRpi%2FNmZ8uCEGqTl53OzrzO7MxOVdiKFB6s2gwDkeuEAeGRkBAW%0AgkR02KvDFj4%2BhxMCpUq5T4h1d7LU3Zulbo%2BX5GQBGToC2XzC1vML1lmtPGMiciQ5%0AI%2FxgBRmtBSFHpPS%2B0O0rRzzz%2FJWf5kxf3CKSQneusea8whGyjbIQ4kI%2BlMHHkTou%0ATpMjA5kZpoQpoUnoEeJ1UiKzdiDKmdRG2ldeAWI%2BHxvZvfIeem9wihKhO09EKWuG%0AD4KDC4WKITpJAUbnQnREugOR3%2BRjWVkgkMkR8AdtlAMQzj1C4ExIHNkh4XkbIaff%0AYlJHOAdhos3IpbCN8IDw4hHmshZeoXLpjERJG7jNfYSpd9ZloUIj52mixT8IqdId%0ArvYX4bXsxVVLlYRVUn46vryD0wPhRPSnrqVC%2BHkp7ytKwFU2w29CKK1Wk70e0seN%0A8otSpW0%2BCO9MZqIa9kSP5s85QssxqNrYLvrGxt7UXs%2FxqrGrXb2xmzqx6Jpik6IX%0AJbq%2B8i90heGQs%2BzvwXZzOFQdX%2B7ess5EmZ2Nk7%2Fja%2F%2BAHXkDdiQDduLObPeA3fEL%0AmMvYTwWJ6Hb%2BAn4Bgrjq%2Ffe5%2BzgAAAAASUVORK5CYII%3D%0A%0A--InnerBoundary--%0A%0A--UniqueBoundary--" title="Set the body of the ESMTP tool to this nesting example.">**Nesting `related` in `alternative`**</a>:
   Instead of nesting the parts as `related(alternative(Plain, HTML), Image)`,
   you can also nest the parts as `alternative(Plain, related(HTML, Image)`.
   The mail clients that I tested display the two variants identically.
@@ -8997,7 +8997,7 @@ which search the Web for email addresses.
 In an attempt to prevent their address from being collected,
 people often disguise their address when publishing it online.
 For example, instead of writing `user@example.com`, they write `user[at]example.com` and the like.
-This practice is called [address munging](https://en.wikipedia.org/wiki/Address_munging)
+This practice is called [address munging](https://en.wikipedia.org/wiki/Address_munging),
 and it is most effective if the particular technique is rarely used or difficult to revert.
 Unless the address obfuscation is reverted in the browser with [JavaScript](https://en.wikipedia.org/wiki/JavaScript),
 readers who want to contact the person cannot simply click on a [mailto link](https://en.wikipedia.org/wiki/Mailto).
@@ -9728,7 +9728,7 @@ For this particular attack to work, the message has to be composed in the "Parag
 <figcaption markdown="span" style="max-width: 860px;">
 
 How to exploit Thunderbird's failure to scope the styles of the quoted message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      p { font-size: 0; }\n      p::before { content: 'Yes, I do.'; font-size: initial; }\n      p + p { display: none; }\n      p[_moz_dirty] { display: block; font-size: initial; }\n      p[_moz_dirty]::before { display: none; }\n    </style>\n  </head>\n  <body>\n    <div>Hello, do you like my proposal?</div>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this Thunderbird exploit example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++p+%7B+font-size%3A+0%3B+%7D%0A++++++p%3A%3Abefore+%7B+content%3A+%27Yes%2C+I+do.%27%3B+font-size%3A+initial%3B+%7D%0A++++++p+%2B+p+%7B+display%3A+none%3B+%7D%0A++++++p%5B_moz_dirty%5D+%7B+display%3A+block%3B+font-size%3A+initial%3B+%7D%0A++++++p%5B_moz_dirty%5D%3A%3Abefore+%7B+display%3A+none%3B+%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Cdiv%3EHello%2C+do+you+like+my+proposal%3F%3C%2Fdiv%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this Thunderbird exploit example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 The attack uses the [`::before` pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)
 to inject the text, and `p[_moz_dirty]` to hide the injected text during composition.
@@ -9776,7 +9776,7 @@ the recipient will see "Yes, I do." on other clients.
 <figcaption markdown="span" style="max-width: 860px;">
 
 How to exploit Outlook.com's failure to scope the styles of the quoted message.
-<a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      div[style] { display: none; }\n      hr { border: 0; }\n      hr:before { content: 'Yes, I do.'; display: block; border-bottom: 1px solid; }\n    </style>\n  </head>\n  <body>\n    <div>Hello, do you like my proposal?</div>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this Outlook.com exploit example.">Click here</a>
+<a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++div%5Bstyle%5D+%7B+display%3A+none%3B+%7D%0A++++++hr+%7B+border%3A+0%3B+%7D%0A++++++hr%3Abefore+%7B+content%3A+%27Yes%2C+I+do.%27%3B+display%3A+block%3B+border-bottom%3A+1px+solid%3B+%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Cdiv%3EHello%2C+do+you+like+my+proposal%3F%3C%2Fdiv%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this Outlook.com exploit example.">Click here</a>
 to use this example in the [ESMTP tool](#esmtp-tool) above.
 Since Outlook.com doesn't copy styles like `div[style]:before` and `div:first-child:before` to the reply,
 I had to abuse the [`<hr>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr)
@@ -9835,7 +9835,7 @@ Emails can appear differently for three reasons:
   ```
   <figcaption markdown="span">
   A simple HTML message whose plaintext version conveys a different content.
-  <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <body>\n    Hi boss, can you confirm to our accountant in Cc that my monthly salary is\n    increased by USD 100<span style=&quot;font-size: 0;&quot;>0</span> starting next month?\n  </body>\n</html>" title="Set the body of the ESMTP tool to this example.">Click here</a>
+  <a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Cbody%3E%0A++++Hi+boss%2C+can+you+confirm+to+our+accountant+in+Cc+that+my+monthly+salary+is%0A++++increased+by+USD+100%3Cspan+style%3D%22font-size%3A+0%3B%22%3E0%3C%2Fspan%3E+starting+next+month%3F%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this example.">Click here</a>
   to use this example in the [ESMTP tool](#esmtp-tool) above.
   </figcaption>
   </figure>
@@ -9901,7 +9901,7 @@ Emails can appear differently for three reasons:
   ```
   <figcaption markdown="span">
   A simple HTML message which is displayed differently on different devices.
-  <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      @media (max-width: 599px) {\n        .large { display: none; }\n      }\n      @media (min-width: 600px) {\n        .small { display: none; }\n      }\n      .touch { display: none; }\n      @media (pointer: coarse) {\n        .touch { display: inline; }\n      }\n    </style>\n  </head>\n  <body>\n    <p>\n      You have a\n      <span class=&quot;large&quot;>large</span>\n      <span class=&quot;small&quot;>small</span>\n      <span class=&quot;touch&quot;>touch</span>\n      screen.\n    </p>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this example.">Click here</a>
+  <a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++%40media+%28max-width%3A+599px%29+%7B%0A++++++++.large+%7B+display%3A+none%3B+%7D%0A++++++%7D%0A++++++%40media+%28min-width%3A+600px%29+%7B%0A++++++++.small+%7B+display%3A+none%3B+%7D%0A++++++%7D%0A++++++.touch+%7B+display%3A+none%3B+%7D%0A++++++%40media+%28pointer%3A+coarse%29+%7B%0A++++++++.touch+%7B+display%3A+inline%3B+%7D%0A++++++%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Cp%3E%0A++++++You+have+a%0A++++++%3Cspan+class%3D%22large%22%3Elarge%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22small%22%3Esmall%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22touch%22%3Etouch%3C%2Fspan%3E%0A++++++screen.%0A++++%3C%2Fp%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this example.">Click here</a>
   to use this example in the [ESMTP tool](#esmtp-tool) above.
   </figcaption>
   </figure>
@@ -9966,7 +9966,7 @@ Emails can appear differently for three reasons:
   ```
   <figcaption markdown="span">
   A simple HTML message which is displayed differently by different clients.
-  <a class="bind-esmtp-example" href="#tool-protocol-esmtp" data-content="text/html" data-body="<html>\n  <head>\n    <style type=&quot;text/css&quot;>\n      .apple-mail, .outlook { display: none; }\n      @media (pointer) {\n        .apple-mail { display: inline; }\n        div .apple-mail { display: none; }\n        div .outlook { display: inline; }\n      }\n      @media (min-width: 0px) {\n        .thunderbird { display: none; }\n      }\n      p:first-child .gmail { display: none; }\n      .yahoo-mail { display: none; }\n      p:first-child .yahoo-mail { display: inline; }\n      body .yahoo-mail { display: none !important; }\n    </style>\n  </head>\n  <body>\n    <p>\n      You're reading this message\n      <span class=&quot;apple-mail&quot;>in Apple Mail.</span>\n      <span class=&quot;thunderbird&quot;>in Thunderbird.</span>\n      <span class=&quot;gmail&quot;>on mail.google.com.</span>\n      <span class=&quot;outlook&quot;>on outlook.live.com.</span>\n      <span class=&quot;yahoo-mail&quot;>on mail.yahoo.com.</span>\n    </p>\n  </body>\n</html>" title="Set the body of the ESMTP tool to this example.">Click here</a>
+  <a href="#tool-protocol-esmtp&content=text%2Fhtml&body=%3Chtml%3E%0A++%3Chead%3E%0A++++%3Cstyle+type%3D%22text%2Fcss%22%3E%0A++++++.apple-mail%2C+.outlook+%7B+display%3A+none%3B+%7D%0A++++++%40media+%28pointer%29+%7B%0A++++++++.apple-mail+%7B+display%3A+inline%3B+%7D%0A++++++++div+.apple-mail+%7B+display%3A+none%3B+%7D%0A++++++++div+.outlook+%7B+display%3A+inline%3B+%7D%0A++++++%7D%0A++++++%40media+%28min-width%3A+0px%29+%7B%0A++++++++.thunderbird+%7B+display%3A+none%3B+%7D%0A++++++%7D%0A++++++p%3Afirst-child+.gmail+%7B+display%3A+none%3B+%7D%0A++++++.yahoo-mail+%7B+display%3A+none%3B+%7D%0A++++++p%3Afirst-child+.yahoo-mail+%7B+display%3A+inline%3B+%7D%0A++++++body+.yahoo-mail+%7B+display%3A+none+%21important%3B+%7D%0A++++%3C%2Fstyle%3E%0A++%3C%2Fhead%3E%0A++%3Cbody%3E%0A++++%3Cp%3E%0A++++++You%27re+reading+this+message%0A++++++%3Cspan+class%3D%22apple-mail%22%3Ein+Apple+Mail.%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22thunderbird%22%3Ein+Thunderbird.%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22gmail%22%3Eon+mail.google.com.%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22outlook%22%3Eon+outlook.live.com.%3C%2Fspan%3E%0A++++++%3Cspan+class%3D%22yahoo-mail%22%3Eon+mail.yahoo.com.%3C%2Fspan%3E%0A++++%3C%2Fp%3E%0A++%3C%2Fbody%3E%0A%3C%2Fhtml%3E" title="Set the body of the ESMTP tool to this example.">Click here</a>
   to use this example in the [ESMTP tool](#esmtp-tool) above.
   </figcaption>
   </figure>
@@ -10609,7 +10609,7 @@ On domains from which you don't send any emails,
 you [should use](https://datatracker.ietf.org/doc/html/rfc7208#section-10.1.2) `v=spf1 -all`.
 The full syntax of SPF records is much more powerful than this but rarely needed.
 I will cover SPF in more detail in the [boxes below](#spf-qualifiers).
-There are <a class="bind-spf-query" href="#tool-lookup-spf-record" data-domain="bad.spf.ef1p.com" title="Look up the SPF record of bad.spf.ef1p.com, which has lots of issues.">a lot of things</a>
+There are <a href="#tool-lookup-spf-record&domain=bad.spf.ef1p.com" title="Look up the SPF record of bad.spf.ef1p.com, which has lots of issues.">a lot of things</a>
 that can go wrong when configuring an SPF record.
 For a start, a domain may have [at most one SPF record](https://datatracker.ietf.org/doc/html/rfc7208#section-3.2)
 and the number of additional DNS lookups an SPF record may trigger
@@ -10934,7 +10934,7 @@ Macros can cause problems with [internationalized email addresses](#email-addres
 as discussed in [RFC 8616](https://datatracker.ietf.org/doc/html/rfc8616#section-4)
 and aggravate [privacy implications](#privacy-implications) by
 [leaking sender addresses into the DNS](https://datatracker.ietf.org/doc/html/rfc7208#appendix-C).
-Such a tracking example can be found at <a class="bind-spf-query" href="#tool-lookup-spf-record" data-domain="altavista.net" title="Look up the SPF record of altavista.net.">`altavista.net`</a>.
+Such a tracking example can be found at <a href="#tool-lookup-spf-record&domain=altavista.net" title="Look up the SPF record of altavista.net.">`altavista.net`</a>.
 
 </details>
 

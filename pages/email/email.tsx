@@ -12,13 +12,13 @@ import { Time } from '../../code/utility/time';
 import { CodeBlock, Comment, SystemReply, UserCommand } from '../../code/react/code';
 import { ClickToCopy } from '../../code/react/copy';
 import { StaticPrompt } from '../../code/react/prompt';
-import { inject } from '../../code/react/utility';
+import { injectElement, injectTool } from '../../code/react/utility';
 
 import { toolConversionUnixTime } from '../../code/tools/conversions/unix-time';
 import { toolEncodingBase64 } from '../../code/tools/encodings/base64';
 import { toolEncodingEncodedWord } from '../../code/tools/encodings/encoded-word';
-import { bindExtendedParameters, toolEncodingExtendedParameter } from '../../code/tools/encodings/extended-parameter';
-import { bindUnicodeNormalizations, toolEncodingNormalization } from '../../code/tools/encodings/normalization';
+import { toolEncodingExtendedParameter } from '../../code/tools/encodings/extended-parameter';
+import { toolEncodingNormalization } from '../../code/tools/encodings/normalization';
 import { toolEncodingPercent } from '../../code/tools/encodings/percent';
 import { toolEncodingPunycode } from '../../code/tools/encodings/punycode';
 import { toolEncodingQuotedPrintable } from '../../code/tools/encodings/quoted-printable';
@@ -28,60 +28,54 @@ import { toolFormatSieve } from '../../code/tools/formats/sieve';
 import { toolInstructionHashing } from '../../code/tools/instructions/hashing';
 import { toolInstructionThunderbird } from '../../code/tools/instructions/thunderbird';
 import { toolInstructionTlsaRecord } from '../../code/tools/instructions/tlsa-record';
-import { bindDnsQueries, toolLookupDnsRecords } from '../../code/tools/lookups/dns-records';
+import { toolLookupDnsRecords } from '../../code/tools/lookups/dns-records';
 import { emailAddressOutput, toolLookupOpenpgpkeyRecords, toolLookupSmimeaRecords } from '../../code/tools/lookups/email-address';
-import { bindSpfQuery, emailDkimSelectorOutput, emailDomainInput, emailDomainOutput, toolLookupBimiRecord, toolLookupConfigurationDatabase, toolLookupDkimRecord, toolLookupDmarcRecord, toolLookupMtaStsPolicy, toolLookupMxRecords, toolLookupSpfRecord, toolLookupSrvRecords, toolLookupTlsaRecords, toolLookupTlsReporting } from '../../code/tools/lookups/email-domain';
+import { emailDkimSelectorOutput, emailDomainInput, emailDomainOutput, toolLookupBimiRecord, toolLookupConfigurationDatabase, toolLookupDkimRecord, toolLookupDmarcRecord, toolLookupMtaStsPolicy, toolLookupMxRecords, toolLookupSpfRecord, toolLookupSrvRecords, toolLookupTlsaRecords, toolLookupTlsReporting } from '../../code/tools/lookups/email-domain';
 import { toolLookupEmailRequests } from '../../code/tools/lookups/email-requests';
 import { toolLookupIpAddress } from '../../code/tools/lookups/ip-address';
-import { bindEsmtpExamples, toolProtocolEsmtp, toolProtocolEsmtpClient } from '../../code/tools/protocols/esmtp';
+import { toolProtocolEsmtp, toolProtocolEsmtpClient } from '../../code/tools/protocols/esmtp';
 import { toolProtocolImap } from '../../code/tools/protocols/imap';
 import { openSslCommand, setOpenSslCommand, toolProtocolManageSieve, toolProtocolManageSieveOpenSsl } from '../../code/tools/protocols/managesieve';
 import { toolProtocolPop3 } from '../../code/tools/protocols/pop3';
 
-inject('tool-lookup-srv-records', toolLookupSrvRecords);
-inject('tool-lookup-configuration-database', toolLookupConfigurationDatabase);
-inject('tool-lookup-mx-records', toolLookupMxRecords);
-inject('tool-protocol-esmtp', toolProtocolEsmtp);
-inject('tool-lookup-dns-records', toolLookupDnsRecords);
-inject('tool-reverse-dns', toolProtocolEsmtpClient);
-inject('tool-instruction-hashing', toolInstructionHashing);
-inject('tool-instruction-thunderbird', toolInstructionThunderbird);
-inject('tool-protocol-pop3', toolProtocolPop3);
-inject('tool-protocol-imap', toolProtocolImap);
-inject('tool-format-sieve', toolFormatSieve);
-inject('tool-protocol-managesieve', toolProtocolManageSieve);
-inject('tool-encoding-quoted-printable', toolEncodingQuotedPrintable);
-inject('tool-encoding-base64', toolEncodingBase64);
-inject('tool-encoding-percent', toolEncodingPercent);
-inject('tool-encoding-encoded-word', toolEncodingEncodedWord);
-inject('tool-encoding-punycode', toolEncodingPunycode);
-inject('tool-encoding-normalization', toolEncodingNormalization);
-inject('tool-encoding-extended-parameter', toolEncodingExtendedParameter);
-inject('tool-lookup-ip-address', toolLookupIpAddress);
-inject('tool-lookup-email-requests', toolLookupEmailRequests);
-inject('tool-lookup-spf-record', toolLookupSpfRecord);
-inject('tool-format-dkim', toolFormatDkim);
-inject('tool-lookup-dkim-record', toolLookupDkimRecord);
-inject('tool-format-dmarc', toolFormatDmarc);
-inject('tool-lookup-dmarc-record', toolLookupDmarcRecord);
-inject('tool-lookup-bimi-record', toolLookupBimiRecord);
-inject('tool-generate-keys', toolProtocolManageSieveOpenSsl);
-inject('tool-conversion-unix-time', toolConversionUnixTime);
-inject('tool-lookup-tlsa-records', toolLookupTlsaRecords);
-inject('tool-instruction-tlsa-record', toolInstructionTlsaRecord);
-inject('tool-verify-tlsa-record', toolProtocolManageSieveOpenSsl);
-inject('tool-lookup-mta-sts-policy', toolLookupMtaStsPolicy);
-inject('tool-lookup-tls-reporting', toolLookupTlsReporting);
-inject('tool-lookup-smimea-records', toolLookupSmimeaRecords);
-inject('tool-lookup-openpgpkey-records', toolLookupOpenpgpkeyRecords);
+injectTool('tool-lookup-srv-records', toolLookupSrvRecords);
+injectTool('tool-lookup-configuration-database', toolLookupConfigurationDatabase);
+injectTool('tool-lookup-mx-records', toolLookupMxRecords);
+injectTool('tool-protocol-esmtp', toolProtocolEsmtp);
+injectTool('tool-lookup-dns-records', toolLookupDnsRecords);
+injectElement('tool-reverse-dns', toolProtocolEsmtpClient);
+injectTool('tool-instruction-hashing', toolInstructionHashing);
+injectTool('tool-instruction-thunderbird', toolInstructionThunderbird);
+injectTool('tool-protocol-pop3', toolProtocolPop3);
+injectTool('tool-protocol-imap', toolProtocolImap);
+injectTool('tool-format-sieve', toolFormatSieve);
+injectTool('tool-protocol-managesieve', toolProtocolManageSieve);
+injectTool('tool-encoding-quoted-printable', toolEncodingQuotedPrintable);
+injectTool('tool-encoding-base64', toolEncodingBase64);
+injectTool('tool-encoding-percent', toolEncodingPercent);
+injectTool('tool-encoding-encoded-word', toolEncodingEncodedWord);
+injectTool('tool-encoding-punycode', toolEncodingPunycode);
+injectTool('tool-encoding-normalization', toolEncodingNormalization);
+injectTool('tool-encoding-extended-parameter', toolEncodingExtendedParameter);
+injectTool('tool-lookup-ip-address', toolLookupIpAddress);
+injectTool('tool-lookup-email-requests', toolLookupEmailRequests);
+injectTool('tool-lookup-spf-record', toolLookupSpfRecord);
+injectTool('tool-format-dkim', toolFormatDkim);
+injectTool('tool-lookup-dkim-record', toolLookupDkimRecord);
+injectTool('tool-format-dmarc', toolFormatDmarc);
+injectTool('tool-lookup-dmarc-record', toolLookupDmarcRecord);
+injectTool('tool-lookup-bimi-record', toolLookupBimiRecord);
+injectElement('tool-generate-keys', toolProtocolManageSieveOpenSsl);
+injectTool('tool-conversion-unix-time', toolConversionUnixTime);
+injectTool('tool-lookup-tlsa-records', toolLookupTlsaRecords);
+injectTool('tool-instruction-tlsa-record', toolInstructionTlsaRecord);
+injectElement('tool-verify-tlsa-record', toolProtocolManageSieveOpenSsl);
+injectTool('tool-lookup-mta-sts-policy', toolLookupMtaStsPolicy);
+injectTool('tool-lookup-tls-reporting', toolLookupTlsReporting);
+injectTool('tool-lookup-smimea-records', toolLookupSmimeaRecords);
+injectTool('tool-lookup-openpgpkey-records', toolLookupOpenpgpkeyRecords);
 
-bindDnsQueries();
-bindUnicodeNormalizations();
-bindEsmtpExamples();
-bindExtendedParameters();
-bindSpfQuery();
-
-inject('code-clipboard-verification', <CodeBlock>
+injectElement('code-clipboard-verification', <CodeBlock>
     <Comment># macOS:</Comment>
     <StaticPrompt>watch -n 1 pbpaste</StaticPrompt>
     <br/>
@@ -92,12 +86,12 @@ inject('code-clipboard-verification', <CodeBlock>
     <StaticPrompt>powershell -command "while (1) {'{'} Clear; Get-Clipboard; Sleep 1 {'}'}"</StaticPrompt>
 </CodeBlock>);
 
-inject('code-openssl-version', <CodeBlock>
+injectElement('code-openssl-version', <CodeBlock>
     <StaticPrompt>openssl version</StaticPrompt>
     <SystemReply>LibreSSL 2.8.3</SystemReply>
 </CodeBlock>);
 
-inject('code-gmail-smtp-extensions', <CodeBlock>
+injectElement('code-gmail-smtp-extensions', <CodeBlock>
     <StaticPrompt>openssl s_client -quiet -crlf -connect smtp.gmail.com:465</StaticPrompt>
     <SystemReply>depth=2 OU = GlobalSign Root CA - R2, O = GlobalSign, CN = GlobalSign</SystemReply>
     <SystemReply>verify return:1</SystemReply>
@@ -120,7 +114,7 @@ inject('code-gmail-smtp-extensions', <CodeBlock>
     <SystemReply>read:errno=0</SystemReply>
 </CodeBlock>);
 
-inject('code-starttls-extension', <CodeBlock>
+injectElement('code-starttls-extension', <CodeBlock>
     <StaticPrompt>telnet smtp.gmail.com 587</StaticPrompt>
     <SystemReply>Trying 108.177.126.109...</SystemReply>
     <SystemReply>Connected to smtp.gmail.com.</SystemReply>
@@ -140,25 +134,25 @@ inject('code-starttls-extension', <CodeBlock>
     <SystemReply>Connection closed by foreign host.</SystemReply>
 </CodeBlock>);
 
-inject('code-starttls-usage', <CodeBlock>
+injectElement('code-starttls-usage', <CodeBlock>
     <StaticPrompt>openssl s_client -quiet -crlf -starttls smtp -connect smtp.gmail.com:587</StaticPrompt>
 </CodeBlock>);
 
-inject('code-gandi-vrfy-command', <CodeBlock>
+injectElement('code-gandi-vrfy-command', <CodeBlock>
     <StaticPrompt>openssl s_client -quiet -crlf -starttls smtp -connect spool.mail.gandi.net:25</StaticPrompt>
     <SystemReply>[…]</SystemReply>
     <UserCommand>VRFY kaspar@ef1p.com</UserCommand>
     <SystemReply>502 5.5.1 VRFY command is disabled</SystemReply>
 </CodeBlock>);
 
-inject('code-gmail-help-command', <CodeBlock>
+injectElement('code-gmail-help-command', <CodeBlock>
     <StaticPrompt>openssl s_client -quiet -crlf -starttls smtp -connect gmail-smtp-in.l.google.com:25</StaticPrompt>
     <SystemReply>[…]</SystemReply>
     <UserCommand>HELP</UserCommand>
     <SystemReply>214 2.0.0  https://www.google.com/search?btnI&q=RFC+5321 [your session ID] - gsmtp</SystemReply>
 </CodeBlock>);
 
-inject('code-gandi-pop3-extensions', <CodeBlock>
+injectElement('code-gandi-pop3-extensions', <CodeBlock>
     <StaticPrompt>telnet mail.gandi.net 110</StaticPrompt>
     <SystemReply>Trying 217.70.178.9...</SystemReply>
     <SystemReply>Connected to mail.gandi.net.</SystemReply>
@@ -181,15 +175,15 @@ inject('code-gandi-pop3-extensions', <CodeBlock>
     <SystemReply>Connection closed by foreign host.</SystemReply>
 </CodeBlock>);
 
-inject('code-imap-unquoted-string', <CodeBlock>
+injectElement('code-imap-unquoted-string', <CodeBlock>
     <UserCommand>E EXAMINE INBOX</UserCommand>
 </CodeBlock>);
 
-inject('code-imap-quoted-string', <CodeBlock>
+injectElement('code-imap-quoted-string', <CodeBlock>
     <UserCommand>E EXAMINE "Sent Mail"</UserCommand>
 </CodeBlock>);
 
-inject('code-imap-prefixed-string', <CodeBlock>
+injectElement('code-imap-prefixed-string', <CodeBlock>
     <UserCommand>F FETCH 1 (BODY.PEEK[HEADER.FIELDS (SUBJECT)])</UserCommand>
     <SystemReply>
         * 1 FETCH (BODY[HEADER.FIELDS (SUBJECT)] {'{20}'}<br/>
@@ -198,7 +192,7 @@ inject('code-imap-prefixed-string', <CodeBlock>
     </SystemReply>
 </CodeBlock>);
 
-inject('code-imap-nested-list', <CodeBlock>
+injectElement('code-imap-nested-list', <CodeBlock>
     <UserCommand>F FETCH 1 (FLAGS)</UserCommand>
     <SystemReply>
         * 1 FETCH (FLAGS (\Seen))<br/>
@@ -206,7 +200,7 @@ inject('code-imap-nested-list', <CodeBlock>
     </SystemReply>
 </CodeBlock>);
 
-inject('code-imap-empty-list', <CodeBlock>
+injectElement('code-imap-empty-list', <CodeBlock>
     <UserCommand>F FETCH 1 (FLAGS)</UserCommand>
     <SystemReply>
         * 1 FETCH (FLAGS ())<br/>
@@ -214,7 +208,7 @@ inject('code-imap-empty-list', <CodeBlock>
     </SystemReply>
 </CodeBlock>);
 
-inject('code-imap-custom-flag', <CodeBlock>
+injectElement('code-imap-custom-flag', <CodeBlock>
     <UserCommand>S STORE 1 +FLAGS (custom-flag)</UserCommand>
     <SystemReply>
         * FLAGS (\Answered \Flagged \Deleted \Seen \Draft custom-flag)<br/>
@@ -224,7 +218,7 @@ inject('code-imap-custom-flag', <CodeBlock>
     </SystemReply>
 </CodeBlock>);
 
-inject('code-imap-internal-date', <CodeBlock>
+injectElement('code-imap-internal-date', <CodeBlock>
     <UserCommand>F FETCH 1 (INTERNALDATE)</UserCommand>
     <SystemReply>
         * 1 FETCH (INTERNALDATE "24-Nov-2020 15:43:32 +0000")<br/>
@@ -238,7 +232,7 @@ const tomorrowInAWeek = new Date();
 tomorrow.setDate(today.getDate() + 1);
 tomorrowInAWeek.setDate(today.getDate() + 8);
 
-inject('code-vacation-response', <CodeBlock>
+injectElement('code-vacation-response', <CodeBlock>
     <ClickToCopy>
         require ["date", "relational", "vacation"];<br/>
         if allof (currentdate :value "ge" "date" "{Time.fromDate(tomorrow).toLocalTime().toGregorianDate()}", currentdate :value "le" "date" "{Time.fromDate(tomorrowInAWeek).toLocalTime().toGregorianDate()}") {'{'}<br/>
@@ -247,47 +241,47 @@ inject('code-vacation-response', <CodeBlock>
     </ClickToCopy>
 </CodeBlock>);
 
-inject('code-brew-version', <CodeBlock>
+injectElement('code-brew-version', <CodeBlock>
     <StaticPrompt>brew --version</StaticPrompt>
 </CodeBlock>);
 
-inject('code-install-brew', <CodeBlock>
+injectElement('code-install-brew', <CodeBlock>
     <StaticPrompt>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</StaticPrompt>
 </CodeBlock>);
 
-inject('code-install-openssl', <CodeBlock>
+injectElement('code-install-openssl', <CodeBlock>
     <StaticPrompt>brew install openssl</StaticPrompt>
 </CodeBlock>);
 
-inject('code-installed-openssl', <CodeBlock>
+injectElement('code-installed-openssl', <CodeBlock>
     <StaticPrompt>/usr/local/opt/openssl/bin/openssl version</StaticPrompt>
 </CodeBlock>);
 
 bind('set-openssl-command', 'click', () => setOpenSslCommand('/usr/local/opt/openssl/bin/openssl'));
 
-inject('code-message-decompression', <CodeBlock>
+injectElement('code-message-decompression', <CodeBlock>
     <StaticPrompt>echo "eNoLycgsVgCi4vzcVIXixNyCnFSF5Py8ktS8Ej0AlCkKVA==" | openssl base64 -d | pigz -d</StaticPrompt>
     <SystemReply>This is some sample content.</SystemReply>
 </CodeBlock>);
 
-inject('code-encoding-with-qprint', <CodeBlock>
+injectElement('code-encoding-with-qprint', <CodeBlock>
     <StaticPrompt noNewline>qprint -e</StaticPrompt>
     <StaticPrompt noNewline>qprint -d</StaticPrompt>
 </CodeBlock>);
 
-inject('code-encoding-with-node', <CodeBlock>
+injectElement('code-encoding-with-node', <CodeBlock>
     <Comment># You have to install the package only once:</Comment>
     <StaticPrompt noNewline>npm install -g quoted-printable</StaticPrompt>
     <StaticPrompt noNewline>quoted-printable -e</StaticPrompt>
     <StaticPrompt noNewline>quoted-printable -d</StaticPrompt>
 </CodeBlock>);
 
-inject('code-encoding-with-openssl', <CodeBlock>
+injectElement('code-encoding-with-openssl', <CodeBlock>
     <StaticPrompt noNewline>openssl base64 -e</StaticPrompt>
     <StaticPrompt noNewline>openssl base64 -d</StaticPrompt>
 </CodeBlock>);
 
-inject('code-encoding-with-perl', <CodeBlock>
+injectElement('code-encoding-with-perl', <CodeBlock>
     <StaticPrompt noNewline>perl -MMIME::QuotedPrint -0777 -nle 'print encode_qp($_)'</StaticPrompt>
     <StaticPrompt noNewline>perl -MMIME::QuotedPrint -0777 -nle 'print decode_qp($_)'</StaticPrompt>
     <br/>
@@ -298,7 +292,7 @@ inject('code-encoding-with-perl', <CodeBlock>
     <StaticPrompt noNewline>perl -MURI::Escape -0777 -ne 'print uri_unescape($_)'</StaticPrompt>
 </CodeBlock>);
 
-inject('code-encoding-with-python', <CodeBlock>
+injectElement('code-encoding-with-python', <CodeBlock>
     <StaticPrompt noNewline>python3 -c 'import sys, quopri; sys.stdout.buffer.write(quopri.encodestring(sys.stdin.buffer.read()))'</StaticPrompt>
     <StaticPrompt noNewline>python3 -c 'import sys, quopri; sys.stdout.buffer.write(quopri.decodestring(sys.stdin.buffer.read()))'</StaticPrompt>
     <br/>
@@ -309,7 +303,7 @@ inject('code-encoding-with-python', <CodeBlock>
     <StaticPrompt noNewline>python3 -c 'import sys, urllib.parse; print(urllib.parse.unquote(sys.stdin.read()))'</StaticPrompt>
 </CodeBlock>);
 
-inject('code-whois-queries', <CodeBlock>
+injectElement('code-whois-queries', <CodeBlock>
     <StaticPrompt>telnet whois.iana.org 43</StaticPrompt>
     <UserCommand>com</UserCommand>
     <SystemReply>[…]</SystemReply>
@@ -330,7 +324,7 @@ inject('code-whois-queries', <CodeBlock>
     <SystemReply>Connection closed by foreign host.</SystemReply>
 </CodeBlock>);
 
-inject('code-opt-pseudosection', <CodeBlock>
+injectElement('code-opt-pseudosection', <CodeBlock>
     <StaticPrompt>dig ef1p.com +dnssec</StaticPrompt>
     <SystemReply>[…]</SystemReply>
     <SystemReply>;; OPT PSEUDOSECTION:</SystemReply>
@@ -338,7 +332,7 @@ inject('code-opt-pseudosection', <CodeBlock>
     <SystemReply>[…]</SystemReply>
 </CodeBlock>);
 
-inject('code-generate-keys', <CodeBlock>
+injectElement('code-generate-keys', <CodeBlock>
     <Comment># Generate RSA key (OpenSSL and LibreSSL):</Comment>
     <StaticPrompt>{openSslCommand} genrsa -out private.pem 2048</StaticPrompt>
     <StaticPrompt>{openSslCommand} rsa -in private.pem -pubout -out public.pem</StaticPrompt>
@@ -354,7 +348,7 @@ inject('code-generate-keys', <CodeBlock>
     <SystemReply>-----END PUBLIC KEY-----</SystemReply>
 </CodeBlock>);
 
-inject('code-query-records', <Fragment>
+injectElement('code-query-records', <Fragment>
     {emailDomainInput}
     <CodeBlock>
         <Comment># SPF:</Comment>
@@ -368,7 +362,7 @@ inject('code-query-records', <Fragment>
     </CodeBlock>
 </Fragment>);
 
-inject('code-verify-tlsa-record', <CodeBlock>
+injectElement('code-verify-tlsa-record', <CodeBlock>
     <StaticPrompt>{openSslCommand} s_client -starttls smtp -connect mail.protonmail.ch:25 -verify_return_error -dane_tlsa_domain "mail.protonmail.ch" -dane_tlsa_rrdata "3 1 1 6111a5698d23c89e09c36ff833c1487edc1b0c841f87c49dae8f7a09e11e979e" -dane_tlsa_rrdata "3 1 1 76bb66711da416433ca890a5b2e5a0533c6006478f7d10a4469a947acc8399e1"</StaticPrompt>
     <SystemReply>[…]</SystemReply>
     <SystemReply>---</SystemReply>
@@ -380,12 +374,12 @@ inject('code-verify-tlsa-record', <CodeBlock>
     <SystemReply>[…]</SystemReply>
 </CodeBlock>);
 
-inject('code-verify-tlsa-record-yourself', <CodeBlock>
+injectElement('code-verify-tlsa-record-yourself', <CodeBlock>
     <StaticPrompt>echo 'QUIT' | openssl s_client -starttls smtp -connect mail.protonmail.ch:25 2&gt; /dev/null | openssl x509 -noout -pubkey | openssl pkey -pubin -outform DER | openssl sha256</StaticPrompt>
     <SystemReply>76bb66711da416433ca890a5b2e5a0533c6006478f7d10a4469a947acc8399e1</SystemReply>
 </CodeBlock>);
 
-inject('code-gpg-key-export', <CodeBlock>
+injectElement('code-gpg-key-export', <CodeBlock>
     <Comment># Export the public key of the given user in the OPENPGPKEY presentation format:</Comment>
     <StaticPrompt>gpg --export --export-options export-minimal,no-export-attributes {emailAddressOutput} | base64</StaticPrompt>
     <br/>
@@ -393,7 +387,7 @@ inject('code-gpg-key-export', <CodeBlock>
     <StaticPrompt>gpg --export --export-options export-minimal,no-export-attributes,export-dane {emailAddressOutput}</StaticPrompt>
 </CodeBlock>);
 
-inject('code-ssh-config', <CodeBlock>
+injectElement('code-ssh-config', <CodeBlock>
     <StaticPrompt>mkdir -p ~/.ssh</StaticPrompt>
     <StaticPrompt>chmod 700 ~/.ssh</StaticPrompt>
     <StaticPrompt>touch ~/.ssh/config</StaticPrompt>
