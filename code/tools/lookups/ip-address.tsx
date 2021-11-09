@@ -128,6 +128,7 @@ export const toolLookupIpAddress: Tool = [
             submit={{
                 text: 'Locate',
                 title: 'Locate the given IPv4 address.',
+                // tslint:disable-next-line:no-empty
                 onClick: () => {},
             }}
         />

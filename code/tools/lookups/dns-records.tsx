@@ -180,7 +180,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     CAA: {
         regexp: /^\d{1,3} (issue|issuewild|iodef) "\S+"$/,
         fields: [
-            // tslint:disable-next-line: no-bitwise
+            // tslint:disable-next-line:no-bitwise
             { title: field => 'The most significant bit of this number is the issuer critical flag. ' + ((parseInt(field, 10) & 128) ?
                 'Because this bit is set to 1, a certificate issuer has to understand the subsequent property before issuing a certificate.' :
                 'Because this bit is set to 0, a certificate issuer may issue a certificate without understanding the subsequent property.'
@@ -490,6 +490,7 @@ export const toolLookupDnsRecords: Tool = [
             submit={{
                 text: 'Query',
                 title: 'Query the records of the given domain name.',
+                // tslint:disable-next-line:no-empty
                 onClick: () => {},
             }}
         />

@@ -14,7 +14,6 @@
         "max-line-length": false,
         "member-ordering": false,
         "no-console": false,
-        "no-empty": false,
         "no-shadowed-variable": false,
         "object-literal-sort-keys": false,
         "ordered-imports": true,
