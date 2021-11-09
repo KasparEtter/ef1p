@@ -61,7 +61,7 @@ a [package manager](https://en.wikipedia.org/wiki/Package_manager).
 
 *Attention:*
 You might have to perform some of the following steps with a user
-which has administrator rights at the operating system level
+which has administrator rights at the operating system level,
 but I still need to verify this.
 
 [Homebrew](https://brew.sh) is the most popular package manager for macOS.
@@ -523,6 +523,7 @@ you have to download them manually from the following links:
 - [React](https://reactjs.org/docs/cdn-links.html)
   (or execute `npm run react-update` to copy the files from `node_modules`)
 - [AnchorJS](https://cdnjs.com/libraries/anchor-js)
+- [Plausible](https://plausible.io/js/plausible.js)
 - [Font Awesome](https://fontawesome.com/download)
   (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
 - [KaTeX](https://katex.org/docs/browser.html)
@@ -554,7 +555,6 @@ npm run logo-convert
 
 Articles can have the following variables in their [front matter](https://jekyllrb.com/docs/front-matter/):
 
-- `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
 - `title`: The title of the article as used at the top of the article and in the navigation.
 - `category`: The name of the [category](_data/categories.yml) to which the article belongs.
 - `author`: The author of the article so that this information is included in timestamps of the file.
@@ -563,6 +563,7 @@ Articles can have the following variables in their [front matter](https://jekyll
 - `modified`: The date when the article was last modified as YYYY-MM-DD.
   Omit this variable if the article has not been modified since its publication.
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
+- `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
 - `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
 
