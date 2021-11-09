@@ -9,7 +9,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 function isValid(href: string): boolean {
     if (href.startsWith('#')) {
-        return document.getElementById(href.substring(1)) !== null;
+        return document.getElementById(href.split('&')[0].substring(1)) !== null;
     } else {
         return href.startsWith('https://') || href.startsWith('http://') || href.startsWith('mailto:') || href.startsWith('/');
     }

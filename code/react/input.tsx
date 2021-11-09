@@ -5,7 +5,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { ChangeEvent, Component, Fragment, MouseEvent } from 'react';
+import ReactDOM from 'react-dom';
 
+import { report } from '../utility/analytics';
+import { copyToClipboardWithAnimation } from '../utility/animation';
 import { colorClass } from '../utility/color';
 import { normalizeToArray, normalizeToValue } from '../utility/normalization';
 import { getRandomString } from '../utility/string';
@@ -14,9 +17,9 @@ import { Button, ObjectButNotFunction } from '../utility/types';
 import { estimateStringWidth } from '../svg/utility/string';
 
 import { CustomInput, CustomTextarea } from './custom';
-import { DynamicEntry, ErrorType, InputType, inputTypesWithArtificialOnInput, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
+import { DynamicEntry, ErrorType, inputTypesWithArtificialOnInput, inputTypesWithHistory, numberInputTypes, ValueType } from './entry';
 import { ProvidedStore, shareStore } from './share';
-import { AllEntries, clearErrors, clearState, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
+import { AllEntries, clearErrors, clearState, DynamicEntries, encodeInputs, getCurrentState, hasNoErrors, nextState, previousState, ProvidedDynamicEntries, setState, validateInputs, VersionedState, VersioningEvent } from './state';
 import { Store } from './store';
 
 export interface InputProps<State extends ObjectButNotFunction> {
@@ -81,7 +84,7 @@ function getLabelWidth(entry: DynamicEntry<any, any>): number {
 }
 
 export class RawInput<State extends ObjectButNotFunction> extends Component<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & Partial<ProvidedDynamicEntries<State>> & InputProps<State>> {
-    private readonly entries = this.props.entries !== undefined ? this.props.entries : this.props.store.meta.entries;
+    private readonly entries = this.props.entries !== undefined ? this.props.entries : this.props.store.meta.entries as Partial<DynamicEntries<State>>;
 
     private readonly handle = (event: Event | ChangeEvent<any>, callMetaOnChangeEvenWhenNothingChanged: boolean) => {
         const target = event.currentTarget as HTMLInputElement | HTMLSelectElement;
@@ -194,6 +197,22 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
     private readonly onClear = () => {
         if (confirm(`Are you sure you want to erase the history of ${this.props.store.state.states.length - 1} entered values?`)) {
             clearState(this.props.store);
+        }
+    }
+
+    private readonly onShare = (event: MouseEvent<HTMLButtonElement>) => {
+        let element: Element | null = ReactDOM.findDOMNode(this) as Element;
+        while (element !== null && element.getAttribute('id') === null) {
+            element = element.parentElement;
+        }
+        const id = element?.getAttribute('id');
+        if (id) {
+            const address = window.location.origin + window.location.pathname + '#' + id + '&' + encodeInputs(this.entries, this.props.store).join('&');
+            if (copyToClipboardWithAnimation(address, event.currentTarget as HTMLButtonElement, 'scale200')) {
+                report('Copy link', { Anchor: '#' + id });
+            }
+        } else {
+            throw new Error('Could not find the ID of the parent element.');
         }
     }
 
@@ -372,6 +391,15 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 <button
                     type="button"
                     className="btn btn-primary"
+                    onClick={this.onNext}
+                    disabled={this.props.store.state.index === this.props.store.state.states.length - 1}
+                    title="Advance to the next set of values."
+                >
+                    <i className="fas fa-redo-alt"></i>
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-primary"
                     onClick={this.onClear}
                     disabled={this.props.store.state.states.length === 1}
                     title="Erase the history of entered values."
@@ -381,11 +409,10 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
                 <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={this.onNext}
-                    disabled={this.props.store.state.index === this.props.store.state.states.length - 1}
-                    title="Advance to the next set of values."
+                    onClick={this.onShare}
+                    title="Copy a link to the current values for sharing."
                 >
-                    <i className="fas fa-redo-alt"></i>
+                    <i className="fas fa-share"></i>
                 </button>
             </span>;
     };
@@ -416,7 +443,7 @@ export class RawInput<State extends ObjectButNotFunction> extends Component<Prov
         const keys = Object.keys(this.entries);
         const hasErrors = !hasNoErrors(this.props.store);
         const labelWidth = this.props.individualLabelWidth || !this.props.newColumnAt ?
-            0 : Math.max(...Object.values(this.entries).map(entry => getLabelWidth(entry)));
+            0 : Math.max(...Object.values(this.entries).map(entry => getLabelWidth(entry as DynamicEntry<any, any>)));
         const newColumn = this.props.newColumnAt;
         if (newColumn) {
             return <div className="block-form vertical-form row">

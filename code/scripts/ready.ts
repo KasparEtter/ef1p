@@ -26,10 +26,19 @@ const getTitle = (hashOrElement: string | HTMLElement) => {
     return originalTitle + ' at ' + $(hashOrElement as any).text();
 };
 
-// Scrolling inspired by http://jsfiddle.net/ianclark001/rkocah23/.
 const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' | 'jump') => {
     if (!hash || !/^#[^ ]+$/.test(hash)) {
         return false;
+    }
+
+    const parts = hash.split('&');
+    if (parts.length > 1) {
+        if (window.handleToolUpdate) {
+            window.handleToolUpdate(parts);
+        } else {
+            console.error('There is no handler for tool updates on this page.');
+        }
+        hash = parts[0];
     }
 
     const anchor = trigger === 'load' ? sanitize(hash) : hash;

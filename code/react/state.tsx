@@ -9,9 +9,10 @@ import { Component, ComponentType, ReactNode } from 'react';
 import { report } from '../utility/analytics';
 import { normalizeToArray, normalizeToValue } from '../utility/normalization';
 import { removeItem } from '../utility/storage';
+import { decodePercent, encodePercent } from '../utility/string';
 import { KeysOf, ObjectButNotFunction, ValueOrArray } from '../utility/types';
 
-import { DynamicEntry, Entry, equalValues, ErrorType, ValueType } from './entry';
+import { ArrayInputType, arrayInputTypes, BooleanInputType, booleanInputTypes, DynamicEntry, Entry, equalValues, ErrorType, NumberInputType, numberInputTypes, StringInputType, stringInputTypes, ValueType } from './entry';
 import { PersistedState, PersistedStore, Store } from './store';
 import { getDisplayName } from './utility';
 
@@ -271,6 +272,81 @@ export function mergeIntoCurrentState<State extends ObjectButNotFunction>(
     callChangeHandlers: boolean = true,
 ): void {
     updateState(store, partialNewState, false, partialErrors, false, callChangeHandlers);
+}
+
+function encodeValue(value: any): string {
+    if (Array.isArray(value)) {
+        return value.map(encodeValue).join(',');
+    } else {
+        return encodePercent(value.toString());
+    }
+}
+
+export function encodeInputs<State extends ObjectButNotFunction>(
+    entries: Partial<DynamicEntries<State>>,
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+): string[] {
+    return Object.keys(entries).map(key => key + '=' + encodeValue(store.state.inputs[key as keyof State]));
+}
+
+function decodeValue(entry: DynamicEntry<any>, value: string): any {
+    if (booleanInputTypes.includes(entry.inputType as BooleanInputType)) {
+        if (['true', 'false'].includes(value)) {
+            return value === 'true';
+        }
+    } else if (numberInputTypes.includes(entry.inputType as NumberInputType)) {
+        if (/^-?\d+$/.test(value)) {
+            const input = Number(value);
+            if (entry.inputType === 'range') {
+                if (input < (entry.minValue ?? 0)) {
+                    return entry.minValue;
+                } else if (input > (entry.maxValue ?? 100)) {
+                    return entry.maxValue;
+                }
+            }
+            return input;
+        }
+    } else if (stringInputTypes.includes(entry.inputType as StringInputType)) {
+        const input = decodePercent(value);
+        if ((entry.inputType !== 'date' || /^\d{4}-\d{2}-\d{2}$/.test(input)) && (entry.inputType !== 'color' || /^#[0-9a-f]{6}$/i.test(input))) {
+            return input; // The validity of the 'select' options is checked in the updateState function.
+        }
+    } else if (arrayInputTypes.includes(entry.inputType as ArrayInputType)) {
+        return value.split(',').map(decodePercent); // Also validated above.
+    }
+    return undefined;
+}
+
+export function decodeInputs<State extends ObjectButNotFunction>(
+    store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>,
+    parts: string[],
+    submit?: (state: State) => any,
+): void {
+    const partialNewState: Partial<State> = {};
+    for (const part of parts) {
+        const index = part.indexOf('=');
+        if (index > 0) {
+            const key = part.substring(0, index) as keyof State;
+            const value = part.substring(index + 1);
+            const entry = store.meta.entries[key];
+            if (entry !== undefined) {
+                const input = decodeValue(entry, value);
+                if (input !== undefined) {
+                    partialNewState[key] = input;
+                } else {
+                    console.error(`Could not decode '${value}' as '${entry.inputType}'.`);
+                }
+            } else {
+                console.error(`There is no entry for '${key}' in the store '${store.identifier}'.`);
+            }
+        } else {
+            console.error(`Could not decode the part '${part}'.`);
+        }
+    }
+    setState(store, partialNewState, true);
+    if (submit !== undefined && hasNoErrors(store)) {
+        submit(getCurrentState(store));
+    }
 }
 
 export function clearErrors<State extends ObjectButNotFunction>(
