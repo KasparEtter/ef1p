@@ -63,7 +63,7 @@ The topics on this blog fall into one of the following categories:
 
 ### Ambition
 
-The goal of this website is to provide the best introduction available to the covered subjects.
+The goal of this website is to provide the best introductions available to the covered subjects.
 After doing a lot of research about a particular topic,
 I write the articles for my past self in the hope they are useful to the present you.
 Each article is intended to be the first one that you should read about a given topic
@@ -168,8 +168,7 @@ your browser address is updated continuously
 in order to always link to the current section.
 While this can create a lot of entries in your browser history,
 it helps you find more easily where you left off,
-especially on mobile,
-where a page reload is forced upon you.
+especially on mobile when a page reload is forced upon you.
 If you want to share an article without linking to a particular section,
 make sure to remove everything in the address from the hash onward.
 Alternatively, simply scroll to the top of the page before copying the address.
@@ -243,33 +242,38 @@ you can toggle the style by clicking on the last entry of the navigation bar at 
 
 ### History of values
 
-Many articles contain interactive elements,
-which allow you to play around with some concepts.
+Many articles contain interactive tools,
+which allow you to play around with a particular concept.
 In order to revisit earlier examples later on,
 the values you enter are stored
 [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
-You can go back and forth through the history of values
-by clicking on the corresponding buttons.
+You can go back and forth through the history of values by clicking on the corresponding buttons.
 The values are persisted across sessions:
-If you close the browser window
-and then open the article again,
+If you close the browser window and then open the article again,
 the entered values are still there.
-You can erase the history
-by clicking the button with the trash icon.
+You can erase the history of a tool by clicking the button with the trash icon.
 If you don't want the entered values to be persisted across sessions in the first place,
-then open the article in the [private mode](https://en.wikipedia.org/wiki/Private_browsing)
-of your web browser.
-If you want, you can <a id="erase-all-values">erase all stored values</a>,
-including your theme preference.
+then open the article in the [private mode](https://en.wikipedia.org/wiki/Private_browsing) of your web browser.
+You can also <a id="erase-all-values">erase all stored values</a>,
+including your [theme preference](#dark-and-light-mode),
+by clicking on the pink link in this sentence.
+
+
+### Sharing of values
+
+You can share a tool's current set of values with someone else by clicking on the corresponding button.
+The values are encoded into the [fragment](https://en.wikipedia.org/wiki/URI_fragment) of the copied link.
+This has the advantage that they are not sent to the server when opening the link.
+On the downside, such links don't work for users who disabled [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
 
 
 ### Article download
 
-Each article can be downloaded as a PDF for printing or offline reading.
-You find the download link at the very top of the corresponding article.
+You can download each article as a PDF for printing or offline reading.
+You find the download link at the top of the corresponding article.
 The printing feature of your browser also works, of course,
-but I cannot ensure that the article will be formatted nicely this way.
-Additionally, only the open [information boxes](#information-boxes) will be printed
+but I cannot ensure that the article is formatted nicely this way.
+Additionally, only the open [information boxes](#information-boxes) are printed
 if you export the article yourself.
 
 
@@ -360,7 +364,8 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
 
 ## About
 
-My name is [Kaspar Etter](https://kasparetter.com), and I'm a curious and skeptic person.
+My name is [Kaspar Etter](https://kasparetter.com).
+I'm a curious and skeptic person.
 I studied computer science at [ETH](https://ethz.ch/en.html) and live in Zurich, Switzerland.
 
 
@@ -472,8 +477,15 @@ While there are workarounds to run them on a server,
 such as using a [headless browser](https://en.wikipedia.org/wiki/Headless_browser)
 or a [DOM library](https://github.com/jsdom/jsdom),
 I decided to roll my own little SVG library, which grew over time.
-It is heavily tailored to my needs and my [design language](https://en.wikipedia.org/wiki/Design_language)
+It is heavily tailored to my needs and my [design language](https://en.wikipedia.org/wiki/Design_language),
 but if there's enough interest, I'm open to splitting the framework into its own repository.
+
+
+### Do you accept guest content on your blog?
+{:data-toc-text="Guest content"}
+
+No.
+There are many open publishing platforms, such as [Medium](https://medium.com/), but this website isn't one of them.
 
 
 *[CSS]: Cascading Style Sheets
