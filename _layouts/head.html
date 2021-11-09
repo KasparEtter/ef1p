@@ -33,7 +33,7 @@
         <script defer src="https://unpkg.com/react@17.0.1/umd/react.production.min.js" integrity="sha384-YF0qbrX3+TW1Oyow2MYZpkEMq34QcYzbTJbSb9K0sdeykm4i4kTCSrsYeH8HX11w" crossorigin="anonymous"></script>
         <script defer src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" integrity="sha384-DHlzXk2aXirrhqAkoaI5lzdgwWB07jUHz7DJGmS4Vlvt5U/ztRy+Yr8oSgQw5QaE" crossorigin="anonymous"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk=" crossorigin="anonymous"></script>
-        <script defer src="{{ '/assets/scripts/external/plausible.min.js' | relative_url }}" data-domain="{{ site.domain }}" data-api="https://plausible.io/api/event"></script>
+        <script defer src="{{ '/assets/scripts/external/plausible.min.js' | relative_url }}?v=1" data-domain="{{ site.domain }}" data-api="https://plausible.io/api/event"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     {% else %}
         <script defer src="{{ '/assets/scripts/external/jquery.min.js' | relative_url }}"></script>{% comment %}
@@ -51,8 +51,8 @@
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body, { strict: false, trust: true });"></script>
     {% endif %}
         <script defer src="{{ '/assets/scripts/external/bootstrap-toc.min.js' | relative_url }}"></script>
-        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v=12"></script>
-        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=11"></script>
+        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v=13"></script>
+        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v=12"></script>
 
         <link rel="stylesheet" id="theme" href="{{ '/assets/styles/dark.min.css?v=11' | relative_url }}">
         <script>
@@ -61,7 +61,7 @@
                 light: "{{ '/assets/styles/light.min.css?v=11' | relative_url }}"
             };
         </script>
-        <script src="{{ '/assets/scripts/internal/theme.min.js' | relative_url }}?v=5"></script>
+        <script src="{{ '/assets/scripts/internal/theme.min.js' | relative_url }}?v=6"></script>
 
         <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicons/favicon.svg' | relative_url }}">
         <link rel="alternate icon" type="image/png" sizes="16x16" href="{{ '/assets/favicons/favicon-16x16.png' | relative_url }}">
