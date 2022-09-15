@@ -12,6 +12,10 @@ lang: en
 permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
+external_version: 1
+scripts_version: 14
+styles_version: 12
+
 repository: KasparEtter/ef1p
 twitter_handle: ExplainedFrom1P
 reddit_community: https://www.reddit.com/r/ef1p/
