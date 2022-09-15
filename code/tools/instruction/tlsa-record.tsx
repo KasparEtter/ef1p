@@ -7,27 +7,27 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { CodeBlock } from '../../react/code';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicSingleSelectEntry, DynamicTextEntry } from '../../react/entry';
 import { getIfCase } from '../../react/if-case';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { DynamicEntries, getPersistedStore } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const certificateFile: DynamicEntry<string> = {
-    name: 'Certificate file',
-    description: 'The name of the end-entity or trust-anchor certificate.',
+const certificateFile: DynamicTextEntry<State> = {
+    label: 'Certificate file',
+    tooltip: 'The name of the end-entity or trust-anchor certificate.',
     defaultValue: 'certificate.pem',
     inputType: 'text',
-    inputWidth: 135,
+    inputWidth: 120,
 };
 
-const selector: DynamicEntry<string, State> = {
-    name: 'Selector',
-    description: 'Which part of the certificate is referenced by the TLSA record.',
+const selector: DynamicSingleSelectEntry<State> = {
+    label: 'Selector',
+    tooltip: 'Which part of the certificate is referenced by the TLSA record.',
     defaultValue: 'spki',
     inputType: 'select',
     selectOptions: {
@@ -36,9 +36,9 @@ const selector: DynamicEntry<string, State> = {
     },
 };
 
-const matchingType: DynamicEntry<string, State> = {
-    name: 'Matching type',
-    description: 'How the selected content is presented in the certificate association field.',
+const matchingType: DynamicSingleSelectEntry<State> = {
+    label: 'Matching type',
+    tooltip: 'How the selected content is presented in the certificate association field.',
     defaultValue: 'sha256',
     inputType: 'select',
     selectOptions: {
@@ -59,12 +59,12 @@ const entries: DynamicEntries<State> = {
     matchingType,
 };
 
-const store = getPersistedStore(entries, 'instruction-tlsa-record');
+const store = new VersionedStore(entries, 'instruction-tlsa-record');
 const Input = getInput(store);
 const OutputEntries = getOutputEntries(store);
 const IfCase = getIfCase(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolInstructionTlsaRecord: Tool = [
     <Fragment>

@@ -7,19 +7,19 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { CodeBlock } from '../../react/code';
-import { DynamicEntry, Entry } from '../../react/entry';
+import { DynamicEntries, DynamicSingleSelectEntry, Entry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
-import { DynamicEntries, getPersistedStore } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const operatingSystem: DynamicEntry<string, State> = {
-    name: 'Operating system',
-    description: 'Select the operating system you are using.',
-    defaultValue: () => {
+const operatingSystem: DynamicSingleSelectEntry<State> = {
+    label: 'Operating system',
+    tooltip: 'Select the operating system you are using.',
+    defaultValue: (() => {
         if (navigator.platform.startsWith('Win')) {
             return 'windows';
         } else if (navigator.platform.startsWith('Mac')) {
@@ -27,7 +27,7 @@ const operatingSystem: DynamicEntry<string, State> = {
         } else {
             return 'linux';
         }
-    },
+    })(),
     inputType: 'select',
     selectOptions: {
         windows: 'Windows',
@@ -36,9 +36,9 @@ const operatingSystem: DynamicEntry<string, State> = {
     },
 };
 
-const loggingLevel: DynamicEntry<string, State> = {
-    name: 'Logging level',
-    description: 'All entries up to the specified level are logged. Use Info to log the communication without too much noise.',
+const loggingLevel: DynamicSingleSelectEntry<State> = {
+    label: 'Logging level',
+    tooltip: 'All entries up to the specified level are logged. Use Info to log the communication without too much noise.',
     defaultValue: '3',
     inputType: 'select',
     selectOptions: {
@@ -61,66 +61,64 @@ const entries: DynamicEntries<State> = {
     loggingLevel,
 };
 
-const store = getPersistedStore(entries, 'instruction-thunderbird');
+const store = new VersionedStore(entries, 'instruction-thunderbird');
 const Input = getInput(store);
 const OutputEntries = getOutputEntries(store);
 
-/* ------------------------------ Static entries ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 const MOZ_LOG: Entry<string> = {
-    name: 'Environment variable',
-    description: 'Specifies which modules shall be logged at which level.',
+    label: 'Environment variable',
+    tooltip: 'Specifies which modules shall be logged at which level.',
     defaultValue: 'MOZ_LOG',
 };
 
 const MOZ_LOG_FILE: Entry<string> = {
-    name: 'Environment variable',
-    description: 'Specifies the path to the log file.',
+    label: 'Environment variable',
+    tooltip: 'Specifies the path to the log file.',
     defaultValue: 'MOZ_LOG_FILE',
 };
 
 const timestamp: Entry<string> = {
-    name: 'Option',
-    description: 'Entries are logged with the current time.',
+    label: 'Option',
+    tooltip: 'Entries are logged with the current time.',
     defaultValue: 'timestamp',
 };
 
 const append: Entry<string> = {
-    name: 'Option',
-    description: 'When starting Thunderbird again, new entries are appended to the existing log file instead of overwriting it.',
+    label: 'Option',
+    tooltip: 'When starting Thunderbird again, new entries are appended to the existing log file instead of overwriting it.',
     defaultValue: 'append',
 };
 
 const SMTP: Entry<string> = {
-    name: 'Module',
-    description: 'Log the entries of the SMTP module at the level specified after the colon.',
+    label: 'Module',
+    tooltip: 'Log the entries of the SMTP module at the level specified after the colon.',
     defaultValue: 'SMTP',
 };
 
 const POP3: Entry<string> = {
-    name: 'Module',
-    description: 'Log the entries of the POP3 module at the level specified after the colon.',
+    label: 'Module',
+    tooltip: 'Log the entries of the POP3 module at the level specified after the colon.',
     defaultValue: 'POP3',
 };
 
 const IMAP: Entry<string> = {
-    name: 'Module',
-    description: 'Log the entries of the IMAP module at the level specified after the colon.',
+    label: 'Module',
+    tooltip: 'Log the entries of the IMAP module at the level specified after the colon.',
     defaultValue: 'IMAP',
 };
 
-/* ------------------------------ Transformed entries ------------------------------ */
-
 const command: Entry<string, State> = {
-    name: 'Command',
-    description: 'The command to set an environment variable.',
+    label: 'Command',
+    tooltip: 'The command to set an environment variable.',
     defaultValue: '',
     transform: (_, { operatingSystem }) => operatingSystem === 'Windows' ? 'set' : 'export',
 };
 
 const location: Entry<string, State> = {
-    name: 'Location',
-    description: `The path to the log file. Thunderbird creates the log file if it doesn't exist yet.`,
+    label: 'Location',
+    tooltip: `The path to the log file. Thunderbird creates the log file if it doesn't exist yet.`,
     defaultValue: '',
     transform: (_, { operatingSystem }) => {
         switch (operatingSystem) {
@@ -138,8 +136,8 @@ const location: Entry<string, State> = {
 };
 
 const thunderbird: Entry<string, State> = {
-    name: 'Command',
-    description: 'The command used to start Thunderbird from the command-line interface.',
+    label: 'Command',
+    tooltip: 'The command used to start Thunderbird from the command-line interface.',
     defaultValue: '',
     transform: (_, { operatingSystem }) => {
         switch (operatingSystem) {
@@ -156,7 +154,7 @@ const thunderbird: Entry<string, State> = {
     },
 };
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolInstructionThunderbird: Tool = [
     <Fragment>

@@ -11,17 +11,17 @@ import { singleQuote } from '../../utility/string';
 
 import { CodeBlock, DynamicOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicSingleSelectEntry, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
-import { DynamicEntries, getPersistedStore, shareInputs } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const input: DynamicEntry<string> = {
-    name: 'Input',
-    description: 'The input that you want to hash.',
+const input: DynamicTextEntry = {
+    label: 'Input',
+    tooltip: 'The input that you want to hash.',
     defaultValue: 'Hello',
     inputType: 'text',
     inputWidth: 300,
@@ -37,17 +37,17 @@ const hashFunctions = {
     sha512: 'SHA-512',
 };
 
-const algorithm: DynamicEntry<string> = {
-    name: 'Algorithm',
-    description: 'The cryptographic hash function that you want to apply to the input.',
+const algorithm: DynamicSingleSelectEntry = {
+    label: 'Algorithm',
+    tooltip: 'The cryptographic hash function that you want to apply to the input.',
     defaultValue: 'sha256',
     inputType: 'select',
     selectOptions: hashFunctions,
 };
 
-const uppercase: DynamicEntry<boolean> = {
-    name: 'Uppercase',
-    description: 'Whether to output the hexadecimal characters in uppercase.',
+const uppercase: DynamicBooleanEntry = {
+    label: 'Uppercase',
+    tooltip: 'Whether to output the hexadecimal characters in uppercase.',
     defaultValue: false,
     inputType: 'switch',
 };
@@ -64,10 +64,10 @@ const entries: DynamicEntries<State> = {
     uppercase,
 };
 
-const store = getPersistedStore(entries, 'instruction-hashing');
+const store = new VersionedStore(entries, 'instruction-hashing');
 const Input = getInput(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 function RawHashOutput({ input, algorithm, uppercase }: State): JSX.Element {
     // https://nodejs.org/api/crypto.html#crypto_hash_update_data_inputencoding ('utf-8' is enforced.)
@@ -82,7 +82,9 @@ function RawHashOutput({ input, algorithm, uppercase }: State): JSX.Element {
     </CodeBlock>;
 }
 
-const HashOutput = shareInputs(store)(RawHashOutput);
+const HashOutput = store.injectInputs(RawHashOutput);
+
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolInstructionHashing: Tool = [
     <Fragment>

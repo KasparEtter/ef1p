@@ -8,27 +8,27 @@ import { Fragment } from 'react';
 
 import { CodeBlock, DynamicOutput, StaticOutput } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
-import { DynamicEntries, getPersistedStore, shareVersionedState } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const webAddress: DynamicEntry<string> = {
-    name: 'Web address',
-    description: 'The web address you would like to fetch manually from the command line.',
+const webAddress: DynamicTextEntry = {
+    label: 'Web address',
+    tooltip: 'The web address you would like to fetch manually from the command line.',
     defaultValue: 'https://explained-from-first-principles.com/internet/',
     inputType: 'text',
     inputWidth: 450,
-    validate: value =>
+    validateIndependently: input =>
         // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.
-        value === '' && 'The web address may not be empty.' ||
-        value.includes(' ') && 'The web address may not contain spaces.' ||
-        !value.startsWith('http://') && !value.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
-        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(value) && 'The pattern of the web address is invalid.',
+        input === '' && 'The web address may not be empty.' ||
+        input.includes(' ') && 'The web address may not contain spaces.' ||
+        !input.startsWith('http://') && !input.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
+        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(input) && 'Only the Latin alphabet is currently supported.' ||
+        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(input) && 'The pattern of the web address is invalid.',
 };
 
 interface State {
@@ -39,10 +39,10 @@ const entries: DynamicEntries<State> = {
     webAddress,
 };
 
-const store = getPersistedStore(entries, 'protocol-http');
+const store = new VersionedStore(entries, 'protocol-http');
 const Input = getInput(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 function RawHttpCommand({ webAddress }: State): JSX.Element {
     const [, protocol, domain, port, path] = /^(http|https):\/\/([a-z0-9-\.]+)(?::(\d+))?(\/.*)?$/i.exec(webAddress)!;
@@ -90,7 +90,9 @@ function RawHttpCommand({ webAddress }: State): JSX.Element {
     </CodeBlock>;
 }
 
-const HttpCommand = shareVersionedState(store)(RawHttpCommand);
+const HttpCommand = store.injectCurrentState(RawHttpCommand);
+
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolProtocolHttp: Tool = [
     <Fragment>

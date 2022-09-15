@@ -4,29 +4,29 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { getErrorMessage } from '../../utility/error';
 import { Dictionary } from '../../utility/record';
 import { Time } from '../../utility/time';
 
 import { DynamicOutput, StaticOutput } from '../../react/code';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicSingleSelectEntry, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { getUniqueKey, join, Tool } from '../../react/utility';
+import { getUniqueKey, join } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
 import { DnsRecord, DnsResponse, getReverseLookupDomain, mapRecordTypeFromGoogle, RecordType, recordTypes, resolveDomainName, responseStatusCodes } from '../../apis/dns-lookup';
 
 import { setIpInfoInput } from './ip-address';
 
-/* ------------------------------ Response table ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 interface DnsResponseState {
-    response?: DnsResponse;
-    error?: string;
+    response?: DnsResponse | undefined;
+    error?: string | undefined;
 }
 
 function parseTimeToLive(ttl: number): string {
@@ -196,7 +196,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     },
     CNAME: {
         regexp: /^([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i,
-        fields: [{ title: (_, record) => `The domain name for which ${record.name.slice(0, -1)} is an alias. Click to look up its resource records of the same type. Right click to open the domain in your browser.`, onClick: field => setState(store, { domainName: field }), onContextMenu }],
+        fields: [{ title: (_, record) => `The domain name for which ${record.name.slice(0, -1)} is an alias. Click to look up its resource records of the same type. Right click to open the domain in your browser.`, onClick: field => store.setNewStateFromInput('domainName', field), onContextMenu }],
     },
     MX: {
         regexp: /^\d+ (([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9])?\.$/i,
@@ -288,7 +288,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
                     title={`This entry indicates that ${record.name.slice(0, -1)} has ${['A', 'M', 'N', 'R', 'S'].includes(recordType[0]) ? 'an' : 'a'} ${recordType} record. Click to look up this record type.`}
                     onClick={recordTypes[recordType] ? () => setDnsResolverInputs(record.name, recordType) : undefined }
                 >{recordType}</span>,
-            ))}
+            ), ' ')}
         </Fragment>;
     },
     NSEC3: record => {
@@ -315,7 +315,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
                 recordType => <StaticOutput title={`This entry indicates that the subdomain which hashes to ${owner} has ${['A', 'M', 'N', 'R', 'S'].includes(recordType[0]) ? 'an' : 'a'} ${recordType} record.`}>
                         {recordType}
                     </StaticOutput>,
-            ))}
+            ), ' ')}
         </Fragment>;
     },
     NSEC3PARAM: {
@@ -331,7 +331,7 @@ const recordTypePatterns: { [key in RecordType]: Pattern | Parser } = {
     CDNSKEY: DNSKEY, // Google doesn't provide a parsed answer, unfortunately: https://issuetracker.google.com/issues/162137940
 };
 
-function parseDnsData(record: DnsRecord): JSX.Element {
+function parseDnsData(record: DnsRecord): ReactNode {
     if (typeof record.type === 'number') {
         return <span title="The data of this unsupported record type.">{record.data}</span>;
     }
@@ -352,7 +352,7 @@ function parseDnsData(record: DnsRecord): JSX.Element {
                     onClick={onClick ? () => onClick(field, record) : undefined}
                     onContextMenu={onContextMenu ? event => { onContextMenu(field, record); event.preventDefault(); } : undefined}
                 >{transform ? transform(field, record) : field}</span>
-            }));
+            }), ' ');
         } else {
             console.error(`The ${record.type} record '${record.data}' didn't match the expected pattern.`);
             return <span title="The data of this record didn't match the expected pattern.">{record.data}</span>;
@@ -360,7 +360,7 @@ function parseDnsData(record: DnsRecord): JSX.Element {
     }
 }
 
-function turnRecordsIntoTable(records: DnsRecord[]): JSX.Element {
+function turnRecordsIntoTable(records: DnsRecord[]): ReactNode {
     return <table className="text-nowrap dynamic-output-pointer">
         <thead>
             <th>Domain name</th>
@@ -408,7 +408,7 @@ function RawDnsResponseTable({ response, error }: DnsResponseState): JSX.Element
                 </Fragment>
             }
             {
-                (response.answer.length > 0 || response.authority.length > 0) && getCurrentState(store).dnssecOk &&
+                (response.answer.length > 0 || response.authority.length > 0) && store.getCurrentState().dnssecOk &&
                 <p className="text-center">
                     ⚠️ Please note that this tool doesn't verify DNSSEC signatures.
                     If you rely on its answers, you do so at your own risk!
@@ -420,8 +420,8 @@ function RawDnsResponseTable({ response, error }: DnsResponseState): JSX.Element
     }
 }
 
-const dnsResponseStore = new Store<DnsResponseState>({}, undefined);
-const DnsResponseTable = shareState(dnsResponseStore)(RawDnsResponseTable);
+const dnsResponseStore = new Store<DnsResponseState>({});
+const DnsResponseTable = dnsResponseStore.injectState(RawDnsResponseTable);
 
 async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: State): Promise<void> {
     try {
@@ -432,34 +432,34 @@ async function updateDnsResponseTable({ domainName, recordType, dnssecOk }: Stat
     }
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const domainName: DynamicEntry<string> = {
-    name: 'Domain',
-    description: 'The domain name you are interested in.',
+const domainName: DynamicTextEntry = {
+    label: 'Domain',
+    tooltip: 'The domain name you are interested in.',
     defaultValue: 'ef1p.com',
     inputType: 'text',
     inputWidth: 222,
-    validate: value =>
-        value === '' && 'The domain name may not be empty.' ||
-        value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
-        value.length > 253 && 'The domain name may be at most 253 characters long.' ||
-        !value.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
-        !/^[-a-z0-9_\.]+$/i.test(value) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
-        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
+    validateIndependently: input =>
+        input === '' && 'The domain name may not be empty.' ||
+        input.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
+        input.length > 253 && 'The domain name may be at most 253 characters long.' ||
+        !input.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
+        !/^[-a-z0-9_\.]+$/i.test(input) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
+        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(input) && 'The pattern of the domain name is invalid.',
 };
 
-const recordType: DynamicEntry<string> = {
-    name: 'Type',
-    description: 'The DNS record type you want to query.',
+const recordType: DynamicSingleSelectEntry = {
+    label: 'Type',
+    tooltip: 'The DNS record type you want to query.',
     defaultValue: 'A',
     inputType: 'select',
     selectOptions: recordTypes,
 };
 
-const dnssecOk: DynamicEntry<boolean> = {
-    name: 'DNSSEC',
-    description: 'Whether to include DNSSEC records in the answer.',
+const dnssecOk: DynamicBooleanEntry = {
+    label: 'DNSSEC',
+    tooltip: 'Whether to include DNSSEC records in the answer.',
     defaultValue: false,
     inputType: 'switch',
 };
@@ -476,21 +476,26 @@ const entries: DynamicEntries<State> = {
     dnssecOk,
 };
 
-const store = getPersistedStore(entries, 'lookup-dns-records', updateDnsResponseTable);
+const store = new VersionedStore(entries, 'lookup-dns-records', updateDnsResponseTable);
 const Input = getInput(store);
 
 export function setDnsResolverInputs(domainName: string, recordType: RecordType, dnssecOk?: boolean): void {
-    setState(store, dnssecOk === undefined ? { domainName, recordType } : { domainName, recordType, dnssecOk });
+    store.setInput('domainName', domainName, true);
+    store.setInput('recordType', recordType, true);
+    if (dnssecOk !== undefined) {
+        store.setInput('dnssecOk', dnssecOk, true);
+    }
+    store.setNewStateFromCurrentInputs();
 }
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolLookupDnsRecords: Tool = [
     <Fragment>
         <Input
             submit={{
-                text: 'Query',
-                title: 'Query the records of the given domain name.',
+                label: 'Query',
+                tooltip: 'Query the records of the given domain name.',
                 // tslint:disable-next-line:no-empty
                 onClick: () => {},
             }}

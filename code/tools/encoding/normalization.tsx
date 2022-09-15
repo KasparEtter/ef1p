@@ -11,16 +11,16 @@ import { copyToClipboard } from '../../utility/clipboard';
 import { toHex } from '../../utility/string';
 
 import { DynamicOutput } from '../../react/code';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicSingleSelectEntry, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
-import { DynamicEntries, getPersistedStore, shareInputs } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const input: DynamicEntry<string> = {
-    name: 'Input',
-    description: 'The input that you want to normalize.',
+const input: DynamicTextEntry<State> = {
+    label: 'Input',
+    tooltip: 'The input that you want to normalize.',
     defaultValue: 'Café',
     inputType: 'text',
     inputWidth: 280,
@@ -34,9 +34,9 @@ const normalizations = {
     NFKD: 'Compatibility decomposition (NFKD)',
 };
 
-const normalization: DynamicEntry<string> = {
-    name: 'Normalization',
-    description: 'The form to which you want to normalize the input.',
+const normalization: DynamicSingleSelectEntry<State> = {
+    label: 'Normalization',
+    tooltip: 'The form to which you want to normalize the input.',
     defaultValue: 'none',
     inputType: 'select',
     selectOptions: normalizations,
@@ -52,10 +52,10 @@ const entries: DynamicEntries<State> = {
     normalization,
 };
 
-const store = getPersistedStore(entries, 'encoding-normalization');
+const store = new VersionedStore(entries, 'encoding-normalization');
 const Input = getInput(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 function renderCodePoint(point: number): ReactNode {
     switch (point) {
@@ -112,7 +112,7 @@ function RawNormalizationOutput({ input, normalization }: State): JSX.Element {
         return String.fromCodePoint(Number.parseInt(hex, 16));
     });
     const normalized = normalization !== 'none' ? parsed.normalize(normalization) : parsed;
-    const points = filterUndefined(Array.from(normalized).map(char => char.codePointAt(0)));
+    const points = filterUndefined(Array.from(normalized, char => char.codePointAt(0)));
     return <p className="dynamic-output-pointer">
         <span className="d-inline-block align-middle" style={{ height: 44 }}></span>
         <span className="mr-1 align-middle">Output:</span>
@@ -146,7 +146,9 @@ function RawNormalizationOutput({ input, normalization }: State): JSX.Element {
     </p>;
 }
 
-const NormalizationOutput = shareInputs(store)(RawNormalizationOutput);
+const NormalizationOutput = store.injectInputs(RawNormalizationOutput);
+
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolEncodingNormalization: Tool = [
     <Fragment>

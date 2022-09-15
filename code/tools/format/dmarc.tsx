@@ -8,32 +8,32 @@ import { Fragment } from 'react';
 
 import { regex } from '../../utility/string';
 
-import { Argument, DynamicArgument } from '../../react/argument';
+import { Argument } from '../../react/argument';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { DynamicEntry, ErrorType } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicMultipleSelectEntry, DynamicNumberEntry, DynamicRangeEntry, DynamicSingleSelectEntry, DynamicTextEntry, InputError } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
-import { DynamicEntries, getDefaultState, getPersistedStore, setState } from '../../react/state';
-import { Tool } from '../../react/utility';
+import { getDefaultState, VersionedStore } from '../../react/versioned-store';
 
-import { emailAddressRegexString } from '../protocols/esmtp';
+import { emailAddressRegexString } from '../protocol/esmtp';
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
 const inputWidth = 240;
 
-const minimalOutput: DynamicEntry<boolean, DmarcState> = {
-    name: 'Minimal output',
-    description: 'Whether to only output the parameters which are different from their default value.',
+const minimalOutput: DynamicBooleanEntry<DmarcState> = {
+    label: 'Minimal output',
+    tooltip: 'Whether to only output the parameters which are different from their default value.',
     defaultValue: true,
     inputType: 'switch',
 };
 
-const domainPolicy: DynamicArgument<string, DmarcState> = {
-    name: 'Domain policy',
+const domainPolicy: DynamicSingleSelectEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'Domain policy',
     longForm: 'p',
-    description: 'What the receiver shall do with messages that fail the authentication or the alignment check.',
+    tooltip: 'What the receiver shall do with messages that fail the authentication or the alignment check.',
     defaultValue: 'reject',
     inputType: 'select',
     selectOptions: {
@@ -43,10 +43,10 @@ const domainPolicy: DynamicArgument<string, DmarcState> = {
     },
 };
 
-const subdomainPolicy: DynamicArgument<string, DmarcState> = {
-    name: 'Subdomain policy',
+const subdomainPolicy: DynamicSingleSelectEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'Subdomain policy',
     longForm: 'sp',
-    description: 'The policy which shall be applied to subdomains. Only set this on organizational domains.',
+    tooltip: 'The policy which shall be applied to subdomains. Only set this on organizational domains.',
     defaultValue: 'inherit',
     inputType: 'select',
     selectOptions: {
@@ -62,10 +62,10 @@ function noPolicy(state: DmarcState): boolean {
     return state.domainPolicy === 'none' && (['inherit', 'none'].includes(state.subdomainPolicy));
 }
 
-const rolloutPercentage: DynamicArgument<number, DmarcState> = {
-    name: 'Rollout percentage',
+const rolloutPercentage: DynamicRangeEntry<DmarcState> & Argument<number, DmarcState> = {
+    label: 'Rollout percentage',
     longForm: 'pct',
-    description: 'What percentage of unauthentic messages shall be handled according to the previous policies.',
+    tooltip: 'What percentage of unauthentic messages shall be handled according to the previous policies.',
     defaultValue: 100,
     inputType: 'range',
     minValue: 0,
@@ -78,10 +78,10 @@ function skipAlignment(state: DmarcState, value: string): boolean {
     return state.minimalOutput && value === 'r';
 }
 
-const spfAlignment: DynamicArgument<string, DmarcState> = {
-    name: 'SPF alignment',
+const spfAlignment: DynamicSingleSelectEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'SPF alignment',
     longForm: 'aspf',
-    description: 'Indicate whether strict or relaxed SPF identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
+    tooltip: 'Indicate whether strict or relaxed SPF identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
     defaultValue: 'r',
     inputType: 'select',
     selectOptions: {
@@ -91,10 +91,10 @@ const spfAlignment: DynamicArgument<string, DmarcState> = {
     skip: skipAlignment,
 };
 
-const dkimAlignment: DynamicArgument<string, DmarcState> = {
-    name: 'DKIM alignment',
+const dkimAlignment: DynamicSingleSelectEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'DKIM alignment',
     longForm: 'adkim',
-    description: 'Indicate whether strict or relaxed DKIM identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
+    tooltip: 'Indicate whether strict or relaxed DKIM identifier alignment is required. (Relaxed means that only the organizational domains have to match.)',
     defaultValue: 'r',
     inputType: 'select',
     selectOptions: {
@@ -110,7 +110,7 @@ export const dmarcAddressRegex = regex(dmarcAddressRegexString);
 const dmarcAddressesRegexString = `(${dmarcAddressRegexString}(, *${dmarcAddressRegexString})*)?`;
 export const dmarcAddressesRegex = regex(dmarcAddressesRegexString);
 
-function validateAddresses(value: string): ErrorType {
+function validateAddresses(value: string): InputError {
     return !dmarcAddressesRegex.test(value) && 'Please enter one or more email addresses.';
 }
 
@@ -118,22 +118,22 @@ function transformAddresses(value: string): string {
     return value.split(',').map(address => 'mailto:' + address.trim().split('@').map((value, index) => index === 0 ? value.replace(/!/g, '%21') : value).join('@')).join(',');
 }
 
-const aggregateReports: DynamicArgument<string, DmarcState> = {
-    name: 'Aggregate reports',
+const aggregateReports: DynamicTextEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'Aggregate reports',
     longForm: 'rua',
-    description: 'A comma-separated list of email addresses to which aggregate feedback is to be sent.',
+    tooltip: 'A comma-separated list of email addresses to which aggregate feedback is to be sent.',
     defaultValue: '',
     inputType: 'text',
     inputWidth,
     placeholder: 'Email address',
-    validate: validateAddresses,
     transform: transformAddresses,
+    validateIndependently: validateAddresses,
 };
 
-const reportInterval: DynamicArgument<number, DmarcState> = {
-    name: 'Report interval',
+const reportInterval: DynamicNumberEntry<DmarcState> & Argument<number, DmarcState> = {
+    label: 'Report interval',
     longForm: 'ri',
-    description: 'The desired interval between aggregate reports. In the input in hours, in the output in seconds.',
+    tooltip: 'The desired interval between aggregate reports. In the input in hours, in the output in seconds.',
     defaultValue: 24,
     inputType: 'number',
     inputWidth: inputWidth / 2,
@@ -143,22 +143,22 @@ const reportInterval: DynamicArgument<number, DmarcState> = {
     transform: value => String(3600 * value),
 };
 
-const failureReports: DynamicArgument<string, DmarcState> = {
-    name: 'Failure reports',
+const failureReports: DynamicTextEntry<DmarcState> & Argument<string, DmarcState> = {
+    label: 'Failure reports',
     longForm: 'ruf',
-    description: 'A comma-separated list of email addresses to which individual failures are to be reported.',
+    tooltip: 'A comma-separated list of email addresses to which individual failures are to be reported.',
     defaultValue: '',
     inputType: 'text',
     inputWidth,
     placeholder: 'Email address',
-    validate: validateAddresses,
     transform: transformAddresses,
+    validateIndependently: validateAddresses,
 };
 
-const reportFormat: DynamicArgument<string[], DmarcState> = {
-    name: 'Report format',
+const reportFormat: DynamicMultipleSelectEntry<DmarcState> & Argument<string[], DmarcState> = {
+    label: 'Report format',
     longForm: 'rf',
-    description: 'The format to be used for failure reports. Only a single format has been defined so far.',
+    tooltip: 'The format to be used for failure reports. Only a single format has been defined so far.',
     defaultValue: ['afrf'],
     valueSeparator: ':',
     inputType: 'multiple',
@@ -167,14 +167,14 @@ const reportFormat: DynamicArgument<string[], DmarcState> = {
         afrf: 'Authentication Failure Reporting Format (AFRF)',
     },
     skip: (state, value) => !state.failureReports || state.minimalOutput && value.length === 1 && value[0] === 'afrf',
-    validate: value => value.length === 0 && 'At least one report format has to be selected.',
     disable: state => !state.failureReports,
+    validateIndependently: value => value.length === 0 && 'At least one report format has to be selected.',
 };
 
-const reportOptions: DynamicArgument<string[], DmarcState> = {
-    name: 'Report when',
+const reportOptions: DynamicMultipleSelectEntry<DmarcState> & Argument<string[], DmarcState> = {
+    label: 'Report when',
     longForm: 'fo',
-    description: 'Specify for which events a failure report shall be sent.',
+    tooltip: 'Specify for which events a failure report shall be sent.',
     defaultValue: ['0'],
     valueSeparator: ':',
     inputType: 'multiple',
@@ -185,8 +185,8 @@ const reportOptions: DynamicArgument<string[], DmarcState> = {
         's': 'SPF evaluation fails (regardless of alignment)',
     },
     skip: (state, value) => !state.failureReports || state.minimalOutput && value.length === 1 && value[0] === '0',
-    validate: value => value.length === 0 && 'At least one report option has to be selected.',
     disable: state => !state.failureReports,
+    validateIndependently: value => value.length === 0 && 'At least one report option has to be selected.',
 };
 
 export interface DmarcState {
@@ -217,7 +217,7 @@ const entries: DynamicEntries<DmarcState> = {
     reportOptions,
 };
 
-const store = getPersistedStore(entries, 'format-dmarc');
+const store = new VersionedStore(entries, 'format-dmarc');
 const Input = getInput(store);
 const OutputEntries = getOutputEntries(store);
 
@@ -225,20 +225,20 @@ export function getDefaultDmarcState(): DmarcState {
     return getDefaultState(entries);
 }
 
-export function setDmarcState(partialNewState: Partial<DmarcState>): void {
-    setState(store, partialNewState);
+export function setDmarcState(partialNewState: Readonly<Partial<DmarcState>>): void {
+    store.setNewStateDirectly(partialNewState);
 }
 
-/* ------------------------------ Static entries ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 const version: Argument<string, DmarcState> = {
-    name: 'Version',
+    label: 'Version',
     longForm: 'v',
-    description: `The version of the DMARC standard.`,
+    tooltip: `The version of the DMARC standard.`,
     defaultValue: 'DMARC1',
 };
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolFormatDmarc: Tool = [
     <Fragment>

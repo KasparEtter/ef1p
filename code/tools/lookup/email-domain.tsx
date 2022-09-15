@@ -16,22 +16,22 @@ import { Button } from '../../utility/types';
 
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { DynamicEntry, ValueType } from '../../react/entry';
+import { BasicValue, DynamicEntries, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getCurrentState, getPersistedStore } from '../../react/state';
 import { Store } from '../../react/store';
-import { getUniqueKey, Tool } from '../../react/utility';
+import { getUniqueKey } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
 import { getAllRecords, getDataOfFirstRecord, isAuthenticated, RecordType, resolveDomainName } from '../../apis/dns-lookup';
 import { Configuration, Documentation, findConfigurationFile, Server } from '../../apis/email-configuration';
 import { getIpInfo, IpInfoResponse } from '../../apis/ip-geolocation';
 
-import { DkimState, getDefaultDkimState, setDkimState } from '../formats/dkim';
-import { dmarcAddressRegex, DmarcState, getDefaultDmarcState, setDmarcState } from '../formats/dmarc';
+import { DkimState, getDefaultDkimState, setDkimState } from '../format/dkim';
+import { dmarcAddressRegex, DmarcState, getDefaultDmarcState, setDmarcState } from '../format/dmarc';
 
-import { getOpenSslCommand } from '../protocols/managesieve';
+import { getOpenSslCommand } from '../protocol/managesieve';
 
 import { endpoint } from './email-requests';
 import { getMapLink } from './ip-address';
@@ -63,7 +63,7 @@ interface SrvRecordsState {
     available: Service[];
     unavailable: Protocol[];
     dnssec: boolean;
-    error?: string;
+    error?: string | undefined;
 }
 
 function dnssecParagraph(dnssec: boolean): JSX.Element {
@@ -83,7 +83,7 @@ function RawSrvRecordsOutput({ available, unavailable, dnssec, error }: Readonly
     if (error) {
         return <p>An error occurred: {error}</p>;
     } else {
-        const domain = getCurrentState(store).domain;
+        const domain = store.getCurrentState().domain;
         return <Fragment>
             {
                 available.length > 0 &&
@@ -125,8 +125,8 @@ function RawSrvRecordsOutput({ available, unavailable, dnssec, error }: Readonly
     }
 }
 
-const srvRecordsStore = new Store<SrvRecordsState>({ available: [], unavailable: [], dnssec: false }, undefined);
-const SrvRecordsOutput = shareState(srvRecordsStore)(RawSrvRecordsOutput);
+const srvRecordsStore = new Store<SrvRecordsState>({ available: [], unavailable: [], dnssec: false });
+const SrvRecordsOutput = srvRecordsStore.injectState<{}>(RawSrvRecordsOutput);
 
 async function querySrvRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -175,7 +175,7 @@ const minWidth = 320;
 
 interface ConfigurationDatabaseState {
     requests: string[];
-    configuration?: Configuration;
+    configuration?: Configuration | undefined;
 }
 
 interface Explanation {
@@ -281,7 +281,7 @@ function renderDocumentation(label: string, documentation: Documentation[]): JSX
 }
 
 function RawConfigurationDatabaseOutput({ requests, configuration }: Readonly<ConfigurationDatabaseState>): JSX.Element {
-    const domain = getCurrentState(store).domain.toLowerCase();
+    const domain = store.getCurrentState().domain.toLowerCase();
     return <Fragment>
         {
             requests.length > 0 &&
@@ -324,8 +324,8 @@ function RawConfigurationDatabaseOutput({ requests, configuration }: Readonly<Co
     </Fragment>;
 }
 
-const configurationDatabaseStore = new Store<ConfigurationDatabaseState>({ requests: [] }, undefined);
-const ConfigurationDatabaseOutput = shareState(configurationDatabaseStore)(RawConfigurationDatabaseOutput);
+const configurationDatabaseStore = new Store<ConfigurationDatabaseState>({ requests: [] });
+const ConfigurationDatabaseOutput = configurationDatabaseStore.injectState<{}>(RawConfigurationDatabaseOutput);
 
 async function queryConfigurationDatabase({ domain }: State): Promise<void> {
     const requests: string[] = [];
@@ -350,14 +350,14 @@ interface MxRecordsState {
     mxRows: MxRow[];
     adRows: AdRow[];
     dnssec: boolean;
-    error?: string;
+    error?: string | undefined;
 }
 
 function RawMxRecordsOutput({ mxRows, adRows, dnssec, error }: Readonly<MxRecordsState>): JSX.Element {
     if (error) {
         return <p>An error occurred: {error}</p>;
     } else {
-        const domain = getCurrentState(store).domain;
+        const domain = store.getCurrentState().domain;
         return <Fragment>
             {
                 mxRows.length > 0 &&
@@ -408,8 +408,8 @@ function RawMxRecordsOutput({ mxRows, adRows, dnssec, error }: Readonly<MxRecord
     }
 }
 
-const mxRecordsStore = new Store<MxRecordsState>({ mxRows: [], adRows: [], dnssec: false }, undefined);
-const MxRecordsOutput = shareState(mxRecordsStore)(RawMxRecordsOutput);
+const mxRecordsStore = new Store<MxRecordsState>({ mxRows: [], adRows: [], dnssec: false });
+const MxRecordsOutput = mxRecordsStore.injectState<{}>(RawMxRecordsOutput);
 
 async function queryMxRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
@@ -509,28 +509,23 @@ export async function makeQuery(domain: string, dnssecLink?: string, type: Recor
 
 export interface RecordState {
     queries: Query[];
-    error?: string;
-}
-
-export function getDefaultRecordState(): RecordState {
-    return {
-        queries: [],
-        error: undefined,
-    };
+    error?: string | undefined;
 }
 
 export function renderRemarks(remarks: Remark[]): JSX.Element | undefined {
-    return remarks.length > 0 ?
-            <ul className="fa-ul mt-2 mb-0">
-                {remarks.map(remark => <li>
-                    <span className="fa-li">
-                        <i className={'fas ' + getRemarkTypeClasses(remark.type)}></i>
-                    </span>
-                    {remark.text}
-                    {remark.link && <a href={remark.link}> ↗</a>}
-                </li>)}
-            </ul>
-        : undefined;
+    if (remarks.length > 0) {
+        return <ul className="fa-ul mt-2 mb-0">
+            {remarks.map(remark => <li>
+                <span className="fa-li">
+                    <i className={'fas ' + getRemarkTypeClasses(remark.type)}></i>
+                </span>
+                {remark.text}
+                {remark.link && <a href={remark.link}> ↗</a>}
+            </li>)}
+        </ul>;
+    } else {
+        return undefined;
+    }
 }
 
 export function renderQuery(query: Query): JSX.Element {
@@ -551,7 +546,7 @@ export function renderQuery(query: Query): JSX.Element {
             }
             {record.buttons.length > 0 &&
                 <div style={{ marginTop: '.75rem', marginLeft: '3px' }}>
-                    {record.buttons.map(button => <button key={getUniqueKey()} type="button" className="btn btn-primary btn-sm mr-2" onClick={button.onClick} title={button.title}>{button.text}</button>)}
+                    {record.buttons.map(button => <button key={getUniqueKey()} type="button" className="btn btn-primary btn-sm mr-2" onClick={button.onClick} title={button.tooltip}>{button.label}</button>)}
                 </div>
             }
         </Fragment>)}
@@ -572,19 +567,44 @@ export function RawRecordOutput({ queries, error }: Readonly<RecordState>): JSX.
     }
 }
 
+export class RecordStore extends Store<RecordState> {
+    public constructor() {
+        super({ queries: [] });
+    }
+
+    public getNumberOfQueries(): number {
+        return this.state.queries.length;
+    }
+
+    public setError(error: unknown): void {
+        this.setState({ queries: [], error: getErrorMessage(error) });
+    }
+
+    /**
+     * You have to call 'setState()' once you're done adding and modifying queries.
+     */
+    public addQuery(query: Query): void {
+        this.state = { queries: [...this.state.queries, query], error: undefined };
+    }
+
+    public getRecordOutput() {
+        return this.injectState<{}>(RawRecordOutput);
+    }
+}
+
 /* ------------------------------ SPF record ------------------------------ */
 
-const spfRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const SpfRecordOutput = shareState(spfRecordStore)(RawRecordOutput);
+const spfRecordStore = new RecordStore();
+const SpfRecordOutput = spfRecordStore.getRecordOutput();
 
 let limit = 11;
 
 async function makeSpfQuery(domain: string, type: RecordType): Promise<Query> {
-    if (spfRecordStore.state.queries.length >= 25) {
+    if (spfRecordStore.getNumberOfQueries() >= 25) {
         throw Error('This tool aborted after 25 DNS queries to avoid getting stuck in an infinite loop. An SPF record may trigger at most 10 DNS lookups.');
     }
     const query = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc7208#section-11.3', type);
-    if (spfRecordStore.state.queries.length >= limit) {
+    if (spfRecordStore.getNumberOfQueries() >= limit) {
         query.remarks.push({
             type: 'error',
             text: 'An SPF record may trigger at most 10 DNS lookups.',
@@ -603,12 +623,12 @@ async function makeSpfQuery(domain: string, type: RecordType): Promise<Query> {
 
 async function checkARecord(domain: string): Promise<void> {
     const query = await makeSpfQuery(domain, 'A');
-    spfRecordStore.state.queries.push(query);
+    spfRecordStore.addQuery(query);
 }
 
 async function checkMxRecord(domain: string): Promise<void> {
     const query = await makeSpfQuery(domain, 'MX');
-    spfRecordStore.state.queries.push(query);
+    spfRecordStore.addQuery(query);
     for (const record of query.records) {
         if (/^\d+ ([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\.)+[a-z][-a-z0-9]{0,61}[a-z0-9]\.$/i.test(record.content)) {
             await checkARecord(record.content.split(' ')[1].slice(0, -1));
@@ -630,7 +650,7 @@ type Mechanism = typeof mechanisms[number];
 interface Directive {
     qualifier: Qualifier;
     mechanism: Mechanism;
-    address?: string;
+    address?: string | undefined;
 }
 
 interface Modifier {
@@ -646,7 +666,7 @@ const ip6CidrRegex = /^\/(0|[1-9][0-9]{0,2})?$/;
 const dualCidrRegex = /^(\/|(\/(0|[1-9][0-9]{0,1}))?(\/\/(0|[1-9][0-9]{0,2}))?)$/;
 
 async function checkSpfRecord(domain: string, include: boolean = false): Promise<void> {
-    if (spfRecordStore.state.queries.length === 0) {
+    if (spfRecordStore.getNumberOfQueries() === 0) {
         const query = await makeSpfQuery(domain, 'SPF');
         if (query.records.length > 0) {
             query.remarks.push({
@@ -654,12 +674,12 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
                 text: 'The SPF record type has been deprecated. Use a TXT record instead.',
                 link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-3.1',
             });
-            spfRecordStore.state.queries.push(query);
+            spfRecordStore.addQuery(query);
             limit++;
         }
     }
     const query = await makeSpfQuery(domain, 'TXT');
-    spfRecordStore.state.queries.push(query);
+    spfRecordStore.addQuery(query);
     const records = query.records.filter(record => record.content.startsWith('v=spf1 ') || record.content === 'v=spf1');
     if (records.length === 0) {
         if (include) {
@@ -688,14 +708,14 @@ async function checkSpfRecord(domain: string, include: boolean = false): Promise
         if (lowercaseContent !== content) {
             record.remarks.push({
                 type: 'info',
-                text: 'SPF records are case-insensitive but they are usually published in lowercase.',
+                text: 'SPF records are case-insensitive, but they are usually published in lowercase.',
                 link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
             });
         }
         if (lowercaseContent.includes('  ')) {
             record.remarks.push({
                 type: 'info',
-                text: 'The terms can be separated by multiple spaces but there is no reason to do so.',
+                text: 'The terms can be separated by multiple spaces, but there is no reason to do so.',
                 link: 'https://datatracker.ietf.org/doc/html/rfc7208#section-12',
             });
         }
@@ -1009,16 +1029,16 @@ async function querySpfRecord({ domain }: State): Promise<void> {
     limit = 11;
     try {
         await checkSpfRecord(domain.toLowerCase());
-        spfRecordStore.update();
+        spfRecordStore.setState();
     } catch (error) {
-        spfRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        spfRecordStore.setError(error);
     }
 }
 
 /* ------------------------------ DKIM record ------------------------------ */
 
-const dkimRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const DkimRecordOutput = shareState(dkimRecordStore)(RawRecordOutput);
+const dkimRecordStore = new RecordStore();
+const DkimRecordOutput = dkimRecordStore.getRecordOutput();
 
 interface Tag {
     name: string;
@@ -1031,11 +1051,11 @@ type DkimTagName = typeof dkimTagNames[number];
 
 async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
     domain = domain.toLowerCase();
-    dkimRecordStore.setState(getDefaultRecordState());
+    dkimRecordStore.resetState();
     try {
         const dkimDomain = dkimSelector + '._domainkey.' + domain;
         const query = await makeQuery(dkimDomain, 'https://datatracker.ietf.org/doc/html/rfc6376#section-8.5');
-        dkimRecordStore.state.queries.push(query);
+        dkimRecordStore.addQuery(query);
         if (query.records.length === 0) {
             query.remarks.push({
                 type: 'error',
@@ -1126,7 +1146,7 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
                 }
             }
 
-            function setState(field: keyof DkimState, value: ValueType | undefined): void {
+            function setState(field: keyof DkimState, value: BasicValue | undefined): void {
                 if (value !== undefined) {
                     // @ts-ignore
                     state[field] = value;
@@ -1187,16 +1207,16 @@ async function loadDkimRecord({ domain, dkimSelector }: State): Promise<void> {
 
             setDkimState(state);
         }
-        dkimRecordStore.update();
+        dkimRecordStore.setState();
     } catch (error) {
-        dkimRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        dkimRecordStore.setError(error);
     }
 }
 
 /* ------------------------------ DMARC record ------------------------------ */
 
-const dmarcRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const DmarcRecordOutput = shareState(dmarcRecordStore)(RawRecordOutput);
+const dmarcRecordStore = new RecordStore();
+const DmarcRecordOutput = dmarcRecordStore.getRecordOutput();
 
 async function getOrganizationalDomain(domain: string): Promise<string> {
     const response = await resolveDomainName(domain, 'SOA', false);
@@ -1235,11 +1255,11 @@ function parseReportSize(text: string): string {
 }
 
 async function makeDmarcQuery(domain: string): Promise<[Query, Record[]]> {
-    if (dmarcRecordStore.state.queries.length >= 10) {
+    if (dmarcRecordStore.getNumberOfQueries() >= 10) {
         throw Error('This tool aborted after 10 DMARC queries. Something is not as it should be.');
     }
     const query = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc7489#section-12.3');
-    dmarcRecordStore.state.queries.push(query);
+    dmarcRecordStore.addQuery(query);
     const records = query.records.filter(record => /^v[ \t]*=[ \t]*DMARC1[ \t]*(;.*)?$/.test(record.content));
     return [query, records];
 }
@@ -1360,7 +1380,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
                             }
                             const destinationDomain = splits[0];
                             const destinationDmarcDomain = domain + '._report._dmarc.' + destinationDomain;
-                            if (dmarcRecordStore.state.queries.filter(query => query.domain === destinationDmarcDomain).length === 0) {
+                            if (dmarcRecordStore.getState().queries.filter(query => query.domain === destinationDmarcDomain).length === 0) {
                                 const destinationOrganizationalDomain = await getOrganizationalDomain(destinationDomain);
                                 if (destinationOrganizationalDomain !== organizationalDomain) {
                                     const [approvalQuery, approvalRecords] = await makeDmarcQuery(destinationDmarcDomain);
@@ -1406,7 +1426,7 @@ async function checkDmarcRecord(domain: string): Promise<void> {
             }
         }
 
-        function setState(field: keyof DmarcState, value: ValueType | undefined): void {
+        function setState(field: keyof DmarcState, value: BasicValue | undefined): void {
             if (value !== undefined) {
                 // @ts-ignore
                 state[field] = value;
@@ -1553,19 +1573,19 @@ async function checkDmarcRecord(domain: string): Promise<void> {
 }
 
 async function loadDmarcRecord({ domain }: State): Promise<void> {
-    dmarcRecordStore.setState(getDefaultRecordState());
+    dmarcRecordStore.resetState();
     try {
         await checkDmarcRecord(domain.toLowerCase());
-        dmarcRecordStore.update();
+        dmarcRecordStore.setState();
     } catch (error) {
-        dmarcRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        dmarcRecordStore.setError(error);
     }
 }
 
 /* ------------------------------ BIMI record ------------------------------ */
 
-const bimiRecordStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const BimiRecordOutput = shareState(bimiRecordStore)(RawRecordOutput);
+const bimiRecordStore = new RecordStore();
+const BimiRecordOutput = bimiRecordStore.getRecordOutput();
 
 // https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi-02#section-4.2
 const bimiTagNames = ['v', 'l', 'a'] as const;
@@ -1574,7 +1594,7 @@ type BimiTagName = typeof bimiTagNames[number];
 async function checkBimiRecord(domain: string, bimiSelector: string): Promise<void> {
     const bimiDomain = bimiSelector + '._bimi.' + domain;
     const query = await makeQuery(bimiDomain);
-    bimiRecordStore.state.queries.push(query);
+    bimiRecordStore.addQuery(query);
     if (query.records.length === 0) {
         const organizationalDomain = await getOrganizationalDomain(domain);
         if (domain === organizationalDomain) {
@@ -1679,8 +1699,8 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
                     text: 'This tool does not validate the certificate.',
                 });
                 record.buttons.push({
-                    text: 'Download the certificate',
-                    title: 'Opens the address of the "a" tag in a new window.',
+                    label: 'Download the certificate',
+                    tooltip: 'Opens the address of the "a" tag in a new window.',
                     onClick: () => window.open(aTag.value),
                 });
             } else if (aTag.value !== '') {
@@ -1703,23 +1723,23 @@ async function checkBimiRecord(domain: string, bimiSelector: string): Promise<vo
 }
 
 async function queryBimiRecord({ domain, bimiSelector }: State): Promise<void> {
-    bimiRecordStore.setState(getDefaultRecordState());
+    bimiRecordStore.resetState();
     try {
         await checkBimiRecord(domain.toLowerCase(), bimiSelector);
-        bimiRecordStore.update();
+        bimiRecordStore.setState();
     } catch (error) {
-        bimiRecordStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        bimiRecordStore.setError(error);
     }
 }
 
 /* ------------------------------ TLSA records ------------------------------ */
 
-const tlsaRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const TlsaRecordsOutput = shareState(tlsaRecordsStore)(RawRecordOutput);
+const tlsaRecordsStore = new RecordStore();
+const TlsaRecordsOutput = tlsaRecordsStore.getRecordOutput();
 
 async function queryTlsaRecords({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
-    tlsaRecordsStore.setState(getDefaultRecordState());
+    tlsaRecordsStore.resetState();
     try {
         const mxQuery = await makeQuery(domain, 'https://datatracker.ietf.org/doc/html/rfc6698#section-1.3', 'MX');
         if (mxQuery.records.length === 0) {
@@ -1728,7 +1748,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
                 text: 'This domain has no MX records.',
             });
         }
-        tlsaRecordsStore.state.queries.push(mxQuery);
+        tlsaRecordsStore.addQuery(mxQuery);
         for (const mxRecord of mxQuery.records) {
             const parts = mxRecord.content.split(' ');
             if (parts.length !== 2) {
@@ -1740,7 +1760,7 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
                 const mxDomain = parts[1].slice(0, -1);
                 if (mxDomain !== '') {
                     const tlsaQuery = await makeQuery('_25._tcp.' + mxDomain, 'https://datatracker.ietf.org/doc/html/rfc6698#section-1.3', 'TLSA');
-                    tlsaRecordsStore.state.queries.push(tlsaQuery);
+                    tlsaRecordsStore.addQuery(tlsaQuery);
                     if (tlsaQuery.records.length === 0) {
                         tlsaQuery.remarks.push({
                             type: 'warning',
@@ -1760,25 +1780,25 @@ async function queryTlsaRecords({ domain }: State): Promise<void> {
                         }
                         if (allValid) {
                             getLastElement(tlsaQuery.records).buttons.push({
-                                text: 'Copy the OpenSSL command',
-                                title: 'Copy the OpenSSL command with the DANE constraint to your clipboard.',
-                                onClick: () => copyToClipboard(`${getOpenSslCommand()} s_client -starttls smtp -connect ${mxDomain}:25 -verify_return_error -dane_tlsa_domain "${mxDomain}" ${tlsaQuery.records.map(record => `-dane_tlsa_rrdata "${record}"`).join(' ')}`),
+                                label: 'Copy the OpenSSL command',
+                                tooltip: 'Copy the OpenSSL command with the DANE constraint to your clipboard.',
+                                onClick: () => copyToClipboard(`${getOpenSslCommand()} s_client -starttls smtp -connect ${mxDomain}:25 -verify_return_error -dane_tlsa_domain "${mxDomain}" ${tlsaQuery.records.map(record => `-dane_tlsa_rrdata "${record.content}"`).join(' ')}`),
                             });
                         }
                     }
                 }
             }
         }
-        tlsaRecordsStore.update();
+        tlsaRecordsStore.setState();
     } catch (error) {
-        tlsaRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        tlsaRecordsStore.setError(error);
     }
 }
 
 /* ------------------------------ MTA-STS file ------------------------------ */
 
-const mtaStsFileStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const MtaStsFileOutput = shareState(mtaStsFileStore)(RawRecordOutput);
+const mtaStsFileStore = new RecordStore();
+const MtaStsFileOutput = mtaStsFileStore.getRecordOutput();
 
 const policyFields: { [key: string]: RegExp | undefined } = {
     version: /^STSv1$/,
@@ -1789,10 +1809,10 @@ const policyFields: { [key: string]: RegExp | undefined } = {
 
 async function queryMtaStsPolicy({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
-    mtaStsFileStore.setState(getDefaultRecordState());
+    mtaStsFileStore.resetState();
     try {
         const recordQuery = await makeQuery('_mta-sts.' + domain);
-        mtaStsFileStore.state.queries.push(recordQuery);
+        mtaStsFileStore.addQuery(recordQuery);
         const records = recordQuery.records.filter(record => /^v=STSv1[ \t]*;.*$/.test(record.content));
         if (records.length === 0) {
             recordQuery.remarks.push({
@@ -1826,8 +1846,8 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
             }],
             records: [],
         };
-        mtaStsFileStore.state.queries.push(fileQuery);
-        mtaStsFileStore.update();
+        mtaStsFileStore.addQuery(fileQuery);
+        mtaStsFileStore.setState();
         try {
             const response = await fetchWithError(proxyUrl);
             const content = await response.text();
@@ -1913,23 +1933,23 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
                 text: 'This domain has no MTA-STS policy file.',
             }];
         }
-        mtaStsFileStore.update();
+        mtaStsFileStore.setState();
     } catch (error) {
-        mtaStsFileStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        mtaStsFileStore.setError(error);
     }
 }
 
 /* ------------------------------ TLS reporting ------------------------------ */
 
-const tlsReportingStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const TlsReportingOutput = shareState(tlsReportingStore)(RawRecordOutput);
+const tlsReportingStore = new RecordStore();
+const TlsReportingOutput = tlsReportingStore.getRecordOutput();
 
 async function queryTlsReporting({ domain }: State): Promise<void> {
     domain = domain.toLowerCase();
-    tlsReportingStore.setState(getDefaultRecordState());
+    tlsReportingStore.resetState();
     try {
         const query = await makeQuery('_smtp._tls.' + domain, 'https://datatracker.ietf.org/doc/html/rfc8460#section-7');
-        tlsReportingStore.state.queries.push(query);
+        tlsReportingStore.addQuery(query);
         const records = query.records.filter(record => /^v=TLSRPTv1[ \t]*;.*$/.test(record.content));
         if (records.length === 0) {
             query.remarks.push({
@@ -1952,50 +1972,50 @@ async function queryTlsReporting({ domain }: State): Promise<void> {
                 });
             }
         }
-        tlsReportingStore.update();
+        tlsReportingStore.setState();
     } catch (error) {
-        tlsReportingStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        tlsReportingStore.setError(error);
     }
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
 const inputWidth = 270;
 
 const domainRegex = /^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9]$/i;
 
-const domain: DynamicEntry<string> = {
-    name: 'Domain',
-    description: 'The domain name you want to query.',
+const domain: DynamicTextEntry = {
+    label: 'Domain',
+    tooltip: 'The domain name you want to query.',
     defaultValue: 'gmail.com',
     suggestedValues: ['gmail.com', 'outlook.com', 'hotmail.com', 'yahoo.com', 'me.com', 'ef1p.com', 'explained-from-first-principles.com'],
     inputType: 'text',
     inputWidth,
-    validate: value =>
-        value === '' && 'The domain name may not be empty.' ||
-        value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
-        value.length > 253 && 'The domain name may be at most 253 characters long.' ||
-        !value.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
-        !/^[-a-z0-9\.]+$/i.test(value) && 'You can use only English letters, digits, hyphens, and dots.' || // Redundant to the regular expression, just a more specific error message.
-        !domainRegex.test(value) && 'The pattern of the domain name is invalid.',
+    validateIndependently: input =>
+        input === '' && 'The domain name may not be empty.' ||
+        input.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
+        input.length > 253 && 'The domain name may be at most 253 characters long.' ||
+        !input.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
+        !/^[-a-z0-9\.]+$/i.test(input) && 'You can use only English letters, digits, hyphens, and dots.' || // Redundant to the regular expression, just a more specific error message.
+        !domainRegex.test(input) && 'The pattern of the domain name is invalid.',
 };
 
-const dkimSelector: DynamicEntry<string> = {
-    name: 'Selector',
-    description: 'The name of the DKIM key you want to query.',
+const dkimSelector: DynamicTextEntry = {
+    label: 'Selector',
+    tooltip: 'The name of the DKIM key you want to query.',
     defaultValue: '20161025',
     inputType: 'text',
     inputWidth: inputWidth / 2,
-    validate: value => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(value) && 'The selector has the same format as a domain name.',
+    validateIndependently: input => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(input) && 'The selector has the same format as a domain name.',
 };
 
-const bimiSelector: DynamicEntry<string> = {
-    name: 'Selector',
-    description: 'The name of the brand indicator you want to query.',
+const bimiSelector: DynamicTextEntry = {
+    label: 'Selector',
+    tooltip: 'The name of the brand indicator you want to query.',
     defaultValue: 'default',
     inputType: 'text',
     inputWidth: inputWidth / 2,
-    validate: value => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(value) && 'The selector has the same format as a domain name.',
+    validateIndependently: input => !/^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$/i.test(input) && 'The selector has the same format as a domain name.',
 };
 
 interface State {
@@ -2010,15 +2030,15 @@ const entries: DynamicEntries<State> = {
     bimiSelector,
 };
 
-const store = getPersistedStore(entries, 'lookup-email-domain');
+const store = new VersionedStore(entries, 'lookup-email-domain');
 const Input = getInput(store);
 const OutputEntries = getOutputEntries(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tools ------------------------------ */
 
 export const toolLookupSrvRecords: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SRV records of the given domain name.', onClick: querySrvRecords }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the SRV records of the given domain name.', onClick: querySrvRecords }}/>
         <SrvRecordsOutput/>
     </Fragment>,
     store,
@@ -2027,7 +2047,7 @@ export const toolLookupSrvRecords: Tool = [
 
 export const toolLookupConfigurationDatabase: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the configuration database for the given domain name.', onClick: queryConfigurationDatabase }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the configuration database for the given domain name.', onClick: queryConfigurationDatabase }}/>
         <ConfigurationDatabaseOutput/>
     </Fragment>,
     store,
@@ -2036,7 +2056,7 @@ export const toolLookupConfigurationDatabase: Tool = [
 
 export const toolLookupMxRecords: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MX records of the given domain name.', onClick: queryMxRecords }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the MX records of the given domain name.', onClick: queryMxRecords }}/>
         <MxRecordsOutput/>
     </Fragment>,
     store,
@@ -2045,7 +2065,7 @@ export const toolLookupMxRecords: Tool = [
 
 export const toolLookupSpfRecord: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the SPF record of the given domain name.', onClick: querySpfRecord }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the SPF record of the given domain name.', onClick: querySpfRecord }}/>
         <SpfRecordOutput/>
     </Fragment>,
     store,
@@ -2054,7 +2074,7 @@ export const toolLookupSpfRecord: Tool = [
 
 export const toolLookupDkimRecord: Tool = [
     <Fragment>
-        <Input entries={{ domain, dkimSelector }} submit={{ text: 'Load', title: 'Load the DKIM record of the given domain name.', onClick: loadDkimRecord }}/>
+        <Input entries={{ domain, dkimSelector }} submit={{ label: 'Load', tooltip: 'Load the DKIM record of the given domain name.', onClick: loadDkimRecord }}/>
         <DkimRecordOutput/>
     </Fragment>,
     store,
@@ -2063,7 +2083,7 @@ export const toolLookupDkimRecord: Tool = [
 
 export const toolLookupDmarcRecord: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Load', title: 'Load the DMARC record of the given domain name.', onClick: loadDmarcRecord }}/>
+        <Input entries={{ domain }} submit={{ label: 'Load', tooltip: 'Load the DMARC record of the given domain name.', onClick: loadDmarcRecord }}/>
         <DmarcRecordOutput/>
     </Fragment>,
     store,
@@ -2072,7 +2092,7 @@ export const toolLookupDmarcRecord: Tool = [
 
 export const toolLookupBimiRecord: Tool = [
     <Fragment>
-        <Input entries={{ domain, bimiSelector }} submit={{ text: 'Query', title: 'Query the BIMI record of the given domain name.', onClick: queryBimiRecord }}/>
+        <Input entries={{ domain, bimiSelector }} submit={{ label: 'Query', tooltip: 'Query the BIMI record of the given domain name.', onClick: queryBimiRecord }}/>
         <BimiRecordOutput/>
     </Fragment>,
     store,
@@ -2081,7 +2101,7 @@ export const toolLookupBimiRecord: Tool = [
 
 export const toolLookupTlsaRecords: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLSA records of the given domain name.', onClick: queryTlsaRecords }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the TLSA records of the given domain name.', onClick: queryTlsaRecords }}/>
         <TlsaRecordsOutput/>
     </Fragment>,
     store,
@@ -2090,7 +2110,7 @@ export const toolLookupTlsaRecords: Tool = [
 
 export const toolLookupMtaStsPolicy: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the MTA-STS policy of the given domain name.', onClick: queryMtaStsPolicy }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the MTA-STS policy of the given domain name.', onClick: queryMtaStsPolicy }}/>
         <MtaStsFileOutput/>
     </Fragment>,
     store,
@@ -2099,7 +2119,7 @@ export const toolLookupMtaStsPolicy: Tool = [
 
 export const toolLookupTlsReporting: Tool = [
     <Fragment>
-        <Input entries={{ domain }} submit={{ text: 'Query', title: 'Query the TLS reporting record of the given domain name.', onClick: queryTlsReporting }}/>
+        <Input entries={{ domain }} submit={{ label: 'Query', tooltip: 'Query the TLS reporting record of the given domain name.', onClick: queryTlsReporting }}/>
         <TlsReportingOutput/>
     </Fragment>,
     store,

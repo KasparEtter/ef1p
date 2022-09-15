@@ -9,12 +9,11 @@ import { Fragment, ReactNode } from 'react';
 import { copyToClipboard } from '../../utility/clipboard';
 
 import { DynamicOutput } from '../../react/code';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
 import { getReverseLookupDomain } from '../../apis/dns-lookup';
 import { getIpInfo, IpInfoResponse, isSuccessfulIpInfoResponse } from '../../apis/ip-geolocation';
@@ -34,11 +33,11 @@ export function getMapLink(response: IpInfoResponse, fallback: ReactNode = 'unkn
     }
 }
 
-/* ------------------------------ Response paragraph ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 interface IpInfoResponseState {
-    response?: IpInfoResponse;
-    error?: boolean;
+    response?: IpInfoResponse | undefined;
+    error?: boolean | undefined;
 }
 
 function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponseState>): JSX.Element | null {
@@ -59,7 +58,7 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
             </DynamicOutput>;
             const location = getMapLink(response);
             const provider = response.org?.replace(/^AS\d+/, '');
-            if (getCurrentState(store).ipAddress === '') {
+            if (store.getCurrentState().ipAddress === '') {
                 return <p className="dynamic-output-pointer">
                     Your IP address is {address}.
                     You're currently in {location}
@@ -81,8 +80,8 @@ function RawIpInfoResponseParagraph({ response, error }: Readonly<IpInfoResponse
     }
 }
 
-const ipInfoResponseStore = new Store<IpInfoResponseState>({}, undefined);
-const IpInfoResponseParagraph = shareState(ipInfoResponseStore)(RawIpInfoResponseParagraph);
+const ipInfoResponseStore = new Store<IpInfoResponseState>({});
+const IpInfoResponseParagraph = ipInfoResponseStore.injectState<{}>(RawIpInfoResponseParagraph);
 
 async function updateIpInfoResponseParagraph({ ipAddress }: State): Promise<void> {
     try {
@@ -93,16 +92,16 @@ async function updateIpInfoResponseParagraph({ ipAddress }: State): Promise<void
     }
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const ipAddress: DynamicEntry<string> = {
-    name: 'IPv4 address',
-    description: 'The IPv4 address you are interested in or nothing to take yours.',
+const ipAddress: DynamicTextEntry = {
+    label: 'IPv4 address',
+    tooltip: 'The IPv4 address you are interested in or nothing to take yours.',
     defaultValue: '',
     inputType: 'text',
     inputWidth: 170, // 145 without placeholder.
     placeholder: 'defaults to your address',
-    validate: value => value !== '' && !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value) && 'Please enter an IPv4 address or leave the field empty.',
+    validateIndependently: input => input !== '' && !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(input) && 'Please enter an IPv4 address or leave the field empty.',
 };
 
 interface State {
@@ -113,21 +112,21 @@ const entries: DynamicEntries<State> = {
     ipAddress,
 };
 
-const store = getPersistedStore(entries, 'lookup-ip-address', updateIpInfoResponseParagraph);
+const store = new VersionedStore(entries, 'lookup-ip-address', updateIpInfoResponseParagraph);
 const Input = getInput(store);
 
 export function setIpInfoInput(ipAddress: string): void {
-    setState(store, { ipAddress });
+    store.setNewStateFromInput('ipAddress', ipAddress);
 }
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolLookupIpAddress: Tool = [
     <Fragment>
         <Input
             submit={{
-                text: 'Locate',
-                title: 'Locate the given IPv4 address.',
+                label: 'Locate',
+                tooltip: 'Locate the given IPv4 address.',
                 // tslint:disable-next-line:no-empty
                 onClick: () => {},
             }}

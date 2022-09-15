@@ -9,17 +9,14 @@ import { Fragment } from 'react';
 import { Buffer } from 'safe-buffer';
 
 import { download } from '../../utility/download';
-import { getErrorMessage } from '../../utility/error';
 
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getPersistedStore } from '../../react/state';
-import { Store } from '../../react/store';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
-import { getDefaultRecordState, makeQuery, RawRecordOutput, RecordState } from './email-domain';
+import { makeQuery, RecordStore } from './email-domain';
 
 /* ------------------------------ Utility functions ------------------------------ */
 
@@ -31,11 +28,11 @@ function splitAndHash(emailAddress: string): [string, string] {
 
 /* ------------------------------ SMIMEA records ------------------------------ */
 
-const smimeaRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const SmimeaRecordsOutput = shareState(smimeaRecordsStore)(RawRecordOutput);
+const smimeaRecordsStore = new RecordStore();
+const SmimeaRecordsOutput = smimeaRecordsStore.getRecordOutput();
 
 async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
-    smimeaRecordsStore.setState(getDefaultRecordState());
+    smimeaRecordsStore.resetState();
     try {
         const [hash, domain] = splitAndHash(emailAddress);
         const query = await makeQuery(hash + '._smimecert.' + domain, 'https://datatracker.ietf.org/doc/html/rfc8162#section-6', 'SMIMEA');
@@ -45,7 +42,7 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
                 text: 'This domain has no SMIMEA records.',
             });
         }
-        smimeaRecordsStore.state.queries.push(query);
+        smimeaRecordsStore.addQuery(query);
         for (const record of query.records) {
             if (!/^\\# \d+ [0-9a-f]{7,}$/.test(record.content)) {
                 record.remarks.push({
@@ -94,16 +91,16 @@ async function querySmimeaRecords({ emailAddress }: State): Promise<void> {
                 }
             }
         }
-        smimeaRecordsStore.update();
+        smimeaRecordsStore.setState();
     } catch (error) {
-        smimeaRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        smimeaRecordsStore.setError(error);
     }
 }
 
 /* ------------------------------ OPENPGPKEY records ------------------------------ */
 
-const openpgpkeyRecordsStore = new Store<RecordState>(getDefaultRecordState(), undefined);
-const OpenpgpkeyRecordsOutput = shareState(openpgpkeyRecordsStore)(RawRecordOutput);
+const openpgpkeyRecordsStore = new RecordStore();
+const OpenpgpkeyRecordsOutput = openpgpkeyRecordsStore.getRecordOutput();
 
 // tslint:disable:no-bitwise
 // https://datatracker.ietf.org/doc/html/rfc4880#section-6.1
@@ -131,7 +128,7 @@ function getPublicKeyBlock(buffer: Buffer): string {
 }
 
 async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
-    openpgpkeyRecordsStore.setState(getDefaultRecordState());
+    openpgpkeyRecordsStore.resetState();
     try {
         const [hash, domain] = splitAndHash(emailAddress);
         const query = await makeQuery(hash + '._openpgpkey.' + domain, 'https://datatracker.ietf.org/doc/html/rfc7929#section-5', 'OPENPGPKEY');
@@ -141,7 +138,7 @@ async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
                 text: 'This domain has no OPENPGPKEY records.',
             });
         }
-        openpgpkeyRecordsStore.state.queries.push(query);
+        openpgpkeyRecordsStore.addQuery(query);
         for (const record of query.records) {
             if (!/^\\# \d+ [0-9a-f]+$/.test(record.content)) {
                 record.remarks.push({
@@ -158,32 +155,32 @@ async function queryOpenpgpkeyRecords({ emailAddress }: State): Promise<void> {
                     link: 'https://datatracker.ietf.org/doc/html/rfc7929#section-7',
                 });
                 record.buttons.push({
-                    text: 'Download this key',
-                    title: `Download the OpenPGP public key of ${emailAddress}.`,
+                    label: 'Download this key',
+                    tooltip: `Download the OpenPGP public key of ${emailAddress}.`,
                     onClick: () => download(emailAddress + '.asc', result),
                 });
             }
         }
-        openpgpkeyRecordsStore.update();
+        openpgpkeyRecordsStore.setState();
     } catch (error) {
-        openpgpkeyRecordsStore.setState({ ...getDefaultRecordState(), error: getErrorMessage(error) });
+        openpgpkeyRecordsStore.setError(error);
     }
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
 const addressRegex = /^[^@ ]+@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9]$/i;
 
-const emailAddress: DynamicEntry<string> = {
-    name: 'Email address',
-    description: 'The email address you want to query.',
+const emailAddress: DynamicTextEntry = {
+    label: 'Email address',
+    tooltip: 'The email address you want to query.',
     defaultValue: 'security@ef1p.com',
     inputType: 'text',
     inputWidth: 270,
-    validate: value =>
-        value === '' && 'The email address may not be empty.' ||
-        value.includes(' ') && 'The email address may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
-        !addressRegex.test(value) && 'The pattern of the email address is invalid.',
+    validateIndependently: input =>
+        input === '' && 'The email address may not be empty.' ||
+        input.includes(' ') && 'The email address may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
+        !addressRegex.test(input) && 'The pattern of the email address is invalid.',
 };
 
 interface State {
@@ -194,15 +191,15 @@ const entries: DynamicEntries<State> = {
     emailAddress,
 };
 
-const store = getPersistedStore(entries, 'lookup-email-address');
+const store = new VersionedStore(entries, 'lookup-email-address');
 const Input = getInput(store);
 const OutputEntries = getOutputEntries(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tools ------------------------------ */
 
 export const toolLookupSmimeaRecords: Tool = [
     <Fragment>
-        <Input submit={{ text: 'Query', title: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
+        <Input submit={{ label: 'Query', tooltip: 'Query the SMIMEA records of the given email address.', onClick: querySmimeaRecords }}/>
         <SmimeaRecordsOutput/>
     </Fragment>,
     store,
@@ -211,7 +208,7 @@ export const toolLookupSmimeaRecords: Tool = [
 
 export const toolLookupOpenpgpkeyRecords: Tool = [
     <Fragment>
-        <Input submit={{ text: 'Query', title: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
+        <Input submit={{ label: 'Query', tooltip: 'Query the OPENPGPKEY records of the given email address.', onClick: queryOpenpgpkeyRecords }}/>
         <OpenpgpkeyRecordsOutput/>
     </Fragment>,
     store,

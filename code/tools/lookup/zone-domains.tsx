@@ -6,18 +6,18 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicRangeEntry, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getCurrentState, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { join, Tool } from '../../react/utility';
+import { join } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
 import { getAllRecords, RecordType, recordTypes, resolveDomainName } from '../../apis/dns-lookup';
 
 import { setDnsResolverInputs } from './dns-records';
 
-/* ------------------------------ Response table ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 interface Row {
     name: string;
@@ -26,8 +26,8 @@ interface Row {
 
 interface ZoneWalkerResponseState {
     rows: Row[];
-    message?: string;
-    nextQuery?: string;
+    message?: string | undefined;
+    nextQuery?: string | undefined;
 }
 
 function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneWalkerResponseState>): JSX.Element {
@@ -54,7 +54,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
                                 type => recordTypes[type as RecordType] !== undefined ?
                                     <a href="#tool-lookup-dns-records" title="Look up this record type with the DNS tool." onClick={() => setDnsResolverInputs(row.name, type as RecordType)}>{type}</a> :
                                     <Fragment>{type}</Fragment>,
-                            ), <Fragment>, </Fragment>)}</td>
+                            ))}</td>
                         </tr>)}
                     </tbody>
                 </table>
@@ -70,7 +70,7 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
                 <a
                     href="#tool-lookup-zone-domains"
                     className="btn btn-sm btn-primary"
-                    onClick={() => { setZoneWalkerInputFields(nextQuery); walkZone(getCurrentState(store)); }}
+                    onClick={() => { setZoneWalkerInputFields(nextQuery); walkZone(store.getCurrentState()); }}
                 >
                     Continue
                 </a>
@@ -79,11 +79,11 @@ function RawZoneWalkerResponseTable({ rows, message, nextQuery }: Readonly<ZoneW
     </Fragment>;
 }
 
-const zoneWalkerResponseStore = new Store<ZoneWalkerResponseState>({ rows: [] }, undefined);
-const ZoneWalkerResponseTable = shareState(zoneWalkerResponseStore)(RawZoneWalkerResponseTable);
+const zoneWalkerResponseStore = new Store<ZoneWalkerResponseState>({ rows: [] });
+const ZoneWalkerResponseTable = zoneWalkerResponseStore.injectState<{}>(RawZoneWalkerResponseTable);
 
 function resetResponseTable(): void {
-    zoneWalkerResponseStore.setState({ rows: [], message: undefined, nextQuery: undefined });
+    zoneWalkerResponseStore.resetState();
 }
 
 function appendAsteriskToFirstLabel(domainName: string): string {
@@ -93,7 +93,7 @@ function appendAsteriskToFirstLabel(domainName: string): string {
 }
 
 async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
-    const index = store.state.index;
+    const index = store.getState().index;
     let currentDomain = startDomain;
     if (!currentDomain.endsWith('.')) {
         currentDomain += '.';
@@ -106,7 +106,7 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
     let counter = 0;
     while (true) {
         const response = await resolveDomainName(currentDomainForQuery, 'NSEC', true);
-        if (index !== store.state.index) {
+        if (index !== store.getState().index) {
             return; // Abort if the state changed in the meantime.
         }
         const nsecRecords = getAllRecords(response, 'NSEC').filter(nsecRecord => nsecRecord.name === currentDomain);
@@ -126,7 +126,7 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
             currentDomainForQuery = appendAsteriskToFirstLabel(currentDomain);
             continue;
         }
-        zoneWalkerResponseStore.state.rows.push({ name: currentDomain, types });
+        zoneWalkerResponseStore.setState({ rows: [...zoneWalkerResponseStore.getState().rows, { name: currentDomain, types }] });
         if (currentDomain.endsWith(nextDomain)) {
             zoneWalkerResponseStore.setState({ message: 'You reached the end of the zone ' + nextDomain });
             return;
@@ -136,32 +136,31 @@ async function walkZone({ startDomain, resultLimit }: State): Promise<void> {
             zoneWalkerResponseStore.setState({ nextQuery: currentDomainForQuery });
             return;
         }
-        zoneWalkerResponseStore.update(); // Needed for the above push to rows.
         currentDomain = nextDomain;
         currentDomainForQuery = currentDomain;
     }
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const startDomain: DynamicEntry<string> = {
-    name: 'Start domain',
-    description: 'The domain name from which you would like to list the next domain names.',
+const startDomain: DynamicTextEntry = {
+    label: 'Start domain',
+    tooltip: 'The domain name from which you would like to list the next domain names.',
     defaultValue: 'ietf.org',
     inputType: 'text',
     inputWidth: 220,
-    validate: value =>
-        value === '' && 'The domain name may not be empty.' ||
-        value.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
-        value.length > 253 && 'The domain name may be at most 253 characters long.' ||
-        !value.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
-        !/^[-a-z0-9_\.\*]+$/i.test(value) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
-        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\*?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(value) && 'The pattern of the domain name is invalid.',
+    validateIndependently: input =>
+        input === '' && 'The domain name may not be empty.' ||
+        input.includes(' ') && 'The domain name may not contain spaces.' || // Redundant to the regular expression, just a more specific error message.
+        input.length > 253 && 'The domain name may be at most 253 characters long.' ||
+        !input.split('.').every(label => label.length < 64) && 'Each label may be at most 63 characters long.' || // Redundant to the regular expression, just a more specific error message.
+        !/^[-a-z0-9_\.\*]+$/i.test(input) && 'You can use only English letters, digits, hyphens, underlines, and dots.' || // Redundant to the regular expression, just a more specific error message.
+        !/^(([a-z0-9_]([-a-z0-9]{0,61}[a-z0-9])?\*?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])?\.?$/i.test(input) && 'The pattern of the domain name is invalid.',
 };
 
-const resultLimit: DynamicEntry<number> = {
-    name: 'Result limit',
-    description: 'Configure the maximum number of results to be returned.',
+const resultLimit: DynamicRangeEntry = {
+    label: 'Result limit',
+    tooltip: 'Configure the maximum number of results to be returned.',
     defaultValue: 20,
     inputType: 'range',
     minValue: 10,
@@ -179,21 +178,25 @@ const entries: DynamicEntries<State> = {
     resultLimit,
 };
 
-const store = getPersistedStore(entries, 'lookup-zone-domains', resetResponseTable);
+const store = new VersionedStore(entries, 'lookup-zone-domains', resetResponseTable);
 const Input = getInput(store);
 
-export function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
-    setState(store, resultLimit === undefined ? { startDomain } : { startDomain, resultLimit });
+function setZoneWalkerInputFields(startDomain: string, resultLimit?: number): void {
+    store.setInput('startDomain', startDomain, true);
+    if (resultLimit !== undefined) {
+        store.setInput('resultLimit', resultLimit, true);
+    }
+    store.setNewStateFromCurrentInputs();
 }
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolLookupZoneDomains: Tool = [
     <Fragment>
         <Input
             submit={{
-                text: 'Walk',
-                title: 'List the domain names in the given zone.',
+                label: 'Walk',
+                tooltip: 'List the domain names in the given zone.',
                 onClick: walkZone,
             }}
         />

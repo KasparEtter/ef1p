@@ -11,16 +11,15 @@ import { getRandomString } from '../../utility/string';
 import { Time } from '../../utility/time';
 
 import { ClickToCopy } from '../../react/copy';
-import { DynamicEntry } from '../../react/entry';
+import { DynamicEntries, DynamicTextEntry } from '../../react/entry';
+import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
-import { shareState } from '../../react/share';
-import { DynamicEntries, getPersistedStore, setState } from '../../react/state';
 import { Store } from '../../react/store';
-import { Tool } from '../../react/utility';
+import { VersionedStore } from '../../react/versioned-store';
 
 import { getIpInfo, IpInfoResponse } from '../../apis/ip-geolocation';
 
-import { setBody } from '../protocols/esmtp';
+import { setBody } from '../protocol/esmtp';
 
 import { getMapLink } from './ip-address';
 
@@ -50,7 +49,7 @@ ${link}
 </html>`;
 }
 
-/* ------------------------------ Response table ------------------------------ */
+/* ------------------------------ Output ------------------------------ */
 
 interface Request {
     time: string;
@@ -63,9 +62,9 @@ interface Request {
 interface RequestsState {
     subscribing: boolean;
     requests: Request[];
-    message?: string;
-    token?: string;
-    link?: string;
+    message?: string | undefined;
+    token?: string | undefined;
+    link?: string | undefined;
 }
 
 function RawRequestsTable({ subscribing, requests, message, token, link }: Readonly<RequestsState>): JSX.Element {
@@ -143,17 +142,11 @@ function RawRequestsTable({ subscribing, requests, message, token, link }: Reado
     </Fragment>;
 }
 
-const requestsStore = new Store<RequestsState>({ subscribing: false, requests: [] }, undefined);
-const RequestsTable = shareState(requestsStore)(RawRequestsTable);
+const requestsStore = new Store<RequestsState>({ subscribing: false, requests: [] });
+const RequestsTable = requestsStore.injectState<{}>(RawRequestsTable);
 
 function clearRequestsTable(): void {
-    requestsStore.setState({
-        subscribing: false,
-        requests: [],
-        message: undefined,
-        token: undefined,
-        link: undefined,
-    });
+    requestsStore.resetState();
 }
 
 /* ------------------------------ Subscription ------------------------------ */
@@ -170,14 +163,13 @@ interface Data {
 async function onMessage(message: MessageEvent<string>): Promise<void> {
     const data = JSON.parse(message.data) as Data;
     const location = await getIpInfo(data.address);
-    requestsStore.state.requests.push({
+    requestsStore.setState({ requests: [...requestsStore.getState().requests, {
         time: Time.current().toLocalTime().toGregorianTime(),
         target: data.target,
         address: data.address,
         location,
         client: data.client,
-    });
-    requestsStore.update();
+    }] });
 }
 
 function unsubscribe(): void {
@@ -189,7 +181,7 @@ function unsubscribe(): void {
 function subscribe({ token, link }: State): void {
     if (token === '') {
         token = getRandomString();
-        setState(store, { token });
+        store.setNewStateFromInput('token', token);
     }
     unsubscribe();
     requestsStore.setState({ subscribing: true });
@@ -215,35 +207,35 @@ function subscribe({ token, link }: State): void {
     socket.onmessage = onMessage;
 }
 
-/* ------------------------------ Dynamic entries ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 
-const token: DynamicEntry<string> = {
-    name: 'Token',
-    description: 'The token used to identify the requests.',
+const token: DynamicTextEntry = {
+    label: 'Token',
+    tooltip: 'The token used to identify the requests.',
     defaultValue: '',
     inputType: 'text',
     inputWidth: 150,
-    validate: value => !/^[a-z0-9]*$/i.test(value) && 'The token has to consist of just letters and digits.',
+    validateIndependently: input => !/^[a-z0-9]*$/i.test(input) && 'The token has to consist of just letters and digits.',
     determine: {
-        text: 'Generate',
-        title: 'Generate a random token.',
-        onClick: async () => [getRandomString(), false],
+        label: 'Generate',
+        tooltip: 'Generate a random token.',
+        onClick: async () => getRandomString(),
     },
 };
 
-const link: DynamicEntry<string> = {
-    name: 'Link',
-    description: 'The web address for which you want to track when someone clicks on it.',
+const link: DynamicTextEntry = {
+    label: 'Link',
+    tooltip: 'The web address for which you want to track when someone clicks on it.',
     defaultValue: 'https://ef1p.com/email',
     inputType: 'text',
     inputWidth: 300,
-    validate: value =>
+    validateIndependently: input =>
         // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.
-        value === '' && 'The web address may not be empty.' ||
-        value.includes(' ') && 'The web address may not contain spaces.' ||
-        !value.startsWith('http://') && !value.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
-        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(value) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(value) && 'The pattern of the web address is invalid.',
+        input === '' && 'The web address may not be empty.' ||
+        input.includes(' ') && 'The web address may not contain spaces.' ||
+        !input.startsWith('http://') && !input.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
+        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(input) && 'Only the Latin alphabet is currently supported.' ||
+        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(input) && 'The pattern of the web address is invalid.',
 };
 
 interface State {
@@ -256,17 +248,17 @@ const entries: DynamicEntries<State> = {
     link,
 };
 
-const store = getPersistedStore(entries, 'lookup-email-requests', clearRequestsTable);
+const store = new VersionedStore(entries, 'lookup-email-requests', clearRequestsTable);
 const Input = getInput(store);
 
-/* ------------------------------ User interface ------------------------------ */
+/* ------------------------------ Tool ------------------------------ */
 
 export const toolLookupEmailRequests: Tool = [
     <Fragment>
         <Input
             submit={{
-                text: 'Subscribe',
-                title: 'Subscribe to the requests which are made with the given token.',
+                label: 'Subscribe',
+                tooltip: 'Subscribe to the requests which are made with the given token.',
                 onClick: subscribe,
             }}
         />
