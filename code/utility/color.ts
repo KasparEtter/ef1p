@@ -60,14 +60,14 @@ export const colors = {
 
 export type Color = keyof typeof colors;
 
-export function colorSuffix(color?: Color): string {
+export function getColorSuffix(color?: Color): string {
     return color ? '-' + color : '';
 }
 
-export function colorClass(color?: Color, prefix: string = ' '): string {
+export function getColorClass(color?: Color, prefix: string = ''): string {
     return color ? prefix + 'color-' + color : '';
 }
 
-export function backgroundColorClass(color?: Color, prefix: string = ''): string {
+export function getBackgroundColorClass(color?: Color, prefix: string = ''): string {
     return color ? prefix + 'background-color-' + color : '';
 }

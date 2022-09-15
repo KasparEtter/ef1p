@@ -10,8 +10,8 @@ type Properties = Dictionary<string | number | boolean | null>;
 type Callback = () => any;
 
 export interface Options {
-    props?: Properties;
-    callback?: Callback;
+    props?: Properties | undefined;
+    callback?: Callback | undefined;
 }
 
 // https://plausible.io/docs/custom-event-goals

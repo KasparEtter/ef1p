@@ -18,7 +18,7 @@ function isLocalStorageAvailable(): boolean {
             localStorage.setItem(key, '1');
             localStorage.removeItem(key);
             return true;
-        } catch (error: unknown) {
+        } catch (error) {
             return isQuotaExceededError(error) && localStorage.length !== 0;
         }
     } else {
@@ -35,7 +35,7 @@ if (!localStorageIsAvailable) {
 function parse<T = any>(item: string | null): T | null {
     try {
         return item !== null ? JSON.parse(item) : null;
-    } catch (error: unknown) {
+    } catch (error) {
         console.log('Failed to parse the following string as JSON:', item);
         throw error;
     }
@@ -105,7 +105,7 @@ function pruneHistoryIfPossible(item: any): boolean {
 /**
  * Prunes the history of all persisted states from the local storage.
  */
- export function pruneAllHistories(): void {
+export function pruneAllHistories(): void {
     if (localStorageIsAvailable) {
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i)!;
@@ -124,7 +124,7 @@ export function setItem<T>(key: string, item: T): void {
     if (localStorageIsAvailable) {
         try {
             setItemAndDispatchStorageEvent(key, item);
-        } catch (error: unknown) {
+        } catch (error) {
             if (isQuotaExceededError(error)) {
                 const warning = 'The data could not be stored in your browser because this website ran out of local storage.';
                 console.warn(warning);

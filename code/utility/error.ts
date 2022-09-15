@@ -5,5 +5,11 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 export function getErrorMessage(error: unknown): string {
-    return error instanceof Error ? error.message : 'An unknown problem occurred.';
+    if (typeof error === 'string') {
+        return error;
+    } else if (error instanceof Error) {
+        return error.message;
+    } else {
+        return 'An unknown problem occurred.';
+    }
 }

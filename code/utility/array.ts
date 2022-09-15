@@ -36,6 +36,13 @@ export function removeFromArrayAll<T>(array: T[], element: T): boolean {
     return found;
 }
 
+export function indexOf<T extends Equality<T>>(array: T[], element: T): number {
+    return array.findIndex(entry => entry.equals(element));
+}
+
+/**
+ * Removes all elements which equal the given element from the end of the array.
+ */
 export function popFromArray<T extends Equality<T>>(array: T[], element: T): T[] {
     while (array.length > 0 && array[array.length - 1].equals(element)) {
         array.pop();
@@ -82,6 +89,10 @@ export function sortNumbers(array: number[]): number[] {
     return array.sort((a, b) => a - b);
 }
 
+export function sortIntegers(array: bigint[]): bigint[] {
+    return array.sort((a, b) => Number(a - b));
+}
+
 export function shorterAndLonger<T>(array1: T[], array2: T[]): [T[], T[]] {
     return array1.length < array2.length ? [array1, array2] : [array2, array1];
 }
@@ -98,4 +109,11 @@ export function getFirstElement<T>(array: T[]): T {
  */
 export function getLastElement<T>(array: T[]): T {
     return array[array.length - 1];
+}
+
+/**
+ * The caller has to ensure that the given array is not empty.
+ */
+export function getRandomElement<T>(array: T[]): T {
+    return array[Math.floor(Math.random() * array.length)];
 }

@@ -298,7 +298,7 @@ function quoteIfNecessary(text: string): string {
 }
 
 // https://datatracker.ietf.org/doc/html/rfc2231#section-7 and https://datatracker.ietf.org/doc/html/rfc2045#section-5.1
-const forbidden = Array.from(`*'%()<>@,;:\\"/[]?=`).map(character => character.charCodeAt(0));
+const forbidden = Array.from(`*'%()<>@,;:\\"/[]?=`, character => character.charCodeAt(0));
 
 function encodeParameterValue(value: string, charset: Charset): string {
     let result = '';

@@ -36,7 +36,7 @@ export function capitalizeFirstLetter(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export function toHex(value: number, minLength = 0, upperCase = true): string {
+export function toHex(value: number | bigint, minLength = 0, upperCase = true): string {
     let hex = value.toString(16);
     if (upperCase) {
         hex = hex.toUpperCase();
@@ -47,7 +47,7 @@ export function toHex(value: number, minLength = 0, upperCase = true): string {
 export function encodePercent(text: string, form: boolean = true, strict: boolean = true): string {
     let result = encodeURIComponent(text);
     if (strict) {
-        result = result.replace(/[!'()*]/g, char => '%' + char.charCodeAt(0).toString(16));
+        result = result.replace(/[!'()*]/g, char => '%' + toHex(char.charCodeAt(0), 2));
     }
     if (form) {
         result = result.replace(/%20/g, '+');
@@ -56,16 +56,11 @@ export function encodePercent(text: string, form: boolean = true, strict: boolea
 }
 
 export function decodePercent(text: string): string {
-    return decodeURIComponent(text.replace(/\+/g, '%20'));
-}
-
-export function removeThousandSeparators(value: string): string {
-    return value.replace(/[', ]/g, '');
-}
-
-export function insertThousandSeparators(value: string | number | bigint): string {
-    // https://stackoverflow.com/a/2901298/12917821
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+    try {
+        return decodeURIComponent(text.replace(/\+/g, '%20'));
+    } catch {
+        throw new Error('This is not a valid Percent-encoded string.');
+    }
 }
 
 /**

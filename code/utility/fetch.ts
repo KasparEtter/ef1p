@@ -24,7 +24,7 @@ export async function fetchWithError(url: string): Promise<Response> {
 export function fetchWithErrorAndTimeout(url: string, timeoutInSeconds = 4): Promise<Response> {
     return Promise.race<Promise<Response>>([
         fetchWithError(url),
-        new Promise((_, reject) =>
+        new Promise<Response>((_, reject) =>
             setTimeout(() => reject(new Error(`Custom timeout when fetching ${url} after ${timeoutInSeconds} seconds.`)), timeoutInSeconds * 1000),
         ),
     ]);

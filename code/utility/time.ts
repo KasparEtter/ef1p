@@ -37,12 +37,12 @@ export class Time {
         return new Time(new Date(parse(year), parse(month) - 1, parse(day), parse(hour), parse(minute), parse(second)));
     }
 
-    public toLocalTime(): Time {
-        return new Time(new Date(this.date.getTime() - this.date.getTimezoneOffset() * 60000));
+    public toLocalTime(condition = true): Time {
+        return condition ? new Time(new Date(this.date.getTime() - this.date.getTimezoneOffset() * 60000)) : this;
     }
 
-    public toGlobalTime(): Time {
-        return new Time(new Date(this.date.getTime() + this.date.getTimezoneOffset() * 60000));
+    public toGlobalTime(condition = true): Time {
+        return condition ? new Time(new Date(this.date.getTime() + this.date.getTimezoneOffset() * 60000)) : this;
     }
 
     public toUnixTime(): number {

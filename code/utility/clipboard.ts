@@ -16,7 +16,7 @@ export function copyToClipboard(text: string): boolean {
     document.body.appendChild(textarea);
 
     // Save the current selection of the user:
-    const selectedRange = document.getSelection()!.rangeCount > 0 ? document.getSelection()!.getRangeAt(0) : false;
+    const selectedRange = (document.getSelection()?.rangeCount ?? 0) > 0 ? document.getSelection()!.getRangeAt(0) : false;
 
     // Select the content of the textarea:
     textarea.select(); // Ordinary browsers
