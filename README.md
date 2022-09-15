@@ -511,30 +511,14 @@ You can read more about this
 
 If you want to update the external JavaScript libraries in `assets/scripts/external/`,
 which are imported in `_layouts/head.html`,
-you have to download them manually from the following links:
+you can run the following scripts:
 
-- [jQuery](https://code.jquery.com)
-  (and the [map file](https://jquery.com/download/#jquery))
-- [Popper.js](https://cdnjs.com/libraries/popper.js)
-  (take the [UMD](https://github.com/popperjs/popper.js#dist-targets) target at the bottom)
-- [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/#bootstrapcdn)
-  (check in the navbar that you are viewing the latest version)
-- [Bootstrap TOC](https://afeld.github.io/bootstrap-toc/#usage)
-- [React](https://reactjs.org/docs/cdn-links.html)
-  (or execute `npm run react-update` to copy the files from `node_modules`)
-- [AnchorJS](https://cdnjs.com/libraries/anchor-js)
-- [Plausible](https://plausible.io/js/plausible.js)
-- [Font Awesome](https://fontawesome.com/download)
-  (select "Free for Web" and then replace `assets/fonts/fontawesome`; update the CDN version manually)
-- [KaTeX](https://katex.org/docs/browser.html)
-  with [copy-tex](https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex)
-  and [auto-render](https://github.com/KaTeX/KaTeX/tree/master/contrib/auto-render)
-  extensions
-
-In order to use the same library versions for local development as for remote production,
-you also have to update the [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) links
-and the [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) hashes,
-which you can generate at [www.srihash.org](https://www.srihash.org).
+```bash
+npm run fonts-copy
+npm run katex-copy
+npm run scripts-copy
+npm run scripts-download
+```
 
 
 ### Favicons
@@ -864,6 +848,14 @@ Don't forget to add the following front matter at the beginning of the article:
 
 ```yaml
 math: true
+```
+
+If you start an inline math statement on a new line,
+you have to prefix it with a HTML comment
+in order to preserve the outline view of [Visual Studio Code](https://code.visualstudio.com/):
+
+```markdown
+<!-- --> $$1 + 2$$ is a simple equation
 ```
 
 
