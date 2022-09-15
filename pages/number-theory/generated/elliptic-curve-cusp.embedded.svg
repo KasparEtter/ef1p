@@ -1,0 +1,59 @@
+<svg id="figure-elliptic-curve-cusp" class="figure" data-name="elliptic-curve-cusp" width="337.53" height="506.092" viewBox="-185.03 -239.671 337.53 506.092" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="gray" x1="-151.25" y1="0" x2="152.5" y2="0" marker-end="url(#arrow-gray)" stroke-dasharray="297"></line>
+    <line class="gray" x1="0" y1="238.421" x2="0" y2="-239.671" marker-end="url(#arrow-gray)" stroke-dasharray="471"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="140.5" y="21.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-218.171"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-180" x2="151.875" y2="-180"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-174.1">3</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-120" x2="151.875" y2="-120"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-114.1">2</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-60" x2="151.875" y2="-60"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-54.1">1</tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="5.9">0</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="60" x2="151.875" y2="60"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="65.9">−1</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="120" x2="151.875" y2="120"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="125.9">−2</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="180" x2="151.875" y2="180"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="185.9">−3</tspan>
+    </text>
+    <line class="gray thin" x1="-120" y1="-239.046" x2="-120" y2="239.046"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="-120" y="263.171">−2</tspan>
+    </text>
+    <line class="gray thin" x1="-60" y1="-239.046" x2="-60" y2="239.046"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="-60" y="263.171">−1</tspan>
+    </text>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="263.171">0</tspan>
+    </text>
+    <line class="gray thin" x1="60" y1="-239.046" x2="60" y2="239.046"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="60" y="263.171">1</tspan>
+    </text>
+    <line class="gray thin" x1="120" y1="-239.046" x2="120" y2="239.046"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="120" y="263.171">2</tspan>
+    </text>
+    <polyline class="blue thick" points="150,237.171 147.938,232.298 143.217,221.266 138.429,210.264 133.57,199.292 128.709,188.511 123.863,177.965 119.033,167.659 114.221,157.596 109.428,147.781 104.656,138.219 99.904,128.915 95.177,119.873 90.474,111.099 85.798,102.599 81.152,94.379 76.537,86.444 71.958,78.802 67.415,71.46 62.914,64.424 58.459,57.703 54.054,51.305 49.703,45.238 45.414,39.511 41.194,34.133 37.049,29.113 32.991,24.463 29.028,20.191 25.175,16.307 21.445,12.82 17.855,9.74 14.425,7.073 11.176,4.824 8.134,2.995 5.326,1.587 2.711,0.576 0.001,0 0.001,0 2.711,-0.576 5.326,-1.587 8.134,-2.995 11.176,-4.824 14.425,-7.073 17.855,-9.74 21.445,-12.82 25.175,-16.307 29.028,-20.191 32.991,-24.463 37.049,-29.113 41.194,-34.133 45.414,-39.511 49.703,-45.238 54.054,-51.305 58.459,-57.703 62.914,-64.424 67.415,-71.46 71.958,-78.802 76.537,-86.444 81.152,-94.379 85.798,-102.599 90.474,-111.099 95.177,-119.873 99.904,-128.915 104.656,-138.219 109.428,-147.781 114.221,-157.596 119.033,-167.659 123.863,-177.965 128.709,-188.511 133.57,-199.292 138.429,-210.264 143.217,-221.266 147.938,-232.298 150,-237.171"></polyline>
+
+</svg>

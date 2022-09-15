@@ -1,0 +1,44 @@
+<svg id="figure-pollards-rho-partial" class="figure" data-name="pollards-rho-partial" width="131.494" height="230.5" viewBox="-65.747 -73.25 131.494 230.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="-48.497" y1="11.688" x2="-48.497" y2="-10.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="-34.37" y1="-36.156" x2="-14.939" y2="-47.375" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="14.127" y1="-47.844" x2="33.558" y2="-36.625" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="48.497" y1="-11.688" x2="48.497" y2="10.75" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="34.37" y1="36.156" x2="14.939" y2="47.375" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="-14.127" y1="47.844" x2="-33.558" y2="36.625" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <circle cx="-48.497" cy="28" r="16"></circle>
+    <circle cx="-48.497" cy="-28" r="16"></circle>
+    <circle cx="0" cy="-56" r="16"></circle>
+    <circle cx="48.497" cy="-28" r="16"></circle>
+    <circle cx="48.497" cy="28" r="16"></circle>
+    <circle cx="0" cy="56" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="-48.497" y="33.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-48.497" y="-22.1"><tspan class="font-weight-bold">S<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="-50.1"><tspan class="font-weight-bold">S<tspan class="script" dy="3">5</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="48.497" y="-22.1"><tspan class="font-weight-bold">S<tspan class="script" dy="3">6</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="48.497" y="33.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">7</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="61.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">8</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <line x1="-48.497" y1="67.688" x2="-48.497" y2="45.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <circle cx="-48.497" cy="84" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="-48.497" y="89.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <line x1="-48.497" y1="123.688" x2="-48.497" y2="101.25" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <circle cx="-48.497" cy="140" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="-48.497" y="145.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+
+</svg>

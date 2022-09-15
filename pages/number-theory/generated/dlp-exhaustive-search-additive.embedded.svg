@@ -1,0 +1,58 @@
+<svg id="figure-dlp-exhaustive-search-additive" class="figure" data-name="dlp-exhaustive-search-additive" width="539.98" height="52" viewBox="27.771 -20.25 539.98 52" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="35" y1="0" x2="560" y2="0"></line>
+    <path class="blue" d="M 35,-5 A 17.5 14 0 0 1 70,-5 L 70.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line class="pink" x1="35" y1="-5" x2="35" y2="5"></line>
+    <path class="blue" d="M 70,-5 A 17.5 14 0 0 1 105,-5 L 105.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="70" y1="-5" x2="70" y2="5"></line>
+    <path class="blue" d="M 105,-5 A 17.5 14 0 0 1 140,-5 L 140.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="105" y1="-5" x2="105" y2="5"></line>
+    <path class="blue" d="M 140,-5 A 17.5 14 0 0 1 175,-5 L 175.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="140" y1="-5" x2="140" y2="5"></line>
+    <path class="blue" d="M 175,-5 A 17.5 14 0 0 1 210,-5 L 210.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="175" y1="-5" x2="175" y2="5"></line>
+    <path class="blue" d="M 210,-5 A 17.5 14 0 0 1 245,-5 L 245.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="210" y1="-5" x2="210" y2="5"></line>
+    <path class="blue" d="M 245,-5 A 17.5 14 0 0 1 280,-5 L 280.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="245" y1="-5" x2="245" y2="5"></line>
+    <path class="blue" d="M 280,-5 A 17.5 14 0 0 1 315,-5 L 315.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="280" y1="-5" x2="280" y2="5"></line>
+    <path class="blue" d="M 315,-5 A 17.5 14 0 0 1 350,-5 L 350.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="315" y1="-5" x2="315" y2="5"></line>
+    <path class="blue" d="M 350,-5 A 17.5 14 0 0 1 385,-5 L 385.003828,-4.990762" marker-end="url(#arrow-blue)" stroke-dasharray="43"></path>
+    <line x1="350" y1="-5" x2="350" y2="5"></line>
+    <line class="green" x1="385" y1="-5" x2="385" y2="5"></line>
+    <line x1="420" y1="-5" x2="420" y2="5"></line>
+    <line x1="455" y1="-5" x2="455" y2="5"></line>
+    <line x1="490" y1="-5" x2="490" y2="5"></line>
+    <line x1="525" y1="-5" x2="525" y2="5"></line>
+    <line x1="560" y1="-5" x2="560" y2="5"></line>
+    <text class="pink" text-anchor="middle">
+        <tspan x="35" y="28.5"><tspan class="font-weight-bold">G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="70" y="28.5"><tspan class="font-weight-bold">2G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="105" y="28.5"><tspan class="font-weight-bold">3G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="140" y="28.5"><tspan class="font-weight-bold">4G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="175" y="28.5"><tspan class="font-weight-bold">5G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="210" y="28.5"><tspan class="font-weight-bold">6G</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="245" y="28.5"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="385" y="28.5"><tspan class="font-weight-bold">kG = K</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="560" y="28.5"><tspan class="font-weight-bold">O</tspan></tspan>
+    </text>
+
+</svg>

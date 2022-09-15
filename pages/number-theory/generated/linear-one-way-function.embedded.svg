@@ -1,0 +1,46 @@
+<svg id="figure-linear-one-way-function" class="figure" data-name="linear-one-way-function" width="182.5" height="110.5" viewBox="-1.25 -1.25 182.5 110.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="red" x1="168" y1="71.688" x2="168" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="156" y1="36.313" x2="156" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <line class="red" x1="96" y1="71.688" x2="96" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="84" y1="36.313" x2="84" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <line class="red" x1="24" y1="71.688" x2="24" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="12" y1="36.313" x2="12" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <rect x="0" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="18" y="23.9"><tspan class="font-weight-bold">a</tspan></tspan>
+    </text>
+    <rect x="72" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="90" y="23.9"><tspan class="font-weight-bold">b</tspan></tspan>
+    </text>
+    <rect x="144" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="162" y="23.9"><tspan class="font-weight-bold">c</tspan></tspan>
+    </text>
+    <rect x="0" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="18" y="95.9"><tspan class="font-weight-bold">A</tspan></tspan>
+    </text>
+    <rect x="72" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="90" y="95.9"><tspan class="font-weight-bold">B</tspan></tspan>
+    </text>
+    <rect x="144" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="162" y="95.9"><tspan class="font-weight-bold">C</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54" y="23.9"><tspan class="font-weight-bold">+</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="23.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54" y="96.9"><tspan class="large">∘</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="95.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+
+</svg>

@@ -1,0 +1,57 @@
+<svg id="figure-modulo-clock" class="figure" data-name="modulo-clock" width="217.45" height="221.5" viewBox="-108.725 -109.75 217.45 221.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle cx="0" cy="0" r="80"></circle>
+    <line x1="0" y1="-75" x2="0" y2="-85"></line>
+    <line x1="37.5" y1="-64.952" x2="42.5" y2="-73.612"></line>
+    <line x1="64.952" y1="-37.5" x2="73.612" y2="-42.5"></line>
+    <line class="green" x1="75" y1="0" x2="85" y2="0"></line>
+    <line x1="64.952" y1="37.5" x2="73.612" y2="42.5"></line>
+    <line x1="37.5" y1="64.952" x2="42.5" y2="73.612"></line>
+    <line x1="0" y1="75" x2="0" y2="85"></line>
+    <line x1="-37.5" y1="64.952" x2="-42.5" y2="73.612"></line>
+    <line x1="-64.952" y1="37.5" x2="-73.612" y2="42.5"></line>
+    <line class="green" x1="-75" y1="0" x2="-85" y2="0"></line>
+    <line x1="-64.952" y1="-37.5" x2="-73.612" y2="-42.5"></line>
+    <line x1="-37.5" y1="-64.952" x2="-42.5" y2="-73.612"></line>
+    <text text-anchor="middle">
+        <tspan x="0" y="-96.85"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="51.375" y="-83.084"><tspan class="font-weight-bold">1</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="88.984" y="-45.475"><tspan class="font-weight-bold">2</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="102.75" y="5.9"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="88.984" y="57.275"><tspan class="font-weight-bold">4</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="51.375" y="94.884"><tspan class="font-weight-bold">5</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="108.65"><tspan class="font-weight-bold">6</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-51.375" y="94.884"><tspan class="font-weight-bold">7</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-88.984" y="57.275"><tspan class="font-weight-bold">8</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="-102.75" y="5.9"><tspan class="font-weight-bold">9</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-88.984" y="-45.475"><tspan class="font-weight-bold">10</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-51.375" y="-83.084"><tspan class="font-weight-bold">11</tspan></tspan>
+    </text>
+    <path class="green" d="M -53.333,0 A 53.333 53.333 0 0 1 53.333,0 L 53.334063,0.009973" marker-end="url(#arrow-green)" stroke-dasharray="161"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="0" y="-22"><tspan class="font-weight-bold">+ 6</tspan></tspan><tspan x="0" y="0"><tspan class="font-weight-bold">mod 12</tspan></tspan>
+    </text>
+
+</svg>

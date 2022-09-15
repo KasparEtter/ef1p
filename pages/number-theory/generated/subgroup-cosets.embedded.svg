@@ -1,0 +1,24 @@
+<svg id="figure-subgroup-cosets" class="figure" data-name="subgroup-cosets" width="126" height="188.5" viewBox="-3.75 -26.75 126 188.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="blue angular" x="0" y="0" width="118.5" height="39.5" rx="0" ry="0"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="59.25" y="25.65"><tspan class="font-weight-bold">ℍ</tspan></tspan>
+    </text>
+    <rect class="blue angular" x="0" y="39.5" width="118.5" height="39.5" rx="0" ry="0"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="59.25" y="65.15"><tspan class="font-weight-bold">ℍ ∘ A</tspan></tspan>
+    </text>
+    <rect class="blue angular" x="0" y="79" width="118.5" height="39.5" rx="0" ry="0"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="59.25" y="104.65"><tspan class="font-weight-bold">ℍ ∘ B</tspan></tspan>
+    </text>
+    <rect class="blue angular" x="0" y="118.5" width="118.5" height="39.5" rx="0" ry="0"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="59.25" y="144.15"><tspan class="font-weight-bold">⋮</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="59.25" y="-13.85">𝔾</tspan>
+    </text>
+    <rect class="green angular" x="-2.5" y="-2.5" width="123.5" height="163" rx="0" ry="0"></rect>
+
+</svg>

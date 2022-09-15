@@ -1,0 +1,126 @@
+<svg width="305" height="455.998" viewBox="-152.5 -227.999 305 455.998" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
+        }
+
+        .thick {
+            stroke-width: 5;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .large {
+            font-size: 160%;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .pink {
+            fill: #E60073;
+            stroke: #E60073;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+
+        .gray {
+            fill: #666666;
+            stroke: #666666;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+    </defs>
+
+    <line class="gray" x1="-151.25" y1="0" x2="152.5" y2="0" marker-end="url(#arrow-gray)" stroke-dasharray="297"></line>
+    <line class="gray" x1="0" y1="226.749" x2="0" y2="-227.999" marker-end="url(#arrow-gray)" stroke-dasharray="448"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="140.5" y="21.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-206.499"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <polyline class="blue thick" points="150,225.499 147.4,219.389 142.884,208.913 138.423,198.746 134.024,188.896 129.692,179.376 125.433,170.194 121.254,161.36 117.16,152.884 113.158,144.775 109.254,137.039 105.453,129.682 101.761,122.708 98.182,116.118 94.72,109.911 91.376,104.083 88.152,98.629 85.047,93.538 82.058,88.801 79.184,84.403 76.42,80.33 73.759,76.567 71.197,73.097 68.725,69.903 66.337,66.971 64.023,64.284 61.776,61.828 59.587,59.59 57.446,57.557 55.322,55.701 53.124,53.957 50.843,52.344 48.471,50.889 45.996,49.619 43.412,48.568 40.712,47.769 37.899,47.258 34.989,47.059 32.014,47.181 29.014,47.605 26.029,48.293 22.659,49.339 18.468,50.96 9.543,55.154 -1.144,60.569 -11.9,65.467 -19.325,68.112 -25.418,69.652 -30.708,70.426 -35.404,70.602 -39.603,70.292 -43.357,69.592 -46.7,68.59 -49.663,67.367 -52.468,65.885 -55.156,64.131 -57.705,62.127 -60.099,59.9 -62.329,57.481 -64.393,54.896 -66.292,52.173 -68.034,49.332 -69.624,46.393 -71.072,43.37 -72.385,40.273 -73.572,37.11 -74.638,33.888 -75.59,30.609 -76.434,27.273 -77.173,23.877 -77.811,20.415 -78.35,16.876 -78.791,13.24 -79.13,9.474 -79.363,5.536 -79.483,0 -79.483,0 -79.363,-5.536 -79.13,-9.474 -78.791,-13.24 -78.35,-16.876 -77.811,-20.415 -77.173,-23.877 -76.434,-27.273 -75.59,-30.609 -74.638,-33.888 -73.572,-37.11 -72.385,-40.273 -71.072,-43.37 -69.624,-46.393 -68.034,-49.332 -66.292,-52.173 -64.393,-54.896 -62.329,-57.481 -60.099,-59.9 -57.705,-62.127 -55.156,-64.131 -52.468,-65.885 -49.663,-67.367 -46.7,-68.59 -43.357,-69.592 -39.603,-70.292 -35.404,-70.602 -30.708,-70.426 -25.418,-69.652 -19.325,-68.112 -11.9,-65.467 -1.144,-60.569 9.543,-55.154 18.468,-50.96 22.659,-49.339 26.029,-48.293 29.014,-47.605 32.014,-47.181 34.989,-47.059 37.899,-47.258 40.712,-47.769 43.412,-48.568 45.996,-49.619 48.471,-50.889 50.843,-52.344 53.124,-53.957 55.322,-55.701 57.446,-57.557 59.587,-59.59 61.776,-61.828 64.023,-64.284 66.337,-66.971 68.725,-69.903 71.197,-73.097 73.759,-76.567 76.42,-80.33 79.184,-84.403 82.058,-88.801 85.047,-93.538 88.152,-98.629 91.376,-104.083 94.72,-109.911 98.182,-116.118 101.761,-122.708 105.453,-129.682 109.254,-137.039 113.158,-144.775 117.16,-152.884 121.254,-161.36 125.433,-170.194 129.692,-179.376 134.024,-188.896 138.423,-198.746 142.884,-208.913 147.4,-219.389 150,-225.499"></polyline>
+    <line x1="-75" y1="32.692" x2="22.2" y2="32.692"></line>
+    <text text-anchor="middle">
+        <tspan x="-26.4" y="56.192">dx</tspan>
+    </text>
+    <line x1="22.2" y1="32.692" x2="22.2" y2="-49.501"></line>
+    <text text-anchor="start">
+        <tspan x="34.2" y="-2.505">dy</tspan>
+    </text>
+    <line class="green thick" x1="-150" y1="96.112" x2="150" y2="-157.569"></line>
+    <line class="pink thick" x1="95.703" y1="111.655" x2="95.703" y2="-111.655"></line>
+    <circle class="green filled" cx="-75" cy="32.692" r="7.5"></circle>
+    <text class="green" text-anchor="middle">
+        <tspan x="-103.532" y="29.321"><tspan class="large"><tspan class="font-weight-bold">A</tspan></tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="-42.27" y="-24.348"><tspan class="large"><tspan class="font-weight-bold">+</tspan></tspan></tspan>
+    </text>
+    <circle class="green filled" cx="22.2" cy="-49.501" r="7.5"></circle>
+    <text class="green" text-anchor="middle">
+        <tspan x="22.2" y="-73.601"><tspan class="large"><tspan class="font-weight-bold">B</tspan></tspan></tspan>
+    </text>
+    <circle class="pink filled" cx="95.703" cy="-111.655" r="7.5"></circle>
+    <text class="pink" text-anchor="middle">
+        <tspan x="74.49" y="-126.969"><tspan class="large"><tspan class="font-weight-bold">−C</tspan></tspan></tspan>
+    </text>
+    <circle class="pink filled" cx="95.703" cy="111.655" r="7.5"></circle>
+    <text class="pink" text-anchor="middle">
+        <tspan x="69.54" y="143.718"><tspan class="large"><tspan class="font-weight-bold">= C</tspan></tspan></tspan>
+    </text>
+
+</svg>

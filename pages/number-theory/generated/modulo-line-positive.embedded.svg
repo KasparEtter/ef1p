@@ -1,0 +1,46 @@
+<svg id="figure-modulo-line-positive" class="figure" data-name="modulo-line-positive" width="367.225" height="61.5" viewBox="-5.975 -29.75 367.225 61.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="0" y1="0" x2="360" y2="0" marker-end="url(#arrow)" stroke-dasharray="353"></line>
+    <line class="blue" x1="0" y1="-5" x2="240" y2="-5" marker-end="url(#arrow-blue)" stroke-dasharray="233"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="120" y="-17"><tspan class="font-weight-bold">q · d</tspan></tspan>
+    </text>
+    <line class="green" x1="240" y1="-5" x2="300" y2="-5" marker-end="url(#arrow-green)" stroke-dasharray="53"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="270" y="-17">r</tspan>
+    </text>
+    <line x1="0" y1="-5" x2="0" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="0" y="28.5"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <line x1="80" y1="-5" x2="80" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="80" y="28.5"><tspan class="font-weight-bold">d</tspan></tspan>
+    </text>
+    <line x1="160" y1="-5" x2="160" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="160" y="28.5"><tspan class="font-weight-bold">2d</tspan></tspan>
+    </text>
+    <line x1="240" y1="-5" x2="240" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="240" y="28.5"><tspan class="font-weight-bold">q · d</tspan></tspan>
+    </text>
+    <line x1="320" y1="-5" x2="320" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="320" y="28.5"><tspan class="font-weight-bold">(q + 1)d</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="200" y="28.5"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="200" y="-17"><tspan class="font-weight-bold">+</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="284.4" y="-17"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+    <line class="pink" x1="300" y1="-5" x2="300" y2="5"></line>
+    <text class="pink" text-anchor="middle">
+        <tspan x="300" y="-17"><tspan class="font-weight-bold">n</tspan></tspan>
+    </text>
+
+</svg>

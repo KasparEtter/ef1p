@@ -1,0 +1,97 @@
+<svg id="figure-quotient-ring" class="figure" data-name="quotient-ring" width="253.167" height="387.25" viewBox="-1.25 -28 253.167 387.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="purple" x="0" y="0" width="154.667" height="116" rx="8" ry="8"></rect>
+    <text class="purple" text-anchor="start">
+        <tspan x="12" y="63.9"><tspan class="font-weight-bold">3ℤ = 𝕂<tspan class="script" dy="3">f</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect class="green" x="218.667" y="42" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="234.667" y="63.9"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <rect class="blue" x="80.667" y="42" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="96.667" y="63.9"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="21" x2="217.417" y2="58" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="5" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="26.9"><tspan class="font-weight-bold">−3</tspan></tspan>
+    </text>
+    <line class="pink" x1="149.979" y1="58" x2="217.417" y2="58" marker-end="url(#arrow-pink)" stroke-dasharray="60"></line>
+    <rect class="blue" x="117.667" y="42" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="133.667" y="63.9"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="95" x2="217.417" y2="58" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="79" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="100.9"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <rect class="purple" x="0" y="121" width="154.667" height="116" rx="8" ry="8"></rect>
+    <text class="purple" text-anchor="start">
+        <tspan x="12" y="184.9"><tspan class="font-weight-bold">3ℤ + 1</tspan></tspan>
+    </text>
+    <rect class="green" x="218.667" y="163" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="234.667" y="184.9"><tspan class="font-weight-bold">1</tspan></tspan>
+    </text>
+    <rect class="blue" x="80.667" y="163" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="96.667" y="184.9"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="142" x2="217.417" y2="179" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="126" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="147.9"><tspan class="font-weight-bold">−2</tspan></tspan>
+    </text>
+    <line class="pink" x1="149.979" y1="179" x2="217.417" y2="179" marker-end="url(#arrow-pink)" stroke-dasharray="60"></line>
+    <rect class="blue" x="117.667" y="163" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="133.667" y="184.9"><tspan class="font-weight-bold">1</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="216" x2="217.417" y2="179" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="200" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="221.9"><tspan class="font-weight-bold">4</tspan></tspan>
+    </text>
+    <rect class="purple" x="0" y="242" width="154.667" height="116" rx="8" ry="8"></rect>
+    <text class="purple" text-anchor="start">
+        <tspan x="12" y="305.9"><tspan class="font-weight-bold">3ℤ + 2</tspan></tspan>
+    </text>
+    <rect class="green" x="218.667" y="284" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="234.667" y="305.9"><tspan class="font-weight-bold">2</tspan></tspan>
+    </text>
+    <rect class="blue" x="80.667" y="284" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="96.667" y="305.9"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="263" x2="217.417" y2="300" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="247" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="268.9"><tspan class="font-weight-bold">−1</tspan></tspan>
+    </text>
+    <line class="pink" x1="149.979" y1="300" x2="217.417" y2="300" marker-end="url(#arrow-pink)" stroke-dasharray="60"></line>
+    <rect class="blue" x="117.667" y="284" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="133.667" y="305.9"><tspan class="font-weight-bold">2</tspan></tspan>
+    </text>
+    <line class="pink" x1="131.479" y1="337" x2="217.417" y2="300" marker-end="url(#arrow-pink)" stroke-dasharray="87"></line>
+    <rect class="blue" x="99.167" y="321" width="32" height="32" rx="8" ry="8"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="342.9"><tspan class="font-weight-bold">5</tspan></tspan>
+    </text>
+    <text class="purple" text-anchor="start">
+        <tspan x="12" y="-15.1"><tspan class="font-weight-bold">ℤ / 3ℤ</tspan></tspan>
+    </text>
+    <text class="blue" text-anchor="middle">
+        <tspan x="115.167" y="-15.1"><tspan class="font-weight-bold">ℤ</tspan></tspan>
+    </text>
+    <text class="pink" text-anchor="middle">
+        <tspan x="173.667" y="-15.1"><tspan class="font-weight-bold">f(x) = x % 3</tspan></tspan>
+    </text>
+    <text class="green" text-anchor="middle">
+        <tspan x="234.667" y="-15.1"><tspan class="font-weight-bold">ℤ<tspan class="script" dy="3">3</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+
+</svg>

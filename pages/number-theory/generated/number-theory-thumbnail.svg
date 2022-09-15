@@ -1,0 +1,96 @@
+<svg width="182.5" height="110.5" viewBox="-1.25 -1.25 182.5 110.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .large {
+            font-size: 160%;
+        }
+
+        .red {
+            fill: #E60000;
+            stroke: #E60000;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <line class="red" x1="168" y1="71.688" x2="168" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="156" y1="36.313" x2="156" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <line class="red" x1="96" y1="71.688" x2="96" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="84" y1="36.313" x2="84" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <line class="red" x1="24" y1="71.688" x2="24" y2="37.25" marker-end="url(#arrow-red)" stroke-dasharray="27"></line>
+    <line class="green" x1="12" y1="36.313" x2="12" y2="70.75" marker-end="url(#arrow-green)" stroke-dasharray="27"></line>
+    <rect x="0" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <rect x="72" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <rect x="144" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <rect x="0" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <rect x="72" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <rect x="144" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="54" y="23.9"><tspan class="font-weight-bold">+</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="23.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54" y="96.9"><tspan class="large">∘</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="95.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+
+</svg>

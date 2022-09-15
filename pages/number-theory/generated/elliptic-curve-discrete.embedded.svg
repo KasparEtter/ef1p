@@ -1,0 +1,183 @@
+<svg id="figure-elliptic-curve-discrete" class="figure" data-name="elliptic-curve-discrete" width="566.682" height="559.75" viewBox="-52.152 -511 566.682 559.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="gray thin" x1="0" y1="-504" x2="0" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="23.5">0</tspan>
+    </text>
+    <line class="gray thin" x1="28" y1="-504" x2="28" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="28" y="23.5">1</tspan>
+    </text>
+    <line class="gray thin" x1="56" y1="-504" x2="56" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="56" y="23.5">2</tspan>
+    </text>
+    <line class="gray thin" x1="84" y1="-504" x2="84" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="84" y="23.5">3</tspan>
+    </text>
+    <line class="gray thin" x1="112" y1="-504" x2="112" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="112" y="23.5">4</tspan>
+    </text>
+    <line class="gray thin" x1="140" y1="-504" x2="140" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="140" y="23.5">5</tspan>
+    </text>
+    <line class="gray thin" x1="168" y1="-504" x2="168" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="168" y="23.5">6</tspan>
+    </text>
+    <line class="gray thin" x1="196" y1="-504" x2="196" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="196" y="23.5">7</tspan>
+    </text>
+    <line class="gray thin" x1="224" y1="-504" x2="224" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="224" y="23.5">8</tspan>
+    </text>
+    <line class="gray thin" x1="252" y1="-504" x2="252" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="252" y="23.5">9</tspan>
+    </text>
+    <line class="gray thin" x1="280" y1="-504" x2="280" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="280" y="23.5">10</tspan>
+    </text>
+    <line class="gray thin" x1="308" y1="-504" x2="308" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="308" y="23.5">11</tspan>
+    </text>
+    <line class="gray thin" x1="336" y1="-504" x2="336" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="336" y="23.5">12</tspan>
+    </text>
+    <line class="gray thin" x1="364" y1="-504" x2="364" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="364" y="23.5">13</tspan>
+    </text>
+    <line class="gray thin" x1="392" y1="-504" x2="392" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="392" y="23.5">14</tspan>
+    </text>
+    <line class="gray thin" x1="420" y1="-504" x2="420" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="420" y="23.5">15</tspan>
+    </text>
+    <line class="gray thin" x1="448" y1="-504" x2="448" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="448" y="23.5">16</tspan>
+    </text>
+    <line class="gray thin" x1="476" y1="-504" x2="476" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="476" y="23.5">17</tspan>
+    </text>
+    <line class="gray thin" x1="504" y1="-504" x2="504" y2="0"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="504" y="23.5">18</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="0" x2="504" y2="0"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="5.9">0</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-28" x2="504" y2="-28"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-22.1">1</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-56" x2="504" y2="-56"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-50.1">2</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-84" x2="504" y2="-84"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-78.1">3</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-112" x2="504" y2="-112"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-106.1">4</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-140" x2="504" y2="-140"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-134.1">5</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-168" x2="504" y2="-168"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-162.1">6</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-196" x2="504" y2="-196"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-190.1">7</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-224" x2="504" y2="-224"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-218.1">8</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-252" x2="504" y2="-252"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-246.1">9</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-280" x2="504" y2="-280"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-274.1">10</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-308" x2="504" y2="-308"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-302.1">11</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-336" x2="504" y2="-336"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-330.1">12</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-364" x2="504" y2="-364"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-358.1">13</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-392" x2="504" y2="-392"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-386.1">14</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-420" x2="504" y2="-420"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-414.1">15</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-448" x2="504" y2="-448"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-442.1">16</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-476" x2="504" y2="-476"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-470.1">17</tspan>
+    </text>
+    <line class="gray thin" x1="0" y1="-504" x2="504" y2="-504"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-498.1">18</tspan>
+    </text>
+    <text class="gray" text-anchor="middle">
+        <tspan x="252" y="45.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-42.56" y="-246.1"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <circle class="blue filled" cx="0" cy="-28" r="5"></circle>
+    <circle class="blue filled" cx="0" cy="-504" r="5"></circle>
+    <circle class="blue filled" cx="28" cy="-28" r="5"></circle>
+    <circle class="blue filled" cx="28" cy="-504" r="5"></circle>
+    <circle class="blue filled" cx="56" cy="-224" r="5"></circle>
+    <circle class="blue filled" cx="56" cy="-308" r="5"></circle>
+    <circle class="blue filled" cx="84" cy="-140" r="5"></circle>
+    <circle class="blue filled" cx="84" cy="-392" r="5"></circle>
+    <circle class="blue filled" cx="112" cy="-56" r="5"></circle>
+    <circle class="blue filled" cx="112" cy="-476" r="5"></circle>
+    <circle class="blue filled" cx="140" cy="-224" r="5"></circle>
+    <circle class="blue filled" cx="140" cy="-308" r="5"></circle>
+    <circle class="blue filled" cx="224" cy="-196" r="5"></circle>
+    <circle class="blue filled" cx="224" cy="-336" r="5"></circle>
+    <circle class="blue filled" cx="336" cy="-224" r="5"></circle>
+    <circle class="blue filled" cx="336" cy="-308" r="5"></circle>
+    <circle class="blue filled" cx="364" cy="0" r="5"></circle>
+    <circle class="blue filled" cx="420" cy="-168" r="5"></circle>
+    <circle class="blue filled" cx="420" cy="-364" r="5"></circle>
+    <circle class="blue filled" cx="504" cy="-28" r="5"></circle>
+    <circle class="blue filled" cx="504" cy="-504" r="5"></circle>
+
+</svg>

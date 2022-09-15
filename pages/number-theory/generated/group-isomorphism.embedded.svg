@@ -1,0 +1,49 @@
+<svg id="figure-group-isomorphism" class="figure" data-name="group-isomorphism" width="223.196" height="110.5" viewBox="-41.946 -1.25 223.196 110.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="blue" x1="162" y1="37.25" x2="162" y2="70.75" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="20" stroke-dashoffset="33"></line>
+    <line class="blue" x1="90" y1="37.25" x2="90" y2="70.75" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="20" stroke-dashoffset="33"></line>
+    <line class="blue" x1="18" y1="37.25" x2="18" y2="70.75" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)" stroke-dasharray="20" stroke-dashoffset="33"></line>
+    <rect x="0" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="18" y="23.9"><tspan class="font-weight-bold">A<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="72" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="90" y="23.9"><tspan class="font-weight-bold">B<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="144" y="0" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="162" y="23.9"><tspan class="font-weight-bold">C<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="0" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="18" y="95.9"><tspan class="font-weight-bold">A<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="72" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="90" y="95.9"><tspan class="font-weight-bold">B<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <rect x="144" y="72" width="36" height="36" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="162" y="95.9"><tspan class="font-weight-bold">C<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54" y="24.9"><tspan class="large">∘</tspan><tspan class="font-weight-bold"><tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="23.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="54" y="96.9"><tspan class="large">∘</tspan><tspan class="font-weight-bold"><tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="126" y="95.9"><tspan class="font-weight-bold">=</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-25.2" y="23.9">𝔾<tspan class="script" dy="3">1</tspan><tspan dy="-3">&#8203;</tspan>:</tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-25.2" y="95.9">𝔾<tspan class="script" dy="3">2</tspan><tspan dy="-3">&#8203;</tspan>:</tspan>
+    </text>
+
+</svg>

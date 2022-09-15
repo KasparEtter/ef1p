@@ -1,0 +1,39 @@
+<svg id="figure-euclidean-algorithm" class="figure" data-name="euclidean-algorithm" width="557.149" height="251.75" viewBox="-44.649 -2.5 557.149 251.75" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="pink angular" x="-1.25" y="-1.25" width="512.5" height="212.5" rx="0" ry="0"></rect>
+    <text class="pink" text-anchor="middle">
+        <tspan x="255" y="246"><tspan class="font-weight-bold">51</tspan></tspan>
+    </text>
+    <text class="pink" text-anchor="end">
+        <tspan x="-24.5" y="110.9"><tspan class="font-weight-bold">21</tspan></tspan>
+    </text>
+    <rect class="red angular" x="1.25" y="1.25" width="207.5" height="207.5" rx="0" ry="0"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="105" y="110.9"><tspan class="font-weight-bold">21</tspan></tspan>
+    </text>
+    <rect class="red angular" x="211.25" y="1.25" width="207.5" height="207.5" rx="0" ry="0"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="315" y="110.9"><tspan class="font-weight-bold">21</tspan></tspan>
+    </text>
+    <rect class="orange angular" x="421.25" y="1.25" width="87.5" height="87.5" rx="0" ry="0"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="465" y="50.9"><tspan class="font-weight-bold">9</tspan></tspan>
+    </text>
+    <rect class="orange angular" x="421.25" y="91.25" width="87.5" height="87.5" rx="0" ry="0"></rect>
+    <text class="orange" text-anchor="middle">
+        <tspan x="465" y="140.9"><tspan class="font-weight-bold">9</tspan></tspan>
+    </text>
+    <rect class="yellow angular" x="421.25" y="181.25" width="27.5" height="27.5" rx="0" ry="0"></rect>
+    <text class="yellow" text-anchor="middle">
+        <tspan x="435" y="200.9"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <rect class="yellow angular" x="451.25" y="181.25" width="27.5" height="27.5" rx="0" ry="0"></rect>
+    <text class="yellow" text-anchor="middle">
+        <tspan x="465" y="200.9"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <rect class="yellow angular" x="481.25" y="181.25" width="27.5" height="27.5" rx="0" ry="0"></rect>
+    <text class="yellow" text-anchor="middle">
+        <tspan x="495" y="200.9"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+
+</svg>

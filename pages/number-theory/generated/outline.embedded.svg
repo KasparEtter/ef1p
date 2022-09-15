@@ -1,0 +1,51 @@
+<svg id="figure-outline" class="figure" data-name="outline" width="661.826" height="380" viewBox="-1.25 -1.25 661.826 380" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="562.605" y1="78.688" x2="562.605" y2="40.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="329.663" y1="78.688" x2="329.663" y2="40.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="562.605" y1="157.688" x2="562.605" y2="119.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="329.663" y1="157.688" x2="329.663" y2="119.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="96.721" y1="157.688" x2="96.721" y2="119.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="562.605" y1="258.688" x2="562.605" y2="220.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="426.696" y1="278.75" x2="464.634" y2="278.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="329.663" y1="258.688" x2="329.663" y2="220.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="193.754" y1="278.75" x2="231.692" y2="278.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="96.721" y1="258.688" x2="96.721" y2="220.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <line x1="562.605" y1="337.688" x2="562.605" y2="299.75" marker-end="url(#arrow)" stroke-dasharray="31"></line>
+    <rect x="232.942" y="0" width="426.384" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="446.134" y="25.65"><tspan class="font-weight-bold">1. Linear one-way functions</tspan></tspan>
+    </text>
+    <rect x="0" y="79" width="659.326" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="329.663" y="104.65"><tspan class="font-weight-bold">2. Finite groups</tspan></tspan>
+    </text>
+    <rect x="0" y="158" width="193.442" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="96.721" y="183.65"><tspan class="font-weight-bold">4. Additive groups</tspan></tspan><tspan x="96.721" y="205.65">(Additive notation)</tspan>
+    </text>
+    <rect x="232.942" y="158" width="193.442" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="329.663" y="183.65"><tspan class="font-weight-bold">5. Multiplicative groups</tspan></tspan><tspan x="329.663" y="205.65">(Multiplicative notation)</tspan>
+    </text>
+    <rect x="465.884" y="158" width="193.442" height="61.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="562.605" y="183.65"><tspan class="font-weight-bold">9. Elliptic curves</tspan></tspan><tspan x="562.605" y="205.65">(Additive notation)</tspan>
+    </text>
+    <rect x="0" y="259" width="193.442" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="96.721" y="284.65"><tspan class="font-weight-bold">3. Modular arithmetic</tspan></tspan>
+    </text>
+    <rect x="232.942" y="259" width="193.442" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="329.663" y="284.65"><tspan class="font-weight-bold">6. Prime numbers</tspan></tspan>
+    </text>
+    <rect x="465.884" y="259" width="193.442" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="562.605" y="284.65"><tspan class="font-weight-bold">8. Finite fields</tspan></tspan>
+    </text>
+    <rect x="465.884" y="338" width="193.442" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="562.605" y="363.65"><tspan class="font-weight-bold">7. Commutative rings</tspan></tspan>
+    </text>
+
+</svg>

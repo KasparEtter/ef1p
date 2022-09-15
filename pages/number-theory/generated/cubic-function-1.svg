@@ -1,0 +1,119 @@
+<svg width="135.53" height="250.045" viewBox="-103.03 -111.875 135.53 250.045" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
+        }
+
+        .thin {
+            stroke-width: 1.25;
+        }
+
+        .thick {
+            stroke-width: 5;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+
+        .gray {
+            fill: #666666;
+            stroke: #666666;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+    </defs>
+
+    <line class="gray" x1="-69.25" y1="0" x2="32.5" y2="0" marker-end="url(#arrow-gray)" stroke-dasharray="95"></line>
+    <line class="gray" x1="0" y1="110.17" x2="0" y2="-111.875" marker-end="url(#arrow-gray)" stroke-dasharray="215"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="20.5" y="21.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-90.375"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <line class="gray thin" x1="-69.875" y1="-80" x2="31.875" y2="-80"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-82.5" y="-74.1">2</tspan>
+    </text>
+    <line class="gray thin" x1="-69.875" y1="-40" x2="31.875" y2="-40"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-82.5" y="-34.1">1</tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-82.5" y="5.9">0</tspan>
+    </text>
+    <line class="gray thin" x1="-69.875" y1="40" x2="31.875" y2="40"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-82.5" y="45.9">−1</tspan>
+    </text>
+    <line class="gray thin" x1="-69.875" y1="80" x2="31.875" y2="80"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-82.5" y="85.9">−2</tspan>
+    </text>
+    <line class="gray thin" x1="-40" y1="-111.25" x2="-40" y2="110.795"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="-40" y="134.92">−1</tspan>
+    </text>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="134.92">0</tspan>
+    </text>
+    <polyline class="blue thick" points="-68,108.92 -67.679,106.915 -67.354,104.911 -67.025,102.906 -66.694,100.902 -66.358,98.898 -66.018,96.893 -65.675,94.89 -65.328,92.886 -64.976,90.882 -64.621,88.879 -64.261,86.875 -63.896,84.872 -63.527,82.869 -63.153,80.867 -62.774,78.865 -62.39,76.863 -62.001,74.861 -61.607,72.859 -61.206,70.858 -60.8,68.858 -60.388,66.857 -59.97,64.857 -59.545,62.858 -59.114,60.859 -58.676,58.861 -58.23,56.863 -57.777,54.866 -57.316,52.87 -56.847,50.874 -56.37,48.879 -55.883,46.885 -55.388,44.892 -54.883,42.901 -54.368,40.91 -53.842,38.921 -53.305,36.933 -52.756,34.946 -52.196,32.962 -51.622,30.979 -51.035,28.998 -50.434,27.02 -49.817,25.044 -49.185,23.072 -48.535,21.102 -47.868,19.136 -47.182,17.174 -46.475,15.217 -45.747,13.265 -44.996,11.318 -44.221,9.379 -43.419,7.447 -42.589,5.524 -41.729,3.61 -40.836,1.708 -39.91,-0.18 -38.946,-2.054 -37.942,-3.909 -36.896,-5.744 -35.806,-7.555 -34.667,-9.338 -33.479,-11.09 -32.238,-12.804 -30.943,-14.477 -29.594,-16.102 -28.191,-17.674 -26.568,-19.358 -24.598,-21.227 -22.033,-23.419 -18.08,-26.398 -11.436,-30.899 -7.227,-33.843 -4.993,-35.553 -3.249,-36.993 -1.783,-38.293 -0.411,-39.593 0.912,-40.933 2.187,-42.313 3.414,-43.73 4.595,-45.184 5.732,-46.671 6.827,-48.191 7.881,-49.74 8.897,-51.316 9.877,-52.918 10.823,-54.544 11.737,-56.191 12.62,-57.858 13.475,-59.544 14.303,-61.246 15.106,-62.964 15.884,-64.697 16.64,-66.442 17.375,-68.201 18.09,-69.97 18.785,-71.75 19.463,-73.54 20.123,-75.339 20.767,-77.146 21.396,-78.962 22.01,-80.785 22.61,-82.614 23.197,-84.45 23.771,-86.293 24.333,-88.141 24.884,-89.994 25.423,-91.852 25.952,-93.715 26.471,-95.583 26.981,-97.455 27.481,-99.331 27.972,-101.21 28.454,-103.094 28.928,-104.98 29.395,-106.87 29.853,-108.763 30,-109.375"></polyline>
+    <circle class="green filled" cx="-40" cy="0" r="6"></circle>
+
+</svg>

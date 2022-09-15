@@ -1,0 +1,139 @@
+<svg width="218.155" height="219" viewBox="-109.655 -108.5 218.155 219" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        marker > circle {
+            fill-opacity: 1;
+            stroke-width: 1;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .red {
+            fill: #E60000;
+            stroke: #E60000;
+        }
+
+        .orange {
+            fill: #E66000;
+            stroke: #E66000;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-orange" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="orange" />
+        </marker>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="circle-orange" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="orange" />
+        </marker>
+        <marker id="circle-red" markerWidth="3" markerHeight="3" refX="1.5" refY="1.5">
+            <circle cx="1.5" cy="1.5" r="1" class="red" />
+        </marker>
+    </defs>
+
+    <circle cx="0" cy="0" r="80"></circle>
+    <text text-anchor="middle">
+        <tspan x="0" y="5.9"><tspan class="font-weight-bold">+6</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="-95.6"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="44.039" y="-85.548"><tspan class="font-weight-bold">1</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="79.356" y="-57.384"><tspan class="font-weight-bold">2</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="98.955" y="-16.686"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="98.955" y="28.486"><tspan class="font-weight-bold">4</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="79.356" y="69.184"><tspan class="font-weight-bold">5</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="44.039" y="97.348"><tspan class="font-weight-bold">6</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="107.4"><tspan class="font-weight-bold">7</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-44.039" y="97.348"><tspan class="font-weight-bold">8</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-79.356" y="69.184"><tspan class="font-weight-bold">9</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-98.955" y="28.486"><tspan class="font-weight-bold">10</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-98.955" y="-16.686"><tspan class="font-weight-bold">11</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-79.356" y="-57.384"><tspan class="font-weight-bold">12</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-44.039" y="-85.548"><tspan class="font-weight-bold">13</tspan></tspan>
+    </text>
+    <line class="orange" x1="34.711" y1="-72.078" x2="0.834" y2="76.344" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="0" y1="80" x2="-33.876" y2="-68.422" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-34.711" y1="-72.078" x2="60.208" y2="46.947" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="62.547" y1="49.879" x2="-74.616" y2="-16.175" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-77.994" y1="-17.802" x2="74.244" y2="-17.802" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="77.994" y1="-17.802" x2="-59.168" y2="48.252" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-62.547" y1="49.879" x2="32.373" y2="-69.146" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="red" x1="0" y1="-80" x2="33.876" y2="68.422" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="34.711" y1="72.078" x2="-60.208" y2="-46.947" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-62.547" y1="-49.879" x2="74.616" y2="16.175" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="77.994" y1="17.802" x2="-74.244" y2="17.802" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-77.994" y1="17.802" x2="59.168" y2="-48.252" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="62.547" y1="-49.879" x2="-32.373" y2="69.146" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-34.711" y1="72.078" x2="-0.834" y2="-76.344" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+
+</svg>

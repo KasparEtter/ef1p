@@ -1,0 +1,47 @@
+<svg id="figure-elliptic-curve-associativity" class="figure" data-name="elliptic-curve-associativity" width="305" height="455.998" viewBox="-152.5 -227.999 305 455.998" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line class="gray" x1="-151.25" y1="0" x2="152.5" y2="0" marker-end="url(#arrow-gray)" stroke-dasharray="297"></line>
+    <line class="gray" x1="0" y1="226.749" x2="0" y2="-227.999" marker-end="url(#arrow-gray)" stroke-dasharray="448"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="140.5" y="21.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-206.499"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <polyline class="blue thick" points="150,225.499 147.4,219.389 142.884,208.913 138.423,198.746 134.024,188.896 129.692,179.376 125.433,170.194 121.254,161.36 117.16,152.884 113.158,144.775 109.254,137.039 105.453,129.682 101.761,122.708 98.182,116.118 94.72,109.911 91.376,104.083 88.152,98.629 85.047,93.538 82.058,88.801 79.184,84.403 76.42,80.33 73.759,76.567 71.197,73.097 68.725,69.903 66.337,66.971 64.023,64.284 61.776,61.828 59.587,59.59 57.446,57.557 55.322,55.701 53.124,53.957 50.843,52.344 48.471,50.889 45.996,49.619 43.412,48.568 40.712,47.769 37.899,47.258 34.989,47.059 32.014,47.181 29.014,47.605 26.029,48.293 22.659,49.339 18.468,50.96 9.543,55.154 -1.144,60.569 -11.9,65.467 -19.325,68.112 -25.418,69.652 -30.708,70.426 -35.404,70.602 -39.603,70.292 -43.357,69.592 -46.7,68.59 -49.663,67.367 -52.468,65.885 -55.156,64.131 -57.705,62.127 -60.099,59.9 -62.329,57.481 -64.393,54.896 -66.292,52.173 -68.034,49.332 -69.624,46.393 -71.072,43.37 -72.385,40.273 -73.572,37.11 -74.638,33.888 -75.59,30.609 -76.434,27.273 -77.173,23.877 -77.811,20.415 -78.35,16.876 -78.791,13.24 -79.13,9.474 -79.363,5.536 -79.483,0 -79.483,0 -79.363,-5.536 -79.13,-9.474 -78.791,-13.24 -78.35,-16.876 -77.811,-20.415 -77.173,-23.877 -76.434,-27.273 -75.59,-30.609 -74.638,-33.888 -73.572,-37.11 -72.385,-40.273 -71.072,-43.37 -69.624,-46.393 -68.034,-49.332 -66.292,-52.173 -64.393,-54.896 -62.329,-57.481 -60.099,-59.9 -57.705,-62.127 -55.156,-64.131 -52.468,-65.885 -49.663,-67.367 -46.7,-68.59 -43.357,-69.592 -39.603,-70.292 -35.404,-70.602 -30.708,-70.426 -25.418,-69.652 -19.325,-68.112 -11.9,-65.467 -1.144,-60.569 9.543,-55.154 18.468,-50.96 22.659,-49.339 26.029,-48.293 29.014,-47.605 32.014,-47.181 34.989,-47.059 37.899,-47.258 40.712,-47.769 43.412,-48.568 45.996,-49.619 48.471,-50.889 50.843,-52.344 53.124,-53.957 55.322,-55.701 57.446,-57.557 59.587,-59.59 61.776,-61.828 64.023,-64.284 66.337,-66.971 68.725,-69.903 71.197,-73.097 73.759,-76.567 76.42,-80.33 79.184,-84.403 82.058,-88.801 85.047,-93.538 88.152,-98.629 91.376,-104.083 94.72,-109.911 98.182,-116.118 101.761,-122.708 105.453,-129.682 109.254,-137.039 113.158,-144.775 117.16,-152.884 121.254,-161.36 125.433,-170.194 129.692,-179.376 134.024,-188.896 138.423,-198.746 142.884,-208.913 147.4,-219.389 150,-225.499"></polyline>
+    <line class="red thick" x1="-150" y1="76.866" x2="150" y2="-133.009"></line>
+    <line class="red thick" x1="28.165" y1="47.775" x2="28.165" y2="-47.775"></line>
+    <line class="orange thick" x1="-150" y1="-156.362" x2="150" y2="187.371"></line>
+    <line class="orange thick" x1="113.603" y1="-145.668" x2="113.603" y2="145.668"></line>
+    <line class="brown thick" x1="-150" y1="-40.662" x2="150" y2="-95.895"></line>
+    <line class="brown thick" x1="-12.966" y1="65.891" x2="-12.966" y2="-65.891"></line>
+    <line class="yellow thick" x1="-150" y1="-20.482" x2="150" y2="168.609"></line>
+    <circle class="pink filled" cx="-76.8" cy="25.656" r="7.5"></circle>
+    <text class="pink" text-anchor="middle">
+        <tspan x="-106.741" y="33.44"><tspan class="large"><tspan class="font-weight-bold">A</tspan></tspan></tspan>
+    </text>
+    <circle class="pink filled" cx="78" cy="-82.639" r="7.5"></circle>
+    <text class="pink" text-anchor="middle">
+        <tspan x="60.366" y="-101.009"><tspan class="large"><tspan class="font-weight-bold">B</tspan></tspan></tspan>
+    </text>
+    <circle class="pink filled" cx="-63" cy="-56.679" r="7.5"></circle>
+    <text class="pink" text-anchor="middle">
+        <tspan x="-59.24" y="-80.543"><tspan class="large"><tspan class="font-weight-bold">C</tspan></tspan></tspan>
+    </text>
+    <circle class="red filled" cx="28.165" cy="-47.775" r="7.5"></circle>
+    <circle class="red filled" cx="28.165" cy="47.775" r="7.5"></circle>
+    <text class="red" text-anchor="middle">
+        <tspan x="71.597" y="33.238"><tspan class="large"><tspan class="font-weight-bold">A + B</tspan></tspan></tspan>
+    </text>
+    <circle class="orange filled" cx="113.603" cy="145.668" r="7.5"></circle>
+    <circle class="orange filled" cx="113.603" cy="-145.668" r="7.5"></circle>
+    <text class="orange" text-anchor="middle">
+        <tspan x="61.123" y="-164.463"><tspan class="large"><tspan class="font-weight-bold">A + B + C</tspan></tspan></tspan>
+    </text>
+    <circle class="brown filled" cx="-12.966" cy="-65.891" r="7.5"></circle>
+    <circle class="brown filled" cx="-12.966" cy="65.891" r="7.5"></circle>
+    <text class="brown" text-anchor="middle">
+        <tspan x="-36.478" y="104.152"><tspan class="large"><tspan class="font-weight-bold">B + C</tspan></tspan></tspan>
+    </text>
+
+</svg>

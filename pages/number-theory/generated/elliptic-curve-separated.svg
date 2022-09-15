@@ -1,0 +1,142 @@
+<svg width="337.53" height="466.492" viewBox="-185.03 -219.871 337.53 466.492" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .filled {
+            fill-opacity: 1;
+            stroke-width: 0;
+        }
+
+        .thin {
+            stroke-width: 1.25;
+        }
+
+        .thick {
+            stroke-width: 5;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+
+        .gray {
+            fill: #666666;
+            stroke: #666666;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-gray" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="gray" />
+        </marker>
+    </defs>
+
+    <line class="gray" x1="-151.25" y1="0" x2="152.5" y2="0" marker-end="url(#arrow-gray)" stroke-dasharray="297"></line>
+    <line class="gray" x1="0" y1="218.621" x2="0" y2="-219.871" marker-end="url(#arrow-gray)" stroke-dasharray="431"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="140.5" y="21.5"><tspan class="font-weight-bold">x</tspan></tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-12" y="-198.371"><tspan class="font-weight-bold">y</tspan></tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-180" x2="151.875" y2="-180"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-174.1">3</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-120" x2="151.875" y2="-120"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-114.1">2</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="-60" x2="151.875" y2="-60"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="-54.1">1</tspan>
+    </text>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="5.9">0</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="60" x2="151.875" y2="60"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="65.9">−1</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="120" x2="151.875" y2="120"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="125.9">−2</tspan>
+    </text>
+    <line class="gray thin" x1="-151.875" y1="180" x2="151.875" y2="180"></line>
+    <text class="gray" text-anchor="end">
+        <tspan x="-164.5" y="185.9">−3</tspan>
+    </text>
+    <line class="gray thin" x1="-120" y1="-219.246" x2="-120" y2="219.246"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="-120" y="243.371">−2</tspan>
+    </text>
+    <line class="gray thin" x1="-60" y1="-219.246" x2="-60" y2="219.246"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="-60" y="243.371">−1</tspan>
+    </text>
+    <text class="gray" text-anchor="middle">
+        <tspan x="0" y="243.371">0</tspan>
+    </text>
+    <line class="gray thin" x1="60" y1="-219.246" x2="60" y2="219.246"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="60" y="243.371">1</tspan>
+    </text>
+    <line class="gray thin" x1="120" y1="-219.246" x2="120" y2="219.246"></line>
+    <text class="gray" text-anchor="middle">
+        <tspan x="120" y="243.371">2</tspan>
+    </text>
+    <polyline class="blue thick" points="0,0 -2.031,11.032 -2.199,11.479 -2.615,12.514 -3.25,13.943 -4.095,15.639 -5.142,17.501 -6.38,19.454 -7.795,21.442 -9.374,23.424 -11.105,25.367 -12.979,27.245 -14.987,29.036 -17.123,30.72 -19.382,32.273 -21.762,33.674 -24.26,34.894 -26.874,35.902 -29.6,36.657 -32.432,37.113 -35.355,37.212 -38.341,36.893 -41.337,36.097 -44.268,34.789 -47.042,32.977 -49.581,30.716 -51.834,28.088 -53.789,25.171 -55.451,22.032 -56.837,18.711 -57.964,15.232 -58.846,11.597 -59.489,7.784 -59.88,3.789 -60,0 -60,0 -59.88,-3.789 -59.489,-7.784 -58.846,-11.597 -57.964,-15.232 -56.837,-18.711 -55.451,-22.032 -53.789,-25.171 -51.834,-28.088 -49.581,-30.716 -47.042,-32.977 -44.268,-34.789 -41.337,-36.097 -38.341,-36.893 -35.355,-37.212 -32.432,-37.113 -29.6,-36.657 -26.874,-35.902 -24.26,-34.894 -21.762,-33.674 -19.382,-32.273 -17.123,-30.72 -14.987,-29.036 -12.979,-27.245 -11.105,-25.367 -9.374,-23.424 -7.795,-21.442 -6.38,-19.454 -5.142,-17.501 -4.095,-15.639 -3.25,-13.943 -2.615,-12.514 -2.199,-11.479 -2.031,-11.032 0,0"></polyline>
+    <polyline class="blue thick" points="150,217.371 147.044,210.16 142.451,199.074 137.805,188.01 133.106,176.969 128.351,165.952 123.54,154.959 118.671,143.991 113.745,133.049 108.761,122.133 103.723,111.242 98.634,100.373 93.503,89.524 88.346,78.686 83.187,67.847 78.073,56.983 75.008,50.329 72.932,45.713 71.387,42.19 70.173,39.354 68.983,36.497 67.818,33.608 66.684,30.677 65.588,27.698 64.538,24.657 63.546,21.539 62.623,18.324 61.79,14.984 61.07,11.482 60.496,7.763 60.12,3.8 60,0 60,0 60.12,-3.8 60.496,-7.763 61.07,-11.482 61.79,-14.984 62.623,-18.324 63.546,-21.539 64.538,-24.657 65.588,-27.698 66.684,-30.677 67.818,-33.608 68.983,-36.497 70.173,-39.354 71.387,-42.19 72.932,-45.713 75.008,-50.329 78.073,-56.983 83.187,-67.847 88.346,-78.686 93.503,-89.524 98.634,-100.373 103.723,-111.242 108.761,-122.133 113.745,-133.049 118.671,-143.991 123.54,-154.959 128.351,-165.952 133.106,-176.969 137.805,-188.01 142.451,-199.074 147.044,-210.16 150,-217.371"></polyline>
+    <circle class="green filled" cx="-60" cy="0" r="7.5"></circle>
+    <circle class="green filled" cx="0" cy="0" r="7.5"></circle>
+    <circle class="green filled" cx="60" cy="0" r="7.5"></circle>
+
+</svg>

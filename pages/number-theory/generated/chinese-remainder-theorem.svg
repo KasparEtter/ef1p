@@ -1,0 +1,160 @@
+<svg width="557.5" height="71.5" viewBox="-16.25 -34.75 557.5 71.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .thin {
+            stroke-width: 1.25;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+    </defs>
+
+    <line class="thin" x1="15" y1="-5" x2="15" y2="5"></line>
+    <line class="thin" x1="30" y1="-5" x2="30" y2="5"></line>
+    <line class="thin" x1="45" y1="-5" x2="45" y2="5"></line>
+    <line class="thin" x1="60" y1="-5" x2="60" y2="5"></line>
+    <line class="thin" x1="75" y1="-5" x2="75" y2="5"></line>
+    <line class="thin" x1="90" y1="-5" x2="90" y2="5"></line>
+    <line class="thin" x1="105" y1="-5" x2="105" y2="5"></line>
+    <line class="thin" x1="120" y1="-5" x2="120" y2="5"></line>
+    <line class="thin" x1="135" y1="-5" x2="135" y2="5"></line>
+    <line class="thin" x1="150" y1="-5" x2="150" y2="5"></line>
+    <line class="thin" x1="165" y1="-5" x2="165" y2="5"></line>
+    <line class="thin" x1="180" y1="-5" x2="180" y2="5"></line>
+    <line class="thin" x1="195" y1="-5" x2="195" y2="5"></line>
+    <line class="thin" x1="210" y1="-5" x2="210" y2="5"></line>
+    <line class="thin" x1="225" y1="-5" x2="225" y2="5"></line>
+    <line class="thin" x1="240" y1="-5" x2="240" y2="5"></line>
+    <line class="thin" x1="255" y1="-5" x2="255" y2="5"></line>
+    <line class="thin" x1="270" y1="-5" x2="270" y2="5"></line>
+    <line class="thin" x1="285" y1="-5" x2="285" y2="5"></line>
+    <line class="thin" x1="300" y1="-5" x2="300" y2="5"></line>
+    <line class="thin" x1="315" y1="-5" x2="315" y2="5"></line>
+    <line class="thin" x1="330" y1="-5" x2="330" y2="5"></line>
+    <line class="thin" x1="345" y1="-5" x2="345" y2="5"></line>
+    <line class="thin" x1="360" y1="-5" x2="360" y2="5"></line>
+    <line class="thin" x1="375" y1="-5" x2="375" y2="5"></line>
+    <line class="thin" x1="390" y1="-5" x2="390" y2="5"></line>
+    <line class="thin" x1="405" y1="-5" x2="405" y2="5"></line>
+    <line class="thin" x1="420" y1="-5" x2="420" y2="5"></line>
+    <line class="thin" x1="435" y1="-5" x2="435" y2="5"></line>
+    <line class="thin" x1="450" y1="-5" x2="450" y2="5"></line>
+    <line class="thin" x1="465" y1="-5" x2="465" y2="5"></line>
+    <line class="thin" x1="480" y1="-5" x2="480" y2="5"></line>
+    <line class="thin" x1="495" y1="-5" x2="495" y2="5"></line>
+    <line class="thin" x1="510" y1="-5" x2="510" y2="5"></line>
+    <line class="blue" x1="0" y1="-10" x2="0" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="0" y="-22"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <line class="blue" x1="75" y1="-10" x2="75" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="75" y="-22"><tspan class="font-weight-bold">5</tspan></tspan>
+    </text>
+    <line class="blue" x1="150" y1="-10" x2="150" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="150" y="-22"><tspan class="font-weight-bold">10</tspan></tspan>
+    </text>
+    <line class="blue" x1="225" y1="-10" x2="225" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="225" y="-22"><tspan class="font-weight-bold">15</tspan></tspan>
+    </text>
+    <line class="blue" x1="300" y1="-10" x2="300" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="300" y="-22"><tspan class="font-weight-bold">20</tspan></tspan>
+    </text>
+    <line class="blue" x1="375" y1="-10" x2="375" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="375" y="-22"><tspan class="font-weight-bold">25</tspan></tspan>
+    </text>
+    <line class="blue" x1="450" y1="-10" x2="450" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="450" y="-22"><tspan class="font-weight-bold">30</tspan></tspan>
+    </text>
+    <line class="blue" x1="525" y1="-10" x2="525" y2="-1.25"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="525" y="-22"><tspan class="font-weight-bold">35</tspan></tspan>
+    </text>
+    <line class="green" x1="0" y1="1.25" x2="0" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="0" y="33.5"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <line class="green" x1="105" y1="1.25" x2="105" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="105" y="33.5"><tspan class="font-weight-bold">7</tspan></tspan>
+    </text>
+    <line class="green" x1="210" y1="1.25" x2="210" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="210" y="33.5"><tspan class="font-weight-bold">14</tspan></tspan>
+    </text>
+    <line class="green" x1="315" y1="1.25" x2="315" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="315" y="33.5"><tspan class="font-weight-bold">21</tspan></tspan>
+    </text>
+    <line class="green" x1="420" y1="1.25" x2="420" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="420" y="33.5"><tspan class="font-weight-bold">28</tspan></tspan>
+    </text>
+    <line class="green" x1="525" y1="1.25" x2="525" y2="10"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="525" y="33.5"><tspan class="font-weight-bold">35</tspan></tspan>
+    </text>
+    <line x1="-15" y1="0" x2="540" y2="0" marker-end="url(#arrow)" stroke-dasharray="548"></line>
+
+</svg>

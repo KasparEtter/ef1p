@@ -1,0 +1,39 @@
+<svg id="figure-square-roots-modulo-power-of-2" class="figure" data-name="square-roots-modulo-power-of-2" width="582.238" height="164" viewBox="-5.975 -82.75 582.238 164" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <path class="green" d="M 315,-5 A 140 70 0 0 0 35,-5 L 34.998166,-4.99017" marker-end="url(#arrow-green)" stroke-dasharray="332"></path>
+    <line class="green thick" x1="315" y1="-5" x2="315" y2="-2.5"></line>
+    <line class="green thick" x1="35" y1="-5" x2="35" y2="-2.5"></line>
+    <path class="green" d="M 525,-5 A 140 70 0 0 0 245,-5 L 244.998166,-4.99017" marker-end="url(#arrow-green)" stroke-dasharray="332"></path>
+    <line class="green thick" x1="525" y1="-5" x2="525" y2="-2.5"></line>
+    <line class="green thick" x1="245" y1="-5" x2="245" y2="-2.5"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="280" y="-70"><tspan class="font-weight-bold">±2<tspan class="script" dy="-6">e</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <path class="blue" d="M 175,5 A 70 52.5 0 0 1 35,5 L 34.998726,4.990081" marker-end="url(#arrow-blue)" stroke-dasharray="186"></path>
+    <line class="blue thick" x1="175" y1="5" x2="175" y2="2.5"></line>
+    <line class="blue thick" x1="35" y1="5" x2="35" y2="2.5"></line>
+    <path class="blue" d="M 105,5 A 70 52.5 0 0 0 245,5 L 245.001274,4.990081" marker-end="url(#arrow-blue)" stroke-dasharray="186"></path>
+    <line class="blue thick" x1="105" y1="5" x2="105" y2="2.5"></line>
+    <line class="blue thick" x1="245" y1="5" x2="245" y2="2.5"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="140" y="78"><tspan class="font-weight-bold">±2<tspan class="script" dy="-6">e−1</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <line x1="0" y1="0" x2="560" y2="0"></line>
+    <line x1="0" y1="-5" x2="0" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="0" y="28.5"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <line x1="140" y1="-5" x2="140" y2="5"></line>
+    <text text-anchor="middle">
+        <tspan x="140" y="28.5"><tspan class="font-weight-bold">2<tspan class="script" dy="-6">e−1</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <line class="blue" x1="280" y1="-5" x2="280" y2="5"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="280" y="28.5"><tspan class="font-weight-bold">2<tspan class="script" dy="-6">e</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <line class="green" x1="560" y1="-5" x2="560" y2="5"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="560" y="28.5"><tspan class="font-weight-bold">2<tspan class="script" dy="-6">e+1</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+
+</svg>

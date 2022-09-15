@@ -1,0 +1,49 @@
+<svg id="figure-cyclic-group" class="figure" data-name="cyclic-group" width="225.25" height="225.25" viewBox="-112.625 -112.625 225.25 225.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle cx="0" cy="0" r="80"></circle>
+    <line class="blue" x1="0" y1="-75" x2="0" y2="-85"></line>
+    <line x1="44.084" y1="-60.676" x2="49.962" y2="-68.766"></line>
+    <line x1="71.329" y1="-23.176" x2="80.84" y2="-26.266"></line>
+    <line x1="71.329" y1="23.176" x2="80.84" y2="26.266"></line>
+    <line x1="44.084" y1="60.676" x2="49.962" y2="68.766"></line>
+    <line x1="0" y1="75" x2="0" y2="85"></line>
+    <line x1="-44.084" y1="60.676" x2="-49.962" y2="68.766"></line>
+    <line x1="-71.329" y1="23.176" x2="-80.84" y2="26.266"></line>
+    <line x1="-71.329" y1="-23.176" x2="-80.84" y2="-26.266"></line>
+    <line x1="-44.084" y1="-60.676" x2="-49.962" y2="-68.766"></line>
+    <text text-anchor="middle">
+        <tspan x="0" y="-96.85"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">0</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="60.395" y="-77.226"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">1</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="97.721" y="-25.851"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">2</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="97.721" y="37.651"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">3</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="60.395" y="89.026"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">4</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="108.65"><tspan class="font-weight-bold">…</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-60.395" y="89.026"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">−4</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-97.721" y="37.651"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">−3</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-97.721" y="-25.851"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">−2</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-60.395" y="-77.226"><tspan class="font-weight-bold">G<tspan class="script" dy="-6">−1</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <path class="blue" d="M 0,-53.333 A 53.333 53.333 0 0 1 0,53.333 L -0.009973,53.334063" marker-end="url(#arrow-blue)" stroke-dasharray="161"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="0" y="8.9"><tspan class="large">𝔾</tspan></tspan>
+    </text>
+
+</svg>

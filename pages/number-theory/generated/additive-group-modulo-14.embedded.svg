@@ -1,0 +1,64 @@
+<svg id="figure-additive-group-modulo-14" class="figure" data-name="additive-group-modulo-14" width="218.155" height="219" viewBox="-109.655 -108.5 218.155 219" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle cx="0" cy="0" r="80"></circle>
+    <text text-anchor="middle">
+        <tspan x="0" y="5.9"><tspan class="font-weight-bold">+6</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="-95.6"><tspan class="font-weight-bold">0</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="44.039" y="-85.548"><tspan class="font-weight-bold">1</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="79.356" y="-57.384"><tspan class="font-weight-bold">2</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="98.955" y="-16.686"><tspan class="font-weight-bold">3</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="98.955" y="28.486"><tspan class="font-weight-bold">4</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="79.356" y="69.184"><tspan class="font-weight-bold">5</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="44.039" y="97.348"><tspan class="font-weight-bold">6</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="0" y="107.4"><tspan class="font-weight-bold">7</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-44.039" y="97.348"><tspan class="font-weight-bold">8</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-79.356" y="69.184"><tspan class="font-weight-bold">9</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-98.955" y="28.486"><tspan class="font-weight-bold">10</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-98.955" y="-16.686"><tspan class="font-weight-bold">11</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-79.356" y="-57.384"><tspan class="font-weight-bold">12</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="-44.039" y="-85.548"><tspan class="font-weight-bold">13</tspan></tspan>
+    </text>
+    <line class="orange" x1="34.711" y1="-72.078" x2="0.834" y2="76.344" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="0" y1="80" x2="-33.876" y2="-68.422" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-34.711" y1="-72.078" x2="60.208" y2="46.947" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="62.547" y1="49.879" x2="-74.616" y2="-16.175" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-77.994" y1="-17.802" x2="74.244" y2="-17.802" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="77.994" y1="-17.802" x2="-59.168" y2="48.252" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="orange" x1="-62.547" y1="49.879" x2="32.373" y2="-69.146" marker-start="url(#circle-orange)" marker-end="url(#arrow-orange)" stroke-dasharray="145"></line>
+    <line class="red" x1="0" y1="-80" x2="33.876" y2="68.422" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="34.711" y1="72.078" x2="-60.208" y2="-46.947" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-62.547" y1="-49.879" x2="74.616" y2="16.175" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="77.994" y1="17.802" x2="-74.244" y2="17.802" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-77.994" y1="17.802" x2="59.168" y2="-48.252" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="62.547" y1="-49.879" x2="-32.373" y2="69.146" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+    <line class="red" x1="-34.711" y1="72.078" x2="-0.834" y2="-76.344" marker-start="url(#circle-red)" marker-end="url(#arrow-red)" stroke-dasharray="145"></line>
+
+</svg>

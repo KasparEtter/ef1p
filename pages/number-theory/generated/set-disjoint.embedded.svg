@@ -1,0 +1,12 @@
+<svg id="figure-set-disjoint" class="figure" data-name="set-disjoint" width="266.5" height="122.5" viewBox="-61.25 -61.25 266.5 122.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <circle cx="0" cy="0" r="60"></circle>
+    <text text-anchor="middle">
+        <tspan x="0" y="5.9">𝔸</tspan>
+    </text>
+    <circle cx="144" cy="0" r="60"></circle>
+    <text text-anchor="middle">
+        <tspan x="144" y="5.9">𝔹</tspan>
+    </text>
+
+</svg>
