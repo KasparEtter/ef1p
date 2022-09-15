@@ -10,6 +10,7 @@ import { Box, BoxSide, opposite } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { strokeRadius, textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
+import { round6 } from '../utility/math';
 import { Point } from '../utility/point';
 
 import { VisualElement, VisualElementProps } from './element';
@@ -21,11 +22,20 @@ export interface ArcProps extends VisualElementProps {
     startSide: BoxSide;
     end: Point;
     endSide: BoxSide;
-    radius?: number; // Used if startSide === endSide.
-    marker?: Marker | Marker[];
-}
 
-export const defaultArcRadius = 50;
+    /**
+     * Used only if startSide === endSide.
+     */
+    radius?: number | undefined;
+
+    /**
+     * Override the calculated ratio between the point on the arc and the corner for correcting the direction of the arrow.
+     * The higher the ratio, the more perpendicular the arrow.
+     */
+    ratio?: number | undefined;
+
+    marker?: Marker | Marker[] | undefined;
+}
 
 export enum Rotation {
     counterclockwise = 0,
@@ -33,6 +43,8 @@ export enum Rotation {
 }
 
 export type ArcSide = 'inside' | 'outside';
+
+const epsilon = 0.01;
 
 export class Arc extends VisualElement<ArcProps> {
     public constructor(
@@ -87,7 +99,16 @@ export class Arc extends VisualElement<ArcProps> {
         return new Arc({ start, startSide, end, endSide, marker, ...props });
     }
 
-    protected _boundingBox({ start, startSide, end, endSide, radius = defaultArcRadius }: ArcProps): Box {
+    protected getDefaultRadius(): number {
+        const { start, startSide, end } = this.props;
+        if (startSide === 'top' || startSide === 'bottom') {
+            return Math.abs(end.x - start.x) / 3;
+        } else {
+            return Math.abs(end.y - start.y) / 3;
+        }
+    }
+
+    protected _boundingBox({ start, startSide, end, endSide, radius = this.getDefaultRadius() }: ArcProps): Box {
         const boundingBox = Box.around(start, end);
         if (startSide === endSide) {
             switch (startSide) {
@@ -106,7 +127,7 @@ export class Arc extends VisualElement<ArcProps> {
     }
 
     public radius(): Point {
-        const { start, end, radius = defaultArcRadius } = this.props;
+        const { start, end, radius = this.getDefaultRadius() } = this.props;
         const vector = end.subtract(start).absolute();
         if (vector.x === 0) {
             return new Point(radius, vector.y / 2);
@@ -157,25 +178,11 @@ export class Arc extends VisualElement<ArcProps> {
         }
     }
 
-    protected _encode(collector: Collector, prefix: string, { start, end, marker, color }: ArcProps): string {
-        const {x, y} = this.radius().round3(); // This rounding (and numeric imprecision) could introduce problems in case of half ellipses.
-        collector.elements.add('path');
-        return prefix + `<path${this.attributes(collector)}`
-            + ` d="M ${start.encode()} A ${x} ${y} 0 0 ${this.rotation()} ${end.encode()}"`
-            + markerAttributes(collector, this.length.bind(this), marker, color)
-            + `>${this.children(collector, prefix)}</path>\n`;
-    }
-
-    public text(
-        text: TextLine | TextLine[],
-        side: ArcSide,
-        distance: number = textToLineDistance,
-        props: Omit<TextProps, 'position' | 'text'> = {},
-    ): Text {
-        const { start, startSide, end, endSide, radius = defaultArcRadius, color } = this.props;
+    protected getCenterAndOpposite(): [Point, Point] {
+        const { start, startSide, end, endSide, radius = this.getDefaultRadius() } = this.props;
         const rotation = this.rotation();
 
-        // Determine the center of the arc and the opposite point on the bounding box.
+        // Determine the center of the ellipse and its opposite point on the arc's bounding box.
         let center: Point;
         let opposite: Point;
         if (startSide === endSide) {
@@ -216,17 +223,72 @@ export class Arc extends VisualElement<ArcProps> {
             }
         }
 
-        // Determine the vector from the center to the intersection with the arc towards the opposite point.
-        let vector = opposite.subtract(center);
-        if (startSide !== endSide) {
-            // https://math.stackexchange.com/questions/432902/how-to-get-the-radius-of-an-ellipse-at-a-specific-angle-by-knowing-its-semi-majo
-            const angle = Math.atan(vector.y / vector.x);
-            const {x, y} = vector.absolute();
-            const xSin = x * Math.sin(angle);
-            const yCos = y * Math.cos(angle);
-            const r = x * y / Math.sqrt(xSin * xSin + yCos * yCos);
-            vector = vector.normalize(r);
+        return [center, opposite];
+    }
+
+    protected getVectorTowards(center: Point, point: Point): Point {
+        // https://math.stackexchange.com/questions/432902/how-to-get-the-radius-of-an-ellipse-at-a-specific-angle-by-knowing-its-semi-majo
+        const vector = point.subtract(center);
+        const angle = Math.atan(vector.y / vector.x);
+        const {x, y} = vector.absolute();
+        const xSin = x * Math.sin(angle);
+        const yCos = y * Math.cos(angle);
+        const r = x * y / Math.sqrt(xSin * xSin + yCos * yCos);
+        return vector.normalize(r);
+    }
+
+    protected ratio(): number {
+        const radius = this.radius().absolute();
+        const [larger, smaller] = radius.largerAndSmaller();
+        return (1 + smaller / larger + Math.min(radius.length() / 250, 1)) / 3;
+    }
+
+    protected adjustStartArrowDirection(): string {
+        if (normalizeToArray(this.props.marker).includes('start')) {
+            const { start, startSide, end, endSide, ratio } = this.props;
+            const [center, opposite] = this.getCenterAndOpposite();
+            const corner = startSide === endSide ? opposite.subtract(end.subtract(start).divide(2)) : opposite;
+            const vector = this.getVectorTowards(center, corner);
+            const direction = start.subtract(center.add(vector).towards(corner, ratio ?? this.ratio()));
+            const point = start.add(direction.normalize(epsilon));
+            return `${round6(point.x)},${round6(point.y)} L `;
+        } else {
+            return '';
         }
+    }
+
+    protected adjustEndArrowDirection(): string {
+        if (normalizeToArray(this.props.marker).includes('end')) {
+            const { start, startSide, end, endSide, ratio } = this.props;
+            const [center, opposite] = this.getCenterAndOpposite();
+            const corner = startSide === endSide ? opposite.add(end.subtract(start).divide(2)) : opposite;
+            const vector = this.getVectorTowards(center, corner);
+            const direction = end.subtract(center.add(vector).towards(corner, ratio ?? this.ratio()));
+            const point = end.add(direction.normalize(epsilon));
+            return ` L ${round6(point.x)},${round6(point.y)}`;
+        } else {
+            return '';
+        }
+    }
+
+    protected _encode(collector: Collector, prefix: string, { start, end, marker, color }: ArcProps): string {
+        const {x, y} = this.radius().round3(); // This rounding (and numeric imprecision) could introduce problems in case of half ellipses.
+        collector.elements.add('path');
+        return prefix + `<path${this.attributes(collector)}`
+            + ` d="M ${this.adjustStartArrowDirection()}${start.encode()} A ${x} ${y} 0 0 ${this.rotation()} ${end.encode()}${this.adjustEndArrowDirection()}"`
+            + markerAttributes(collector, this.length.bind(this), marker, color)
+            + `>${this.children(collector, prefix)}</path>\n`;
+    }
+
+    public text(
+        text: TextLine | TextLine[],
+        side: ArcSide,
+        distance: number = textToLineDistance,
+        props: Omit<TextProps, 'position' | 'text'> = {},
+    ): Text {
+        const { startSide, endSide, color } = this.props;
+        const [center, opposite] = this.getCenterAndOpposite();
+        const vector = startSide === endSide ? opposite.subtract(center) : this.getVectorTowards(center, opposite);
 
         // Determine the position on the desired arc side.
         let offset = vector.normalize(distance);

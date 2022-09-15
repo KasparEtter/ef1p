@@ -171,7 +171,7 @@ const staticStyles: Style[] = [
         filter: collector => collector.elements.has('svg'),
         selector: 'svg',
         properties: {
-            'font-family': 'Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+            'font-family': 'Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
             'font-size': '1rem',
             'font-weight': '400',
             'line-height': '1.5',
@@ -255,6 +255,20 @@ const staticStyles: Style[] = [
         properties: {
             'fill-opacity': '1',
             'stroke-width': '0',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('alpha'),
+        selector: '.alpha',
+        properties: {
+            'fill-opacity': '0.2',
+        },
+    },
+    {
+        filter: collector => collector.classes.has('beta'),
+        selector: '.beta',
+        properties: {
+            'fill-opacity': '0.3',
         },
     },
     {

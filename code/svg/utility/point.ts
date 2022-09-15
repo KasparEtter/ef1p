@@ -38,6 +38,10 @@ export class Point {
         return new Point(Math.abs(this.x), Math.abs(this.y));
     }
 
+    public largerAndSmaller(): [number, number] {
+        return this.x > this.y ? [this.x, this.y] : [this.y, this.x];
+    }
+
     public sign(): Point {
         return new Point(Math.sign(this.x), Math.sign(this.y));
     }
@@ -114,6 +118,10 @@ export class Point {
         return new Point((this.x + that.x) / 2, (this.y + that.y) / 2);
     }
 
+    public towards(that: Point, ratio: number): Point {
+        return new Point((1 - ratio) * this.x + ratio * that.x, (1 - ratio) * this.y + ratio * that.y);
+    }
+
     public distanceTo(that: Point): number {
         return that.subtract(this).length();
     }
@@ -126,7 +134,7 @@ export class Point {
             throw Error(`The number of points has to be at least two but was ${amount}.`);
         }
         const step = that.subtract(this).divide(amount - 1);
-        const points: Point[] = new Array(amount);
+        const points = new Array<Point>();
         for (let i = 0; i < amount; i++) {
             points[i] = this.add(step.multiply(i));
         }
@@ -145,7 +153,7 @@ export class Point {
      */
     public radial(radius: number, amount: number, offsetAngle: number = -Math.PI / 2): Point[] {
         const angle = Math.PI * 2 / amount;
-        const points: Point[] = new Array(amount);
+        const points = new Array<Point>();
         for (let i = 0; i < amount; i++) {
             points[i] = this.point(radius, offsetAngle + i * angle);
         }

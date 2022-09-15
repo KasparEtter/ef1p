@@ -36,17 +36,17 @@ export abstract class AnimationElement<P = {}> extends Element<P> {}
 // ElementWithChildren
 
 export interface ElementWithChildrenProps<C extends Element> {
-    id?: string;
-    color?: Color;
-    style?: string;
-    classes?: string | string[];
-    children?: C[];
+    id?: string | undefined;
+    color?: Color | undefined;
+    style?: string | undefined;
+    classes?: string | string[] | undefined;
+    children?: C[] | undefined;
     /**
      * This is the SVG transform attribute (https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform),
      * not the CSS transform property (https://developer.mozilla.org/en-US/docs/Web/CSS/transform).
      */
-    transform?: string; // Transformations don't affect the bounding box!
-    ignoreForClipping?: boolean; // Set to true to ignore the bounding box for clipping.
+    transform?: string | undefined; // Transformations don't affect the bounding box!
+    ignoreForClipping?: boolean | undefined; // Set to true to ignore the bounding box for clipping.
 }
 
 export abstract class ElementWithChildren<C extends Element, P extends ElementWithChildrenProps<C>> extends Element<P> {

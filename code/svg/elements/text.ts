@@ -6,13 +6,13 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Color } from '../../utility/color';
 import { normalizeToArray } from '../../utility/normalization';
+import { estimateStringWidth, monospaceWidth, TextStyle, widthMultiplier } from '../../utility/string-width';
 
 import { Box } from '../utility/box';
 import { Collector } from '../utility/collector';
 import { getTextHeight, indentation, lineHeight, textHeight, textMargin } from '../utility/constants';
 import { round3 } from '../utility/math';
 import { Point } from '../utility/point';
-import { estimateStringWidth, monospaceWidth, multiplier, TextStyle } from '../utility/string';
 
 import { VisualElement, VisualElementProps } from './element';
 
@@ -60,7 +60,7 @@ class TspanWithTextStyle extends Tspan {
 
     public estimateWidth(): number {
         // The estimate can get even more inaccurate when the same style is nested.
-        return estimateTextLineWidth(transformText(this.text, this.className)) * multiplier(this.widthStyle);
+        return estimateTextLineWidth(transformText(this.text, this.className)) * widthMultiplier[this.widthStyle];
     }
 }
 
@@ -152,6 +152,22 @@ export function href(text: TextLine, url: string): Anchor {
     return new Anchor(text, url);
 }
 
+export class ZeroWidthText {
+    public constructor(private readonly text: TextLine) {}
+
+    public encode(collector: Collector): string {
+        return encode(this.text, collector) + `<tspan dx="${round3(estimateTextLineWidth(this.text) * -1)}">&#8203;</tspan>`;
+    }
+
+    public estimateWidth(): number {
+        return 0;
+    }
+}
+
+export function outOfFlow(text: TextLine): ZeroWidthText {
+    return new ZeroWidthText(text);
+}
+
 /**
  * Combines several text fragments in one line.
  */
@@ -171,7 +187,7 @@ export function T(...texts: TextLine[]): CombinedText {
     return new CombinedText(texts);
 }
 
-export type TextLine = string | Tspan | Anchor | CombinedText;
+export type TextLine = string | Tspan | Anchor | ZeroWidthText | CombinedText;
 
 function escapeStringForSVG(text: string): string {
     return text.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
@@ -260,14 +276,14 @@ export interface TextProps extends VisualElementProps {
     text: TextLine | TextLine[];
 
     /**
-     * Defaults to 'left'.
+     * Defaults to 'middle'.
      */
-    horizontalAlignment?: HorizontalAlignment;
+    horizontalAlignment?: HorizontalAlignment | undefined;
 
     /**
-     * Defaults to 'top'.
+     * Defaults to 'middle'.
      */
-    verticalAlignment?: VerticalAlignment;
+    verticalAlignment?: VerticalAlignment | undefined;
 }
 
 export class Text extends VisualElement<TextProps> {
@@ -282,8 +298,8 @@ export class Text extends VisualElement<TextProps> {
     protected _boundingBox({
         position,
         text,
-        horizontalAlignment = 'left',
-        verticalAlignment = 'top',
+        horizontalAlignment = 'middle',
+        verticalAlignment = 'middle',
     }: TextProps): Box {
         const size = estimateTextSize(text);
         const topLeft = new Point(
@@ -296,8 +312,8 @@ export class Text extends VisualElement<TextProps> {
     protected _encode(collector: Collector, prefix: string, {
         position,
         text,
-        horizontalAlignment = 'left',
-        verticalAlignment = 'top',
+        horizontalAlignment = 'middle',
+        verticalAlignment = 'middle',
     }: TextProps): string {
         text = normalizeToArray(text);
         position = position.round3();

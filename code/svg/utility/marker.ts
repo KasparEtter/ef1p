@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { Color, colorSuffix } from '../../utility/color';
+import { Color, getColorSuffix } from '../../utility/color';
 import { normalizeToArray } from '../../utility/normalization';
 
 import { Collector } from './collector';
@@ -36,8 +36,8 @@ export function markerAttributes(
     let result = '';
     marker = normalizeToArray(marker);
     if (marker.length > 0) {
-        const arrow = `"url(#arrow${colorSuffix(color)})"`;
-        const circle = `"url(#circle${colorSuffix(color)})"`;
+        const arrow = `"url(#arrow${getColorSuffix(color)})"`;
+        const circle = `"url(#circle${getColorSuffix(color)})"`;
         let arrowCounter = 0;
 
         if (marker.includes('start')) {
