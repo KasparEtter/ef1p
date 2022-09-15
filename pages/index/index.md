@@ -52,15 +52,6 @@ The following articles have been published on this blog:
 </div>
 
 
-### Categories
-
-The topics on this blog fall into one of the following categories:
-
-{% for category in site.data.categories %}
-- <i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}: {{ category.description }}{% endfor %}
-{:.compact}
-
-
 ### Ambition
 
 The goal of this website is to provide the best introductions available to the covered subjects.
@@ -240,7 +231,7 @@ If you prefer dark text on a white background,
 you can toggle the style by clicking on the last entry of the navigation bar at the top.
 
 
-### History of values
+### Interactive tools
 
 Many articles contain interactive tools,
 which allow you to play around with a particular concept.
@@ -337,7 +328,7 @@ You can also transfer money directly to my bank account
 using [my name](#about) and the IBAN `CH48 0025 7257 6106 9840 Q`.
 If you prefer to stay "anonymous", you can donate some bitcoin to
 `bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep`
-[↗](https://blockstream.info/address/bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep).
+[<i class="fas fa-external-link-alt smaller"></i>](https://blockstream.info/address/bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep).
 Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) counts.
 
 
@@ -352,7 +343,7 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
   uses [no cookies](https://plausible.io/privacy-focused-web-analytics#no-cookies-and-other-persistent-identifiers), and
   isolates all data [to a single day](https://plausible.io/privacy-focused-web-analytics#all-data-is-isolated-to-a-single-day).
   In order to be as transparent as possible,
-  I gladly share [my analytics](https://plausible.io/explained-from-first-principles.com) with you.
+  I'm sharing [my analytics](https://plausible.io/explained-from-first-principles.com) with you.
 - This site is hosted with [GitHub Pages](https://pages.github.com),
   which means that [Microsoft](https://news.microsoft.com/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/)
   also learns when and from where this blog is being accessed.
@@ -412,15 +403,6 @@ The biggest reason for splitting long articles into smaller ones is
 It would also have the desirable side effect of allowing me to post new content more often.
 For now, I'm willing to sacrifice both in favor of making my content as useful as possible,
 but my view on this might change in the future.
-
-
-### How often do you intend to publish articles?
-{:data-toc-text="Article frequency"}
-
-My primary goal is to do justice to the chosen topics.
-The topics I'm interested in are usually quite involved.
-I intend to publish between two and four articles a year.
-In order to achieve this, I will likely alternate between large and small topics in the future.
 
 
 ### Have you considered creating videos about your content?
