@@ -20,6 +20,8 @@ module.exports = {
         'internet-tools': './pages/internet/tools/internet-tools.tsx',
         email: './pages/email/email.tsx',
         'email-tools': './pages/email/tools/email-tools.tsx',
+        'number-theory': './pages/number-theory/number-theory.tsx',
+        'number-theory-tools': './pages/number-theory/tools/number-theory-tools.tsx',
     },
 
     output: {
@@ -80,12 +82,13 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: {
+        'katex': 'katex',
         'react': 'React',
         'react-dom': 'ReactDOM',
     },
 
     plugins: [
-        new WebpackBuildNotifierPlugin(),
+        // new WebpackBuildNotifierPlugin(),
         new DuplicatesPlugin(),
     ],
 };

@@ -3,6 +3,7 @@
         "allowJs": true,
         "checkJs": true,
         "esModuleInterop": true,
+        "exactOptionalPropertyTypes": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react-jsx",
