@@ -1,6 +1,6 @@
-<svg id="figure-thumbnail" class="figure" data-name="thumbnail" width="282.5" height="162.5" viewBox="-61.25 -1.25 282.5 162.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+<svg id="figure-email-thumbnail" class="figure" data-name="email-thumbnail" width="282.5" height="162.5" viewBox="-61.25 -1.25 282.5 162.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <path class="blue" d="M -0.312,140 A 39.688 98.75 0 0 1 -40,41.25" marker-end="url(#arrow-blue)" stroke-dasharray="107"></path>
+    <path class="blue" d="M -0.312,140 A 39.688 98.75 0 0 1 -40,41.25 L -40.000519,41.240013" marker-end="url(#arrow-blue)" stroke-dasharray="107"></path>
     <line class="blue" x1="140" y1="119.688" x2="140" y2="41.25" marker-end="url(#arrow-blue)" stroke-dasharray="71"></line>
     <line class="green" x1="40.313" y1="20" x2="118.75" y2="20" marker-end="url(#arrow-green)" stroke-dasharray="71"></line>
     <line class="green" x1="20" y1="119.688" x2="20" y2="41.25" marker-end="url(#arrow-green)" stroke-dasharray="71"></line>
