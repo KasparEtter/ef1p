@@ -31,7 +31,6 @@ sides.forEach((side, column) => {
     elements.push(new Text({
         text: bold(side),
         position: P(column * columnDistance, -offsetTop),
-        horizontalAlignment: 'middle',
         verticalAlignment: 'top',
     }));
     boxes.push(new Array<Rectangle>());

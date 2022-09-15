@@ -20,7 +20,6 @@ export const size = estimateTextSizeWithMargin(['Incoming', 'mail server', 'of r
 export const SMTP = uppercase('smtp');
 export const IMAP = uppercase('imap');
 export const POP3 = uppercase('pop3');
-export const HTTP = uppercase('http');
 
 export const elements = new Array<VisualElement>();
 

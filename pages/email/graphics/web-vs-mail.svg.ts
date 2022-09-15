@@ -70,22 +70,18 @@ elements.unshift(
 elements.push(new Text({
     text: bold('Web'),
     position: P(leftX, -offsetLabel),
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
 }));
 
 elements.push(new Text({
     text: bold('Mail'),
     position: P(rightX, -offsetLabel),
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
 }));
 
 elements.push(new Text({
     text: bold('vs.'),
     position: P(middleX, middleY),
-    horizontalAlignment: 'middle',
-    verticalAlignment: 'middle',
 }));
 
 printSVG(...elements);

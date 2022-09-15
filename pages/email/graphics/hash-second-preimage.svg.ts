@@ -31,10 +31,8 @@ elements.unshift(Line.connectBoxes(input1Rectangle, 'right', outputRectangle, 'l
 elements.unshift(Line.connectBoxes(input2Rectangle, 'right', outputRectangle, 'left'));
 
 elements.push(new Text({
-    position: P(size.x / 2, verticalGap + size.y / 2 + 1),
+    position: P(size.x / 2, verticalGap + size.y / 2 + 3),
     text: large('≠'),
-    horizontalAlignment: 'middle',
-    verticalAlignment: 'middle',
 }));
 
 printSVG(...elements);

@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { doubleTextMargin, strokeWidth, textMargin } from '../../../code/svg/utility/constants';
+import { doubleStrokeWidth, doubleTextMargin, textMargin } from '../../../code/svg/utility/constants';
 import { P } from '../../../code/svg/utility/point';
 
 import { VisualElement } from '../../../code/svg/elements/element';
@@ -16,7 +16,7 @@ import { bold, calculateTextHeight, estimateTextSizeWithMargin, preserveWhitespa
 const gap = 40;
 const size = estimateTextSizeWithMargin(['Mail client', 'of', 'alice@example.org']);
 const messageWidth = 240;
-const envelopeMargin = 2 * strokeWidth;
+const envelopeMargin = doubleStrokeWidth;
 const alignment = { horizontalAlignment: 'left', verticalAlignment: 'top' } as const;
 
 const messageTitle: TextLine = bold('Message');

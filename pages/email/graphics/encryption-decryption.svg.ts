@@ -65,7 +65,6 @@ function addKeyLine(rectangle: Rectangle): void {
     elements.unshift(new Text({
         position: start.subtractY(textMargin.y),
         text: keyText,
-        horizontalAlignment: 'middle',
         verticalAlignment: 'bottom',
         color: 'green',
     }));
@@ -77,7 +76,6 @@ addKeyLine(decryptionRectangle);
 elements.push(new Text({
     position: P(horizontalGap, -size.y / 2 - verticalGap),
     text: aliceText,
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
     color: 'green',
 }));
@@ -85,7 +83,6 @@ elements.push(new Text({
 elements.push(new Text({
     position: P(2 * horizontalGap + 2 * size.x, -size.y / 2 - verticalGap),
     text: bobText,
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
     color: 'green',
 }));

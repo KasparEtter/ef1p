@@ -48,9 +48,9 @@ elements.unshift(new Line({ start, end: P(-strokeRadius, hash1), marker: 'end', 
 elements.unshift(new Line({ start, end: P(-strokeRadius, hash2), marker: 'end', color: 'red'}));
 elements.unshift(new Line({ start, end: P(-strokeRadius, hash3), marker: 'end', color: 'red'}));
 
-elements.push(new Text({ position: P(textToLineDistance, hash1), text: hash1Text, verticalAlignment: 'middle', color: 'red' }));
-elements.push(new Text({ position: P(textToLineDistance, hash2), text: hash2Text, verticalAlignment: 'middle', color: 'red' }));
-elements.push(new Text({ position: P(textToLineDistance, hash3), text: hash3Text, verticalAlignment: 'middle', color: 'red' }));
-elements.push(new Text({ position: P(textToLineDistance, hashX), text: hashXText, verticalAlignment: 'middle', color: 'green' }));
+elements.push(new Text({ position: P(textToLineDistance, hash1), text: hash1Text, horizontalAlignment: 'left', color: 'red' }));
+elements.push(new Text({ position: P(textToLineDistance, hash2), text: hash2Text, horizontalAlignment: 'left', color: 'red' }));
+elements.push(new Text({ position: P(textToLineDistance, hash3), text: hash3Text, horizontalAlignment: 'left', color: 'red' }));
+elements.push(new Text({ position: P(textToLineDistance, hashX), text: hashXText, horizontalAlignment: 'left', color: 'green' }));
 
 printSVG(...elements);

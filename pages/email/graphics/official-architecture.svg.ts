@@ -73,14 +73,12 @@ elements.unshift(Line.connectBoxes(rMUA, 'top', rMS, 'bottom', imapColor));
 elements.push(new Text({
     position: P(size.x + gap / 2, -gap - textHeight),
     text: bold('Sender'),
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
 }));
 
 elements.push(new Text({
     position: P(3 * size.x + gap + distance + gap / 2, -gap - textHeight),
     text: bold('Recipient'),
-    horizontalAlignment: 'middle',
     verticalAlignment: 'top',
 }));
 
