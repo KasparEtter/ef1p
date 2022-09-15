@@ -60,10 +60,38 @@ code {
   }
 }
 
+.click-to-copy-padding-top {
+  td,
+  th {
+    padding-top: 4px;
+  }
+}
+
+.click-to-copy-padding-bottom {
+  td,
+  th {
+    padding-bottom: 4px;
+  }
+}
+
 pre.wrapped {
   white-space: pre-wrap;
 
   .click-to-copy {
     max-width: 100%;
   }
+}
+
+.emoji {
+  font-family: sans-serif;
+}
+
+.warning-symbol {
+  @extend .emoji;
+  margin-right: .5rem;
+  margin-left: .25rem;
+}
+
+.margin-left-to-same + .margin-left-to-same {
+  margin-left: 1rem;
 }

@@ -85,7 +85,7 @@ article {
     display: block;
     max-width: fit-content;
 
-    margin: $paragraph-margin-bottom auto;
+    margin: 0 auto $paragraph-margin-bottom auto;
 
     overflow-x: auto;
 
@@ -96,8 +96,15 @@ article {
 
     thead th,
     > tr:first-child td,
-    > tr:first-child th {
+    > tr:first-child th,
+    > tbody:first-child tr:first-child td,
+    > tbody:first-child tr:first-child th {
       border-top: 0;
+    }
+
+    tfoot td,
+    tfoot th {
+      border-top: (2 * $table-border-width) solid $table-border-color;
     }
   }
 

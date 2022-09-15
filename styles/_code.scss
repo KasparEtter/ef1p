@@ -4,10 +4,23 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-pre {
+pre,
+.pseudocode {
   padding: 10px;
   background-color: $pre-bg !important;
   border-radius: $border-radius;
+}
+
+.pseudocode {
+  margin-bottom: $paragraph-margin-bottom;
+
+  .katex-display {
+    margin-bottom: 0;
+  }
+
+  .katex {
+    text-align: left;
+  }
 }
 
 .highlight {

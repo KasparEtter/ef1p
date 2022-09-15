@@ -4,6 +4,11 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+// https://blog.jim-nielsen.com/2020/color-scheme-property/
+:root {
+  color-scheme: dark;
+}
+
 $blue:   hsl(210, 100%, 65%) !default;
 $purple: hsl(290, 100%, 60%) !default;
 $pink:   hsl(330, 100%, 60%) !default;
@@ -15,12 +20,13 @@ $brown:  hsl(30, 50%, 50%) !default;
 $gray:   hsl(0, 0%, 65%) !default;
 
 $body-bg: hsl(280, 5%, 10%) !default;
-$pre-bg: darken($body-bg, 5%) !default;
 $jumbotron-bg: hsl(280, 5%, 15%) !default;
+$pre-bg: darken($body-bg, 5%) !default;
 $select-color: hsl(45, 100%, 20%) !default;
 
 @import "variables-pre";
 @import "../node_modules/bootswatch/dist/darkly/variables";
+$custom-control-color: $body-color !default;
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/darkly/bootswatch";

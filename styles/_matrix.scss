@@ -1,0 +1,65 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
+$matrix-border-width: 1px;
+$matrix-bracket-width: .4rem;
+$matrix-horizontal-margin: .4rem;
+$matrix-line-offset: .25rem;
+
+.matrix {
+  display: inline-block;
+  min-width: fit-content;
+  margin-top: -$matrix-line-offset;
+  margin-right: $matrix-horizontal-margin;
+  margin-bottom: 0;
+  margin-left: $matrix-horizontal-margin;
+  overflow-x: visible;
+  vertical-align: middle;
+
+  td {
+    padding: .1rem .4rem;
+    text-align: right;
+    border-top: 0;
+  }
+
+  td:first-child,
+  td:last-child {
+    width: $matrix-bracket-width;
+    min-width: $matrix-bracket-width;
+    padding: 0;
+  }
+
+  td:first-child {
+    border-left: $matrix-border-width solid $body-color;
+  }
+
+  td:last-child {
+    border-right: $matrix-border-width solid $body-color;
+  }
+
+  tr:first-child {
+    td:first-child,
+    td:last-child {
+      border-top: $matrix-border-width solid $body-color;
+    }
+  }
+
+  tr:last-child {
+    td:first-child,
+    td:last-child {
+      border-bottom: $matrix-border-width solid $body-color;
+    }
+  }
+}
+
+.equation {
+  padding-top: $matrix-line-offset;
+  margin-right: -$matrix-horizontal-margin;
+  margin-left: -$matrix-horizontal-margin;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+}

@@ -10,9 +10,15 @@ details {
   background-color: $jumbotron-bg;
   border-radius: $border-radius;
 
+  // Second rule needed for tools in details:
   > :last-child,
   > :last-child > :last-child {
     margin-bottom: 0 !important;
+  }
+
+  // Sometimes needed for tabbed areas:
+  > .keep-margin:last-child > :last-child {
+    margin-bottom: $paragraph-margin-bottom !important;
   }
 }
 
@@ -22,6 +28,11 @@ details[open] summary {
 
 summary {
   font-weight: bold;
+
+  // margin-right is not supported on ::marker.
+  > span:first-child {
+    margin-left: $paragraph-margin-bottom / 4;
+  }
 
   &:hover,
   &:focus {

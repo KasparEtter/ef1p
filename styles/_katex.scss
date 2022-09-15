@@ -6,7 +6,6 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 .katex {
   font-size: $font-size-base * 1.1;
-  user-select: all;
 
   a {
     position: relative;
@@ -22,6 +21,20 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 .katex-display {
   padding: 1px 0;
+  margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+table .katex-display {
+  margin-bottom: 0;
+}
+
+.aligned .katex {
+  margin-bottom: -8px;
+}
+
+.text-left .katex-display,
+.text-left .katex {
+  text-align: left;
 }

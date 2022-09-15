@@ -4,6 +4,11 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+// https://blog.jim-nielsen.com/2020/color-scheme-property/
+:root {
+  color-scheme: light;
+}
+
 $blue:   hsl(210, 100%, 40%) !default;
 $purple: hsl(290, 100%, 45%) !default;
 $pink:   hsl(330, 100%, 45%) !default;
@@ -20,6 +25,7 @@ $select-color: hsl(45, 100%, 80%) !default;
 
 @import "variables-pre";
 @import "../node_modules/bootswatch/dist/flatly/variables";
+$custom-control-color: $primary !default;
 @import "variables-post";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";

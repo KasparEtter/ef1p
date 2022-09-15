@@ -7,7 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 // Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
 
 .block-form {
-  margin-bottom: $paragraph-margin-bottom;
+  margin-bottom: $paragraph-margin-bottom - $label-margin-bottom;
 
   label,
   .label {
@@ -29,18 +29,13 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   .label {
     display: block;
     min-height: 28px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 }
 
 .horizontal-form {
   margin-left: -18px;
 
-  // Used for the buttons.
-  .horizontal-form {
+  .form-buttons {
     margin-left: 0;
   }
 
@@ -55,9 +50,25 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   .label.btn-group {
     margin-left: 21px; // Prevent the focus shadow from being hidden on the left side of the article.
   }
+}
 
-  &.block-form {
-    margin-bottom: $paragraph-margin-bottom - $label-margin-bottom; // Margin doesn't collapse with inline-block labels.
+label,
+.label {
+  margin-top: -$label-margin-bottom / 2;
+
+  > * {
+    margin-top: $label-margin-bottom / 2; // Top margin for determine buttons which wrap to a new line.
+  }
+}
+
+.form-buttons {
+  label,
+  .label {
+    margin-top: 0;
+
+    > * {
+      margin-top: 0;
+    }
   }
 }
 
@@ -100,6 +111,12 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     padding-right: $custom-select-padding-x + $custom-select-indicator-padding;
     background: $custom-select-bg $custom-select-background;
   }
+
+  // Fix the contrast on Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1539252
+  option {
+    color: $body-color;
+    background-color: $jumbotron-bg;
+  }
 }
 
 .custom-color {
@@ -130,6 +147,24 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
   .custom-control-label {
     display: inline-block;
+  }
+
+  .custom-control-input:disabled ~ .custom-control-label::before {
+    border-color: $custom-control-indicator-disabled-color;
+  }
+
+  .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    border-color: $custom-control-indicator-checked-disabled-bg;
+  }
+}
+
+.custom-switch .custom-control-input {
+  &:checked ~ .custom-control-label::after {
+    background-color: #fff;
+  }
+
+  &:disabled ~ .custom-control-label::after {
+    background-color: $custom-control-indicator-disabled-color;
   }
 }
 

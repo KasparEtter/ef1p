@@ -13,19 +13,22 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 @import "navbar";
 @import "toc";
 
+@import "text";
 @import "code";
 @import "cards";
 @import "cursor";
 @import "forms";
 @import "icons";
 @import "tables";
+@import "tabbed";
+@import "matrix";
+@import "math";
 
 @import "katex";
-@import "notation";
 @import "react";
 @import "svg";
 
-@import "animations";
+@import "animation";
 @import "selection";
 @import "target";
 

@@ -49,7 +49,7 @@ $svg-colors: map-merge(
   }
 
   .background-color-#{$color} {
-    background-color: rgba($value, .3);
+    background-color: rgba($value, .3) !important; // `!important` is needed to preserve the background colors of table cells in print.
   }
 }
 
@@ -79,6 +79,14 @@ svg.figure {
   .filled {
     fill-opacity: 1;
     stroke-width: 0;
+  }
+
+  .alpha {
+    fill-opacity: .2;
+  }
+
+  .beta {
+    fill-opacity: .3;
   }
 
   .thin {

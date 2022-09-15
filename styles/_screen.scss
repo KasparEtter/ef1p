@@ -15,7 +15,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   }
 
   summary {
-    span:last-of-type {
+    > span:last-of-type {
       margin-right: .2em; // Add the margin here instead of the anchor in order to center the scaling.
     }
   }
@@ -25,12 +25,12 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   h4,
   h5,
   h6 {
-    span {
+    > span {
       cursor: pointer;
-    }
 
-    span:last-of-type {
-      margin-right: .3em; // Add the margin here instead of the anchor in order to center the scaling.
+      &:last-of-type {
+        margin-right: .3em; // Add the margin here instead of the anchor in order to center the scaling.
+      }
     }
   }
 

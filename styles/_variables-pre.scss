@@ -6,8 +6,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 // The following variables are declared before Bootswatch.
 
-// Uncomment the following line to serve the font locally:
-// $web-font-path: "../fonts/lato/lato.css" !default;
+// Serve the font locally:
+$web-font-path: "../fonts/lato/lato.css" !default;
 
 // Color
 
@@ -21,6 +21,10 @@ $danger:    $red !default;
 $figure-caption-color: $gray;
 
 // Text
+
+// Move Arial more to the front to get its rendering of Greek characters.
+// Add STIXGeneral to the list for a more consistent rendering of mathematical expressions.
+$font-family-sans-serif: "Lato", "Arial", "STIXGeneral", -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
 $font-size-base: 1rem !default;
 
@@ -78,19 +82,3 @@ $input-border-radius-sm: 0 !default;
 $input-border-radius-lg: 0 !default;
 
 $input-focus-border-color: transparent !default;
-
-$custom-control-indicator-bg: #fff !default;
-$custom-control-indicator-box-shadow: none !default;
-$custom-control-indicator-border-width: 1px !default;
-
-$custom-control-label-disabled-color: $gray !default;
-
-$custom-select-border-radius: 0 !default;
-$custom-select-disabled-color: $gray !default;
-$custom-select-disabled-bg: transparent !default;
-
-$custom-range-track-height: 5px !default;
-$custom-range-track-border-radius: $custom-range-track-height / 2 !default;
-$custom-range-thumb-width: 14px !default;
-$custom-range-thumb-border-radius: $custom-range-thumb-width / 2;
-$custom-range-thumb-disabled-bg: $gray !default;

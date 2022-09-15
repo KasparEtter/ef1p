@@ -4,14 +4,17 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+$tab-padding-outside: 7px;
+$tab-border-radius: 13px;
+
 ul.tabs {
   padding-left: 0;
   text-align: center;
   user-select: none;
 
   li {
-    display: inline-block;
-    padding: 0 4px;
+    display: inline-block !important;
+    padding: 1px 5px;
     margin-top: 0;
     margin-left: -1px;
     font-size: $small-font-size;
@@ -27,20 +30,24 @@ ul.tabs {
   }
 
   li:first-child {
-    padding-left: 6px;
-    border-top-left-radius: 11px;
-    border-bottom-left-radius: 11px;
+    padding-left: $tab-padding-outside;
+    border-top-left-radius: $tab-border-radius;
+    border-bottom-left-radius: $tab-border-radius;
   }
 
   li:last-child {
-    padding-right: 6px;
-    border-top-right-radius: 11px;
-    border-bottom-right-radius: 11px;
+    padding-right: $tab-padding-outside;
+    border-top-right-radius: $tab-border-radius;
+    border-bottom-right-radius: $tab-border-radius;
   }
 }
 
 details ul.tabs li {
   background-color: $jumbotron-bg;
+}
+
+.pre-background {
+  background-color: $pre-bg !important;
 }
 
 .bordered {
@@ -51,17 +58,51 @@ details ul.tabs li {
   border-radius: $border-radius;
 }
 
-div.notation {
+div.tabbed {
   @extend .bordered;
   position: relative;
   padding: 0;
-  padding-top: 10px;
   margin-top: 26px;
 
   > * {
-    display: none;
     padding: $paragraph-margin-bottom;
+    padding-bottom: 0;
+    border-top: 1px solid $body-color;
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+
+  > figure {
     margin: 0;
+    margin-bottom: $paragraph-margin-bottom;
+  }
+
+  &.javascript-enabled {
+    padding-top: 11px;
+
+    > * {
+      display: none !important;
+      border-top: 0;
+    }
+  }
+
+  .shown {
+    display: block !important;
+  }
+
+  .shown + .shown {
+    border-top: 1px solid $body-color;
+  }
+
+  ul.tabs {
+    position: absolute;
+    top: -14.5px;
+    right: 0;
+    left: 0;
+    display: block !important;
+    padding: 0;
   }
 
   > ul,
@@ -73,24 +114,8 @@ div.notation {
     }
   }
 
-  .shown {
-    display: block;
-  }
-
-  .shown + .shown {
-    border-top: 1px solid $body-color;
-  }
-
-  ul.tabs {
-    position: absolute;
-    top: -14px;
-    right: 0;
-    left: 0;
-    display: block;
-    padding: 0;
-  }
-
-  .katex-display {
-    margin: 0;
+  hr {
+    margin-top: $paragraph-margin-bottom;
+    margin-bottom: $paragraph-margin-bottom;
   }
 }

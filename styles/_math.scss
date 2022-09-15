@@ -1,0 +1,26 @@
+/*
+Author: Kaspar Etter (https://kasparetter.com/)
+Work: Explained from First Principles (https://ef1p.com/)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+*/
+
+sub,
+sup,
+.smaller {
+  font-size: 70%;
+}
+
+.out-of-flow {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
+.questioned::before {
+  @extend .out-of-flow;
+  top: -.9em;
+  left: .3em;
+  font-size: 60%;
+  content: "?";
+}

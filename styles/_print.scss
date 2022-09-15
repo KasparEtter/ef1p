@@ -8,15 +8,25 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   body,
   details,
   pre,
+  .pre-background,
+  .pseudocode,
   .custom-card {
-    background-color: transparent !important;
+    background-color: #fff !important;
+  }
+
+  .table {
+    td,
+    th {
+      background-color: inherit !important; // Inherit the background color from the row.
+    }
   }
 
   details,
   pre,
+  .pseudocode,
   .custom-card,
   .bordered,
-  div.notation {
+  div.tabbed {
     border: 1px solid #000;
   }
 
@@ -66,7 +76,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     background-color: #fff;
   }
 
-  div.notation {
+  div.tabbed {
     .shown + .shown {
       border-top: 1px solid #000;
     }
@@ -120,7 +130,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   }
 
   .custom-switch .custom-control-label::after {
-    background-color: transparent;
+    background-color: transparent !important;
     border: 1px solid #000;
   }
 
