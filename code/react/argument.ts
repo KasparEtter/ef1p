@@ -4,24 +4,21 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { ObjectButNotFunction } from '../utility/types';
+import { AnyDynamicEntry, BasicState, BasicValue, DynamicBooleanEntry, Entry } from './entry';
 
-import { DynamicEntry, Entry, ValueType } from './entry';
-
-export interface Argument<T extends ValueType, State extends ObjectButNotFunction = any> extends Entry<T, State> {
+export interface Argument<Value extends BasicValue, State extends BasicState<State> = {}> extends Entry<Value, State> {
     longForm: string;
     shortForm?: string;
 }
 
-export function isArgument<T extends ValueType, State extends ObjectButNotFunction = any>(entry: Entry<T, State>): entry is Argument<T, State> {
-    return (entry as Argument<T, State>).longForm !== undefined;
+// A return type of 'entry is Argument<State>' does not work well because it changes TypeScript's type inference.
+export function isArgument(entry: Entry<any, any> | AnyDynamicEntry<any>): boolean {
+    return (entry as Argument<any, any>).longForm !== undefined;
 }
 
-export interface DynamicArgument<T extends ValueType, State extends ObjectButNotFunction = any> extends Argument<T, State>, DynamicEntry<T, State> {}
-
-export const shortForm: DynamicEntry<boolean> = {
-    name: 'Short form',
-    description: 'Use the short form of arguments.',
+export const shortForm: DynamicBooleanEntry<StateWithArguments> = {
+    label: 'Short form',
+    tooltip: 'Use the short form of arguments.',
     defaultValue: false,
     inputType: 'checkbox',
 };

@@ -6,25 +6,25 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { KeysOf, ObjectButNotFunction } from '../utility/types';
+import { KeysOf } from '../utility/types';
 
-import { ProvidedStore, shareStore } from './share';
-import { AllEntries, getCurrentState, ProvidedDynamicEntries, VersionedState, VersioningEvent } from './state';
-import { Store } from './store';
+import { BasicState, ProvidedDynamicEntries } from './entry';
+import { ProvidedStore } from './store';
 import { Children } from './utility';
+import { VersionedState, VersionedStore, VersioningEvent } from './versioned-store';
 
 export interface IfEntriesProps {
-    or?: boolean;
-    not?: boolean;
+    readonly or?: boolean;
+    readonly not?: boolean;
 }
 
-export function RawIfEntries<State extends ObjectButNotFunction>(props: Readonly<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & ProvidedDynamicEntries<State> & IfEntriesProps & Children>): JSX.Element {
-    const currentState = getCurrentState(props.store);
+export function RawIfEntries<State extends BasicState<State>>(props: ProvidedStore<VersionedState<State>, VersioningEvent, VersionedStore<State>> & ProvidedDynamicEntries<State> & IfEntriesProps & Children): JSX.Element {
+    const currentState = props.store.getCurrentState();
     return <Fragment>
-        {(Object.keys(props.entries) as KeysOf<State>)[props.or ? 'some' : 'every'](key => currentState[key]) === !props.not && props.children}
+        {(Object.keys(props.entries) as unknown as KeysOf<State>)[props.or ? 'some' : 'every'](key => currentState[key]) === !props.not && props.children}
     </Fragment>;
 }
 
-export function getIfEntries<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
-    return shareStore<VersionedState<State>, ProvidedDynamicEntries<State> & IfEntriesProps & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfEntries);
+export function getIfEntries<State extends BasicState<State>>(store: VersionedStore<State>) {
+    return store.injectStore<ProvidedDynamicEntries<State> & IfEntriesProps & Children>(RawIfEntries, 'state');
 }

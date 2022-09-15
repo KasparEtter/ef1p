@@ -8,8 +8,8 @@ import katex from 'katex';
 import { useEffect, useRef } from 'react';
 
 export interface MathProps {
-    text: string;
-    displayMode?: boolean;
+    readonly text: string;
+    readonly displayMode?: boolean;
 }
 
 export function Math({ text, displayMode }: MathProps): JSX.Element {

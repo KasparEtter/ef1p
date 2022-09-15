@@ -11,8 +11,9 @@ import { EventHandler } from '../utility/types';
 /* ------------------------------ Textarea ------------------------------ */
 
 export interface CustomTextareaProps {
-    onChange?: EventHandler;
-    onInput?: EventHandler;
+    onChange?: EventHandler | undefined;
+    onInput?: EventHandler | undefined;
+    onEscape?: EventHandler<KeyboardEvent> | undefined;
 }
 
 /**
@@ -23,6 +24,12 @@ export class CustomTextarea extends Component<Omit<TextareaHTMLAttributes<HTMLTe
         if (element) {
             element.onchange = this.props.onChange ?? null;
             element.oninput = this.props.onInput ?? null;
+            element.addEventListener('keyup', (event: KeyboardEvent) => {
+                if (event.key === 'Escape' && this.props.onEscape) {
+                    event.preventDefault();
+                    this.props.onEscape(event);
+                }
+            });
         }
     };
 
@@ -34,8 +41,9 @@ export class CustomTextarea extends Component<Omit<TextareaHTMLAttributes<HTMLTe
 /* ------------------------------ Input ------------------------------ */
 
 export interface CustomInputProps extends CustomTextareaProps {
-    onEnter?: EventHandler<KeyboardEvent>;
-    onUpOrDown?: EventHandler<KeyboardEvent>;
+    allowDecimalPoint?: boolean | undefined;
+    onEnter?: EventHandler<KeyboardEvent> | undefined;
+    onUpOrDown?: EventHandler<KeyboardEvent> | undefined;
 }
 
 /**
@@ -56,17 +64,29 @@ export class CustomInput extends Component<Omit<InputHTMLAttributes<HTMLInputEle
             element.onchange = this.props.onChange ?? null;
             element.oninput = this.props.onInput ?? null;
             if (this.props.type === 'text' || this.props.type === 'number') {
-                element.addEventListener('keydown', (event: KeyboardEvent) => {
-                    if (event.key === 'Enter' && this.props.onEnter) {
-                        this.props.onEnter(event);
+                element.addEventListener('keyup', (event: KeyboardEvent) => {
+                    if (event.key === 'Escape' && this.props.onEscape) {
                         event.preventDefault();
+                        this.props.onEscape(event);
                     }
-                    if ((event.key === 'ArrowUp' || event.key === 'ArrowDown') && this.props.onUpOrDown) {
-                        this.props.onUpOrDown(event);
+                    if (event.key === 'Enter' && this.props.onEnter) {
                         event.preventDefault();
+                        this.props.onEnter(event);
+                    }
+                });
+                element.addEventListener('keydown', (event: KeyboardEvent) => {
+                    if ((event.key === 'ArrowUp' || event.key === 'ArrowDown') && this.props.onUpOrDown) {
+                        event.preventDefault();
+                        this.props.onUpOrDown(event);
                     }
                 });
             }
+            if (this.props.type === 'number' && !this.props.allowDecimalPoint) {
+                element.addEventListener('keydown', (event: KeyboardEvent) => {
+                    if (event.key === '.') {
+                        event.preventDefault();
+                    }
+                });            }
             element.addEventListener('wheel', (event: WheelEvent) => {
                 if (document.activeElement === element) {
                     event.preventDefault();

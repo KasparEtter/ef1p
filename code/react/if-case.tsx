@@ -6,28 +6,24 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { ObjectButNotFunction } from '../utility/types';
-
-import { ValueType } from './entry';
-import { ProvidedStore, shareStore } from './share';
-import { AllEntries, getCurrentState, VersionedState, VersioningEvent } from './state';
-import { Store } from './store';
+import { BasicState, BasicValue } from './entry';
+import { ProvidedStore } from './store';
 import { Children } from './utility';
+import { VersionedState, VersionedStore, VersioningEvent } from './versioned-store';
 
-export interface IfCaseProps<State extends ObjectButNotFunction> {
-    entry: keyof State;
-    value: ValueType;
-    not?: boolean;
+export interface IfCaseProps<State extends BasicState<State>> {
+    readonly entry: keyof State;
+    readonly value: BasicValue;
+    readonly not?: boolean;
 }
 
-export function RawIfCase<State extends ObjectButNotFunction>(props: Readonly<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent> & IfCaseProps<State> & Children>): JSX.Element {
-    const currentState = getCurrentState(props.store);
-    const equals = props.value === currentState[props.entry] as unknown as ValueType;
+export function RawIfCase<State extends BasicState<State>>(props: ProvidedStore<VersionedState<State>, VersioningEvent, VersionedStore<State>> & IfCaseProps<State> & Children): JSX.Element {
+    const equals = props.value === props.store.getCurrentState()[props.entry];
     return <Fragment>
         {(!props.not && equals || props.not && !equals) && props.children}
     </Fragment>;
 }
 
-export function getIfCase<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
-    return shareStore<VersionedState<State>, IfCaseProps<State> & Children, AllEntries<State>, VersioningEvent>(store, 'state')(RawIfCase);
+export function getIfCase<State extends BasicState<State>>(store: VersionedStore<State>) {
+    return store.injectStore<IfCaseProps<State> & Children>(RawIfCase, 'state');
 }

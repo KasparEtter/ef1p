@@ -6,63 +6,62 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment, ReactNode } from 'react';
 
-import { colorClass } from '../utility/color';
+import { Color, getColorClass } from '../utility/color';
 import { normalizeToValue } from '../utility/normalization';
-import { ObjectButNotFunction } from '../utility/types';
 
-import { isArgument } from './argument';
-import { isDynamicEntry, ValueType } from './entry';
-import { ProvidedStore, shareStore } from './share';
-import { AllEntries, getCurrentState, ProvidedEntries, VersionedState, VersioningEvent } from './state';
-import { Store } from './store';
+import { Argument, isArgument, StateWithArguments } from './argument';
+import { AnyDynamicEntry, BasicState, BasicValue, isDynamicEntry, outputValue, ProvidedEntries } from './entry';
+import { ProvidedStore } from './store';
+import { VersionedState, VersionedStore, VersioningEvent } from './versioned-store';
 
 export interface OutputEntriesProps {
     /**
      * How adjacent outputs are separated.
      * Defaults to a single space.
      */
-    outputSeparator?: ReactNode;
+    readonly outputSeparator?: ReactNode;
 
     /**
      * How the name of an argument is separated from its value.
      * Defaults to a single space.
      */
-    argumentSeparator?: ReactNode;
+    readonly argumentSeparator?: ReactNode;
 }
 
 /**
  * Outputs the value of all provided entries.
  * Please note that falsy values are skipped.
  */
-export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props: Readonly<Partial<ProvidedStore<VersionedState<State>, AllEntries<State>, VersioningEvent>> & ProvidedEntries & OutputEntriesProps>): JSX.Element {
+export function RawOutputEntries<State extends BasicState<State> = {}>(props: Partial<ProvidedStore<VersionedState<State>, VersioningEvent, VersionedStore<State>>> & ProvidedEntries<State> & OutputEntriesProps): JSX.Element {
     const outputSeparator = props.outputSeparator ?? ' ';
     const argumentSeparator = props.argumentSeparator ?? ' ';
     let hasPrevious = false;
     return <Fragment>
-        {Object.entries(props.entries).map(([key, entry]) => {
+        {Object.entries(props.entries).map(([rawKey, rawEntry]) => {
+            const key = rawKey as keyof State;
+            const entry = rawEntry as AnyDynamicEntry<State>;
+            const state = props.store?.getCurrentState();
             // The following lines error if no store is provided for dynamic entries or static entries with skip or transform:
-            // @ts-ignore
-            const value: ValueType = isDynamicEntry(entry) ? getCurrentState(props.store!)[key] : normalizeToValue(entry.defaultValue, undefined);
-            const output: string = entry.transform ? entry.transform(value, getCurrentState(props.store!)) : (Array.isArray(value) ? value.join(entry.valueSeparator ?? ', ') : value.toString());
-            const details = (isDynamicEntry(entry) && entry.inputType === 'select' && entry.selectOptions) ?
-                ` (${normalizeToValue(entry.selectOptions, getCurrentState(props.store!))[value as string]})` : '';
-            const skipped = entry.skip ? entry.skip(getCurrentState(props.store!), value) : isArgument(entry) && !value;
+            const value: BasicValue = isDynamicEntry(entry) ? state![key] : normalizeToValue(entry.defaultValue, undefined);
+            const output = outputValue(entry, value, state);
+            const details = (isDynamicEntry(entry) && entry.inputType === 'select') ?
+                ` (${normalizeToValue(entry.selectOptions, state!)[value as string]})` : '';
+            const skipped = entry.skip ? entry.skip(state!, value as never) : isArgument(entry) && !value;
             if (skipped) {
                 return null;
             } else {
                 const result =
                     <Fragment
-                        key={key as string}
+                        key={rawKey}
                     >
                         {hasPrevious && outputSeparator}
                         <span
-                            title={entry.name + ': ' + normalizeToValue(entry.description, value) + details}
-                            className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + colorClass(normalizeToValue(entry.outputColor, value))}
+                            title={entry.label + ': ' + normalizeToValue<string, any>(entry.tooltip, value) + details}
+                            className={(isDynamicEntry(entry) ? 'dynamic' : 'static') + '-output' + getColorClass(normalizeToValue<Color, any>(entry.outputColor as any, value), ' ')}
                         >
                             {
                                 isArgument(entry) ? (
-                                    // @ts-ignore
-                                    (entry[getCurrentState(props.store!).shortForm ? 'shortForm' : 'longForm'] ?? entry.longForm) +
+                                    ((entry as unknown as Argument<any, State>)[(state! as unknown as StateWithArguments).shortForm ? 'shortForm' : 'longForm'] ?? (entry as unknown as Argument<any, State>).longForm) +
                                     (typeof value !== 'boolean' ? argumentSeparator + output : '')
                                 ) : (
                                     output
@@ -77,6 +76,6 @@ export function RawOutputEntries<State extends ObjectButNotFunction = {}>(props:
     </Fragment>;
 }
 
-export function getOutputEntries<State extends ObjectButNotFunction>(store: Store<VersionedState<State>, AllEntries<State>, VersioningEvent>) {
-    return shareStore<VersionedState<State>, ProvidedEntries & OutputEntriesProps, AllEntries<State>, VersioningEvent>(store, 'state')(RawOutputEntries);
+export function getOutputEntries<State extends BasicState<State>>(store: VersionedStore<State>) {
+    return store.injectStore<ProvidedEntries<State> & OutputEntriesProps>(RawOutputEntries, 'state');
 }
