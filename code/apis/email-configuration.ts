@@ -35,12 +35,12 @@ export interface Documentation {
 }
 
 export interface Configuration {
-    name?: string;
+    name: string | undefined;
     incomingServers: Server[];
     outgoingServers: Server[];
     instructions: Documentation[];
     documentation: Documentation[];
-    webmail?: string;
+    webmail: string | undefined;
 }
 
 /* ------------------------------ Configuration parsing ------------------------------ */
@@ -50,7 +50,7 @@ function contentOfFirst(node: Document | Element, tagName: string): string | und
 }
 
 function map<T>(node: Document | Element, tagName: string, callBack: (element: Element) => T | undefined): T[] {
-    return filterUndefined(Array.from(node.getElementsByTagName(tagName)).map(callBack));
+    return filterUndefined(Array.from(node.getElementsByTagName(tagName), callBack));
 }
 
 function contentOfAll(node: Document | Element, tagName: string): string[] {

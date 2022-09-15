@@ -23,4 +23,5 @@ function generateThumbnail(pageDirectory: string, graphicName: string): void {
 generateThumbnail('index', 'focus');
 generateThumbnail('error', 'page-not-found');
 generateThumbnail('internet', 'signal-relaying-packet-request');
-generateThumbnail('email', 'thumbnail');
+generateThumbnail('email', 'email-thumbnail');
+generateThumbnail('number-theory', 'number-theory-thumbnail');

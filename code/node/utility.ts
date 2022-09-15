@@ -97,7 +97,7 @@ let counter = 0;
  * This function wraps the 'exec' function from 'child_process'.
  * It logs the command and only calls the callback if there was no error.
  */
-export async function execute(command: string, callback?: () => any, limit?: number): Promise<void> {
+export async function execute(command: string, callback?: () => any, limit = 5): Promise<void> {
     if (limit !== undefined) {
         while (counter >= limit) {
             await sleep(2000);

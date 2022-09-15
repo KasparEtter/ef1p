@@ -26,7 +26,7 @@ const getTitle = (hashOrElement: string | HTMLElement) => {
     return originalTitle + ' at ' + $(hashOrElement as any).text();
 };
 
-const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' | 'jump') => {
+const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' | 'jump' | 'expand') => {
     if (!hash || !/^#[^ ]+$/.test(hash)) {
         return false;
     }
@@ -36,7 +36,7 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
         if (window.handleToolUpdate) {
             window.handleToolUpdate(parts);
         } else {
-            console.error('There is no handler for tool updates on this page.');
+            console.error('ready.ts: There is no handler for tool updates on this page.');
         }
         hash = parts[0];
     }
@@ -63,6 +63,19 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
         }
     }
 
+    let margin = 0;
+    const content = target.closest('.tabbed > *') as HTMLElement;
+    if (content !== null) {
+        const container = $(content.parentElement!);
+        const children = container.children();
+        const tabs = children.eq(0).children();
+        tabs.removeClass('active');
+        tabs.eq(Array.from(children).indexOf(content) - 1).addClass('active');
+        children.removeClass('shown');
+        $(content).addClass('shown');
+        margin = 20;
+    }
+
     const offset = $(target).offset();
     if (!offset) {
         return false;
@@ -73,7 +86,7 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
         window.history.pushState(null, document.title, url);
     }
 
-    $('html, body').animate({ scrollTop: offset.top - 75 });
+    $('html, body').animate({ scrollTop: offset.top - 75 - margin });
 
     return true;
 };
@@ -248,18 +261,22 @@ if (isTouchDevice) {
 }
 
 // Expand all information boxes.
-$('#details-expander').on('click', _ => {
+$('#details-expander').on('click', () => {
+    const hash = window.location.hash;
     $('details').attr('open', '');
     $('#details-expander').addClass('d-none');
     $('#details-collapser').removeClass('d-none');
+    scrollToAnchor(hash, 'expand');
     report('Open box', { Anchor: 'all' });
 });
 
 // Collapse all information boxes.
-$('#details-collapser').on('click', _ => {
+$('#details-collapser').on('click', () => {
+    const hash = window.location.hash;
     $('details').removeAttr('open');
     $('#details-collapser').addClass('d-none');
     $('#details-expander').removeClass('d-none');
+    scrollToAnchor(hash, 'expand');
 });
 
 // Track the number of PDF downloads.

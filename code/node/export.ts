@@ -41,6 +41,9 @@ if (!directory) {
         // Set the theme to get the right colors.
         $('#theme').attr('href', themes.light);
 
+        // Trigger all the tools with a submit button.
+        window.submitAllTools();
+
         return [
             document.title,
             $('meta[property="article:published_time"]').attr('content'),
@@ -49,8 +52,8 @@ if (!directory) {
     });
     const date = modified ?? published ?? Time.current().toLocalTime().toGregorianDate();
 
-    // Wait for higher quality images to be loaded.
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Wait for higher quality images to be loaded and algorithms to be animated.
+    await new Promise(resolve => setTimeout(resolve, 60000));
 
     fs.mkdirSync(`pages/${directory}/generated`, { recursive: true });
 
@@ -85,6 +88,7 @@ if (!directory) {
         displayHeaderFooter: true,
         headerTemplate: '<span></span>',
         footerTemplate,
+        timeout: 1200000,
     });
     await browser.close();
 })();

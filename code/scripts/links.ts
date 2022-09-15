@@ -5,7 +5,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 // Open all information boxes.
-// $('details').attr('open', '');
+$('details').attr('open', '');
+
+// Show all tabs.
+$('.tabbed').children(':not(:first-child)').addClass('shown');
 
 function isValid(href: string): boolean {
     if (href.startsWith('#')) {
@@ -21,6 +24,16 @@ for (const element of document.getElementsByTagName('a')) {
     const href = element.getAttribute('href');
     if (href !== null && !isValid(href)) {
         console.error('The following element has a broken link:', element);
+    }
+}
+
+// Check that each ID is used only once on the current page.
+const ids = new Set<string>();
+for (const element of document.querySelectorAll('[id]')) {
+    if (ids.has(element.id)) {
+        console.error('The following elements have the same ID:', document.querySelectorAll('#' + element.id));
+    } else {
+        ids.add(element.id);
     }
 }
 
