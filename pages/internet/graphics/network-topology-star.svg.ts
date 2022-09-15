@@ -15,7 +15,7 @@ import { amount, nodes } from './network-topology-nodes';
 
 const center = new Circle({ center: zeroPoint, ...relayProperties })
 
-const links = new Array();
+const links = new Array<Line>();
 for (let i = 0; i < amount; i++) {
     links.push(Line.connectEllipses(nodes[i], center, linkProperties));
 }

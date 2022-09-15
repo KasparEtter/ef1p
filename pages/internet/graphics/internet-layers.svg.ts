@@ -69,11 +69,11 @@ function generateSquares(x: number, layer: number, shorten = 5) {
 }
 
 layers.forEach((layer, index) => {
-    elements.push(new Text({ text: layer, position: P(0, index * rowDistance + offsetTop), color: colors[index], verticalAlignment: 'middle' }));
+    elements.push(new Text({ text: layer, position: P(0, index * rowDistance + offsetTop), color: colors[index], horizontalAlignment: 'left' }));
 });
 
 entities.forEach((entity, index) => {
-    elements.push(new Text({ text: entity, position: P((index + 1) * columnDistance, 0), horizontalAlignment: 'middle', verticalAlignment: 'middle' }));
+    elements.push(new Text({ text: entity, position: P((index + 1) * columnDistance, 0) }));
 });
 
 for (let i = 0; i < 5; i++) {
