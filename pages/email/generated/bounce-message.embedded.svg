@@ -1,6 +1,6 @@
 <svg id="figure-bounce-message" class="figure" data-name="bounce-message" width="310.72" height="165" viewBox="-1.25 -1.25 310.72 165" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <path class="blue" d="M 102.428,142.75 A 51.058 80 0 0 1 51.3700762125,62.75" marker-end="url(#arrow-blue)" stroke-dasharray="97"></path>
+    <path class="blue" d="M 102.428,142.75 A 51.058 80 0 0 1 51.37,62.75 L 51.369401,62.740023" marker-end="url(#arrow-blue)" stroke-dasharray="97"></path>
     <text class="blue" text-anchor="start">
         <tspan x="72.78" y="109.203">3. Retrieve</tspan>
     </text>
@@ -8,7 +8,7 @@
     <text class="red" text-anchor="middle">
         <tspan x="154.11" y="18.75">2. Report</tspan>
     </text>
-    <path class="green" d="M 205.793,142.75 A 51.058 80 0 0 0 256.8503810625,62.75" marker-end="url(#arrow-green)" stroke-dasharray="97"></path>
+    <path class="green" d="M 205.793,142.75 A 51.058 80 0 0 0 256.85,62.75 L 256.851056,62.740023" marker-end="url(#arrow-green)" stroke-dasharray="97"></path>
     <text class="green" text-anchor="end">
         <tspan x="235.44" y="109.203">1. Submit</tspan>
     </text>

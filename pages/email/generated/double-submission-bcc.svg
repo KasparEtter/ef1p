@@ -13,7 +13,7 @@
         @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
 
         svg {
-            font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
@@ -60,7 +60,7 @@
     <text class="green" text-anchor="middle">
         <tspan x="154.11" y="18.75">2. Send</tspan>
     </text>
-    <path class="green" d="M 205.793,142.75 A 51.058 80 0 0 0 256.8503810625,62.75" marker-end="url(#arrow-green)" stroke-dasharray="97"></path>
+    <path class="green" d="M 205.793,142.75 A 51.058 80 0 0 0 256.85,62.75 L 256.851056,62.740023" marker-end="url(#arrow-green)" stroke-dasharray="97"></path>
     <text class="green" text-anchor="end">
         <tspan x="235.44" y="109.203">1. Submit</tspan>
     </text>

@@ -1,6 +1,6 @@
 <svg id="figure-simplified-architecture-without-outgoing" class="figure" data-name="simplified-architecture-without-outgoing" width="599.148" height="298.25" viewBox="-131.662 -5 599.148 298.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <path class="gray" d="M -0.312,250.25 A 77.394 165.5 0 0 1 -77.70605076000001,84.75" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
+    <path class="gray" d="M -0.312,250.25 A 77.394 165.5 0 0 1 -77.706,84.75 L -77.706447,84.740008" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
     <text class="gray" text-anchor="end">
         <tspan x="-60.121" y="224.146"><tspan class="text-uppercase">imap</tspan> for</tspan><tspan x="-60.121" y="246.146">message</tspan><tspan x="-60.121" y="268.146">storage</tspan>
     </text>
@@ -16,7 +16,7 @@
     <text text-anchor="end">
         <tspan x="40.706" y="129.9"><tspan class="text-uppercase">smtp</tspan> for</tspan><tspan x="40.706" y="151.9">message</tspan><tspan x="40.706" y="173.9">submission</tspan>
     </text>
-    <path class="red" d="M 52.706,208.188 A 176.456 166.438 0 0 1 229.16210152000002,41.75" marker-end="url(#arrow-red)" stroke-dasharray="262"></path>
+    <path class="red" d="M 52.706,208.188 A 176.456 166.438 0 0 1 229.162,41.75 L 229.172101,41.74992" marker-end="url(#arrow-red)" stroke-dasharray="262"></path>
     <text class="red" text-anchor="start">
         <tspan x="113.118" y="110.232"><tspan class="text-uppercase">smtp</tspan> for</tspan><tspan x="113.118" y="132.232">direct</tspan><tspan x="113.118" y="154.232">message</tspan><tspan x="113.118" y="176.232">delivery?</tspan>
     </text>

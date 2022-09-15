@@ -1,6 +1,6 @@
 <svg id="figure-simplified-architecture" class="figure" data-name="simplified-architecture" width="599.148" height="298.25" viewBox="-131.662 -5 599.148 298.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <path class="gray" d="M -0.312,250.25 A 77.394 165.5 0 0 1 -77.70605076000001,84.75" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
+    <path class="gray" d="M -0.312,250.25 A 77.394 165.5 0 0 1 -77.706,84.75 L -77.706447,84.740008" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
     <text class="gray" text-anchor="end">
         <tspan x="-60.121" y="224.146"><tspan class="text-uppercase">imap</tspan> for</tspan><tspan x="-60.121" y="246.146">message</tspan><tspan x="-60.121" y="268.146">storage</tspan>
     </text>
