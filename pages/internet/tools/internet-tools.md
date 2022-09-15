@@ -9,7 +9,7 @@ redirect_from: /tools/
 
 # [Internet](/internet/) tools
 
-Each title takes you to where the respective tool is explained.
+Each title links to where the respective tool is explained.
 
 
 ## Lookups
