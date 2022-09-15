@@ -13,7 +13,7 @@ layout: head
             <ul class="navbar-nav">
             {% for category in site.data.categories %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" title="{{ category.description }}"><i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}</a>
+                    <a class="nav-link" data-toggle="dropdown"><i class="icon-left fas fa-{{ category.icon }}"></i>{{ category.name }}</a>
                     <div class="dropdown-menu">
                         {% assign articles = site.pages | where: "category", category.name | where_exp: "article", "article.published" | sort: "published" %}{% for article in articles %}
                             <a class="dropdown-item{% if article.url == page.url %} active{% endif %}" href="{{ article.url | relative_url }}">{% if article.icon %}<i class="icon-left fas fa-{{ article.icon }}"></i>{% endif %}{{ article.title }}</a>
