@@ -8,7 +8,7 @@ permalink: /email/tools/
 
 # [Email](/email/) tools
 
-Each title takes you to where the respective tool is explained.
+Each title links to where the respective tool is explained.
 
 
 ## Lookups

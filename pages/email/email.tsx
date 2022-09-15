@@ -6,37 +6,36 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { bind } from '../../code/utility/event';
 import { Time } from '../../code/utility/time';
 
 import { CodeBlock, Comment, SystemReply, UserCommand } from '../../code/react/code';
 import { ClickToCopy } from '../../code/react/copy';
+import { injectElement, injectTool } from '../../code/react/injection';
 import { StaticPrompt } from '../../code/react/prompt';
-import { injectElement, injectTool } from '../../code/react/utility';
 
-import { toolConversionUnixTime } from '../../code/tools/conversions/unix-time';
-import { toolEncodingBase64 } from '../../code/tools/encodings/base64';
-import { toolEncodingEncodedWord } from '../../code/tools/encodings/encoded-word';
-import { toolEncodingExtendedParameter } from '../../code/tools/encodings/extended-parameter';
-import { toolEncodingNormalization } from '../../code/tools/encodings/normalization';
-import { toolEncodingPercent } from '../../code/tools/encodings/percent';
-import { toolEncodingPunycode } from '../../code/tools/encodings/punycode';
-import { toolEncodingQuotedPrintable } from '../../code/tools/encodings/quoted-printable';
-import { toolFormatDkim } from '../../code/tools/formats/dkim';
-import { toolFormatDmarc } from '../../code/tools/formats/dmarc';
-import { toolFormatSieve } from '../../code/tools/formats/sieve';
-import { toolInstructionHashing } from '../../code/tools/instructions/hashing';
-import { toolInstructionThunderbird } from '../../code/tools/instructions/thunderbird';
-import { toolInstructionTlsaRecord } from '../../code/tools/instructions/tlsa-record';
-import { toolLookupDnsRecords } from '../../code/tools/lookups/dns-records';
-import { emailAddressOutput, toolLookupOpenpgpkeyRecords, toolLookupSmimeaRecords } from '../../code/tools/lookups/email-address';
-import { emailDkimSelectorOutput, emailDomainInput, emailDomainOutput, toolLookupBimiRecord, toolLookupConfigurationDatabase, toolLookupDkimRecord, toolLookupDmarcRecord, toolLookupMtaStsPolicy, toolLookupMxRecords, toolLookupSpfRecord, toolLookupSrvRecords, toolLookupTlsaRecords, toolLookupTlsReporting } from '../../code/tools/lookups/email-domain';
-import { toolLookupEmailRequests } from '../../code/tools/lookups/email-requests';
-import { toolLookupIpAddress } from '../../code/tools/lookups/ip-address';
-import { toolProtocolEsmtp, toolProtocolEsmtpClient } from '../../code/tools/protocols/esmtp';
-import { toolProtocolImap } from '../../code/tools/protocols/imap';
-import { openSslCommand, setOpenSslCommand, toolProtocolManageSieve, toolProtocolManageSieveOpenSsl } from '../../code/tools/protocols/managesieve';
-import { toolProtocolPop3 } from '../../code/tools/protocols/pop3';
+import { toolConversionUnixTime } from '../../code/tools/conversion/unix-time';
+import { toolEncodingBase64 } from '../../code/tools/encoding/base64';
+import { toolEncodingEncodedWord } from '../../code/tools/encoding/encoded-word';
+import { toolEncodingExtendedParameter } from '../../code/tools/encoding/extended-parameter';
+import { toolEncodingNormalization } from '../../code/tools/encoding/normalization';
+import { toolEncodingPercent } from '../../code/tools/encoding/percent';
+import { toolEncodingPunycode } from '../../code/tools/encoding/punycode';
+import { toolEncodingQuotedPrintable } from '../../code/tools/encoding/quoted-printable';
+import { toolFormatDkim } from '../../code/tools/format/dkim';
+import { toolFormatDmarc } from '../../code/tools/format/dmarc';
+import { toolFormatSieve } from '../../code/tools/format/sieve';
+import { toolInstructionHashing } from '../../code/tools/instruction/hashing';
+import { toolInstructionThunderbird } from '../../code/tools/instruction/thunderbird';
+import { toolInstructionTlsaRecord } from '../../code/tools/instruction/tlsa-record';
+import { toolLookupDnsRecords } from '../../code/tools/lookup/dns-records';
+import { emailAddressOutput, toolLookupOpenpgpkeyRecords, toolLookupSmimeaRecords } from '../../code/tools/lookup/email-address';
+import { emailDkimSelectorOutput, emailDomainInput, emailDomainOutput, toolLookupBimiRecord, toolLookupConfigurationDatabase, toolLookupDkimRecord, toolLookupDmarcRecord, toolLookupMtaStsPolicy, toolLookupMxRecords, toolLookupSpfRecord, toolLookupSrvRecords, toolLookupTlsaRecords, toolLookupTlsReporting } from '../../code/tools/lookup/email-domain';
+import { toolLookupEmailRequests } from '../../code/tools/lookup/email-requests';
+import { toolLookupIpAddress } from '../../code/tools/lookup/ip-address';
+import { toolProtocolEsmtp, toolProtocolEsmtpClient } from '../../code/tools/protocol/esmtp';
+import { toolProtocolImap } from '../../code/tools/protocol/imap';
+import { openSslCommand, toolProtocolManageSieve, toolProtocolManageSieveOpenSsl } from '../../code/tools/protocol/managesieve';
+import { toolProtocolPop3 } from '../../code/tools/protocol/pop3';
 
 injectTool('tool-lookup-srv-records', toolLookupSrvRecords);
 injectTool('tool-lookup-configuration-database', toolLookupConfigurationDatabase);
@@ -256,8 +255,6 @@ injectElement('code-install-openssl', <CodeBlock>
 injectElement('code-installed-openssl', <CodeBlock>
     <StaticPrompt>/usr/local/opt/openssl/bin/openssl version</StaticPrompt>
 </CodeBlock>);
-
-bind('set-openssl-command', 'click', () => setOpenSslCommand('/usr/local/opt/openssl/bin/openssl'));
 
 injectElement('code-message-decompression', <CodeBlock>
     <StaticPrompt>echo "eNoLycgsVgCi4vzcVIXixNyCnFSF5Py8ktS8Ej0AlCkKVA==" | openssl base64 -d | pigz -d</StaticPrompt>
