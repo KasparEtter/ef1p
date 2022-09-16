@@ -3,7 +3,7 @@ title: Number theory
 category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
-published: 2022-09-15
+published: 2022-09-17
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 icon: percentage
 math: true
@@ -475,7 +475,7 @@ which satisfies the same requirements.
 Each algebraic structure has its own set of requirements,
 which are called [axioms](https://en.wikipedia.org/wiki/Axiom).
 Axioms are the [premises](https://en.wikipedia.org/wiki/Premise)
-from which [conclusions](https://en.wikipedia.org/wiki/Logical_consequence) are derived. 
+from which [conclusions](https://en.wikipedia.org/wiki/Logical_consequence) are derived.
 The next chapter is about [finite groups](#finite-groups),
 but we'll encounter other algebraic structures later on,
 namely [commutative rings](#commutative-rings) and [finite fields](#finite-fields).
@@ -753,35 +753,36 @@ such as $$\{x \in \mathbb{Z} \mid x > 2\}$$ for the set of integers greater than
 ### Element order
 
 If you keep [repeating](#element-repetitions) an element of a finite group,
-you will reach an earlier result again at some point because you run out of unused elements.
-Let $$A$$ be the element that we repeat and $$B$$ be the first element that we reach twice:
+you will reach an earlier result again at some point because you run out of fresh elements.
+Let $$A$$ be the element that we repeat and $$B$$ be the first element that we reach twice,
+which we can depict as follows:
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
 
 $$
-E \circ \overbrace{\underbrace{A \circ A \circ … \circ A \vphantom{\large |}}_{n \text{ times}\ =\ B} \circ \underbrace{A \circ … \circ A \vphantom{\large |}}_{m - n \text{ times}\ =\ E}}^{m \text{ times}\ =\ B}
+E \circ \overbrace{\underbrace{A \circ A \circ … \circ A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} \circ \underbrace{A \circ … \circ A \vphantom{\large |}}_{n - m \text{ times}\ =\ E}}^{n \text{ times}\ =\ B}
 $$
 
 $$
-O + \overbrace{\underbrace{A + A + … + A \vphantom{\large |}}_{n \text{ times}\ =\ B} + \underbrace{A + … + A \vphantom{\large |}}_{m - n \text{ times}\ =\ O}}^{m \text{ times}\ =\ B}
+O + \overbrace{\underbrace{A + A + … + A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} + \underbrace{A + … + A \vphantom{\large |}}_{n - m \text{ times}\ =\ O}}^{n \text{ times}\ =\ B}
 $$
 
 $$
-I \cdot \overbrace{\underbrace{A \cdot A \cdot … \cdot A \vphantom{\large |}}_{n \text{ times}\ =\ B} \cdot \underbrace{A \cdot … \cdot A \vphantom{\large |}}_{m - n \text{ times}\ =\ I}}^{m \text{ times}\ =\ B}
+I \cdot \overbrace{\underbrace{A \cdot A \cdot … \cdot A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} \cdot \underbrace{A \cdot … \cdot A \vphantom{\large |}}_{n - m \text{ times}\ =\ I}}^{n \text{ times}\ =\ B}
 $$
 
 </div>
 
-If you reach $$B$$ after repeating $$A$$ $$n$$ times and again after repeating $$A$$ $$m$$ times,
-then $$A$$ repeated $$m - n$$ times has to equal the identity element
-because the identity element is the [only element](#unique-solution) which returns $$B$$ when being combined with $$B$$.
-If we start with [zero repetitions](#zero-and-negative-repetitions) (i.e. the identity element),
+If you reach $$B$$ for the first time after repeating $$A$$ $$m$$ times and again after repeating $$A$$ $$n$$ times,
+then $$A$$ repeated $$n - m$$ times has to equal the [identity element](#group-axioms)
+because the identity element is the [unique solution](#unique-solution) to $$B \circ X = B$$.
+If we start with [zero repetitions](#zero-and-negative-repetitions) and thus the identity element instead of $$A$$,
 the identity element has to be the first element which we encounter again
-because for all other elements $$m - n$$ is smaller than $$m$$.
-(For the identity element, $$n = 0$$ and thus $$m - n = m$$.)
-The smallest $$m > 0$$ which results in the identity element when repeating $$A$$ $$m$$ times
+because as soon as $$m > 0$$, $$n - m$$ is smaller than $$n$$,
+which means that you reach the identity element before you reach $$B$$ for the second time.
+The smallest $$n > 0$$ which results in the identity element when repeating $$A$$ $$n$$ times
 is called the [order of the element](https://en.wikipedia.org/wiki/Order_(group_theory)) $$A$$,
-often written just like the [order of the group](#group-order):
+written as $$|A|$$:
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
 
@@ -820,7 +821,7 @@ $$
 </div>
 
 {:#inverse-through-repetitions}
-If $$A$$ 
+If $$A$$
 repeated $$|A|$$ times results in the identity element,
 then $$A$$ repeated $$|A| - 1$$ times has to result in the inverse element of $$A$$:
 
@@ -850,140 +851,18 @@ This is the most intuitive way to understand why a right inverse is also always 
 Why do we need invertibility as an axiom?
 </summary>
 
-Given that you get the inverse of any element $$A$$ in any finite group simply by repeating the element,
+Since you get the inverse of any element $$A$$ in any finite group simply by repeating $$A$$,
 you may wonder why we require each element to have an inverse in the group as one of [our axioms](#group-axioms).
-The reason for this is that without invertibility, we may get stuck on an element $$D$$
-after reaching a different element $$C$$ (where $$C$$ can be the identity element on the very left):
-
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
-
-$$
-\underset{E}{\underset{\downarrow}{E}} \circ \overbrace{\underset{A}{\underset{\downarrow}{A}} \circ \underset{B}{\underset{\downarrow}{A}} \circ … \circ \underset{C}{\underset{\downarrow}{A}} \vphantom{\large |}}^{0 \text{ or more repetitions}} \circ \underset{D}{\underset{\downarrow}{A}} \circ \underset{D}{\underset{\downarrow}{A}} \circ …
-$$
-
-$$
-\underset{O}{\underset{\downarrow}{O}} + \overbrace{\underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + … + \underset{C}{\underset{\downarrow}{A}} \vphantom{\large |}}^{0 \text{ or more repetitions}} + \underset{D}{\underset{\downarrow}{A}} + \underset{D}{\underset{\downarrow}{A}} + …
-$$
-
-$$
-\underset{I}{\underset{\downarrow}{I}} \cdot \overbrace{\underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot … \cdot \underset{C}{\underset{\downarrow}{A}} \vphantom{\large |}}^{0 \text{ or more repetitions}} \cdot \underset{D}{\underset{\downarrow}{A}} \cdot \underset{D}{\underset{\downarrow}{A}} \cdot …
-$$
-
-</div>
-
-If this is the case, we have the following two equations, where $$C ≠ D$$:
-
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
-
-$$
-\begin{aligned}
-C \circ A &= D \\
-D \circ A &= D
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-C + A &= D \\
-D + A &= D
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-C \cdot A &= D \\
-D \cdot A &= D
-\end{aligned}
-$$
-
-</div>
-
-If $$A$$ had an inverse, this could not happen because $$C$$ and $$D$$ would be [the same](#unique-solution):
-
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
-
-$$
-\begin{aligned}
-C \circ A &= D \circ A \\
-(C \circ A) \circ \overline{A} &= (D \circ A) \circ \overline{A} \\
-C \circ (A \circ \overline{A}) &= D \circ (A \circ \overline{A}) \\
-C \circ E &= D \circ E \\
-C &= D
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-C + A &= D + A \\
-(C + A) + \overline{A} &= (D + A) + \overline{A} \\
-C + (A + \overline{A}) &= D + (A + \overline{A}) \\
-C + O &= D + O \\
-C &= D
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-C \cdot A &= D \cdot A \\
-(C \cdot A) \cdot \overline{A} &= (D \cdot A) \cdot \overline{A} \\
-C \cdot (A \cdot \overline{A}) &= D \cdot (A \cdot \overline{A}) \\
-C \cdot I &= D \cdot I \\
-C &= D
-\end{aligned}
-$$
-
-</div>
-
-An example for such a $$D$$ is the number zero in [multiplicative groups modulo some number](#multiplicative-groups).
-Every number multiplied by zero equals zero.
-Consequently, zero has no inverse to get to the multiplicative identity one.
-[For example](#tool-table-multiplicative-group-repetition&modulus=8&coprime=false&repeat=false&order=false&totient=false),
-6 · 6 [modulo](#modulo-operation) 8 = 4 and (6 · 6) · 6 modulo 8 = 4 · 6 modulo 8 = 0.
-We thus have 4 · 6 = 0 (up to a multiple of 8) and 0 · 6 = 0.
-(6 has no inverse modulo 8.)
-
-If we don't require every element to have an inverse,
-we may also get into a loop which doesn't involve the identity element:
-
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
-
-$$
-\underset{A}{\underset{\downarrow}{A}} \circ \underset{B}{\underset{\downarrow}{A}} \circ … \circ \underset{C\ ≠\ E}{\underset{\downarrow}{A}} \circ \underset{A}{\underset{\downarrow}{A}} \circ \underset{B}{\underset{\downarrow}{A}} \circ …
-\textsf{, thus } C \circ A = A \textsf{ for a } C ≠ E
-$$
-
-$$
-\underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + … + \underset{C\ ≠\ O}{\underset{\downarrow}{A}} + \underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + … \textsf{, thus } C + A = A
-\textsf{ for a } C ≠ O
-$$
-
-$$
-\underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot … \cdot \underset{C\ ≠\ I}{\underset{\downarrow}{A}} \cdot \underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot …
-\textsf{, thus } C \cdot A = A \textsf{ for a } C ≠ I
-$$
-
-</div>
-
-If $$A$$ has no inverse, it can have several identities.
-[For example](#tool-table-multiplicative-group-repetition&modulus=10&coprime=false&repeat=false&order=false&totient=false),
-we have the following in the multiplicative group modulo 10:
-
-$$
-\underset{4}{\underset{\downarrow}{4}} \cdot \underset{6}{\underset{\downarrow}{4}} \cdot \underset{4}{\underset{\downarrow}{4}} \cdot …
-\textsf{, thus } 6 \cdot 4 \textsf{ modulo } 10 = 4 \textsf{ and } 1 \cdot 4 \textsf{ modulo } 10 = 4 \textsf{.}
-$$
-
+The reason for this is that without invertibility, $$X \circ A = B$$ can have several solutions,
+which means that you can get stuck in a loop which doesn't involve the identity element.
+(To see this happening, set the [modulus](#modulo-operation) to a [composite number](#prime-factorization)
+in the [repetition table of multiplicative groups](#multiplicative-group-repetition-table) below.)
 Instead of requiring that each element has an inverse,
-we can require that one must be able to get from any element to any other element
-both from the left and from the right in case the operation is not [commutative](#commutative-groups).
-This is an [alternative definition of a group](#alternative-group-axioms),
-which makes it more intuitive that each row and column of an [operation table](#multiplicative-group-operation-table)
-is a [permutation](#permutations) of the group's elements,
-i.e. all equations with two known values and one unknown value have a [unique solution](#unique-solution).
-(If there were two ways to get to the same element, at least one element could not be reached.)
-This requirement also makes the [identity axiom](#group-axioms) redundant.
-In other words, closure, associativity, and solvability entail that
-the identity element is [the same for all elements of the group](#latin-square-associativity-group).
+we can require that $$X \circ A = B$$ and $$A \circ Y = B$$ have a [unique solution](#unique-solution)
+for any elements $$A$$ and $$B$$ of the group.
+This is an [alternative definition of a group](#alternative-group-axioms)
+and makes even the [identity axiom](#group-axioms) redundant,
+as we'll see [later](#latin-square-associativity-group).
 
 </details>
 
@@ -993,33 +872,13 @@ the identity element is [the same for all elements of the group](#latin-square-a
 If an element reaches every element of the group before coming to the identity element
 when it is [repeated](#element-repetitions),
 the element is said to [generate the group](https://en.wikipedia.org/wiki/Generating_set_of_a_group).
-Such an element is called a generator.
+Such an element is called a generator and usually denoted as $$G$$.
 A group can have several generators or [no generator](#carmichaels-totient-function).
-If several parties have to [agree on the same generator](#shared-groups),
-the chosen generator is denoted by the letter $$G$$.
 By definition, the [order of each generator](#element-order)
 equals the [order of the group](#group-order): $$\lvert G \rvert = \lvert \mathbb{G} \rvert$$.
-The set generated by an element $$A$$ is usually written
+The set generated by an element $$A$$ is&nbsp;usually written
 with [angle brackets](https://en.wikipedia.org/wiki/Bracket#Angle_brackets) as $$⟨A⟩$$.
 Also by definition, the set generated by a generator is the whole group: $$\mathbb{G} = ⟨G⟩$$.
-
-<details markdown="block">
-<summary markdown="span" id="shared-groups">
-Shared groups
-</summary>
-
-For many [cryptosystems](https://en.wikipedia.org/wiki/Cryptosystem),
-it is common that many users use the same group, including the choice of the generator.
-If you protect your secrets with a group that was proposed by someone else,
-you have to trust this party that they chose the parameters in such a way
-that the group has no hidden properties.
-In order to convince others that this is the case,
-all randomized constants have to be chosen in a predictable manner,
-such as taking the initial digits of the number [π](https://en.wikipedia.org/wiki/Pi).
-In reference to magicians, such constants are called
-[nothing-up-my-sleeve numbers](https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number).
-
-</details>
 
 
 ### Cyclic groups
@@ -1113,8 +972,8 @@ $$
 nA = \begin{cases}
 (-n)(-A) &\text{if } n < 0 \text{,} \\
 O &\text{if } n = 0 \text{,} \\
-A + (n - 1)A &\text{if } n \text{ is odd,} \\
-\frac{n}{2}(2A) &\text{if } n \text{ is even.}
+(n - 1)A + A &\text{if } n \text{ is odd,} \\
+2(\frac{n}{2}A) &\text{if } n \text{ is even.}
 \end{cases}
 $$
 
@@ -1122,8 +981,8 @@ $$
 A^n = \begin{cases}
 (A^{-1})^{-n} &\text{if } n < 0 \text{,} \\
 I &\text{if } n = 0 \text{,} \\
-A \cdot A^{n-1} &\text{if } n \text{ is odd,} \\
-(A^2)^{\frac{n}{2}} &\text{if } n \text{ is even.}
+A^{n-1} \cdot A &\text{if } n \text{ is odd,} \\
+(A^{\frac{n}{2}})^2 &\text{if } n \text{ is even.}
 \end{cases}
 $$
 
@@ -1140,20 +999,20 @@ of the algorithm is [logarithmic](https://en.wikipedia.org/wiki/Time_complexity#
 with regard to the input $$n$$.
 Since halving a [binary number](/internet/#number-encoding) is the same as dropping its
 [least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing),
-one can also say that the running time is linear to the [bit length](https://en.wikipedia.org/wiki/Bit-length) of $$n$$.
+one can also say that the running time is linear in the [bit length](https://en.wikipedia.org/wiki/Bit-length) of $$n$$.
 In other words, if you double the length of a number (rather than its size),
 you just double the number of steps required.
 
-This algorithm has different names.
-When using [multiplicative notation](#notation), it is known as
+When using the [multiplicative notation](#notation), this algorithm is known as
 [exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) or square-and-multiply.
-When using [additive notation](#notation), this becomes multiplication by doubling or double-and-add.
+When using the [additive notation](#notation), this becomes multiplication by doubling or double-and-add.
 The algorithm exploits the fact that the group operation is [associative](#group-axioms):
 Instead of evaluating the expression from left to right,
 the operations are grouped in such a way that as many intermediate results as possible can be reused.
 Reusing intermediate results instead of recomputing them is called
 [common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination)
 in [compiler design](https://en.wikipedia.org/wiki/Compiler).
+It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
 Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
 
 <div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
@@ -1252,7 +1111,7 @@ On the other hand, we don't have to handle the case where $$n = 0$$ separately.
 Since computers represent numbers in [binary](https://en.wikipedia.org/wiki/Binary_number),
 you can check whether $$n$$ is odd with a [bitwise and](https://en.wikipedia.org/wiki/Bitwise_operation#AND)
 (typically written as `n & 1 === 1`) and divide $$n$$ by $$2$$ without having to subtract the
-[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing) first by 
+[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing) first by
 [shifting the bits](https://en.wikipedia.org/wiki/Arithmetic_shift) one to the right (typically written as `n >> 1`).
 Since I haven't yet introduced any actual groups,
 I will provide an [interactive tool](/#interactive-tools) for fast repetitions [later on](#repetition-revisited).
@@ -1289,18 +1148,10 @@ Notation for the subgroup relation
 </summary>
 
 As you may have noticed, I began to denote a group by its set in this section.
-The subgroup [relation](https://en.wikipedia.org/wiki/Relation_(mathematics)) is usually written
-as $$\mathbb{H} ≤ \mathbb{G}$$ (or as $$\mathbb{H} < \mathbb{G}$$ if $$\mathbb{H} ≠ \mathbb{G}$$).
-I assume that the notation for [inequality](https://en.wikipedia.org/wiki/Inequality_(mathematics))
-is preferred to the notation for [subsets](https://en.wikipedia.org/wiki/Subset) ($$\mathbb{H} \subseteq \mathbb{G}$$)
-because not every subset of elements forms a subgroup.
-And while the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory))
-of subgroups is [always another subgroup](#intersection-of-subgroups-is-a-subgroup),
-the [union](https://en.wikipedia.org/wiki/Union_(set_theory)) of subgroups is generally
-[not a subgroup](https://en.wikipedia.org/wiki/Subgroup#Basic_properties_of_subgroups).
-An argument for using the subset notation is that it's usually clear from the context
-that we require a set of elements to satisfy the [group axioms](#group-axioms).
-To keep things simple, I won't use either notation in this article.
+The [subgroup](#subgroups) [relation](https://en.wikipedia.org/wiki/Relation_(mathematics)) is usually written
+as $$\mathbb{H} ≤ \mathbb{G}$$ (or as $$\mathbb{H} < \mathbb{G}$$ if $$\mathbb{H} ≠ \mathbb{G}$$)
+instead of $$\mathbb{H} \subseteq \mathbb{G}$$
+because not every [subset](https://en.wikipedia.org/wiki/Subset) of elements forms a subgroup.
 
 </details>
 
@@ -1309,7 +1160,7 @@ To keep things simple, I won't use either notation in this article.
 Intersection of subgroups is a subgroup
 </summary>
 
-Given two subgroups $$\mathbb{H_1}$$ and $$\mathbb{H_2}$$ of a group $$\mathbb{G}$$,
+Given two [subgroups](#subgroups) $$\mathbb{H_1}$$ and $$\mathbb{H_2}$$ of a [group](#group-axioms) $$\mathbb{G}$$,
 their [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) $$\mathbb{H} = \mathbb{H_1} \cap \mathbb{H_2}$$
 is also a subgroup of $$\mathbb{G}$$ because:
 - $$\mathbb{H}$$ is not empty because the [identity element](#group-axioms) $$E$$ of $$\mathbb{G}$$
@@ -1319,6 +1170,10 @@ is also a subgroup of $$\mathbb{G}$$ because:
   Since $$\mathbb{H_1}$$ and $$\mathbb{H_2}$$ are closed,
   <!-- --> $$A \circ B \in \mathbb{H_1}$$ and $$A \circ B \in \mathbb{H_2}$$.
   Therefore, $$A \circ B \in \mathbb{H}$$.
+
+On the other hand,
+the [union](https://en.wikipedia.org/wiki/Union_(set_theory)) of two subgroups is generally
+[not a subgroup](https://en.wikipedia.org/wiki/Subgroup#Basic_properties_of_subgroups).
 
 </details>
 
@@ -1347,8 +1202,9 @@ you get a [coset](https://en.wikipedia.org/wiki/Coset) of $$\mathbb{H}$$, which 
 </div>
 
 If the group operation is [commutative](#commutative-groups),
-the right coset and the left coset of a subgroup $$\mathbb{H}$$ and an element $$A$$ are the same.
-If $$A \in \mathbb{H}$$:
+the right coset and the left coset of a subgroup $$\mathbb{H}$$ and an element $$A \in \mathbb{G}$$ are the same.
+If the element $$A$$ belongs to the subgroup $$\mathbb{H}$$,
+the right coset and the left coset equal the subgroup itself due to [closure](#group-axioms):
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
 
@@ -1375,13 +1231,17 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 1. If $$B \in \mathbb{H} \circ A$$, then $$\mathbb{H} \circ A = \mathbb{H} \circ B$$<br>
    because $$B = H_B \circ A$$ for some $$H_B \in \mathbb{H}$$,
    and thus for every element $$C \in \mathbb{H} \circ B$$,
-   there's an $$H_C \in \mathbb{H}$$ so that<br>$$C = H_C \circ B = H_C \circ (H_B \circ A) =  (H_C \circ H_B) \circ A$$,
+   there's an $$H_C \in \mathbb{H}$$ so that $$C = H_C \circ B = H_C \circ (H_B \circ A) =  (H_C \circ H_B) \circ A$$,
    where $$H_C \circ H_B \in \mathbb{H}$$ due to [closure](#group-axioms), and thus $$C \in \mathbb{H} \circ A$$.
+   So far, we have just shown that $$\mathbb{H} \circ B \subseteq \mathbb{H} \circ A$$.
+   Since $$B = H_B \circ A$$, we have that $$A = \overline{H_B} \circ B$$, and thus $$A \in \mathbb{H} \circ B$$.
+   This implies that $$\mathbb{H} \circ A \subseteq \mathbb{H} \circ B$$ for the same reason as before.
+   Therefore, $$\mathbb{H} \circ A = \mathbb{H} \circ B$$.
 2. If $$B \notin \mathbb{H} \circ A$$, then $$\mathbb{H} \circ A \cap \mathbb{H} \circ B = \varnothing$$
    (the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of the two cosets
    results in the [empty set](https://en.wikipedia.org/wiki/Empty_set))<br>
    because an overlap would mean that for some element $$C$$,
-   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A \circ A = H_B \circ B$$.<br>
+   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A \circ A = H_B \circ B$$.
    But in this case, $$B = \overline{H_B} \circ (H_A \circ A) = (\overline{H_B} \circ H_A) \circ A \in \mathbb{H} \circ A$$,
    which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
    the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
@@ -1391,13 +1251,17 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 1. If $$B \in \mathbb{H} + A$$, then $$\mathbb{H} + A = \mathbb{H} + B$$<br>
    because $$B = H_B + A$$ for some $$H_B \in \mathbb{H}$$,
    and thus for every element $$C \in \mathbb{H} + B$$,
-   there's an $$H_C \in \mathbb{H}$$ so that<br>$$C = H_C + B = H_C + (H_B + A) =  (H_C + H_B) + A$$,
+   there's an $$H_C \in \mathbb{H}$$ so that $$C = H_C + B = H_C + (H_B + A) =  (H_C + H_B) + A$$,
    where $$H_C + H_B \in \mathbb{H}$$ due to [closure](#group-axioms), and thus $$C \in \mathbb{H} + A$$.
+   So far, we have just shown that $$\mathbb{H} + B \subseteq \mathbb{H} + A$$.
+   Since $$B = H_B + A$$, we have that $$A = (-H_B) + B$$, and thus $$A \in \mathbb{H} + B$$.
+   This implies that $$\mathbb{H} + A \subseteq \mathbb{H} + B$$ for the same reason as before.
+   Therefore, $$\mathbb{H} + A = \mathbb{H} + B$$.
 2. If $$B \notin \mathbb{H} + A$$, then $$\mathbb{H} + A \cap \mathbb{H} + B = \varnothing$$
    (the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of the two cosets
    results in the [empty set](https://en.wikipedia.org/wiki/Empty_set))<br>
    because an overlap would mean that for some element $$C$$,
-   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A + A = H_B + B$$.<br>
+   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A + A = H_B + B$$.
    But in this case, $$B = (-H_B) + (H_A + A) = ((-H_B) + H_A) + A \in \mathbb{H} + A$$,
    which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
    the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
@@ -1407,13 +1271,17 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 1. If $$B \in \mathbb{H} \cdot A$$, then $$\mathbb{H} \cdot A = \mathbb{H} \cdot B$$<br>
    because $$B = H_B \cdot A$$ for some $$H_B \in \mathbb{H}$$,
    and thus for every element $$C \in \mathbb{H} \cdot B$$,
-   there's an $$H_C \in \mathbb{H}$$ so that<br>$$C = H_C \cdot B = H_C \cdot (H_B \cdot A) =  (H_C \cdot H_B) \cdot A$$,
+   there's an $$H_C \in \mathbb{H}$$ so that $$C = H_C \cdot B = H_C \cdot (H_B \cdot A) =  (H_C \cdot H_B) \cdot A$$,
    where $$H_C \cdot H_B \in \mathbb{H}$$ due to [closure](#group-axioms), and thus $$C \in \mathbb{H} \cdot A$$.
+   So far, we have just shown that $$\mathbb{H} \cdot B \subseteq \mathbb{H} \cdot A$$.
+   Since $$B = H_B \cdot A$$, we have that $$A = H_B^{-1} \cdot B$$, and thus $$A \in \mathbb{H} \cdot B$$.
+   This implies that $$\mathbb{H} \cdot A \subseteq \mathbb{H} \cdot B$$ for the same reason as before.
+   Therefore, $$\mathbb{H} \cdot A = \mathbb{H} \cdot B$$.
 2. If $$B \notin \mathbb{H} \cdot A$$, then $$\mathbb{H} \cdot A \cap \mathbb{H} \cdot B = \varnothing$$
    (the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of the two cosets
    results in the [empty set](https://en.wikipedia.org/wiki/Empty_set))<br>
    because an overlap would mean that for some element $$C$$,
-   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A \cdot A = H_B \cdot B$$.<br>
+   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A \cdot A = H_B \cdot B$$.
    But in this case, $$B = H_B^{-1} \cdot (H_A \cdot A) = (H_B^{-1} \cdot H_A) \cdot A \in \mathbb{H} \cdot A$$,
    which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
    the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
@@ -1485,7 +1353,7 @@ Index and cofactor
 </summary>
 
 Given a group $$\mathbb{G}$$ and a subgroup $$\mathbb{H}$$,
-the ratio $$\frac{|\mathbb{G}|}{|\mathbb{H}|}$$ is called the 
+the ratio $$\frac{|\mathbb{G}|}{|\mathbb{H}|}$$ is called the
 [index of the subgroup](https://en.wikipedia.org/wiki/Index_of_a_subgroup)
 or the [cofactor](https://en.wikipedia.org/wiki/Cofactor) in the case of [elliptic curves](#elliptic-curves).
 
@@ -1496,16 +1364,17 @@ or the [cofactor](https://en.wikipedia.org/wiki/Cofactor) in the case of [ellipt
 Proof without cosets for commutative groups
 </summary>
 
-There is a much simpler proof for why you get the [identity element](#group-axioms)
-when you [repeat an element](#element-repetitions) of a [commutative group](#commutative-groups)
-as many times as there are elements in the group.
+If we restrict our attention to [commutative groups](#commutative-groups),
+there's a much simpler proof for why you get the [identity element](#group-axioms)
+when you [repeat an element](#element-repetitions) of such a group as many times as there are elements in the group.
 (I found this proof on page 34 of [Victor Shoup's book](https://shoup.net/ntb/ntb-v2.pdf).)
 Since you get [different results](#unique-result)
 when you combine an element $$A$$ with two different elements $$B_1$$ and $$B_2$$,
 <!-- --> $$f(X) = A \circ X$$ is an [invertible function](https://en.wikipedia.org/wiki/Bijection).
-This means that $$f(x)$$ is a [permutation](#permutations),
+This means that $$f(X)$$ is a [permutation](#permutations),
 and thus $$f(\mathbb{G}) = \{f(B) \mid B \in \mathbb{G}\} = \mathbb{G}$$.
-Using [Greek letters](#sum-and-product-of-similar-terms) to iterate over all elements:
+Using [Greek letters](#sum-and-product-of-similar-terms) to iterate over all the elements of a commutative group,
+we can observe the following:
 
 <div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
 
@@ -1514,8 +1383,7 @@ $$
 = \sum_{B \in \mathbb{G}} f(B)
 = \sum_{B \in \mathbb{G}} A + B
 = (|\mathbb{G}|)A + \Big( \sum_{B \in \mathbb{G}} B \Big) \\[8pt]
-\textsf{After canceling } \sum_{B \in \mathbb{G}} B \textsf{ on both sides:} \enspace
-O = (|\mathbb{G}|)A
+\textsf{After canceling } \sum_{B \in \mathbb{G}} B \textsf{ on both sides, we have that } O = (|\mathbb{G}|)A \textsf{.}
 $$
 
 $$
@@ -1523,8 +1391,7 @@ $$
 = \prod_{B \in \mathbb{G}} f(B)
 = \prod_{B \in \mathbb{G}} A \cdot B
 = A^{|\mathbb{G}|} \cdot \Big( \prod_{B \in \mathbb{G}} B \Big) \\[8pt]
-\textsf{After canceling } \prod_{B \in \mathbb{G}} B \textsf{ on both sides:} \enspace
-I = A^{|\mathbb{G}|}
+\textsf{After canceling } \prod_{B \in \mathbb{G}} B \textsf{ on both sides, we have that } I = A^{|\mathbb{G}|} \textsf{.}
 $$
 
 </div>
@@ -1556,7 +1423,7 @@ aren't [closed](https://en.wikipedia.org/wiki/Closure_(mathematics))
 under [division](https://en.wikipedia.org/wiki/Division_(mathematics)),
 but you can divide any two integers with a [remainder](https://en.wikipedia.org/wiki/Remainder),
 which is known as [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division).
-Given a positive integer $$d > 0$$, every integer $$n$$ can be written as $$n = d \cdot q + r$$,
+Given a positive integer $$d > 0$$, every integer $$n$$ can be written as $$n = q \cdot d + r$$,
 where $$q$$ and $$r$$ are integers and $$0 ≤ r < d$$.
 In this equation,
 <!-- --> $$n$$ is called the [dividend](https://en.wiktionary.org/wiki/dividend) (the quantity to be divided),
@@ -1581,7 +1448,7 @@ on [Wikipedia](https://en.wikipedia.org/wiki/Euclidean_division#Proof).
 Since we are interested in positive divisors only, I didn't bother to define Euclidean division for a negative $$d$$.
 What we do care about, though, is that the remainder $$r$$ is
 [non-negative](https://en.wikipedia.org/wiki/Sign_(mathematics)#non-negative_and_non-positive)
-(greater than or equal to zero) even if the integer $$n$$ is negative:
+(i.e. greater than or equal to zero) even if the integer $$n$$ is negative:
 
 <figure markdown="block">
 {% include_relative generated/modulo-line-negative.embedded.svg %}
@@ -1657,7 +1524,7 @@ The best-known example for this is the [analog clock](https://en.wikipedia.org/w
 <figure markdown="block">
 {% include_relative generated/modulo-clock.embedded.svg %}
 <figcaption markdown="span">
-6 hours past 9 a.m. is (9 + 6) mod 12 = 3 p.m.
+6 hours past 9 a.m. is (9 + 6) [%](#modulo-operation) 12 = 3 p.m.
 </figcaption>
 </figure>
 
@@ -1695,6 +1562,17 @@ If a computation is performed with something else,
 such as [points](#point-addition) or [polynomials](https://en.wikipedia.org/wiki/Polynomial),
 we will leave the meaning of the equals sign to the context in which it is used.
 
+We have now five different ways to express the same [relation](https://en.wikipedia.org/wiki/Relation_(mathematics))
+between two integers $$a$$ and $$b$$:
+
+$$
+a\ \%\ m = b\ \%\ m
+\enspace \iff \enspace a =_m b
+\enspace \iff \enspace (a - b)\ \%\ m = 0
+\enspace \iff \enspace m \href{#divisor}{\mid} (a - b)
+\enspace \iff \enspace a = b + c \cdot m \textsf{ for some integer } c
+$$
+
 {:#equivalence-properties}
 Equality of remainders is an [equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation),
 which is defined by the following three properties given any numbers $$a$$, $$b$$, and $$c$$:
@@ -1711,41 +1589,21 @@ because the remainder is unique for every number.
 
 ### Congruence relation
 
-The [modulo operation](#modulo-operation) is ideal for constructing [finite groups](#finite-groups) because
+The above [equivalence relation](#equivalence-relation) is compatible with
 [addition](https://en.wikipedia.org/wiki/Addition) and [multiplication](https://en.wikipedia.org/wiki/Multiplication)
-preserve the [equivalence relation](#equivalence-relation):
+in the sense that equivalent inputs yield equivalent outputs:
+For any integers $$a_1$$, $$a_2$$, $$b_1$$, and $$b_2$$ so that $$a_1 =_m a_2$$ and $$b_1 =_m b_2$$
+(i.e. $$a_1 = a_2 + c_a \cdot m$$ and $$b_1 = b_2 + c_b \cdot m$$ for some integers $$c_a$$ and $$c_b$$),
+we have that
+- $$a_1 + b_1 =_m a_2 + b_2$$
+  because $$a_1 + b_1 = (a_2 + c_a \cdot m) + (b_2 + c_b \cdot m) = (a_2 + b_2) + (c_a + c_b) \cdot m$$, and
+- $$ a_1 \cdot b_1 =_m a_2 \cdot b_2$$
+  because $$a_1 \cdot b_1 = (a_2 + c_a \cdot m) \cdot (b_2 + c_b \cdot m)
+  = (a_2 \cdot b_2) + (a_2 \cdot c_b + c_a \cdot b_2 + c_a \cdot c_b \cdot m) \cdot m$$.
 
-$$
-\textsf{If} \enspace a_1 =_m a_2 \enspace \textsf{and} \enspace b_1 =_m b_2 \textsf{,} \\[6pt]
-\textsf{then} \enspace a_1 + b_1 =_m a_2 + b_2 \enspace \textsf{and} \enspace a_1 \cdot b_1 =_m a_2 \cdot b_2 \textsf{.}
-$$
-
-An equivalence relation which yields equivalent outputs for equivalent inputs to the operations of interest
+An equivalence relation which is compatible with the operations of interest
 is a [congruence relation](https://en.wikipedia.org/wiki/Congruence_relation).
-Equivalence modulo some number is a congruence relation
-because you get an equivalent output when you reduce the inputs to their remainder.
-Since [every number](#euclidean-division) $$n$$ can be written as $$n = q \cdot m + r$$,
-the following holds for any two numbers $$n_1$$ and $$n_2$$:
-
-{:.aligned}
-$$
-\begin{aligned}
-
-\textsf{Given} \enspace n_1 &= q_1 \cdot m + r_1 \\
-\textsf{and} \enspace n_2 &= q_2 \cdot m + r_2 \textsf{,} \\[6pt]
-
-\textsf{then} \enspace n_1 + n_2 &=_m (q_1 \cdot m + r_1) + (q_2 \cdot m + r_2) \\
-&=_m (q_1 + q_2) \cdot m + (r_1 + r_2) \\
-&=_m r_1 + r_2 \\[6pt]
-
-\textsf{and} \enspace n_1 \cdot n_2 &=_m (q_1 \cdot m + r_1) \cdot (q_2 \cdot m + r_2) \\
-&=_m q_1 \cdot q_2 \cdot m^2 + (q_1 \cdot r_2 + r_1 \cdot q_2) \cdot m + r_1 \cdot r_2 \\
-&=_m r_1 \cdot r_2 \textsf{.}
-
-\end{aligned}
-$$
-
-Calculating modulo $$m$$ means that we can eliminate multiples of $$m$$ without affecting the equivalence relation.
+Calculating modulo $$m$$ therefore means that we can eliminate multiples of $$m$$ without affecting the equivalence relation.
 Since only the remainders are relevant, we can – and will – represent all numbers by their unique remainder.
 Instead of reinterpreting what it means to be equal,
 we could just as well [overload the operators](https://en.wikipedia.org/wiki/Operator_overloading)
@@ -1781,7 +1639,7 @@ It's easy to see why addition modulo $$m$$ satisfies the four [group axioms](#gr
   addition [remains associative](https://en.wikipedia.org/wiki/Addition#Associativity).
 - **Identity**:
   The number $$0$$ is the only [identity element](https://en.wikipedia.org/wiki/Addition#Identity_element).
-  For any number $$A$$, $$A + 0 = 0 + A = A$$.
+  For any number $$A$$, we have that $$A + 0 = 0 + A = A$$.
 - **Invertibility**:
   The inverse of any number $$A$$ is $$m - A$$ because $$A + (m - A) =_m 0$$.
 
@@ -1855,12 +1713,12 @@ the following properties are easy to understand even if you don't know anything 
 - **Gray element**: If the modulus $$m$$ is even, the element $$\frac{m}{2}$$ has an order of two.
   An order of two means that $$\frac{m}{2}$$ is [its own inverse](#even-number-of-generators).
   All other elements except zero have an order greater than two
-  because for all elements $$A < \frac{m}{2}$$, $$2A < m$$,
-  and for all elements $$A > \frac{m}{2}$$, $$m < 2A < 2m$$.
+  because for all elements $$A < \frac{m}{2}$$, we have that $$2A < m$$,
+  and for all elements $$A > \frac{m}{2}$$, we have that $$m < 2A < 2m$$.
   Thus, whenever an element has an even order
   (which can be the case [only if $$m$$ is even](#lagranges-theorem)),
   you reach $$\frac{m}{2}$$ halfway to the identity element.
-  To make it easier to see this pattern, the tool marks $$\frac{m}{2}$$ with a gray background whenever $$m$$ is even.
+  To make it easier to see this, the tool marks $$\frac{m}{2}$$ with a gray background.
 
 You can ignore the additional options of the tool for now;
 we'll make use of them [later on](#sum-of-eulers-totient-function-over-divisors).
@@ -1964,11 +1822,10 @@ mathematicians typically prefer the former, whereas cryptographers tend to settl
 
 ## Multiplicative groups
 
-The integers modulo some number $$m$$ can also be combined
+The integers modulo some integer $$m$$ can also be combined
 using [multiplication](https://en.wikipedia.org/wiki/Multiplication),
 which results in the so-called
-[multiplicative group of integers modulo $$n$$](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n)
-(the modulus is more commonly denoted as $$n$$).
+[multiplicative group of integers modulo $$m$$](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n).
 Since [equivalence up to a multiple of $$m$$](#equivalence-relation)
 is [preserved also under multiplication](#congruence-relation),
 it's easy to see why modular multiplication is still [associative](#group-axioms).
@@ -2049,7 +1906,7 @@ The reason for this is that the product of two negative numbers is the same
 as the product of the corresponding positive numbers:
 <!-- --> $$A \cdot B = B \cdot A = (-B) \cdot (-A) =_m (m - B) \cdot (m - A)$$.
 This second symmetry is specific to [multiplicative groups](#multiplicative-groups),
-which you can verify by going back to the [additive groups](#additive-group-operation-table). 
+which you can verify by going back to the [additive groups](#additive-group-operation-table).
 
 
 #### Permutations
@@ -2552,32 +2409,33 @@ Using [Fermat's little theorem](#fermats-little-theorem),
 we can compute the [multiplicative inverse](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
 modulo a [prime number](#prime-factorization) $$p$$ for any element $$A$$ as $$A^{-1} =_p A^{p-2}$$
 because $$A \cdot A^{p-2} =_p A^{p-1} =_p 1$$.
-While repeating an element is [efficient](#fast-repetitions),
-we'll discuss a faster way to compute the multiplicative inverse of an element
-in the [next chapter](#extended-euclidean-algorithm).
+As we'll see in the [next chapter](#extended-euclidean-algorithm),
+there's a faster way to compute the multiplicative inverse of an element.
 In cryptography, speed is not the only consideration, though;
 you also want to avoid [side-channel attacks](https://en.wikipedia.org/wiki/Side-channel_attack).
 If you want to compute the multiplicative inverse of an element
 in [constant time](https://en.wikipedia.org/wiki/Timing_attack#Avoidance),
-you might still prefer this approach.
+you might still prefer to compute $$A^{-1}$$ as $$A^{p-2}$$.
 
 
 ### Discrete-logarithm problem (DLP) {#discrete-logarithm-problem}
 {:data-toc-text="Discrete-logarithm problem"}
 
 A lot of modern cryptography is built on the [assumption](https://en.wikipedia.org/wiki/Computational_hardness_assumption)
-that solving the [discrete logarithm](https://en.wikipedia.org/wiki/Discrete_logarithm) in multiplicative groups
+that computing the [discrete logarithm](https://en.wikipedia.org/wiki/Discrete_logarithm) in multiplicative groups
 is infeasible on classical computers if you choose the modulus $$m$$ [carefully](#pohlig-hellman-algorithm).
-In other words, while computing $$K =_m G^k$$ given a [generator](#group-generators) $$G$$ and an exponent $$k$$
-[is easy](#fast-repetitions), computing $$k = \log_G(K)$$ as the [logarithm](https://en.wikipedia.org/wiki/Logarithm)
-of $$K$$ to the [base](https://en.wikipedia.org/wiki/Base_(exponentiation)) $$G$$ is hard.
+In other words, while computing $$K =_m G^k$$ given a [generator](#group-generators) $$G$$ and an exponent $$k$$ is easy
+(we [have seen](#fast-repetitions) that the [running time](https://en.wikipedia.org/wiki/Time_complexity)
+is proportional to the number of bits in $$k$$),
+computing $$k = \log_G(K)$$ as the [logarithm](https://en.wikipedia.org/wiki/Logarithm)
+of $$K$$ to the [base](https://en.wikipedia.org/wiki/Base_(exponentiation)) $$G$$ is presumably hard.
 If this assumption is indeed true, [modular exponentiation](https://en.wikipedia.org/wiki/Modular_exponentiation)
 is a [linear one-way function](#linear-one-way-functions).
 As mentioned [earlier](#computational-complexity-theory), it is widely believed that this is the case,
 but we still lack a proof for the [hardness](https://en.wikipedia.org/wiki/Computational_hardness_assumption)
 of the discrete-logarithm [problem](https://en.wikipedia.org/wiki/Computational_problem).
 We'll study the best known [algorithms](https://en.wikipedia.org/wiki/Algorithm)
-for solving the discrete-logarithm problem in the [second to last chapter](#dl-algorithms) of this article.
+for solving the discrete-logarithm problem in the [second to last chapter](#dl-algorithms).
 
 <details markdown="block">
 <summary markdown="span" id="quantum-computers">
@@ -2590,8 +2448,8 @@ such as [superposition](https://en.wikipedia.org/wiki/Quantum_superposition).
 The discrete-logarithm problem can be solved efficiently on a sufficiently powerful quantum computer
 with [Shor's algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm),
 named after [Peter Shor](https://en.wikipedia.org/wiki/Peter_Shor) (born in 1959).
-The quantum computers which have been built until now are by far not powerful enough to break modern cryptography.
-Since this might change in the future, cryptography which cannot be broken by quantum computers
+The quantum computers which have been built until now are by far not powerful enough to break modern cryptography,
+but since this might change in the future, cryptography which cannot be broken by quantum computers
 – so-called [post-quantum cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography) –
 is an active area of research with increasing interest.
 
@@ -2663,11 +2521,13 @@ This [algorithm](https://en.wikipedia.org/wiki/Algorithm) is called
 that every positive integer can be written as a product of primes.
 We'll prove [later](#unique-factorization-theorem)
 that the factorization into primes is unique (up to the order of the primes).
-Similar to the [discrete-logarithm problem](#discrete-logarithm-problem),
+Unfortunately, the number of integers between 2 and the square root of the given integer
+scales exponentially in the number of bits, and hence trial division isn't very useful in practice.
+There are [faster factoring algorithms](https://en.wikipedia.org/wiki/Integer_factorization#Factoring_algorithms)
+(we'll study [one of them](#pollards-rho-factorization-algorithm) in the second to last chapter),
+but similar to the [discrete-logarithm problem](#discrete-logarithm-problem),
 no algorithm is known for factoring (large) integers efficiently on [classical computers](#quantum-computers).
 The following tool factorizes integers into primes using trial division with the configured delay between attempts.
-There are [faster factoring algorithms](https://en.wikipedia.org/wiki/Integer_factorization#Factoring_algorithms);
-we'll study [one of them](#pollards-rho-factorization-algorithm) in the second to last chapter.
 
 <div id="tool-integer-factorization-trial-division"></div>
 
@@ -2920,7 +2780,7 @@ Bézout's identity
 named after [Étienne Bézout](https://en.wikipedia.org/wiki/%C3%89tienne_B%C3%A9zout) (1730 − 1783),
 makes the following two statements:
 - **Existence**: For any two positive integers $$a$$ and $$b$$, there exist some integers $$c$$ and $$d$$
-  so that $$\operatorname{gcd}(a, b) = c \cdot a + d \cdot b$$.
+  so that $$\operatorname{\href{#greatest-common-divisor}{gcd}}(a, b) = c \cdot a + d \cdot b$$.
   The [extended Euclidean algorithm](#extended-euclidean-algorithm)
   [proves constructively](https://en.wikipedia.org/wiki/Constructive_proof) that such coefficients exist.
   These coefficients are not unique, though.
@@ -2928,33 +2788,35 @@ makes the following two statements:
   add up to $$0$$ when multiplied by the corresponding input,
   you can add multiples of the last row to the second last row without affecting the left side of the equation.
   [For example](#tool-integer-extended-euclidean-algorithm&a=51&b=21),
-  since $$3 = -2 \cdot 51 + 5 \cdot 21$$ and $$0 = 7 \cdot 51 - 17 \cdot 21$$,
-  we also have that $$3 = (-2 + 7) \cdot 51 + (5 - 17) \cdot 21$$.
+  as $$3 = (-2) \cdot 51 + 5 \cdot 21$$ and $$0 = 7 \cdot 51 + (-17) \cdot 21$$,
+  we also have that $$3 = (-2 + 7) \cdot 51 + (5 - 17) \cdot 21 = 5 \cdot 51 + (-12) \cdot 21$$.
 - **Multiples**: Every [linear combination](https://en.wikipedia.org/wiki/Linear_combination)
-  of $$a$$ and $$b$$ is a multiple of $$\operatorname{gcd}(a, b)$$
+  of $$a$$ and $$b$$ is a multiple of $$\operatorname{gcd}(a, b)$$,
   and every multiple of $$\operatorname{gcd}(a, b)$$ can be expressed as a linear combination of $$a$$ and $$b$$.
   Denoting $$\operatorname{gcd}(a, b)$$ as $$g$$,
   we can write this as $$\{e \cdot a + f \cdot b \mid e, f \in \mathbb{Z}\} = \{h \cdot g \mid h \in \mathbb{Z}\}$$.
-  Since $$g = c \cdot a + d \cdot b$$ for some $$c$$ and $$d$$ according to the previous point,
+  The second half of this statement is an immediate consequence of the previous point:
+  Since $$g = c \cdot a + d \cdot b$$ for some integers $$c$$ and $$d$$,
   any multiple $$h \cdot g = (h \cdot c) \cdot a + (h \cdot d) \cdot b$$
   due to [distributivity](https://en.wikipedia.org/wiki/Distributive_property),
   which is a linear combination of $$a$$ and $$b$$.
-  We prove the first half of the statement with two [lemmas](https://en.wikipedia.org/wiki/Lemma_(mathematics)):
+  We prove the first half of the statement with the following two [lemmas](https://en.wikipedia.org/wiki/Lemma_(mathematics)):
   - Let $$\mathbb{I} = \{e \cdot a + f \cdot b \mid e, f \in \mathbb{Z}\}$$
-    and $$i$$ be the smallest positive element in $$\mathbb{I}$$,
-    then all elements in $$\mathbb{I}$$ are a multiple of $$i$$.
-    Using [Euclidean division](#euclidean-division),
+    and $$i$$ be the smallest positive element in $$\mathbb{I}$$.
+    Claim: All elements in $$\mathbb{I}$$ are a multiple of $$i$$.
+    Proof: Using [Euclidean division](#euclidean-division),
     every element $$j$$ in $$\mathbb{I}$$ can be written as $$j = q \cdot i + r$$
     for some integers $$q$$ and $$r$$ with $$0 ≤ r < i$$.
     Since $$i$$ and $$j$$ are in $$\mathbb{I}$$, so is $$r = j - q \cdot i$$.
-    Since $$0 ≤ r < i$$ and $$i$$ is by assumption the smallest positive element in $$\mathbb{I}$$, $$r$$ must be $$0$$.
+    Since $$0 ≤ r < i$$ and $$i$$ is by assumption the smallest positive element in $$\mathbb{I}$$,
+    <span class="text-nowrap" markdown="span">$$r$$ must</span> be $$0$$.
     Therefore, every $$j \in \mathbb{I}$$ is indeed a multiple of $$i$$.
     (As we will see [later](#ideals), $$\mathbb{I}$$ is
     a so-called [ideal](https://en.wikipedia.org/wiki/Ideal_(ring_theory)).)
-  - The smallest positive element $$i \in \mathbb{I}$$ is the greatest common divisor of $$a$$ and $$b$$.
-    Since all linear combinations of $$a$$ and $$b$$ are multiples of $$i$$ according to the previous step,
-    both $$a$$ and $$b$$ are multiples of $$i$$, which means that $$i$$ is a common divisor of $$a$$ and $$b$$.
-    Any integer which divides $$a$$ and $$b$$ also divides every integer
+  - Claim: The smallest positive element $$i \in \mathbb{I}$$ is the greatest common divisor of $$a$$ and $$b$$.
+    Proof: Since all linear combinations of $$a$$ and $$b$$ are multiples of $$i$$ according to the first lemma,
+    both $$a$$ and $$b$$ are multiples of $$i$$, which means that $$i$$ is a common divisor of both $$a$$ and $$b$$.
+    Any integer which divides both $$a$$ and $$b$$ also divides every integer
     of the form $$e \cdot a + f \cdot b$$ due to distributivity.
     Since $$i$$ is of this form, all common divisors divide $$i$$.
     Therefore, $$i$$ is the greatest common divisor of $$a$$ and $$b$$.
@@ -3001,16 +2863,17 @@ states that every integer greater than 1 can be written uniquely
 It makes two claims:
 - **Existence**: All integers greater than 1 can be factorized into primes
   because each of them is [either composite or prime](#prime-factorization).
-- **Uniqueness**: Suppose that there are integers greater than 1 which have distinct prime factorizations.
+- **Uniqueness**: Suppose that there are integers greater than 1
+  which have distinct [prime factorizations](#prime-factorization).
   Let $$n$$ be the smallest such integer
-  so that $$n = p_1 \cdot p_2 \cdot … \cdot p_i = q_1 \cdot q_2 \cdot … \cdot q_j$$,
-  where each $$p$$ and $$q$$ is prime.
-  Since $$p_1$$ divides $$n = q_1 \cdot q_2 \cdot … \cdot q_j$$,
-  it has to divide one of the $$q$$s according to (a recursive application of) [Euclid's lemma](#euclids-lemma).
-  Since we don't care about the order of the $$q$$s, let's assume that $$p_1$$ divides $$q_1$$.
+  so that $$n = p_1 \cdot p_2 \cdot … \cdot p_k = q_1 \cdot q_2 \cdot … \cdot q_l$$,
+  where each $$p_i$$ and each $$q_j$$ is prime.
+  Since $$p_1$$ divides $$n = q_1 \cdot q_2 \cdot … \cdot q_l$$,
+  it has to divide one of the $$q_j$$s according to (a recursive application of) [Euclid's lemma](#euclids-lemma).
+  Since we don't care about the order of the $$q_j$$s, let's assume that $$p_1$$ divides $$q_1$$.
   Since both $$p_1$$ and $$q_1$$ are prime and greater than 1, it follows that $$p_1 = q_1$$.
   When we cancel these factors on both sides of the equation,
-  we get $$m = p_2 \cdot … \cdot p_i = q_2 \cdot … \cdot q_j$$.
+  we get $$m = p_2 \cdot … \cdot p_k = q_2 \cdot … \cdot q_l$$.
   Given that the two factorizations of $$n$$ were distinct,
   these two factorizations of $$m$$ have to be distinct as well.
   Since $$m < n$$, $$n$$ cannot be the smallest integer with distinct prime factorizations,
@@ -3242,7 +3105,7 @@ and the [inverse of an isomorphism](https://en.wikipedia.org/wiki/Inverse_functi
 Furthermore, an isomorphism maps the identity element of $$\mathbb{G}_1$$ to the identity element of $$\mathbb{G}_2$$
 because $$f(A) = f(A \circ_1 E) = f(A) \circ_2 f(E)$$ for all $$A \in \mathbb{G}_1$$.
 It also maps the inverse $$\overline{A}$$ of each element $$A \in \mathbb{G}_1$$
-to the inverse of $$f(A)$$ because $$f(A \circ_1 \overline{A}) = f(E) = f(A) \circ_2 f(\overline{A})$$.
+to the inverse of $$f(A)$$ because $$f(A) \circ_2 f(\overline{A}) = f(A \circ_1 \overline{A}) = f(E)$$.
 Since you reach the identity element in one group only when you reach it in the other group,
 the [order](#element-order) of mapped elements is the same: $$|A| = |f(A)|$$.
 Last but not least, either both groups are [commutative](#commutative-groups) or neither of them is.
@@ -3298,7 +3161,7 @@ giving us the [linear one-way functions](#linear-one-way-functions) we were look
 ### Direct product
 
 The [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)
-of the $$n$$ sets $$\mathbb{G}_1$$ to $$\mathbb{G}_l$$
+of the $$l$$ sets $$\mathbb{G}_1$$ to $$\mathbb{G}_l$$
 is the set of $$l$$-[tuples](https://en.wikipedia.org/wiki/Tuple)
 where the $$i$$-th component is an element of $$\mathbb{G}_i$$.
 More formally:
@@ -3309,7 +3172,7 @@ $$
 $$
 
 The product is named after [René Descartes](https://en.wikipedia.org/wiki/Ren%C3%A9_Descartes) (1596 − 1650).
-The product of $$n$$ groups forms a group with the following operation:
+The product of $$l$$ groups forms a group with the following operation:
 
 $$
 (A_1, …, A_l) \circ (B_1, …, B_l) = (A_1 \circ_1 B_1, …, A_l \circ_l B_l)
@@ -3366,12 +3229,12 @@ we need to show that $$f$$ is compatible with the group operations
     This is the case if we obtain equal outputs [only for equal inputs](https://en.wikipedia.org/wiki/Contraposition).
     In other words, we need to show that $$f\big((A_1, A_2)\big) = f\big((B_1, B_2)\big)$$
     implies $$(A_1, A_2) = (B_1, B_2)$$.
-    Given that $$A_1 \circ A_2 = B_1 \circ B_2$$, $$\overline{B_1} \circ A_1 = B_2 \circ \overline{A_2}$$.
+    As $$A_1 \circ A_2 = B_1 \circ B_2$$, we have that $$\overline{B_1} \circ A_1 = B_2 \circ \overline{A_2}$$.
     Clearly, $$\overline{B_1} \circ A_1 \in \mathbb{H_1}$$ and $$B_2 \circ \overline{A_2} \in \mathbb{H_2}$$
     due to [closure](#group-axioms).
-    Since the identity element is the only element that $$\mathbb{H_1}$$ and $$\mathbb{H_2}$$ have in common,
+    Since the identity element is the only element which is in both $$\mathbb{H_1}$$ and $$\mathbb{H_2}$$,
     <!-- --> $$\overline{B_1} \circ A_1 = E$$ and $$B_2 \circ \overline{A_2} = E$$.
-    Therefore, $$A_1 = B_1$$ and $$A_2 = B_2$$.
+    Thus, $$A_1 = B_1$$ and $$A_2 = B_2$$.
   - **Every element of the target group is reached** ([surjectivity](https://en.wikipedia.org/wiki/Surjective_function)):
     Since every element in $$\mathbb{H_1} \circ \mathbb{H_2}$$ is of the form $$A_1 \circ A_2$$ by definition,
     there's an input for every element in $$\mathbb{H_1} \circ \mathbb{H_2}$$,
@@ -3403,7 +3266,7 @@ Therefore, $$|A_1 \circ A_2| = |(A_1, A_2)|
 
 ### Composite groups
 
-Given the $$n$$ coprime moduli $$m_1, …, m_l$$
+Given the $$l$$ coprime moduli $$m_1, …, m_l$$
 and [their product](#sum-and-product-of-similar-terms) $$M = \prod_{i=1}^l m_i$$,
 the [additive group](#additive-groups) $$\mathbb{Z}_M^+$$ is [isomorphic](#group-isomorphisms)
 to the [direct product](#direct-product) of $$\mathbb{Z}_{m_1}^+, …, \mathbb{Z}_{m_l}^+$$,
@@ -3413,6 +3276,7 @@ $$
 \mathbb{Z}_M^+ \cong \mathbb{Z}_{m_1}^+ \times … \times \mathbb{Z}_{m_l}^+
 $$
 
+Let us verify this step by step.
 Since the [order of additive groups](#group-order) is given by the modulus,
 both groups contain the same number of elements:
 <!-- --> $$|\mathbb{Z}_M^+| = |\mathbb{Z}_{m_1}^+| \cdot … \cdot |\mathbb{Z}_{m_l}^+| = M$$.
@@ -3436,7 +3300,8 @@ $$
 
 Both groups contain the same number of elements because an integer is [coprime](#multiset-of-prime-factors) with $$M$$
 [if and only if](#if-and-only-if) it is coprime with all moduli $$m_1, …, m_l$$.
-This gives us an easy way to determine the number of elements in multiplicative groups modulo a composite integer.
+This gives us an easy way to determine the number of elements in multiplicative groups modulo a composite integer,
+as&nbsp;we shall see in the [next section](#eulers-totient-function).
 
 You can display the decomposition of each element [modulo](#modulo-operation)
 the [prime factors](#prime-factorization) of the modulus in the operation tables
@@ -3466,24 +3331,24 @@ We answer this question by starting with the simplest case and generalizing from
   which returns the number of coprime integers smaller than its input, $$\varphi(p) = p - 1$$.
 - $$m = p^e$$ for some prime $$p$$ and a positive integer $$e$$:
   All integers between $$0$$ and $$p^e$$ except the multiples of $$p$$ are coprime with $$p^e$$.
-  Since $$p^{e-1} \cdot p = p^e$$, there are $$p^{e-1}$$ multiples of $$p$$ which have to be excluded,
-  which includes either $$0$$ or $$p^e$$: $$\varphi(p^e) = p^e - p^{e-1}$$.
-- $$m = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$ for $$n$$ distinct primes with positive exponents:
+  Since $$0 < c \cdot p < p^e$$ for $$0 < c < p^{e-1}$$,
+  there are $$p^{e-1} - 1$$ multiples of $$p$$ which have to be excluded.
+  Therefore, $$\varphi(p^e) = (p^e - 1) - (p^{e-1} - 1) = p^e - p^{e-1} = p^{e-1} \cdot (p - 1)$$.
+- $$m = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$ for $$l$$ distinct primes with positive exponents:
   Since [powers of different primes](https://en.wikipedia.org/wiki/Prime_power) are coprime with one another,
   <!-- --> $$\mathbb{Z}_m^\times \cong \mathbb{Z}_{p_1^{e_1}}^\times \times … \times \mathbb{Z}_{p_l^{e_l}}^\times$$
   according to the [previous section](#composite-groups).
   [Therefore](#direct-product),
   <!-- --> $$\varphi(p_1^{e_1} \cdot … \cdot p_l^{e_l}) = \varphi(p_1^{e_1}) \cdot … \cdot \varphi(p_l^{e_l})$$.
 
-Since every integer can be [factorized into primes](#prime-factorization),
+Given the [prime factorization](#prime-factorization) of $$m = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$,
 the number of coprime integers below $$m$$ is given by the following formula:
 
 $$
 \varphi(m)
 = \prod_{i=1}^l \varphi(p_i^{e_i})
 = \prod_{i=1}^l p_i^{e_i} - p_i^{e_i-1}
-= \prod_{i=1}^l p_i^{e_i-1} (p_i - 1)
-\textsf{, where } m = p_1^{e_1} \cdot … \cdot p_l^{e_l} \textsf{.}
+= \prod_{i=1}^l p_i^{e_i-1} \cdot (p_i - 1)
 $$
 
 This is known as [Euler's totient function](https://en.wikipedia.org/wiki/Euler%27s_totient_function),
@@ -3500,7 +3365,7 @@ Euler's theorem
 
 [Euler's theorem](https://en.wikipedia.org/wiki/Euler%27s_theorem)
 is a generalization of [Fermat's little theorem](#fermats-little-theorem):
-Given two coprime integers $$a$$ and $$m$$, then $$a^{\varphi(m)} =_m 1$$.
+For any coprime integers $$a$$ and $$m$$, we have that $$a^{\varphi(m)} =_m 1$$.
 
 </details>
 
@@ -3561,8 +3426,8 @@ to denote the function which returns the largest order among the elements of the
 <!-- --> $$\lambda(m) = \max_{A \in \mathbb{Z}_m^\times} |A|$$.
 This is known as [Carmichael's (totient) function](https://en.wikipedia.org/wiki/Carmichael_function),
 named after [Robert Daniel Carmichael](https://en.wikipedia.org/wiki/Robert_Daniel_Carmichael) (1879 − 1967).
-For [prime powers](https://en.wikipedia.org/wiki/Prime_power),
-its value can be computed according to the following formula:
+We shall see shortly that for [prime powers](https://en.wikipedia.org/wiki/Prime_power),
+its value can be computed as follows:
 
 $$
 \lambda(p^e) = \begin{cases}
@@ -4949,7 +4814,7 @@ which satisfy the [following axioms](https://en.wikipedia.org/wiki/Ring_(mathema
 - Addition forms a [commutative group](#commutative-groups):
   - [**Closure**](https://en.wikipedia.org/wiki/Closure_(mathematics)):
     <!-- --> $$\forall\ a, b \in \mathbb{R}\ a + b \in \mathbb{R}$$
-  - [**Associativity**](https://en.wikipedia.org/wiki/Associative_property): 
+  - [**Associativity**](https://en.wikipedia.org/wiki/Associative_property):
     <!-- --> $$\forall\ a, b, c \in \mathbb{R}\ (a + b) + c = a + (b + c)$$
   - [**Identity**](https://en.wikipedia.org/wiki/Identity_element):
     <!-- --> $$\exists\ 0 \in \mathbb{R}\ \forall\ a \in \mathbb{R}\ a + 0 = a$$
@@ -5545,7 +5410,7 @@ because $$\mathbb{I} + \mathbb{I} = \mathbb{I}$$ (closure under addition)
 and $$a \cdot \mathbb{I} = \mathbb{I}$$ for any $$a \in \mathbb{R}$$ (absorption of multiplication),
 and $$\mathbb{I}$$ is also the [kernel](#kernel) of $$f$$ because for all $$i \in \mathbb{I}$$
 and only those $$i$$s, $$f(i) = \mathbb{I} + i = \mathbb{I}$$:
-1. **Preservation of addition**: For all $$a, b \in \mathbb{R}$$, $$f(a + b) = \mathbb{I} + (a + b) 
+1. **Preservation of addition**: For all $$a, b \in \mathbb{R}$$, $$f(a + b) = \mathbb{I} + (a + b)
    = \mathbb{I} + \mathbb{I} + (a + b) = (\mathbb{I} + a) + (\mathbb{I} + b) = f(a) + f(b)$$.
 2. **Preservation of multiplication**: For all $$a, b \in \mathbb{R}$$, $$f(a \cdot b) = \mathbb{I} + (a \cdot b)
    = \mathbb{I} \cdot \mathbb{I} + \mathbb{I} \cdot b + a \cdot \mathbb{I} + a \cdot b
@@ -5661,7 +5526,7 @@ and [multiplication (·)](https://en.wikipedia.org/wiki/Multiplication), as foll
 - The elements of the field form a commutative [group](#group-axioms) under addition:
   - [**Closure**](https://en.wikipedia.org/wiki/Closure_(mathematics)):
     <!-- --> $$\forall\ a, b \in \mathbb{F}\ a + b \in \mathbb{F}$$
-  - [**Associativity**](https://en.wikipedia.org/wiki/Associative_property): 
+  - [**Associativity**](https://en.wikipedia.org/wiki/Associative_property):
     <!-- --> $$\forall\ a, b, c \in \mathbb{F}\ (a + b) + c = a + (b + c)$$
   - [**Identity**](https://en.wikipedia.org/wiki/Identity_element):
     <!-- --> $$\exists\ 0 \in \mathbb{F}\ \forall\ a \in \mathbb{F}\ a + 0 = a$$
@@ -7934,7 +7799,8 @@ The algorithm can be optimized in two ways:
 The following tool implements Pollard's rho factorization algorithm.
 Unlike [my implementation of trial division above](#tool-integer-factorization-trial-division),
 it checks whether the remaining factor is prime.
-Its runtime is thus [in the order of](https://en.wikipedia.org/wiki/Big_O_notation)
+Its [running time](https://en.wikipedia.org/wiki/Time_complexity)
+is thus [in the order of](https://en.wikipedia.org/wiki/Big_O_notation)
 the [square root](https://en.wikipedia.org/wiki/Square_root) of the second largest prime factor
 if the exponent of the largest prime factor is $$1$$.
 (It's possible to test for [perfect powers](https://en.wikipedia.org/wiki/Perfect_power) efficiently
@@ -7955,7 +7821,8 @@ and [Martin Edward Hellman](https://en.wikipedia.org/wiki/Martin_Hellman) (born 
 is a technique for reducing the [discrete-logarithm problem](#discrete-logarithm-problem)
 in large [groups](#finite-groups) of non-prime [order](#group-order)
 to several discrete-logarithm problems in smaller groups, which are easier to solve
-since the runtimes of the above [DL algorithms](#dl-algorithms) depend on the size of the group.
+since the [running time](https://en.wikipedia.org/wiki/Time_complexity)
+of the above [DL algorithms](#dl-algorithms) depend on the size of the group.
 Given a [generator](#group-generators) $$G$$, its [order](#element-order) $$n$$,
 and an output $$K$$ of the [linear one-way function](#linear-one-way-functions),
 the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
@@ -8010,7 +7877,7 @@ the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
    the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$.
 4. Return $$k$$ as the solution to $$kG = K$$.
 
-<!-- --> 
+<!-- -->
 
 1. Find the [prime factorization](#prime-factorization) of $$n$$ so that $$n = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$
    for distinct primes $$p_i$$ and integers $$e_i ≥ 1$$.
@@ -8223,7 +8090,8 @@ Index calculus in subgroups
 
 What if $$G$$ [generates](#group-generators) only a proper [subgroup](#subgroups)
 of [$$\mathbb{Z}_m^\times$$](#multiplicative-group-notations)?
-Since the running time of the [index-calculus algorithm](#index-calculus-algorithm) depends on the modulus $$m$$
+Since the [running time](https://en.wikipedia.org/wiki/Time_complexity)
+of the [index-calculus algorithm](#index-calculus-algorithm) depends on the modulus $$m$$
 rather than $$G$$'s [order](#element-order) $$n$$,
 [Pollard's rho algorithm](#pollards-rho-algorithm) is faster than the index-calculus algorithm when $$n$$ is small enough.
 If $$n$$ has many small factors, the [Pohlig-Hellman algorithm](#pohlig-hellman-algorithm) is even faster, of course.
