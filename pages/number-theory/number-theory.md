@@ -5,6 +5,7 @@ author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
+reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
 math: true
 ---
