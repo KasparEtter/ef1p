@@ -1621,7 +1621,7 @@ are written without an operator to which the modulus could be attached.
 
 After having gone through quite a bit of theory,
 the time has finally come to see some [finite groups](#finite-groups) in action.
-The integers modulo some number $$m$$ form a [commutative group](#commutative-groups)
+The integers modulo some integer $$m$$ form a [commutative group](#commutative-groups)
 under [addition](https://en.wikipedia.org/wiki/Addition).
 As explained in the [previous chapter](#modular-arithmetic),
 you can either define the set of the group to contain all the integers
@@ -2458,7 +2458,7 @@ is an active area of research with increasing interest.
 
 ## Prime numbers
 
-We talked quite a bit about [prime numbers](https://en.wikipedia.org/wiki/Prime_number) already.
+We've talked quite a bit about [prime numbers](https://en.wikipedia.org/wiki/Prime_number) already.
 The goal of this chapter is to give you a better understanding about primality
 and related concepts such as [factorization](#prime-factorization).
 From here to the end of this article, the topics get more and more advanced.
@@ -7081,9 +7081,11 @@ Given the above $$a$$ and $$b$$, the [curve equation](#curve-equation) is $$y^2 
 While [counting the points on elliptic curves](#counting-the-points-on-elliptic-curves) is complicated,
 you can verify with the [point calculator](#point-calculator) above that [$$nG = O$$](#tool-elliptic-curve-operations&p=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+FFFFFC2F&a=0&b=7&Ax=79BE667E+F9DCBBAC+55A06295+CE870B07+029BFCDB+2DCE28D9+59F2815B+16F81798&Ay=true&Bx=1&By=true&c=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+BAAEDCE6+AF48A03B+BFD25E8C+D0364141)
 (the tool also recovers the $$y$$-coordinate of $$G$$ correctly).
+Since [$$p\ \%\ 4 = 3$$](#tool-integer-modulo&integer=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+FFFFFC2F&modulus=4),
+computing [square roots modulo $$p$$](#square-roots) is simple.
 Since [$$n$$ is prime](#tool-integer-miller-rabin-primality-test&input=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+BAAEDCE6+AF48A03B+BFD25E8C+D0364141&bases=&seed=0&rounds=64&abort=true)
 and $$G$$ is not the [point at infinity](#point-at-infinity),
-its [order](#element-order) cannot be smaller than $$n$$.
+the [order of $$G$$](#element-order) cannot be smaller than $$n$$.
 Since the [cofactor](#index-and-cofactor) is $$1$$, $$G$$ generates all points on the elliptic curve.
 Since $$n$$ is prime, every element except $$O$$ [is a generator](#lagrange-consequences).
 And since $$n$$ is odd, we know that the curve has [no point with a $$y$$-coordinate of $$0$$](#discrete-curves).
