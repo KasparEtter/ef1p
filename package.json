@@ -48,7 +48,7 @@
         "scss-compile-light": "node-sass --output-style expanded --precision 6 styles/light.scss assets/styles/light.css",
         "scss-compile-light-with-map": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 styles/light.scss assets/styles/light.css",
         "scss-compile-with-map": "npm-run-all --parallel scss-compile-dark-with-map scss-compile-light-with-map",
-        "scss-lint": "stylelint --config .stylelintrc --syntax scss 'styles/**/*.scss' --cache --cache-location '.stylelintcache/'",
+        "scss-lint": "stylelint --config .stylelintrc 'styles/**/*.scss' --cache --cache-location '.stylelintcache/'",
         "scss-minify": "npm-run-all --parallel scss-minify-dark scss-minify-light",
         "scss-minify-dark": "cleancss --output assets/styles/dark.min.css assets/styles/dark.css",
         "scss-minify-dark-with-map": "cleancss --source-map --source-map-inline-sources --output assets/styles/dark.min.css assets/styles/dark.css",
