@@ -26,5 +26,5 @@ for (const n of chernicksCarmichaelNumbers) {
     const encoding = encodeIntegerWithoutStore(n);
     const escaped = encodePercent(encoding);
     const rate = Number(phi(factors)) / (Number(n) - 1);
-    console.log(`| ${encodeIntegerWithoutStore(k)} | [${encoding}](#tool-integer-fermat-primality-test&input=${escaped}&bases=&rounds=100) | [${factors.map(factor => encodeIntegerWithoutStore(factor.base)).join(' · ')}](#tool-integer-factorization-trial-division&input=${escaped}) | ${rate.toFixed(digits)} | ${(rate ** 100).toFixed(digits)}`);
+    console.log(`| ${encodeIntegerWithoutStore(k)} | [${encoding}](#tool-integer-fermat-primality-test&input=${escaped}&bases=&rounds=100) | [${factors.map(factor => encodeIntegerWithoutStore(factor.base)).join(' · ')}](#tool-integer-factorization-trial-division&integer=${escaped}) | ${rate.toFixed(digits)} | ${(rate ** 100).toFixed(digits)}`);
 }

@@ -2945,7 +2945,7 @@ As I explained when I [introduced multiplicative groups](#multiplicative-groups)
 <!-- --> $$0$$ has to be excluded from the set of elements.
 Since a group has to be [closed](#group-axioms), we have to exclude $$a$$ or $$b$$.
 This problem can be observed in the [operation table of multiplicative groups](#multiplicative-group-operation-table).
-If we [set the modulus to 12](#tool-table-multiplicative-group-operation&modulus=12&coprime=false&zero=true&product=false),
+If we [set the modulus to 12](#tool-table-multiplicative-group-operation&modulus=12&coprime=false&zero=true&composite=false),
 for example, we see that all the elements which are not coprime with the modulus
 (the tool marks them with a blue background) reach $$0$$ at some point.
 After that, the elements repeat because $$(b + 1) \cdot a =_m b \cdot a + 1 \cdot a =_m 0 + a =_m a$$.
@@ -3308,8 +3308,8 @@ You can display the decomposition of each element [modulo](#modulo-operation)
 the [prime factors](#prime-factorization) of the modulus in the operation tables
 of [additive groups](#additive-group-operation-table)
 and [multiplicative groups](#multiplicative-group-operation-table)
-by [enabling the "Product" option](#tool-table-multiplicative-group-operation&product=true).
-For example, [$$\mathbb{Z}_{35}^\times \cong \mathbb{Z}_{5}^\times \times \mathbb{Z}_{7}^\times$$](#tool-table-multiplicative-group-operation&modulus=35&coprime=false&product=true).
+by [enabling the "Product" option](#tool-table-multiplicative-group-operation&composite=true).
+For example, [$$\mathbb{Z}_{35}^\times \cong \mathbb{Z}_{5}^\times \times \mathbb{Z}_{7}^\times$$](#tool-table-multiplicative-group-operation&modulus=35&coprime=false&composite=true).
 Instead of multiplying two elements in $$\mathbb{Z}_{35}^\times$$,
 you can multiply their components in $$\mathbb{Z}_{5}^\times$$ and $$\mathbb{Z}_{7}^\times$$.
 For example, $$[11 \leftrightarrow (1, 4)] \cdot [8 \leftrightarrow (3, 1)] = [18 \leftrightarrow (3, 4)]$$.
@@ -3357,7 +3357,7 @@ named after [Leonhard Euler](https://en.wikipedia.org/wiki/Leonhard_Euler) (1707
 ([Totient](https://en.wiktionary.org/wiki/totient) comes from the Latin "tot", which means "that many".)
 Since the computation of Euler's totient function requires the prime factorization of the given input,
 I've included it in the [tool above](#tool-integer-factorization-trial-division);
-you just need to [activate the "Totients" toggle](#tool-integer-factorization-trial-division&totient=true).
+you just need to [activate the "Totients" toggle](#tool-integer-factorization-trial-division&totients=true).
 
 <details markdown="block" open>
 <summary markdown="span" id="eulers-theorem">
@@ -3462,7 +3462,7 @@ because a combination with any other prime power makes the group non-cyclic.
 You can verify this for moduli up to 100 with the [repetition table tool](#multiplicative-group-repetition-table).
 (This is why it displays the [prime factorization](#prime-factorization) of the modulus at the top.)
 You can compute Carmichael's totient function of an integer
-by [enabling the "Totients" option](#tool-integer-factorization-trial-division&totient=true)
+by [enabling the "Totients" option](#tool-integer-factorization-trial-division&totients=true)
 of the [factorization tool](#tool-integer-factorization-trial-division).
 
 The math required to understand the formula for $$\lambda(p^e)$$ is a bit advanced,
@@ -3898,8 +3898,8 @@ which the [tool above](#tool-integer-fermat-primality-test) does by default,
 the Fermat primality test fails only for 2 out of the first 33 Carmichael numbers
 as given by [this list](https://oeis.org/A002997) from the
 [On-Line Encyclopedia of Integer Sequences (OEIS)](https://en.wikipedia.org/wiki/On-Line_Encyclopedia_of_Integer_Sequences):
-[252'601](#tool-integer-fermat-primality-test&input=252%27601&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 61 · 101](#tool-integer-factorization-trial-division&input=252%27601) and
-[410'041](#tool-integer-fermat-primality-test&input=410%27041&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 73 · 137](#tool-integer-factorization-trial-division&input=410%27041).
+[252'601](#tool-integer-fermat-primality-test&input=252%27601&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 61 · 101](#tool-integer-factorization-trial-division&integer=252%27601) and
+[410'041](#tool-integer-fermat-primality-test&input=410%27041&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 73 · 137](#tool-integer-factorization-trial-division&integer=410%27041).
 All the other numbers on the list have a factor smaller than 41.
 As we will see in the [next box](#chernicks-carmichael-numbers),
 there's a simple formula to obtain Carmichael numbers which don't have a small factor.
@@ -3934,17 +3934,17 @@ is $$\frac{|\mathbb{L}_n^F|}{|\mathbb{Z}_n^{\cancel{0}}|}
 
 | k | Carmichael number | Prime factorization | Failure rate per round | Failure rate after 100 rounds
 |-:|-:|-:|-:|-:
-| 1 | [1'729](#tool-integer-fermat-primality-test&input=1%27729&bases=&rounds=100) | [7 · 13 · 19](#tool-integer-factorization-trial-division&input=1%27729) | 0.7500 | 0.0000
-| 6 | [294'409](#tool-integer-fermat-primality-test&input=294%27409&bases=&rounds=100) | [37 · 73 · 109](#tool-integer-factorization-trial-division&input=294%27409) | 0.9508 | 0.0065
-| 35 | [56'052'361](#tool-integer-fermat-primality-test&input=56%27052%27361&bases=&rounds=100) | [211 · 421 · 631](#tool-integer-factorization-trial-division&input=56%27052%27361) | 0.9913 | 0.4183
-| 45 | [118'901'521](#tool-integer-fermat-primality-test&input=118%27901%27521&bases=&rounds=100) | [271 · 541 · 811](#tool-integer-factorization-trial-division&input=118%27901%27521) | 0.9932 | 0.5076
-| 51 | [172'947'529](#tool-integer-fermat-primality-test&input=172%27947%27529&bases=&rounds=100) | [307 · 613 · 919](#tool-integer-factorization-trial-division&input=172%27947%27529) | 0.9940 | 0.5497
-| 55 | [216'821'881](#tool-integer-fermat-primality-test&input=216%27821%27881&bases=&rounds=100) | [331 · 661 · 991](#tool-integer-factorization-trial-division&input=216%27821%27881) | 0.9945 | 0.5741
-| 56 | [228'842'209](#tool-integer-fermat-primality-test&input=228%27842%27209&bases=&rounds=100) | [337 · 673 · 1'009](#tool-integer-factorization-trial-division&input=228%27842%27209) | 0.9946 | 0.5798
-| 100 | [1'299'963'601](#tool-integer-fermat-primality-test&input=1%27299%27963%27601&bases=&rounds=100) | [601 · 1'201 · 1'801](#tool-integer-factorization-trial-division&input=1%27299%27963%27601) | 0.9970 | 0.7369
+| 1 | [1'729](#tool-integer-fermat-primality-test&input=1%27729&bases=&rounds=100) | [7 · 13 · 19](#tool-integer-factorization-trial-division&integer=1%27729) | 0.7500 | 0.0000
+| 6 | [294'409](#tool-integer-fermat-primality-test&input=294%27409&bases=&rounds=100) | [37 · 73 · 109](#tool-integer-factorization-trial-division&integer=294%27409) | 0.9508 | 0.0065
+| 35 | [56'052'361](#tool-integer-fermat-primality-test&input=56%27052%27361&bases=&rounds=100) | [211 · 421 · 631](#tool-integer-factorization-trial-division&integer=56%27052%27361) | 0.9913 | 0.4183
+| 45 | [118'901'521](#tool-integer-fermat-primality-test&input=118%27901%27521&bases=&rounds=100) | [271 · 541 · 811](#tool-integer-factorization-trial-division&integer=118%27901%27521) | 0.9932 | 0.5076
+| 51 | [172'947'529](#tool-integer-fermat-primality-test&input=172%27947%27529&bases=&rounds=100) | [307 · 613 · 919](#tool-integer-factorization-trial-division&integer=172%27947%27529) | 0.9940 | 0.5497
+| 55 | [216'821'881](#tool-integer-fermat-primality-test&input=216%27821%27881&bases=&rounds=100) | [331 · 661 · 991](#tool-integer-factorization-trial-division&integer=216%27821%27881) | 0.9945 | 0.5741
+| 56 | [228'842'209](#tool-integer-fermat-primality-test&input=228%27842%27209&bases=&rounds=100) | [337 · 673 · 1'009](#tool-integer-factorization-trial-division&integer=228%27842%27209) | 0.9946 | 0.5798
+| 100 | [1'299'963'601](#tool-integer-fermat-primality-test&input=1%27299%27963%27601&bases=&rounds=100) | [601 · 1'201 · 1'801](#tool-integer-factorization-trial-division&integer=1%27299%27963%27601) | 0.9970 | 0.7369
 | … | … | … | … | …
-| 511 | [173'032'371'289](#tool-integer-fermat-primality-test&input=173%27032%27371%27289&bases=&rounds=100) | [3'067 · 6'133 · 9'199](#tool-integer-factorization-trial-division&input=173%27032%27371%27289) | 0.9994 | 0.9420
-| 710 | [464'052'305'161](#tool-integer-fermat-primality-test&input=464%27052%27305%27161&bases=&rounds=100) | [4'261 · 8'521 · 12'781](#tool-integer-factorization-trial-division&input=464%27052%27305%27161) | 0.9996 | 0.9579
+| 511 | [173'032'371'289](#tool-integer-fermat-primality-test&input=173%27032%27371%27289&bases=&rounds=100) | [3'067 · 6'133 · 9'199](#tool-integer-factorization-trial-division&integer=173%27032%27371%27289) | 0.9994 | 0.9420
+| 710 | [464'052'305'161](#tool-integer-fermat-primality-test&input=464%27052%27305%27161&bases=&rounds=100) | [4'261 · 8'521 · 12'781](#tool-integer-factorization-trial-division&integer=464%27052%27305%27161) | 0.9996 | 0.9579
 
 <figcaption markdown="span">
 
@@ -5074,7 +5074,7 @@ If $$a$$ is a zero divisor,
 then $$b$$ equals $$c$$ only up to a multiple of the smallest element $$z$$ for which $$a \cdot z = 0$$.
 You can observe these facts in the [operation table of multiplicative groups](#multiplicative-group-operation-table)
 when you choose a non-prime modulus,
-such as [15](#tool-table-multiplicative-group-operation&modulus=15&coprime=false&zero=true&product=false).
+such as [15](#tool-table-multiplicative-group-operation&modulus=15&coprime=false&zero=true&composite=false).
 
 <details markdown="block">
 <summary markdown="span" id="integral-domains">
@@ -6990,13 +6990,13 @@ You can verify that this is the case for moduli up to 100 with the following too
 
 If you play around with the above tool, you can observe the following facts:
 - **Non-cyclic groups**: Not all elliptic curves are [cyclic](#cyclic-groups).
-  Example: [p = 7, a = 3, b = 0](#tool-table-elliptic-curve-repetition&modulus=7&parameterA=3&parameterB=0).
+  Example: [p = 7, a = 3, b = 0](#tool-table-elliptic-curve-repetition&p=7&a=3&b=0).
 - **Groups of prime order**: There are elliptic curves whose order is prime,
   which is not possible in the case of [multiplicative groups](#multiplicative-groups).
-  Example: [p = 7, a = 3, b = 5](#tool-table-elliptic-curve-repetition&modulus=7&parameterA=3&parameterB=5).
+  Example: [p = 7, a = 3, b = 5](#tool-table-elliptic-curve-repetition&p=7&a=3&b=5).
 - **Elements of even order**: Whenever an element has an even [order](#element-order),
   the element at half its order is its own inverse and thus marked with a gray background.
-  Example: [p = 7, a = 3, b = 1](#tool-table-elliptic-curve-repetition&modulus=7&parameterA=3&parameterB=1).
+  Example: [p = 7, a = 3, b = 1](#tool-table-elliptic-curve-repetition&p=7&a=3&b=1).
 
 
 ### Subgroup cosets {#elliptic-curve-subgroup-cosets}
