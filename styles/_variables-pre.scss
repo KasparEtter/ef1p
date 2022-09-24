@@ -6,8 +6,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 // The following variables are declared before Bootswatch.
 
-// Serve the font locally:
-$web-font-path: "../fonts/lato/lato.css" !default;
+// Serve the font locally (relative URLs are handled incorrectly by clean-css):
+$web-font-path: "/assets/fonts/lato/lato.css" !default;
 
 // Color
 
