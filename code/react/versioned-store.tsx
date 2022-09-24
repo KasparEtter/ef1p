@@ -435,7 +435,9 @@ export class VersionedStore<State extends BasicState<State>> extends PersistedSt
     public decodeInputs(
         parts: readonly string[],
         submit?: (state: Readonly<State>) => any,
-    ): void {
+        verifyOnly = false,
+    ): boolean {
+        let validInputs = true;
         const newInputs: State = { ...this.getInputs() };
         for (const part of parts) {
             const index = part.indexOf('=');
@@ -449,21 +451,27 @@ export class VersionedStore<State extends BasicState<State>> extends PersistedSt
                         newInputs[key] = input as any;
                     } else {
                         console.error(`Could not decode '${value}' as '${entry.inputType}'.`);
+                        validInputs = false;
                     }
                 } else {
                     console.error(`There is no entry for '${key.toString()}' in the store '${this.identifier}'.`);
+                    validInputs = false;
                 }
             } else {
                 console.error(`Could not decode the part '${part}'.`);
+                validInputs = false;
             }
         }
-        super.setState({
-            inputs: newInputs,
-        });
-        this.setNewStateFromCurrentInputsInternally(true, false);
-        if (submit !== undefined && this.hasNoErrors()) {
-            submit(this.getCurrentState());
+        if (!verifyOnly) {
+            super.setState({
+                inputs: newInputs,
+            });
+            this.setNewStateFromCurrentInputsInternally(true, false);
+            if (submit !== undefined && this.hasNoErrors()) {
+                submit(this.getCurrentState());
+            }
         }
+        return validInputs;
     }
 
     /**

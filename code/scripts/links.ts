@@ -5,14 +5,24 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 // Open all information boxes.
-$('details').attr('open', '');
+// $('details').attr('open', '');
 
 // Show all tabs.
-$('.tabbed').children(':not(:first-child)').addClass('shown');
+// $('.tabbed').children(':not(:first-child)').addClass('shown');
 
 function isValid(href: string): boolean {
     if (href.startsWith('#')) {
-        return document.getElementById(href.split('&')[0].substring(1)) !== null;
+        const parts = href.split('&');
+        if (parts.length > 1) {
+            if (window.handleToolUpdate) {
+                return window.handleToolUpdate(parts, true);
+            } else {
+                console.error('ready.ts: There is no handler for tool updates on this page.');
+                return false;
+            }
+        } else {
+            return document.getElementById(href.slice(1)) !== null;
+        }
     } else {
         return href.startsWith('https://') || href.startsWith('http://') || href.startsWith('mailto:') || href.startsWith('/');
     }

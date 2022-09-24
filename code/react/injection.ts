@@ -41,7 +41,7 @@ export function injectTool(containerId: string, tool: Tool): void {
 
 declare global {
     var submitAllTools: () => void;
-    var handleToolUpdate: (parts: string[]) => void;
+    var handleToolUpdate: (parts: string[], verifyOnly?: boolean) => boolean;
 }
 
 window.submitAllTools = () => {
@@ -52,12 +52,13 @@ window.submitAllTools = () => {
     }
 }
 
-window.handleToolUpdate = (parts: string[]) => {
+window.handleToolUpdate = (parts: string[], verifyOnly = false) => {
     const elementId = parts[0].slice(1);
     const tool = tools[elementId];
     if (tool !== undefined) {
-        tool[0].decodeInputs(parts.slice(1), tool[1]);
+        return tool[0].decodeInputs(parts.slice(1), tool[1], verifyOnly);
     } else {
         console.error(`Could not find the tool '${elementId}'.`);
+        return false;
     }
 }
