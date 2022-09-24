@@ -39,10 +39,10 @@
         <script defer src="{{ '/assets/scripts/external/copy-tex.min.js' | relative_url }}?v={{ site.external_version }}"></script>
         <script defer src="{{ '/assets/scripts/external/auto-render.min.js' | relative_url }}?v={{ site.external_version }}" onload="renderMathInElement(document.body, { strict: false, trust: true });"></script>
     {% endif %}
-        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v={{ site.scripts_version }}"></script>
-        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v={{ site.scripts_version }}"></script>{% if jekyll.environment == 'production' %}
+        <script defer src="{{ page.name | replace: '.md', '.min.js' | prepend: '/assets/scripts/internal/' | relative_url }}?v={{ site.scripts_version }}"></script>{% if jekyll.environment == 'production' %}
         <script defer src="{{ '/assets/scripts/external/plausible.min.js' | relative_url }}" data-domain="{{ site.domain }}" data-api="https://plausible.io/api/event"></script>{% else %}
         <script defer src="{{ '/assets/scripts/internal/links.min.js' | relative_url }}"></script>{% endif %}
+        <script defer src="{{ '/assets/scripts/internal/ready.min.js' | relative_url }}?v={{ site.scripts_version }}"></script>
 
         <link rel="stylesheet" id="theme" href="{{ '/assets/styles/dark.min.css' | relative_url }}?v={{ site.styles_version }}">
         <script>
