@@ -12,8 +12,8 @@ lang: en
 permalink: pretty
 date_format: "%e %B %Y" # http://strftime.net
 
-external_version: 1
-scripts_version: 14
+external_version: 2
+scripts_version: 15
 styles_version: 13
 
 repository: KasparEtter/ef1p
