@@ -37,7 +37,7 @@
         "ots-stamp": "stamp() { ots-cli.js stamp \"pages/$1/$1.md\"; find \"pages/$1/generated\" -name '*.pdf' -exec ots-cli.js stamp {} +; }; stamp",
         "ots-upgrade": "upgrade() { ots-cli.js upgrade \"pages/$1/$1.md.ots\"; find \"pages/$1/generated\" -name '*.pdf.ots' -exec ots-cli.js upgrade {} +; }; upgrade",
         "ots-verify": "verify() { ots-cli.js verify \"pages/$1/$1.md.ots\"; find \"pages/$1/generated\" -name '*.pdf.ots' -exec ots-cli.js verify {} +; }; verify",
-        "scripts-copy": "cp node_modules/jquery/dist/jquery.min.js node_modules/bootstrap/dist/js/bootstrap.min.js node_modules/anchor-js/anchor.min.js node_modules/react/umd/react.production.min.js node_modules/react-dom/umd/react-dom.production.min.js assets/scripts/external/",
+        "scripts-copy": "cp node_modules/jquery/dist/jquery.min.js node_modules/bootstrap/dist/js/bootstrap.min.js node_modules/bootstrap/dist/js/bootstrap.min.js.map node_modules/anchor-js/anchor.min.js node_modules/react/umd/react.production.min.js node_modules/react-dom/umd/react-dom.production.min.js assets/scripts/external/",
         "scripts-download": "download https://plausible.io/js/plausible.js > assets/scripts/external/plausible.min.js; download --out assets/scripts/external/ https://raw.githubusercontent.com/afeld/bootstrap-toc/gh-pages/dist/bootstrap-toc.min.js",
         "scss-build": "npm-run-all scss-compile scss-prefix scss-minify bell",
         "scss-build-dark": "npm-run-all scss-compile-dark scss-prefix-dark scss-minify-dark bell",
