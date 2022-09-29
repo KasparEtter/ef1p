@@ -122,10 +122,8 @@ const handleLinkClick = (event: JQuery.TriggeredEvent) => {
         if (copyToClipboardWithAnimation(address, target, 'scale400')) {
             report('Copy link', { Anchor: href });
         }
-    } else if (scrollToAnchor(href, 'link')) {
+    } else if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey && scrollToAnchor(href, 'link')) {
         event.preventDefault();
-    } else {
-        target.setAttribute('target', '_blank');
     }
 };
 $('body').on('click', 'a', handleLinkClick);
