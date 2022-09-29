@@ -33,11 +33,6 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
 
     const parts = hash.split('&');
     if (parts.length > 1) {
-        if (window.handleToolUpdate) {
-            window.handleToolUpdate(parts);
-        } else {
-            console.error('ready.ts: There is no handler for tool updates on this page.');
-        }
         hash = parts[0];
     }
 
@@ -49,9 +44,6 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
             report('Not found', { Type: 'Anchor', Anchor: anchor });
         }
         return false;
-    }
-    if (trigger === 'load') {
-        report('Load target', { Anchor: anchor });
     }
 
     if (target.tagName === 'SUMMARY') {
@@ -88,9 +80,28 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
 
     $('html, body').animate({ scrollTop: offset.top - 75 - margin });
 
+    if (parts.length > 1) {
+        if (window.handleToolUpdate) {
+            window.handleToolUpdate(parts);
+        } else {
+            console.error('ready.ts: There is no handler for tool updates on this page.');
+        }
+    }
+
+    if (trigger === 'load') {
+        report('Load target', { Anchor: anchor });
+    }
+
     return true;
 };
-scrollToAnchor(window.location.hash, 'load');
+
+// See https://stackoverflow.com/a/39254773/12917821:
+const scrollToTop = () => $(window).scrollTop(0);
+$(window).on('scroll', scrollToTop);
+window.addEventListener('load', () => {
+    $(window).off('scroll', scrollToTop);
+    scrollToAnchor(window.location.hash, 'load');
+});
 
 const handleHashChange = (event: JQuery.Event) => {
     if (scrollToAnchor(window.location.hash, 'hash')) {
@@ -163,7 +174,7 @@ if (window.history && window.history.replaceState) {
         }
     };
 
-    $(window).on('scroll', handleWindowScroll);
+    window.addEventListener('load', () => $(window).on('scroll', handleWindowScroll));
 }
 
 /* Toggling the table of contents on small screens. */
