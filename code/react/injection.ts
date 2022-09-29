@@ -5,7 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { FunctionComponentElement } from 'react';
-import { createRoot } from 'react-dom/client';
+import { render } from 'react-dom';
 
 import { VersionedStore } from './versioned-store';
 
@@ -24,8 +24,7 @@ export function moveElement(sourceId: string, targetId: string): void {
 export function injectElement(containerId: string, element: FunctionComponentElement<any>): void {
     const container = getElementByIdOrLogError(containerId);
     if (container !== null) {
-        const root = createRoot(container);
-        root.render(element);
+        render(element, container);
     }
 }
 

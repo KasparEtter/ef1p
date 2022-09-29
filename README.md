@@ -305,6 +305,18 @@ npm audit fix
 ```
 
 
+##### Exclusions
+
+`npm run npm-upgrade` ignores upgrades for the following packages:
+- `anchor-js`: v4.3.0 [always shows the anchors in Chrome](https://github.com/bryanbraun/anchorjs/issues/168).
+- `bootstrap`: Too much effort to [migrate to v5](https://getbootstrap.com/docs/5.2/migration/).
+- `bootswatch`: Linked to the version of `bootstrap`.
+- `react` and `react-dom`: React 18 causes the cursor to jump to the end when editing input fields.
+  Clicking on a suggested input value no longer works either.
+  Furthermore, losing focus on an input field no longer triggers a state update in Safari/WebKit.
+- `readable-stream`: Direct dependency only to avoid bundling issues.
+
+
 #### Check
 
 Show the version of a particular direct or indirect dependency:
