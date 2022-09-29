@@ -63,10 +63,8 @@ window.addEventListener('storage', event => {
 
 /**
  * Retrieves the item with the given key from the local storage.
- * If another window changes the item with the given key,
- * the callback is called with the new value of the item
- * or null when the item has been removed.
- * The callback is also called if the item has been removed in this window.
+ * The callback is called with the new value of the item when the item has been changed
+ * or null when the item has been removed by any script in any window.
  */
 export function getItem<T>(key: string, callback?: Callback<T>): T | null {
     if (callback !== undefined) {
