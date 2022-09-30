@@ -124,6 +124,10 @@ const handleLinkClick = (event: JQuery.TriggeredEvent) => {
         }
     } else if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey && scrollToAnchor(href, 'link')) {
         event.preventDefault();
+    } else {
+        // Adding <base target="_blank"/> to the <head> would change the behavior of AnchorJS:
+        // https://github.com/bryanbraun/anchorjs/blob/e953150d8e50ebc84f490eb11207845803239234/anchor.js#L155-L157
+        target.setAttribute('target', '_blank');
     }
 };
 $('body').on('click', 'a', handleLinkClick);
