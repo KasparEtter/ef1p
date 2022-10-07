@@ -4,6 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
+modified: 2022-10-07
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -51,8 +52,8 @@ There are two families of finite groups which are widely used in modern cryptogr
 The former are based on [modular arithmetic](#modular-arithmetic),
 the latter on [finite fields](#finite-fields).
 [Prime numbers](#prime-numbers) play a crucial role in both.
-We'll study these topics in a somewhat peculiar order
-and also take two detours which will pay off on our journey:
+We'll study these topics in a somewhat peculiar order,
+and we'll also visit [commutative rings](#commutative-rings), which will pay off on our journey:
 
 <figure markdown="block">
 {% include_relative generated/outline.embedded.svg %}
@@ -100,7 +101,7 @@ Looking at the result, here's what sets this article apart:
   Not having to translate between the two yourself
   reduces your [cognitive load](https://en.wikipedia.org/wiki/Cognitive_load).
 - **Intuition**: I went to great lengths to complement formal proofs with more intuitive explanations.
-  While formal rigor is important, nothing beats an intuitive understanding of a theorem.
+  While formal rigor is important, nothing beats an intuitive understanding of a theorem or an algorithm.
 - **Completeness**: Apart from the chapter on [elliptic curves](#elliptic-curves),
   I took no shortcuts when explaining why things are the way they are.
   Therefore, this article contains the complete proofs of almost all covered theorems,
@@ -109,6 +110,8 @@ Looking at the result, here's what sets this article apart:
   [square roots modulo composite numbers](#square-roots-modulo-composite-numbers),
   and the [expected running time of Pollard's rho algorithm](#birthday-paradox),
   which I haven't found online outside of PDFs.
+  While you might not be interested in such advanced proofs for now,
+  this article is designed to serve as a work of reference for your whole journey into modern cryptography.
 - **Interactivity**: Depending on how you count them,
   this article contains up to 40 [interactive tools](/#interactive-tools),
   which I also published on a [separate page](/number-theory/tools/).
@@ -531,6 +534,35 @@ Usually, the group axioms are presented in a [reduced version](#reduced-group-ax
 from which properties like the [uniqueness of the identity](#uniqueness-of-right-identity) are derived.
 Since this is not important for our purposes,
 I moved [such derivations](#derived-group-properties) to the [end of this article](#group-properties).
+
+<details markdown="block" open>
+<summary markdown="span" id="example-of-a-finite-group">
+Example of a finite group
+</summary>
+
+The hours of an [analog clock](https://en.wikipedia.org/wiki/Clock#Analog) form a finite group.
+Its set consists of the elements 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, and 12.
+In order to make things easier mathematically, we relabel 12 as 0.
+The operation is addition, where we wrap around to 0 after reaching 11:
+
+<figure markdown="block">
+{% include_relative generated/modulo-clock.embedded.svg %}
+<figcaption markdown="span">
+6 hours past 9 a.m. is 3 p.m.
+</figcaption>
+</figure>
+
+As we'll discuss later, the wrapping around corresponds to the [modulo operation](#modulo-operation).
+Clearly, this group is closed: No matter how much time passes,
+the [hour hand](https://en.wikipedia.org/wiki/Clock_face) never leaves the clock.
+Associativity is given by the linearity of time and addition:
+Waiting for B hours and then for C hours is the same as waiting for B + C hours.
+0 is the identity element: A + 0 = 0 + A = A.
+And finally, every element has an inverse:
+the number of hours you have to wait until it's noon or midnight again.
+For example, 2 + 10 = 0.
+
+</details>
 
 
 ### Unique solution
@@ -1519,16 +1551,6 @@ The situation becomes even more complicated if you allow the divisor/modulus to 
 
 ### Equivalence relation
 
-When we calculate all numbers modulo a fixed modulus, the numbers wrap around when they reach the modulus.
-The best-known example for this is the [analog clock](https://en.wikipedia.org/wiki/Clock#Analog):
-
-<figure markdown="block">
-{% include_relative generated/modulo-clock.embedded.svg %}
-<figcaption markdown="span">
-6 hours past 9 a.m. is (9 + 6) [%](#modulo-operation) 12 = 3 p.m.
-</figcaption>
-</figure>
-
 When two numbers have the same [remainder](#euclidean-division),
 we say that they are equivalent up to a multiple of the modulus,
 which means that their difference is a multiple of the modulus.
@@ -1942,9 +1964,9 @@ Otherwise, the solution is not unique:
     <tr>
       <th>A</th>
       <td>⋯</td>
-      <td>B</td>
+      <td class="background-color-red">B</td>
       <td>⋯</td>
-      <td>B</td>
+      <td class="background-color-red">B</td>
       <td>⋯</td>
     </tr>
     <tr>
@@ -1958,8 +1980,9 @@ Otherwise, the solution is not unique:
   </tbody>
 </table>
 
-<figcaption markdown="span">
-A row (or column) may not contain the same element twice.
+<figcaption markdown="span" style="max-width: 400px;">
+A row (or column) may not contain the same element twice
+as $$A \circ X = B$$ would have more than one solution otherwise.
 </figcaption>
 </figure>
 
@@ -2772,7 +2795,7 @@ which is the greatest common divisor of the two inputs to the tool.
 
 <div id="tool-integer-extended-euclidean-algorithm"></div>
 
-<details markdown="block">
+<details markdown="block" open>
 <summary markdown="span" id="bezouts-identity">
 Bézout's identity
 </summary>
@@ -2801,7 +2824,8 @@ makes the following two statements:
   any multiple $$h \cdot g = (h \cdot c) \cdot a + (h \cdot d) \cdot b$$
   due to [distributivity](https://en.wikipedia.org/wiki/Distributive_property),
   which is a linear combination of $$a$$ and $$b$$.
-  We prove the first half of the statement with the following two [lemmas](https://en.wikipedia.org/wiki/Lemma_(mathematics)):
+  We prove the first half of the statement
+  with the following two [lemmas](https://en.wikipedia.org/wiki/Lemma_(mathematics)):
   - Let $$\mathbb{I} = \{e \cdot a + f \cdot b \mid e, f \in \mathbb{Z}\}$$
     and $$i$$ be the smallest positive element in $$\mathbb{I}$$.
     Claim: All elements in $$\mathbb{I}$$ are a multiple of $$i$$.
@@ -5215,14 +5239,14 @@ in which case $$x =_{\varphi(m)} a^{-1}$$.
 
 ### Advanced concepts
 
-While Wikipedia lists the following topics
+While [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) lists the following topics
 [as basic concepts](https://en.wikipedia.org/wiki/Ring_(mathematics)#Basic_concepts),
 they are fairly advanced for our standards.
 I put all of them in [optional information boxes](/#optional-reading)
 because we don't need any of them.
 They just provide an outlook into the bigger mathematical context,
 and having an elementary understanding of them makes it easier to read the sources
-that I've referenced throughout this article (including Wikipedia).
+that I've referenced throughout this article, including Wikipedia.
 They also explain the notation [$$\mathbb{Z}/m\mathbb{Z}$$](#additive-group-notations).
 I advise you to skip these boxes if you're not interested in any of this.
 
@@ -8064,8 +8088,8 @@ $$
 If you want to compute several discrete logarithms in the same group,
 you have to determine the integers $$p_1$$ to $$p_l$$ only once,
 which makes the index-calculus algorithm even faster.
-(The discrete logarithm of $$P_i$$ with respect to $$G$$ is also called the *index* of $$P_i$$ with respect to $$G$$,
-hence the name *index [calculus](https://en.wikipedia.org/wiki/Calculus_(disambiguation))*.)
+(The discrete logarithm of $$P_i$$ with respect to $$G$$ is also called the index of $$P_i$$ with respect to $$G$$,
+hence the name index [calculus](https://en.wikipedia.org/wiki/Calculus_(disambiguation)).)
 The algorithm doesn't work for [elliptic curves](#elliptic-curves)
 because points cannot be [factorized](#prime-factorization).
 
@@ -8585,7 +8609,8 @@ if it equals itself when it is combined with itself:
 
 </details>
 
-All elements which are idempotent are [equal to the same identity element](https://math.stackexchange.com/a/174035/947937):
+All idempotent elements of a [group](#reduced-group-axioms)
+are [equal to the same identity element](https://math.stackexchange.com/a/174035/947937):
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
 
