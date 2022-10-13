@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-10-07
+modified: 2022-10-13
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -3214,8 +3214,8 @@ $$
 |\mathbb{G}_1 \times … \times \mathbb{G}_l| = |\mathbb{G}_1| \cdot … \cdot |\mathbb{G}_l|
 $$
 
-The [order of each element](#element-order) is the [least common multiple](#least-common-multiple)
-of the order of each component in its group:
+The [order of each element](#element-order) in the direct product
+is the [least common multiple](#least-common-multiple) of the order of each component in its group:
 
 $$
 |(A_1, …, A_l)| = \operatorname{\href{#least-common-multiple}{lcm}}(|A_1|, …, |A_l|)
@@ -3380,8 +3380,8 @@ This is known as [Euler's totient function](https://en.wikipedia.org/wiki/Euler%
 named after [Leonhard Euler](https://en.wikipedia.org/wiki/Leonhard_Euler) (1707 − 1783).
 ([Totient](https://en.wiktionary.org/wiki/totient) comes from the Latin "tot", which means "that many".)
 Since the computation of Euler's totient function requires the prime factorization of the given input,
-I've included it in the [tool above](#tool-integer-factorization-trial-division);
-you just need to [activate the "Totients" toggle](#tool-integer-factorization-trial-division&totients=true).
+I've included it in the [prime factorization tool](#tool-integer-factorization-trial-division) above;
+you just have to [activate the "Totients" toggle](#tool-integer-factorization-trial-division&totients=true).
 
 <details markdown="block" open>
 <summary markdown="span" id="eulers-theorem">
@@ -3461,9 +3461,11 @@ $$
 \end{cases}
 $$
 
-For other integers, $$\mathbb{Z}_m^\times$$ is a [composite group](#composite-groups),
-and the [element order](#element-order) in a [direct product](#direct-product)
-is the [least common multiple](#least-common-multiple) of all groups:
+For other integers, $$\mathbb{Z}_m^\times$$ is a [composite group](#composite-groups).
+Since the order of each element in $$\mathbb{Z}_{p^e}^\times$$ divides $$\lambda(p^e)$$
+as we'll see [below](#exponent-of-a-multiplicative-group),
+the largest [element order](#element-order) in a [direct product](#direct-product)
+is the [least common multiple](#least-common-multiple) of the largest element order in each of the composing groups:
 
 $$
 \lambda(p_1^{e_1} \cdot … \cdot p_l^{e_l})
@@ -3474,17 +3476,16 @@ Given my definition of Carmichael's totient function as $$\lambda(m) = \max_{A \
 which is [different from but equivalent to](#exponent-of-a-multiplicative-group) what you encounter elsewhere,
 and the definition of [Euler's totient function](#eulers-totient-function) as $$\varphi(m) = |\mathbb{Z}_m^\times|$$,
 the multiplicative group $$\mathbb{Z}_m^\times$$ is cyclic [if and only if](#if-and-only-if) $$\lambda(m) = \varphi(m)$$.
-Given the above formulas, multiplicative groups are cyclic
-if and only if the modulus $$m = 2$$, $$4$$, $$p^e$$, or $$2p^e$$
-for an odd prime $$p$$ and a positive integer $$e$$.
-For higher powers of $$2$$, $$\lambda(2^e) = \frac{1}{2}\varphi(2^e)$$.
-And since the result of Euler's totient function is even for any prime power other than $$2^1$$,
-<!-- --> $$\operatorname{gcd}(\varphi(p_1^{e_1}), \varphi(p_2^{e_2})) ≥ 2$$
-and thus $$\operatorname{lcm}(\varphi(p_1^{e_1}), \varphi(p_2^{e_2})) < \varphi(p_1^{e_1}) \cdot \varphi(p_2^{e_2})$$.
-This means that odd prime powers may be combined only with $$2$$
-because a combination with any other prime power makes the group non-cyclic.
+According to the first formula, $$\lambda(p^e) = \varphi(p^e)$$ if and only if $$p ≠ 2$$ or $$e ≤ 2$$.
+And since $$\varphi(p^e) = p^{e-1}(p - 1)$$ is even for any prime power other than $$2^1$$,
+<!-- --> $$\operatorname{\href{#greatest-common-divisor}{gcd}}(\varphi(p_1^{e_1}), \varphi(p_2^{e_2})) ≥ 2$$
+and thus $$\operatorname{\href{#least-common-multiple}{lcm}}(\varphi(p_1^{e_1}), \varphi(p_2^{e_2}))
+< \varphi(p_1^{e_1}) \cdot \varphi(p_2^{e_2})$$ if neither $$p_1^{e_1}$$ nor $$p_2^{e_2}$$ equals $$2^1$$.
+Therefore, multiplicative groups are cyclic
+if and only if the modulus $$m$$ equals $$2$$, $$4$$, $$p^e$$, or $$2p^e$$
+for a prime $$p ≠ 2$$ and a positive integer $$e$$.
 You can verify this for moduli up to 100 with the [repetition table tool](#multiplicative-group-repetition-table).
-(This is why it displays the [prime factorization](#prime-factorization) of the modulus at the top.)
+(This is why the tool displays the [prime factorization](#prime-factorization) of the modulus above the table.)
 You can compute Carmichael's totient function of an integer
 by [enabling the "Totients" option](#tool-integer-factorization-trial-division&totients=true)
 of the [factorization tool](#tool-integer-factorization-trial-division).
@@ -3550,7 +3551,7 @@ Given such an element $$A_i$$ for each $$i$$, the element $$A_i^{n/p_i^{e_i}}$$ 
 because $$(A_i^{n/p_i^{e_i}})^{p_i^{e_i}} =_m A_i^n =_m 1$$
 and $$(A_i^{n/p_i^{e_i}})^{p_i^{e_i - 1}} =_m A_i^{n/p_i} ≠_m 1$$
 (see the [previous box](#order-of-prime-power)).
-As all the prime powers of an integer factorization are coprime with one another,
+As all the prime powers of a prime factorization are coprime with one another,
 the order of $$\prod_{i=1}^l A_i^{n/p_i^{e_i}}$$ is $$n$$
 according to an [earlier theorem](#order-when-combining-two-elements-of-coprime-orders).
 
@@ -3564,7 +3565,8 @@ Why multiplicative groups modulo a prime are cyclic
 Let's start with the simplest case: $$\mathbb{Z}_p^\times$$ is [cyclic](#cyclic-groups)
 if $$p$$ is [prime](#prime-factorization).
 In order to prove this, we need math which we haven't covered yet:
-1. $$\mathbb{Z}_p$$ is a finite field over which [polynomials](https://en.wikipedia.org/wiki/Polynomial) can be defined.
+1. $$\href{#integers-modulo-m}{\mathbb{Z}_p} = \{0, …, p - 1\}$$ is a finite field
+   over which [polynomials](https://en.wikipedia.org/wiki/Polynomial) can be defined.
    We'll discuss finite fields [later in this article](#finite-fields).
 2. A [non-constant](https://en.wikipedia.org/wiki/Polynomial#constant_polynomial)
    [single-variable](https://en.wikipedia.org/wiki/Polynomial#univariate)
@@ -3586,7 +3588,7 @@ This means that the polynomial $$f(X) =_p X^{\lambda(p)} - 1$$ evaluates to $$0$
 for all $$\varphi(p) = p - 1$$ elements of $$\mathbb{Z}_p^\times$$.
 Since a polynomial of degree $$\lambda(p)$$ over a field can have at most $$\lambda(p)$$ roots,
 <!-- --> $$\lambda(p)$$ cannot be smaller than $$\varphi(p)$$.
-Therefore, $$\lambda(p) = \varphi(p)$$.
+Therefore, $$\lambda(p) = \varphi(p)$$, which implies that $$\mathbb{Z}_p^\times$$ is cyclic.
 Please note that this argument works only for fields (i.e. if the modulus is prime).
 In $$\mathbb{Z}_{24}$$, for example, $$X^2 - 1 =_{24} 0$$ has
 [8 solutions](#tool-table-multiplicative-group-repetition&modulus=24&coprime=true&repeat=false&order=false&totient=false).
@@ -3612,25 +3614,25 @@ Binomial coefficients and the binomial theorem
 </summary>
 
 Since multiplication [distributes](https://en.wikipedia.org/wiki/Distributive_property) over addition,
-<!-- --> $$(a + b)(c + d) = a(c + d) + b(c + d) = ac + ad + bc + bd$$.
-This means that you add up all possible combinations
-of a term from the first expression with a term from the second expression.
-If the two expressions are the same, you get some combinations several times:
+we have that $$(a + b)(c + d) = a(c + d) + b(c + d) = ac + ad + bc + bd$$.
+More generally, when evaluating the product of two sums, you add up all possible products
+of a term from the first sum and a term from the second sum.
+If the two sums are the same, you get some products several times:
 <!-- --> $$(a + b)^2 = (a + b)(a + b) = aa + ab + ba + bb = a^2 + 2ab + b^2$$.
 The same is true for powers greater than $$2$$.
-For $$(a + b)^n$$, every combination consists of $$n$$ instead of $$2$$ terms.
-How many times do we get the combination $$a^ib^{n-i}$$ for some integer $$i$$ between $$0$$ and $$n$$
+In the case of $$(a + b)^n$$, each product consists of $$n$$ instead of $$2$$ terms.
+How many times do we obtain the product $$a^ib^{n-i}$$ for some integer $$i$$ between $$0$$ and $$n$$
 when we expand $$(a + b)^n$$?
-The first $$a$$ can be chosen from any of the $$n$$ expressions,
-the second $$a$$ from any of the remaining $$n - 1$$ expressions,
+The first $$a$$ can be chosen from any of the $$n$$ sums,
+the second $$a$$ from any of the remaining $$n - 1$$ sums,
 and so on until you have $$n - i + 1$$ options left for the $$i$$<sup>th</sup> $$a$$.
-Since we don't care about the order in which we picked the $$a$$s in a specific combination of $$a$$s and $$b$$s,
+Since we don't care about the order in which we picked the $$a$$s in a specific product of $$a$$s and $$b$$s,
 we have to divide the integer that we obtained so far by the number of ways in which $$i$$ $$a$$s can be ordered.
 The first $$a$$ can be any of the $$i$$ $$a$$s, the second $$a$$ any of the remaining $$i - 1$$ $$a$$s, and so on.
 <!-- --> $$i \cdot (i - 1) \cdot … \cdot 2 \cdot 1$$
 is the so-called [factorial](https://en.wikipedia.org/wiki/Factorial) of $$i$$,
 which is usually written with an [exclamation mark](https://en.wikipedia.org/wiki/Exclamation_mark) as $$i!$$.
-The number of ways in which you can pick $$i$$ $$a$$s out of $$n$$ expressions is:
+The number of ways in which you can pick $$i$$ $$a$$s out of $$n$$ sums is:
 
 $$
 \binom{n}{i} = \frac{n (n-1) (n-2) … (n-i+1)}{i (i-1) (i-2) … 1} = \frac{n!}{i!\,(n-i)!}
@@ -3701,7 +3703,7 @@ $$
 $$
 
 Since $$\binom{p}{i}$$ is [divisible by $$p$$](#binomial-coefficients-of-a-prime-are-multiples-of-the-prime)
-for $$0 < i < p$$, $$\binom{p}{i} p^{ei}$$ is divisible by $$p^{1+2e}$$ for $$2 ≤ i < p$$.
+for $$0 < i < p$$, we conclude that $$\binom{p}{i} p^{ei}$$ is divisible by $$p^{1+2e}$$ for $$2 ≤ i < p$$.
 Since $$1 + 2e ≥ e + 2$$ for all $$e ≥ 1$$, we can ignore the terms of the second sum
 when computing [modulo](#modulo-operation) $$p^{e+2}$$.
 By the requirement that $$p^e > 2$$, either $$p ≥ 3$$ or $$e ≥ 2$$.
@@ -4966,9 +4968,10 @@ Subrings
 </summary>
 
 A ring $$\mathbb{S}$$ is a [subring](https://en.wikipedia.org/wiki/Subring) of another ring $$\mathbb{R}$$
-if every element of $$\mathbb{S}$$ is also contained in $$\mathbb{R}$$
-and the [above axioms](#ring-axioms) hold for the same operations.
-Since the modulus $$m$$ is part of the operations (it defines what it means to be [equivalent](#equivalence-relation)),
+if $$\mathbb{S}$$ is a [subset](https://en.wikipedia.org/wiki/Subset) of $$\mathbb{R}$$
+and the [ring axioms](#ring-axioms) hold for addition and multiplication restricted to $$\mathbb{S}$$.
+Since the modulus $$m$$ is part of these operations
+(it defines what it means to be [equivalent](#equivalence-relation)),
 the integers modulo $$m$$ have no subrings other than the whole ring
 because the multiplicative identity $$1$$ generates the whole additive group.
 
@@ -6467,7 +6470,9 @@ When $$a = -3$$ and $$b = 2$$, we have $$y^2 = x^3 - 3x + 2 = (x - 1)^2 (x + 2)$
 What about x<sup>2</sup>?
 </summary>
 
-A [cubic polynomial](https://en.wikipedia.org/wiki/Cubic_function) of the form $$c(z) = sz^3 + tz^2 + uz + v$$
+You may have noticed that the above equation defining elliptic curves misses the $$x^2$$ term.
+The reason for this is that a [cubic polynomial](https://en.wikipedia.org/wiki/Cubic_function)
+of the form $$c(z) = sz^3 + tz^2 + uz + v$$
 can be turned into a so-called [depressed cubic](https://en.wikipedia.org/wiki/Cubic_equation#Depressed_cubic)
 of the form $$d(x) = x^3 + ax + b$$ by replacing $$z$$ with $$x - \frac{t}{3s}$$,
 thereby shifting the input, which means $$c(x - \frac{t}{3s}) = d(x) \iff c(z) = d(z + \frac{t}{3s})$$:
@@ -7762,8 +7767,8 @@ Confusingly, this algorithm is also called
 Given a composite number $$n$$ and a [divisor](#divisor) $$d$$ of $$n$$,
 the sequence of integers $$s_i$$ defined by a somewhat random function $$f(x)$$, such as $$f(x) =_d x^2 + 1$$,
 where $$s_{i+1} = f(s_i)$$, repeats [on average after around $$\sqrt{d}$$ iterations](#birthday-paradox)
-because there are only $$d$$ integers between $$0$$ and $$d - 1$$.
-Now the problem is that we don't know $$d$$, otherwise we've already found a factorization of $$n$$.
+as there are only $$d$$ integers between $$0$$ and $$d - 1$$.
+Now the problem is that we don't know $$d$$, otherwise we would have already found a factorization of $$n$$.
 If $$a$$ denotes the tortoise and $$b$$ denotes the hare of our
 [cycle-finding algorithm](https://en.wikipedia.org/wiki/Cycle_detection#Floyd.27s_Tortoise_and_Hare),
 <!-- --> $$a =_d b$$ [if and only if](#if-and-only-if) $$\lvert a - b \rvert$$ is a multiple of $$d$$.

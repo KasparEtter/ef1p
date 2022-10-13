@@ -86,14 +86,14 @@ export const repeat: DynamicBooleanEntry = {
 
 export const order: DynamicBooleanEntry = {
     label: 'Order',
-    tooltip: 'Whether to display the order of each element as subscripts.',
+    tooltip: 'Whether to display the order of each element in a subscript. This gives you an idea of how the position of an element in a cyclic subgroup determines its order.',
     defaultValue: false,
     inputType: 'switch',
 };
 
 export const totient: DynamicBooleanEntry = {
     label: 'Totient',
-    tooltip: "Whether to display the result of Euler's totient function for each number which divides the group order.",
+    tooltip: "Whether to display the result of Euler's totient function for each order which divides the group's order. If the group is cyclic, each totient matches the number of elements with the corresponding order.",
     defaultValue: false,
     inputType: 'switch',
 };
@@ -246,7 +246,7 @@ export function RepetitionTable<E extends Equality<E>>({
                     })}
                 </tr>;
             })}
-            {totient && <tr>
+            {totient && <tr className="thick-border-top">
                 <th>φ(i)</th>
                 {Array.from({ length: groupOrder - 1 }, (_, index) => <td>{groupOrder % (index + 2) === 0 && phi(factorize(BigInt(index + 2))!).toString()}</td>)}
             </tr>}
