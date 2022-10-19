@@ -1,0 +1,88 @@
+<svg width="543.432" height="121" viewBox="-1.25 -40.75 543.432 121" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .red {
+            fill: #E60000;
+            stroke: #E60000;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-red" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="red" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <line class="red" x1="291.521" y1="19.75" x2="349.209" y2="59.25" marker-end="url(#arrow-red)" stroke-dasharray="63"></line>
+    <text class="red" transform="rotate(34.4, 313.972, 49.666)" text-anchor="middle">
+        <tspan x="313.972" y="61.166">false</tspan>
+    </text>
+    <line class="green" x1="291.521" y1="19.75" x2="349.209" y2="-19.75" marker-end="url(#arrow-green)" stroke-dasharray="63"></line>
+    <text class="green" transform="rotate(-34.4, 313.972, -10.166)" text-anchor="middle">
+        <tspan x="313.972" y="-10.166">true</tspan>
+    </text>
+    <rect x="0" y="0" width="291.209" height="39.5" rx="8" ry="8"></rect>
+    <text text-anchor="middle">
+        <tspan x="145.604" y="25.65"><tspan class="font-weight-bold">No witness for n found after t rounds?</tspan></tspan>
+    </text>
+    <rect class="green" x="350.459" y="-39.5" width="158.981" height="39.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="429.949" y="-13.85"><tspan class="font-weight-bold">n is probably prime</tspan></tspan>
+    </text>
+    <rect class="red" x="350.459" y="39.5" width="190.474" height="39.5" rx="8" ry="8"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="445.696" y="65.15"><tspan class="font-weight-bold">n is certainly composite</tspan></tspan>
+    </text>
+
+</svg>

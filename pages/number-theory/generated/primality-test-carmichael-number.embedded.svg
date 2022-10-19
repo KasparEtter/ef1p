@@ -1,0 +1,16 @@
+<svg id="figure-primality-test-carmichael-number" class="figure" data-name="primality-test-carmichael-number" width="247.261" height="123" viewBox="-6.25 -33.25 247.261 123" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="green" x="0" y="0" width="109.181" height="83.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="54.59" y="25.65"><tspan class="font-weight-bold">Coprime</tspan></tspan><tspan x="54.59" y="47.65"><tspan class="font-weight-bold">elements </tspan>ℤ<tspan class="script" dy="-6">×</tspan><tspan dy="6">&#8203;</tspan><tspan dx="-7.5">&#8203;</tspan><tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan></tspan><tspan x="54.59" y="69.65"><tspan class="font-weight-bold">are all liars</tspan></tspan>
+    </text>
+    <rect class="red" x="114.181" y="0" width="120.58" height="83.5" rx="8" ry="8"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="174.471" y="25.65"><tspan class="font-weight-bold">Multiples of</tspan></tspan><tspan x="174.471" y="47.65"><tspan class="font-weight-bold">prime factors</tspan></tspan><tspan x="174.471" y="69.65"><tspan class="font-weight-bold">are witnesses</tspan></tspan>
+    </text>
+    <rect class="blue" x="-5" y="-5" width="244.761" height="93.5" rx="13" ry="13"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="117.38" y="-18.25"><tspan class="font-weight-bold">Candidates </tspan>ℤ<tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan><tspan dx="-6.672">&#8203;</tspan><tspan class="script" dy="-6">0</tspan><tspan dy="6">&#8203;</tspan><tspan dx="-6.96">&#8203;</tspan><tspan class="script" dy="-6"> ⁄</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+
+</svg>

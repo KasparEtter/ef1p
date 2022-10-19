@@ -1,0 +1,16 @@
+<svg id="figure-primality-test-coprime-non-coprime" class="figure" data-name="primality-test-coprime-non-coprime" width="245.599" height="101" viewBox="-6.25 -33.25 245.599 101" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="purple" x="0" y="0" width="109.181" height="61.5" rx="8" ry="8"></rect>
+    <text class="purple" text-anchor="middle">
+        <tspan x="54.59" y="25.65"><tspan class="font-weight-bold">Coprime</tspan></tspan><tspan x="54.59" y="47.65"><tspan class="font-weight-bold">elements </tspan>ℤ<tspan class="script" dy="-6">×</tspan><tspan dy="6">&#8203;</tspan><tspan dx="-7.5">&#8203;</tspan><tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan></tspan>
+    </text>
+    <rect class="red" x="114.181" y="0" width="118.918" height="61.5" rx="8" ry="8"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="173.64" y="25.65"><tspan class="font-weight-bold">Multiples of</tspan></tspan><tspan x="173.64" y="47.65"><tspan class="font-weight-bold">prime factors</tspan></tspan>
+    </text>
+    <rect class="blue" x="-5" y="-5" width="243.099" height="71.5" rx="13" ry="13"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="116.549" y="-18.25"><tspan class="font-weight-bold">Candidates </tspan>ℤ<tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan><tspan dx="-6.672">&#8203;</tspan><tspan class="script" dy="-6">0</tspan><tspan dy="6">&#8203;</tspan><tspan dx="-6.96">&#8203;</tspan><tspan class="script" dy="-6"> ⁄</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+
+</svg>

@@ -1,0 +1,16 @@
+<svg id="figure-primality-test-liars-witnesses" class="figure" data-name="primality-test-liars-witnesses" width="174.136" height="101" viewBox="-6.25 -33.25 174.136 101" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <rect class="green" x="0" y="0" width="58.442" height="61.5" rx="8" ry="8"></rect>
+    <text class="green" text-anchor="middle">
+        <tspan x="29.221" y="25.65"><tspan class="font-weight-bold">Liars</tspan></tspan><tspan x="29.221" y="47.65">𝕃<tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan></tspan>
+    </text>
+    <rect class="red" x="63.442" y="0" width="98.194" height="61.5" rx="8" ry="8"></rect>
+    <text class="red" text-anchor="middle">
+        <tspan x="112.539" y="25.65"><tspan class="font-weight-bold">Witnesses</tspan></tspan><tspan x="112.539" y="47.65">𝕎<tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan></tspan>
+    </text>
+    <rect class="blue" x="-5" y="-5" width="171.636" height="71.5" rx="13" ry="13"></rect>
+    <text class="blue" text-anchor="middle">
+        <tspan x="80.818" y="-18.25"><tspan class="font-weight-bold">Candidates </tspan>ℤ<tspan class="script" dy="3">n</tspan><tspan dy="-3">&#8203;</tspan><tspan dx="-6.672">&#8203;</tspan><tspan class="script" dy="-6">0</tspan><tspan dy="6">&#8203;</tspan><tspan dx="-6.96">&#8203;</tspan><tspan class="script" dy="-6"> ⁄</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+
+</svg>
