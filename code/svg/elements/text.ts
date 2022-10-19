@@ -156,7 +156,7 @@ export class ZeroWidthText {
     public constructor(private readonly text: TextLine) {}
 
     public encode(collector: Collector): string {
-        return encode(this.text, collector) + `<tspan dx="${round3(estimateTextLineWidth(this.text) * -1)}">&#8203;</tspan>`;
+        return encode(this.text, collector) + `<tspan dx="${-round3(estimateTextLineWidth(this.text))}">&#8203;</tspan>`;
     }
 
     public estimateWidth(): number {

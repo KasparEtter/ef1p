@@ -11,6 +11,7 @@ import { Collector } from '../utility/collector';
 import { textToLineDistance } from '../utility/constants';
 import { Marker, markerAttributes, markerOffset } from '../utility/marker';
 import { LineSide, Point } from '../utility/point';
+import { rotate } from '../utility/transform';
 
 import { Circle } from './circle';
 import { VisualElement, VisualElementProps } from './element';
@@ -129,11 +130,15 @@ export class Line extends VisualElement<LineProps> {
         side: LineSide = 'left',
         distance: number = textToLineDistance,
         props: Omit<TextProps, 'position' | 'text'> = {},
+        tilted = false,
     ): Text {
-        const offset = this.vector().rotate(side).normalize(distance);
+        const vector = this.vector();
+        const offset = vector.rotate(side).normalize(distance);
         const position = this.center().add(offset);
         const color = this.props.color;
-        return new Text({ position, text, ...determineAlignment(offset), color, ...props });
+        const alignment: Alignment = tilted ? { horizontalAlignment: 'middle', verticalAlignment: side === 'left' ? 'bottom' : 'top' } : determineAlignment(offset);
+        const transform = tilted ? rotate(position, vector.angleInDegrees()) : undefined;
+        return new Text({ position, text, ...alignment, color, transform, ignoreForClipping: tilted, ...props });
     }
 
     public withText(
@@ -141,8 +146,9 @@ export class Line extends VisualElement<LineProps> {
         side: LineSide = 'left',
         distance: number = textToLineDistance,
         props: Omit<TextProps, 'position' | 'text'> = {},
+        tilted = false,
     ): [this, Text] {
-        return [this, this.text(text, side, distance, props)];
+        return [this, this.text(text, side, distance, props, tilted)];
     }
 
     public move(vector: Point): Line {

@@ -49,20 +49,20 @@ function decodeIntegerList(input: string): bigint[] {
     }
 }
 
-function validateWitnesses(input: string, inputs: Readonly<State>): InputError {
+function validateCandidates(input: string, inputs: Readonly<State>): InputError {
     const integer = decodeInteger(inputs.input);
-    return decodeIntegerList(input).some(witness => witness <= zero || witness >= integer) && 'Each base has to be positive and smaller than the integer.';
+    return decodeIntegerList(input).some(witness => witness <= zero || witness >= integer) && 'Each candidate has to be strictly between 0 and n.';
 }
 
-const bases: DynamicTextEntry<State> = {
-    label: 'Bases',
-    tooltip: 'A comma-separated list of potential witnesses smaller than the integer.',
+const candidates: DynamicTextEntry<State> = {
+    label: 'Candidates',
+    tooltip: 'A comma-separated list of candidates strictly between 0 and n.',
     defaultValue: '2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37',
     inputType: 'text',
     inputWidth: integerInputWidth,
     dependencies: 'input',
     validateIndependently: input => !integerListRegex.test(input) && 'This is not comma-separated list of positive integers.',
-    validateDependently: validateWitnesses,
+    validateDependently: validateCandidates,
 };
 
 const maxValue = 4294967295;
@@ -76,35 +76,35 @@ const incrementSeed: DetermineButton<number> = {
 
 export const seed: DynamicNumberEntry<State> = {
     label: 'Seed',
-    tooltip: 'The 32-bit integer from which the pseudo-random bases are derived.',
+    tooltip: 'The 32-bit integer from which the pseudo-random candidates are derived.',
     defaultValue: 0,
     minValue: 0,
     maxValue,
     inputType: 'number',
-    inputWidth: integerInputWidth / 2,
+    inputWidth: integerInputWidth - 85,
     determine: incrementSeed,
 };
 
 export const rounds: DynamicRangeEntry<State> = {
     label: 'Rounds',
-    tooltip: 'Configure how many random bases shall be used after the provided bases.',
+    tooltip: 'Configure how many pseudo-random candidates shall be tested after testing the provided candidates.',
     defaultValue: 0,
     inputType: 'range',
     inputWidth: 100,
-    minValue: inputs => inputs.bases.trim() === '' ? 1 : 0,
-    dependencies: 'bases',
+    minValue: inputs => inputs.candidates.trim() === '' ? 1 : 0,
+    dependencies: 'candidates',
 };
 
 export const abort: DynamicBooleanEntry<State> = {
     label: 'Abort',
-    tooltip: 'Whether to abort testing when the input has been shown to be composite.',
+    tooltip: 'Whether to abort testing when the input n has been shown to be composite.',
     defaultValue: true,
     inputType: 'switch',
 };
 
 interface State {
     input: string;
-    bases: string;
+    candidates: string;
     seed: number;
     rounds: number;
     abort: boolean;
@@ -112,7 +112,7 @@ interface State {
 
 const entries: DynamicEntries<State> = {
     input,
-    bases,
+    candidates,
     seed,
     rounds,
     abort,
@@ -120,6 +120,14 @@ const entries: DynamicEntries<State> = {
 
 const store = new VersionedStore(entries, 'integer-primality-test');
 const Input = getInput(store);
+
+function renderRatio(liars: number, witnesses: number): JSX.Element {
+    return <table className="list text-right">
+        <tr><th>Number of found liars:</th><td>{liars}</td></tr>
+        <tr><th>Number of found witnesses:</th><td>{witnesses}</td></tr>
+        <tr><th>Ratio of found liars to tested candidates:</th><td>{(liars / (liars + witnesses)).toFixed(2)}</td></tr>
+    </table>;
+}
 
 /* ------------------------------ Fermat primality test ------------------------------ */
 
@@ -143,10 +151,19 @@ function RawFermatPrimalityTest(state: Readonly<State>): JSX.Element {
         }
     }
 
-    const bases = decodeIntegerList(state.bases);
-    for (const base of bases) {
-        if (isWitness(base) && state.abort) {
-            break;
+    let liars = 0;
+    let witnesses = 0;
+
+    const candidates = decodeIntegerList(state.candidates);
+    for (const candidate of candidates) {
+        if (isWitness(candidate)) {
+            if (state.abort) {
+                break;
+            } else {
+                witnesses++;
+            }
+        } else {
+            liars++;
         }
     }
 
@@ -154,18 +171,25 @@ function RawFermatPrimalityTest(state: Readonly<State>): JSX.Element {
         const nMinus2 = n - two;
         const prng = mulberry32(state.seed);
         for (let i = 0; i < state.rounds; i++) {
-            if (isWitness(getPseudoRandomInteger(two, nMinus2, prng)) && state.abort) {
-                break;
+            if (isWitness(getPseudoRandomInteger(two, nMinus2, prng))) {
+                if (state.abort) {
+                    break;
+                } else {
+                    witnesses++;
+                }
+            } else {
+                liars++;
             }
         }
     }
 
     const identity = format === 'hexadecimal' ? '0x1' : '1';
     return <Fragment>
-        <p className="text-center"><Integer integer={n} format={format}/> is {isProbablyPrime ? <Text.green>probably prime</Text.green> : <Text.red>definitely not prime</Text.red>}.</p>
+        <p className="text-center"><Integer integer={n} format={format}/> is {isProbablyPrime ? <Text.green>probably prime</Text.green> : <Text.red>certainly composite</Text.red>}.</p>
+        {!state.abort && renderRatio(liars, witnesses)}
         <table className="text-right text-nowrap">
             <tr>
-                <th>Base A:</th>
+                <th>Candidate A:</th>
                 {results.map(result => <td>{result[0].render(format)}</td>)}
             </tr>
             <tr>
@@ -251,10 +275,19 @@ function RawMillerRabinPrimalityTest(state: Readonly<State>): JSX.Element {
         return result;
     }
 
-    const bases = decodeIntegerList(state.bases);
-    for (const base of bases) {
-        if (isWitness(base) && state.abort) {
-            break;
+    let liars = 0;
+    let witnesses = 0;
+
+    const candidates = decodeIntegerList(state.candidates);
+    for (const candidate of candidates) {
+        if (isWitness(candidate)) {
+            if (state.abort) {
+                break;
+            } else {
+                witnesses++;
+            }
+        } else {
+            liars++;
         }
     }
 
@@ -262,14 +295,21 @@ function RawMillerRabinPrimalityTest(state: Readonly<State>): JSX.Element {
         const nMinus2 = n - two;
         const prng = mulberry32(state.seed);
         for (let i = 0; i < state.rounds; i++) {
-            if (isWitness(getPseudoRandomInteger(two, nMinus2, prng)) && state.abort) {
-                break;
+            if (isWitness(getPseudoRandomInteger(two, nMinus2, prng))) {
+                if (state.abort) {
+                    break;
+                } else {
+                    witnesses++;
+                }
+            } else {
+                liars++;
             }
         }
     }
 
     return <Fragment>
-        <p className="text-center"><Integer integer={n} format={format}/> is {isProbablyPrime ? <Text.green>probably prime</Text.green> : <Text.red>definitely not prime</Text.red>}.</p>
+        <p className="text-center"><Integer integer={n} format={format}/> is {isProbablyPrime ? <Text.green>probably prime</Text.green> : <Text.red>certainly composite</Text.red>}.</p>
+        {!state.abort && renderRatio(liars, witnesses)}
         <table className="align">
             <tr><td className="text-right">n</td><td>=</td><td>2<Exponent exponent="c"/><MultiplicationSign/>d<AdditionSign/>1</td></tr>
             <tr><td className="text-right"><Integer integer={n} format={format}/></td><td>=</td><td>2<Exponent exponent={<Integer integer={c} format={format}/>}/><MultiplicationSign/><Integer integer={d} format={format}/><AdditionSign/>1</td></tr>
@@ -277,7 +317,7 @@ function RawMillerRabinPrimalityTest(state: Readonly<State>): JSX.Element {
         <table className="text-right text-nowrap">
             <thead>
                 <tr>
-                    <th>Base A</th>
+                    <th>Candidate A</th>
                     {Array.from({ length: c }, (_, index) => <th>A<Exponent exponent={<Fragment>2<Exponent exponent={index}/><MultiplicationSign/>d</Fragment>} parenthesesIfNotRaised/><ModuloSign/>n</th>)}
                 </tr>
             </thead>

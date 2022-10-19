@@ -11,6 +11,7 @@ export const indentation = '    ';
 export const strokeWidth = 2.5;
 export const strokeWidthMargin = new Point(strokeWidth, strokeWidth);
 export const doubleStrokeWidth = strokeWidth * 2;
+export const doubleStrokeWidthMargin = new Point(doubleStrokeWidth, doubleStrokeWidth);
 export const strokeRadius = strokeWidth / 2;
 export const strokeRadiusMargin = new Point(strokeRadius, strokeRadius);
 export const circleRadius = 1.5;

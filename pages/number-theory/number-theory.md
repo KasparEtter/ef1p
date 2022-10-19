@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-10-13
+modified: 2022-10-19
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -3800,38 +3800,91 @@ If you find a factor, $$n$$ is composite.
 Otherwise, $$n$$ is prime.
 For large integers, trial division becomes infeasible
 because it [scales](#computational-complexity-theory) with the square root of $$n$$.
-Even though [a deterministic algorithm is known](https://en.wikipedia.org/wiki/AKS_primality_test)
-to determine in [polynomial time](https://en.wikipedia.org/wiki/Time_complexity#Polynomial_time)
-whether an integer is prime,
+Even though [a deterministic algorithm is known](https://en.wikipedia.org/wiki/AKS_primality_test) to determine
+in [polynomial time](https://en.wikipedia.org/wiki/Time_complexity#Polynomial_time) whether an integer is prime,
 [probabilistic primality tests](https://en.wikipedia.org/wiki/Primality_test#Probabilistic_tests)
 are used in practice because they are much faster and much simpler.
-Given an integer $$n$$, probabilistic primality tests check whether a condition is true
-for integers between $$1$$ and $$n$$.
-If $$n$$ is prime, the condition is true for all such integers.
-If $$n$$ is composite, the condition is still true for some integers between $$1$$ and $$n$$.
-Such integers are called liars, and we denote the set of liars for the integer $$n$$ as $$\mathbb{L}_n$$.
-Clearly, $$\mathbb{L}_n$$ is a [subset](https://en.wikipedia.org/wiki/Subset)
-of the set of all positive integers below $$n$$, which we write as $$\mathbb{Z}_n^{\cancel{0}}$$.
-We denote the [relative complement](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement)
-of $$\mathbb{L}_n$$ in $$\mathbb{Z}_n^{\cancel{0}}$$ as $$\mathbb{W}_n = \mathbb{Z}_n^{\cancel{0}} \setminus \mathbb{L}_n$$.
-Its elements are so-called [witnesses](https://en.wikipedia.org/wiki/Witness_(mathematics)) for the compositeness of $$n$$.
-If we choose a random $$A \in \mathbb{Z}_n^{\cancel{0}}$$,
-the probability that $$A$$ is a liar is $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}|$$.
-When we repeat this $$t$$ times, the probability that we select $$t$$ liars
+
+Probabilistic primality tests are based on some condition
+which is true for all integers strictly between $$0$$ and $$n$$ if $$n$$ is prime.
+If $$n$$ is composite, the condition still holds for some but not all of these integers.
+By evaluating the condition/test repeatedly for random candidates from this set of integers,
+we will eventually find a candidate for which the condition is false if we keep searching for long enough.
+Since this cannot happen if $$n$$ is prime, such a candidate is a so-called
+[witness](https://en.wikipedia.org/wiki/Witness_(mathematics)) for the compositeness of $$n$$.
+A candidate for which the condition is true even though $$n$$ is composite
+is a so-called liar as it lies about the true nature of $$n$$.
+
+<figure markdown="block">
+{% include_relative generated/probabilistic-primality-test-terminology.embedded.svg %}
+<figcaption markdown="span">
+The condition classifies candidates into liars and witnesses.
+</figcaption>
+</figure>
+
+If we denote the set of integers strictly between $$0$$ and $$n$$ as $$\mathbb{Z}_n^{\cancel{0}}$$,
+the set of liars for $$n$$ as $$\mathbb{L}_n$$,
+and the set of witnesses for $$n$$ as $$\mathbb{W}_n$$,
+we get the following [Venn diagram](https://en.wikipedia.org/wiki/Venn_diagram),
+where $$\mathbb{L}_n \cup \mathbb{W}_n = \mathbb{Z}_n^{\cancel{0}}$$
+and $$\mathbb{L}_n \cap \mathbb{W}_n = \href{https://en.wikipedia.org/wiki/Empty_set}{\varnothing}$$:
+
+<figure markdown="block">
+{% include_relative generated/primality-test-liars-witnesses.embedded.svg %}
+<figcaption markdown="span">
+The classification visualized as sets.
+</figcaption>
+</figure>
+
+If $$n$$ is prime, the set of witnesses is empty and the liars aren't lying.
+If $$n$$ is composite, the probability that a random candidate $$A \in \mathbb{Z}_n^{\cancel{0}}$$ is a liar
+is $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}|$$.
+When we repeat the probabilistic primality test $$t$$ times, the probability that we select $$t$$ liars
 and therefore think that $$n$$ is prime even though it isn't is $$(|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}|)^t$$.
-If $$|\mathbb{L}_n|$$ is larger than the number of integers that can be tested,
-a probabilistic primality test determines only the compositeness of $$n$$ with certainty
-(by finding a single witness $$W \in \mathbb{W}_n$$) but not its primality.
-If $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}| < 1$$,
-we can increase our confidence that $$n$$ is prime to any degree below $$1$$
-by repeating the test more often.
-An integer which passes a probabilistic primality test
-is called a [probable prime](https://en.wikipedia.org/wiki/Probable_prime),
+Since $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}| < 1$$ if $$n$$ is composite,
+we can lower the probability that we err when we declare $$n$$ to be prime to an arbitrarily small number.
+Unless we test all possible candidates, which is infeasible when $$n$$ is sufficiently large, we cannot be certain, though.
+For this reason, we call an integer which passes many rounds of a probabilistic primality test
+only a [probable prime](https://en.wikipedia.org/wiki/Probable_prime),
 which is in contrast to a [provable prime](https://en.wikipedia.org/wiki/Provable_prime),
 whose primality has been established with certainty.
-We'll study two probabilistic primality tests:
+
+<figure markdown="block">
+{% include_relative generated/probabilistic-primality-test-outcomes.embedded.svg %}
+<figcaption markdown="span">
+The two possible outcomes of a probabilistic primality test.
+</figcaption>
+</figure>
+
+In the following, we'll study two probabilistic primality tests:
 The [Fermat primality test](#fermat-primality-test)
 and the superior and thus preferable [Miller-Rabin primality test](#miller-rabin-primality-test).
+When analyzing a probabilistic primality test,
+we want to know whether the ratio of liars to all candidates is smaller than some bound for any composite $$n$$.
+Since it's difficult to reason about all the integers between $$0$$ and $$n$$,
+we'll consider only the integers which are coprime with $$n$$
+as they form a [multiplicative group](#multiplicative-groups),
+which allows us to use [everything we know about groups](#finite-groups) in our analyses.
+Since $$\mathbb{Z}_n^\times \subsetneq \mathbb{Z}_n^{\cancel{0}}$$ if $$n$$ is composite,
+it follows that $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}| \lneq |\mathbb{L}_n| / |\mathbb{Z}_n^\times|$$,
+which means that any upper bound which we prove for $$|\mathbb{L}_n| / |\mathbb{Z}_n^\times|$$
+also holds for $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}|$$.
+As [we'll see](#carmichael-numbers), all the candidates which aren't coprime with $$n$$
+are witnesses for both the Fermat and the Miller-Rabin primality test.
+If $$n$$ is the product of large prime numbers, the multiples of these prime factors are so rare
+that we cannot rely on finding one of them.
+
+<figure markdown="block">
+{% include_relative generated/primality-test-coprime-non-coprime.embedded.svg %}
+<figcaption markdown="span" style="max-width: 275px;">
+
+A different classification of the candidates,
+where $$|\mathbb{Z}_n^\times| ≤ |\mathbb{Z}_n^{\cancel{0}}| < n$$ and $$\mathbb{L}_n \subseteq \mathbb{Z}_n^\times$$.
+<span class="text-nowrap" markdown="span">($$\mathbb{Z}_n^\times = \mathbb{Z}_n^{\cancel{0}}$$</span>
+[if and only if](#if-and-only-if) $$n$$ is prime.)
+
+</figcaption>
+</figure>
 
 
 ### Fermat primality test
@@ -3845,17 +3898,17 @@ These integers are called [Carmichael numbers](#carmichael-numbers).
 While Carmichael numbers are [rare](#density-of-carmichael-numbers-and-prime-numbers),
 they are common enough that you cannot ignore them,
 especially in the adversarial context of cryptography.
-If the given integer $$n$$ is not a Carmichael number,
+If a composite integer $$n$$ is not a Carmichael number,
 then at least half of all the elements in $$\mathbb{Z}_n^\times$$ are [witnesses](#probabilistic-primality-tests),
 which means that $$|\mathbb{L}_n^F| ≤ \frac{1}{2} |\mathbb{Z}_n^\times| < \frac{n}{2}$$.
-(The $$F$$ in $$\mathbb{L}_n^F$$ indicates that we are talking about the [liars](#probabilistic-primality-tests)
-of the Fermat primality test.)
+(The $$F$$ in $$\mathbb{L}_n^F$$ indicates
+that we are talking about the [liars](#probabilistic-primality-tests) of the Fermat primality test.)
 There are two ways to see why this is the case:
 - **Pairing**: There is at least one witness $$W \in \mathbb{W}_n^F$$ as $$n$$ would be a Carmichael number otherwise.
   Since $$\mathbb{Z}_n^\times$$ is a [group](#group-axioms), $$W$$ maps each liar $$L \in \mathbb{L}_n^F$$
   to a [distinct](#unique-result) witness: $$(L \cdot W)^{n-1} =_n L^{n-1} \cdot W^{n-1} =_n W^{n-1} ≠_n 1$$
   ($$L^{n-1} =_n 1$$ by definition).
-  Thus $$|\mathbb{L}_n^F| ≤ |\mathbb{W}_n^F|$$.
+  Thus, $$|\mathbb{L}_n^F| ≤ |\mathbb{W}_n^F|$$.
 - **Subgroup**: $$\mathbb{L}_n^F$$ is a [subgroup](#subgroups) of $$\mathbb{Z}_n^\times$$
   because $$\mathbb{L}_n^F$$ is not empty as $$1 \in \mathbb{L}_n^F$$
   and $$\mathbb{L}_n^F$$ is [closed](#group-axioms)
@@ -3865,10 +3918,10 @@ There are two ways to see why this is the case:
   As $$n$$ isn't a Carmichael number, $$|\mathbb{L}_n^F| < |\mathbb{Z}_n^\times|$$ and $$c > 1$$.
 
 The following tool implements the Fermat primality test.
-You can enter a comma-separated list of bases that you want to test the integer $$n$$ with
-and specify the number of rounds which shall be performed with randomly chosen bases.
-See the boxes below for inputs on which the test fails with a high probability.
-This is why you should not use the Fermat primality test alone in practice.
+You can enter a comma-separated list of candidates that you want to test the input $$n$$ with
+and specify the number of rounds which shall be performed with randomly chosen candidates.
+See the boxes below for inputs on which the test fails with a high probability,
+which is why you should not use the Fermat primality test alone in practice.
 
 <div id="tool-integer-fermat-primality-test"></div>
 
@@ -3880,19 +3933,20 @@ Remarks on this tool
 - **Input n**: The input $$n$$ has to be odd because the inputs are shared
   with the [Miller-Rabin primality test](#miller-rabin-primality-test),
   which cannot handle even inputs.
-  (For even inputs, the base 2 is always a witness as we will see in the [next box](#carmichael-numbers).)
-- **Seed**: The bases as indicated by the "Rounds" slider
-  are derived [pseudo-randomly](https://en.wikipedia.org/wiki/Pseudorandomness)
+  (For even inputs, the candidate 2 is always a witness as we'll see in the [next box](#carmichael-numbers).)
+- **Seed**: As many candidates as indicated by the "Rounds" slider
+  are generated [pseudo-randomly](https://en.wikipedia.org/wiki/Pseudorandomness)
   from the given [seed](https://en.wikipedia.org/wiki/Random_seed).
-  This allows you to [revisit earlier bases](/#interactive-tools)
-  and [share interesting outputs](/#sharing-of-values).
-  Another benefit is that you get a new set of bases by changing the seed,
+  This allows you to [revisit earlier candidates](/#interactive-tools)
+  and [share interesting outputs](/#sharing-of-values) with others.
+  Another benefit is that you get a new set of candidates simply by changing the seed,
   such as by clicking on the "Increment" button.
   If you implement a [probabilistic primality test](#probabilistic-primality-tests) yourself, there's no reason
   to use a [pseudo-random number generator (PRNG)](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) like I did.
   In particular, using a known seed is [dangerous in an adversarial setting](https://eprint.iacr.org/2018/749.pdf).
-  (This [design choice](https://en.wikipedia.org/wiki/Design_choice) also made it easy
-  to use the same set of bases in the [Miller-Rabin primality test tool](#tool-integer-miller-rabin-primality-test) below.)
+  (The [design choice](https://en.wikipedia.org/wiki/Design_choice) of generating candidates deterministically
+  also made it easy to use the same candidates
+  in the [tool of the Miller-Rabin primality test](#tool-integer-miller-rabin-primality-test) below.)
 - **Abort**: If you want to find liars for a particular input,
   you don't want the tool to stop after encountering a witness.
   This is why the tool allows you to [disable the "Abort"](#tool-integer-miller-rabin-primality-test&abort=false),
@@ -3912,23 +3966,31 @@ If this is the case, then $$A^{n-1} =_n A^{\lambda(n) \cdot c} =_n 1^c =_n 1$$
 for all $$A$$ which are [coprime](#multiset-of-prime-factors) with $$n$$ and some integer $$c$$.
 These numbers are also named after
 [Robert Daniel Carmichael](https://en.wikipedia.org/wiki/Robert_Daniel_Carmichael) (1879 − 1967).
-The [Fermat primality test](#fermat-primality-test) fails for Carmichael numbers
-only if all the chosen bases are coprime with the integer which is being tested.
-If a base $$A$$ is not coprime with the integer $$n$$,
-then $$A$$ has [no multiplicative inverse](#multiplicative-inverse-revisited)
-and the closest you can get to a multiple of $$n$$ is $$\operatorname{\href{#greatest-common-divisor}{gcd}}(A, n)$$.
+The [Fermat primality test](#fermat-primality-test) fails to detect Carmichael numbers as composite
+only if all the chosen candidates are coprime with the number which is being tested.
+If a candidate $$A$$ is not coprime with the integer $$n$$,
+<!-- --> $$A$$ has [no multiplicative inverse](#multiplicative-inverse-revisited),
+and the [closest you can get](#bezouts-identity) to a multiple of $$n$$
+is $$\operatorname{\href{#greatest-common-divisor}{gcd}}(A, n)$$.
 In other words, if $$\operatorname{gcd}(A, n) > 1$$, then $$A^{n-1} ≠_n 1$$.
 Thus, $$\mathbb{L}_n^F = \mathbb{Z}_n^\times$$.
-If you use the first dozen prime numbers as bases,
+If you use the first dozen prime numbers as candidates,
 which the [tool above](#tool-integer-fermat-primality-test) does by default,
-the Fermat primality test fails only for 2 out of the first 33 Carmichael numbers
+the Fermat primality test fails for only 2 out of the first 33 Carmichael numbers
 as given by [this list](https://oeis.org/A002997) from the
 [On-Line Encyclopedia of Integer Sequences (OEIS)](https://en.wikipedia.org/wiki/On-Line_Encyclopedia_of_Integer_Sequences):
-[252'601](#tool-integer-fermat-primality-test&input=252%27601&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 61 · 101](#tool-integer-factorization-trial-division&integer=252%27601) and
-[410'041](#tool-integer-fermat-primality-test&input=410%27041&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 73 · 137](#tool-integer-factorization-trial-division&integer=410%27041).
+[252'601](#tool-integer-fermat-primality-test&input=252%27601&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 61 · 101](#tool-integer-factorization-trial-division&integer=252%27601) and
+[410'041](#tool-integer-fermat-primality-test&input=410%27041&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) = [41 · 73 · 137](#tool-integer-factorization-trial-division&integer=410%27041).
 All the other numbers on the list have a factor smaller than 41.
 As we will see in the [next box](#chernicks-carmichael-numbers),
-there's a simple formula to obtain Carmichael numbers which don't have a small factor.
+there's a formula to obtain Carmichael numbers which don't have a small factor.
+
+<figure markdown="block">
+{% include_relative generated/primality-test-carmichael-number.embedded.svg %}
+<figcaption markdown="span" style="max-width: 260px;">
+How the Fermat primality test classifies the candidates of a Carmichael number.
+</figcaption>
+</figure>
 
 </details>
 
@@ -3945,32 +4007,32 @@ divides $$n - 1 = 1296k^3 + 396k^2 + 36k$$.
 ($$1296 / 36 = 36$$ and $$396 / 36 = 11$$.)
 The small subset of Carmichael numbers which are of this form are called
 [Chernick's Carmichael numbers](https://en.wikipedia.org/wiki/Carmichael_number#Discovery),
-named after Jack Chernick (1911 − 1971), who lacks an entry on Wikipedia.
+named after Jack Chernick (1911 − 1971), who lacks an entry on [Wikipedia](https://en.wikipedia.org/wiki/Main_Page).
 As we learned in the [previous box](#carmichael-numbers),
 the [Fermat primality test](#fermat-primality-test) detects the compositeness of a Carmichael number
-only if one of the chosen bases is a multiple of one of its prime factors.
-The Fermat primality test is thus only slightly better
-than [trial division](#prime-factorization) in the case of Carmichael numbers.
-The likelihood that a random base is a [liar](#probabilistic-primality-tests),
-and we thus fail to detect the compositeness of the Carmichael number $$n$$ in a particular round,
-is $$\frac{|\mathbb{L}_n^F|}{|\mathbb{Z}_n^{\cancel{0}}|}
-= \frac{\href{#eulers-totient-function}{\varphi}(n)}{n-1}$$.
+only if one of the tested candidates is a multiple of one of its prime factors.
+The probability that a random candidate is a [liar](#probabilistic-primality-tests),
+and we thus fail to detect the compositeness of the Carmichael number $$n$$ in any particular round,
+is $$\frac{|\mathbb{L}_n^F|}{|\mathbb{Z}_n^{\cancel{0}}|} = \frac{\href{#eulers-totient-function}{\varphi}(n)}{n-1}$$.
+Since each round is independent from the others,
+the [failure rate](https://en.wikipedia.org/wiki/Failure_rate) after 100 rounds
+is $$\big(\frac{\varphi(n)}{n-1}\big)^{100}$$.
 
 <figure markdown="block" class="allow-break-inside">
 
 | k | Carmichael number | Prime factorization | Failure rate per round | Failure rate after 100 rounds
 |-:|-:|-:|-:|-:
-| 1 | [1'729](#tool-integer-fermat-primality-test&input=1%27729&bases=&rounds=100) | [7 · 13 · 19](#tool-integer-factorization-trial-division&integer=1%27729) | 0.7500 | 0.0000
-| 6 | [294'409](#tool-integer-fermat-primality-test&input=294%27409&bases=&rounds=100) | [37 · 73 · 109](#tool-integer-factorization-trial-division&integer=294%27409) | 0.9508 | 0.0065
-| 35 | [56'052'361](#tool-integer-fermat-primality-test&input=56%27052%27361&bases=&rounds=100) | [211 · 421 · 631](#tool-integer-factorization-trial-division&integer=56%27052%27361) | 0.9913 | 0.4183
-| 45 | [118'901'521](#tool-integer-fermat-primality-test&input=118%27901%27521&bases=&rounds=100) | [271 · 541 · 811](#tool-integer-factorization-trial-division&integer=118%27901%27521) | 0.9932 | 0.5076
-| 51 | [172'947'529](#tool-integer-fermat-primality-test&input=172%27947%27529&bases=&rounds=100) | [307 · 613 · 919](#tool-integer-factorization-trial-division&integer=172%27947%27529) | 0.9940 | 0.5497
-| 55 | [216'821'881](#tool-integer-fermat-primality-test&input=216%27821%27881&bases=&rounds=100) | [331 · 661 · 991](#tool-integer-factorization-trial-division&integer=216%27821%27881) | 0.9945 | 0.5741
-| 56 | [228'842'209](#tool-integer-fermat-primality-test&input=228%27842%27209&bases=&rounds=100) | [337 · 673 · 1'009](#tool-integer-factorization-trial-division&integer=228%27842%27209) | 0.9946 | 0.5798
-| 100 | [1'299'963'601](#tool-integer-fermat-primality-test&input=1%27299%27963%27601&bases=&rounds=100) | [601 · 1'201 · 1'801](#tool-integer-factorization-trial-division&integer=1%27299%27963%27601) | 0.9970 | 0.7369
+| 1 | [1'729](#tool-integer-fermat-primality-test&input=1%27729&candidates=&rounds=100) | [7 · 13 · 19](#tool-integer-factorization-trial-division&integer=1%27729) | 0.7500 | 0.0000
+| 6 | [294'409](#tool-integer-fermat-primality-test&input=294%27409&candidates=&rounds=100) | [37 · 73 · 109](#tool-integer-factorization-trial-division&integer=294%27409) | 0.9508 | 0.0065
+| 35 | [56'052'361](#tool-integer-fermat-primality-test&input=56%27052%27361&candidates=&rounds=100) | [211 · 421 · 631](#tool-integer-factorization-trial-division&integer=56%27052%27361) | 0.9913 | 0.4183
+| 45 | [118'901'521](#tool-integer-fermat-primality-test&input=118%27901%27521&candidates=&rounds=100) | [271 · 541 · 811](#tool-integer-factorization-trial-division&integer=118%27901%27521) | 0.9932 | 0.5076
+| 51 | [172'947'529](#tool-integer-fermat-primality-test&input=172%27947%27529&candidates=&rounds=100) | [307 · 613 · 919](#tool-integer-factorization-trial-division&integer=172%27947%27529) | 0.9940 | 0.5497
+| 55 | [216'821'881](#tool-integer-fermat-primality-test&input=216%27821%27881&candidates=&rounds=100) | [331 · 661 · 991](#tool-integer-factorization-trial-division&integer=216%27821%27881) | 0.9945 | 0.5741
+| 56 | [228'842'209](#tool-integer-fermat-primality-test&input=228%27842%27209&candidates=&rounds=100) | [337 · 673 · 1'009](#tool-integer-factorization-trial-division&integer=228%27842%27209) | 0.9946 | 0.5798
+| 100 | [1'299'963'601](#tool-integer-fermat-primality-test&input=1%27299%27963%27601&candidates=&rounds=100) | [601 · 1'201 · 1'801](#tool-integer-factorization-trial-division&integer=1%27299%27963%27601) | 0.9970 | 0.7369
 | … | … | … | … | …
-| 511 | [173'032'371'289](#tool-integer-fermat-primality-test&input=173%27032%27371%27289&bases=&rounds=100) | [3'067 · 6'133 · 9'199](#tool-integer-factorization-trial-division&integer=173%27032%27371%27289) | 0.9994 | 0.9420
-| 710 | [464'052'305'161](#tool-integer-fermat-primality-test&input=464%27052%27305%27161&bases=&rounds=100) | [4'261 · 8'521 · 12'781](#tool-integer-factorization-trial-division&integer=464%27052%27305%27161) | 0.9996 | 0.9579
+| 511 | [173'032'371'289](#tool-integer-fermat-primality-test&input=173%27032%27371%27289&candidates=&rounds=100) | [3'067 · 6'133 · 9'199](#tool-integer-factorization-trial-division&integer=173%27032%27371%27289) | 0.9994 | 0.9420
+| 710 | [464'052'305'161](#tool-integer-fermat-primality-test&input=464%27052%27305%27161&candidates=&rounds=100) | [4'261 · 8'521 · 12'781](#tool-integer-factorization-trial-division&integer=464%27052%27305%27161) | 0.9996 | 0.9579
 
 <figcaption markdown="span">
 
@@ -4008,7 +4070,7 @@ This factorization has the following four properties
    to $$(1, …, 1) \in \mathbb{Z}_{p_1^{e_1}}^\times \times … \times \mathbb{Z}_{p_l^{e_l}}^\times$$,
    it has to be the case that $$A^{n-1} =_{p_i^{e_i}} 1$$ for every $$A \in \mathbb{Z}_{p_i^{e_i}}^\times$$.
    Since $$p_i$$ is odd according to the previous point,
-   [$$\mathbb{Z}_{p_i^{e_i}}^\times$$ is cyclic](#why-multiplicative-groups-modulo-a-power-of-an-odd-prime-are-cyclic)
+   [$$\mathbb{Z}_{p_i^{e_i}}^\times$$ is cyclic](#why-multiplicative-groups-modulo-a-power-of-an-odd-prime-are-cyclic),
    and thus $$n - 1$$ has to be a multiple of $$|\mathbb{Z}_{p_i^{e_i}}^\times|
    = \href{#eulers-totient-function}{\varphi}(p_i^{e_i}) = p_i^{e_i-1} (p_i - 1)$$.
    With $$e_i > 1$$, $$p_i^{e_i-1} (p_i - 1)$$ would be a multiple of $$p_i$$
@@ -4052,7 +4114,81 @@ On the other hand, the number of primes smaller than $$x$$ is
 where $$\log_\mathrm{e}(x)$$ is the [natural logarithm](https://en.wikipedia.org/wiki/Natural_logarithm) of $$x$$.
 To give you an idea for how much rarer Carmichael numbers are than prime numbers:
 There are 2'220'819'602'560'918'840 ≈ 2 · 10<sup>18</sup> prime numbers
-and only 8'220'777 ≈ 8 · 10<sup>6</sup> Carmichael numbers below 10<sup>20</sup>.
+and only 8'220'777 ≈ 8 · 10<sup>6</sup> Carmichael numbers
+below 100'000'000'000'000'000'000 = 10<sup>20</sup>.
+
+</details>
+
+<details markdown="block">
+<summary markdown="span" id="integers-for-which-half-of-all-coprime-elements-are-fermat-liars">
+Integers for which half of all coprime elements are Fermat liars
+</summary>
+
+As we saw [above](#fermat-primality-test), the Fermat liars $$\mathbb{L}_n^F$$
+form a [subgroup](#subgroups) of the coprime elements $$\mathbb{Z}_n^\times$$ for all integers $$n$$ greater than $$1$$.
+Due to [Lagrange's theorem](#lagranges-theorem), $$|\mathbb{Z}_n^\times| / |\mathbb{L}_n^F|$$ is an integer.
+This ratio is known as the [index of the subgroup](#index-and-cofactor).
+If the index of $$\mathbb{L}_n^F$$ is $$1$$ and $$n$$ is composite, $$n$$ is a [Carmichael number](#carmichael-numbers).
+If a composite $$n$$ is not a Carmichael number, the index of $$\mathbb{L}_n^F$$ has to be at least $$2$$.
+There are integers for which half of all coprime elements are liars in the [Fermat primality test](#fermat-primality-test):
+
+<figure markdown="block" class="allow-break-inside">
+
+| n | Prime factorization | Number of liars | Ratio of liars<br>to all candidates
+|-:|-:|-:|-:
+| [15](#tool-integer-fermat-primality-test&input=15&candidates=&rounds=100&abort=false) | [3 · 5](#tool-integer-factorization-trial-division&integer=15) | 4 | 0.2857
+| [91](#tool-integer-fermat-primality-test&input=91&candidates=&rounds=100&abort=false) | [7 · 13](#tool-integer-factorization-trial-division&integer=91) | 36 | 0.4000
+| [703](#tool-integer-fermat-primality-test&input=703&candidates=&rounds=100&abort=false) | [19 · 37](#tool-integer-factorization-trial-division&integer=703) | 324 | 0.4615
+| [1'891](#tool-integer-fermat-primality-test&input=1%27891&candidates=&rounds=100&abort=false) | [31 · 61](#tool-integer-factorization-trial-division&integer=1%27891) | 900 | 0.4762
+| [2'701](#tool-integer-fermat-primality-test&input=2%27701&candidates=&rounds=100&abort=false) | [37 · 73](#tool-integer-factorization-trial-division&integer=2%27701) | 1'296 | 0.4800
+| [11'305](#tool-integer-fermat-primality-test&input=11%27305&candidates=&rounds=100&abort=false) | [5 · 7 · 17 · 19](#tool-integer-factorization-trial-division&integer=11%27305) | 3'456 | 0.3057
+| [12'403](#tool-integer-fermat-primality-test&input=12%27403&candidates=&rounds=100&abort=false) | [79 · 157](#tool-integer-factorization-trial-division&integer=12%27403) | 6'084 | 0.4906
+| [13'981](#tool-integer-fermat-primality-test&input=13%27981&candidates=&rounds=100&abort=false) | [11 · 31 · 41](#tool-integer-factorization-trial-division&integer=13%27981) | 6'000 | 0.4292
+| … | … | … | …
+
+<figcaption markdown="span">
+
+The odd integers for which $$\frac{|\mathbb{L}_n^F|}{|\mathbb{Z}_n^\times|} = \frac{1}{2}$$
+according to [this list](https://oeis.org/A191311) from the
+[On-Line Encyclopedia of Integer Sequences (OEIS)](https://en.wikipedia.org/wiki/On-Line_Encyclopedia_of_Integer_Sequences).
+
+</figcaption>
+</figure>
+
+If we want the ratio of Fermat liars to all candidates (i.e. $$|\mathbb{L}_n^F| / |\mathbb{Z}_n^{\cancel{0}}|$$)
+to be as close to 0.5 as possible,
+we're interested in those integers which are the product of just two primes.
+Such integers are known as [semiprimes](https://en.wikipedia.org/wiki/Semiprime).
+(The more primes there are in the [prime factorization](#prime-factorization) of $$n$$,
+the smaller $$\frac{\href{#eulers-totient-function}{\varphi}(n)/2}{n-1}$$ becomes.)
+It turns out that the semiprimes in the above list are of the form $$n = p \cdot q \textsf{,}$$
+where $$p$$ and $$q$$ are prime and $$q = 2p - 1$$.
+The beginning of the list is the same, and we approach 0.5 for larger values of $$n$$:
+
+<figure markdown="block" class="allow-break-inside">
+
+| n | Prime factorization | Number of liars | Ratio of liars<br>to all candidates
+|-:|-:|-:|-:
+| … | … | … | …
+| [2'701](#tool-integer-fermat-primality-test&input=2%27701&candidates=&rounds=100&abort=false) | [37 · 73](#tool-integer-factorization-trial-division&integer=2%27701) | 1'296 | 0.4800
+| [12'403](#tool-integer-fermat-primality-test&input=12%27403&candidates=&rounds=100&abort=false) | [79 · 157](#tool-integer-factorization-trial-division&integer=12%27403) | 6'084 | 0.4906
+| [18'721](#tool-integer-fermat-primality-test&input=18%27721&candidates=&rounds=100&abort=false) | [97 · 193](#tool-integer-factorization-trial-division&integer=18%27721) | 9'216 | 0.4923
+| [38'503](#tool-integer-fermat-primality-test&input=38%27503&candidates=&rounds=100&abort=false) | [139 · 277](#tool-integer-factorization-trial-division&integer=38%27503) | 19'044 | 0.4946
+| [49'141](#tool-integer-fermat-primality-test&input=49%27141&candidates=&rounds=100&abort=false) | [157 · 313](#tool-integer-factorization-trial-division&integer=49%27141) | 24'336 | 0.4952
+| [79'003](#tool-integer-fermat-primality-test&input=79%27003&candidates=&rounds=100&abort=false) | [199 · 397](#tool-integer-factorization-trial-division&integer=79%27003) | 39'204 | 0.4962
+| … | … | … | …
+| [1'373'653](#tool-integer-fermat-primality-test&input=1%27373%27653&candidates=&rounds=100&abort=false) | [829 · 1'657](#tool-integer-factorization-trial-division&integer=1%27373%27653) | 685'584 | 0.4991
+| [1'537'381](#tool-integer-fermat-primality-test&input=1%27537%27381&candidates=&rounds=100&abort=false) | [877 · 1'753](#tool-integer-factorization-trial-division&integer=1%27537%27381) | 767'376 | 0.4991
+
+<figcaption markdown="span">
+
+The semiprimes $$n = p \cdot q$$ so that $$q = 2p - 1$$ according to [this list](https://oeis.org/A129521) from the
+[On-Line Encyclopedia of Integer Sequences (OEIS)](https://en.wikipedia.org/wiki/On-Line_Encyclopedia_of_Integer_Sequences).
+
+</figcaption>
+</figure>
+
+Therefore, 0.5 is indeed the best bound for the ratio of Fermat liars to all candidates of composite non-Carmichael numbers.
 
 </details>
 
@@ -4060,11 +4196,10 @@ and only 8'220'777 ≈ 8 · 10<sup>6</sup> Carmichael numbers below 10<sup>20</s
 ### Miller-Rabin primality test
 
 We can improve upon the [Fermat primality test](#fermat-primality-test) by making the condition in our test stricter:
-When testing whether an integer $$n$$ is [probably prime](#probabilistic-primality-tests),
-we can require that whenever you reach $$1$$ [modulo](#modulo-operation) $$n$$
-by [squaring](https://en.wikipedia.org/wiki/Square_(algebra)) some number,
-the number must be either $$1$$ or $$-1$$.
-Given our extensive toolkit, we have three ways to see why $$1$$ and $$-1$$
+When computing $$A^{n-1} =_n 1$$ with the [square-and-multiply algorithm](#fast-repetitions),
+we can require that whenever you reach $$1$$ by [squaring](https://en.wikipedia.org/wiki/Square_(algebra)) some number,
+this number must be either $$1$$ or $$-1$$.
+Given our knowledge, we have three ways to see why $$1$$ and $$-1$$
 are the only possible [square roots](https://en.wikipedia.org/wiki/Square_root) of $$1$$ in $$\mathbb{Z}_n^\times$$
 if $$n$$ is [prime](#prime-factorization):
 - **Euclid's lemma**:
@@ -4099,14 +4234,15 @@ If $$A^{\frac{n-1}{2}} =_n 1$$ and $$\frac{n-1}{2}$$ is still even,
 we can continue the process with $$A^{\frac{n-1}{4}}$$ and so on.
 Instead of calculating such large exponentiations repeatedly,
 we write $$n - 1$$ as $$2^cd$$ with an integer $$c ≥ 1$$ and an odd integer $$d$$.
-For some base $$A$$, we calculate $$A^d \text{ \href{#modulo-operation}{mod} } n$$.
-If the result is $$1$$, we can continue with the next base because the result will remain $$1$$
+For a candidate $$A$$, we calculate $$A^d \text{ \href{#modulo-operation}{mod} } n$$.
+If the result is $$1$$, we can continue with the next candidate because the result remains $$1$$
 when we square it repeatedly until we arrive at $$(A^d)^{2^c} =_n A^{n-1} =_n 1$$.
-If the result is $$-1$$, we can also continue with the next base because we get $$1$$ after squaring the result once.
+If the result is $$-1$$, we can also continue with the next candidate
+because we get $$1$$ after squaring the result once.
 For any other result, we square the result and check what we have then.
 If the new result is $$1$$, we know that $$n$$ is composite
 because the previous result was neither $$1$$ nor $$-1$$.
-If the new result is $$-1$$, we can continue with the next base
+If the new result is $$-1$$, we can continue with the next candidate
 because we're certain that $$A^{n-1}$$ will be $$1$$.
 If necessary, we square the first result (i.e. $$A^d$$) $$c - 1$$ times.
 If we still haven't got $$-1$$ at this point, we know that $$n$$ is composite
@@ -4119,56 +4255,60 @@ named after [Gary Lee Miller](https://en.wikipedia.org/wiki/Gary_Miller_(compute
 (I couldn't figure out when this gentleman was born)
 and [Michael Oser Rabin](https://en.wikipedia.org/wiki/Michael_O._Rabin) (born in 1931).
 As for any [probabilistic primality test](#probabilistic-primality-tests), liars still exist.
-(If there were no liars, the test wouldn't be probabilistic and we wouldn't have to check more than a single base.)
+(If there were no liars, the test wouldn't be probabilistic and we wouldn't have to check more than one candidate.)
 Unlike the [Fermat primality test](#fermat-primality-test), however,
-<!-- --> $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^{\cancel{0}}| ≤ 4$$ for any odd composite $$n$$
+<!-- --> $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^{\cancel{0}}| ≤ \frac{1}{4}$$ for any odd composite $$n$$
 as we will [prove](#power-function-and-its-preimage) [below](#monier-rabin-bound-on-the-number-of-liars).
 Any Miller-Rabin liar is also a Fermat liar (i.e. $$\mathbb{L}_n^{MR} \subseteq \mathbb{L}_n^{F}$$),
-so for any bases for which the Miller-Rabin primality test fails,
+so for any candidates for which the Miller-Rabin primality test fails,
 the Fermat primality test fails as well.
-Since the Miller-Rabin primality test doesn't struggle with [Carmichael numbers](#carmichael-numbers),
-it is strictly preferable to the Fermat primality test, which isn't even noticeably faster.
+Given that the Miller-Rabin primality test doesn't struggle with [Carmichael numbers](#carmichael-numbers),
+that it has a smaller bound for the ratio of liars to all candidates than the Fermat primality test
+($$\frac{1}{4}$$ instead of $$\frac{1}{2}$$, which the latter achieves only for non-Carmichael numbers),
+and that it computes fewer squares per round than the Fermat primality test,
+the Miller-Rabin primality test is strictly preferable to the Fermat primality test.
 
 The following tool implements the Miller-Rabin primality test.
-Its input is synchronized with the [Fermat primality test above](#tool-integer-fermat-primality-test)
+Its input is synchronized with the [Fermat primality test](#tool-integer-fermat-primality-test) above
 so that you can compare the outputs of the two tests.
 (This is best done on [this separate page](/number-theory/tools/#fermat-primality-test),
 which includes only the tools of this article.)
-As $$1$$ and $$n - 1$$ are always liars,
-this tool samples the random bases between these two values.
+Since $$1$$ and $$n - 1$$ are always liars,
+this tool samples the random candidates between these two values.
 For this reason, the smallest integer that you can test is $$5$$.
-You can use the [up and down arrows](https://en.wikipedia.org/wiki/Arrow_keys) on your keyboard to step through the odd inputs
-when the [cursor](https://en.wikipedia.org/wiki/Cursor_(user_interface)) is in the input field of the integer $$n$$.
+You can use the [up and down arrows](https://en.wikipedia.org/wiki/Arrow_keys)
+on your keyboard to step through the odd inputs
+when the [cursor](https://en.wikipedia.org/wiki/Cursor_(user_interface)) is in the field of the input $$n$$.
 The tool displays $$-1$$ only for your convenience.
-If you calculate [modulo $$n$$](#modulo-operation), you get $$n - 1$$, of course.
+When you calculate [modulo $$n$$](#modulo-operation), you get $$n - 1$$, of course.
 
 <div id="tool-integer-miller-rabin-primality-test"></div>
 
 <details markdown="block">
-<summary markdown="span" id="small-prime-numbers-as-bases">
-Small prime numbers as bases
+<summary markdown="span" id="small-prime-numbers-as-candidates">
+Small prime numbers as candidates
 </summary>
 
-It turns out that the first $$l$$ prime numbers form excellent bases
+It turns out that the first $$l$$ prime numbers form excellent candidates
 for the [Miller-Rabin primality test](#miller-rabin-primality-test):
 
 <figure markdown="block" class="allow-break-inside">
 
-| l | Bases | Smallest composite integer for which the test fails
+| l | Candidates | Smallest composite integer for which the test fails
 |-:|:-|-:
-| 1 | [2](#tool-integer-miller-rabin-primality-test&bases=2) | [2'047](#tool-integer-miller-rabin-primality-test&input=2%27047&bases=2&rounds=0) > 2<sup>10</sup>
-| 2 | [2, 3](#tool-integer-miller-rabin-primality-test&bases=2%2C+3) | [1'373'653](#tool-integer-miller-rabin-primality-test&input=1%27373%27653&bases=2%2C+3&rounds=0) > 2<sup>20</sup>
-| 3 | [2, 3, 5](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5) | [25'326'001](#tool-integer-miller-rabin-primality-test&input=25%27326%27001&bases=2%2C+3%2C+5&rounds=0) > 2<sup>24</sup>
-| 4 | [2, 3, 5, 7](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7) | [3'215'031'751](#tool-integer-miller-rabin-primality-test&input=3%27215%27031%27751&bases=2%2C+3%2C+5%2C+7&rounds=0) > 2<sup>31</sup>
-| 5 | [2, 3, 5, 7, 11](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11) | [2'152'302'898'747](#tool-integer-miller-rabin-primality-test&input=2%27152%27302%27898%27747&bases=2%2C+3%2C+5%2C+7%2C+11&rounds=0) > 2<sup>40</sup>
-| 6 | [2, 3, 5, 7, 11, 13](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13) | [3'474'749'660'383](#tool-integer-miller-rabin-primality-test&input=3%27474%27749%27660%27383&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13&rounds=0) > 2<sup>41</sup>
-| 7 | [2, 3, 5, 7, 11, 13, 17](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17) | [341'550'071'728'321](#tool-integer-miller-rabin-primality-test&input=341%27550%27071%27728%27321&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17&rounds=0) > 2<sup>48</sup>
-| 8 | [2, 3, 5, 7, 11, 13, 17, 19](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19) | [341'550'071'728'321](#tool-integer-miller-rabin-primality-test&input=341%27550%27071%27728%27321&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19&rounds=0) > 2<sup>48</sup>
-| 9 | [2, 3, 5, 7, 11, 13, 17, 19, 23](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23&rounds=0) > 2<sup>61</sup>
-| 10 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29&rounds=0) > 2<sup>61</sup>
-| 11 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31&rounds=0) > 2<sup>61</sup>
-| 12 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37) | [318'665'857'834'031'151'167'461](#tool-integer-miller-rabin-primality-test&input=318%27665%27857%27834%27031%27151%27167%27461&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) > 2<sup>78</sup>
-| 13 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41](#tool-integer-miller-rabin-primality-test&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37%2C+41) | [3'317'044'064'679'887'385'961'981](#tool-integer-miller-rabin-primality-test&input=3%27317%27044%27064%27679%27887%27385%27961%27981&bases=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37%2C+41&rounds=0) > 2<sup>81</sup>
+| 1 | [2](#tool-integer-miller-rabin-primality-test&candidates=2) | [2'047](#tool-integer-miller-rabin-primality-test&input=2%27047&candidates=2&rounds=0) > 2<sup>10</sup>
+| 2 | [2, 3](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3) | [1'373'653](#tool-integer-miller-rabin-primality-test&input=1%27373%27653&candidates=2%2C+3&rounds=0) > 2<sup>20</sup>
+| 3 | [2, 3, 5](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5) | [25'326'001](#tool-integer-miller-rabin-primality-test&input=25%27326%27001&candidates=2%2C+3%2C+5&rounds=0) > 2<sup>24</sup>
+| 4 | [2, 3, 5, 7](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7) | [3'215'031'751](#tool-integer-miller-rabin-primality-test&input=3%27215%27031%27751&candidates=2%2C+3%2C+5%2C+7&rounds=0) > 2<sup>31</sup>
+| 5 | [2, 3, 5, 7, 11](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11) | [2'152'302'898'747](#tool-integer-miller-rabin-primality-test&input=2%27152%27302%27898%27747&candidates=2%2C+3%2C+5%2C+7%2C+11&rounds=0) > 2<sup>40</sup>
+| 6 | [2, 3, 5, 7, 11, 13](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13) | [3'474'749'660'383](#tool-integer-miller-rabin-primality-test&input=3%27474%27749%27660%27383&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13&rounds=0) > 2<sup>41</sup>
+| 7 | [2, 3, 5, 7, 11, 13, 17](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17) | [341'550'071'728'321](#tool-integer-miller-rabin-primality-test&input=341%27550%27071%27728%27321&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17&rounds=0) > 2<sup>48</sup>
+| 8 | [2, 3, 5, 7, 11, 13, 17, 19](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19) | [341'550'071'728'321](#tool-integer-miller-rabin-primality-test&input=341%27550%27071%27728%27321&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19&rounds=0) > 2<sup>48</sup>
+| 9 | [2, 3, 5, 7, 11, 13, 17, 19, 23](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23&rounds=0) > 2<sup>61</sup>
+| 10 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29&rounds=0) > 2<sup>61</sup>
+| 11 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31) | [3'825'123'056'546'413'051](#tool-integer-miller-rabin-primality-test&input=3%27825%27123%27056%27546%27413%27051&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31&rounds=0) > 2<sup>61</sup>
+| 12 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37) | [318'665'857'834'031'151'167'461](#tool-integer-miller-rabin-primality-test&input=318%27665%27857%27834%27031%27151%27167%27461&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37&rounds=0) > 2<sup>78</sup>
+| 13 | [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41](#tool-integer-miller-rabin-primality-test&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37%2C+41) | [3'317'044'064'679'887'385'961'981](#tool-integer-miller-rabin-primality-test&input=3%27317%27044%27064%27679%27887%27385%27961%27981&candidates=2%2C+3%2C+5%2C+7%2C+11%2C+13%2C+17%2C+19%2C+23%2C+29%2C+31%2C+37%2C+41&rounds=0) > 2<sup>81</sup>
 
 <figcaption markdown="span">
 
@@ -4214,14 +4354,14 @@ Monier-Rabin bound on the number of liars
 
 [Louis Monier](https://en.wikipedia.org/wiki/Louis_Monier) (born in 1956) and
 [Michael Oser Rabin](https://en.wikipedia.org/wiki/Michael_O._Rabin) (born in 1931) proved independently in 1980
-that $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^{\cancel{0}}| ≤ 4$$ for any odd composite integer $$n$$.
+that $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^{\cancel{0}}| ≤ \frac{1}{4}$$ for any odd composite integer $$n$$.
 As a consequence, the probability that an odd composite integer $$n$$ is mislabeled
 as a [probable prime](#probabilistic-primality-tests) after $$t$$ rounds
-of the [Miller-Rabin primality test](#miller-rabin-primality-test) with random bases is at most $$(\frac{1}{4})^t$$.
+of the [Miller-Rabin primality test](#miller-rabin-primality-test) with random candidates is at most $$(\frac{1}{4})^t$$.
 I adapted the following proof from page 309 of [Victor Shoup's book](https://shoup.net/ntb/ntb-v2.pdf).
 You find similar approaches [here](https://kconrad.math.uconn.edu/blurbs/ugradnumthy/millerrabin.pdf)
 and [here](https://www.cis.upenn.edu/~jean/RSA-primality-testing.pdf)
-in case you cannot follow my explanations below.
+in case you cannot follow my explanations.
 
 After checking that $$n$$ is odd and aborting the Miller-Rabin primality test otherwise, there are two cases to consider:
 1. $$n = p^e$$ for some odd prime $$p$$ and an integer $$e > 1$$:
@@ -4246,9 +4386,14 @@ After checking that $$n$$ is odd and aborting the Miller-Rabin primality test ot
    Finally, $$p - 1 = (p^e - 1) / \big(\sum_{i=0}^{e-1} p^i\big) = \frac{n - 1}{p^{e-1} + … + 1} ≤ \frac{n-1}{4}$$
    because $$p^{e-1} + 1 ≥ 4$$ for any $$p ≥ 3$$ and $$e ≥ 2$$.
    Thus, $$|\mathbb{L}_n^{F}| ≤ |\mathbb{Z}_n^{\cancel{0}}| / 4$$.
+   This bound is reached for [$$n = 9$$](#tool-integer-miller-rabin-primality-test&input=9&candidates=1%2C+2%2C+3%2C+4%2C+5%2C+6%2C+7%2C+8&rounds=0&abort=false) (i.e. $$p = 3$$ and $$e = 2$$),
+   where two out of eight elements (namely $$1$$ and $$8$$) are Miller-Rabin liars.
+   This is the reason why I write $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^{\cancel{0}}| ≤ \frac{1}{4}$$
+   instead of $$|\mathbb{L}_n^{MR}| / |\mathbb{Z}_n^\times| ≤ \frac{1}{4}$$ as $$\varphi(9) = 6$$
+   and $$|\mathbb{L}_9^{MR}| / |\mathbb{Z}_9^\times| = \frac{2}{6} > \frac{1}{4}$$.
 2. $$n = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$ for $$l > 1$$ distinct odd primes $$p_i$$ and positive integers $$e_i$$:
    This case is more complicated because $$\mathbb{L}_n^{MR}$$ is generally not closed under multiplication.
-   ([For example](#tool-integer-miller-rabin-primality-test&input=65&bases=8%2C+18%2C+14&rounds=0),
+   ([For example](#tool-integer-miller-rabin-primality-test&input=65&candidates=8%2C+18%2C+14&rounds=0),
    <!-- --> $$8$$ and $$18$$ are liars for $$n = 65$$,
    but $$8 \cdot 18 =_{65} 14$$ is a witness for the compositeness of $$n$$.)
    The [composite group](#composite-groups) $$\mathbb{Z}_n^\times$$ is [isomorphic](#group-isomorphisms)
@@ -4280,7 +4425,7 @@ After checking that $$n$$ is odd and aborting the Miller-Rabin primality test ot
      Let $$\{U_1, U_2, U_3, …, U_v\}$$ denote all the elements of $$f_{2^{a-1}d}^{-1}(\{-1\})$$.
      Then $$f_{2^{a-1}d}^{-1}(\{1\})$$ cannot be smaller than $$f_{2^{a-1}d}^{-1}(\{-1\})$$ because it contains
      at least the $$v$$ elements $$\{U_1 \cdot U_1, U_1 \cdot U_2, U_1 \cdot U_3, …, U_1 \cdot U_v\}$$.
-     These elements are distinct because all preimages belong to $$\mathbb{Z}_n^\times$$
+     These elements are distinct because all preimages from $$U_1$$ to $$U_v$$ belong to $$\mathbb{Z}_n^\times$$
      and you get [different results](#unique-result) when you combine the same element with different elements in a group.
    - $$|f_y^{-1}(\{1\})| = \prod_{i=1}^{l} \operatorname{gcd}(y, 2^{c_i}d_i)$$ for any positive integer $$y$$.
      Since $$\mathbb{Z}_n^\times \cong \mathbb{Z}_{p_1^{e_1}}^\times \times … \times \mathbb{Z}_{p_l^{e_l}}^\times$$,
@@ -4291,24 +4436,29 @@ After checking that $$n$$ is odd and aborting the Miller-Rabin primality test ot
      the formula from the [previous box](#power-function-and-its-preimage) can be used.
    - <!-- --> $$|f_{2^ad}^{-1}(\{1\})| = 2^l \cdot |f_{2^{a-1}d}^{-1}(\{1\})|$$.
      According to the previous point, $$|f_{2^ad}^{-1}(\{1\})| = \prod_{i=1}^{l} \operatorname{gcd}(2^ad, 2^{c_i}d_i)$$.
-     Since $$a ≥ 1$$ and $$c_i ≥ a$$ for $$i = 1, …, l$$, $$|f_{2^ad}^{-1}(\{1\})|
+     Since $$a ≥ 1$$ and $$c_i ≥ a$$ for $$i = 1, …, l$$, we have that $$|f_{2^ad}^{-1}(\{1\})|
      = 2^l \cdot \prod_{i=1}^{l} \operatorname{gcd}(2^{a-1}d, 2^{c_i}d_i) = 2^l \cdot |f_{2^{a-1}d}^{-1}(\{1\})|$$.
-     (This is the reason why $$a$$ has to be smaller than or equal to each $$c_i$$;
+     (This is why $$a$$ has to be smaller than or equal to each $$c_i$$;
      you wouldn't be able to extract the factor $$2$$ in each of the groups otherwise.)
    - <!-- --> $$|f_{2^ad}^{-1}(\{1\})| ≤ |f_{2^cd}^{-1}(\{1\})|$$
      because for any $$X \in \mathbb{Z}_n^\times$$ for which $$X^{2^ad} =_n 1$$,
      <!-- --> $$X^{2^cd} =_n 1$$ since $$c ≥ a$$.
    {:.mb-2 .mt-2}
 
-   If follows from these statements that $$|\mathbb{L}_n^{MR}| ≤ 2^{-l + 1} \cdot |f_{n-1}^{-1}(\{1\})|$$.
+   If follows from these statements that $$|\mathbb{L}_n^{MR}| ≤ 2^{-l+1} \cdot |f_{n-1}^{-1}(\{1\})|$$
+   since $$|\mathbb{L}_n^{MR}| ≤ 2 \cdot |f_{2^{a-1}d}^{-1}(\{1\})|
+   = 2 \cdot 2^{-l} \cdot |f_{2^ad}^{-1}(\{1\})| ≤ 2^{-l+1} \cdot |f_{2^cd}^{-1}(\{1\})|
+   = 2^{-l+1} \cdot |f_{n-1}^{-1}(\{1\})|$$ given that $$2^cd = n - 1$$.
    There are two cases to consider:
    - <!-- --> $$l ≥ 3$$: This implies that $$|\mathbb{L}_n^{MR}| ≤ |f_{n-1}^{-1}(\{1\})| / 4$$.
-     Since $$|f_{n-1}^{-1}(\{1\})| ≤ |\mathbb{Z}_n^\times|$$, $$|\mathbb{L}_n^{MR}| ≤ |\mathbb{Z}_n^{\cancel{0}}| / 4$$.
+     Since $$|f_{n-1}^{-1}(\{1\})| ≤ |\mathbb{Z}_n^\times|$$ and $$|\mathbb{Z}_n^\times| < |\mathbb{Z}_n^{\cancel{0}}|$$,
+     we have $$|\mathbb{L}_n^{MR}| < |\mathbb{Z}_n^{\cancel{0}}| / 4$$.
    - <!-- --> $$l = 2$$:
      According to an [earlier theorem](#carmichael-numbers-are-a-product-of-at-least-three-distinct-primes),
-     <!-- --> $$n$$ cannot be a [Carmichael number](#carmichael-numbers).<br>
-     [Therefore](#fermat-primality-test), $$|f_{n-1}^{-1}(\{1\})| = |\mathbb{L}_n^{F}| ≤ |\mathbb{Z}_n^\times| / 2$$,
-     and thus $$|\mathbb{L}_n^{MR}| ≤ |\mathbb{Z}_n^{\cancel{0}}| / 4$$.
+     <!-- --> $$n$$ cannot be a [Carmichael number](#carmichael-numbers).
+     Since in this case at most half of all coprime elements can be [Fermat liars](#fermat-primality-test),
+     we have that $$|f_{n-1}^{-1}(\{1\})| = |\mathbb{L}_n^{F}| ≤ |\mathbb{Z}_n^\times| / 2$$.
+     Thus, $$|\mathbb{L}_n^{MR}| ≤ 2^{-1} \cdot |f_{n-1}^{-1}(\{1\})| < |\mathbb{Z}_n^{\cancel{0}}| / 4$$.
    {:.mt-2}
 
 </details>
@@ -4414,8 +4564,8 @@ As a consequence, the expected number of attempts needed to find a prime number 
 is $$l \cdot \frac{\log_\mathrm{e}(2)}{2} = 0.34657 \cdot l ≈ \frac{1}{3} l$$.
 The probability of finding a [safe prime](#sophie-germain-and-safe-primes) is $$P^2$$,
 which means that it takes $$(l \cdot \frac{\log_\mathrm{e}(2)}{2})^2 = 0.12 \cdot l^2$$ attempts on average.
-The following table lists the expected number of attempts for the lengths supported
-by the [tool above](#tool-integer-prime-number-generation).
+The following table lists the expected number of attempts for lengths in the range of
+the [tool above](#tool-integer-prime-number-generation).
 
 <figure markdown="block" class="allow-break-inside">
 
@@ -4443,8 +4593,7 @@ the tool is not fast enough to find a safe prime with 2'048 bits in a reasonable
 I still wanted to support this length so that you get a sense for how large the prime number
 has to be in order to get a [reasonable amount of security](#bits-of-security).
 (Finding a normal prime of this length is
-[no problem](#tool-integer-prime-number-generation&bits=11&safe=false&generator=false&delay=0).)
-You can abort the search for a (safe) prime by changing one of the tool's options.
+[no problem](#tool-integer-prime-number-generation&bits=2048&safe=false&generator=false&delay=0).)
 
 </details>
 
@@ -4509,7 +4658,7 @@ which is named after Robert Baillie,
 [Carl Bernard Pomerance](https://en.wikipedia.org/wiki/Carl_Pomerance) (born in 1944),
 [John Lewis Selfridge](https://en.wikipedia.org/wiki/John_Selfridge) (1927 − 2010), and
 [Samuel Standfield Wagstaff Jr.](https://en.wikipedia.org/wiki/Samuel_S._Wagstaff_Jr.) (born in 1945).
-This primality test consists of a single round of the Miller-Rabin primality test with the base 2 followed by the
+This primality test consists of a single round of the Miller-Rabin primality test with the candidate 2 followed by the
 [Lucas probable prime test](https://en.wikipedia.org/wiki/Lucas_pseudoprime#Implementing_a_Lucas_probable_prime_test),
 which is named after [François Édouard Anatole Lucas](https://en.wikipedia.org/wiki/%C3%89douard_Lucas) (1842 − 1891).
 
@@ -4520,9 +4669,9 @@ which is named after [François Édouard Anatole Lucas](https://en.wikipedia.org
 Performance impact of the number of rounds
 </summary>
 
-Since at most $$\frac{1}{4}$$ of all bases of a composite number are [liars](#probabilistic-primality-tests),
+Since at most $$\frac{1}{4}$$ of all candidates of a composite number are [liars](#probabilistic-primality-tests),
 the probability that you have to perform a second round of the [Miller-Rabin primality test](#miller-rabin-primality-test)
-after performing a first round with a random base is at most $$\frac{1}{4}$$ for any composite number.
+after performing a first round with a random candidate is at most $$\frac{1}{4}$$ for any composite number.
 The probability that you need a third round is at most $$\frac{1}{16}$$, and so on.
 In the worst case (the fraction of liars is usually much smaller than $$\frac{1}{4}$$),
 the expected number of rounds needed to detect that a composite number is composite
@@ -7106,7 +7255,7 @@ in [hexadecimal notation](https://en.wikipedia.org/wiki/Hexadecimal)
 
 You can click on the hexadecimal numbers to convert them to [decimal numbers](https://en.wikipedia.org/wiki/Decimal)
 with the tool in the [next box](#integer-conversion).
-You can [verify with the Miller-Rabin primality test](#tool-integer-miller-rabin-primality-test&input=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+FFFFFC2F&bases=&seed=0&rounds=64&abort=true)
+You can [verify with the Miller-Rabin primality test](#tool-integer-miller-rabin-primality-test&input=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+FFFFFC2F&candidates=&seed=0&rounds=64&abort=true)
 that $$p$$ is indeed prime.
 Given the above $$a$$ and $$b$$, the [curve equation](#curve-equation) is $$y^2 =_p x^3 + 7$$.
 While [counting the points on elliptic curves](#counting-the-points-on-elliptic-curves) is complicated,
@@ -7114,7 +7263,7 @@ you can verify with the [point calculator](#point-calculator) above that [$$nG =
 (the tool also recovers the $$y$$-coordinate of $$G$$ correctly).
 Since [$$p\ \%\ 4 = 3$$](#tool-integer-modulo&integer=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+FFFFFC2F&modulus=4),
 computing [square roots modulo $$p$$](#square-roots) is simple.
-Since [$$n$$ is prime](#tool-integer-miller-rabin-primality-test&input=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+BAAEDCE6+AF48A03B+BFD25E8C+D0364141&bases=&seed=0&rounds=64&abort=true)
+Since [$$n$$ is prime](#tool-integer-miller-rabin-primality-test&input=FFFFFFFF+FFFFFFFF+FFFFFFFF+FFFFFFFE+BAAEDCE6+AF48A03B+BFD25E8C+D0364141&candidates=&seed=0&rounds=64&abort=true)
 and $$G$$ is not the [point at infinity](#point-at-infinity),
 the [order of $$G$$](#element-order) cannot be smaller than $$n$$.
 Since the [cofactor](#index-and-cofactor) is $$1$$, $$G$$ generates all points on the elliptic curve.

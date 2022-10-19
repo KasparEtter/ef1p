@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { singleLineWithMarginHeight, strokeWidth, strokeWidthMargin } from '../../../code/svg/utility/constants';
+import { doubleStrokeWidthMargin, singleLineWithMarginHeight, strokeWidth } from '../../../code/svg/utility/constants';
 import { P } from '../../../code/svg/utility/point';
 
 import { VisualElement } from '../../../code/svg/elements/element';
@@ -35,7 +35,7 @@ elements.push(...rectangle4.withText(bold('⋮')));
 const rectangle5 = new Rectangle({ position: P(0, -singleLineWithMarginHeight), size, color: 'green' });
 elements.push(rectangle5.text('𝔾', { ignoreForClipping: false }));
 
-const rectangle = new Rectangle({ position: P(-strokeWidth, -strokeWidth), size: P(width, 4 * singleLineWithMarginHeight).add(strokeWidthMargin.multiply(2)), cornerRadius, color: 'green', classes });
+const rectangle = new Rectangle({ position: P(-strokeWidth, -strokeWidth), size: P(width, 4 * singleLineWithMarginHeight).add(doubleStrokeWidthMargin), cornerRadius, color: 'green', classes });
 elements.push(rectangle);
 
 printSVG(...elements);
