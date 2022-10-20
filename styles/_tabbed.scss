@@ -83,8 +83,33 @@ div.tabbed {
     padding-top: 11px;
 
     > * {
+      position: relative;
       display: none !important;
       border-top: 0;
+    }
+  }
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    padding: 1px 5px;
+    font-size: $small-font-size;
+    border-right: 1px solid $body-color;
+    border-bottom: 1px solid $body-color;
+    border-bottom-right-radius: $border-radius;
+  }
+
+  &.show-all {
+    padding-top: 0;
+
+    .title {
+      display: block;
+    }
+
+    > * {
+      padding-top: 27px;
     }
   }
 
@@ -101,6 +126,7 @@ div.tabbed {
     top: -14.5px;
     right: 0;
     left: 0;
+    z-index: 1;
     display: block !important;
     padding: 0;
   }
@@ -108,7 +134,17 @@ div.tabbed {
   > ul,
   > ol {
     padding-left: 32px;
+  }
 
+  > div > ul,
+  > div > ol {
+    padding-left: 15px;
+  }
+
+  > ul,
+  > ol,
+  > div > ul,
+  > div > ol {
     li:first-child {
       margin-top: 0;
     }
