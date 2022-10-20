@@ -9,19 +9,19 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   color-scheme: light;
 }
 
-$blue:   hsl(210, 100%, 40%) !default;
-$purple: hsl(290, 100%, 45%) !default;
-$pink:   hsl(330, 100%, 45%) !default;
-$red:    hsl(0, 100%, 45%) !default;
-$orange: hsl(25, 100%, 45%) !default;
-$yellow: hsl(45, 100%, 45%) !default;
-$green:  hsl(165, 100%, 30%) !default;
-$brown:  hsl(30, 50%, 35%) !default;
-$gray:   hsl(0, 0%, 40%) !default;
+$blue:   hsl(210deg, 100%, 40%) !default;
+$purple: hsl(290deg, 100%, 45%) !default;
+$pink:   hsl(330deg, 100%, 45%) !default;
+$red:    hsl(0deg, 100%, 45%) !default;
+$orange: hsl(25deg, 100%, 45%) !default;
+$yellow: hsl(45deg, 100%, 45%) !default;
+$green:  hsl(165deg, 100%, 30%) !default;
+$brown:  hsl(30deg, 50%, 35%) !default;
+$gray:   hsl(0deg, 0%, 40%) !default;
 
-$jumbotron-bg: hsl(210, 15%, 95%) !default;
+$jumbotron-bg: hsl(210deg, 15%, 95%) !default;
 $pre-bg: darken($jumbotron-bg, 5%) !default;
-$select-color: hsl(45, 100%, 80%) !default;
+$select-color: hsl(45deg, 100%, 80%) !default;
 
 @import "variables-pre";
 @import "../node_modules/bootswatch/dist/flatly/variables";
