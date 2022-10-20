@@ -5,6 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 :target {
+  scroll-margin-top: $body-padding-top;
   animation-name: target-fade;
   animation-duration: 1s;
   animation-timing-function: ease-in;
