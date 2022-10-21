@@ -751,6 +751,172 @@ $$
 </div>
 
 
+### Fast repetitions
+
+The goal of this article is to construct [linear one-way functions](#linear-one-way-functions).
+As we've seen in the introduction, [repeating an element](#element-repetitions) is a [linear operation](#linearity).
+As we'll see [later](#discrete-logarithm-problem), figuring out how many times an element has been repeated
+is [(presumably) computationally infeasible](#computational-complexity-theory) in some groups.
+In this section, we want to understand why repeating an element a certain number of times is so much easier
+than determining the number of repetitions when given the result.
+Let's start with how we can compute element repetitions efficiently.
+
+Instead of performing one repetition at a time,
+we can compute $$A$$ repeated $$n$$ times for any integer $$n$$ using the following insight:
+
+<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+
+$$
+nA = \begin{cases}
+(-n)(-A) &\text{if } n < 0 \text{,} \\
+O &\text{if } n = 0 \text{,} \\
+(n - 1)A + A &\text{if } n \text{ is odd,} \\
+2(\frac{n}{2}A) &\text{if } n \text{ is even.}
+\end{cases}
+$$
+
+$$
+A^n = \begin{cases}
+(A^{-1})^{-n} &\text{if } n < 0 \text{,} \\
+I &\text{if } n = 0 \text{,} \\
+A^{n-1} \cdot A &\text{if } n \text{ is odd,} \\
+(A^{\frac{n}{2}})^2 &\text{if } n \text{ is even.}
+\end{cases}
+$$
+
+</div>
+
+Solving a problem by reducing it to smaller instances of the same problem is known
+as [recursion](https://en.wikipedia.org/wiki/Recursion_(computer_science)).
+The above [algorithm](https://en.wikipedia.org/wiki/Algorithm) terminates
+because a negative $$n$$ is transformed into a positive $$n$$
+and then $$n$$ gets smaller in every iteration until it reaches zero.
+Since an odd number becomes even when you subtract one, $$n$$ is halved at least in every other iteration.
+Therefore, the [running time](https://en.wikipedia.org/wiki/Analysis_of_algorithms#Run-time_analysis)
+of the algorithm is [logarithmic](https://en.wikipedia.org/wiki/Time_complexity#Logarithmic_time)
+with regard to the input $$n$$.
+Since halving a [binary number](/internet/#number-encoding) is the same as dropping its
+[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing),
+one can also say that the running time is linear in the [bit length](https://en.wikipedia.org/wiki/Bit-length) of $$n$$.
+In other words, if you double the length of a number (rather than its size),
+you just double the number of steps required.
+
+When using the [multiplicative notation](#notation), this algorithm is known as
+[exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) or square-and-multiply.
+When using the [additive notation](#notation), this becomes multiplication by doubling or double-and-add.
+The algorithm exploits the fact that the group operation is [associative](#group-axioms):
+Instead of evaluating the expression from left to right,
+the operations are grouped in such a way that as many intermediate results as possible can be reused.
+Reusing intermediate results instead of recomputing them is called
+[common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination)
+in [compiler design](https://en.wikipedia.org/wiki/Compiler).
+It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
+Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
+
+<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+
+$$
+\begin{aligned}
+13A &= A + A + A + A + A + A + A + A + A + A + A + A + A \\
+&= \bigg(\Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)
++ \Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)\bigg) + A \\
+&= 2\Big(2\big(2(O + \underset{1}{\underset{\uparrow}{A}}) + \underset{1}{\underset{\uparrow}{A}}\big)
++ \underset{0}{\underset{\uparrow}{O}}\Big) + \underset{1}{\underset{\uparrow}{A}}
+\end{aligned}
+
+$$
+
+$$
+\begin{aligned}
+A^{13} &= A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \\
+&= \bigg(\Big(\big((A \cdot A) \cdot A\big) \cdot \big((A \cdot A) \cdot A\big)\Big)
+\cdot \Big(\big((A \cdot A) \cdot A\big) \cdot \big((A \cdot A) \cdot A\big)\Big)\bigg) \cdot A \\
+&= \Big(\big((I \cdot \underset{1}{\underset{\uparrow}{A}})^2 \cdot \underset{1}{\underset{\uparrow}{A}}\big)^2
+\cdot \underset{0}{\underset{\uparrow}{I}}\Big)^2 \cdot \underset{1}{\underset{\uparrow}{A}}
+\end{aligned}
+$$
+
+</div>
+
+Instead of 12 group operations, we performed only 5 (ignoring the combinations with the identity element).
+13 written as a binary number is 1101 (8 + 4 + 1), which corresponds to the pattern of
+when you have to combine the intermediary result with the element before doubling/squaring it again.
+(If you look at the recursive formula, the least-significant bit determines whether the current number is odd or even
+and thus whether you combine the recursive invocation with the element or not before dropping this bit.)
+
+Crucially, this technique works only if you know how many repetitions you have to perform.
+If you try to determine the number of repetitions from the result,
+you cannot work backwards and halve the number every other step,
+which is why this algorithm can be used only in one direction.
+I cover the best known algorithms for determining the number of repetitions in a [separate chapter](#dl-algorithms).
+
+<details markdown="block">
+<summary markdown="span" id="non-recursive-algorithm">
+Non-recursive algorithm
+</summary>
+
+The above [recursive algorithm](https://en.wikipedia.org/wiki/Recursion_(computer_science))
+can easily be turned into a non-recursive algorithm:
+
+<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+
+$$
+\text{function }repeat(A, n)\ \{ \\
+\quad \text{if }(n < 0)\ \{ \\
+\quad \quad A := -A \\
+\quad \quad n := -n \\
+\quad \} \\
+\quad \text{let }B := O \\
+\quad \text{while }(n > 0)\ \{ \\
+\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
+\quad \quad \quad B := B + A \\
+\quad \quad \quad n := n - 1 \\
+\quad \quad \} \\
+\quad \quad A := A + A \\
+\quad \quad n := n / 2 \\
+\quad \} \\
+\quad \text{return } B \\
+\} \\
+$$
+
+$$
+\text{function }repeat(A, n)\ \{ \\
+\quad \text{if }(n < 0)\ \{ \\
+\quad \quad A := A^{-1} \\
+\quad \quad n := -n \\
+\quad \} \\
+\quad \text{let }B := I \\
+\quad \text{while }(n > 0)\ \{ \\
+\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
+\quad \quad \quad B := B \cdot A \\
+\quad \quad \quad n := n - 1 \\
+\quad \quad \} \\
+\quad \quad A := A \cdot A \\
+\quad \quad n := n / 2 \\
+\quad \} \\
+\quad \text{return } B \\
+\} \\
+$$
+
+</div>
+
+This function returns the correct result because $$B \cdot A^n$$ (respectively $$B + nA$$) equals the desired result
+before and after every [loop iteration](https://en.wikipedia.org/wiki/Control_flow#Loops)
+and we repeat the loop until $$n = 0$$.
+Unlike the [variant on Wikipedia](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#With_constant_auxiliary_memory),
+the above algorithm wastes one group operation in the last iteration when $$n = 1$$.
+On the other hand, we don't have to handle the case where $$n = 0$$ separately.
+Since computers represent numbers in [binary](https://en.wikipedia.org/wiki/Binary_number),
+you can check whether $$n$$ is odd with a [bitwise and](https://en.wikipedia.org/wiki/Bitwise_operation#AND)
+(typically written as `n & 1 === 1`) and divide $$n$$ by $$2$$ without having to subtract the
+[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing) first by
+[shifting the bits](https://en.wikipedia.org/wiki/Arithmetic_shift) one to the right (typically written as `n >> 1`).
+Since I haven't yet introduced any groups of interest,
+I will provide an [interactive tool](/#interactive-tools) for fast repetitions [later on](#repetition-revisited).
+
+</details>
+
+
 ### Group order
 
 A group is [finite](https://en.wikipedia.org/wiki/Finite_group)
@@ -982,172 +1148,6 @@ because the inverse of every generator is also a generator.
 and the inverse of each inverse is the [original element again](#double-inverse-theorem),
 two different generators cannot have the same inverse
 — and a generator can equal its inverse only for groups of order 2.)
-
-</details>
-
-
-### Fast repetitions
-
-The goal of this article is to construct [linear one-way functions](#linear-one-way-functions).
-As we've seen in the introduction, [repeating an element](#element-repetitions) is a [linear operation](#linearity).
-As we'll see [later](#discrete-logarithm-problem), figuring out how many times an element has been repeated
-is [(presumably) computationally infeasible](#computational-complexity-theory) in some groups.
-In this section, we want to understand why repeating an element a certain number of times is so much easier
-than determining the number of repetitions when given the result.
-Let's start with how we can compute element repetitions efficiently.
-
-Instead of performing one repetition at a time,
-we can compute $$A$$ repeated $$n$$ times for any integer $$n$$ using the following insight:
-
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-nA = \begin{cases}
-(-n)(-A) &\text{if } n < 0 \text{,} \\
-O &\text{if } n = 0 \text{,} \\
-(n - 1)A + A &\text{if } n \text{ is odd,} \\
-2(\frac{n}{2}A) &\text{if } n \text{ is even.}
-\end{cases}
-$$
-
-$$
-A^n = \begin{cases}
-(A^{-1})^{-n} &\text{if } n < 0 \text{,} \\
-I &\text{if } n = 0 \text{,} \\
-A^{n-1} \cdot A &\text{if } n \text{ is odd,} \\
-(A^{\frac{n}{2}})^2 &\text{if } n \text{ is even.}
-\end{cases}
-$$
-
-</div>
-
-Solving a problem by reducing it to smaller instances of the same problem is known
-as [recursion](https://en.wikipedia.org/wiki/Recursion_(computer_science)).
-The above [algorithm](https://en.wikipedia.org/wiki/Algorithm) terminates
-because a negative $$n$$ is transformed into a positive $$n$$
-and then $$n$$ gets smaller in every iteration until it reaches zero.
-Since an odd number becomes even when you subtract one, $$n$$ is halved at least in every other iteration.
-Therefore, the [running time](https://en.wikipedia.org/wiki/Analysis_of_algorithms#Run-time_analysis)
-of the algorithm is [logarithmic](https://en.wikipedia.org/wiki/Time_complexity#Logarithmic_time)
-with regard to the input $$n$$.
-Since halving a [binary number](/internet/#number-encoding) is the same as dropping its
-[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing),
-one can also say that the running time is linear in the [bit length](https://en.wikipedia.org/wiki/Bit-length) of $$n$$.
-In other words, if you double the length of a number (rather than its size),
-you just double the number of steps required.
-
-When using the [multiplicative notation](#notation), this algorithm is known as
-[exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) or square-and-multiply.
-When using the [additive notation](#notation), this becomes multiplication by doubling or double-and-add.
-The algorithm exploits the fact that the group operation is [associative](#group-axioms):
-Instead of evaluating the expression from left to right,
-the operations are grouped in such a way that as many intermediate results as possible can be reused.
-Reusing intermediate results instead of recomputing them is called
-[common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination)
-in [compiler design](https://en.wikipedia.org/wiki/Compiler).
-It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
-Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
-
-<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\begin{aligned}
-13A &= A + A + A + A + A + A + A + A + A + A + A + A + A \\
-&= \bigg(\Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)
-+ \Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)\bigg) + A \\
-&= 2\Big(2\big(2(O + \underset{1}{\underset{\uparrow}{A}}) + \underset{1}{\underset{\uparrow}{A}}\big)
-+ \underset{0}{\underset{\uparrow}{O}}\Big) + \underset{1}{\underset{\uparrow}{A}}
-\end{aligned}
-
-$$
-
-$$
-\begin{aligned}
-A^{13} &= A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \\
-&= \bigg(\Big(\big((A \cdot A) \cdot A\big) \cdot \big((A \cdot A) \cdot A\big)\Big)
-\cdot \Big(\big((A \cdot A) \cdot A\big) \cdot \big((A \cdot A) \cdot A\big)\Big)\bigg) \cdot A \\
-&= \Big(\big((I \cdot \underset{1}{\underset{\uparrow}{A}})^2 \cdot \underset{1}{\underset{\uparrow}{A}}\big)^2
-\cdot \underset{0}{\underset{\uparrow}{I}}\Big)^2 \cdot \underset{1}{\underset{\uparrow}{A}}
-\end{aligned}
-$$
-
-</div>
-
-Instead of 12 group operations, we performed only 5 (ignoring the combinations with the identity element).
-13 written as a binary number is 1101 (8 + 4 + 1), which corresponds to the pattern of
-when you have to combine the intermediary result with the element before doubling/squaring it again.
-(If you look at the recursive formula, the least-significant bit determines whether the current number is odd or even
-and thus whether you combine the recursive invocation with the element or not before dropping this bit.)
-
-Crucially, this technique works only if you know how many repetitions you have to perform.
-If you try to determine the number of repetitions from the result,
-you cannot work backwards and halve the number every other step,
-which is why this algorithm can be used only in one direction.
-I cover the best known algorithms for determining the number of repetitions in a [separate chapter](#dl-algorithms).
-
-<details markdown="block">
-<summary markdown="span" id="non-recursive-algorithm">
-Non-recursive algorithm
-</summary>
-
-The above [recursive algorithm](https://en.wikipedia.org/wiki/Recursion_(computer_science))
-can easily be turned into a non-recursive algorithm:
-
-<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\text{function }repeat(A, n)\ \{ \\
-\quad \text{if }(n < 0)\ \{ \\
-\quad \quad A := -A \\
-\quad \quad n := -n \\
-\quad \} \\
-\quad \text{let }B := O \\
-\quad \text{while }(n > 0)\ \{ \\
-\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
-\quad \quad \quad B := B + A \\
-\quad \quad \quad n := n - 1 \\
-\quad \quad \} \\
-\quad \quad A := A + A \\
-\quad \quad n := n / 2 \\
-\quad \} \\
-\quad \text{return } B \\
-\} \\
-$$
-
-$$
-\text{function }repeat(A, n)\ \{ \\
-\quad \text{if }(n < 0)\ \{ \\
-\quad \quad A := A^{-1} \\
-\quad \quad n := -n \\
-\quad \} \\
-\quad \text{let }B := I \\
-\quad \text{while }(n > 0)\ \{ \\
-\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
-\quad \quad \quad B := B \cdot A \\
-\quad \quad \quad n := n - 1 \\
-\quad \quad \} \\
-\quad \quad A := A \cdot A \\
-\quad \quad n := n / 2 \\
-\quad \} \\
-\quad \text{return } B \\
-\} \\
-$$
-
-</div>
-
-This function returns the correct result because $$B \cdot A^n$$ (respectively $$B + nA$$) equals the desired result
-before and after every [loop iteration](https://en.wikipedia.org/wiki/Control_flow#Loops)
-and we repeat the loop until $$n = 0$$.
-Unlike the [variant on Wikipedia](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#With_constant_auxiliary_memory),
-the above algorithm wastes one group operation in the last iteration when $$n = 1$$.
-On the other hand, we don't have to handle the case where $$n = 0$$ separately.
-Since computers represent numbers in [binary](https://en.wikipedia.org/wiki/Binary_number),
-you can check whether $$n$$ is odd with a [bitwise and](https://en.wikipedia.org/wiki/Bitwise_operation#AND)
-(typically written as `n & 1 === 1`) and divide $$n$$ by $$2$$ without having to subtract the
-[least-significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing) first by
-[shifting the bits](https://en.wikipedia.org/wiki/Arithmetic_shift) one to the right (typically written as `n >> 1`).
-Since I haven't yet introduced any actual groups,
-I will provide an [interactive tool](/#interactive-tools) for fast repetitions [later on](#repetition-revisited).
 
 </details>
 
