@@ -14,7 +14,7 @@ import { bold, Text } from '../../../code/svg/elements/text';
 
 const n = -3.25;
 const gap = 80;
-const arrowOffset = 2 * strokeWidth;
+const arrowOffset = 3 * strokeWidth;
 const dashRadius = 2 * arrowOffset;
 const textOffset = dashRadius + textToLineDistance;
 
@@ -26,18 +26,18 @@ elements.push(new Line({ start: P(-4 * gap, -2 * arrowOffset), end: P(n * gap, -
 
 const labels = ['0', '–d', '–2d', '(q + 1)d', 'q · d'];
 for (let i = 0; i < labels.length; i++) {
-    elements.push(new Line({ start: P(-i * gap, -dashRadius), end: P(-i * gap, dashRadius) }));
-    elements.push(new Text({ position: P(-i * gap, textOffset), text: bold(labels[i]), verticalAlignment: 'top' }));
+    elements.push(new Line({ start: P(-i * gap, -dashRadius), end: P(-i * gap, arrowOffset) }));
+    elements.push(new Text({ position: P(-i * gap, arrowOffset + textToLineDistance), text: bold(labels[i]), verticalAlignment: 'top' }));
 }
 
-elements.push(new Text({ position: P(-2.42 * gap, textOffset), text: bold('…'), verticalAlignment: 'top' }));
+elements.push(new Text({ position: P(-2.42 * gap, arrowOffset + textToLineDistance), text: bold('…'), verticalAlignment: 'top' }));
 
 elements.push(new Text({ position: P(-4 * gap, -textOffset), text: bold('q · d'), verticalAlignment: 'bottom', color: 'blue' }));
 elements.push(new Text({ position: P(-3.71 * gap, -textOffset), text: bold('+'), verticalAlignment: 'bottom' }));
 elements.push(new Text({ position: P(-3.56 * gap, -textOffset), text: bold('r'), verticalAlignment: 'bottom', color: 'green' }));
 elements.push(new Text({ position: P(-3.41 * gap, -textOffset), text: bold('='), verticalAlignment: 'bottom' }));
 
-elements.push(new Line({ start: P(n * gap, -dashRadius), end: P(n * gap, dashRadius), color: 'pink' }));
+elements.push(new Line({ start: P(n * gap, -dashRadius), end: P(n * gap, arrowOffset), color: 'pink' }));
 elements.push(new Text({ position: P(n * gap, -textOffset), text: bold('n'), verticalAlignment: 'bottom', color: 'pink' }));
 
 printSVG(...elements);

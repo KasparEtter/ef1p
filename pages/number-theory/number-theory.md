@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-10-19
+modified: 2022-10-21
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -2795,10 +2795,8 @@ which is the greatest common divisor of the two inputs to the tool.
 
 <div id="tool-integer-extended-euclidean-algorithm"></div>
 
-<details markdown="block" open>
-<summary markdown="span" id="bezouts-identity">
-Bézout's identity
-</summary>
+
+### Bézout's identity {#bezouts-identity}
 
 [Bézout's identity](https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity),
 named after [Étienne Bézout](https://en.wikipedia.org/wiki/%C3%89tienne_B%C3%A9zout) (1730 − 1783),
@@ -2806,11 +2804,12 @@ makes the following two statements:
 - **Existence**: For any two positive integers $$a$$ and $$b$$, there exist some integers $$c$$ and $$d$$
   so that $$\operatorname{\href{#greatest-common-divisor}{gcd}}(a, b) = c \cdot a + d \cdot b$$.
   The [extended Euclidean algorithm](#extended-euclidean-algorithm)
-  [proves constructively](https://en.wikipedia.org/wiki/Constructive_proof) that such coefficients exist.
+  [proves constructively](https://en.wikipedia.org/wiki/Constructive_proof)
+  that such [coefficients](https://en.wikipedia.org/wiki/Coefficient) $$c$$ and $$d$$ exist.
   These coefficients are not unique, though.
   Since the coefficients in the last row of the [tool above](#tool-integer-extended-euclidean-algorithm)
   add up to $$0$$ when multiplied by the corresponding input,
-  you can add multiples of the last row to the second last row without affecting the left side of the equation.
+  you can add multiples of the last row to the second to last row without affecting the left side of the equation.
   [For example](#tool-integer-extended-euclidean-algorithm&a=51&b=21),
   as $$3 = (-2) \cdot 51 + 5 \cdot 21$$ and $$0 = 7 \cdot 51 + (-17) \cdot 21$$,
   we also have that $$3 = (-2 + 7) \cdot 51 + (5 - 17) \cdot 21 = 5 \cdot 51 + (-12) \cdot 21$$.
@@ -2832,7 +2831,11 @@ makes the following two statements:
     Proof: Using [Euclidean division](#euclidean-division),
     every element $$j$$ in $$\mathbb{I}$$ can be written as $$j = q \cdot i + r$$
     for some integers $$q$$ and $$r$$ with $$0 ≤ r < i$$.
-    Since $$i$$ and $$j$$ are in $$\mathbb{I}$$, so is $$r = j - q \cdot i$$.
+    Since $$i$$ and $$j$$ are in $$\mathbb{I}$$,
+    which means that $$i = i_a \cdot a + i_b \cdot b$$ and $$j = j_a \cdot a + j_b \cdot b$$
+    for some $$i_a, i_b, j_a, j_b \in \mathbb{Z}$$,
+    so is $$r = j - q \cdot i = (j_a \cdot a + j_b \cdot b) - q \cdot (i_a \cdot a + i_b \cdot b)
+    = (j_a - q \cdot i_a) \cdot a + (j_b - q \cdot i_b) \cdot b \in \mathbb{I}$$.
     Since $$0 ≤ r < i$$ and $$i$$ is by assumption the smallest positive element in $$\mathbb{I}$$,
     <span class="text-nowrap" markdown="span">$$r$$ must</span> be $$0$$.
     Therefore, every $$j \in \mathbb{I}$$ is indeed a multiple of $$i$$.
@@ -2848,24 +2851,50 @@ makes the following two statements:
 
 The second part of Bézout's identity matches our [earlier observation](#visualization-of-cosets)
 that all modular multiples of a number are spaced equally.
+You can also think of the [greatest common divisor](#greatest-common-divisor) of $$a$$ and $$b$$
+as the biggest [unit](https://en.wikipedia.org/wiki/Unit_of_measurement)
+in which $$a$$ and $$b$$ can be expressed without [fractions](https://en.wikipedia.org/wiki/Fraction).
+Just as you can't get fractions when adding and subtracting integers,
+you can't get fractions of this unit when you add and subtract only multiples of it.
+I use [distance](https://en.wikipedia.org/wiki/Distance) to visualize $$a$$ and $$b$$,
+but you can apply this idea to any [quantity](https://en.wikipedia.org/wiki/Quantity),
+including [mass](https://en.wikipedia.org/wiki/Mass),
+[volume](https://en.wikipedia.org/wiki/Volume),
+and [time](https://en.wikipedia.org/wiki/Time).
 
-</details>
+<figure markdown="block">
+{% include_relative generated/bezouts-identity-1.embedded.svg %}
+<figcaption markdown="span">
+You cannot get an odd number when adding and subtracting two even numbers.
+</figcaption>
+</figure>
 
-<details markdown="block">
-<summary markdown="span" id="euclids-lemma">
-Euclid's lemma
-</summary>
+The first part of Bézout's identity means that we can measure this unit
+when given only prototypes for the quantities $$a$$ and $$b$$:
+
+<figure markdown="block">
+{% include_relative generated/bezouts-identity-2.embedded.svg %}
+<figcaption markdown="span">
+
+The [extended Euclidean algorithm](#extended-euclidean-algorithm) tells us that
+[gcd(10, 6) = 2 = 2 · 6 − 1 · 10](#tool-integer-extended-euclidean-algorithm&a=10&b=6).
+
+</figcaption>
+</figure>
+
+
+### Euclid's lemma
 
 [Euclid's lemma](https://en.wikipedia.org/wiki/Euclid%27s_lemma) states that
 if a prime $$p$$ divides the product $$a \cdot b$$ of some integers $$a$$ and $$b$$,
 then $$p$$ divides $$a$$ or $$b$$ ([or both](https://en.wikipedia.org/wiki/Logical_disjunction)).
-If $$p$$ divides $$a$$, the statement is true.
+Clearly, if $$p$$ divides $$a$$, the statement is true.
 So all we need to show is that if $$p$$ does not divide $$a$$, then $$p$$ divides $$b$$.
 Since $$p$$ is prime and $$a$$ is not a multiple of $$p$$, $$p$$ and $$a$$ are [coprime](#multiset-of-prime-factors).
 Using [Bézout's identity](#bezouts-identity),
 we know that there are some integers $$c$$ and $$d$$ so that $$c \cdot p + d \cdot a = 1$$.
 When we multiply this equation by $$b$$, we get $$c \cdot p \cdot b + d \cdot a \cdot b = b$$.
-Since the statement is an [implication](https://en.wikipedia.org/wiki/Material_conditional), we can assume
+Since the previous statement is an [implication](https://en.wikipedia.org/wiki/Material_conditional), we can assume
 the so-called [antecedent](https://en.wikipedia.org/wiki/Antecedent_(logic)) (that $$p$$ divides $$a \cdot b$$)
 when proving the so-called [consequent](https://en.wikipedia.org/wiki/Consequent) (that $$p$$ divides $$b$$).
 Therefore, $$b$$ is a multiple of $$p$$ because both $$c \cdot p \cdot b$$
@@ -2873,8 +2902,6 @@ and $$d \cdot a \cdot b$$ are multiples of $$p$$.
 (If you add multiples of a number, you get another multiple
 due to [distributivity](https://en.wikipedia.org/wiki/Distributive_property):
 <!-- --> $$e \cdot p + f \cdot p = (e + f) \cdot p$$ for any $$e$$ and $$f$$.)
-
-</details>
 
 <details markdown="block">
 <summary markdown="span" id="unique-factorization-theorem">
@@ -2928,7 +2955,7 @@ for an integer to have an inverse since:
   you don't need to keep track of the coefficient of $$m$$
   (i.e. you don't have to implement the second to last column).
 - **Necessary**: The second part of [Bézout's identity](#bezouts-identity) tells us
-  that the closest you can get to a multiple of $$m$$ is $$\operatorname{gcd}(a, m)$$.
+  that the closest you can get to a multiple of $$m$$ without reaching it is $$\operatorname{gcd}(a, m)$$.
   If an integer $$a$$ is not coprime with the modulus $$m$$, $$\operatorname{gcd}(a, m) > 1$$.
   Consequently, there is no integer $$b$$ so that $$b \cdot a =_m 1$$.
   For example, if both $$a$$ and $$m$$ are even,
@@ -2973,9 +3000,11 @@ If we [set the modulus to 12](#tool-table-multiplicative-group-operation&modulus
 for example, we see that all the elements which are not coprime with the modulus
 (the tool marks them with a blue background) reach $$0$$ at some point.
 After that, the elements repeat because $$(b + 1) \cdot a =_m b \cdot a + 1 \cdot a =_m 0 + a =_m a$$.
-The first factor for which we reach $$0$$ is $$b = \frac{\operatorname{lcm}(a, m)}{a} = \frac{m}{\operatorname{gcd}(a, m)}$$.
+The first factor for which we reach $$0$$
+is $$b = \frac{\operatorname{lcm}(a, m)}{a} = \frac{m}{\operatorname{gcd}(a, m)}$$.
 This means that there are $$\operatorname{gcd}(a, m)$$ repetitions in the rows and columns of non-coprime elements.
-It also implies that the equation $$a \cdot x =_m c$$ has $$d = \operatorname{gcd}(a, m)$$ solutions in $$\mathbb{Z}_m$$
+It also implies that the equation $$a \cdot x =_m c$$ has
+[$$d = \operatorname{gcd}(a, m)$$ solutions](#solving-modular-equations) in $$\mathbb{Z}_m$$
 if $$c$$ is a multiple of $$d$$ and [no solution otherwise](#bezouts-identity).
 
 </details>
@@ -3019,7 +3048,7 @@ $$
 
 has a unique solution $$x$$ with $$0 ≤ x < M$$
 if $$\operatorname{\href{#greatest-common-divisor}{gcd}}(m_i, m_j) = 1$$ for all $$i ≠ j$$,
-where $$M = \prod_{i=1}^l m_i$$.
+where $$M = \href{#sum-and-product-of-similar-terms}{\prod_{i=1}^l} m_i$$.
 The problem was first stated in [a Chinese text](https://en.wikipedia.org/wiki/Sunzi_Suanjing)
 around the 4th century [CE](https://en.wikipedia.org/wiki/Common_Era).
 The solution can be determined as follows:
@@ -3028,7 +3057,8 @@ Given that $$m_i$$ has no prime factor in common with any of the other moduli, $
 Using the [extended Euclidean algorithm](#extended-euclidean-algorithm),
 we find an $$N_i$$ so that $$N_i \cdot M_i =_{m_i} 1$$.
 As $$M_i$$ is a multiple of all other moduli, $$N_i \cdot M_i =_{m_j} 0$$ for all $$j ≠ i$$.
-Therefore, $$x =_M \sum_{i=1}^{l} r_i \cdot N_i \cdot M_i$$ satisfies all the congruences.
+Therefore, $$x =_M \href{#sum-and-product-of-similar-terms}{\sum_{i=1}^{l}} r_i \cdot N_i \cdot M_i$$
+satisfies all congruences.
 The solution is unique because for any two solutions,
 <!-- --> $$x_1 - x_2 =_{m_i} 0$$ for all $$i$$ and thus also $$x_1 - x_2 =_M 0$$
 because any multiple of coprime factors is also a multiple of their product.
@@ -3571,7 +3601,7 @@ In order to prove this, we need math which we haven't covered yet:
 2. A [non-constant](https://en.wikipedia.org/wiki/Polynomial#constant_polynomial)
    [single-variable](https://en.wikipedia.org/wiki/Polynomial#univariate)
    polynomial of [degree](https://en.wikipedia.org/wiki/Degree_of_a_polynomial) $$d$$
-   evaluates to $$0$$ for at most $$d$$ distinct inputs.
+   over any field evaluates to $$0$$ for at most $$d$$ distinct inputs.
    In other words, $$f(x) = \sum_{i=0}^d c_i x^i$$
    with some [coefficients](https://en.wikipedia.org/wiki/Coefficient)
    <!-- --> $$c_0,\allowbreak …,\allowbreak c_d \in \mathbb{Z}_p$$ where $$d > 0$$ and at least $$c_d ≠ 0$$
@@ -3660,12 +3690,13 @@ Binomial coefficients of a prime are multiples of the prime
 
 [$$\binom{p}{i} =_p 0$$](https://proofwiki.org/wiki/Binomial_Coefficient_of_Prime)
 for any [prime](#prime-factorization) $$p$$ and any integer $$i$$ strictly between $$0$$ and $$p$$ (i.e. $$0 < i < p$$).
-Since $$\binom{p}{i}$$ must be an integer [given what it counts](#binomial-coefficients-and-binomial-the-theorem),
+Proof: Since $$\binom{p}{i} = \frac{p (p-1) (p-2) … (p-i+1)}{i!}$$ must be an integer
+[given what it counts](#binomial-coefficients-and-binomial-the-theorem),
 <!-- --> $$i!$$ divides $$p (p-1) (p-2) … (p-i+1)$$.
-Since $$p$$ is prime and all the factors in $$i!$$ are smaller than $$p$$,
+Since $$p$$ is prime and all factors in $$i!$$ are smaller than $$p$$,
 <!-- --> $$\operatorname{\href{#greatest-common-divisor}{gcd}}(p, i!) = 1$$.
 By [Euclid's lemma](#euclids-lemma), $$i!$$ then has to divide $$(p-1) (p-2) … (p-i+1)$$.
-Therefore, $$\binom{p}{i} = \frac{(p-1) (p-2) … (p-i+1)}{i!} \cdot p$$.
+Therefore, $$\binom{p}{i}$$ is a multiple of $$p$$.
 
 </details>
 
@@ -5070,8 +5101,10 @@ which is an inverse for that particular element.
 Multiplicative identity crisis
 </summary>
 
-Ignoring the fact that the definition of the additive group is [ambiguous](#less-ambiguous-notation),
-it follows from these [reduced group axioms](#reduced-group-axioms)
+I stated the [group axioms](#group-axioms) for addition in the [ring axioms](#ring-axioms) above
+in a [reduced form](#reduced-group-axioms).
+Ignoring for now that the definition of invertibility is [ambiguous](#less-ambiguous-notation),
+it still follows from these reduced group axioms
 that [the right identity is unique](#uniqueness-of-right-identity)
 and that [the right identity is also a left identity](#right-identity-is-left-identity)
 (see the [last chapter](#group-properties)).
@@ -7043,7 +7076,7 @@ We can make several observations based on this example:
   the symmetry that you see in the graph above is about $$y = \frac{p}{2} = 9.5$$ rather than about $$y = 0$$
   because the values from $$-9$$ to $$-1$$ are displayed above and not below the values from $$0$$ to $$9$$.
   If we ignore [extension fields](https://en.wikipedia.org/wiki/Field_extension),
-  <!-- --> $$p$$ is odd and thus either $$y$$ or $$p - y$$ is even while the other value is odd.
+  <!-- --> $$p$$ is odd, and thus either $$y$$ or $$p - y$$ is even while the other value is odd.
 - **Gaps**: Not every element of a finite field has [square roots](#square-roots).
   If $$x^3 + a \cdot x + b$$ results in a [quadratic non-residue](#quadratic-residues),
   the elliptic curve has no points at such an $$x$$ value.
@@ -7402,7 +7435,7 @@ Hence, the tools in this chapter have the following limitations:
   of Pollard's rho factorization algorithm in order to determine the order of $$G$$.
   If $$p$$ > 100'000 or the factorization fails, you have to enter the order of $$G$$ yourself,
   which you can determine with [SageMath](https://en.wikipedia.org/wiki/SageMath)
-  as explained in the [next box](#playground-of-sagemath).
+  as explained in the [next box](#how-to-use-the-playground-of-sagemath).
   If you just want to know the result of a
   [point multiplication](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication),
   you can use the [point calculator](#point-calculator) above,
@@ -7411,8 +7444,8 @@ Hence, the tools in this chapter have the following limitations:
 </details>
 
 <details markdown="block">
-<summary markdown="span" id="playground-of-sagemath">
-Playground of SageMath
+<summary markdown="span" id="how-to-use-the-playground-of-sagemath">
+How to use the playground of SageMath
 </summary>
 
 [SageMath](https://en.wikipedia.org/wiki/SageMath) is an
@@ -7766,7 +7799,7 @@ The following tool does all of that for you:
 <div id="tool-integer-modular-equation"></div>
 
 In [Pollard's rho algorithm](#pollards-rho-algorithm),
-we then just have to test all solutions for $$k$$.
+we then just have to test all the solutions which we obtained for $$k$$.
 Depending on the [prime factorization](#prime-factorization) of $$G$$'s [order](#element-order) $$n$$,
 there can be quite a lot of solutions to check, unfortunately.
 

@@ -14,7 +14,7 @@ import { bold, Text } from '../../../code/svg/elements/text';
 
 const n = 3.75;
 const gap = 80;
-const arrowOffset = 2 * strokeWidth;
+const arrowOffset = 3 * strokeWidth;
 const dashRadius = arrowOffset;
 const textOffset = dashRadius + textToLineDistance;
 
