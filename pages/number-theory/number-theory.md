@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-10-21
+modified: 2022-11-07
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -52,8 +52,8 @@ There are two families of finite groups which are widely used in modern cryptogr
 The former are based on [modular arithmetic](#modular-arithmetic),
 the latter on [finite fields](#finite-fields).
 [Prime numbers](#prime-numbers) play a crucial role in both.
-We'll study these topics in a somewhat peculiar order,
-and we'll also visit [commutative rings](#commutative-rings), which will pay off on our journey:
+We'll study these topics in a somewhat peculiar order
+and also visit [additive groups](#additive-groups) and [commutative rings](#commutative-rings) on our journey:
 
 <figure markdown="block">
 {% include_relative generated/outline.embedded.svg %}
@@ -371,7 +371,7 @@ which is why only the additive and the multiplicative notation are used in pract
 ### Linearity
 
 It is easy to see why repeating an element from the output set is a linear operation
-(given that the operation is [associative](#group-axioms)):
+(assuming that the operation is [associative](#group-axioms)):
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
 
@@ -750,6 +750,51 @@ $$
 
 </div>
 
+<details markdown="block">
+<summary markdown="span" id="element-repetitions-example">
+Element repetitions example
+</summary>
+
+In the case of an [analog clock](#example-of-a-finite-group), we wrap around to $$0$$ when reaching $$12$$.
+[I write](#equivalence-relation) $$A =_{12} B$$ to denote that $$A = B$$ up to a multiple of $$12$$.
+Repeating the element $$5$$, we have $$2 \cdot 5 =_{12} 5 + 5 =_{12} 10$$,
+followed by $$3 \cdot 5 =_{12} 5 + 5 + 5 =_{12} 10 + 5 =_{12} 3$$, and so on:
+
+<figure markdown="block">
+
+| 1 · 5 | 2 · 5 | 3 · 5 | 4 · 5 | 5 · 5 | 6 · 5 | 7 · 5 | 8 · 5 | 9 · 5 | 10 · 5 | 11 · 5 | 12 · 5 | …
+|-
+| 5 | 10 | 3 | 8 | 1 | 6 | 11 | 4 | 9 | 2 | 7 | 0 | …
+{:.table-with-borders .text-nowrap .text-center}
+
+<figcaption markdown="span">
+
+Repeating the element 5 in the so-called [additive group](#additive-groups) of integers [modulo](#modulo-operation) 12.
+
+</figcaption>
+</figure>
+
+Using the [above definitions](#zero-and-negative-repetitions),
+we have that $$0 \cdot 5 =_{12} 0$$ and $$(-n)5 =_{12} n(-5)$$,
+where $$-5 =_{12} 7$$ because $$5 + 7 =_{12} 0$$.
+Therefore: 
+
+<figure markdown="block">
+
+| (−1) · 5<br>= 1 · 7 | (−2) · 5<br>= 2 · 7 | (−3) · 5<br>= 3 · 7 | (−4) · 5<br>= 4 · 7 | (−5) · 5<br>= 5 · 7 | (−6) · 5<br>= 6 · 7 | (−7) · 5<br>= 7 · 7 | (−8) · 5<br>= 8 · 7 | (−9) · 5<br>= 9 · 7 | (−10) · 5<br>= 10 · 7 | (−11) · 5<br>= 11 · 7 | (−12) · 5<br>= 12 · 7 | …
+|-
+| 7 | 2 | 9 | 4 | 11 | 6 | 1 | 8 | 3 | 10 | 5 | 0 | …
+{:.table-with-borders .text-nowrap .text-center}
+
+<figcaption markdown="span">
+
+The negative repetitions of the element 5 in the additive group of integers modulo 12.
+
+</figcaption>
+</figure>
+
+</details>
+
 
 ### Fast repetitions
 
@@ -813,7 +858,9 @@ in [compiler design](https://en.wikipedia.org/wiki/Compiler).
 It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
 Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
 
-<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
+
+<div markdown="block">
 
 $$
 \begin{aligned}
@@ -823,8 +870,18 @@ $$
 &= 2\Big(2\big(2(O + \underset{1}{\underset{\uparrow}{A}}) + \underset{1}{\underset{\uparrow}{A}}\big)
 + \underset{0}{\underset{\uparrow}{O}}\Big) + \underset{1}{\underset{\uparrow}{A}}
 \end{aligned}
-
 $$
+
+<figure markdown="block">
+{% include_relative generated/fast-repetitions-additive.embedded.svg %}
+<figcaption markdown="span">
+We can compute 13A in 5 steps (in green) instead of 12 steps (in blue) by doubling intermediate results.
+</figcaption>
+</figure>
+
+</div>
+
+<div markdown="block">
 
 $$
 \begin{aligned}
@@ -836,11 +893,20 @@ A^{13} &= A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdot A \cdo
 \end{aligned}
 $$
 
+<figure markdown="block">
+{% include_relative generated/fast-repetitions-multiplicative.embedded.svg %}
+<figcaption markdown="span">
+We can compute A<sup>13</sup> in 5 steps (in green) instead of 12 steps (in blue) by squaring intermediate results.
+</figcaption>
+</figure>
+
+</div>
+
 </div>
 
 Instead of 12 group operations, we performed only 5 (ignoring the combinations with the identity element).
 13 written as a binary number is 1101 (8 + 4 + 1), which corresponds to the pattern of
-when you have to combine the intermediary result with the element before doubling/squaring it again.
+when you have to combine the intermediate result with the element before doubling/squaring it again.
 (If you look at the recursive formula, the least-significant bit determines whether the current number is odd or even
 and thus whether you combine the recursive invocation with the element or not before dropping this bit.)
 
@@ -948,6 +1014,19 @@ such as $$\{x \in \mathbb{Z} \mid x > 2\}$$ for the set of integers greater than
 
 </details>
 
+<details markdown="block">
+<summary markdown="span" id="group-order-example">
+Group order example
+</summary>
+
+As we saw [earlier](#example-of-a-finite-group),
+the hours of an analog clock form a finite [group](#group-axioms) under addition.
+Using the [above](#group-order) [notations](#notation-for-sets-and-elements),
+we write the group as $$\mathbb{G} = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}$$
+and [its order](#group-order) as $$|\mathbb{G}| = 12$$.
+
+</details>
+
 
 ### Element order
 
@@ -1020,8 +1099,7 @@ $$
 </div>
 
 {:#inverse-through-repetitions}
-If $$A$$
-repeated $$|A|$$ times results in the identity element,
+If $$A$$ repeated $$\vert A \vert$$ times results in the identity element,
 then $$A$$ repeated $$|A| - 1$$ times has to result in the inverse element of $$A$$:
 
 <div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
@@ -1044,6 +1122,42 @@ $$
 </div>
 
 This is the most intuitive way to understand why a right inverse is also always a left inverse and vice versa.
+
+<details markdown="block">
+<summary markdown="span" id="element-order-examples">
+Element order examples
+</summary>
+
+We can determine the [order](#element-order) of every element in the [group](#group-axioms) which corresponds
+to an [analog clock](#example-of-a-finite-group) by [repeating each element](#element-repetitions):
+
+<figure markdown="block">
+
+| 1A | 2A | 3A | 4A | 5A | 6A | 7A | 8A | 9A | 10A | 11A | 12A | Order \|A\|
+|-
+| 0 | | | | | | | | | | | | \|0\| = 1
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 0 | \|1\| = 12
+| 2 | 4 | 6 | 8 | 10 | 0 | | | | | | | \|2\| = 6
+| 3 | 6 | 9 | 0 | | | | | | | | | \|3\| = 4
+| 4 | 8 | 0 | | | | | | | | | | \|4\| = 3
+| 5 | 10 | 3 | 8 | 1 | 6 | 11 | 4 | 9 | 2 | 7 | 0 | \|5\| = 12
+| 6 | 0 | | | | | | | | | | | \|6\| = 2
+| 7 | 2 | 9 | 4 | 11 | 6 | 1 | 8 | 3 | 10 | 5 | 0 | \|7\| = 12
+| 8 | 4 | 0 | | | | | | | | | | \|8\| = 3
+| 9 | 6 | 3 | 0 | | | | | | | | | \|9\| = 4
+| 10 | 8 | 6 | 4 | 2 | 0 | | | | | | | \|10\| = 6
+| 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | \|11\| = 12
+{:.table-with-borders .table-with-vertical-border-after-column-1 .text-nowrap .text-center}
+
+<figcaption markdown="span" style="max-width: 450px;">
+
+The order of each element in the [additive group](#additive-groups) of integers [modulo](#modulo-operation) 12.
+(You can set the modulus to an arbitrary value in the [tool below](#additive-group-repetition-table).)
+
+</figcaption>
+</figure>
+
+</details>
 
 <details markdown="block">
 <summary markdown="span" id="why-do-we-need-invertibility-as-an-axiom">
@@ -1078,6 +1192,16 @@ equals the [order of the group](#group-order): $$\lvert G \rvert = \lvert \mathb
 The set generated by an element $$A$$ is&nbsp;usually written
 with [angle brackets](https://en.wikipedia.org/wiki/Bracket#Angle_brackets) as $$⟨A⟩$$.
 Also by definition, the set generated by a generator is the whole group: $$\mathbb{G} = ⟨G⟩$$.
+
+<details markdown="block">
+<summary markdown="span" id="group-generators-example">
+Group generators example
+</summary>
+
+As shown in a [previous box](#element-order-examples), the elements $$1$$, $$5$$, $$7$$, and $$11$$ generate
+the [additive group](#additive-groups) [modulo](#modulo-operation) 12: $$\mathbb{G} = ⟨1⟩ = ⟨5⟩ = ⟨7⟩ = ⟨11⟩$$.
+
+</details>
 
 
 ### Cyclic groups
@@ -1151,10 +1275,22 @@ two different generators cannot have the same inverse
 
 </details>
 
+<details markdown="block">
+<summary markdown="span" id="cyclic-group-example">
+Cyclic group example
+</summary>
+
+The [group defined by an analog clock](#example-of-a-finite-group) is [cyclic](#cyclic-groups)
+and has an [even number of generators](#even-number-of-generators),
+namely [$$1$$, $$5$$, $$7 =_{12} -5$$, and $$11 =_{12} -1$$](#group-generators-example).
+
+</details>
+
 
 ### Subgroups
 
-A group $$\mathbb{H}$$ is a [subgroup](https://en.wikipedia.org/wiki/Subgroup) of another group $$\mathbb{G}$$
+A [group](#group-axioms) $$\mathbb{H}$$ is a [subgroup](https://en.wikipedia.org/wiki/Subgroup)
+of another group $$\mathbb{G}$$
 if every element of $$\mathbb{H}$$ is also an element of $$\mathbb{G}$$ and they have the same operation.
 Since a group must have an [identity element](#group-axioms) and the identity element is defined by the operation,
 the subgroup $$\mathbb{H}$$ has to include the same identity element
@@ -1174,6 +1310,22 @@ which is denoted as $$\href{#group-generators}{⟨A⟩}$$.
 Generated subsets are always closed because combining repetitions of $$A$$
 results in [another repetition of $$A$$](#cyclic-groups).
 If $$A$$ does not generate all elements of $$\mathbb{G}$$, then $$⟨A⟩$$ is a proper subgroup of $$\mathbb{G}$$.
+
+<details markdown="block">
+<summary markdown="span" id="subgroup-examples">
+Subgroup examples
+</summary>
+
+The [group defined by an analog clock](#example-of-a-finite-group),
+which consists of the elements $$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}$$,
+has the following [subgroups](#subgroups): $$\{0\}$$, $$\{0, 6\}$$, $$\{0, 4, 8\}$$, $$\{0, 3, 6, 9\}$$,
+<!-- --> $$\{0, 2, 4, 6, 8, 10\}$$, and $$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}$$.
+Any other [subset](https://en.wikipedia.org/wiki/Subset) of $$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}$$,
+such as $$\{0, 1, 2, 3\}$$, is not [closed](#group-axioms).
+(As we'll see [later](#all-subgroups-of-cyclic-groups-are-cyclic),
+all subgroups of [cyclic groups](#cyclic-groups) are cyclic.)
+
+</details>
 
 <details markdown="block">
 <summary markdown="span" id="notation-for-the-subgroup-relation">
@@ -1324,6 +1476,23 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 As different $$H \in \mathbb{H}$$ are mapped to [different elements](#unique-result) in every coset,
 all cosets contain the same number of elements, namely [$$|\mathbb{H}|$$](#group-order).
 
+<details markdown="block">
+<summary markdown="span" id="subgroup-cosets-example">
+Subgroup cosets example
+</summary>
+
+Given the [group](#group-axioms) $$\mathbb{G} = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}$$
+with addition [modulo](#modulo-operation) 12, which corresponds to an [analog clock](#example-of-a-finite-group),
+the [subgroup](#subgroups) $$\mathbb{H} = \{0, 3, 6, 9\}$$ has the following [cosets](#subgroup-cosets):
+<!-- --> $$\mathbb{H} + 0 = \{0, 3, 6, 9\}$$, $$\mathbb{H} + 1 = \{1, 4, 7, 10\}$$,
+<!-- --> $$\mathbb{H} + 2 = \{2, 5, 8, 11\}$$, $$\mathbb{H} + 3 = \{3, 6, 9, 0\}$$, and so on.
+(You can generate all cosets of a cyclic subgroup [below](#additive-group-subgroup-cosets).)
+It's easy to verify that these subgroup cosets are either equal or disjoint
+as [proven above](#cosets-are-equal-or-disjoint).
+For example, $$\mathbb{H} + 0 = \mathbb{H} + 3$$, whereas $$\mathbb{H} + 1 \cap \mathbb{H} + 2 = \varnothing$$.
+
+</details>
+
 
 ### Lagrange's theorem
 
@@ -1379,6 +1548,23 @@ Lagrange's theorem has several important consequences:
    the order of every $$A \in \mathbb{G}$$ has to be $$1$$ or $$|\mathbb{G}|$$.
    If its order is $$1$$, $$A$$ is the identity element.
    If its order is $$|\mathbb{G}|$$, $$A$$ is a generator.)
+
+<details markdown="block">
+<summary markdown="span" id="lagranges-theorem-example">
+Lagrange's theorem example
+</summary>
+
+We determined the [order](#element-order) of every element in the [group](#group-axioms) which corresponds
+to an [analog clock](#example-of-a-finite-group) [earlier](#element-order-examples).
+It's easy to verify that the order of each element divides the [group's order](#group-order-example).
+Since these [generated](#cyclic-groups) [subgroups](#subgroups) are the only possible subgroups
+as explained [later on](#all-subgroups-of-cyclic-groups-are-cyclic),
+the order of [every subgroup](#subgroup-examples) divides the group's order.
+And since $$12A$$ is a multiple of $$12$$ for any element $$A$$,
+we have that $$12A =_{12} 0$$ for all elements of the group
+as implied by the [second consequence](#lagrange-consequences) of [Lagrange's theorem](#lagranges-theorem).
+
+</details>
 
 <details markdown="block">
 <summary markdown="span" id="index-and-cofactor">
@@ -2346,7 +2532,7 @@ The following tool shows the [cosets](#subgroup-cosets) of the [subgroup](#subgr
 Non-cyclic subgroups of non-cyclic groups
 </summary>
 
-Subgroups don't have to be generated by a single element.
+[Subgroups](#subgroups) don't have to be generated by a single element.
 [For example](#tool-table-multiplicative-group-repetition&modulus=15&coprime=true&repeat=false&order=false&totient=false),
 <!-- --> $$\{1, 4, 11, 14\}$$ form a multiplicative group modulo $$15$$:
 
