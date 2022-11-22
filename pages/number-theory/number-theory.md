@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-11-07
+modified: 2022-11-22
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -3805,7 +3805,7 @@ for all $$\varphi(p) = p - 1$$ elements of $$\mathbb{Z}_p^\times$$.
 Since a polynomial of degree $$\lambda(p)$$ over a field can have at most $$\lambda(p)$$ roots,
 <!-- --> $$\lambda(p)$$ cannot be smaller than $$\varphi(p)$$.
 Therefore, $$\lambda(p) = \varphi(p)$$, which implies that $$\mathbb{Z}_p^\times$$ is cyclic.
-Please note that this argument works only for fields (i.e. if the modulus is prime).
+Please note that this argument works only for fields (i.e. [if the modulus is prime](#integers-modulo-p)).
 In $$\mathbb{Z}_{24}$$, for example, $$X^2 - 1 =_{24} 0$$ has
 [8 solutions](#tool-table-multiplicative-group-repetition&modulus=24&coprime=true&repeat=false&order=false&totient=false).
 
@@ -5441,7 +5441,7 @@ Depending on $$a$$, $$f_a$$ is either so-called [injective](https://en.wikipedia
   (We've already encountered permutations [in the context of groups](#permutations).)
   It follows that there is an element $$a^{-1}$$ for which $$f_a(a^{-1}) = a \cdot a^{-1} = 1$$
   and that there is no element $$z$$ other than zero for which $$f_a(z) = a \cdot z = 0$$.
-  (As we saw [above](#multiplication-by-zero), $$f_a(0) = a \cdot 0 = 0$$.)
+  (As we&nbsp;saw [above](#multiplication-by-zero), $$f_a(0) = a \cdot 0 = 0$$.)
   This means that if $$f_a$$ is injective for some element $$a$$,
   then $$a$$ is a unit and not a zero divisor.
 - **Non-injective**: If $$f_a$$ is not injective,
@@ -5460,7 +5460,7 @@ Depending on $$a$$, $$f_a$$ is either so-called [injective](https://en.wikipedia
   due to [associativity](#ring-axioms).
   Therefore, zero divisors can't have a multiplicative inverse
   because the existence of a multiplicative inverse makes the mapping injective,
-  whereas a zero divisor makes the mapping non-injective since $$f_a(x) = 0$$ for zero and some other element.
+  whereas a zero divisor makes the mapping non-injective as $$f_a(x) = 0$$ for $$0$$ and another element.
 
 The existence of zero divisors is "undesirable" because it destroys the
 [cancellation property](https://en.wikipedia.org/wiki/Cancellation_property):
@@ -5528,11 +5528,11 @@ is usually denoted as $$\mathbb{R}^\times$$ (or as $$\mathbb{R}^*$$).
   because it has a multiplicative inverse, namely itself.
 - **Invertibility**: By definition, every unit has a multiplicative inverse.
   Since [a right inverse is also a left inverse](#right-inverses-are-left-inverses) and vice versa,
-  every inverse is itself invertible.
-  (If $$b$$ is the inverse of $$a$$, then $$a$$ is the inverse of $$b$$.)
-- **Closure**: The product of two units is another unit.
-  For any $$a, b \in \mathbb{R}^\times$$, $$(a \cdot b)^{-1} = b^{-1} \cdot a^{-1}$$
-  because $$(a \cdot b) \cdot (b^{-1} \cdot a^{-1})
+  every inverse is itself invertible
+  (i.e. if $$b$$ is the inverse of $$a$$, then $$a$$ is the inverse of $$b$$).
+- **Closure**: The product of two units is another unit because
+  for any $$a, b \in \mathbb{R}^\times$$, $$(a \cdot b)^{-1} = b^{-1} \cdot a^{-1}$$
+  as $$(a \cdot b) \cdot (b^{-1} \cdot a^{-1})
   = (a \cdot (b \cdot b^{-1})) \cdot a^{-1} = a \cdot a^{-1} = 1$$.
   ($$a^{-1}$$ and $$b^{-1}$$ exist because $$a$$ and $$b$$ are units.)
 - **Associativity**: Since multiplication is the same operation as in the ring, it is still associative.
@@ -5823,8 +5823,9 @@ the ring of cosets is called the [quotient ring](https://en.wikipedia.org/wiki/Q
 of $$\mathbb{R}$$ modulo $$\mathbb{I}$$, written as $$\mathbb{R} / \mathbb{I}$$.
 So not only does a ring homomorphism define a kernel, which is an ideal,
 an ideal also defines a homomorphism, whose kernel is the ideal itself.
-A ring homomorphism $$f$$ maps all the elements of a coset of $$\mathbb{K}_f$$ to a single element because
-for all $$a \in \mathbb{K}_f + b$$, $$f(a) = f(k + b) = f(k) + f(b) = 0 + f(b) = f(b)$$ for some $$k \in \mathbb{K}_f$$.
+A ring homomorphism $$f$$ maps all the elements of a coset of $$\mathbb{K}_f$$ to a single element
+because for all $$a \in \mathbb{K}_f + b$$,
+<!-- --> $$f(a) = f(k_a + b) = f(k_a) + f(b) = 0 + f(b) = f(b)$$ for some $$k_a \in \mathbb{K}_f$$.
 We thus have an invertible mapping between the cosets of $$\mathbb{K}_f$$
 and the [image](https://en.wikipedia.org/wiki/Image_(mathematics)) of $$f$$,
 which means that the quotient ring of $$\mathbb{R}$$ modulo $$\mathbb{K}_f$$
@@ -5845,7 +5846,7 @@ the quotient ring is isomorphic to the ring itself: $$\mathbb{R} / \{0\} \cong \
 In the scope of this article, we're interested only in integers [modulo](#modulo-operation) an integer $$m$$,
 where we have $$\mathbb{Z} / m \mathbb{Z} \cong \mathbb{Z}_m$$.
 As noted [above](#ideals), $$m \mathbb{Z}$$ is the ideal which consists of all multiples of $$m$$.
-In the case of $$m = 3$$, we can visualize what we learned as follows:
+We can visualize what we learned in this box as follows for $$m = 3$$:
 
 <figure markdown="block">
 {% include_relative generated/quotient-ring.embedded.svg %}
@@ -6004,13 +6005,42 @@ all the integers from $$0$$ to $$m - 1$$.
 Put differently, filtering non-coprime integers breaks the closure of addition.
 I added such a filtering option to the [operation table of additive groups](#additive-group-operation-table)
 just so that you can convince yourself that this is indeed the case.
-In the case of integers modulo a prime number $$p$$, both the [additive group](#additive-groups)
-and the [multiplicative group](#multiplicative-groups) are [cyclic](#cyclic-groups).
-As explained [earlier](#why-multiplicative-groups-modulo-a-prime-are-cyclic),
-the multiplicative group of a finite field is always cyclic.
+
+<details markdown="block">
+<summary markdown="span" id="cyclicity-of-the-additive-group">
+Cyclicity of the additive group
+</summary>
+
+In the case of integers modulo a prime number $$p$$,
+the [additive group](#additive-groups) is [cyclic](#cyclic-groups)
+because the multiplicative identity $$1$$ [generates the whole group](#group-generators).
 In the article about coding theory,
 we will extend these so-called [prime fields](https://en.wikipedia.org/wiki/Finite_field#Properties) and see
 that the additive group of a proper [extension field](https://en.wikipedia.org/wiki/Field_extension) is not cyclic.
+
+</details>
+
+<details markdown="block">
+<summary markdown="span" id="cyclicity-of-the-multiplicative-group">
+Cyclicity of the multiplicative group
+</summary>
+
+The [multiplicative group](#multiplicative-groups) of any field is [cyclic](#cyclic-groups):
+As mentioned but not yet proven [earlier](#why-multiplicative-groups-modulo-a-prime-are-cyclic),
+a polynomial of degree $$d > 0$$ over any field evaluates to $$0$$ for at most $$d$$ distinct inputs.
+If we label the multiplicative group of a field $$\mathbb{F}$$ as [$$\mathbb{F}^\times$$](#multiplicative-group-of-units),
+where $$\mathbb{F}^\times = \href{https://en.wikipedia.org/wiki/Complement_(set_theory)}{\mathbb{F} \setminus \{0\}}$$,
+we have that $$X^{|\mathbb{F}^\times|} = 1$$ for all $$X \in \mathbb{F}^\times$$
+due to [Lagrange's theorem](#lagrange-consequences).
+The [exponent of $$\mathbb{F}^\times$$](#exponent-of-a-multiplicative-group) is the smallest positive integer $$n$$
+so that $$X^n = 1$$ for all $$X \in \mathbb{F}^\times$$.
+Since the polynomial $$X^n - 1$$ can evaluate to $$0$$ for at most $$n$$ elements
+but $$X^n - 1 = 0$$ for all $$X \in \mathbb{F}^\times$$,
+<!-- --> $$n$$ cannot be smaller than $$|\mathbb{F}^\times|$$.
+As proven [earlier](#exponent-of-a-multiplicative-group), an element of order $$n = |\mathbb{F}^\times|$$ exists.
+Therefore, $$\mathbb{F}^\times$$ is cyclic.
+
+</details>
 
 
 ### Field notation
@@ -6199,6 +6229,10 @@ a^2 =_p b^2 \iff a^2 / b^2 =_p 1 \iff (a/b)^2 =_p 1 \iff a/b =_p ±1 \iff a =_p 
 $$
 
 </details>
+
+The [following](#quadratic-residues) [three](#eulers-criterion) [sections](#square-roots)
+are important to solve the equation of [elliptic curves](#elliptic-curves) of the form
+[$$y^2 = x^3 + a \cdot x + b$$](#curve-equation) over a [finite field](#finite-fields).
 
 
 ### Quadratic residues
@@ -6479,6 +6513,10 @@ In practice, it's common to skip Euler's criterion
 and to verify simply whether the square of the output is equal to the input.
 If $$p + 1$$ is not divisible by $$4$$ (i.e. $$p =_4 1$$),
 you can use the [Tonelli-Shanks algorithm](#tonelli-shanks-algorithm).
+The box after that generalizes the Tonelli-Shanks algorithm [to composite moduli](#square-roots-modulo-composite-numbers),
+and the last box of this chapter explains why computing square roots
+is [as difficult as factorizing integers](#why-integer-factorization-isnt-more-difficult).
+Since neither of them is relevant for our purposes, you can skip them both.
 
 <div id="tool-integer-simple-square-roots"></div>
 
@@ -6732,7 +6770,7 @@ An efficient algorithm for computing the square roots modulo a composite number
 would lead to an efficient algorithm for factorizing integers.
 Being able to reduce each of these two [problems](https://en.wikipedia.org/wiki/Computational_problem)
 to the other one efficiently (i.e. in [polynomial time](https://en.wikipedia.org/wiki/Time_complexity#Polynomial_time))
-implies that these two problems have similar [computational complexity](#computational-complexity-theory).
+implies that these two problems are of similar [computational complexity](#computational-complexity-theory).
 Since no efficient algorithm is known for either of these two problems,
 both problems are believed to be difficult to solve for large inputs.
 
@@ -6768,14 +6806,16 @@ there are two possibilities to consider:
 {:data-toc-text="Elliptic curves"}
 
 [Elliptic curves](https://en.wikipedia.org/wiki/Elliptic_curve)
-are the second popular way to construct [linear one-way functions](#linear-one-way-functions).
+are the other popular way to construct [linear one-way functions](#linear-one-way-functions)
+as they lead to shorter outputs and faster group operations than [multiplicative groups](#multiplicative-groups)
+for the same [level of security](#bits-of-security).
 Many cryptosystems which rely on the [discrete-logarithm problem](#discrete-logarithm-problem)
-of [multiplicative groups](#multiplicative-groups) have been adapted to work over elliptic curves.
+of multiplicative groups have been adapted to work over elliptic curves.
 Since [elliptic-curve cryptography (ECC)](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
 is in practice always implemented with
 [standardized elliptic curves](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography#Implementation),
 we'll focus on how to work with given [curve parameters](#curve-parameters)
-instead of how to come up with new parameters.
+instead of&nbsp;how to come up with new parameters.
 Unlike earlier chapters, this chapter covers just the bare minimum without any proofs.
 
 
@@ -7212,7 +7252,7 @@ $$
 \quad \quad \text{let } x := s^2 - A_x - B_x \\
 \quad \quad \text{return new } Point(x, s(A_x - x) - A_y) \\
 \quad \} \\
-\} \\
+\}
 $$
 {:.pseudocode}
 
@@ -7509,9 +7549,9 @@ in the [preferred formatting](#formatting-preferences):
 ## DL algorithms
 
 We now have two families of [finite groups](#finite-groups)
-for which it is presumably [difficult](#computational-complexity-theory)
+for which it is [presumably difficult](#computational-complexity-theory)
 to determine how many times [an element has been repeated](#element-repetitions)
-if the parameters of the group have been chosen [carefully](#pohlig-hellman-algorithm):
+if the parameters of the group have been [chosen carefully](#pohlig-hellman-algorithm):
 - [**Multiplicative groups**](#multiplicative-groups):
   Given a modulus $$m$$, a [generator](#group-generators) $$G$$, and an element $$K$$,
   it's hard to find the integer $$k$$ so that $$G^k =_m K$$.
@@ -7526,8 +7566,8 @@ this gives us the [linear one-way function](#linear-one-way-functions) we were a
 In this chapter, we'll study some of the best
 [known algorithms for solving the discrete-logarithm problem](https://en.wikipedia.org/wiki/Discrete_logarithm#Algorithms).
 This allows us to understand why the number of steps we need to solve a discrete-logarithm problem
-is [at most the square root](#pollards-rho-algorithm) of [the largest prime factor](#pohlig-hellman-algorithm)
-of the [generator's order](#element-order),
+is [in the order](https://en.wikipedia.org/wiki/Big_O_notation) of [the square root](#pollards-rho-algorithm)
+of [the largest prime factor](#pohlig-hellman-algorithm) of the [generator's order](#element-order),
 and why it's [even less](#index-calculus-algorithm) in the case of multiplicative groups.
 Before we do so, we'll revisit how an element of a group can be [repeated efficiently](#fast-repetitions).
 This gives you a better feeling for why one direction of the linear one-way function is so much easier than the other.
@@ -7536,7 +7576,7 @@ This gives you a better feeling for why one direction of the linear one-way func
 ### Repetition revisited
 
 As explained [earlier](#fast-repetitions),
-repeating a [generator](#group-generators) $$G$$ $$k$$ times takes just $$\log_2(k)$$ steps,
+repeating a [generator $$G$$](#group-generators) $$k$$ times takes just $$\log_2(k)$$ steps,
 which corresponds to the [bit-length](https://en.wikipedia.org/wiki/Bit-length) of $$k$$.
 The algorithm below uses the fact that one can "rebuild" a binary number by doubling, thereby shifting the current
 [binary digits (bits)](https://en.wikipedia.org/wiki/Bit) one to the left, and by adding one, thereby setting the
@@ -7663,14 +7703,14 @@ The search for the input $$k$$ so that you get the output $$K$$ can be visualize
 <figure markdown="block">
 {% include_relative generated/dlp-exhaustive-search-additive.embedded.svg %}
 <figcaption markdown="span">
-You count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
+You simply count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
 </figcaption>
 </figure>
 
 <figure markdown="block">
 {% include_relative generated/dlp-exhaustive-search-multiplicative.embedded.svg %}
 <figcaption markdown="span">
-You count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
+You simply count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
 </figcaption>
 </figure>
 
@@ -7714,7 +7754,7 @@ you can set the output $$K$$ to an element which isn't in the subgroup generated
 While [subgroup membership can be tested easily in cyclic groups](#subgroup-membership-test-in-cyclic-groups),
 I didn't implement this check because
 there is no simple formula to determine whether an [elliptic curve](#elliptic-curves) is cyclic
-and I had to handle this case anyway for non-cyclic groups.
+and I had to handle failures anyway for non-cyclic groups.
 
 </details>
 
@@ -7740,7 +7780,8 @@ Proof:
   As proven [earlier](#all-subgroups-of-cyclic-groups-are-cyclic),
   a cyclic group has a single subgroup of order $$\lvert K \rvert$$.
   Thus, $$⟨K⟩ = ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$.
-  Since $$K \in ⟨G⟩$$, there exists an integer $$k$$ so that $$kG = K$$.
+  Since $$K \in ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$,
+  there exists an integer $$k$$ so that $$kG = K$$.
 
 </div>
 
@@ -7759,7 +7800,8 @@ Proof:
   As proven [earlier](#all-subgroups-of-cyclic-groups-are-cyclic),
   a cyclic group has a single subgroup of order $$\lvert K \rvert$$.
   Thus, $$⟨K⟩ = ⟨G^{\lvert G \rvert / \lvert K \rvert}⟩$$.
-  Since $$K \in ⟨G⟩$$, there exists an integer $$k$$ so that $$G^k = K$$.
+  Since $$K \in ⟨G^{\lvert G \rvert / \lvert K \rvert}⟩$$,
+  there exists an integer $$k$$ so that $$G^k = K$$.
 
 </div>
 
@@ -7770,22 +7812,26 @@ Proof:
 
 ### Baby-step giant-step
 
-We can increase the landing area of [exhaustive search](#exhaustive-search) by computing some neighbors of $$K$$,
-which allows us to make bigger steps:
+[Exhaustive search](#exhaustive-search) is very slow because it takes steps of size $$1$$.
+If we take larger steps of size $$s$$ by repeatedly multiplying the current element by $$G^s$$ instead of $$G$$
+([or](#notation) by adding $$sG$$ instead of $$G$$),
+we jump over $$K$$ if $$k - 1$$ is not a multiple of $$s$$.
+Instead of checking after each step whether we have reached $$K$$,
+we can compute $$s - 1$$ neighbors of $$K$$ and check whether we have reached one of them:
 
 <div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
 
 <figure markdown="block">
 {% include_relative generated/dlp-giant-step-right-additive.embedded.svg %}
 <figcaption markdown="span">
-If the landing area consists of $$s$$ elements, we can take $$s$$ steps at once without missing it.
+If the landing area consists of $$s$$ elements, we can take steps of size $$s$$ without missing it.
 </figcaption>
 </figure>
 
 <figure markdown="block">
 {% include_relative generated/dlp-giant-step-right-multiplicative.embedded.svg %}
 <figcaption markdown="span">
-If the landing area consists of $$s$$ elements, we can take $$s$$ steps at once without missing it.
+If the landing area consists of $$s$$ elements, we can take steps of size $$s$$ without missing it.
 </figcaption>
 </figure>
 
@@ -7836,25 +7882,40 @@ If you're just interested in the result, you can use the [next algorithm](#polla
 
 ### Pollard's rho algorithm
 
-The goal of [Pollard's rho algorithm](https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm_for_logarithms),
+In order to achieve an expected [running time](https://en.wikipedia.org/wiki/Time_complexity)
+of $$\sqrt{n}$$ with [baby-step giant-step](#baby-step-giant-step),
+you need to store $$\sqrt{n}$$ elements,
+which requires an impossible amount of memory for practical values of $$n$$.
+For example, if $$n$$ is a [256-bit number](#bits-of-security),
+you'd have to store 2<sup>128</sup> · 256 [bits](https://en.wikipedia.org/wiki/Bit)
+≈ 10<sup>40</sup> [bytes](https://en.wikipedia.org/wiki/Byte)
+in the case of [elliptic curves](#elliptic-curves),
+ignoring the overhead for the indexes and the [data structure](https://en.wikipedia.org/wiki/Data_structure).
+For comparison, the [global data storage capacity](https://www.statista.com/statistics/1185900/worldwide-datasphere-storage-capacity-installed-base/) is around 10<sup>22</sup> bytes in 2022.
+[Pollard's rho algorithm](https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm_for_logarithms),
 which is named after [John M. Pollard](https://en.wikipedia.org/wiki/John_Pollard_(mathematician)) (born in 1941),
-is to find integers $$a_1$$, $$a_2$$, $$b_1$$, and $$b_2$$ so that:
+achieves the same expected running time of $$\sqrt{n}$$ while storing only 2 elements and 4 indexes
+by exploiting the [birthday paradox](#birthday-paradox).
+
+Pollard's rho algorithm uses the following, [non-cryptographic](/email/#cryptographic-hash-functions)
+["hash" function](https://en.wikipedia.org/wiki/Hash_function),
+which maps the integers $$a$$ and $$b$$ to an element $$C$$:
 
 <div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
 
 $$
-a_1G + b_1K = a_2G + b_2K \textsf{, where } b_1 ≠_n b_2 \textsf{ and } n = \href{#element-order}{\lvert G \rvert}
+h(a, b) = aG + bK = C
 $$
 
 $$
-G^{a_1} \cdot K^{b_1} = G^{a_2} \cdot K^{b_2} \textsf{, where } b_1 ≠_n b_2 \textsf{ and } n = \href{#element-order}{\lvert G \rvert}
+h(a, b) = G^a \cdot K^b = C
 $$
 
 </div>
 
-Once we've found such integers, we can solve for $$k$$
-(see the [box below](#solving-modular-equations) for how to do this)
-in the [repetition ring](#repetition-ring) of the [generator $$G$$](#group-generators):
+Once we find a [collision](https://en.wikipedia.org/wiki/Hash_collision),
+i.e. inputs $$(a_1, b_1)$$ and $$(a_2, b_2)$$ where $$b_1 ≠_n b_2$$ so that $$h(a_1, b_1) = h(a_2, b_2)$$,
+we can solve for $$k$$ as follows:
 
 <div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
 
@@ -7863,7 +7924,7 @@ $$
 a_1G + b_1K &= a_2G + b_2K \\
 b_1K - b_2K &= a_2G - a_1G \\
 (b_1 - b_2)kG &= (a_2 - a_1)G \\
-(b_1 - b_2)k &=_n a_2 - a_1 \\
+(b_1 - b_2)k &=_n a_2 - a_1
 \end{aligned}
 $$
 
@@ -7872,17 +7933,30 @@ $$
 G^{a_1} \cdot K^{b_1} &= G^{a_2} \cdot K^{b_2} \\
 K^{b_1} / K^{b_2} &= G^{a_2} / G^{a_1} \\
 (G^k)^{b_1 - b_2} &= G^{a_2 - a_1} \\
-(b_1 - b_2)k &=_n a_2 - a_1 \\
+(b_1 - b_2)k &=_n a_2 - a_1
 \end{aligned}
 $$
 
 </div>
 
-So how can we find such integers $$a_1$$, $$a_2$$, $$b_1$$, and $$b_2$$?
-First, we define a [sequence](https://en.wikipedia.org/wiki/Sequence) of elements $$S_i$$
-with a function such as the following:
+If $$b_1 - b_2$$ is coprime with [$$G$$'s order](#element-order) $$n$$,
+it has a [multiplicative inverse](#multiplicative-inverse-revisited),
+and thus $$k =_n (a_2 - a_1) \cdot (b_1 - b_2)^{-1}$$.
+As we'll see in the [next section](#pohlig-hellman-algorithm),
+we typically run Pollard's rho algorithm only if $$n$$ is prime,
+in which case $$b_1 - b_2 ≠_n 0$$ is guaranteed to be coprime with $$n$$.
+If $$b_1 - b_2$$ is not coprime with $$n$$,
+there are [several solutions](#least-common-multiple-and-0) for $$k$$,
+and we have to test one after the other in order to find the discrete logarithm of $$K$$.
+Depending on the [prime factorization](#prime-factorization) of $$n$$,
+there can be quite a lot of solutions to check, unfortunately (see [below](#solving-modular-equations)).
+
+We can use insights from [graph theory](https://en.wikipedia.org/wiki/Graph_theory) to find a collision.
+First, we define a [sequence](https://en.wikipedia.org/wiki/Sequence) of elements $$S_i$$ with the following function:
 
 <div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+
+<figure class="mt-0 mb-3" markdown="block">
 
 $$
 S_{i+1} = f(S_i) = \begin{cases}
@@ -7891,6 +7965,14 @@ S_i + K &\text{if } (S_i)_x =_3 1 \text{,} \\
 S_i + S_i &\text{if } (S_i)_x =_3 2 \text{.}
 \end{cases}
 $$
+
+<figcaption markdown="span" style="max-width: 400px;">
+
+In the case of [elliptic curves](#elliptic-curves),
+we consider just the [$$x$$-coordinate](#point-addition) of each point when partitioning the elements into three sets.
+
+</figcaption>
+</figure>
 
 $$
 S_{i+1} = f(S_i) = \begin{cases}
@@ -7929,26 +8011,40 @@ these elements are usually called the [tortoise](https://en.wikipedia.org/wiki/T
 and the [hare](https://en.wikipedia.org/wiki/Hare).
 They both start at $$S_1$$, but whenever the tortoise makes one step, the hare makes two.
 As a consequence, the hare is ahead until the tortoise enters the cycle as well.
-Since the hare cannot jump over the tortoise
-(if the hare is one element behind the tortoise, they will be at the same element after the next iteration),
-the hare then catches up to the tortoise until they meet again.
-All that is left to do is to keep track of the integers $$a$$ and $$b$$ so that $$S_i = G^a \cdot K^b$$
-(respectively $$S_i = aG + bK$$) for both the tortoise and the hare:
-Starting with the identity element, where $$a =_n 0$$ and $$b =_n 0$$,
-you add $$1$$ to $$a$$ if $$S_i =_3 0$$, add $$1$$ to $$b$$ if $$S_i =_3 1$$,
+Since the hare cannot jump over the tortoise as the distance between them decreases by one in each iteration,
+the hare catches up to the tortoise until they meet again:
+
+<figure markdown="block">
+{% include_relative generated/pollards-rho-chase.embedded.svg %}
+<figcaption markdown="span" style="max-width: 420px;">
+If the hare (in red) is one element behind the tortoise (in orange),
+they'll be at the same element (in green) after the next iteration.
+</figcaption>
+</figure>
+
+Once the tortoise and the hare meet again, we have the collision that we were looking for.
+In order to determine $$k$$, though,
+we must represent each element of the sequence as $$h(a, b)$$ for some integers $$a$$ and $$b$$.
+The sequence function $$f$$ has been chosen such that it's easy to keep track of $$a$$ and $$b$$:
+After starting with $$S_1 = h(a, b) = G^a \cdot K^b$$ ([or](#notation) $$S_1 = aG + bK$$)
+for some initial values of $$a$$ and $$b$$,
+you add $$1$$ to $$a$$ if $$S_i =_3 0$$,
+add $$1$$ to $$b$$ if $$S_i =_3 1$$,
 and double both $$a$$ and $$b$$ if $$S_i =_3 2$$.
-Once the tortoise and the hare meet again, you get the equation at the beginning of this section.
-In the rare case that $$b_1 =_n b_2$$, you can start the sequence at a different $$S_1$$
-by choosing the initial $$a$$ and $$b$$ randomly instead of setting them both to $$0$$.
-(I implemented this only in the [Pohlig-Hellman algorithm](#pohlig-hellman-algorithm) below.)
+Using the [subscript](https://en.wikipedia.org/wiki/Subscript_and_superscript) $$1$$
+to denote the values of the tortoise and the subcript $$2$$ to denote the values of the hare,
+it's very unlikely that $$b_1 =_n b_2$$ because the hare travelled further than the tortoise.
+In the rare case that $$b_1 =_n b_2$$, you can start over with different initial values for $$a$$ and $$b$$.
+I implemented this only for the [Pohlig-Hellman algorithm](#pohlig-hellman-algorithm) in the next section.
+In order to have a deterministic outcome, the tool below sets $$a$$ and $$b$$ to $$0$$ initially.
 
 The following tool implements Pollard's rho algorithm.
 It visualizes the chase of the tortoise and the hare if $$G$$'s order $$n ≤ 400$$ and there is a delay.
 Since (without the visualization) you have to store only the current element $$C$$
 with the corresponding integers $$a$$ and $$b$$ for both the tortoise $$\square_1$$ and the hare $$\square_2$$,
 the algorithm requires only a very small and fixed amount of memory.
-As we'll see in the [second box](#birthday-paradox),
-it requires on average only around $$\sqrt{n}$$ iterations until $$C_1 = C_2$$.
+As we'll see in&nbsp;the [second box](#birthday-paradox),
+it takes on average only around $$\sqrt{n}$$ iterations until $$C_1 = C_2$$.
 Therefore, Pollard's rho algorithm has the same expected running time as [baby-step giant-step](#baby-step-giant-step)
 and is usually preferable to the latter due to its minimal memory consumption.
 
@@ -7963,16 +8059,11 @@ Solving modular equations
 </summary>
 
 How can we solve an equation of the form $$a \cdot x =_m c$$ for $$x$$?
-If $$a$$ has a [multiplicative inverse](#multiplicative-inverse-revisited) modulo $$m$$,
-<!-- --> $$x =_m c \cdot a^{-1}$$.
-If $$m$$ is prime, a multiplicative inverse exists for every $$a ≠_m 0$$.
-As we'll see in the [next section](#pohlig-hellman-algorithm),
-we have to run [Pollard's rho algorithm](#pollards-rho-algorithm) only for generators of prime order.
-In the meantime, I want to explain how to solve this equation
-if $$a$$ isn't coprime with the modulus $$m$$ and thus has no multiplicative inverse.
-As we saw [earlier](#least-common-multiple-and-0), $$a \cdot x =_m c$$
+If $$a$$ has a [multiplicative inverse](#multiplicative-inverse-revisited) modulo $$m$$, $$x =_m c \cdot a^{-1}$$.
+If $$a$$ has no multiplicative inverse, $$a \cdot x =_m c$$
 has $$d = \operatorname{\href{#greatest-common-divisor}{gcd}}(a, m)$$ solutions in [$$\mathbb{Z}_m$$](#integers-modulo-m)
-if $$c$$ is a multiple of $$d$$ and [no solution otherwise](#bezouts-identity).
+if $$c$$ is a multiple of $$d$$ and [no solution otherwise](#bezouts-identity)
+as we saw [earlier](#least-common-multiple-and-0).
 Using the [extended Euclidean algorithm](#extended-euclidean-algorithm),
 we can find integers $$b$$ and $$n$$ so that $$d = a \cdot b + m \cdot n$$.
 After multiplying both sides by $$c / d$$, we get $$c = a \cdot (b \cdot c / d) + m \cdot (n \cdot c / d)$$.
@@ -7983,11 +8074,6 @@ by adding multiples of the offset $$o = m / d$$ to $$x$$.
 The following tool does all of that for you:
 
 <div id="tool-integer-modular-equation"></div>
-
-In [Pollard's rho algorithm](#pollards-rho-algorithm),
-we then just have to test all the solutions which we obtained for $$k$$.
-Depending on the [prime factorization](#prime-factorization) of $$G$$'s [order](#element-order) $$n$$,
-there can be quite a lot of solutions to check, unfortunately.
 
 </details>
 
@@ -8112,7 +8198,7 @@ and the square root (sqrt) of $$G$$'s order $$n$$ below the problem statement.
 The above [graphic depicting $$\rho$$](#figure-pollards-rho-partial)
 showed only the elements in the sequence defined by the starting element and $$f(S_i)$$.
 However, $$f(S_i)$$ maps any of the $$n$$ elements to a somewhat random other element.
-No matter where you start, you get a first repetition and thus a loop after around $$1.25 \sqrt{n}$$ steps on average.
+No matter where you start, you get a first repetition and thus a cycle after around $$1.25 \sqrt{n}$$ steps on average.
 The complete picture looks like this:
 
 <figure markdown="block">
@@ -8133,25 +8219,33 @@ We can apply [the same idea](#pollards-rho-algorithm) to [integer factorization]
 Confusingly, this algorithm is also called
 [Pollard's rho algorithm](https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm).
 Given a composite number $$n$$ and a [divisor](#divisor) $$d$$ of $$n$$,
-the sequence of integers $$s_i$$ defined by a somewhat random function $$f(x)$$, such as $$f(x) =_d x^2 + 1$$,
-where $$s_{i+1} = f(s_i)$$, repeats [on average after around $$\sqrt{d}$$ iterations](#birthday-paradox)
-as there are only $$d$$ integers between $$0$$ and $$d - 1$$.
+we can use the function $$f(x) =_d x^2 + 1$$ to define a sequence of integers $$s_i$$, where $$s_{i+1} = f(s_i)$$.
+Since we compute $$f(x)$$ [modulo](#modulo-operation) $$d$$, this function evaluates to at most $$d$$ different values.
+If the sequence generated by $$f(x)$$ is random enough,
+it revisits an already visited integer after around $$\sqrt{d}$$ iterations on average
+as we saw in the [previous box](#birthday-paradox).
+We can use [Floyd's cycle-finding algorithm](https://en.wikipedia.org/wiki/Cycle_detection#Floyd.27s_Tortoise_and_Hare)
+to find two integers $$a$$ and $$b$$ so that $$a =_d b$$.
+If $$a - b$$ is a multiple of $$d$$,
+then so is $$\operatorname{\href{#greatest-common-divisor}{gcd}}(n, \lvert a - b \rvert)$$
+because $$d$$ is a factor of $$n$$.
 Now the problem is that we don't know $$d$$, otherwise we would have already found a factorization of $$n$$.
-If $$a$$ denotes the tortoise and $$b$$ denotes the hare of our
-[cycle-finding algorithm](https://en.wikipedia.org/wiki/Cycle_detection#Floyd.27s_Tortoise_and_Hare),
-<!-- --> $$a =_d b$$ [if and only if](#if-and-only-if) $$\lvert a - b \rvert$$ is a multiple of $$d$$.
-If $$\lvert a - b \rvert$$ is a multiple of $$d$$,
-then $$\operatorname{\href{#greatest-common-divisor}{gcd}}(n, \lvert a - b \rvert) = c \cdot d$$
-for some integer $$c ≥ 1$$.
-Therefore, we can compute $$f(x)$$ [modulo](#modulo-operation) $$n$$ instead of $$d$$ and still detect
-the same repetition by computing $$\operatorname{gcd}(n, \lvert a - b \rvert)$$ after every iteration.
-This results in the following algorithm:
+Instead of computing $$f(x)$$ modulo $$d$$ and checking whether $$a =_d b$$,
+we can compute $$x^2 + 1$$ modulo $$n$$ and check whether $$\operatorname{gcd}(n, \lvert a - b \rvert) > 1$$.
+Since we don't have to reduce $$f(x)$$ modulo any integer and the former condition still implies the latter,
+the latter algorithm takes at most as many iterations of Floyd's cycle-finding algorithm as the former.
+If $$\operatorname{gcd}(n, \lvert a - b \rvert) > 1$$ and $$a ≠_n b$$, $$\operatorname{gcd}(n, \lvert a - b \rvert)$$
+is a [non-trivial divisor](https://en.wikipedia.org/wiki/Divisor#General) of $$n$$.
+Since this algorithm no longer depends on $$d$$ and the above reasoning applies to all divisors of $$n$$,
+the number of iterations it takes to find a factor of $$n$$ is expected
+to be around the square root of the smallest prime factor of $$n$$.
+We can implement Pollard's rho algorithm in [pseudocode](https://en.wikipedia.org/wiki/Pseudocode) as follows:
 
 $$
 \text{let } o := 1 \\
 \text{function } f(x, n)\ \{ \\
 \quad \text{return } (x^2 + o)\ \href{#modulo-operation}{\%}\ n \\
-\} \\[14pt]
+\} \\[16pt]
 \text{function } factorize(n)\ \{ \\
 \quad \text{let } a := 2 \\
 \quad \text{let } b := 2 \\
@@ -8182,23 +8276,27 @@ In this case, you can increment the offset $$o$$ in the function $$f(x)$$ and tr
 If the input $$n = 4$$, neither incrementing $$o$$ nor starting from a different value makes the algorithm succeed.
 For this reason, it's common to halve the input $$n$$ until it is odd
 and then to run Pollard's rho factorization algorithm from there.
-The algorithm can be optimized in two ways:
+
+Pollard's rho factorization algorithm can be optimized in the following two ways:
 - Use [Brent's cycle-finding algorithm](https://en.wikipedia.org/wiki/Cycle_detection#Brent.27s_algorithm),
   named after [Richard Peirce Brent](https://en.wikipedia.org/wiki/Richard_P._Brent) (born in 1946):
   Instead of moving both the tortoise and the hare along the sequence in each iteration,
   you move only the hare one step ahead, replacing three evaluations of $$f(x)$$ with one.
   After every power of $$2$$ steps, you set the tortoise to the current value of the hare.
   The tortoise then acts as a waypoint so that it can stop the hare when it passes by.
+  While Brent's cycle-finding algorithm evaluates $$f(x)$$ as often as Floyd's one does in the worst case,
+  [Brent showed](https://maths-people.anu.edu.au/~brent/pd/rpb051i.pdf)
+  that his algorithm requires 36% fewer evaluations of $$f(x)$$ on average.
 - [Combine several differences](https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Variants)
   before running the [Euclidean algorithm](#euclidean-algorithm):
   Instead of computing the [greatest common divisor](#greatest-common-divisor) in every iteration,
   you compute the product of the differences $$\lvert a - b \rvert$$ modulo $$n$$ over several iterations
   and run the Euclidean algorithm only once in a while.
   This works because if $$\operatorname{gcd}(n, x) > 1$$,
-  then $$\operatorname{gcd}(n, x \cdot y) > 1$$ for any $$x$$ and $$y$$.
+  then $$\operatorname{gcd}(n, x \cdot y) > 1$$ for any integers $$x$$ and $$y$$.
 
 The following tool implements Pollard's rho factorization algorithm.
-Unlike [my implementation of trial division above](#tool-integer-factorization-trial-division),
+Unlike [my implementation of trial division](#tool-integer-factorization-trial-division) above,
 it checks whether the remaining factor is prime.
 Its [running time](https://en.wikipedia.org/wiki/Time_complexity)
 is thus [in the order of](https://en.wikipedia.org/wiki/Big_O_notation)
@@ -8219,11 +8317,11 @@ I just didn't implement this because you rarely encounter them.)
 The [Pohlig-Hellman algorithm](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm),
 which is named after [Stephen Pohlig](https://en.wikipedia.org/wiki/Stephen_Pohlig) (1953 − 2017)
 and [Martin Edward Hellman](https://en.wikipedia.org/wiki/Martin_Hellman) (born in 1945),
-is a technique for reducing the [discrete-logarithm problem](#discrete-logarithm-problem)
-in large [groups](#finite-groups) of non-prime [order](#group-order)
+reduces the [discrete-logarithm problem](#discrete-logarithm-problem)
+in a large [group](#finite-groups) of non-prime [order](#group-order)
 to several discrete-logarithm problems in smaller groups, which are easier to solve
 since the [running time](https://en.wikipedia.org/wiki/Time_complexity)
-of the above [DL algorithms](#dl-algorithms) depend on the size of the group.
+of the above [DL algorithms](#dl-algorithms) depend only on the size of the group.
 Given a [generator](#group-generators) $$G$$, its [order](#element-order) $$n$$,
 and an output $$K$$ of the [linear one-way function](#linear-one-way-functions),
 the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
@@ -8239,43 +8337,69 @@ the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
    1. Compute $$G_i := (n/p_i^{e_i})G$$.
       Since the order of $$G$$ is $$n$$, the order of $$G_i$$ is $$p_i^{e_i}$$.
    2. Compute $$K_i := (n/p_i^{e_i})K$$.
-      Since $$kG = K$$ for some integer $$k$$, $$(n/p_i^{e_i})(kG) = (n/p_i^{e_i})K$$, and thus $$kG_i = K_i$$.
-      Our goal is now to determine a $$k_i$$ so that $$k_iG_i = K_i$$.
-      Since the order of $$G_i$$ is $$p_i^{e_i}$$, $$k_i \in \{0, …, p_i^{e_i} - 1\}$$ and $$k =_{p_i^{e_i}} k_i$$.
-      ($$k$$ is a solution to $$kG_i = K_i$$, but $$k_i$$ is not necessarily a solution to $$k_iG = K$$.)
+      Since $$kG = K$$, we have that $$K_i = (n/p_i^{e_i})kG = k(n/p_i^{e_i})G = kG_i$$,
+      which means that the discrete logarithm of $$K$$ to the base $$G$$
+      is also a discrete logarithm of $$K_i$$ to the base $$G_i$$.
+      As we saw [earlier](#repetition-ring), a discrete logarithm is unique only up to the order of its base.
+      Therefore, the discrete logarithm of $$K_i$$ to the base $$G_i$$, which I denote as $$k_i$$,
+      is not necessarily a discrete logarithm of $$K$$ to the base $$G$$
+      as $$k_i \in \{0, …, p_i^{e_i} - 1\}$$, whereas $$k \in \{0, …, n - 1\}$$.
+      A discrete logarithm is unique up to the order of its base, though, which implies that $$k =_{p_i^{e_i}} k_i$$.
       <div class="mt-2" markdown="span">
-      **Idea**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
+      Instead of determining $$k$$ so that $$kG = K$$ in the original group of order $$n$$,
+      we can thus determine $$k_i$$ so that $$k_iG_i = K_i$$ in&nbsp;the [subgroup](#subgroups)
+      [generated](#group-generators) by $$G_i$$ of order $$p_i^{e_i}$$, which improves the expected running time
+      from $$\sqrt{n}$$ to $$\sqrt{p_i^{e_i}}$$ when using [Pollard's rho algorithm](#pollards-rho-algorithm) for this.
+      Depending on the prime factorization of $$n$$, this can already be a big improvement.
+      The following insight allows us to determine $$k_i$$ in the steps 2.3 to 2.5 below
+      without ever having to compute a discrete logarithm in a group larger than $$p_i$$,
+      which improves the expected running time even further to $$\sqrt{p_i}$$.
+      If you're not interested in this, you can continue with the step 3 at the bottom of this box.
+      </div>
+      <div class="mt-2" markdown="span">
+      **Insight**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
       <!-- --> $$k_i = d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$,
       where each digit $$d_j \in \{0, …, p_i - 1\}$$.
-      Now, $$k_iG_i = (d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1})G_i = d_0G_i + d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i$$.
+      Now, $$k_iG_i = (d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1})G_i
+      = \htmlClass{color-red}{d_0G_i + d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i}$$.
       When we multiply both sides by $$p_i^{e_i-1}$$,
-      we get $$p_i^{e_i-1}(d_0G_i) = d_0(\htmlClass{color-purple}{p_i^{e_i-1}G_i}) = p_i^{e_i-1}K_i$$
-      because for all other factors, $$p_i^{e_i-1}(d_jp_i^{1+?}G_i) = d_j(p_i^{e_i+?}G_i) = d_jO = O$$.
-      Once we have determined $$d_0$$ in the group of order $$p_i$$ with one of the above
-      [DL algorithms](#dl-algorithms), we can take $$d_0G_i$$ to the other side of the equation:
+      we get $$p_i^{e_i-1}(d_0G_i) = d_0(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
+      = \htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
+      because all the other terms vanish as $$p_i^{e_i-1}(d_jp_i^{1+?}G_i) = d_j(p_i^{e_i+?}G_i) = d_jO = O$$
+      due to [Lagrange's theorem](#lagrange-consequences).
+      Once we have determined $$d_0$$ as the discrete logarithm of $$\htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
+      to the base $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ of order $$p_i$$ with one of the above
+      [DL algorithms](#dl-algorithms), we can take $$d_0G_i$$ to the other side of the equation in red:
       <!-- --> $$d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i - \htmlClass{color-pink}{d_0}G_i$$.
       When we multiply both sides by $$p_i^{e_i-2}$$,
-      we get $$p_i^{e_i-2}(d_1p_iG_i) = d_1(\htmlClass{color-purple}{p_i^{e_i-1}G_i}) = p_i^{e_i-2}(K_i - d_0G_i)$$
-      because all the other factors vanish again.
-      After determining $$d_1$$, we move $$d_1p_iG_i$$ also to the other side of the equation,
-      which gives us $$K_i - d_0G_i - d_1p_iG_i = K_i - (\htmlClass{color-pink}{d_0 + d_1p_i})G_i$$.
-      Continuing like this, we can determine all the digits $$d_j$$
-      without ever having to solve the discrete-logarithm problem in a group larger than $$p_i$$.
+      we get $$p_i^{e_i-2}(d_1p_iG_i) = d_1(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
+      = \htmlClass{color-orange}{p_i^{e_i-2}(K_i - d_0G_i)}$$
+      because all the other terms vanish again.
+      After determining $$d_1$$ in the same group of order $$p_i$$ as before,
+      we move $$d_1p_iG_i$$ also to the other side of the equation,
+      which gives us $$d_2p_i^2G_i + … + d_{e_i-1}p_i^{e_i-1}G_i
+      = K_i - d_0G_i - d_1p_iG_i = K_i - (\htmlClass{color-pink}{d_0 + d_1p_i})G_i$$.
+      By continuing like this, we can determine all the digits $$d_j$$ of $$k_i$$
+      without ever having to solve a discrete-logarithm problem in a group larger than $$p_i$$.
+      We implement this as follows:
       </div>
    3. Compute $$H_i := \htmlClass{color-purple}{p_i^{e_i-1}G_i}$$.
       Since the order of $$G_i$$ is $$p_i^{e_i}$$, the order of $$H_i$$ is $$p_i$$.
-      As indicated with the color, each digit $$d_j$$ is determined in the group generated by $$H_i$$.
+      I colored the term $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ in the explanation above
+      so that it's easier for you to see that each digit $$d_j$$ is determined in the group generated by $$H_i$$.
    4. For $$j$$ from $$0$$ to $$e_i - 1$$, do the following:
       1. If $$j = 0$$, set $$s_j := 0$$.
          Otherwise, set $$s_j := \htmlClass{color-pink}{s_{j-1} + d_{j-1} \cdot p_i^{j-1}}$$.
-         As indicated with the color, $$s_j$$ is the sum of all the digits that we have found so far,
+         <!-- --> $$s_j$$ is the sum of all the digits that we have found so far,
          where each digit is multiplied by the value of its [position](https://en.wikipedia.org/wiki/Positional_notation).
-      2. Compute $$D_j := p_i^{e_i-1-j}(K_i - s_jG_i)$$.
+         I colored this partial sum in the explanation above so that it's easier for you to see where it's being used.
+      2. Compute $$D_j := \htmlClass{color-orange}{p_i^{e_i-1-j}(K_i - s_jG_i)}$$.
+         I also colored the occurrences of this expression in the explanation above.
       3. Find $$d_j$$ so that $$d_jH_i = D_j$$ with one of the above [DL algorithms](#dl-algorithms).
    5. Compute $$k_i := d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$.
       (Alternatively, set $$k_i := s_{e_i-1} + d_{e_i-1}p_i^{e_i-1}$$.)
 3. Use the [Chinese remainder theorem](#chinese-remainder-theorem) to solve
-   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$.
+   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$ efficiently.
 4. Return $$k$$ as the solution to $$kG = K$$.
 
 <!-- -->
@@ -8289,43 +8413,70 @@ the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
    1. Compute $$G_i := G^{n/p_i^{e_i}}$$.
       Since the order of $$G$$ is $$n$$, the order of $$G_i$$ is $$p_i^{e_i}$$.
    2. Compute $$K_i := K^{n/p_i^{e_i}}$$.
-      Since $$G^k = K$$ for some integer $$k$$, $$(G^k)^{n/p_i^{e_i}} = K^{n/p_i^{e_i}}$$, and thus $$G_i^k = K_i$$.
-      Our goal is now to determine a $$k_i$$ so that $$G_i^{k_i} = K_i$$.
-      Since the order of $$G_i$$ is $$p_i^{e_i}$$, $$k_i \in \{0, …, p_i^{e_i} - 1\}$$ and $$k =_{p_i^{e_i}} k_i$$.
-      ($$k$$ is a solution to $$G_i^k = K_i$$, but $$k_i$$ is not necessarily a solution to $$G^{k_i} = K$$.)
+      Since $$G^k = K$$, we have that $$K_i = (G^k)^{n/p_i^{e_i}} = (G^{n/p_i^{e_i}})^k = G_i^k$$,
+      which means that the discrete logarithm of $$K$$ to the base $$G$$
+      is also a discrete logarithm of $$K_i$$ to the base $$G_i$$.
+      As we saw [earlier](#repetition-ring), a discrete logarithm is unique only up to the order of its base.
+      Therefore, the discrete logarithm of $$K_i$$ to the base $$G_i$$, which I denote as $$k_i$$,
+      is not necessarily a discrete logarithm of $$K$$ to the base $$G$$
+      as $$k_i \in \{0, …, p_i^{e_i} - 1\}$$, whereas $$k \in \{0, …, n - 1\}$$.
+      A discrete logarithm is unique up to the order of its base, though, which implies that $$k =_{p_i^{e_i}} k_i$$.
       <div class="mt-2" markdown="span">
-      **Idea**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
+      Instead of determining $$k$$ so that $$G^k = K$$ in the original group of order $$n$$,
+      we can thus determine $$k_i$$ so that $$G_i^{k_i} = K_i$$ in the [subgroup](#subgroups)
+      [generated](#group-generators) by $$G_i$$ of order $$p_i^{e_i}$$, which improves the expected running time
+      from $$\sqrt{n}$$ to $$\sqrt{p_i^{e_i}}$$ when using [Pollard's rho algorithm](#pollards-rho-algorithm) for this.
+      Depending on the prime factorization of $$n$$, this can already be a big improvement.
+      The following insight allows us to determine $$k_i$$ in the steps 2.3 to 2.5 below
+      without ever having to compute a discrete logarithm in a group larger than $$p_i$$,
+      which improves the expected running time even further to $$\sqrt{p_i}$$.
+      If you're not interested in this, you can continue with the step 3 at the bottom of this box.
+      </div>
+      <div class="mt-2" markdown="span">
+      **Insight**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
       <!-- --> $$k_i = d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$,
       where each digit $$d_j \in \{0, …, p_i - 1\}$$.
-      Now, $$G_i^{k_i} = G_i^{d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1}} = G_i^{d_0} \cdot G_i^{d_1p_i} \cdot … \cdot G_i^{d_{e_i-1}p_i^{e_i-1}} = K_i$$.
+      Now, $$G_i^{k_i} = G_i^{d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1}}
+      = \htmlClass{color-red}{G_i^{d_0} \cdot G_i^{d_1p_i} \cdot … \cdot G_i^{d_{e_i-1}p_i^{e_i-1}} = K_i}$$.
       When we raise both sides to the power of $$p_i^{e_i-1}$$,
-      we get $$(G_i^{d_0})^{p_i^{e_i-1}} = (\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}})^{d_0} = K_i^{p_i^{e_i-1}}$$
-      because for all other factors, $$(G_i^{d_jp_i^{1+?}})^{p_i^{e_i-1}} = (G_i^{p_i^{e_i+?}})^{d_j} = I^{d_j} = I$$.
-      Once we have determined $$d_0$$ in the group of order $$p_i$$ with one of the above
-      [DL algorithms](#dl-algorithms), we can take $$G_i^{d_0}$$ to the other side of the equation:
+      we get $$(G_i^{d_0})^{p_i^{e_i-1}} = (\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}})^{d_0}
+      = \htmlClass{color-orange}{K_i^{p_i^{e_i-1}}}$$
+      because all the other factors vanish
+      as $$(G_i^{d_jp_i^{1+?}})^{p_i^{e_i-1}} = (G_i^{p_i^{e_i+?}})^{d_j} = I^{d_j} = I$$
+      due to [Lagrange's theorem](#lagrange-consequences).
+      Once we have determined $$d_0$$ as the discrete logarithm of $$\htmlClass{color-orange}{K_i^{p_i^{e_i-1}}}$$
+      to the base $$\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}}$$ of order $$p_i$$ with one of the above
+      [DL algorithms](#dl-algorithms), we can take $$G_i^{d_0}$$ to the other side of the equation in red:
       <!-- --> $$G_i^{d_1p_i} \cdot … \cdot G_i^{d_{e_i-1}p_i^{e_i-1}} = K_i / G_i^{\htmlClass{color-pink}{d_0}}$$.
       When we raise both sides to the power of $$p_i^{e_i-2}$$,
-      we get $$(G_i^{d_1p_i})^{p_i^{e_i-2}} = (\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}})^{d_1} = (K_i / G_i^{d_0})^{p_i^{e_i-2}}$$
+      we get $$(G_i^{d_1p_i})^{p_i^{e_i-2}} = (\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}})^{d_1}
+      = \htmlClass{color-orange}{(K_i / G_i^{d_0})^{p_i^{e_i-2}}}$$
       because all the other factors vanish again.
-      After determining $$d_1$$, we move $$G_i^{d_1p_i}$$ also to the other side of the equation,
-      which gives us $$K_i / G_i^{d_0} / G_i^{d_1p_i} = K_i / G_i^{\htmlClass{color-pink}{d_0 + d_1p_i}}$$.
-      Continuing like this, we can determine all the digits $$d_j$$
-      without ever having to solve the discrete-logarithm problem in a group larger than $$p_i$$.
+      After determining $$d_1$$ in the same group of order $$p_i$$ as before,
+      we move $$G_i^{d_1p_i}$$ also to the other side of the equation,
+      which gives us $$G_i^{d_2p_i^2} \cdot … \cdot G_i^{d_{e_i-1}p_i^{e_i-1}}
+      = K_i / G_i^{d_0} / G_i^{d_1p_i} = K_i / G_i^{\htmlClass{color-pink}{d_0 + d_1p_i}}$$.
+      By continuing like this, we can determine all the digits $$d_j$$ of $$k_i$$
+      without ever having to solve a discrete-logarithm problem in a group larger than $$p_i$$.
+      We implement this as follows:
       </div>
    3. Compute $$H_i := \htmlClass{color-purple}{G_i^{p_i^{e_i-1}}}$$.
       Since the order of $$G_i$$ is $$p_i^{e_i}$$, the order of $$H_i$$ is $$p_i$$.
-      As indicated with the color, each digit $$d_j$$ is determined in the group generated by $$H_i$$.
+      I colored the term $$\htmlClass{color-purple}{G_i^{p_i^{e_i-1}}}$$ in the explanation above
+      so that it's easier for you to see that each digit $$d_j$$ is determined in the group generated by $$H_i$$.
    4. For $$j$$ from $$0$$ to $$e_i - 1$$, do the following:
       1. If $$j = 0$$, set $$s_j := 0$$.
          Otherwise, set $$s_j := \htmlClass{color-pink}{s_{j-1} + d_{j-1} \cdot p_i^{j-1}}$$.
-         As indicated with the color, $$s_j$$ is the sum of all the digits that we have found so far,
+         <!-- --> $$s_j$$ is the sum of all the digits that we have found so far,
          where each digit is multiplied by the value of its [position](https://en.wikipedia.org/wiki/Positional_notation).
-      2. Compute $$D_j := (K_i / G_i^{s_j})^{p_i^{e_i-1-j}}$$.
+         I colored this partial sum in the explanation above so that it's easier for you to see where it's being used.
+      2. Compute $$D_j := \htmlClass{color-orange}{(K_i / G_i^{s_j})^{p_i^{e_i-1-j}}}$$.
+         I also colored the occurrences of this expression in the explanation above.
       3. Find $$d_j$$ so that $$H_i^{d_j} = D_j$$ with one of the above [DL algorithms](#dl-algorithms).
    5. Compute $$k_i := d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$.
       (Alternatively, set $$k_i := s_{e_i-1} + d_{e_i-1}p_i^{e_i-1}$$.)
 3. Use the [Chinese remainder theorem](#chinese-remainder-theorem) to solve
-   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$.
+   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$ efficiently.
 4. Return $$k$$ as the solution to $$G^k = K$$.
 
 </div>
@@ -8375,7 +8526,7 @@ Since it's difficult to factorize such a modulus $$m$$,
 only the attacker can determine the group's order $$\href{#eulers-totient-function}{\varphi}(m) = (p - 1) \cdot (q - 1)$$
 and use the [Pohlig-Hellman algorithm](#pohlig-hellman-algorithm) to compute discrete logarithms in this group.
 In order to avoid [such a backdoor](https://crypto.stackexchange.com/a/39268/76600),
-you have to insist that the other party shares the group's order and its prime factorization with you.
+you must insist that the other party shares the group's order and its prime factorization with you.
 
 </details>
 
@@ -8445,7 +8596,7 @@ and not all elements are invertible in the [ring](#commutative-rings) of [intege
 we usually need more than just $$l$$ equations to solve for the integers $$p_1$$ to $$p_l$$.
 Once we have found these values,
 we increment a counter $$c$$ starting from $$0$$ until $$K \cdot G^c =_m T$$ is $$S$$-smooth.
-(We [want to find](#dl-algorithms) an integer $$k$$ so that $$G^k =_m K$$.)
+[Remember](#dl-algorithms): We want to find an integer $$k$$ so that $$G^k =_m K$$.
 Given $$K \cdot G^c =_m T = P_1^{e_1} \cdot … \cdot P_l^{e_l} =_m (G^{p_1})^{e_1} \cdot … \cdot (G^{p_1})^{e_l}
 = G^{e_1 \cdot p_1 + … + e_l \cdot p_l}$$ for some new exponents $$e_1$$ to $$e_l$$,
 we can determine $$k$$ as follows:
@@ -8465,6 +8616,11 @@ which makes the index-calculus algorithm even faster.
 hence the name index [calculus](https://en.wikipedia.org/wiki/Calculus_(disambiguation)).)
 The algorithm doesn't work for [elliptic curves](#elliptic-curves)
 because points cannot be [factorized](#prime-factorization).
+The [running time](https://en.wikipedia.org/wiki/Time_complexity)
+[of the index-calculus algorithm](https://en.wikipedia.org/wiki/Index_calculus_algorithm#Complexity)
+is $$\mathrm{e}^{(\sqrt{2} + \href{https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann%E2%80%93Landau_notations}{o}(1))\sqrt{\log_\mathrm{e}(m) \cdot \log_\mathrm{e}(\log_\mathrm{e}(m))}}$$,
+which is [subexponential](https://en.wikipedia.org/wiki/Time_complexity#Sub-exponential_time)
+and [superpolynomial](https://en.wikipedia.org/wiki/Time_complexity#Superpolynomial_time).
 
 The following tool implements the index-calculus algorithm.
 In order to make its output [reproducible](https://en.wikipedia.org/wiki/Reproducibility),
@@ -8500,26 +8656,19 @@ If $$n$$ has many small factors, the [Pohlig-Hellman algorithm](#pohlig-hellman-
 it usually doesn't make sense to use it as the [DL algorithm](#dl-algorithms) in the Pohlig-Hellman algorithm.)
 If $$n$$ is neither small nor smooth,
 you can solve the [discrete-logarithm problem](#discrete-logarithm-problem) $$G^k =_m K$$ as follows
-according to section 3.6.6 of the [Handbook of Applied Cryptography](https://cacr.uwaterloo.ca/hac/about/chap3.pdf):
+according to section 3.6.6 of the [Handbook of Applied Cryptography](https://cacr.uwaterloo.ca/hac/about/chap3.pdf)
+(I don't divide $$h$$ and $$g$$ by the [cofactor of the subgroup](#index-and-cofactor) for simplicity):
 1. Find an element $$H \in \mathbb{Z}_m^\times$$,
    which [generates the whole group](#a-faster-algorithm-for-finding-a-generator).
+   (We still assume that $$m$$ is prime, and thus $$\lvert \mathbb{Z}_m^\times \rvert = m - 1$$.)
 2. Use the index-calculus algorithm to find an integer $$g$$ so that $$H^g =_m G$$.
 3. Use the index-calculus algorithm to find an integer $$h$$ so that $$H^h =_m K$$.
-4. Determine the [cofactor](#index-and-cofactor) $$c := (m - 1) / n$$.
-   (We still assume that $$m$$ is prime, and thus $$\lvert \mathbb{Z}_m^\times \rvert = m - 1$$.)
-5. Return $$k :=_n (h / c) \cdot (g / c)^{-1}$$.
+4. Return $$k :=_n h \cdot g^{-1}$$.
 
 This works because $$(H^g)^k =_m H^h$$ implies that $$g \cdot k =_{m-1} h$$.
-Since $$n$$ divides $$m - 1$$, $$g \cdot k - h$$ is also a multiple of $$n$$, and thus $$g \cdot k =_n h$$.
+Since $$n$$ divides $$m - 1$$, we have that $$g \cdot k - h$$ is also a multiple of $$n$$, and thus $$g \cdot k =_n h$$.
 Since $$k$$ is unique up to a multiple of $$n$$, $$g$$ has to be invertible modulo $$n$$.
 Therefore, $$k =_n h \cdot g^{-1}$$.
-Furthermore, $$c$$ divides $$g$$ because $$c$$ is the smallest exponent so that $$H^c$$ generates
-the [unique subgroup](#all-subgroups-of-cyclic-groups-are-cyclic) of [order](#group-order) $$n$$.
-All the $$n$$ elements in this subgroup, including $$H^g$$, can be expressed
-as $$H^{c \cdot d}$$ for some $$d \in \{0, …, n - 1\}$$.
-Assuming that $$K$$ is in the subgroup generated by $$G$$ (abort [otherwise](#output-not-in-generated-subgroup)),
-<!-- --> $$c$$ also divides $$h$$ for the same reason.
-Thus, $$k =_n h \cdot g^{-1} =_n h \cdot c^{-1} \cdot (c^{-1})^{-1} \cdot g^{-1} =_n (h / c) \cdot (g / c)^{-1}$$.
 
 Interestingly, the above tool succeeds even if one of the bases $$P_i$$ is not in the subgroup generated by $$G$$.
 For example, it solves discrete logarithms in the subgroup of order 32 modulo 96
@@ -8542,7 +8691,7 @@ I understand that the prime factors of $$G$$'s [order](#element-order) $$n$$ det
 which exponents have a [multiplicative inverse](#multiplicative-inverse-revisited) modulo $$n$$,
 which is why the above tool displays the [prime factorization](#prime-factorization) of $$n$$.
 However, $$n$$ can have many small factors no matter whether $$m$$ is composite or prime.
-If you find a composite modulus for which the tool succeeds,
+If you find a composite modulus for which the tool succeeds for a subgroup larger than four,
 or if you know why this isn't possible, please [let me know](mailto:contact@ef1p.com).
 
 </details>
@@ -8563,7 +8712,7 @@ defines its [security level](https://en.wikipedia.org/wiki/Security_level).
 When we say that a primitive has $$s$$ bits of security, it takes on average around $$2^s$$ steps to break it.
 Given the current state of computers, cryptographic primitives become
 [computationally intractable](https://en.wikipedia.org/wiki/Computational_complexity_theory#Intractability)
-at [around 128 bits of security](https://en.wikipedia.org/wiki/Discrete_logarithm_records).
+at [around 100 bits of security](https://en.wikipedia.org/wiki/Discrete_logarithm_records).
 In order to ensure that our [linear one-way functions](#linear-one-way-functions)
 are indeed [one-way functions](https://en.wikipedia.org/wiki/One-way_function),
 we have to choose sufficiently large parameters as follows:
@@ -8608,7 +8757,7 @@ we have to choose sufficiently large parameters as follows:
 </table>
 
 <figcaption markdown="span" style="max-width: 525px;">
-Comparable security lengths as listed in section 5.6.1.1 starting on page 53
+Comparable security strengths as listed in section 5.6.1.1 starting on page 53
 in [this recommendation](https://doi.org/10.6028/NIST.SP.800-57pt1r5)
 by the [National Institute of Standards and Technology (NIST)](https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology).
 The security level with the red background can no longer be considered secure.

@@ -282,7 +282,7 @@ export class Arc extends VisualElement<ArcProps> {
 
     public text(
         text: TextLine | TextLine[],
-        side: ArcSide,
+        side: ArcSide = 'outside',
         distance: number = textToLineDistance,
         props: Omit<TextProps, 'position' | 'text'> = {},
     ): Text {
@@ -302,7 +302,7 @@ export class Arc extends VisualElement<ArcProps> {
 
     public withText(
         text: TextLine | TextLine[],
-        side: ArcSide,
+        side: ArcSide = 'outside',
         distance: number = textToLineDistance,
         props: Omit<TextProps, 'position' | 'text'> = {},
     ): [this, Text] {

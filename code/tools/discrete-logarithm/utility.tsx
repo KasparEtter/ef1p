@@ -298,11 +298,14 @@ export class DiscreteLogarithms<State extends DiscreteLogarithmState & BasicStat
                 const group = state.G!.group;
                 return <Fragment>
                     {renderDiscreteLogarithmProblem(state)}
-                    {state.elements && <p className="text-right" style={{ columnWidth: state.columnWidth }}>
-                        {state.elements.map((element, index) => element === undefined ? <div key={index}>…</div> : <div key={index}>
-                            {group.renderRepetition('G', index + 1, false, 'decimal', index === state.found ? indexColor : undefined)} {group.renderAbstractEquality('m')} <span className="d-inline-block" style={{ minWidth: state.minWidth }}>{element.render(state.format, index === state.found ? elementColor : undefined)}</span>
-                        </div>)}
-                    </p>}
+                    {state.elements && <Fragment>
+                        <p className="table-title">The neighbors of G as our landing area:</p>
+                        <p className="text-right" style={{ columnWidth: state.columnWidth }}>
+                            {state.elements.map((element, index) => element === undefined ? <div key={index}>…</div> : <div key={index}>
+                                {group.renderRepetition('G', index + 1, false, 'decimal', index === state.found ? indexColor : undefined)} {group.renderAbstractEquality('m')} <span className="d-inline-block" style={{ minWidth: state.minWidth }}>{element.render(state.format, index === state.found ? elementColor : undefined)}</span>
+                            </div>)}
+                        </p>
+                    </Fragment>}
                     {state.C && <p className="text-center">
                         K {group.inverseCombinationSymbol} {group.renderRepetition('G', 'c')} {group.renderAbstractEquality('m')} {' '}
                         {state.K!.render(state.format)} {group.inverseCombinationSymbol} {state.G!.renderRepetition(state.c!, state.format, false, state.found >= 0 ? exponentColor : 'orange')} {' '}
@@ -443,24 +446,30 @@ export class DiscreteLogarithms<State extends DiscreteLogarithmState & BasicStat
                         {state.factors && <tr><td>G's order n: <Integer integer={state.n} format={state.format}/></td><td>{renderFactorsOrPrime(state.factors!, state.format)}</td></tr>}
                         <tr><td><abbr title="SQuare RooT">sqrt</abbr>(<Integer integer={state.n} format={state.format}/>)</td><td>≈ <Integer integer={state.sqrtOfN} format={state.format}/></td></tr>
                     </table>
-                    {state.elements && <table className="align">
-                        {state.elements.map((element, index) => <tr className={getRowColorClass(state.i, index)}>
-                            <td className="text-left color-text" style={{ minWidth: 50 }}>
-                                {index === state.loopIndex && 'Loop:'}
-                            </td>
-                            <td className="text-right" style={{ minWidth: state.elementWidth }}>
-                                {element.render(state.format)}
-                            </td>
-                            <td className="text-left" style={{ minWidth: state.columnWidth }}>
-                                {state.i[0] === index && <Fragment>
-                                    {group.renderConcreteEquality(state.format)} {state.G!.renderRepetition(state.a![0].toInteger(), state.format)} {group.combinationSymbol} {state.K!.renderRepetition(state.b![0].toInteger(), state.format)} {' '}
-                                </Fragment>}
-                                {state.i[1] === index && <Fragment>
-                                    {group.renderConcreteEquality(state.format)} {state.G!.renderRepetition(state.a![1].toInteger(), state.format)} {group.combinationSymbol} {state.K!.renderRepetition(state.b![1].toInteger(), state.format)} {' '}
-                                </Fragment>}
-                            </td>
-                        </tr>)}
-                    </table>}
+                    {state.elements && <Fragment>
+                        <p className="table-title">The sequence of elements:</p>
+                        <table className="align">
+                            {state.elements.map((element, index) => <tr className={getRowColorClass(state.i, index)}>
+                                <td className="text-left color-text" style={{ minWidth: 160 }}>
+                                    {index === state.loopIndex && 'The start of the cycle:'}
+                                </td>
+                                <td className="text-right color-text" style={{ minWidth: toolPrefix === 'elliptic-curve' ? 38 : 47 }}>
+                                    S<sub>{index + 1}</sub> {group.renderAbstractEquality('m')}
+                                </td>
+                                <td className="text-right" style={{ minWidth: state.elementWidth }}>
+                                    {element.render(state.format)}
+                                </td>
+                                <td className="text-left" style={{ minWidth: state.columnWidth }}>
+                                    {state.i[0] === index && <Fragment>
+                                        {group.renderConcreteEquality(state.format)} {state.G!.renderRepetition(state.a![0].toInteger(), state.format)} {group.combinationSymbol} {state.K!.renderRepetition(state.b![0].toInteger(), state.format)} {' '}
+                                    </Fragment>}
+                                    {state.i[1] === index && <Fragment>
+                                        {group.renderConcreteEquality(state.format)} {state.G!.renderRepetition(state.a![1].toInteger(), state.format)} {group.combinationSymbol} {state.K!.renderRepetition(state.b![1].toInteger(), state.format)} {' '}
+                                    </Fragment>}
+                                </td>
+                            </tr>)}
+                        </table>
+                    </Fragment>}
                     <table className="align">
                         {colors.map((color, index) => <tr>
                             <td className="text-nowrap">

@@ -17,7 +17,7 @@ export const rhoRadius = 56;
 export const cycleLength = 6;
 export const tailLength = 2;
 
-function getLabel(index: number): TextLine {
+export function getLabel(index: number): TextLine {
     return bold(T('S', subscript(index.toString())));
 }
 

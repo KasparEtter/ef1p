@@ -15,10 +15,10 @@ import { bold, Text, TextLine } from '../../../code/svg/elements/text';
 
 export const n = 16;
 export const k = 11;
-export const gap = 35;
+export const gap = 45;
 
 export const radius = gap * 0.4;
-export const ratio = 0.15;
+export const ratio = 0.3;
 
 export const dashRadius = 2 * strokeWidth;
 export const textOffset = dashRadius + textToLineDistance;

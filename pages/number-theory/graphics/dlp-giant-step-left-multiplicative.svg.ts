@@ -4,23 +4,21 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { P } from '../../../code/svg/utility/point';
-
 import { printSVG } from '../../../code/svg/elements/svg';
-import { bold, superscript, T, Text } from '../../../code/svg/elements/text';
+import { bold, superscript, T } from '../../../code/svg/elements/text';
 
-import { addLabel, gap, k, n, textOffset } from './dlp';
-import { giantStepLeftElements, s } from './dlp-giant-step-left';
+import { addLabel, k, n } from './dlp';
+import { firstGreenArc, giantStepLeftElements, lastBlueArc } from './dlp-giant-step-left';
 
 addLabel(1, 'G', 'green');
-const t = 7;
-for (let i = 2; i < t; i++) {
-    addLabel(i, T('G', superscript(i.toString())), i <= s ? 'green' : undefined);
-}
-addLabel(t, '…');
-addLabel(k, 'K', 'pink');
+addLabel(2, T('G', superscript('2')), 'green');
+addLabel(3, '…', 'green');
+addLabel(4, T('G', superscript('s')), 'green');
+addLabel(5, '…');
+addLabel(k, T('G', superscript('k'), ' = K'), 'pink');
 addLabel(n, 'I');
 
-giantStepLeftElements.push(new Text({ position: P((k - s / 2) * gap, -textOffset), text: bold(T('/ G', superscript('s'))), verticalAlignment: 'bottom', color: 'blue' }));
+giantStepLeftElements.push(firstGreenArc.text(bold('· G')));
+giantStepLeftElements.push(lastBlueArc.text(bold(T('/ G', superscript('s')))));
 
 printSVG(...giantStepLeftElements);

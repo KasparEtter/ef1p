@@ -12,12 +12,14 @@ import { Line } from '../../../code/svg/elements/line';
 import { dashRadius, dlpElements, gap, k, n, radius, ratio } from './dlp';
 
 export const giantStepRightElements = dlpElements;
+export let lastGreenArc: Arc;
+export let firstBlueArc: Arc;
 
 export const s = 4;
 
 for (let i = 1; i <= n; i++) {
     if (i >= k && i < k + s - 1) {
-        giantStepRightElements.unshift(new Arc({
+        const arc = new Arc({
             start: P(i * gap, -dashRadius),
             startSide: 'top',
             end: P((i + 1) * gap, -dashRadius),
@@ -26,18 +28,24 @@ for (let i = 1; i <= n; i++) {
             ratio,
             marker: 'end',
             color: 'green',
-        }));
+        });
+        giantStepRightElements.unshift(arc);
+        lastGreenArc = arc;
     }
     if (i < k && i % s === 1) {
-        giantStepRightElements.push(new Arc({
+        const arc = new Arc({
             start: P(i * gap, -dashRadius),
             startSide: 'top',
             end: P((i + s) * gap, -dashRadius),
             endSide: 'top',
-            radius: radius * 2.6,
+            radius: radius * 2,
             marker: 'end',
             color: 'blue',
-        }));
+        });
+        giantStepRightElements.push(arc);
+        if (i === 1) {
+            firstBlueArc = arc;
+        }
     }
     giantStepRightElements.push(new Line({
         start: P(i * gap, -dashRadius),

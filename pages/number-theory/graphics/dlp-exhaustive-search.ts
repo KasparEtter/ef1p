@@ -12,10 +12,11 @@ import { Line } from '../../../code/svg/elements/line';
 import { dashRadius, dlpElements, gap, k, n, radius, ratio } from './dlp';
 
 export const exhaustiveSearchElements = dlpElements;
+export let firstArc: Arc;
 
 for (let i = 1; i <= n; i++) {
     if (i < k) {
-        exhaustiveSearchElements.push(new Arc({
+        const arc = new Arc({
             start: P(i * gap, -dashRadius),
             startSide: 'top',
             end: P((i + 1) * gap, -dashRadius),
@@ -24,7 +25,11 @@ for (let i = 1; i <= n; i++) {
             ratio,
             marker: 'end',
             color: 'blue',
-        }));
+        });
+        exhaustiveSearchElements.push(arc);
+        if (i === 1) {
+            firstArc = arc;
+        }
     }
     exhaustiveSearchElements.push(new Line({
         start: P(i * gap, -dashRadius),
