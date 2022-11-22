@@ -48,6 +48,10 @@ details ul.tabs li {
 
 .pre-background {
   background-color: $pre-bg !important;
+
+  .newline {
+    margin-top: .2em;
+  }
 }
 
 .bordered {
