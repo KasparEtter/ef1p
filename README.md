@@ -689,6 +689,31 @@ If the information box shall not be open by default,
 remove the `open` attribute from the `details` tag.
 
 
+#### Tabbed areas
+
+You can declare tabbed areas as follows after including `bindTabbed()` in the script of the page:
+
+```
+<div class="tabbed" data-titles="One | Two | Three | All" data-default="All" markdown="block">
+
+One
+
+Two
+
+Three
+
+</div>
+```
+
+If you don't provide the attribute `data-default`, the first area is displayed by default.
+
+
+#### Undesirable line breaks
+
+You can prevent undesirable line breaks by wrapping the text
+in `<span class="text-nowrap" markdown="span">…</span>`.
+
+
 #### Header IDs
 
 You can provide the header ID yourself if you want:
