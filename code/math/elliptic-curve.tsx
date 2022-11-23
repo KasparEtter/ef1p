@@ -15,7 +15,7 @@ import { AdditionSign, encodeInteger, Exponent, getListSeparator, ListSeparator,
 import { Group, GroupElement } from './group';
 import { IntegerFormat, nonNegativeIntegerString, nonNegativeIntegerWithoutComma } from './integer';
 import { MultiplicativeRing, MultiplicativeRingElement } from './multiplicative-ring';
-import { four } from './utility';
+import { four, one, two } from './utility';
 
 export const curvePointRegex = regex(`( *O *|( *\\()?(${nonNegativeIntegerWithoutComma},${nonNegativeIntegerWithoutComma}|${nonNegativeIntegerString};${nonNegativeIntegerString})(\\) *)?)`);
 
@@ -50,7 +50,7 @@ export class EllipticCurve extends Group<EllipticCurve, EllipticCurveElement> {
     public readonly identity = new EllipticCurveElement(this, this.field.zero, this.field.zero, true);
 
     public getElements(x: MultiplicativeRingElement): [EllipticCurveElement, EllipticCurveElement] | undefined {
-        const y2 = x.cube().add(x.multiply(this.a)).add(this.b);
+        const y2 = x.cube().add(this.a.multiply(x)).add(this.b);
         const ys = y2.squareRoots();
         if (ys !== undefined) {
             return [new EllipticCurveElement(this, x, ys[0]), new EllipticCurveElement(this, x, ys[1])];
@@ -77,7 +77,21 @@ export class EllipticCurve extends Group<EllipticCurve, EllipticCurveElement> {
 
     public getRepetitionOrder(): bigint | null {
         if (this.order === undefined) {
-            this.order = this.field.modulus.value < maxModulusForPointCounting ? BigInt(this.getAllElements().length) : null;
+            if (this.field.modulus.value < maxModulusForPointCounting) {
+                let order = one;
+                const xs = this.field.getAllElements();
+                for (const x of xs) {
+                    const y2 = x.cube().add(this.a.multiply(x)).add(this.b);
+                    if (y2.isZero()) {
+                        order += one;
+                    } else if (y2.isQuadraticResidue()) {
+                        order += two;
+                    }
+                }
+                this.order = order;
+            } else {
+                this.order = null;
+            }
         }
         return this.order;
     }
