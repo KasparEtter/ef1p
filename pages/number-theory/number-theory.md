@@ -318,18 +318,18 @@ I do this with boxes like the following,
 where I choose the default notation (or "all") depending on the context,
 and you can select another notation by clicking on the corresponding tab:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="All">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All">
 
 $$
 f(a + b) = f(a) \circ f(b)
 $$
 
 $$
-f(a + b) = f(a) + f(b)
+f(a + b) = f(a) \cdot f(b)
 $$
 
 $$
-f(a + b) = f(a) \cdot f(b)
+f(a + b) = f(a) + f(b)
 $$
 
 </div>
@@ -347,18 +347,18 @@ where the [multiplication sign](https://en.wikipedia.org/wiki/Multiplication_sig
 [omitted](https://en.wikipedia.org/wiki/Juxtaposition#Mathematics),
 and repeated multiplication is written as [exponentiation](https://en.wikipedia.org/wiki/Exponentiation):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="All">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All">
 
 $$
 f(a) = \underbrace{G \circ … \circ G}_{a \text{ times}}
 $$
 
 $$
-f(a) = aG
+f(a) = G^a
 $$
 
 $$
-f(a) = G^a
+f(a) = aG
 $$
 
 </div>
@@ -373,7 +373,7 @@ which is why only the additive and the multiplicative notation are used in pract
 It is easy to see why repeating an element from the output set is a linear operation
 (assuming that the operation is [associative](#group-axioms)):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 f(a + b)
@@ -383,11 +383,11 @@ f(a + b)
 $$
 
 $$
-f(a + b) = (a + b)G = aG + bG = f(a) + f(b)
+f(a + b) = G^{a + b} = G^a \cdot G^b = f(a) \cdot f(b)
 $$
 
 $$
-f(a + b) = G^{a + b} = G^a \cdot G^b = f(a) \cdot f(b)
+f(a + b) = (a + b)G = aG + bG = f(a) + f(b)
 $$
 
 </div>
@@ -398,18 +398,18 @@ $$
 If [zero](https://en.wikipedia.org/wiki/0) is a valid input to a linear function,
 there has to be an element in the output set which does not affect any other element:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 f(a) = f(a + 0) = f(a) \circ f(0)
 $$
 
 $$
-f(a) = f(a + 0) = f(a) + f(0)
+f(a) = f(a + 0) = f(a) \cdot f(0)
 $$
 
 $$
-f(a) = f(a + 0) = f(a) \cdot f(0)
+f(a) = f(a + 0) = f(a) + f(0)
 $$
 
 </div>
@@ -417,18 +417,18 @@ $$
 This element is called the [identity element](https://en.wikipedia.org/wiki/Identity_element) or the neutral element.
 Given its special role, we assign a specific letter to it:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="All">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All">
 
 $$
 f(0) = \underbrace{G \circ … \circ G}_{0 \text{ times}} = E
 $$
 
 $$
-f(0) = 0G = O
+f(0) = G^0 = I
 $$
 
 $$
-f(0) = G^0 = I
+f(0) = 0G = O
 $$
 
 </div>
@@ -445,18 +445,18 @@ The resemblance with the corresponding integer is no coincidence, though.
 If we allow the input of a linear function to be [negative](https://en.wikipedia.org/wiki/Negative_number),
 there has to be an [inverse element](https://en.wikipedia.org/wiki/Inverse_element) for each element in the output set:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 f(0) = f(a + (-a)) = f(a) \circ f(-a) = E
 $$
 
 $$
-f(0) = f(a + (-a)) = f(a) + f(-a) = O
+f(0) = f(a + (-a)) = f(a) \cdot f(-a) = I
 $$
 
 $$
-f(0) = f(a + (-a)) = f(a) \cdot f(-a) = I
+f(0) = f(a + (-a)) = f(a) + f(-a) = O
 $$
 
 </div>
@@ -510,7 +510,7 @@ which combines any two elements of the set according to the
 The operation can be written in [different ways](#notation),
 which leads to different notations for the identity element and the inverses:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="All" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All" markdown="block">
 
 - **Associativity**: For any elements $$A$$, $$B$$, and $$C$$, $$(A \circ B) \circ C = A \circ (B \circ C)$$.
 - **Identity element $$E$$**: For any element $$A$$, $$A \circ E = E \circ A = A$$.
@@ -518,15 +518,15 @@ which leads to different notations for the identity element and the inverses:
 
 <!-- -->
 
-- **Associativity**: For any elements $$A$$, $$B$$, and $$C$$, $$(A + B) + C = A + (B + C)$$.
-- **Identity element $$O$$**: For any element $$A$$, $$A + O = O + A = A$$.
-- **$$-A$$ for the inverse of $$A$$**: For any element $$A$$, $$A + (-A) = (-A) + A = O$$.
-
-<!-- -->
-
 - **Associativity**: For any elements $$A$$, $$B$$, and $$C$$, $$(A \cdot B) \cdot C = A \cdot (B \cdot C)$$.
 - **Identity element $$I$$**: For any element $$A$$, $$A \cdot I = I \cdot A = A$$.
 - **$$A^{-1}$$ for the inverse of $$A$$**: For any element $$A$$, $$A \cdot A^{-1} = A^{-1} \cdot A = I$$.
+
+<!-- -->
+
+- **Associativity**: For any elements $$A$$, $$B$$, and $$C$$, $$(A + B) + C = A + (B + C)$$.
+- **Identity element $$O$$**: For any element $$A$$, $$A + O = O + A = A$$.
+- **$$-A$$ for the inverse of $$A$$**: For any element $$A$$, $$A + (-A) = (-A) + A = O$$.
 
 </div>
 
@@ -570,7 +570,7 @@ For example, 2 + 10 = 0.
 The defining property of a group is that the following equation has a unique solution
 for any elements $$A$$ and $$B$$ of the group:
 
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed aligned" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 X \circ A = B \textsf{ has a unique solution, namely } X = B \circ \overline{A} \\[2pt]
@@ -581,19 +581,6 @@ X_1 \circ A &= X_2 \circ A \\
 (X_1 \circ A) \circ \overline{A} &= (X_2 \circ A) \circ \overline{A} \\
 X_1 \circ (A \circ \overline{A}) &= X_2 \circ (A \circ \overline{A}) \\
 X_1 \circ E &= X_2 \circ E \\
-X_1 &= X_2 \textsf{.}
-\end{aligned}
-$$
-
-$$
-X + A = B \textsf{ has a unique solution, namely } X = B + (-A) \\[2pt]
-\textsf{because }(B + (-A)) + A = B + ((-A) + A) = B + O = B \textsf{.} \\[8pt]
-\textsf{Any two solutions } X_1 \textsf{ and } X_2 \textsf{ are the same because} \\[3pt]
-\begin{aligned}
-X_1 + A &= X_2 + A \\
-(X_1 + A) + (-A) &= (X_2 + A) + (-A) \\
-X_1 + (A + (-A)) &= X_2 + (A + (-A)) \\
-X_1 + O &= X_2 + O \\
 X_1 &= X_2 \textsf{.}
 \end{aligned}
 $$
@@ -611,24 +598,37 @@ X_1 &= X_2 \textsf{.}
 \end{aligned}
 $$
 
+$$
+X + A = B \textsf{ has a unique solution, namely } X = B + (-A) \\[2pt]
+\textsf{because }(B + (-A)) + A = B + ((-A) + A) = B + O = B \textsf{.} \\[8pt]
+\textsf{Any two solutions } X_1 \textsf{ and } X_2 \textsf{ are the same because} \\[3pt]
+\begin{aligned}
+X_1 + A &= X_2 + A \\
+(X_1 + A) + (-A) &= (X_2 + A) + (-A) \\
+X_1 + (A + (-A)) &= X_2 + (A + (-A)) \\
+X_1 + O &= X_2 + O \\
+X_1 &= X_2 \textsf{.}
+\end{aligned}
+$$
+
 </div>
 
 {:#unique-result}
 The same is true if $$X$$ is on the right side of $$A$$.
 Since the solution is unique, different combinations map to different results:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \textsf{If } X_1 ≠ X_2 \textsf{, then } X_1 \circ A ≠ X_2 \circ A \textsf{.}
 $$
 
 $$
-\textsf{If } X_1 ≠ X_2 \textsf{, then } X_1 + A ≠ X_2 + A \textsf{.}
+\textsf{If } X_1 ≠ X_2 \textsf{, then } X_1 \cdot A ≠ X_2 \cdot A \textsf{.}
 $$
 
 $$
-\textsf{If } X_1 ≠ X_2 \textsf{, then } X_1 \cdot A ≠ X_2 \cdot A \textsf{.}
+\textsf{If } X_1 ≠ X_2 \textsf{, then } X_1 + A ≠ X_2 + A \textsf{.}
 $$
 
 </div>
@@ -640,18 +640,18 @@ An operation is [commutative](https://en.wikipedia.org/wiki/Commutative_property
 if swapping the inputs does not change the output,
 i.e. the following holds for any elements $$A$$ and $$B$$:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 A \circ B = B \circ A
 $$
 
 $$
-A + B = B + A
+A \cdot B = B \cdot A
 $$
 
 $$
-A \cdot B = B \cdot A
+A + B = B + A
 $$
 
 </div>
@@ -673,14 +673,14 @@ the first letter is [usually not capitalized](https://en.wikipedia.org/wiki/Abel
 Instead of combining two different elements, a single element can be combined repeatedly with itself.
 We write this as follows:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Both">
-
-$$
-nA = \underbrace{A + … + A}_{n \text{ times}}
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Both">
 
 $$
 A^n = \underbrace{A \cdot … \cdot A}_{n \text{ times}}
+$$
+
+$$
+nA = \underbrace{A + … + A}_{n \text{ times}}
 $$
 
 </div>
@@ -692,18 +692,18 @@ which is why I don't include it in this section.
 Since the group operation is associative (which means that we can move parentheses around),
 it follows immediately that:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Both">
-
-$$
-(m + n)A = \underbrace{A + … + A}_{m + n \text{ times}}
-= (\underbrace{A + … + A}_{m \text{ times}}) + (\underbrace{A + … + A}_{n \text{ times}})
-= mA + nA
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Both">
 
 $$
 A^{m + n} = \underbrace{A \cdot … \cdot A}_{m + n \text{ times}}
 = (\underbrace{A \cdot … \cdot A}_{m \text{ times}}) \cdot (\underbrace{A \cdot … \cdot A}_{n \text{ times}})
 = A^m \cdot A^n
+$$
+
+$$
+(m + n)A = \underbrace{A + … + A}_{m + n \text{ times}}
+= (\underbrace{A + … + A}_{m \text{ times}}) + (\underbrace{A + … + A}_{n \text{ times}})
+= mA + nA
 $$
 
 </div>
@@ -712,18 +712,18 @@ $$
 And since repetitions of inverses cancel as many repetitions of the element itself,
 we can make it work for differences as well:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Both">
-
-$$
-(m - n)A = \underbrace{A + … + A}_{m - n \text{ times}}
-= (\underbrace{A + … + A}_{m \text{ times}}) + (\underbrace{(-A) + … + (-A)}_{n \text{ times}})
-= mA + n(-A)
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Both">
 
 $$
 A^{m - n} = \underbrace{A \cdot … \cdot A}_{m - n \text{ times}}
 = (\underbrace{A \cdot … \cdot A}_{m \text{ times}}) \cdot (\underbrace{A^{-1} \cdot … \cdot A^{-1}}_{n \text{ times}})
 = A^m \cdot (A^{-1})^n
+$$
+
+$$
+(m - n)A = \underbrace{A + … + A}_{m - n \text{ times}}
+= (\underbrace{A + … + A}_{m \text{ times}}) + (\underbrace{(-A) + … + (-A)}_{n \text{ times}})
+= mA + n(-A)
 $$
 
 </div>
@@ -732,19 +732,19 @@ $$
 If we don't require the difference to be positive,
 we get the following definitions for zero and a negative number of repetitions:
 
-<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Both">
-
-$$
-\begin{aligned}
-0A &= O \\
-(-n)A &= n(-A)
-\end{aligned}
-$$
+<div class="tabbed aligned" data-titles="Multiplicative | Additive | Both" data-default="Both">
 
 $$
 \begin{aligned}
 A^0 &= I \\
 A^{-n} &= (A^{-1})^n
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+0A &= O \\
+(-n)A &= n(-A)
 \end{aligned}
 $$
 
@@ -809,16 +809,7 @@ Let's start with how we can compute element repetitions efficiently.
 Instead of performing one repetition at a time,
 we can compute $$A$$ repeated $$n$$ times for any integer $$n$$ using the following insight:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-nA = \begin{cases}
-(-n)(-A) &\text{if } n < 0 \text{,} \\
-O &\text{if } n = 0 \text{,} \\
-(n - 1)A + A &\text{if } n \text{ is odd,} \\
-2(\frac{n}{2}A) &\text{if } n \text{ is even.}
-\end{cases}
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 A^n = \begin{cases}
@@ -826,6 +817,15 @@ A^n = \begin{cases}
 I &\text{if } n = 0 \text{,} \\
 A^{n-1} \cdot A &\text{if } n \text{ is odd,} \\
 (A^{\frac{n}{2}})^2 &\text{if } n \text{ is even.}
+\end{cases}
+$$
+
+$$
+nA = \begin{cases}
+(-n)(-A) &\text{if } n < 0 \text{,} \\
+O &\text{if } n = 0 \text{,} \\
+(n - 1)A + A &\text{if } n \text{ is odd,} \\
+2(\frac{n}{2}A) &\text{if } n \text{ is even.}
 \end{cases}
 $$
 
@@ -858,28 +858,7 @@ in [compiler design](https://en.wikipedia.org/wiki/Compiler).
 It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
 Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
 
-<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-<div markdown="block">
-
-$$
-\begin{aligned}
-13A &= A + A + A + A + A + A + A + A + A + A + A + A + A \\
-&= \bigg(\Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)
-+ \Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)\bigg) + A \\
-&= 2\Big(2\big(2(O + \underset{1}{\underset{\uparrow}{A}}) + \underset{1}{\underset{\uparrow}{A}}\big)
-+ \underset{0}{\underset{\uparrow}{O}}\Big) + \underset{1}{\underset{\uparrow}{A}}
-\end{aligned}
-$$
-
-<figure markdown="block">
-{% include_relative generated/fast-repetitions-additive.embedded.svg %}
-<figcaption markdown="span">
-We can compute 13A in 5 steps (in green) instead of 12 steps (in blue) by doubling intermediate results.
-</figcaption>
-</figure>
-
-</div>
+<div class="tabbed aligned" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <div markdown="block">
 
@@ -897,6 +876,27 @@ $$
 {% include_relative generated/fast-repetitions-multiplicative.embedded.svg %}
 <figcaption markdown="span">
 We can compute A<sup>13</sup> in 5 steps (in green) instead of 12 steps (in blue) by squaring intermediate results.
+</figcaption>
+</figure>
+
+</div>
+
+<div markdown="block">
+
+$$
+\begin{aligned}
+13A &= A + A + A + A + A + A + A + A + A + A + A + A + A \\
+&= \bigg(\Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)
++ \Big(\big((A + A) + A\big) + \big((A + A) + A\big)\Big)\bigg) + A \\
+&= 2\Big(2\big(2(O + \underset{1}{\underset{\uparrow}{A}}) + \underset{1}{\underset{\uparrow}{A}}\big)
++ \underset{0}{\underset{\uparrow}{O}}\Big) + \underset{1}{\underset{\uparrow}{A}}
+\end{aligned}
+$$
+
+<figure markdown="block">
+{% include_relative generated/fast-repetitions-additive.embedded.svg %}
+<figcaption markdown="span">
+We can compute 13A in 5 steps (in green) instead of 12 steps (in blue) by doubling intermediate results.
 </figcaption>
 </figure>
 
@@ -924,26 +924,7 @@ Non-recursive algorithm
 The above [recursive algorithm](https://en.wikipedia.org/wiki/Recursion_(computer_science))
 can easily be turned into a non-recursive algorithm:
 
-<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\text{function }repeat(A, n)\ \{ \\
-\quad \text{if }(n < 0)\ \{ \\
-\quad \quad A := -A \\
-\quad \quad n := -n \\
-\quad \} \\
-\quad \text{let }B := O \\
-\quad \text{while }(n > 0)\ \{ \\
-\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
-\quad \quad \quad B := B + A \\
-\quad \quad \quad n := n - 1 \\
-\quad \quad \} \\
-\quad \quad A := A + A \\
-\quad \quad n := n / 2 \\
-\quad \} \\
-\quad \text{return } B \\
-\} \\
-$$
+<div class="tabbed text-left pre-background" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \text{function }repeat(A, n)\ \{ \\
@@ -958,6 +939,25 @@ $$
 \quad \quad \quad n := n - 1 \\
 \quad \quad \} \\
 \quad \quad A := A \cdot A \\
+\quad \quad n := n / 2 \\
+\quad \} \\
+\quad \text{return } B \\
+\} \\
+$$
+
+$$
+\text{function }repeat(A, n)\ \{ \\
+\quad \text{if }(n < 0)\ \{ \\
+\quad \quad A := -A \\
+\quad \quad n := -n \\
+\quad \} \\
+\quad \text{let }B := O \\
+\quad \text{while }(n > 0)\ \{ \\
+\quad \quad \text{if }(n\ \href{#modulo-operation}{\%}\ 2 = 1)\ \{ \\
+\quad \quad \quad B := B + A \\
+\quad \quad \quad n := n - 1 \\
+\quad \quad \} \\
+\quad \quad A := A + A \\
 \quad \quad n := n / 2 \\
 \quad \} \\
 \quad \text{return } B \\
@@ -1035,18 +1035,18 @@ you will reach an earlier result again at some point because you run out of fres
 Let $$A$$ be the element that we repeat and $$B$$ be the first element that we reach twice,
 which we can depict as follows:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 E \circ \overbrace{\underbrace{A \circ A \circ … \circ A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} \circ \underbrace{A \circ … \circ A \vphantom{\large |}}_{n - m \text{ times}\ =\ E}}^{n \text{ times}\ =\ B}
 $$
 
 $$
-O + \overbrace{\underbrace{A + A + … + A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} + \underbrace{A + … + A \vphantom{\large |}}_{n - m \text{ times}\ =\ O}}^{n \text{ times}\ =\ B}
+I \cdot \overbrace{\underbrace{A \cdot A \cdot … \cdot A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} \cdot \underbrace{A \cdot … \cdot A \vphantom{\large |}}_{n - m \text{ times}\ =\ I}}^{n \text{ times}\ =\ B}
 $$
 
 $$
-I \cdot \overbrace{\underbrace{A \cdot A \cdot … \cdot A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} \cdot \underbrace{A \cdot … \cdot A \vphantom{\large |}}_{n - m \text{ times}\ =\ I}}^{n \text{ times}\ =\ B}
+O + \overbrace{\underbrace{A + A + … + A\ \vphantom{\large |}}_{m \text{ times}\ =\ B} + \underbrace{A + … + A \vphantom{\large |}}_{n - m \text{ times}\ =\ O}}^{n \text{ times}\ =\ B}
 $$
 
 </div>
@@ -1062,18 +1062,18 @@ The smallest $$n > 0$$ which results in the identity element when repeating $$A$
 is called the [order of the element](https://en.wikipedia.org/wiki/Order_(group_theory)) $$A$$,
 written as $$|A|$$:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \underbrace{A \circ … \circ A}_{|A| \text{ times}} = E
 $$
 
 $$
-(|A|)A = O
+A^{|A|} = I
 $$
 
 $$
-A^{|A|} = I
+(|A|)A = O
 $$
 
 </div>
@@ -1082,18 +1082,18 @@ $$
 In a finite group, every element has a finite order.
 Once you've reached the identity element, the elements repeat in the same order:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \overbrace{\underset{A}{\underset{\downarrow}{A}} \circ \underset{B}{\underset{\downarrow}{A}} \circ \underset{C}{\underset{\downarrow}{A}} \circ … \circ \underset{E}{\underset{\downarrow}{A}} \vphantom{\large |}}^{|A| \text{ times}} \circ \underset{A}{\underset{\downarrow}{A}} \circ \underset{B}{\underset{\downarrow}{A}} \circ \underset{C}{\underset{\downarrow}{A}} \circ …
 $$
 
 $$
-\overbrace{\underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + \underset{C}{\underset{\downarrow}{A}} + … + \underset{O}{\underset{\downarrow}{A}} \vphantom{\large |}}^{|A| \text{ times}} + \underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + \underset{C}{\underset{\downarrow}{A}} + …
+\overbrace{\underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot \underset{C}{\underset{\downarrow}{A}} \cdot … \cdot \underset{I}{\underset{\downarrow}{A}} \vphantom{\large |}}^{|A| \text{ times}} \cdot \underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot \underset{C}{\underset{\downarrow}{A}} \cdot …
 $$
 
 $$
-\overbrace{\underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot \underset{C}{\underset{\downarrow}{A}} \cdot … \cdot \underset{I}{\underset{\downarrow}{A}} \vphantom{\large |}}^{|A| \text{ times}} \cdot \underset{A}{\underset{\downarrow}{A}} \cdot \underset{B}{\underset{\downarrow}{A}} \cdot \underset{C}{\underset{\downarrow}{A}} \cdot …
+\overbrace{\underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + \underset{C}{\underset{\downarrow}{A}} + … + \underset{O}{\underset{\downarrow}{A}} \vphantom{\large |}}^{|A| \text{ times}} + \underset{A}{\underset{\downarrow}{A}} + \underset{B}{\underset{\downarrow}{A}} + \underset{C}{\underset{\downarrow}{A}} + …
 $$
 
 </div>
@@ -1102,7 +1102,7 @@ $$
 If $$A$$ repeated $$\vert A \vert$$ times results in the identity element,
 then $$A$$ repeated $$|A| - 1$$ times has to result in the inverse element of $$A$$:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 A \circ \underbrace{A \circ … \circ A}_{|A| - 1 \text{ times}} = A \circ \overline{A} =
@@ -1110,13 +1110,13 @@ A \circ \underbrace{A \circ … \circ A}_{|A| - 1 \text{ times}} = A \circ \over
 $$
 
 $$
-A + \underbrace{A + … + A}_{|A| - 1 \text{ times}} = A + (-A) =
-\underbrace{A + … + A}_{|A| - 1 \text{ times}} + A = (-A) + A = O
+A \cdot \underbrace{A \cdot … \cdot A}_{|A| - 1 \text{ times}} = A \cdot A^{-1} =
+\underbrace{A \cdot … \cdot A}_{|A| - 1 \text{ times}} \cdot A = A^{-1} \cdot A = I
 $$
 
 $$
-A \cdot \underbrace{A \cdot … \cdot A}_{|A| - 1 \text{ times}} = A \cdot A^{-1} =
-\underbrace{A \cdot … \cdot A}_{|A| - 1 \text{ times}} \cdot A = A^{-1} \cdot A = I
+A + \underbrace{A + … + A}_{|A| - 1 \text{ times}} = A + (-A) =
+\underbrace{A + … + A}_{|A| - 1 \text{ times}} + A = (-A) + A = O
 $$
 
 </div>
@@ -1221,28 +1221,28 @@ Repeating the generator **G** using the [multiplicative notation](#notation).
 Since every element can be written as a repetition of $$G$$,
 the group operation and element inversion can be performed as follows:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-Let $$A = aG$$ and $$B = bG$$ be arbitrary elements,
-then $$A + B = aG + bG \href{#added-repetitions}{=} (a + b)G$$
-and $$-A = -(aG) \href{#cancelled-repetitions}{=} a(-G) \href{#zero-and-negative-repetitions}{=} (-a)G$$.
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 Let $$A = G^a$$ and $$B = G^b$$ be arbitrary elements,
 then $$A \cdot B = G^a \cdot G^b \href{#added-repetitions}{=} G^{a + b}$$
 and $$A^{-1} = (G^a)^{-1} \href{#cancelled-repetitions}{=} (G^{-1})^a \href{#zero-and-negative-repetitions}{=} G^{-a}$$.
+
+Let $$A = aG$$ and $$B = bG$$ be arbitrary elements,
+then $$A + B = aG + bG \href{#added-repetitions}{=} (a + b)G$$
+and $$-A = -(aG) \href{#cancelled-repetitions}{=} a(-G) \href{#zero-and-negative-repetitions}{=} (-a)G$$.
 
 </div>
 
 Therefore, cyclic groups are [commutative](#commutative-groups)
 because the addition of the integers in the repetition of the generator is commutative:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-Let $$A = aG$$ and $$B = bG$$ be arbitrary elements,
-then $$A + B = aG + bG = (a + b)G = (b + a)G = bG + aG = B + A$$.
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 Let $$A = G^a$$ and $$B = G^b$$ be arbitrary elements,
 then $$A \cdot B = G^a \cdot G^b = G^{a + b} = G^{b + a} = G^b \cdot G^a = B \cdot A$$.
+
+Let $$A = aG$$ and $$B = bG$$ be arbitrary elements,
+then $$A + B = aG + bG = (a + b)G = (b + a)G = bG + aG = B + A$$.
 
 </div>
 
@@ -1254,14 +1254,14 @@ Even number of generators
 Repeating the inverse of $$G$$ generates the group in the opposite direction
 because the inverse undoes [one repetition at a time](#cancelled-repetitions):
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-iG = (\lvert G \rvert - (\lvert G \rvert - i))G = \underbrace{(\lvert G \rvert)G}_{=\ O} + (\lvert G \rvert - i)(-G) = (\lvert G \rvert - i)(-G)
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 G^i = G^{\lvert G \rvert - (\lvert G \rvert - i)} = \underbrace{G^{\lvert G \rvert}}_{=\ I} \cdot (G^{-1})^{\lvert G \rvert - i} = (G^{-1})^{\lvert G \rvert - i}
+$$
+
+$$
+iG = (\lvert G \rvert - (\lvert G \rvert - i))G = \underbrace{(\lvert G \rvert)G}_{=\ O} + (\lvert G \rvert - i)(-G) = (\lvert G \rvert - i)(-G)
 $$
 
 </div>
@@ -1369,20 +1369,20 @@ If you combine each element of a [subgroup](#subgroups) $$\mathbb{H}$$
 with a fixed element $$A$$ of the supergroup $$\mathbb{G}$$,
 you get a [coset](https://en.wikipedia.org/wiki/Coset) of $$\mathbb{H}$$, which is written as:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 - **Right coset**: $$\mathbb{H} \circ A = \{H \circ A \mid H \in \mathbb{H}\}$$,
 - **Left coset**: $$A \circ \mathbb{H} = \{A \circ H \mid H \in \mathbb{H}\}$$.
 
 <!-- -->
 
-- **Right coset**: $$\mathbb{H} + A = \{H + A \mid H \in \mathbb{H}\}$$,
-- **Left coset**: $$A + \mathbb{H} = \{A + H \mid H \in \mathbb{H}\}$$.
+- **Right coset**: $$\mathbb{H} \cdot A = \{H \cdot A \mid H \in \mathbb{H}\}$$,
+- **Left coset**: $$A \cdot \mathbb{H} = \{A \cdot H \mid H \in \mathbb{H}\}$$.
 
 <!-- -->
 
-- **Right coset**: $$\mathbb{H} \cdot A = \{H \cdot A \mid H \in \mathbb{H}\}$$,
-- **Left coset**: $$A \cdot \mathbb{H} = \{A \cdot H \mid H \in \mathbb{H}\}$$.
+- **Right coset**: $$\mathbb{H} + A = \{H + A \mid H \in \mathbb{H}\}$$,
+- **Left coset**: $$A + \mathbb{H} = \{A + H \mid H \in \mathbb{H}\}$$.
 
 </div>
 
@@ -1391,18 +1391,18 @@ the right coset and the left coset of a subgroup $$\mathbb{H}$$ and an element $
 If the element $$A$$ belongs to the subgroup $$\mathbb{H}$$,
 the right coset and the left coset equal the subgroup itself due to [closure](#group-axioms):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \mathbb{H} \circ A = \mathbb{H} = A \circ \mathbb{H}
 $$
 
 $$
-\mathbb{H} + A = \mathbb{H} = A + \mathbb{H}
+\mathbb{H} \cdot A = \mathbb{H} = A \cdot \mathbb{H}
 $$
 
 $$
-\mathbb{H} \cdot A = \mathbb{H} = A \cdot \mathbb{H}
+\mathbb{H} + A = \mathbb{H} = A + \mathbb{H}
 $$
 
 </div>
@@ -1411,7 +1411,7 @@ $$
 Any two right cosets and any two left cosets are either equal or [disjoint](https://en.wikipedia.org/wiki/Disjoint_sets).
 Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 1. If $$B \in \mathbb{H} \circ A$$, then $$\mathbb{H} \circ A = \mathbb{H} \circ B$$<br>
    because $$B = H_B \circ A$$ for some $$H_B \in \mathbb{H}$$,
@@ -1433,26 +1433,6 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
 
 <!-- -->
 
-1. If $$B \in \mathbb{H} + A$$, then $$\mathbb{H} + A = \mathbb{H} + B$$<br>
-   because $$B = H_B + A$$ for some $$H_B \in \mathbb{H}$$,
-   and thus for every element $$C \in \mathbb{H} + B$$,
-   there's an $$H_C \in \mathbb{H}$$ so that $$C = H_C + B = H_C + (H_B + A) =  (H_C + H_B) + A$$,
-   where $$H_C + H_B \in \mathbb{H}$$ due to [closure](#group-axioms), and thus $$C \in \mathbb{H} + A$$.
-   So far, we have just shown that $$\mathbb{H} + B \subseteq \mathbb{H} + A$$.
-   Since $$B = H_B + A$$, we have that $$A = (-H_B) + B$$, and thus $$A \in \mathbb{H} + B$$.
-   This implies that $$\mathbb{H} + A \subseteq \mathbb{H} + B$$ for the same reason as before.
-   Therefore, $$\mathbb{H} + A = \mathbb{H} + B$$.
-2. If $$B \notin \mathbb{H} + A$$, then $$\mathbb{H} + A \cap \mathbb{H} + B = \varnothing$$
-   (the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of the two cosets
-   results in the [empty set](https://en.wikipedia.org/wiki/Empty_set))<br>
-   because an overlap would mean that for some element $$C$$,
-   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A + A = H_B + B$$.
-   But in this case, $$B = (-H_B) + (H_A + A) = ((-H_B) + H_A) + A \in \mathbb{H} + A$$,
-   which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
-   the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
-
-<!-- -->
-
 1. If $$B \in \mathbb{H} \cdot A$$, then $$\mathbb{H} \cdot A = \mathbb{H} \cdot B$$<br>
    because $$B = H_B \cdot A$$ for some $$H_B \in \mathbb{H}$$,
    and thus for every element $$C \in \mathbb{H} \cdot B$$,
@@ -1468,6 +1448,26 @@ Given arbitrary elements $$A, B \in \mathbb{G}$$, there are two cases:
    because an overlap would mean that for some element $$C$$,
    there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A \cdot A = H_B \cdot B$$.
    But in this case, $$B = H_B^{-1} \cdot (H_A \cdot A) = (H_B^{-1} \cdot H_A) \cdot A \in \mathbb{H} \cdot A$$,
+   which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
+   the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
+
+<!-- -->
+
+1. If $$B \in \mathbb{H} + A$$, then $$\mathbb{H} + A = \mathbb{H} + B$$<br>
+   because $$B = H_B + A$$ for some $$H_B \in \mathbb{H}$$,
+   and thus for every element $$C \in \mathbb{H} + B$$,
+   there's an $$H_C \in \mathbb{H}$$ so that $$C = H_C + B = H_C + (H_B + A) =  (H_C + H_B) + A$$,
+   where $$H_C + H_B \in \mathbb{H}$$ due to [closure](#group-axioms), and thus $$C \in \mathbb{H} + A$$.
+   So far, we have just shown that $$\mathbb{H} + B \subseteq \mathbb{H} + A$$.
+   Since $$B = H_B + A$$, we have that $$A = (-H_B) + B$$, and thus $$A \in \mathbb{H} + B$$.
+   This implies that $$\mathbb{H} + A \subseteq \mathbb{H} + B$$ for the same reason as before.
+   Therefore, $$\mathbb{H} + A = \mathbb{H} + B$$.
+2. If $$B \notin \mathbb{H} + A$$, then $$\mathbb{H} + A \cap \mathbb{H} + B = \varnothing$$
+   (the [intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of the two cosets
+   results in the [empty set](https://en.wikipedia.org/wiki/Empty_set))<br>
+   because an overlap would mean that for some element $$C$$,
+   there are $$H_A, H_B \in \mathbb{H}$$ so that $$C = H_A + A = H_B + B$$.
+   But in this case, $$B = (-H_B) + (H_A + A) = ((-H_B) + H_A) + A \in \mathbb{H} + A$$,
    which [contradicts](https://en.wikipedia.org/wiki/Proof_by_contradiction)
    the [premise](https://en.wikipedia.org/wiki/Premise) of the second case.
 
@@ -1531,14 +1531,14 @@ Lagrange's theorem has several important consequences:
 2. Any element $$A$$ in $$\mathbb{G}$$
    repeated $$|\mathbb{G}|$$ times equals the [identity element](#group-axioms)
    because with $$|\mathbb{G}| = |A| \cdot n$$ for some integer $$n$$:
-   <div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-   $$
-   (|\mathbb{G}|)A = (|A| \cdot n)A = n((|A|)A) = nO = O
-   $$
+   <div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
    $$
    A^{|\mathbb{G}|} = A^{|A| \cdot n} = (A^{|A|})^n = I^n = I
+   $$
+
+   $$
+   (|\mathbb{G}|)A = (|A| \cdot n)A = n((|A|)A) = nO = O
    $$
 
    </div>
@@ -1595,15 +1595,7 @@ and thus $$f(\mathbb{G}) = \{f(B) \mid B \in \mathbb{G}\} = \mathbb{G}$$.
 Using [Greek letters](#sum-and-product-of-similar-terms) to iterate over all the elements of a commutative group,
 we can observe the following:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\sum_{B \in \mathbb{G}} B
-= \sum_{B \in \mathbb{G}} f(B)
-= \sum_{B \in \mathbb{G}} A + B
-= (|\mathbb{G}|)A + \Big( \sum_{B \in \mathbb{G}} B \Big) \\[8pt]
-\textsf{After canceling } \sum_{B \in \mathbb{G}} B \textsf{ on both sides, we have that } O = (|\mathbb{G}|)A \textsf{.}
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \prod_{B \in \mathbb{G}} B
@@ -1611,6 +1603,14 @@ $$
 = \prod_{B \in \mathbb{G}} A \cdot B
 = A^{|\mathbb{G}|} \cdot \Big( \prod_{B \in \mathbb{G}} B \Big) \\[8pt]
 \textsf{After canceling } \prod_{B \in \mathbb{G}} B \textsf{ on both sides, we have that } I = A^{|\mathbb{G}|} \textsf{.}
+$$
+
+$$
+\sum_{B \in \mathbb{G}} B
+= \sum_{B \in \mathbb{G}} f(B)
+= \sum_{B \in \mathbb{G}} A + B
+= (|\mathbb{G}|)A + \Big( \sum_{B \in \mathbb{G}} B \Big) \\[8pt]
+\textsf{After canceling } \sum_{B \in \mathbb{G}} B \textsf{ on both sides, we have that } O = (|\mathbb{G}|)A \textsf{.}
 $$
 
 </div>
@@ -2479,20 +2479,7 @@ there exists a single [subgroup](#subgroups) of order $$d$$ for every [divisor](
 We [prove this statement](https://crypto.stanford.edu/pbc/notes/numbertheory/cyclic.html#_subgroups_of_cyclic_groups)
 by showing that such a subgroup exists and that it is unique:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-- **Existence**: Let $$c = n / d$$, then $$⟨cG⟩ = \{cG, 2(cG), …, d(cG) = O\}$$ is a cyclic subgroup of order $$d$$.
-- **Uniqueness**: Given a subgroup $$\mathbb{H} = \{A_1, …, A_d\}$$ of order $$d$$,
-  we show that there is an integer $$b$$ for each $$A \in \mathbb{H}$$ so that $$A = b(cG)$$,
-  which implies that $$\mathbb{H} = ⟨cG⟩$$.
-  Since $$G$$ generates all elements of $$\mathbb{G}$$, there exists an integer $$a$$ so that $$A = aG$$.
-  Since a subgroup is a group, the order of $$A$$ must divide $$d$$ according to [Lagrange's theorem](#lagranges-theorem).
-  Therefore, $$dA = d(aG) = O$$.
-  Since the order of $$G$$ is $$n$$, $$a \cdot d$$ must be a multiple of $$n$$,
-  which means that there exists an integer $$b$$ so that $$a \cdot d = b \cdot n = b \cdot (c \cdot d)$$.
-  It follows that $$a = b \cdot c$$ and $$A = aG = b(cG)$$.
-
-<!-- -->
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 - **Existence**: Let $$c = n / d$$, then $$⟨G^c⟩ = \{G^c, (G^c)^2, …, (G^c)^d = I\}$$ is a cyclic subgroup of order $$d$$.
 - **Uniqueness**: Given a subgroup $$\mathbb{H} = \{A_1, …, A_d\}$$ of order $$d$$,
@@ -2504,6 +2491,19 @@ by showing that such a subgroup exists and that it is unique:
   Since the order of $$G$$ is $$n$$, $$a \cdot d$$ must be a multiple of $$n$$,
   which means that there exists an integer $$b$$ so that $$a \cdot d = b \cdot n = b \cdot (c \cdot d)$$.
   It follows that $$a = b \cdot c$$ and $$A = G^a = (G^c)^b$$.
+
+<!-- -->
+
+- **Existence**: Let $$c = n / d$$, then $$⟨cG⟩ = \{cG, 2(cG), …, d(cG) = O\}$$ is a cyclic subgroup of order $$d$$.
+- **Uniqueness**: Given a subgroup $$\mathbb{H} = \{A_1, …, A_d\}$$ of order $$d$$,
+  we show that there is an integer $$b$$ for each $$A \in \mathbb{H}$$ so that $$A = b(cG)$$,
+  which implies that $$\mathbb{H} = ⟨cG⟩$$.
+  Since $$G$$ generates all elements of $$\mathbb{G}$$, there exists an integer $$a$$ so that $$A = aG$$.
+  Since a subgroup is a group, the order of $$A$$ must divide $$d$$ according to [Lagrange's theorem](#lagranges-theorem).
+  Therefore, $$dA = d(aG) = O$$.
+  Since the order of $$G$$ is $$n$$, $$a \cdot d$$ must be a multiple of $$n$$,
+  which means that there exists an integer $$b$$ so that $$a \cdot d = b \cdot n = b \cdot (c \cdot d)$$.
+  It follows that $$a = b \cdot c$$ and $$A = aG = b(cG)$$.
 
 </div>
 
@@ -3364,19 +3364,7 @@ and thus [commutative](#commutative-groups).
 Given a [generator](#group-generators) $$G$$, $$\href{#group-generators}{⟨G⟩} \cong \mathbb{Z}_m^+$$
 [if and only if](#if-and-only-if) $$\lvert G \rvert = m$$.
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-<div class="text-center" markdown="block">
-The function $$f(x) = xG$$ is a group isomorphism because:
-
-<figure markdown="block">
-{% include_relative generated/group-isomorphism-additive.embedded.svg %}
-<figcaption markdown="span">
-An isomorphism with $$\mathbb{Z}_m^+$$ using additive notation.
-</figcaption>
-</figure>
-
-</div>
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <div class="text-center" markdown="block">
 The function $$f(x) = G^x$$ is a group isomorphism because:
@@ -3385,6 +3373,18 @@ The function $$f(x) = G^x$$ is a group isomorphism because:
 {% include_relative generated/group-isomorphism-multiplicative.embedded.svg %}
 <figcaption markdown="span">
 An isomorphism with $$\mathbb{Z}_m^+$$ using multiplicative notation.
+</figcaption>
+</figure>
+
+</div>
+
+<div class="text-center" markdown="block">
+The function $$f(x) = xG$$ is a group isomorphism because:
+
+<figure markdown="block">
+{% include_relative generated/group-isomorphism-additive.embedded.svg %}
+<figcaption markdown="span">
+An isomorphism with $$\mathbb{Z}_m^+$$ using additive notation.
 </figcaption>
 </figure>
 
@@ -3718,15 +3718,7 @@ You find an alternative approach [here](https://pi.math.cornell.edu/~mathclub/Me
 Order of prime power
 </summary>
 
-<div class="tabbed keep-margin" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-For any element $$A$$ of a group $$\mathbb{G}$$,
-if $$p^eA = O$$ and $$p^{e-1}A ≠ O$$ for some prime $$p$$ and a positive integer $$e$$,
-then $$|A| = p^e$$.
-The reason for this is that whatever the [order](#element-order) of $$A$$ is,
-it has to divide $$p^e$$ given that $$p^eA = O$$.
-Only powers of $$p$$ divide $$p^e$$,
-but the order of $$A$$ cannot have a smaller exponent than $$e$$ because $$p^{e-1}A ≠ O$$.
+<div class="tabbed keep-margin" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 For any element $$A$$ of a group $$\mathbb{G}$$,
 if $$A^{p^e} = I$$ and $$A^{p^{e-1}} ≠ I$$ for some prime $$p$$ and a positive integer $$e$$,
@@ -3735,6 +3727,14 @@ The reason for this is that whatever the [order](#element-order) of $$A$$ is,
 it has to divide $$p^e$$ given that $$A^{p^e} = I$$.
 Only powers of $$p$$ divide $$p^e$$,
 but the order of $$A$$ cannot have a smaller exponent than $$e$$ because $$A^{p^{e-1}} ≠ I$$.
+
+For any element $$A$$ of a group $$\mathbb{G}$$,
+if $$p^eA = O$$ and $$p^{e-1}A ≠ O$$ for some prime $$p$$ and a positive integer $$e$$,
+then $$|A| = p^e$$.
+The reason for this is that whatever the [order](#element-order) of $$A$$ is,
+it has to divide $$p^e$$ given that $$p^eA = O$$.
+Only powers of $$p$$ divide $$p^e$$,
+but the order of $$A$$ cannot have a smaller exponent than $$e$$ because $$p^{e-1}A ≠ O$$.
 
 </div>
 
@@ -4921,14 +4921,14 @@ Given a [cyclic group](#cyclic-groups) $$\mathbb{G}$$
 and the [prime factorization](#prime-factorization) of its order $$n = p_1^{e_1}p_2^{e_2} … p_l^{e_l}$$,
 <!-- --> $$G \in \mathbb{G}$$ generates the whole group [if and only if](#if-and-only-if)
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\frac{n}{p_i}G ≠ O
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 G^\frac{n}{p_i} ≠ I
+$$
+
+$$
+\frac{n}{p_i}G ≠ O
 $$
 
 </div>
@@ -5027,15 +5027,15 @@ As long as $$s_i' ≥ s_i$$ for each of the exponents, $$d'$$ is still a multipl
 As soon as one $$s_i' < s_i$$, $$d'$$ is no longer a multiple of $$d$$, and thus $$A^{d'} ≠ I$$.
 This gives us the following [algorithm](https://en.wikipedia.org/wiki/Algorithm) for determining the order of $$A$$:
 
-<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+<div class="tabbed text-left pre-background" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \text{let } d := n \\
 \text{for } (i \text{ from } 1 \text{ to } l)\ \{ \\
 \quad d := d / p_i^{e_i} \\
-\quad \text{let } B := d A \\
-\quad \text{while } (B ≠ O)\ \{ \\
-\quad \quad B := p_i B \\
+\quad \text{let } B := A^d \\
+\quad \text{while } (B ≠ I)\ \{ \\
+\quad \quad B := B^{p_i} \\
 \quad \quad d := d \cdot p_i \\
 \quad \} \\
 \} \\
@@ -5046,9 +5046,9 @@ $$
 \text{let } d := n \\
 \text{for } (i \text{ from } 1 \text{ to } l)\ \{ \\
 \quad d := d / p_i^{e_i} \\
-\quad \text{let } B := A^d \\
-\quad \text{while } (B ≠ I)\ \{ \\
-\quad \quad B := B^{p_i} \\
+\quad \text{let } B := d A \\
+\quad \text{while } (B ≠ O)\ \{ \\
+\quad \quad B := p_i B \\
 \quad \quad d := d \cdot p_i \\
 \quad \} \\
 \} \\
@@ -5080,15 +5080,7 @@ Given a [cyclic](#cyclic-groups), [commutative group](#commutative-groups) $$\ma
 [prime factorization](#prime-factorization) of its [order](#group-order) $$n = p_1^{e_1}p_2^{e_2} … p_l^{e_l}$$,
 we get a generator $$G$$ by doing
 
-<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\text{for } (i \text{ from } 1 \text{ to } l)\ \{ \\
-\quad \text{choose } A \in \mathbb{G} \text{ at random until } \frac{n}{p_i}A ≠ O \\
-\quad \text{let } G_i := \frac{n}{p_i^{e_i}}A \\
-\} \\
-\text{return } G := \sum_{i=1}^l G_i
-$$
+<div class="tabbed text-left pre-background" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \text{for } (i \text{ from } 1 \text{ to } l)\ \{ \\
@@ -5098,20 +5090,28 @@ $$
 \text{return } G := \prod_{i=1}^l G_i
 $$
 
+$$
+\text{for } (i \text{ from } 1 \text{ to } l)\ \{ \\
+\quad \text{choose } A \in \mathbb{G} \text{ at random until } \frac{n}{p_i}A ≠ O \\
+\quad \text{let } G_i := \frac{n}{p_i^{e_i}}A \\
+\} \\
+\text{return } G := \sum_{i=1}^l G_i
+$$
+
 </div>
 
 Before we can understand why this algorithm works, we must note that the above construction implies that
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-p_i^{e_i} G_i = p_i^{e_i} (\frac{n}{p_i^{e_i}} A) = n A = O \quad \text{and} \quad
-p_i^{e_i-1} G_i = p_i^{e_i-1} (\frac{n}{p_i^{e_i}} A) = \frac{n}{p_i} A ≠ O
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 G_i^{p_i^{e_i}} = (A^\frac{n}{p_i^{e_i}})^{p_i^{e_i}} = A^n = I \quad \text{and} \quad
 G_i^{p_i^{e_i-1}} = (A^\frac{n}{p_i^{e_i}})^{p_i^{e_i-1}} = A^\frac{n}{p_i} ≠ I
+$$
+
+$$
+p_i^{e_i} G_i = p_i^{e_i} (\frac{n}{p_i^{e_i}} A) = n A = O \quad \text{and} \quad
+p_i^{e_i-1} G_i = p_i^{e_i-1} (\frac{n}{p_i^{e_i}} A) = \frac{n}{p_i} A ≠ O
 $$
 
 </div>
@@ -5556,14 +5556,14 @@ From there on, you will get [the same elements in the same order](#repeated-grou
 This means that we can reduce the number of repetitions [modulo](#modulo-operation)
 the [element's order](#element-order) $$|A|$$ without affecting the result:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-nA = (n\ \href{#modulo-operation}{\%}\ |A|)A \textsf{ \href{#lagrange-consequences}{since} } (|A|)A = O
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 A^n = A^{n\ \href{#modulo-operation}{\%}\ |A|} \textsf{ \href{#lagrange-consequences}{since} } A^{|A|} = I
+$$
+
+$$
+nA = (n\ \href{#modulo-operation}{\%}\ |A|)A \textsf{ \href{#lagrange-consequences}{since} } (|A|)A = O
 $$
 
 </div>
@@ -5574,15 +5574,15 @@ Since the function is linear,
 we can add and multiply two inputs $$a$$ and $$b$$ in the output [space](https://en.wikipedia.org/wiki/Vector_space)
 [while knowing only](#motivation) the input $$b$$ and the output $$A = f(a)$$:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-- **Addition**: $$f(a + b) = (a + b)G = aG + bG = A + bG$$
-- **Multiplication**: $$f(a \cdot b) = (a \cdot b)G = b(aG) = bA$$
-
-<!-- -->
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 - **Addition**: $$f(a + b) = G^{a + b} = G^a \cdot G^b = A \cdot G^b$$
 - **Multiplication**: $$f(a \cdot b) = G^{a \cdot b} = (G^a)^b = A^b$$
+
+<!-- -->
+
+- **Addition**: $$f(a + b) = (a + b)G = aG + bG = A + bG$$
+- **Multiplication**: $$f(a \cdot b) = (a \cdot b)G = b(aG) = bA$$
 
 </div>
 
@@ -7586,20 +7586,7 @@ from right to left so that $$k = (k_{l-1} … k_0)_2 = \sum_{i = 0}^{l - 1} k_i2
 we can rebuild the positive integer $$k$$ in the coefficient or exponent of $$G$$
 by combining the current result with itself and by combining it with $$G$$:
 
-<div class="tabbed text-left pre-background" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\text{function }binaryRepeat(G, k)\ \{ \\
-\quad \text{let }K := G \\
-\quad \text{for }(i\text{ from }l - 2\text{ to }0)\ \{ \\
-\quad \quad K := 2K \\
-\quad \quad \text{if }(k_i = 1)\ \{ \\
-\quad \quad \quad K := K + G \\
-\quad \quad \} \\
-\quad \} \\
-\quad \text{return } K \\
-\} \\
-$$
+<div class="tabbed text-left pre-background" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \text{function }binaryRepeat(G, k)\ \{ \\
@@ -7611,7 +7598,20 @@ $$
 \quad \quad \} \\
 \quad \} \\
 \quad \text{return } K \\
-\} \\
+\}
+$$
+
+$$
+\text{function }binaryRepeat(G, k)\ \{ \\
+\quad \text{let }K := G \\
+\quad \text{for }(i\text{ from }l - 2\text{ to }0)\ \{ \\
+\quad \quad K := 2K \\
+\quad \quad \text{if }(k_i = 1)\ \{ \\
+\quad \quad \quad K := K + G \\
+\quad \quad \} \\
+\quad \} \\
+\quad \text{return } K \\
+\}
 $$
 
 </div>
@@ -7698,17 +7698,17 @@ is to simply [try all possible values for $$k$$](https://en.wikipedia.org/wiki/B
 The effort for doing so scales exponentially with the [bit-length](https://en.wikipedia.org/wiki/Bit-length) of $$k$$.
 The search for the input $$k$$ so that you get the output $$K$$ can be visualized as follows:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <figure markdown="block">
-{% include_relative generated/dlp-exhaustive-search-additive.embedded.svg %}
+{% include_relative generated/dlp-exhaustive-search-multiplicative.embedded.svg %}
 <figcaption markdown="span">
 You simply count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
 </figcaption>
 </figure>
 
 <figure markdown="block">
-{% include_relative generated/dlp-exhaustive-search-multiplicative.embedded.svg %}
+{% include_relative generated/dlp-exhaustive-search-additive.embedded.svg %}
 <figcaption markdown="span">
 You simply count how many times you have to repeat the generator $$G$$ to reach the output $$K$$.
 </figcaption>
@@ -7763,27 +7763,7 @@ and I had to handle failures anyway for non-cyclic groups.
 Subgroup membership test in cyclic groups
 </summary>
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-<div markdown="block">
-
-Given two elements $$G$$ and $$K$$ of a [cyclic group](#cyclic-groups),
-there exists an integer $$k$$ so that $$kG = K$$
-[if and only if](#if-and-only-if) $$(\href{#element-order}{\lvert G \rvert})K = O$$.
-Proof:
-- If $$kG = K$$, $$K \in \href{#group-generators}{⟨G⟩}$$.
-  According to [Lagrange's theorem](#lagrange-consequences), $$\lvert K \rvert$$ divides $$\lvert G \rvert$$.
-  Therefore, $$(\lvert G \rvert)K = O$$.
-- If $$(\lvert G \rvert)K = O$$, $$\lvert K \rvert$$ divides $$\lvert G \rvert$$.
-  Now, $$K$$ and $$\frac{\lvert G \rvert}{\lvert K \rvert}G$$ [generate](#group-generators)
-  a [subgroup](#subgroups) of [order](#group-order) $$\lvert K \rvert$$.
-  As proven [earlier](#all-subgroups-of-cyclic-groups-are-cyclic),
-  a cyclic group has a single subgroup of order $$\lvert K \rvert$$.
-  Thus, $$⟨K⟩ = ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$.
-  Since $$K \in ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$,
-  there exists an integer $$k$$ so that $$kG = K$$.
-
-</div>
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <div markdown="block">
 
@@ -7805,6 +7785,26 @@ Proof:
 
 </div>
 
+<div markdown="block">
+
+Given two elements $$G$$ and $$K$$ of a [cyclic group](#cyclic-groups),
+there exists an integer $$k$$ so that $$kG = K$$
+[if and only if](#if-and-only-if) $$(\href{#element-order}{\lvert G \rvert})K = O$$.
+Proof:
+- If $$kG = K$$, $$K \in \href{#group-generators}{⟨G⟩}$$.
+  According to [Lagrange's theorem](#lagrange-consequences), $$\lvert K \rvert$$ divides $$\lvert G \rvert$$.
+  Therefore, $$(\lvert G \rvert)K = O$$.
+- If $$(\lvert G \rvert)K = O$$, $$\lvert K \rvert$$ divides $$\lvert G \rvert$$.
+  Now, $$K$$ and $$\frac{\lvert G \rvert}{\lvert K \rvert}G$$ [generate](#group-generators)
+  a [subgroup](#subgroups) of [order](#group-order) $$\lvert K \rvert$$.
+  As proven [earlier](#all-subgroups-of-cyclic-groups-are-cyclic),
+  a cyclic group has a single subgroup of order $$\lvert K \rvert$$.
+  Thus, $$⟨K⟩ = ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$.
+  Since $$K \in ⟨\frac{\lvert G \rvert}{\lvert K \rvert}G⟩$$,
+  there exists an integer $$k$$ so that $$kG = K$$.
+
+</div>
+
 </div>
 
 </details>
@@ -7819,17 +7819,17 @@ we jump over $$K$$ if $$k - 1$$ is not a multiple of $$s$$.
 Instead of checking after each step whether we have reached $$K$$,
 we can compute $$s - 1$$ neighbors of $$K$$ and check whether we have reached one of them:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <figure markdown="block">
-{% include_relative generated/dlp-giant-step-right-additive.embedded.svg %}
+{% include_relative generated/dlp-giant-step-right-multiplicative.embedded.svg %}
 <figcaption markdown="span">
 If the landing area consists of $$s$$ elements, we can take steps of size $$s$$ without missing it.
 </figcaption>
 </figure>
 
 <figure markdown="block">
-{% include_relative generated/dlp-giant-step-right-multiplicative.embedded.svg %}
+{% include_relative generated/dlp-giant-step-right-additive.embedded.svg %}
 <figcaption markdown="span">
 If the landing area consists of $$s$$ elements, we can take steps of size $$s$$ without missing it.
 </figcaption>
@@ -7844,17 +7844,17 @@ you typically compute the neighbors of $$G$$ instead of $$K$$
 and then take the giant steps backwards from the current element $$K$$
 so that you can reuse the computed neighbors in later runs:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 <figure markdown="block">
-{% include_relative generated/dlp-giant-step-left-additive.embedded.svg %}
+{% include_relative generated/dlp-giant-step-left-multiplicative.embedded.svg %}
 <figcaption markdown="span">
 In the more common variant of the algorithm, you take the giant steps backwards instead of forwards.
 </figcaption>
 </figure>
 
 <figure markdown="block">
-{% include_relative generated/dlp-giant-step-left-multiplicative.embedded.svg %}
+{% include_relative generated/dlp-giant-step-left-additive.embedded.svg %}
 <figcaption markdown="span">
 In the more common variant of the algorithm, you take the giant steps backwards instead of forwards.
 </figcaption>
@@ -7901,14 +7901,14 @@ Pollard's rho algorithm uses the following, [non-cryptographic](/email/#cryptogr
 ["hash" function](https://en.wikipedia.org/wiki/Hash_function),
 which maps the integers $$a$$ and $$b$$ to an element $$C$$:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-h(a, b) = aG + bK = C
-$$
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 h(a, b) = G^a \cdot K^b = C
+$$
+
+$$
+h(a, b) = aG + bK = C
 $$
 
 </div>
@@ -7917,22 +7917,22 @@ Once we find a [collision](https://en.wikipedia.org/wiki/Hash_collision),
 i.e. inputs $$(a_1, b_1)$$ and $$(a_2, b_2)$$ where $$b_1 ≠_n b_2$$ so that $$h(a_1, b_1) = h(a_2, b_2)$$,
 we can solve for $$k$$ as follows:
 
-<div class="tabbed aligned" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
-
-$$
-\begin{aligned}
-a_1G + b_1K &= a_2G + b_2K \\
-b_1K - b_2K &= a_2G - a_1G \\
-(b_1 - b_2)kG &= (a_2 - a_1)G \\
-(b_1 - b_2)k &=_n a_2 - a_1
-\end{aligned}
-$$
+<div class="tabbed aligned" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
 
 $$
 \begin{aligned}
 G^{a_1} \cdot K^{b_1} &= G^{a_2} \cdot K^{b_2} \\
 K^{b_1} / K^{b_2} &= G^{a_2} / G^{a_1} \\
 (G^k)^{b_1 - b_2} &= G^{a_2 - a_1} \\
+(b_1 - b_2)k &=_n a_2 - a_1
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+a_1G + b_1K &= a_2G + b_2K \\
+b_1K - b_2K &= a_2G - a_1G \\
+(b_1 - b_2)kG &= (a_2 - a_1)G \\
 (b_1 - b_2)k &=_n a_2 - a_1
 \end{aligned}
 $$
@@ -7954,7 +7954,15 @@ there can be quite a lot of solutions to check, unfortunately (see [below](#solv
 We can use insights from [graph theory](https://en.wikipedia.org/wiki/Graph_theory) to find a collision.
 First, we define a [sequence](https://en.wikipedia.org/wiki/Sequence) of elements $$S_i$$ with the following function:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative">
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative">
+
+$$
+S_{i+1} = f(S_i) = \begin{cases}
+S_i \cdot G &\text{if } S_i =_3 0 \text{,} \\
+S_i \cdot K &\text{if } S_i =_3 1 \text{,} \\
+S_i \cdot S_i &\text{if } S_i =_3 2 \text{.}
+\end{cases}
+$$
 
 <figure class="mt-0 mb-3" markdown="block">
 
@@ -7973,14 +7981,6 @@ we consider just the [$$x$$-coordinate](#point-addition) of each point when part
 
 </figcaption>
 </figure>
-
-$$
-S_{i+1} = f(S_i) = \begin{cases}
-S_i \cdot G &\text{if } S_i =_3 0 \text{,} \\
-S_i \cdot K &\text{if } S_i =_3 1 \text{,} \\
-S_i \cdot S_i &\text{if } S_i =_3 2 \text{.}
-\end{cases}
-$$
 
 </div>
 
@@ -8326,83 +8326,7 @@ Given a [generator](#group-generators) $$G$$, its [order](#element-order) $$n$$,
 and an output $$K$$ of the [linear one-way function](#linear-one-way-functions),
 the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
 
-<div class="tabbed" data-titles="Additive | Multiplicative | Both" data-default="Multiplicative" markdown="block">
-
-1. Find the [prime factorization](#prime-factorization) of $$n$$ so that $$n = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$
-   for distinct primes $$p_i$$ and integers $$e_i ≥ 1$$.
-   Since the Pohlig-Hellman decomposition succeeds only if all the prime factors are sufficiently small,
-   [Pollard's rho factorization algorithm](#pollards-rho-factorization-algorithm) is a good choice for this step.
-   If the factorization fails because some factors are too large, the steps below wouldn't work either.
-2. For $$i$$ from $$1$$ to $$l$$, do the following:
-   1. Compute $$G_i := (n/p_i^{e_i})G$$.
-      Since the order of $$G$$ is $$n$$, the order of $$G_i$$ is $$p_i^{e_i}$$.
-   2. Compute $$K_i := (n/p_i^{e_i})K$$.
-      Since $$kG = K$$, we have that $$K_i = (n/p_i^{e_i})kG = k(n/p_i^{e_i})G = kG_i$$,
-      which means that the discrete logarithm of $$K$$ to the base $$G$$
-      is also a discrete logarithm of $$K_i$$ to the base $$G_i$$.
-      As we saw [earlier](#repetition-ring), a discrete logarithm is unique only up to the order of its base.
-      Therefore, the discrete logarithm of $$K_i$$ to the base $$G_i$$, which I denote as $$k_i$$,
-      is not necessarily a discrete logarithm of $$K$$ to the base $$G$$
-      as $$k_i \in \{0, …, p_i^{e_i} - 1\}$$, whereas $$k \in \{0, …, n - 1\}$$.
-      A discrete logarithm is unique up to the order of its base, though, which implies that $$k =_{p_i^{e_i}} k_i$$.
-      <div class="mt-2" markdown="span">
-      Instead of determining $$k$$ so that $$kG = K$$ in the original group of order $$n$$,
-      we can thus determine $$k_i$$ so that $$k_iG_i = K_i$$ in&nbsp;the [subgroup](#subgroups)
-      [generated](#group-generators) by $$G_i$$ of order $$p_i^{e_i}$$, which improves the expected running time
-      from $$\sqrt{n}$$ to $$\sqrt{p_i^{e_i}}$$ when using [Pollard's rho algorithm](#pollards-rho-algorithm) for this.
-      Depending on the prime factorization of $$n$$, this can already be a big improvement.
-      The following insight allows us to determine $$k_i$$ in the steps 2.3 to 2.5 below
-      without ever having to compute a discrete logarithm in a group larger than $$p_i$$,
-      which improves the expected running time even further to $$\sqrt{p_i}$$.
-      If you're not interested in this, you can continue with the step 3 at the bottom of this box.
-      </div>
-      <div class="mt-2" markdown="span">
-      **Insight**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
-      <!-- --> $$k_i = d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$,
-      where each digit $$d_j \in \{0, …, p_i - 1\}$$.
-      Now, $$k_iG_i = (d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1})G_i
-      = \htmlClass{color-red}{d_0G_i + d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i}$$.
-      When we multiply both sides by $$p_i^{e_i-1}$$,
-      we get $$p_i^{e_i-1}(d_0G_i) = d_0(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
-      = \htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
-      because all the other terms vanish as $$p_i^{e_i-1}(d_jp_i^{1+?}G_i) = d_j(p_i^{e_i+?}G_i) = d_jO = O$$
-      due to [Lagrange's theorem](#lagrange-consequences).
-      Once we have determined $$d_0$$ as the discrete logarithm of $$\htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
-      to the base $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ of order $$p_i$$ with one of the above
-      [DL algorithms](#dl-algorithms), we can take $$d_0G_i$$ to the other side of the equation in red:
-      <!-- --> $$d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i - \htmlClass{color-pink}{d_0}G_i$$.
-      When we multiply both sides by $$p_i^{e_i-2}$$,
-      we get $$p_i^{e_i-2}(d_1p_iG_i) = d_1(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
-      = \htmlClass{color-orange}{p_i^{e_i-2}(K_i - d_0G_i)}$$
-      because all the other terms vanish again.
-      After determining $$d_1$$ in the same group of order $$p_i$$ as before,
-      we move $$d_1p_iG_i$$ also to the other side of the equation,
-      which gives us $$d_2p_i^2G_i + … + d_{e_i-1}p_i^{e_i-1}G_i
-      = K_i - d_0G_i - d_1p_iG_i = K_i - (\htmlClass{color-pink}{d_0 + d_1p_i})G_i$$.
-      By continuing like this, we can determine all the digits $$d_j$$ of $$k_i$$
-      without ever having to solve a discrete-logarithm problem in a group larger than $$p_i$$.
-      We implement this as follows:
-      </div>
-   3. Compute $$H_i := \htmlClass{color-purple}{p_i^{e_i-1}G_i}$$.
-      Since the order of $$G_i$$ is $$p_i^{e_i}$$, the order of $$H_i$$ is $$p_i$$.
-      I colored the term $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ in the explanation above
-      so that it's easier for you to see that each digit $$d_j$$ is determined in the group generated by $$H_i$$.
-   4. For $$j$$ from $$0$$ to $$e_i - 1$$, do the following:
-      1. If $$j = 0$$, set $$s_j := 0$$.
-         Otherwise, set $$s_j := \htmlClass{color-pink}{s_{j-1} + d_{j-1} \cdot p_i^{j-1}}$$.
-         <!-- --> $$s_j$$ is the sum of all the digits that we have found so far,
-         where each digit is multiplied by the value of its [position](https://en.wikipedia.org/wiki/Positional_notation).
-         I colored this partial sum in the explanation above so that it's easier for you to see where it's being used.
-      2. Compute $$D_j := \htmlClass{color-orange}{p_i^{e_i-1-j}(K_i - s_jG_i)}$$.
-         I also colored the occurrences of this expression in the explanation above.
-      3. Find $$d_j$$ so that $$d_jH_i = D_j$$ with one of the above [DL algorithms](#dl-algorithms).
-   5. Compute $$k_i := d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$.
-      (Alternatively, set $$k_i := s_{e_i-1} + d_{e_i-1}p_i^{e_i-1}$$.)
-3. Use the [Chinese remainder theorem](#chinese-remainder-theorem) to solve
-   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$ efficiently.
-4. Return $$k$$ as the solution to $$kG = K$$.
-
-<!-- -->
+<div class="tabbed" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
 1. Find the [prime factorization](#prime-factorization) of $$n$$ so that $$n = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$
    for distinct primes $$p_i$$ and integers $$e_i ≥ 1$$.
@@ -8478,6 +8402,82 @@ the Pohlig-Hellman algorithm finds the input $$k$$ as follows:
 3. Use the [Chinese remainder theorem](#chinese-remainder-theorem) to solve
    the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$ efficiently.
 4. Return $$k$$ as the solution to $$G^k = K$$.
+
+<!-- -->
+
+1. Find the [prime factorization](#prime-factorization) of $$n$$ so that $$n = p_1^{e_1} \cdot … \cdot p_l^{e_l}$$
+   for distinct primes $$p_i$$ and integers $$e_i ≥ 1$$.
+   Since the Pohlig-Hellman decomposition succeeds only if all the prime factors are sufficiently small,
+   [Pollard's rho factorization algorithm](#pollards-rho-factorization-algorithm) is a good choice for this step.
+   If the factorization fails because some factors are too large, the steps below wouldn't work either.
+2. For $$i$$ from $$1$$ to $$l$$, do the following:
+   1. Compute $$G_i := (n/p_i^{e_i})G$$.
+      Since the order of $$G$$ is $$n$$, the order of $$G_i$$ is $$p_i^{e_i}$$.
+   2. Compute $$K_i := (n/p_i^{e_i})K$$.
+      Since $$kG = K$$, we have that $$K_i = (n/p_i^{e_i})kG = k(n/p_i^{e_i})G = kG_i$$,
+      which means that the discrete logarithm of $$K$$ to the base $$G$$
+      is also a discrete logarithm of $$K_i$$ to the base $$G_i$$.
+      As we saw [earlier](#repetition-ring), a discrete logarithm is unique only up to the order of its base.
+      Therefore, the discrete logarithm of $$K_i$$ to the base $$G_i$$, which I denote as $$k_i$$,
+      is not necessarily a discrete logarithm of $$K$$ to the base $$G$$
+      as $$k_i \in \{0, …, p_i^{e_i} - 1\}$$, whereas $$k \in \{0, …, n - 1\}$$.
+      A discrete logarithm is unique up to the order of its base, though, which implies that $$k =_{p_i^{e_i}} k_i$$.
+      <div class="mt-2" markdown="span">
+      Instead of determining $$k$$ so that $$kG = K$$ in the original group of order $$n$$,
+      we can thus determine $$k_i$$ so that $$k_iG_i = K_i$$ in&nbsp;the [subgroup](#subgroups)
+      [generated](#group-generators) by $$G_i$$ of order $$p_i^{e_i}$$, which improves the expected running time
+      from $$\sqrt{n}$$ to $$\sqrt{p_i^{e_i}}$$ when using [Pollard's rho algorithm](#pollards-rho-algorithm) for this.
+      Depending on the prime factorization of $$n$$, this can already be a big improvement.
+      The following insight allows us to determine $$k_i$$ in the steps 2.3 to 2.5 below
+      without ever having to compute a discrete logarithm in a group larger than $$p_i$$,
+      which improves the expected running time even further to $$\sqrt{p_i}$$.
+      If you're not interested in this, you can continue with the step 3 at the bottom of this box.
+      </div>
+      <div class="mt-2" markdown="span">
+      **Insight**: We can write $$k_i$$ in [base](https://en.wikipedia.org/wiki/Radix) $$p_i$$ as
+      <!-- --> $$k_i = d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$,
+      where each digit $$d_j \in \{0, …, p_i - 1\}$$.
+      Now, $$k_iG_i = (d_0 + d_1p_i + … + d_{e_i-1}p_i^{e_i-1})G_i
+      = \htmlClass{color-red}{d_0G_i + d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i}$$.
+      When we multiply both sides by $$p_i^{e_i-1}$$,
+      we get $$p_i^{e_i-1}(d_0G_i) = d_0(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
+      = \htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
+      because all the other terms vanish as $$p_i^{e_i-1}(d_jp_i^{1+?}G_i) = d_j(p_i^{e_i+?}G_i) = d_jO = O$$
+      due to [Lagrange's theorem](#lagrange-consequences).
+      Once we have determined $$d_0$$ as the discrete logarithm of $$\htmlClass{color-orange}{p_i^{e_i-1}K_i}$$
+      to the base $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ of order $$p_i$$ with one of the above
+      [DL algorithms](#dl-algorithms), we can take $$d_0G_i$$ to the other side of the equation in red:
+      <!-- --> $$d_1p_iG_i + … + d_{e_i-1}p_i^{e_i-1}G_i = K_i - \htmlClass{color-pink}{d_0}G_i$$.
+      When we multiply both sides by $$p_i^{e_i-2}$$,
+      we get $$p_i^{e_i-2}(d_1p_iG_i) = d_1(\htmlClass{color-purple}{p_i^{e_i-1}G_i})
+      = \htmlClass{color-orange}{p_i^{e_i-2}(K_i - d_0G_i)}$$
+      because all the other terms vanish again.
+      After determining $$d_1$$ in the same group of order $$p_i$$ as before,
+      we move $$d_1p_iG_i$$ also to the other side of the equation,
+      which gives us $$d_2p_i^2G_i + … + d_{e_i-1}p_i^{e_i-1}G_i
+      = K_i - d_0G_i - d_1p_iG_i = K_i - (\htmlClass{color-pink}{d_0 + d_1p_i})G_i$$.
+      By continuing like this, we can determine all the digits $$d_j$$ of $$k_i$$
+      without ever having to solve a discrete-logarithm problem in a group larger than $$p_i$$.
+      We implement this as follows:
+      </div>
+   3. Compute $$H_i := \htmlClass{color-purple}{p_i^{e_i-1}G_i}$$.
+      Since the order of $$G_i$$ is $$p_i^{e_i}$$, the order of $$H_i$$ is $$p_i$$.
+      I colored the term $$\htmlClass{color-purple}{p_i^{e_i-1}G_i}$$ in the explanation above
+      so that it's easier for you to see that each digit $$d_j$$ is determined in the group generated by $$H_i$$.
+   4. For $$j$$ from $$0$$ to $$e_i - 1$$, do the following:
+      1. If $$j = 0$$, set $$s_j := 0$$.
+         Otherwise, set $$s_j := \htmlClass{color-pink}{s_{j-1} + d_{j-1} \cdot p_i^{j-1}}$$.
+         <!-- --> $$s_j$$ is the sum of all the digits that we have found so far,
+         where each digit is multiplied by the value of its [position](https://en.wikipedia.org/wiki/Positional_notation).
+         I colored this partial sum in the explanation above so that it's easier for you to see where it's being used.
+      2. Compute $$D_j := \htmlClass{color-orange}{p_i^{e_i-1-j}(K_i - s_jG_i)}$$.
+         I also colored the occurrences of this expression in the explanation above.
+      3. Find $$d_j$$ so that $$d_jH_i = D_j$$ with one of the above [DL algorithms](#dl-algorithms).
+   5. Compute $$k_i := d_0 + d_1p_i + d_2p_i^2 + … + d_{e_i-1}p_i^{e_i-1} = \sum_{j=0}^{e_i-1} d_jp_i^j$$.
+      (Alternatively, set $$k_i := s_{e_i-1} + d_{e_i-1}p_i^{e_i-1}$$.)
+3. Use the [Chinese remainder theorem](#chinese-remainder-theorem) to solve
+   the system of [congruences](#congruence-relation) $$k =_{p_i^{e_i}} k_i$$ efficiently.
+4. Return $$k$$ as the solution to $$kG = K$$.
 
 </div>
 
@@ -8783,7 +8783,7 @@ and that their group operations are faster since the numbers are smaller.
 Using [universal and existential quantifiers](#universal-and-existential-quantifiers)
 to make statements about the elements of a set, the [group axioms](#group-axioms) can be reduced to:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 - **Closure (G1)**: $$\forall\ A, B \in \mathbb{G}\ A \circ B \in \mathbb{G}$$
 - **Associativity (G2)**: $$\forall\ A, B, C \in \mathbb{G}\ (A \circ B) \circ C = A \circ (B \circ C)$$
@@ -8792,29 +8792,29 @@ to make statements about the elements of a set, the [group axioms](#group-axioms
 
 <!-- -->
 
-- **Closure (G1)**: $$\forall\ A, B \in \mathbb{G}\ A + B \in \mathbb{G}$$
-- **Associativity (G2)**: $$\forall\ A, B, C \in \mathbb{G}\ (A + B) + C = A + (B + C)$$
-- **Identity (G3)**: $$\exists\ O \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ A + O = A$$
-- **Invertibility (G4)**: $$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ A + B = O$$
-
-<!-- -->
-
 - **Closure (G1)**: $$\forall\ A, B \in \mathbb{G}\ A \cdot B \in \mathbb{G}$$
 - **Associativity (G2)**: $$\forall\ A, B, C \in \mathbb{G}\ (A \cdot B) \cdot C = A \cdot (B \cdot C)$$
 - **Identity (G3)**: $$\exists\ I \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ A \cdot I = A$$
 - **Invertibility (G4)**: $$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ A \cdot B = I$$
 
+<!-- -->
+
+- **Closure (G1)**: $$\forall\ A, B \in \mathbb{G}\ A + B \in \mathbb{G}$$
+- **Associativity (G2)**: $$\forall\ A, B, C \in \mathbb{G}\ (A + B) + C = A + (B + C)$$
+- **Identity (G3)**: $$\exists\ O \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ A + O = A$$
+- **Invertibility (G4)**: $$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ A + B = O$$
+
 </div>
 
 [Commutative groups](#commutative-groups) have an additional axiom:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 **Commutativity (G5)**: $$\forall\ A, B \in \mathbb{G}\ A \circ B = B \circ A$$
 
-**Commutativity (G5)**: $$\forall\ A, B \in \mathbb{G}\ A + B = B + A$$
-
 **Commutativity (G5)**: $$\forall\ A, B \in \mathbb{G}\ A \cdot B = B \cdot A$$
+
+**Commutativity (G5)**: $$\forall\ A, B \in \mathbb{G}\ A + B = B + A$$
 
 </div>
 
@@ -8830,7 +8830,7 @@ Keeping the [quantifiers](#universal-and-existential-quantifiers) at the beginni
 and using the [logical conjunction $$\land$$](#logical-conjunction) ("and"),
 the group axioms can be written less ambiguously as:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \exists\ E \in \mathbb{G}\ \forall\ A, B, C \in \mathbb{G}\ \exists\ D \in \mathbb{G}
@@ -8842,18 +8842,18 @@ $$
 
 $$
 \exists\ E \in \mathbb{G}\ \forall\ A, B, C \in \mathbb{G}\ \exists\ D \in \mathbb{G}
-\ A + B \in \mathbb{G} \land
-(A + B) + C = A + (B + C) \land
-A + O = A \land
-A + D = O
-$$
-
-$$
-\exists\ E \in \mathbb{G}\ \forall\ A, B, C \in \mathbb{G}\ \exists\ D \in \mathbb{G}
 A \cdot B \in \mathbb{G} \land
 (A \cdot B) \cdot C = A \cdot (B \cdot C) \land
 A \cdot I = A \land
 A \cdot D = I
+$$
+
+$$
+\exists\ E \in \mathbb{G}\ \forall\ A, B, C \in \mathbb{G}\ \exists\ D \in \mathbb{G}
+\ A + B \in \mathbb{G} \land
+(A + B) + C = A + (B + C) \land
+A + O = A \land
+A + D = O
 $$
 
 </div>
@@ -8861,16 +8861,16 @@ $$
 If, on the other hand, we replace the invertibility axiom with the following,
 then we [do not define a group](https://math.stackexchange.com/questions/127646/minimal-axioms-for-a-group):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 **Fake invertibility**:
 $$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ \forall\ C \in \mathbb{G}\ C \circ (A \circ B) = C$$
 
 **Fake invertibility**:
-$$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ \forall\ C \in \mathbb{G}\ C + (A + B) = C$$
+$$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ \forall\ C \in \mathbb{G}\ C \cdot (A \cdot B) = C$$
 
 **Fake invertibility**:
-$$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ \forall\ C \in \mathbb{G}\ C \cdot (A \cdot B) = C$$
+$$\forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}\ \forall\ C \in \mathbb{G}\ C + (A + B) = C$$
 
 </div>
 
@@ -8923,13 +8923,13 @@ Alternative group axioms
 Instead of requiring that there is an identity and that each element has an inverse,
 we can simply require the [following axiom](https://planetmath.org/alternativedefinitionofgroup):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 **Solvability**: $$\forall\ A, B \in \mathbb{G}\ \exists\ X, Y \in \mathbb{G}\ X \circ A = A \circ Y = B$$
 
-**Solvability**: $$\forall\ A, B \in \mathbb{G}\ \exists\ X, Y \in \mathbb{G}\ X + A = A + Y = B$$
-
 **Solvability**: $$\forall\ A, B \in \mathbb{G}\ \exists\ X, Y \in \mathbb{G}\ X \cdot A = A \cdot Y = B$$
+
+**Solvability**: $$\forall\ A, B \in \mathbb{G}\ \exists\ X, Y \in \mathbb{G}\ X + A = A + Y = B$$
 
 </div>
 
@@ -8939,7 +8939,7 @@ In order to prove that this axiom, together with closure and associativity,
 defines the same algebraic structure as [above](#reduced-group-axioms),
 we just need show that the identity element is the same for all elements:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 <div markdown="block">
 For arbitrary elements $$A$$ and $$B$$, there exist
@@ -8951,18 +8951,18 @@ Thus, $$E_A = X \circ B = X \circ (B \circ E_B) = (X \circ B) \circ E_B = E_A \c
 
 <div markdown="block">
 For arbitrary elements $$A$$ and $$B$$, there exist
-- $$O_A$$ and $$O_B$$ so that $$O_A + A = A$$ and $$B + O_B = B$$,
-- and $$X$$ and $$Y$$ so that $$X + B = O_A$$ and $$A + Y = O_B$$.
-
-Thus, $$O_A = X + B = X + (B + O_B) = (X + B) + O_B = O_A + O_B = O_A + (A + Y) = (O_A + A) + Y = A + Y = O_B$$.
-</div>
-
-<div markdown="block">
-For arbitrary elements $$A$$ and $$B$$, there exist
 - $$I_A$$ and $$I_B$$ so that $$I_A \cdot A = A$$ and $$B \cdot I_B = B$$,
 - and $$X$$ and $$Y$$ so that $$X \cdot B = I_A$$ and $$A \cdot Y = I_B$$.
 
 Thus, $$I_A = X \cdot B = X \cdot (B \cdot I_B) = (X \cdot B) \cdot I_B = I_A \cdot I_B = I_A \cdot (A \cdot Y) = (I_A \cdot A) \cdot Y = A \cdot Y = I_B$$.
+</div>
+
+<div markdown="block">
+For arbitrary elements $$A$$ and $$B$$, there exist
+- $$O_A$$ and $$O_B$$ so that $$O_A + A = A$$ and $$B + O_B = B$$,
+- and $$X$$ and $$Y$$ so that $$X + B = O_A$$ and $$A + Y = O_B$$.
+
+Thus, $$O_A = X + B = X + (B + O_B) = (X + B) + O_B = O_A + O_B = O_A + (A + Y) = (O_A + A) + Y = A + Y = O_B$$.
 </div>
 
 </div>
@@ -9032,7 +9032,7 @@ to their [union $$\cup$$](https://en.wikipedia.org/wiki/Union_(set_theory)).
 It follows directly from the [substitution property](#properties-of-equality)
 that equality is preserved when we apply the same element on both sides:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A, B, C \in \mathbb{G}\ A = B \implies A \circ C = B \circ C \\[4pt]
@@ -9040,13 +9040,13 @@ $$
 $$
 
 $$
-\forall\ A, B, C \in \mathbb{G}\ A = B \implies A + C = B + C \\[4pt]
-\textsf{using \href{#properties-of-equality}{substitution (E4)} with } F(X) = X + C
+\forall\ A, B, C \in \mathbb{G}\ A = B \implies A \cdot C = B \cdot C \\[4pt]
+\textsf{using \href{#properties-of-equality}{substitution (E4)} with } F(X) = X \cdot C
 $$
 
 $$
-\forall\ A, B, C \in \mathbb{G}\ A = B \implies A \cdot C = B \cdot C \\[4pt]
-\textsf{using \href{#properties-of-equality}{substitution (E4)} with } F(X) = X \cdot C
+\forall\ A, B, C \in \mathbb{G}\ A = B \implies A + C = B + C \\[4pt]
+\textsf{using \href{#properties-of-equality}{substitution (E4)} with } F(X) = X + C
 $$
 
 </div>
@@ -9059,7 +9059,7 @@ that every possible [parenthesization](https://en.wiktionary.org/wiki/parenthesi
 of $$n > 3$$ elements [is equivalent](https://groupprops.subwiki.org/wiki/Associative_implies_generalized_associative)
 ($$n = 3$$ is covered by the axiom [G2](#group-axioms)):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 Every parenthesization of $$A_1 \circ A_2 \circ A_3 \circ … \circ A_n$$ is equal to
 the left-associated expression $$(((A_1 \circ A_2) \circ A_3) \circ …) \circ A_n$$
@@ -9073,21 +9073,6 @@ If $$m = n - 1$$, $$B' \circ C$$ is a left-associated expression and we are done
 Otherwise, $$C'$$ can be written as $$D \circ A_n$$.
 Now, $$B' \circ (D \circ A_n) = (B' \circ D) \circ A_n$$ because of [associativity (G2)](#group-axioms).
 Since $$B' \circ D$$ contains less than $$n$$ elements,
-it has a left-associated equivalent, which makes the expression left-associated.
-(We know that $$B'$$ and $$D$$ can be represented by elements of the set because of [closure (G1)](#group-axioms).)
-
-Every parenthesization of $$A_1 + A_2 + A_3 + … + A_n$$ is equal to
-the left-associated expression $$(((A_1 + A_2) + A_3) + …) + A_n$$
-because any such expression can be written as $$B + C$$,
-where $$B = A_1 + … + A_m$$, $$C = A_{m + 1} + … + A_n$$,
-and $$m$$ is the position of the outermost operation.
-Both $$B$$ and $$C$$ are parenthesized in an unknown way,
-but since they both contain fewer elements than $$n$$,
-we know by induction that they have left-associated equivalents $$B'$$ and $$C'$$.
-If $$m = n - 1$$, $$B' + C$$ is a left-associated expression and we are done.
-Otherwise, $$C'$$ can be written as $$D + A_n$$.
-Now, $$B' + (D + A_n) = (B' + D) + A_n$$ because of [associativity (G2)](#group-axioms).
-Since $$B' + D$$ contains less than $$n$$ elements,
 it has a left-associated equivalent, which makes the expression left-associated.
 (We know that $$B'$$ and $$D$$ can be represented by elements of the set because of [closure (G1)](#group-axioms).)
 
@@ -9106,6 +9091,21 @@ Since $$B' \cdot D$$ contains less than $$n$$ elements,
 it has a left-associated equivalent, which makes the expression left-associated.
 (We know that $$B'$$ and $$D$$ can be represented by elements of the set because of [closure (G1)](#group-axioms).)
 
+Every parenthesization of $$A_1 + A_2 + A_3 + … + A_n$$ is equal to
+the left-associated expression $$(((A_1 + A_2) + A_3) + …) + A_n$$
+because any such expression can be written as $$B + C$$,
+where $$B = A_1 + … + A_m$$, $$C = A_{m + 1} + … + A_n$$,
+and $$m$$ is the position of the outermost operation.
+Both $$B$$ and $$C$$ are parenthesized in an unknown way,
+but since they both contain fewer elements than $$n$$,
+we know by induction that they have left-associated equivalents $$B'$$ and $$C'$$.
+If $$m = n - 1$$, $$B' + C$$ is a left-associated expression and we are done.
+Otherwise, $$C'$$ can be written as $$D + A_n$$.
+Now, $$B' + (D + A_n) = (B' + D) + A_n$$ because of [associativity (G2)](#group-axioms).
+Since $$B' + D$$ contains less than $$n$$ elements,
+it has a left-associated equivalent, which makes the expression left-associated.
+(We know that $$B'$$ and $$D$$ can be represented by elements of the set because of [closure (G1)](#group-axioms).)
+
 </div>
 
 
@@ -9119,13 +9119,13 @@ Idempotence
 We say that an element is [idempotent](https://en.wikipedia.org/wiki/Idempotence)
 if it equals itself when it is combined with itself:
 
-<div class="tabbed keep-margin" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic" markdown="block">
+<div class="tabbed keep-margin" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic" markdown="block">
 
 **Idempotence (IP)**: $$A \circ A = A$$
 
-**Idempotence (IP)**: $$A + A = A$$
-
 **Idempotence (IP)**: $$A \cdot A = A$$
+
+**Idempotence (IP)**: $$A + A = A$$
 
 </div>
 
@@ -9134,7 +9134,7 @@ if it equals itself when it is combined with itself:
 All idempotent elements of a [group](#reduced-group-axioms)
 are [equal to the same identity element](https://math.stackexchange.com/a/174035/947937):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \exists\ E \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}
@@ -9150,19 +9150,6 @@ A \stackrel{\text{\href{#group-axioms}{G3}}}{=} A \circ E
 $$
 
 $$
-\exists\ O \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}
-\ A + O \stackrel{\text{\href{#group-axioms}{G3}}}{=} A
-\land A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O
-\land \\[4pt]
-\big(A + A \stackrel{\text{\href{#idempotence}{IP}}}{=} A \implies
-A \stackrel{\text{\href{#group-axioms}{G3}}}{=} A + O
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} A + (A + B)
-\stackrel{\text{\href{#group-axioms}{G2}}}{=} (A + A) + B
-\stackrel{\text{\href{#idempotence}{IP}}}{=} A + B
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} O\big)
-$$
-
-$$
 \exists\ I \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}
 \ A \cdot I \stackrel{\text{\href{#group-axioms}{G3}}}{=} A
 \land A \cdot B \stackrel{\text{\href{#group-axioms}{G4}}}{=} I
@@ -9173,6 +9160,19 @@ A \stackrel{\text{\href{#group-axioms}{G3}}}{=} A \cdot I
 \stackrel{\text{\href{#group-axioms}{G2}}}{=} (A \cdot A) \cdot B
 \stackrel{\text{\href{#idempotence}{IP}}}{=} A \cdot B
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} I\big)
+$$
+
+$$
+\exists\ O \in \mathbb{G}\ \forall\ A \in \mathbb{G}\ \exists\ B \in \mathbb{G}
+\ A + O \stackrel{\text{\href{#group-axioms}{G3}}}{=} A
+\land A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O
+\land \\[4pt]
+\big(A + A \stackrel{\text{\href{#idempotence}{IP}}}{=} A \implies
+A \stackrel{\text{\href{#group-axioms}{G3}}}{=} A + O
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} A + (A + B)
+\stackrel{\text{\href{#group-axioms}{G2}}}{=} (A + A) + B
+\stackrel{\text{\href{#idempotence}{IP}}}{=} A + B
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} O\big)
 $$
 
 </div>
@@ -9190,7 +9190,7 @@ Unique identity in commutative groups
 
 If the operation is [commutative](#commutative-groups), it's much easier to see why any two identities are the same:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 E_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} E_1 \circ E_2
@@ -9199,15 +9199,15 @@ E_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} E_1 \circ E_2
 $$
 
 $$
-O_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} O_1 + O_2
-\stackrel{\text{\href{#commutative-groups}{G5}}}{=} O_2 + O_1
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} O_2
-$$
-
-$$
 I_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} I_1 \cdot I_2
 \stackrel{\text{\href{#commutative-groups}{G5}}}{=} I_2 \cdot I_1
 \stackrel{\text{\href{#group-axioms}{G3}}}{=} I_2
+$$
+
+$$
+O_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} O_1 + O_2
+\stackrel{\text{\href{#commutative-groups}{G5}}}{=} O_2 + O_1
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} O_2
 $$
 
 </div>
@@ -9221,7 +9221,7 @@ We show that when we apply any right inverse from the left,
 the resulting element is [idempotent](#idempotence)
 and thus equal to the [only identity](#uniqueness-of-right-identity):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A, B \in \mathbb{G}\ A \circ B \stackrel{\text{\href{#group-axioms}{G4}}}{=} E \\[2pt]
@@ -9234,16 +9234,6 @@ $$
 $$
 
 $$
-\forall\ A, B \in \mathbb{G}\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
-\Downarrow \\[2pt]
-(B + A) + (B + A)
-\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (B + (A + B)) + A
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + O) + A
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} B + A
-\stackrel{\text{\href{#uniqueness-of-right-identity}{G8}}}{=} O
-$$
-
-$$
 \forall\ A, B \in \mathbb{G}\ A \cdot B \stackrel{\text{\href{#group-axioms}{G4}}}{=} I \\[2pt]
 \Downarrow \\[2pt]
 (B \cdot A) \cdot (B \cdot A)
@@ -9251,6 +9241,16 @@ $$
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} (B \cdot I) \cdot A
 \stackrel{\text{\href{#group-axioms}{G3}}}{=} B \cdot A
 \stackrel{\text{\href{#uniqueness-of-right-identity}{G8}}}{=} I
+$$
+
+$$
+\forall\ A, B \in \mathbb{G}\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
+\Downarrow \\[2pt]
+(B + A) + (B + A)
+\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (B + (A + B)) + A
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + O) + A
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} B + A
+\stackrel{\text{\href{#uniqueness-of-right-identity}{G8}}}{=} O
 $$
 
 </div>
@@ -9263,7 +9263,7 @@ Alternative proof
 We can also prove that a right inverse is also a left inverse
 [as follows](https://math.stackexchange.com/questions/3374804/alternative-axioms-for-groups):
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A, B, C \in \mathbb{G}
@@ -9281,20 +9281,6 @@ $$
 
 $$
 \forall\ A, B, C \in \mathbb{G}
-\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O
-\land \ B + C \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
-\Downarrow \\[2pt]
-B + A
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} (B + A) + O
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + A) + (B + C)
-\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (B + (A + B)) + C
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + O) + C
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} B + C
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} O
-$$
-
-$$
-\forall\ A, B, C \in \mathbb{G}
 \ A \cdot B \stackrel{\text{\href{#group-axioms}{G4}}}{=} I
 \land \ B \cdot C \stackrel{\text{\href{#group-axioms}{G4}}}{=} I \\[2pt]
 \Downarrow \\[2pt]
@@ -9307,6 +9293,20 @@ B \cdot A
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} I
 $$
 
+$$
+\forall\ A, B, C \in \mathbb{G}
+\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O
+\land \ B + C \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
+\Downarrow \\[2pt]
+B + A
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} (B + A) + O
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + A) + (B + C)
+\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (B + (A + B)) + C
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} (B + O) + C
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} B + C
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} O
+$$
+
 </div>
 
 </details>
@@ -9316,7 +9316,7 @@ $$
 
 The [unique right identity](#uniqueness-of-right-identity) is also an identity element when applied from the left:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A, B \in \mathbb{G}\ A \circ B \stackrel{\text{\href{#group-axioms}{G4}}}{=} E \\[2pt]
@@ -9325,16 +9325,6 @@ E \circ A
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} (A \circ B) \circ A
 \stackrel{\text{\href{#group-axioms}{G2}}}{=} A \circ (B \circ A)
 \stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} A \circ E
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} A
-$$
-
-$$
-\forall\ A, B \in \mathbb{G}\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
-\Downarrow \\[2pt]
-O + A
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} (A + B) + A
-\stackrel{\text{\href{#group-axioms}{G2}}}{=} A + (B + A)
-\stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} A + O
 \stackrel{\text{\href{#group-axioms}{G3}}}{=} A
 $$
 
@@ -9348,6 +9338,16 @@ I \cdot A
 \stackrel{\text{\href{#group-axioms}{G3}}}{=} A
 $$
 
+$$
+\forall\ A, B \in \mathbb{G}\ A + B \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
+\Downarrow \\[2pt]
+O + A
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} (A + B) + A
+\stackrel{\text{\href{#group-axioms}{G2}}}{=} A + (B + A)
+\stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} A + O
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} A
+$$
+
 </div>
 
 Using the same reasoning as [above](#uniqueness-of-right-identity), the left identity is also unique.
@@ -9357,7 +9357,7 @@ Using the same reasoning as [above](#uniqueness-of-right-identity), the left ide
 
 It follows that any two inverses of the same element are the same:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A, B_1, B_2 \in \mathbb{G}\
@@ -9373,18 +9373,6 @@ $$
 
 $$
 \forall\ A, B_1, B_2 \in \mathbb{G}\
-A + B_1 \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \land
-A + B_2 \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
-\Downarrow \\[2pt]
-B_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} B_1 + O
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} B_1 + (A + B_2)
-\stackrel{\text{\href{#group-axioms}{G2}}}{=} (B_1 + A) + B_2
-\stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} O + B_2
-\stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{=} B_2
-$$
-
-$$
-\forall\ A, B_1, B_2 \in \mathbb{G}\
 A \cdot B_1 \stackrel{\text{\href{#group-axioms}{G4}}}{=} I \land
 A \cdot B_2 \stackrel{\text{\href{#group-axioms}{G4}}}{=} I \\[2pt]
 \Downarrow \\[2pt]
@@ -9392,6 +9380,18 @@ B_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} B_1 \cdot I
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} B_1 \cdot (A \cdot B_2)
 \stackrel{\text{\href{#group-axioms}{G2}}}{=} (B_1 \cdot A) \cdot B_2
 \stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} I \cdot B_2
+\stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{=} B_2
+$$
+
+$$
+\forall\ A, B_1, B_2 \in \mathbb{G}\
+A + B_1 \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \land
+A + B_2 \stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[2pt]
+\Downarrow \\[2pt]
+B_1 \stackrel{\text{\href{#group-axioms}{G3}}}{=} B_1 + O
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} B_1 + (A + B_2)
+\stackrel{\text{\href{#group-axioms}{G2}}}{=} (B_1 + A) + B_2
+\stackrel{\text{\href{#right-inverses-are-left-inverses}{G9}}}{=} O + B_2
 \stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{=} B_2
 $$
 
@@ -9403,18 +9403,18 @@ inversion is a [unary operation](https://en.wikipedia.org/wiki/Unary_operation) 
 Instead of [quantifying](#universal-and-existential-quantifiers) the inverse as above,
 we can use a much simpler notation for the inverse from now on:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="All">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All">
 
 $$
 \forall\ A \in \mathbb{G}\ A \circ \overline{A} = \overline{A} \circ A = E
 $$
 
 $$
-\forall\ A \in \mathbb{G}\ A + (-A) = (-A) + A = O
+\forall\ A \in \mathbb{G}\ A \cdot A^{-1} = A^{-1} \cdot A = I
 $$
 
 $$
-\forall\ A \in \mathbb{G}\ A \cdot A^{-1} = A^{-1} \cdot A = I
+\forall\ A \in \mathbb{G}\ A + (-A) = (-A) + A = O
 $$
 
 </div>
@@ -9425,7 +9425,7 @@ $$
 Equality is also preserved when you remove the same element from both sides,
 which is known as the [cancellation property](https://en.wikipedia.org/wiki/Cancellation_property):
 
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed aligned" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \begin{aligned}
@@ -9433,16 +9433,6 @@ $$
 \stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (A \circ C) \circ \overline{C} &= (B \circ C) \circ \overline{C} \\
 \stackrel{\text{\href{#group-axioms}{G2}}}{\implies} A \circ (C \circ \overline{C}) &= B \circ (C \circ \overline{C}) \\
 \stackrel{\text{\href{#group-axioms}{G4}}}{\implies} A \circ E &= B \circ E \\
-\stackrel{\text{\href{#group-axioms}{G3}}}{\implies} A &= B
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-\forall\ A, B, C \in \mathbb{G}\ A + C &= B + C \\
-\stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (A + C) + (-C) &= (B + C) + (-C) \\
-\stackrel{\text{\href{#group-axioms}{G2}}}{\implies} A + (C + (-C)) &= B + (C + (-C)) \\
-\stackrel{\text{\href{#group-axioms}{G4}}}{\implies} A + O &= B + O \\
 \stackrel{\text{\href{#group-axioms}{G3}}}{\implies} A &= B
 \end{aligned}
 $$
@@ -9457,6 +9447,16 @@ $$
 \end{aligned}
 $$
 
+$$
+\begin{aligned}
+\forall\ A, B, C \in \mathbb{G}\ A + C &= B + C \\
+\stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (A + C) + (-C) &= (B + C) + (-C) \\
+\stackrel{\text{\href{#group-axioms}{G2}}}{\implies} A + (C + (-C)) &= B + (C + (-C)) \\
+\stackrel{\text{\href{#group-axioms}{G4}}}{\implies} A + O &= B + O \\
+\stackrel{\text{\href{#group-axioms}{G3}}}{\implies} A &= B
+\end{aligned}
+$$
+
 </div>
 
 
@@ -9465,7 +9465,7 @@ $$
 As we saw [earlier](#unique-solution),
 the following equation has a unique solution in every group (also if the element to be determined is on the right):
 
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed aligned" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \begin{aligned}
@@ -9479,16 +9479,6 @@ $$
 
 $$
 \begin{aligned}
-\forall\ X, A, B \in \mathbb{G}\ X + A &= B \\
-\stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (X + A) + (-A) &= B + (-A) \\
-\stackrel{\text{\href{#group-axioms}{G2}}}{\implies} X + (A + (-A)) &= B + (-A) \\
-\stackrel{\text{\href{#group-axioms}{G4}}}{\implies} X + O &= B + (-A) \\
-\stackrel{\text{\href{#group-axioms}{G3}}}{\implies} X &= B + (-A)
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
 \forall\ X, A, B \in \mathbb{G}\ X \cdot A &= B \\
 \stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (X \cdot A) \cdot A^{-1} &= B \cdot A^{-1} \\
 \stackrel{\text{\href{#group-axioms}{G2}}}{\implies} X \cdot (A \cdot A^{-1}) &= B \cdot A^{-1} \\
@@ -9497,24 +9487,26 @@ $$
 \end{aligned}
 $$
 
+$$
+\begin{aligned}
+\forall\ X, A, B \in \mathbb{G}\ X + A &= B \\
+\stackrel{\text{\href{#preservation-of-equality}{G6}}}{\implies} (X + A) + (-A) &= B + (-A) \\
+\stackrel{\text{\href{#group-axioms}{G2}}}{\implies} X + (A + (-A)) &= B + (-A) \\
+\stackrel{\text{\href{#group-axioms}{G4}}}{\implies} X + O &= B + (-A) \\
+\stackrel{\text{\href{#group-axioms}{G3}}}{\implies} X &= B + (-A)
+\end{aligned}
+$$
+
 </div>
 
 The solution is unique because any two solutions $$X_1$$ and $$X_2$$ are the same:
 
-<div class="tabbed aligned" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed aligned" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ X_1, X_2, A, B \in \mathbb{G}\ X_1 \circ A = B \land X_2 \circ A = B \\[2pt]
 \begin{aligned}
 \stackrel{\text{\href{#properties-of-equality}{E3}}}{\implies} X_1 \circ A &= X_2 \circ A \\
-\stackrel{\text{\href{#cancellation-property}{G12}}}{\implies} X_1 &= X_2
-\end{aligned}
-$$
-
-$$
-\forall\ X_1, X_2, A, B \in \mathbb{G}\ X_1 + A = B \land X_2 + A = B \\[2pt]
-\begin{aligned}
-\stackrel{\text{\href{#properties-of-equality}{E3}}}{\implies} X_1 + A &= X_2 + A \\
 \stackrel{\text{\href{#cancellation-property}{G12}}}{\implies} X_1 &= X_2
 \end{aligned}
 $$
@@ -9527,6 +9519,14 @@ $$
 \end{aligned}
 $$
 
+$$
+\forall\ X_1, X_2, A, B \in \mathbb{G}\ X_1 + A = B \land X_2 + A = B \\[2pt]
+\begin{aligned}
+\stackrel{\text{\href{#properties-of-equality}{E3}}}{\implies} X_1 + A &= X_2 + A \\
+\stackrel{\text{\href{#cancellation-property}{G12}}}{\implies} X_1 &= X_2
+\end{aligned}
+$$
+
 </div>
 
 
@@ -9535,7 +9535,7 @@ $$
 
 The inverse of the inverse is the original element again:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A \in \mathbb{G}\ A \circ \overline{A} = E
@@ -9544,15 +9544,15 @@ $$
 $$
 
 $$
-\forall\ A \in \mathbb{G}\ A + (-A) = O
-\stackrel{\text{\href{#unique-solution-revisited}{G13}}}{\implies} A = O + (-(-A))
-\stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{\implies} A = -(-A)
-$$
-
-$$
 \forall\ A \in \mathbb{G}\ A \cdot A^{-1} = I
 \stackrel{\text{\href{#unique-solution-revisited}{G13}}}{\implies} A = I \cdot (A^{-1})^{-1}
 \stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{\implies} A = (A^{-1})^{-1}
+$$
+
+$$
+\forall\ A \in \mathbb{G}\ A + (-A) = O
+\stackrel{\text{\href{#unique-solution-revisited}{G13}}}{\implies} A = O + (-(-A))
+\stackrel{\text{\href{#right-identity-is-left-identity}{G10}}}{\implies} A = -(-A)
 $$
 
 </div>
@@ -9562,7 +9562,7 @@ $$
 
 We can invert a combination of two elements by combining their inverses in reverse order:
 
-<div class="tabbed" data-titles="Generic | Additive | Multiplicative | All" data-default="Generic">
+<div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="Generic">
 
 $$
 \forall\ A \in \mathbb{G}\ (A \circ B) \circ (\overline{B} \circ \overline{A})
@@ -9575,16 +9575,6 @@ $$
 $$
 
 $$
-\forall\ A \in \mathbb{G}\ (A + B) + ((-B) + (-A))
-\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (A + (B + (-B))) + (-A)
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} (A + O) + (-A)
-\stackrel{\text{\href{#group-axioms}{G3}}}{=} A + (-A)
-\stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[3pt]
-\Downarrow\text{\scriptsize{\href{#uniqueness-of-inverses}{G11}}} \\[4pt]
--(A + B) = (-B) + (-A)
-$$
-
-$$
 \forall\ A \in \mathbb{G}\ (A \cdot B) \cdot (B^{-1} \cdot A^{-1})
 \stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (A \cdot (B \cdot B^{-1})) \cdot A^{-1}
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} (A \cdot I) \cdot A^{-1}
@@ -9592,6 +9582,16 @@ $$
 \stackrel{\text{\href{#group-axioms}{G4}}}{=} I \\[3pt]
 \Downarrow\text{\scriptsize{\href{#uniqueness-of-inverses}{G11}}} \\[4pt]
 (A \cdot B)^{-1} = B^{-1} \cdot A^{-1}
+$$
+
+$$
+\forall\ A \in \mathbb{G}\ (A + B) + ((-B) + (-A))
+\stackrel{\text{\href{#generalized-associative-law}{G7}}}{=} (A + (B + (-B))) + (-A)
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} (A + O) + (-A)
+\stackrel{\text{\href{#group-axioms}{G3}}}{=} A + (-A)
+\stackrel{\text{\href{#group-axioms}{G4}}}{=} O \\[3pt]
+\Downarrow\text{\scriptsize{\href{#uniqueness-of-inverses}{G11}}} \\[4pt]
+-(A + B) = (-B) + (-A)
 $$
 
 </div>
