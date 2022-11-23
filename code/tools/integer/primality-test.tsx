@@ -42,6 +42,9 @@ const input: DynamicTextEntry<State> = {
 const integerListRegex = regex(`(${nonNegativeIntegerWithoutComma}(,${nonNegativeIntegerWithoutComma})*|${nonNegativeIntegerString}(;${nonNegativeIntegerString})+)`);
 
 function decodeIntegerList(input: string): bigint[] {
+    if (input === undefined) {
+        input = candidates.defaultValue;
+    }
     if (input.trim() === '') {
         return [];
     } else {
