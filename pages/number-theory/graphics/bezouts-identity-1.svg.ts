@@ -14,7 +14,7 @@ import { Line } from '../../../code/svg/elements/line';
 import { printSVG } from '../../../code/svg/elements/svg';
 import { bold, Text } from '../../../code/svg/elements/text';
 
-import { a, arrowOffset, b, dashRadius, gcd, max, scale, textOffset } from './bezouts-identity.svg';
+import { a, arrowOffset, b, dashRadius, gcd, max, scale, textOffset } from './bezouts-identity';
 
 const elements = new Array<VisualElement>();
 

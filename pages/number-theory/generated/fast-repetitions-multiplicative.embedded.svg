@@ -1,0 +1,89 @@
+<svg id="figure-fast-repetitions-multiplicative" class="figure" data-name="fast-repetitions-multiplicative" width="560.6659999999999" height="101" viewBox="38.211 -69.25 560.6659999999999 101" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <line x1="45" y1="0" x2="585" y2="0"></line>
+    <path class="blue" d="M 45,-5 A 22.5 18 0 0 1 90,-5 L 90.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 90,-5 A 22.5 18 0 0 1 135,-5 L 135.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 135,-5 A 22.5 18 0 0 1 180,-5 L 180.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 180,-5 A 22.5 18 0 0 1 225,-5 L 225.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 225,-5 A 22.5 18 0 0 1 270,-5 L 270.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 270,-5 A 22.5 18 0 0 1 315,-5 L 315.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 315,-5 A 22.5 18 0 0 1 360,-5 L 360.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 360,-5 A 22.5 18 0 0 1 405,-5 L 405.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 405,-5 A 22.5 18 0 0 1 450,-5 L 450.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 450,-5 A 22.5 18 0 0 1 495,-5 L 495.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 495,-5 A 22.5 18 0 0 1 540,-5 L 540.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 540,-5 A 22.5 18 0 0 1 585,-5 L 585.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <text text-anchor="middle">
+        <tspan x="45" y="28.5"><tspan class="font-weight-bold">A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="90" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">2</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="135" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">3</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="180" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">4</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="225" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">5</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="270" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">6</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="315" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">7</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="360" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">8</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="405" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">9</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="450" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">10</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="495" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">11</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="540" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">12</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="585" y="28.5"><tspan class="font-weight-bold">A<tspan class="script" dy="-6">13</tspan><tspan dy="6">&#8203;</tspan></tspan></tspan>
+    </text>
+    <path class="green" d="M 45,-5 A 22.5 36 0 0 1 90,-5 L 90.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="67.5" y="-53">X<tspan class="script" dy="-6">2</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+    <path class="green" d="M 90,-5 A 22.5 36 0 0 1 135,-5 L 135.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="112.5" y="-53">· A</tspan>
+    </text>
+    <path class="green" d="M 135,-5 A 67.5 36 0 0 1 270,-5 L 270.00233,-4.990275" marker-end="url(#arrow-green)" stroke-dasharray="159"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="202.5" y="-53">X<tspan class="script" dy="-6">2</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+    <path class="green" d="M 270,-5 A 135 36 0 0 1 540,-5 L 540.004369,-4.991005" marker-end="url(#arrow-green)" stroke-dasharray="285"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="405" y="-53">X<tspan class="script" dy="-6">2</tspan><tspan dy="6">&#8203;</tspan></tspan>
+    </text>
+    <path class="green" d="M 540,-5 A 22.5 36 0 0 1 585,-5 L 585.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="562.5" y="-53">· A</tspan>
+    </text>
+    <line x1="45" y1="-5" x2="45" y2="5"></line>
+    <line x1="90" y1="-5" x2="90" y2="5"></line>
+    <line x1="135" y1="-5" x2="135" y2="5"></line>
+    <line x1="180" y1="-5" x2="180" y2="5"></line>
+    <line x1="225" y1="-5" x2="225" y2="5"></line>
+    <line x1="270" y1="-5" x2="270" y2="5"></line>
+    <line x1="315" y1="-5" x2="315" y2="5"></line>
+    <line x1="360" y1="-5" x2="360" y2="5"></line>
+    <line x1="405" y1="-5" x2="405" y2="5"></line>
+    <line x1="450" y1="-5" x2="450" y2="5"></line>
+    <line x1="495" y1="-5" x2="495" y2="5"></line>
+    <line x1="540" y1="-5" x2="540" y2="5"></line>
+    <line x1="585" y1="-5" x2="585" y2="5"></line>
+
+</svg>

@@ -1,0 +1,117 @@
+<svg width="506.5" height="66.5" viewBox="-1.25 -32.25 506.5 66.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .pink {
+            fill: #E60073;
+            stroke: #E60073;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" />
+        </marker>
+        <marker id="arrow-pink" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="pink" />
+        </marker>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <line x1="0" y1="0" x2="504" y2="0" marker-end="url(#arrow)" stroke-dasharray="497"></line>
+    <line class="pink" x1="0" y1="-7.5" x2="72" y2="-7.5" marker-start="url(#arrow-pink)" marker-end="url(#arrow-pink)" stroke-dasharray="58" stroke-dashoffset="109"></line>
+    <text class="pink" text-anchor="middle">
+        <tspan x="36" y="-19.5"><tspan class="font-weight-bold">gcd</tspan></tspan>
+    </text>
+    <line class="blue" x1="0" y1="7.5" x2="216" y2="7.5" marker-end="url(#arrow-blue)" stroke-dasharray="209"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="108" y="31"><tspan class="font-weight-bold">+ a</tspan></tspan>
+    </text>
+    <line class="blue" x1="216" y1="7.5" x2="432" y2="7.5" marker-end="url(#arrow-blue)" stroke-dasharray="209"></line>
+    <text class="blue" text-anchor="middle">
+        <tspan x="324" y="31"><tspan class="font-weight-bold">+ a</tspan></tspan>
+    </text>
+    <line class="green" x1="432" y1="-7.5" x2="72" y2="-7.5" marker-end="url(#arrow-green)" stroke-dasharray="353"></line>
+    <text class="green" text-anchor="middle">
+        <tspan x="252" y="-19.5"><tspan class="font-weight-bold">− b</tspan></tspan>
+    </text>
+    <line x1="0" y1="1.25" x2="0" y2="7.5"></line>
+    <line x1="36" y1="1.25" x2="36" y2="7.5"></line>
+    <line x1="72" y1="1.25" x2="72" y2="7.5"></line>
+    <line x1="108" y1="1.25" x2="108" y2="7.5"></line>
+    <line x1="144" y1="1.25" x2="144" y2="7.5"></line>
+    <line x1="180" y1="1.25" x2="180" y2="7.5"></line>
+    <line x1="216" y1="1.25" x2="216" y2="7.5"></line>
+    <line x1="252" y1="1.25" x2="252" y2="7.5"></line>
+    <line x1="288" y1="1.25" x2="288" y2="7.5"></line>
+    <line x1="324" y1="1.25" x2="324" y2="7.5"></line>
+    <line x1="360" y1="1.25" x2="360" y2="7.5"></line>
+    <line x1="396" y1="1.25" x2="396" y2="7.5"></line>
+    <line x1="432" y1="1.25" x2="432" y2="7.5"></line>
+    <line x1="468" y1="1.25" x2="468" y2="7.5"></line>
+    <line x1="0" y1="-1.25" x2="0" y2="-7.5"></line>
+    <line x1="72" y1="-1.25" x2="72" y2="-7.5"></line>
+    <line x1="144" y1="-1.25" x2="144" y2="-7.5"></line>
+    <line x1="216" y1="-1.25" x2="216" y2="-7.5"></line>
+    <line x1="288" y1="-1.25" x2="288" y2="-7.5"></line>
+    <line x1="360" y1="-1.25" x2="360" y2="-7.5"></line>
+    <line x1="432" y1="-1.25" x2="432" y2="-7.5"></line>
+
+</svg>

@@ -1,0 +1,153 @@
+<svg width="563.028" height="97.5" viewBox="38.211 -65.75 563.028 97.5" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+            <rdf:Description rdf:about="">
+                <schema:author rdf:resource="https://kasparetter.com/"/>
+                <schema:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+        svg {
+            font-family: Lato, Arial, STIXGeneral, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        svg {
+            fill: #000000;
+            stroke: #000000;
+        }
+
+        text {
+            stroke-opacity: 0;
+        }
+
+        line, rect, circle, ellipse, polygon, polyline, path {
+            fill-opacity: 0;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        marker > path {
+            fill-opacity: 1;
+            stroke-opacity: 0;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .blue {
+            fill: #0066CC;
+            stroke: #0066CC;
+        }
+
+        .green {
+            fill: #009973;
+            stroke: #009973;
+        }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="blue" />
+        </marker>
+        <marker id="arrow-green" orient="auto-start-reverse" markerWidth="4" markerHeight="4" refX="4" refY="2">
+            <path d="M0,0 L1,2 L0,4 L4,2 Z" class="green" />
+        </marker>
+    </defs>
+
+    <line x1="45" y1="0" x2="585" y2="0"></line>
+    <path class="blue" d="M 45,-5 A 22.5 18 0 0 1 90,-5 L 90.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 90,-5 A 22.5 18 0 0 1 135,-5 L 135.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 135,-5 A 22.5 18 0 0 1 180,-5 L 180.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 180,-5 A 22.5 18 0 0 1 225,-5 L 225.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 225,-5 A 22.5 18 0 0 1 270,-5 L 270.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 270,-5 A 22.5 18 0 0 1 315,-5 L 315.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 315,-5 A 22.5 18 0 0 1 360,-5 L 360.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 360,-5 A 22.5 18 0 0 1 405,-5 L 405.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 405,-5 A 22.5 18 0 0 1 450,-5 L 450.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 450,-5 A 22.5 18 0 0 1 495,-5 L 495.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 495,-5 A 22.5 18 0 0 1 540,-5 L 540.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <path class="blue" d="M 540,-5 A 22.5 18 0 0 1 585,-5 L 585.003573,-4.99066" marker-end="url(#arrow-blue)" stroke-dasharray="57"></path>
+    <text text-anchor="middle">
+        <tspan x="45" y="28.5"><tspan class="font-weight-bold">A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="90" y="28.5"><tspan class="font-weight-bold">2A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="135" y="28.5"><tspan class="font-weight-bold">3A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="180" y="28.5"><tspan class="font-weight-bold">4A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="225" y="28.5"><tspan class="font-weight-bold">5A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="270" y="28.5"><tspan class="font-weight-bold">6A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="315" y="28.5"><tspan class="font-weight-bold">7A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="360" y="28.5"><tspan class="font-weight-bold">8A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="405" y="28.5"><tspan class="font-weight-bold">9A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="450" y="28.5"><tspan class="font-weight-bold">10A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="495" y="28.5"><tspan class="font-weight-bold">11A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="540" y="28.5"><tspan class="font-weight-bold">12A</tspan></tspan>
+    </text>
+    <text text-anchor="middle">
+        <tspan x="585" y="28.5"><tspan class="font-weight-bold">13A</tspan></tspan>
+    </text>
+    <path class="green" d="M 45,-5 A 22.5 36 0 0 1 90,-5 L 90.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="67.5" y="-53">· 2</tspan>
+    </text>
+    <path class="green" d="M 90,-5 A 22.5 36 0 0 1 135,-5 L 135.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="112.5" y="-53">+ A</tspan>
+    </text>
+    <path class="green" d="M 135,-5 A 67.5 36 0 0 1 270,-5 L 270.00233,-4.990275" marker-end="url(#arrow-green)" stroke-dasharray="159"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="202.5" y="-53">· 2</tspan>
+    </text>
+    <path class="green" d="M 270,-5 A 135 36 0 0 1 540,-5 L 540.004369,-4.991005" marker-end="url(#arrow-green)" stroke-dasharray="285"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="405" y="-53">· 2</tspan>
+    </text>
+    <path class="green" d="M 540,-5 A 22.5 36 0 0 1 585,-5 L 585.000831,-4.990035" marker-end="url(#arrow-green)" stroke-dasharray="86"></path>
+    <text class="green" text-anchor="middle">
+        <tspan x="562.5" y="-53">+ A</tspan>
+    </text>
+    <line x1="45" y1="-5" x2="45" y2="5"></line>
+    <line x1="90" y1="-5" x2="90" y2="5"></line>
+    <line x1="135" y1="-5" x2="135" y2="5"></line>
+    <line x1="180" y1="-5" x2="180" y2="5"></line>
+    <line x1="225" y1="-5" x2="225" y2="5"></line>
+    <line x1="270" y1="-5" x2="270" y2="5"></line>
+    <line x1="315" y1="-5" x2="315" y2="5"></line>
+    <line x1="360" y1="-5" x2="360" y2="5"></line>
+    <line x1="405" y1="-5" x2="405" y2="5"></line>
+    <line x1="450" y1="-5" x2="450" y2="5"></line>
+    <line x1="495" y1="-5" x2="495" y2="5"></line>
+    <line x1="540" y1="-5" x2="540" y2="5"></line>
+    <line x1="585" y1="-5" x2="585" y2="5"></line>
+
+</svg>

@@ -1,0 +1,40 @@
+<svg id="figure-pollards-rho-chase" class="figure" data-name="pollards-rho-chase" width="370.5" height="73.083" viewBox="-17.25 -55.833 370.5 73.083" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
+
+    <path class="orange" d="M 168,-17.25 A 28 18.667 0 0 1 224,-17.25 L 224.00195,-17.240192" marker-end="url(#arrow-orange)" stroke-dasharray="67"></path>
+    <path class="red" d="M 112,-17.25 A 56 37.333 0 0 1 224,-17.25 L 224.001713,-17.240148" marker-end="url(#arrow-red)" stroke-dasharray="141"></path>
+    <line x1="296.313" y1="0" x2="318.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="240.313" y1="0" x2="262.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="184.313" y1="0" x2="206.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="128.313" y1="0" x2="150.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="72.313" y1="0" x2="94.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <line x1="16.313" y1="0" x2="38.75" y2="0" marker-end="url(#arrow)" stroke-dasharray="15"></line>
+    <circle cx="0" cy="0" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="0" y="5.9">…</tspan>
+    </text>
+    <circle cx="56" cy="0" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="56" y="5.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">4</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <circle class="red" cx="112" cy="0" r="16"></circle>
+    <text class="red" text-anchor="middle">
+        <tspan x="112" y="5.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">5</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <circle class="orange" cx="168" cy="0" r="16"></circle>
+    <text class="orange" text-anchor="middle">
+        <tspan x="168" y="5.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">6</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <circle class="green" cx="224" cy="0" r="16"></circle>
+    <text class="green" text-anchor="middle">
+        <tspan x="224" y="5.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">7</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <circle cx="280" cy="0" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="280" y="5.9"><tspan class="font-weight-bold">S<tspan class="script" dy="3">8</tspan><tspan dy="-3">&#8203;</tspan></tspan></tspan>
+    </text>
+    <circle cx="336" cy="0" r="16"></circle>
+    <text text-anchor="middle">
+        <tspan x="336" y="5.9">…</tspan>
+    </text>
+
+</svg>
