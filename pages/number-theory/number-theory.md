@@ -309,11 +309,11 @@ Linear one-way functions are an abstract concept, which I made up for this intro
 [asymmetric cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography).
 Instead of using the generic operator $$\circ$$,
 the operation in the output set of actual linear one-way functions is usually written
-as [addition](https://en.wikipedia.org/wiki/Addition)
-or [multiplication](https://en.wikipedia.org/wiki/Multiplication),
-even when it has [nothing to do](#point-addition) with addition or multiplication of integers.
-As a consequence, every equation can be written in a generic, an additive,
-and a multiplicative [notation](https://en.wikipedia.org/wiki/Abelian_group#Notation).
+as [multiplication](https://en.wikipedia.org/wiki/Multiplication)
+or&nbsp;[addition](https://en.wikipedia.org/wiki/Addition),
+even when it has [nothing to do](#point-addition) with multiplication or addition of integers.
+As a consequence, every equation can be written in a generic, a multiplicative,
+and an additive [notation](https://en.wikipedia.org/wiki/Abelian_group#Notation).
 I do this with boxes like the following,
 where I choose the default notation (or "all") depending on the context,
 and you can select another notation by clicking on the corresponding tab:
@@ -363,9 +363,9 @@ $$
 
 </div>
 
-The generic notation is a valuable reminder that the additive and the multiplicative notation stand for the same thing.
+The generic notation is a valuable reminder that the multiplicative and the additive notation stand for the same thing.
 However, repetitions are a bit cumbersome to write,
-which is why only the additive and the multiplicative notation are used in practice.
+which is why only the multiplicative and the additive notation are used in practice.
 
 
 ### Linearity
@@ -988,7 +988,8 @@ I will provide an [interactive tool](/#interactive-tools) for fast repetitions [
 A group is [finite](https://en.wikipedia.org/wiki/Finite_group)
 if its set contains only a finite number of elements.
 The number of elements is then called the [order of the group](https://en.wikipedia.org/wiki/Order_(group_theory)).
-If $$\mathbb{G}$$ is the set of the group, its order is usually written as $$|\mathbb{G}|$$,
+<span class="text-nowrap" markdown="span">If $$\mathbb{G}$$</span> is the set of the group,
+its order is usually written as $$|\mathbb{G}|$$,
 which is the same notation as used to denote the [cardinality of a set](https://en.wikipedia.org/wiki/Cardinality).
 
 <details markdown="block">
@@ -1152,7 +1153,7 @@ to an [analog clock](#example-of-a-finite-group) by [repeating each element](#el
 <figcaption markdown="span" style="max-width: 450px;">
 
 The order of each element in the [additive group](#additive-groups) of integers [modulo](#modulo-operation) 12.
-(You can set the modulus to an arbitrary value in the [tool below](#additive-group-repetition-table).)
+(You can set the modulus to an arbitrary value in a [tool below](#additive-group-repetition-table).)
 
 </figcaption>
 </figure>
@@ -1504,7 +1505,8 @@ In other words, if $$\mathbb{H}$$ is a subgroup of $$\mathbb{G}$$, $$|\mathbb{G}
 [multiple](https://en.wikipedia.org/wiki/Multiple_(mathematics)) of $$|\mathbb{H}|$$.
 Since each element $$A \in \mathbb{G}$$ belongs to a [coset](#subgroup-cosets) of $$\mathbb{H}$$
 ($$A \in \mathbb{H} \circ A$$)
-and all cosets of $$\mathbb{H}$$ are either equal or disjoint and contain the same number of elements,
+and all cosets of $$\mathbb{H}$$ are [either equal or disjoint](#cosets-are-equal-or-disjoint)
+and contain the same number of elements,
 the cosets of $$\mathbb{H}$$ split the group $$\mathbb{G}$$
 into [subsets](https://en.wikipedia.org/wiki/Subset) of equal size:
 
@@ -4089,7 +4091,7 @@ also holds for $$|\mathbb{L}_n| / |\mathbb{Z}_n^{\cancel{0}}|$$.
 As [we'll see](#carmichael-numbers), all the candidates which aren't coprime with $$n$$
 are witnesses for both the Fermat and the Miller-Rabin primality test.
 If $$n$$ is the product of large prime numbers, the multiples of these prime factors are so rare
-that we cannot rely on finding one of them.
+that we cannot rely on finding one of them, though.
 
 <figure markdown="block">
 {% include_relative generated/primality-test-coprime-non-coprime.embedded.svg %}
@@ -4097,7 +4099,7 @@ that we cannot rely on finding one of them.
 
 A different classification of the candidates,
 where $$|\mathbb{Z}_n^\times| ≤ |\mathbb{Z}_n^{\cancel{0}}| < n$$ and $$\mathbb{L}_n \subseteq \mathbb{Z}_n^\times$$.
-<span class="text-nowrap" markdown="span">($$\mathbb{Z}_n^\times = \mathbb{Z}_n^{\cancel{0}}$$</span>
+<span class="text-nowrap" markdown="span">(|$$\mathbb{Z}_n^\times| = |\mathbb{Z}_n^{\cancel{0}}|$$</span>
 [if and only if](#if-and-only-if) $$n$$ is prime.)
 
 </figcaption>
