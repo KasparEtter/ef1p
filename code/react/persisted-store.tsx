@@ -5,6 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { getItem, removeItem, setItem } from '../utility/storage';
+import { Condition } from '../utility/types';
 
 import { DefaultEvent, Store } from './store';
 
@@ -22,6 +23,7 @@ export class PersistedStore<State extends PersistedState<Event>, Event extends s
     public constructor(
         protected readonly defaultState: Readonly<State>,
         public readonly identifier = 'unknown',
+        isStale?: Condition<State>,
     ) {
         super(
             {
@@ -39,6 +41,7 @@ export class PersistedStore<State extends PersistedState<Event>, Event extends s
                         }
                         this.onStateChange(this.state, oldState);
                     },
+                    isStale,
                 ),
             },
         );

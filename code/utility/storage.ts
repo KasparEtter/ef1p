@@ -5,6 +5,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
 import { getInitializedArray } from './array';
+import { Condition } from './types';
 
 function isQuotaExceededError(error: unknown): boolean {
     return error instanceof DOMException && (error.code === 22 || error.name === 'QuotaExceededError');
@@ -65,13 +66,20 @@ window.addEventListener('storage', event => {
  * Retrieves the item with the given key from the local storage.
  * The callback is called with the new value of the item when the item has been changed
  * or null when the item has been removed by any script in any window.
+ * If the item is stale according to the provided condition,
+ * it is removed from local storage before null is returned.
  */
-export function getItem<T>(key: string, callback?: Callback<T>): T | null {
+export function getItem<T>(key: string, callback?: Callback<T>, isStale?: Condition<T>): T | null {
     if (callback !== undefined) {
         getInitializedArray(callbacks, key).push(callback);
     }
     if (localStorageIsAvailable) {
-        return parse(localStorage.getItem(key));
+        const item = parse(localStorage.getItem(key));
+        if (item !== null && isStale !== undefined && isStale(item)) {
+            removeItem(key);
+        } else {
+            return item;
+        }
     }
     return null;
 }

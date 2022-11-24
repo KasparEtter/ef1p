@@ -37,6 +37,11 @@ export type Function<O, I = void> = (input: I) => O;
 export type ValueOrFunction<O extends NotFunction | undefined, I = void> = O | Function<O, I>;
 
 /**
+ * Evaluates an item to true or false.
+ */
+export type Condition<T> = (item: T) => boolean;
+
+/**
  * Handles an arbitrary event.
  */
 export type EventHandler<E extends Event = Event> = (event: E) => any;

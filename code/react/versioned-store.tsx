@@ -81,10 +81,12 @@ export class VersionedStore<State extends BasicState<State>> extends PersistedSt
         public readonly entries: DynamicEntries<State>,
         identifier: string,
         public readonly onChange?: (newState: Readonly<State>, oldState: Readonly<State>) => any,
+        renamedEntries?: string[],
     ) {
         super(
             getDefaultVersionedState(entries),
             identifier,
+            renamedEntries === undefined ? undefined : state => renamedEntries.some(renamedEntry => state.inputs.hasOwnProperty(renamedEntry)),
         );
     }
 

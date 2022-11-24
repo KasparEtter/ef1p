@@ -42,9 +42,6 @@ const input: DynamicTextEntry<State> = {
 const integerListRegex = regex(`(${nonNegativeIntegerWithoutComma}(,${nonNegativeIntegerWithoutComma})*|${nonNegativeIntegerString}(;${nonNegativeIntegerString})+)`);
 
 function decodeIntegerList(input: string): bigint[] {
-    if (input === undefined) {
-        input = candidates.defaultValue;
-    }
     if (input.trim() === '') {
         return [];
     } else {
@@ -121,7 +118,7 @@ const entries: DynamicEntries<State> = {
     abort,
 };
 
-const store = new VersionedStore(entries, 'integer-primality-test');
+const store = new VersionedStore(entries, 'integer-primality-test', undefined, ['bases']);
 const Input = getInput(store);
 
 function renderRatio(liars: number, witnesses: number): JSX.Element {
