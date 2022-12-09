@@ -9366,18 +9366,18 @@ Since seeing is believing, I wrote a little [tool to track emails](https://githu
 You can generate a unique token and then subscribe to the associated events below.
 You can send the tracking link and the tracking image to someone
 using your mail client or the [ESMTP tool](#esmtp-tool) above.
-I've deployed the tracking server on [heroku.com](https://www.heroku.com/).
+I've deployed the tracking server on [render.com](https://render.com/).
 As you can see in [its source code](https://github.com/KasparEtter/email-tracker/blob/main/main.ts),
-my server doesn't store anything,
-but [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
-which includes the token, the link, and your IP address.
-I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file),
-but I might check it from time to time for troubleshooting.
-In order to determine where a request was made from,
+my server doesn't keep any records.
+While Render probably logs your requests, I don't have access to such logs.
+Since I use the free tier, the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) used to subscribe to the events
+is closed [after 5 minutes](https://community.render.com/t/node-js-websocket-connections-closing-after-5-minutes/4500/3),
+which is hopefully enough for the purpose of this demonstration.
+In order to determine [where a request was made from](/internet/#ip-geolocation),
 the tool uses the free API from [ipinfo.io](https://ipinfo.io/).
-You can also use the tool to see from where social media apps request an URL to generate a link preview
+You can also use the tool to see from where social media apps request a site to generate the link preview
 or to convince yourself that the [Tor browser](https://www.torproject.org/download/)
-indeed connects from a different location every time you restart it.
+indeed connects from a different location each time.
 
 <div id="tool-lookup-email-requests"></div>
 
@@ -13091,17 +13091,14 @@ It lets receiving domains indicate their support for PKIX-authenticated TLS with
 The tool below queries the MTS-STS record and the policy file of the given domain.
 It uses [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json) for the DNS query
 and the [email tracking server](https://github.com/KasparEtter/email-tracker),
-which I've deployed on [Heroku](https://www.heroku.com/),
+which I've deployed on [render.com](https://render.com/),
 as a [proxy server](https://en.wikipedia.org/wiki/Proxy_server).
-This is necessary because the policy file is usually served without the header field which is required
+This is necessary because the policy file is usually served without the header field required
 for [cross-origin resource sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
 As you can see in [its source code](https://github.com/KasparEtter/email-tracker/blob/main/main.ts),
-my proxy server doesn't store anything,
-but [Heroku logs the last 1'500 requests](https://devcenter.heroku.com/articles/logging#log-history-limits),
-which includes the queried domain and your IP address.
-I don't persist the [log file](https://en.wikipedia.org/wiki/Log_file),
-but I might check it from time to time for troubleshooting.
-The tool checks the syntax of the DNS record and the policy file,
+my server doesn't store anything.
+While Render probably logs your requests, I don't have access to such logs.
+The tool checks the syntax of the&nbsp;DNS record and the policy file,
 but it verifies neither the `MX` records nor whether the mail server has a valid PKIX certificate.
 
 <div id="tool-lookup-mta-sts-policy"></div>

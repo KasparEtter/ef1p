@@ -25,14 +25,18 @@ import { getMapLink } from './ip-address';
 
 /* ------------------------------ Configuration ------------------------------ */
 
-export const endpoint = 'ef1p.herokuapp.com';
+export const secure = 's';
+export const endpoint = 'ef1p.onrender.com';
+
+// Once the BroadcastChannel (https://deno.com/deploy/docs/runtime-broadcast-channel) works again:
+// export const endpoint = 'ef1p.deno.dev';
 
 function getLinkAddress(token: string, link: string): string {
-    return `https://${endpoint}/${token}/${encodeURIComponent(link)}`;
+    return `http${secure}://${endpoint}/${token}/${encodeURIComponent(link)}`;
 }
 
 function getImageAddress(token: string): string {
-    return `https://${endpoint}/${token}.png`;
+    return `http${secure}://${endpoint}/${token}.png`;
 }
 
 function getBody(token: string, link: string): string {
@@ -185,14 +189,15 @@ function subscribe({ token, link }: State): void {
     }
     unsubscribe();
     requestsStore.setState({ subscribing: true });
-    const address = `wss://${endpoint}/${token}`;
+    const address = `ws${secure}://${endpoint}/${token}`;
     socket = new WebSocket(address);
     socket.onopen = function() {
         interval = window.setInterval(() => this.send('keep alive'), 30000);
         console.log(`WebSocket to '${address}' opened.`);
         requestsStore.setState({ subscribing: false, token, link });
     };
-    socket.onerror = () => {
+    socket.onerror = event => {
+        console.error(event);
         requestsStore.setState({ message: 'An error occurred.' });
     }
     socket.onclose = () => {

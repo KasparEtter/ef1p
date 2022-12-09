@@ -33,7 +33,7 @@ import { dmarcAddressRegex, DmarcState, getDefaultDmarcState, setDmarcState } fr
 
 import { getOpenSslCommand } from '../protocol/managesieve';
 
-import { endpoint } from './email-requests';
+import { endpoint, secure } from './email-requests';
 import { getMapLink } from './ip-address';
 
 /* ------------------------------ SRV records ------------------------------ */
@@ -1836,7 +1836,7 @@ async function queryMtaStsPolicy({ domain }: State): Promise<void> {
             }
         }
         const actualUrl = `https://mta-sts.${domain}/.well-known/mta-sts.txt`;
-        const proxyUrl = `https://${endpoint}/mta-sts.txt?domain=${domain}`;
+        const proxyUrl = `http${secure}://${endpoint}/mta-sts.txt?domain=${domain}`;
         const fileQuery: Query = {
             domain: actualUrl,
             cnames: [],
