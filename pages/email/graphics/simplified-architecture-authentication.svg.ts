@@ -18,6 +18,6 @@ elements.splice(elements.indexOf(imapForStorageArc), 2);
 elements.unshift(...Line.connectBoxes(outgoingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'top', { color: 'green' }).withText(['User', 'authen-', 'tication'], 'right'));
 elements.unshift(...Line.connectBoxes(incomingMailServerOfRecipientBox, 'left', outgoingMailServerOfSenderBox, 'right', { color: 'green' }).withText(['Domain', 'authentication'], 'right'));
 elements.unshift(...Line.connectBoxes(incomingMailServerOfRecipientBox, 'bottom', mailClientOfRecipientBox, 'top').withText(['User', 'authen-', 'tication'], 'left'));
-elements.unshift(...Arc.connectBoxes(incomingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'left', { color: 'gray' }).withText(['User', 'authen-', 'tication'], 'outside'));
+elements.unshift(...Arc.connectBoxes(incomingMailServerOfSenderBox, 'bottom', mailClientOfSenderBox, 'left', { color: 'gray', ratio: 0.8 }).withText(['User', 'authen-', 'tication'], 'outside'));
 
 printSVG(...elements);
