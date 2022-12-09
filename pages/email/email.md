@@ -4,7 +4,7 @@ category: Technologies
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2021-05-07
-modified: 2021-10-21
+modified: 2022-12-09
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 icon: envelope
@@ -1372,7 +1372,7 @@ why outgoing mail servers are used in practice:
     but this is how email works.
 
 <figure markdown="block">
-{% include_relative generated/simplified-architecture-authentication.embedded.svg %}
+{% include_relative generated/simplified-architecture-authentication-copy.embedded.svg %}
 <figcaption markdown="span" style="max-width: 760px;">
 The incoming mail server verifies that the outgoing mail server is authorized to send messages from the claimed domain,
 while the outgoing mail server of the sender ensures that each user uses their own address in the `From` field.
@@ -1463,7 +1463,7 @@ The Courier IMAP server can deliver emails.
 </figure>
 
 - [**Lemonade profile**](https://datatracker.ietf.org/doc/html/rfc5550):
-  The only standardized solution to the double submission problem
+  The only standardized solution to the double-submission problem
   is a collection of extensions to [IMAP](#internet-message-access-protocol)
   and [SMTP submission](#submission-versus-relay),
   which is called the [lemonade profile](https://en.wikipedia.org/wiki/Lemonade_Profile).
@@ -1886,7 +1886,7 @@ when one of the services is deployed on a custom port?
 Will it try both and see which one worked?
 
 Anyhow, we can just hope that mail clients refuse insecure connections when the appropriate TLS option is enabled.
-I assume this is the case but having the actual behavior documented would still be nice.
+I assume this is the case, but having the actual behavior documented would still be nice.
 For example, Apple Mail has an option to allow insecure authentication under "Advanced IMAP Settings",
 which doesn't disable the "Use TLS/SSL" checkbox as seen below.
 The [documentation](https://support.apple.com/guide/mail/change-outgoing-server-settings-cpmlprefsmtpserver/mac#mlhl85747a42) says:
@@ -1950,7 +1950,7 @@ has its [own problems](#dangerous-reliance-on-tls), though.
 
 ### Port numbers
 
-Every protocol specifies a [default port](/internet/#port-numbers) on which servers listen for incoming requests.
+Each protocol specifies a [default port](/internet/#port-numbers) on which servers listen for incoming requests.
 Instead of scattering the port numbers used by various email protocols throughout the following subsections,
 here is a table with all the relevant information for future reference:
 
@@ -2030,8 +2030,8 @@ This approach had two problems:
 - **Unwanted rewriting**:
   Emails have to be in a certain [format](#format) and mail servers started rewriting them
   so that they adhere to the standard as well as to organization-specific policies.
-  However, relay servers are not supposed to modify messages
-  and apparently such modifications caused more harm than good.
+  However, relay servers are not supposed to modify messages,
+  and apparently, such modifications caused more harm than good.
 
 For these reasons, [RFC 2476](https://datatracker.ietf.org/doc/html/rfc2476)
 introduced a separation between submission and relay in 1998.
@@ -2139,9 +2139,9 @@ and leave the message as is otherwise.
 The information relevant for handling the message,
 such as the addresses to deliver the message to and the address to report failures to,
 belongs to the so-called [envelope](https://datatracker.ietf.org/doc/html/rfc5321#section-2.3.1).
-The envelope is specific to the [Simple Mail Transfer Protocol (SMTP)](#simple-mail-transfer-protocol)
+The envelope belongs to the [Simple Mail Transfer Protocol (SMTP)](#simple-mail-transfer-protocol),
 and it can change completely during the delivery of a message.
-The message, on the other hand, mostly stays the same during delivery
+The message, on the other hand, mostly stays the same during delivery,
 and its format is also used by two [access protocols](#access-protocols).
 The important thing to remember is that emails are delivered based on the addresses in the envelope
 and not the addresses in the header section of the message.
@@ -2337,7 +2337,7 @@ The `Bcc` recipients get the original message.
   this prevents `Bcc` recipients from learning about any other `Bcc` recipient.
 
 <figure markdown="block">
-{% include_relative generated/message-envelope-bcc-bob.embedded.svg %}
+{% include_relative generated/message-envelope-bcc-bob-copy.embedded.svg %}
 <figcaption markdown="span">
 All non-`Bcc` recipients get the same redacted message.
 </figcaption>
@@ -2361,7 +2361,7 @@ And so does Dave.
   it allows the sender to indicate with an empty `Bcc` field that there were hidden `Bcc` recipients.
   Such a hint can be provided in any of the other three approaches.
   Therefore, this is more of a second dimension rather than a fourth option,
-  increasing the overall number of `Bcc` possibilities to 3 × 2 = 6.
+  increasing the overall number of `Bcc` possibilities to 3 · 2 = 6.
 
 <figure markdown="block">
 {% include_relative generated/message-envelope-bcc-empty.embedded.svg %}
@@ -2401,8 +2401,8 @@ indicate this as the sender by using an empty [group construct](#group-construct
 such as `undisclosed-recipients:;`, in the `To` field.
 As we learned above, this behavior isn't guaranteed by the standard.
 Given how prevalent it is to use `Bcc` for undisclosed recipients,
-I think a new iteration of [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3) should reflect user expectation
-and formally deprecate the grouped delivery approach unless the user agreed to this behavior.
+I think a new iteration of [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.6.3) should reflect
+user expectation and formally deprecate the grouped delivery approach unless the user agreed to this behavior.
 
 While the individual delivery approach is nice in theory
 because recipients are informed about why (and to which [alias](#alias-address)) they received a message,
@@ -2411,7 +2411,7 @@ One of the reasons [why we use outgoing mail servers](#why-outgoing-mail-servers
 is that mail clients have to submit a message addressed to many recipients only once.
 Creating and uploading an individual version of the message for each `Bcc` recipient
 on the client-side defeats this purpose.
-While some of the approaches to solve the [double submission problem](#double-submission-problem)
+While some of the approaches to solve the [double-submission problem](#double-submission-problem)
 can alleviate this issue especially when large attachments are involved,
 a simple [SMTP extension](#common-smtp-extensions) for submission would do the trick.
 Since outgoing mail servers have no standardized way to indicate to mail clients
@@ -2576,8 +2576,8 @@ Since you shouldn't enter your email password on a random website like this one,
 I recommend that you use the mode for submission only with demo accounts which you've created for this purpose.
 The password is stored in the [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
 of your browser without any protections until you [erase the history](/#history-of-values).
-Having said that, the tool is [open source](https://github.com/KasparEtter/ef1p/blob/main/code/tools/protocols/esmtp.tsx)
-like the rest of this website and if you don't trust me that this website is served from those files,
+Having said that, the tool is [open source](https://github.com/KasparEtter/ef1p/blob/main/code/tools/protocol/esmtp.tsx)
+like the rest of this website, and if you don't trust me that this website is served from those files,
 you can also [build and run](https://github.com/KasparEtter/ef1p/blob/main/README.md) this website locally.
 The tool uses [Thunderbird's database](https://autoconfig.thunderbird.net/v1.1/)
 and [Google's DNS API](https://developers.google.com/speed/public-dns/docs/doh/json)
@@ -3155,7 +3155,7 @@ On the other hand, they let me know that they would address the issue
 before my [90-day disclosure deadline](https://www.google.ch/about/appsecurity/).
 When I tested this again before publishing this article,
 I got the impression that more of my test messages were rejected
-by [their spam filter](https://docs.gandi.net/en/gandimail/faq/error_types/rule3_2.html)
+by [their spam filter](https://docs.gandi.net/en/gandimail/faq/error_types/rule3_2.html),
 but I could still authenticate myself as a Gandi user
 and then use my Gmail address in the `MAIL` `FROM` and `From` fields.
 This allows an attacker to abuse the [reputation](#reputation) of Gandi's mail server at least for targeted attacks.
@@ -3342,7 +3342,7 @@ However, many messages are sent by automated systems,
 which should also be able to detect when a message couldn't be delivered.
 For example, [mailing list software](https://en.wikipedia.org/wiki/List_of_mailing_list_software)
 should be able to remove no longer valid addresses from the list automatically.
-Two techniques address this problem:
+Two techniques address this issue:
 - [**Machine-processable non-delivery reports (NDR)**](https://en.wikipedia.org/wiki/Return_receipt):
   [RFC 3464](https://datatracker.ietf.org/doc/html/rfc3464) specifies how [multipart messages](#multipart-messages)
   can be used to send so-called delivery status notifications (DSN) to the sender in a standardized way.
@@ -4821,7 +4821,7 @@ POP3 is a [text-based](/internet/#text-based-protocols)
 which can be used [with Implicit TLS or with Explicit TLS](#use-of-tls).
 POP3 with Implicit TLS is also known as POP3S.
 Just like [SMTP](#simple-mail-transfer-protocol),
-[POP3 commands](#pop3-commands) consist of four letters
+[POP3 commands](#pop3-commands) consist of four letters,
 and an [extension mechanism](#pop3-extensions) was introduced after the initial release of the standard.
 After authenticating the user,
 POP3 allows the client to list, retrieve, and delete messages.
@@ -5607,9 +5607,9 @@ and addresses the following shortcomings of IMAP (and [message submission](#subm
   and makes updates more [atomic](https://en.wikipedia.org/wiki/Atomicity_(database_systems))
   (i.e. it becomes less likely that only some of the issued commands are being executed).
 - **Widespread data format**:
-  JMAP data doesn't have to be encoded as JSON
-  and future standards can specify other data formats.
-  The same is true for the transport protocol:
+  JMAP data doesn't have to be encoded as JSON.
+  Future standards can specify other data formats.
+  The&nbsp;same is true for the transport protocol:
   While JMAP currently uses [HTTPS](https://en.wikipedia.org/wiki/HTTPS) as its transport protocol,
   other protocols can be added in the future.
   The choice of JSON and HTTPS is mostly due to their widespread adoption:
@@ -5647,7 +5647,7 @@ and addresses the following shortcomings of IMAP (and [message submission](#subm
 Support for JMAP is still [quite rare](https://jmap.io/software.html),
 which is not surprising given that the standard was published only in 2019.
 We yet have to see whether it will become a relevant protocol for accessing one's mailbox.
-I certainly hope so but email is really resistant to [innovation](#innovation).
+I certainly hope so, but email is really [resistant to innovation](#innovation).
 
 
 ### Email filtering
@@ -5788,7 +5788,7 @@ If you pay for your mailbox, though, chances are that you can use the Sieve lang
 since it is implemented by the most popular [mail servers](http://sieve.info/servers).
 Providers with Sieve support include [Fastmail](https://www.fastmail.com/help/technical/sieve.html),
 [mailbox.org](https://kb.mailbox.org/pages/viewpage.action?pageId=1181543),
-[ProtonMail](https://protonmail.com/support/knowledge-base/sieve-advanced-custom-filters/),
+[Proton Mail](https://proton.me/support/sieve-advanced-custom-filters),
 and [Gandi](https://docs.gandi.net/en/gandimail/sieve/index.html).
 Other mailbox providers support server-side filters with proprietary rules through their web interface.
 One example is [Gmail](https://mail.google.com/):
@@ -5834,7 +5834,7 @@ Unlike the previous tools,
 you have to configure the address and the [port number](/internet/#port-numbers) of the server manually
 as this information is not included in [Thunderbird's configuration files](#configuration-database).
 The standard describes how to locate the ManageSieve server
-[with `SRV` records](https://datatracker.ietf.org/doc/html/rfc5804#section-1.8)
+[with `SRV` records](https://datatracker.ietf.org/doc/html/rfc5804#section-1.8),
 and the [autoconfiguration tool](#autoconfiguration) above does query the `_sieve._tcp` subdomain.
 However, since virtually no one configures such `SRV` records (at least not for the ManageSieve protocol),
 I didn't bother to implement this discovery mechanism here.
@@ -5921,7 +5921,7 @@ By default, OpenSSL is installed in the following location without replacing the
 
 <div id="code-installed-openssl"></div>
 
-<a id="set-openssl-command" href="#tool-protocol-managesieve">Click here</a>
+<a href="#tool-protocol-managesieve&openssl=%2Fusr%2Flocal%2Fopt%2Fopenssl%2Fbin%2Fopenssl">Click here</a>
 to use this as the OpenSSL command in the [tool above](#tool-protocol-managesieve).
 
 </details>
@@ -6094,7 +6094,7 @@ There are [three header fields](https://datatracker.ietf.org/doc/html/rfc5322#se
 to identify the current message and the previous messages
 in the same [thread](https://en.wikipedia.org/wiki/Conversation_threading):
 - `Message-ID`: The `Message-ID` identifies the current message.
-  It's format is `<{Value}@{Domain}>`.
+  Its format is `<{Value}@{Domain}>`.
   Although outgoing mail servers [may add this field](https://datatracker.ietf.org/doc/html/rfc6409#section-8.3)
   if it's missing, the `Message-ID` should be chosen by the mail client.
   Otherwise, the copy stored in the [sent folder](#double-submission-problem)
@@ -6718,7 +6718,7 @@ Punycode encodes Unicode strings in three steps:
    The decoder has to loop through the string 252 – 128 = 124 many times
    before it is ready to insert the character `ü`.
    Since the string has six positions and we want to insert the `ü` at the second position,
-   the decoder has to do nothing for 124 × 6 + 1 = 745 iterations
+   the decoder has to do nothing for 124 · 6 + 1 = 745 iterations
    before inserting the current character `ü` at the current position `2`.
    If there were more characters to insert,
    there would now be seven positions for doing so.
@@ -6754,12 +6754,12 @@ Punycode encodes Unicode strings in three steps:
    but from now on we need an additional digit to terminate the number), `50`, `60`, `70`, `80`, `90`
    (we cannot go back to a digit below `5` in the first position as this would terminate the number
    so we choose the base of the second position to be 10 minus the threshold of the first position),
-   `51` (5 × 1 + 1 × 5 = 10), `61` (6 + 5 = 11), `71`, `81`,
-   `91` (9 + 5 = 14), `52` (5 × 1 + 2 × 5 = 15), and so on.
-   After `94` comes `550` and after `990` (9 × 1 + 9 × 5 = 54) comes `551` (5 × 1 + 5 × 5 + 1 × 25 = 55).
+   `51` (5 · 1 + 1 · 5 = 10), `61` (6 + 5 = 11), `71`, `81`,
+   `91` (9 + 5 = 14), `52` (5 · 1 + 2 · 5 = 15), and so on.
+   After `94` comes `550` and after `990` (9 · 1 + 9 · 5 = 54) comes `551` (5 · 1 + 5 · 5 + 1 · 25 = 55).
    The base in the third position is determined by multiplying the base in the second position
-   with the number of available symbols minus the threshold in the second position (5 × (10 – 5) = 25).
-   The base in the fourth position will be 25 × (10 – 5) = 125, and so on.
+   with the number of available symbols minus the threshold in the second position (5 · (10 – 5) = 25).
+   The base in the fourth position will be 25 · (10 – 5) = 125, and so on.
    The higher the threshold value, the more likely it is
    that you don't need an additional digit to terminate the number.
    On the other hand, a higher threshold value means that the base at the next position is lower.
@@ -6768,14 +6768,14 @@ Punycode encodes Unicode strings in three steps:
    Punycode sets the threshold as the position times the number of symbols minus the current bias
    and limits all thresholds to a certain range.
    The bias is 72 initially and the range for thresholds is [1 to 26](https://datatracker.ietf.org/doc/html/rfc3492#section-5).
-   Thus, the threshold at position 1 is max(1, 1 × 36 – 72) = 1,
-   the threshold at position 2 is max(1, 2 × 36 – 72) = 1, and
-   the threshold at position 3 is min(26, 3 × 36 – 72) = 26 initially.
+   Thus, the threshold at position 1 is max(1, 1 · 36 – 72) = 1,
+   the threshold at position 2 is max(1, 2 · 36 – 72) = 1, and
+   the threshold at position 3 is min(26, 3 · 36 – 72) = 26 initially.
    The bias is [adapted after each delta](https://datatracker.ietf.org/doc/html/rfc3492#section-3.4) because
    the current delta indicates the likely size of the next delta.
    In our example, 745 is encoded as `kva`.
    Since `k` stands for 10, `v` for 21, and `a` for 0,
-   10 × 1 + 21 × 35 + 0 × (35 × 35) indeed equals 745.
+   10 · 1 + 21 · 35 + 0 · (35 · 35) indeed equals 745.
    Since the threshold is always at least 1,
    `a` always terminates the current delta.
    While `Zrich-kva` decodes to `Zürich`,
@@ -6783,7 +6783,7 @@ Punycode encodes Unicode strings in three steps:
    `Zrich-kvab` decodes to `Zürüich`,
    `Zrich-kvac` decodes to `Züriüch`, and so on.
    The bias is adapted to 0 after the first delta,
-   which makes the threshold at the first position min(26, 1 × 36 – 0) = 26.
+   which makes the threshold at the first position min(26, 1 · 36 – 0) = 26.
    This means that `Zrich-kvaz` is a valid encoding while `Zrich-kva0` is not
    because the `0` (representing 26) needs to be terminated with an `a`: `Zrich-kva0a`.
    You can try all of this yourself with the following tool.
@@ -6870,7 +6870,7 @@ Compatibility equivalence includes canonical equivalence.
 
 Before we look at examples, let me introduce the following tool to you.
 It outputs the code points of the given input after applying the given normalization.
-It uses [JavaScript's `normalize` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) for the Unicode normalization
+It uses [JavaScript's `normalize` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) for the Unicode normalization,
 and it allows you to input characters by their code point(s)
 with [JavaScript's escape notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#Escape_notation),
 which means that you can specify a code point with two, four, or a variable number of hexadecimal digits:
@@ -6952,7 +6952,7 @@ A few additional remarks:
 - [**Growth through NFC normalization**](https://unicode.org/faq/normalization.html#11):
   In [rare situations](http://www.macchiato.com/unicode/nfc-faq#TOC-What-are-the-cases-where-combining-marks-separate-),
   NFC normalization can make a string longer.
-- **Surprises**: While most normalizations are quite reasonable,
+- **Surprises**: While most NFKC normalizations are quite reasonable,
   you will get unexpected results if you play long enough with the [above tool](#tool-encoding-normalization).
   For example, `⅔` normalizes to `2⁄3`, but the latter uses
   the [fraction slash](https://unicode-table.com/en/2044/)
@@ -6961,13 +6961,13 @@ A few additional remarks:
   doesn't normalize to the [ASCII hyphen or minus](https://unicode-table.com/en/002D/).
   And while the [trademark symbol](https://en.wikipedia.org/wiki/Trademark_symbol) normalizes to `TM`,
   the [copyright symbol](https://en.wikipedia.org/wiki/Copyright_symbol) stays the same.
-  Depending on your requirements, you may therefore want to replace additional characters.
+  Depending on your requirements, you may thus want to replace additional characters.
 - **Clipboard**: It's not always clear when programs normalize strings, which can lead to subtle bugs.
   For example, when I copy a string to my clipboard with Firefox on macOS,
   the string gets normalized to NFC [when pasted into other programs](https://stackoverflow.com/a/65378588/12917821).
   I assume this is due to how Firefox stores text to the clipboard.
   If I copy a string with Chrome, its form is preserved, even when pasted in Firefox.
-  This is why I write "depends on your system" next to the no normalization option in the tool above.
+  This is why I write "depends on your system" next to the no-normalization option in the tool above.
   The tool itself won't transform the string in this case,
   but the string might have been normalized before it reached the input field.
   Another example is that Chrome used to NFC normalize strings when submitting a form,
@@ -6981,18 +6981,30 @@ A few additional remarks:
   If you want to prank a friend, replace the [ordinary semicolon](https://unicode-table.com/en/003B/) `;`
   with the [Greek question mark](https://unicode-table.com/en/037E/) `;` in their
   [source code](https://en.wikipedia.org/wiki/Source_code).
-  In general, you want to store and compare NFC-normalized strings,
-  which solves both of the just-mentioned problems.
+  These two problems could be solved by normalizing source code to NFC.
+  However, `'hi'.normalize('NFKC') === 'h​i'.normalize('NFKC')` would still be `false`
+  because the right `h​i` contains an invisible [zero-width space](https://en.wikipedia.org/wiki/Zero-width_space),
+  which is not normalized away even under compatibility equivalence.
   For developers, the complexity of Unicode is quite scary.
   Presumably simple things like counting the number of symbols in a string or reversing a string
   become [surprisingly difficult](https://mathiasbynens.be/notes/javascript-unicode)
-  – even before considering [right-to-left (RTL)](https://en.wikipedia.org/wiki/Right-to-left) text
-  and its combination with [left-to-right (LTR)](https://en.wikipedia.org/wiki/Left-to-right) text
-  into [bidirectional (BiDi)](https://en.wikipedia.org/wiki/Bidirectional_text) text.
-- **Invisible characters**:
-  `'hi'.normalize('NFKC') === 'h​i'.normalize('NFKC')` is `false` because the right `h​i` contains
-  a [zero-width space](https://en.wikipedia.org/wiki/Zero-width_space),
-  which is not normalized away even under compatibility equivalence.
+  – even before considering [right-to-left (RTL) text](https://en.wikipedia.org/wiki/Right-to-left)
+  and its combination with [left-to-right (LTR) text](https://en.wikipedia.org/wiki/Left-to-right)
+  into [bidirectional (BiDi) text](https://en.wikipedia.org/wiki/Bidirectional_text).
+- **Backdoors**: An attacker can use Unicode to include [backdoors](https://en.wikipedia.org/wiki/Backdoor_(computing))
+  which cannot be spotted during [code review](https://en.wikipedia.org/wiki/Code_review)
+  unless your [code editor](https://en.wikipedia.org/wiki/Source-code_editor) warns you about uncommon characters.
+  Invisible Unicode characters can be used to introduce
+  [invisible variables](https://certitude.consulting/blog/en/invisible-backdoor/),
+  [confusable Unicode characters](https://unicode.org/reports/tr36/#visual_spoofing)
+  in variable names can make conditions pass or fail unexpectedly
+  (e.g. the [alveolar click character](https://unicode-table.com/en/01C3/) `ǃ` makes `environmentǃ=PRODUCTION`
+  an [assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science))
+  instead of a [comparison](https://en.wikipedia.org/wiki/Relational_operator)),
+  Unicode control characters can turn what appears to be a comment
+  [into source code and vice versa](https://www.trojansource.codes/), and so on.
+  Since November 2021, the popular code editor [Visual Studio Code](https://code.visualstudio.com/) by Microsoft
+  [highlights uncommon characters](https://code.visualstudio.com/updates/v1_63#_unicode-highlighting) by default.
 - [**Emojis**](https://en.wikipedia.org/wiki/Emoji):
   [Modifiers](https://www.unicode.org/emoji/charts/full-emoji-modifiers.html)
   change the appearance of the preceding emoji.
@@ -7008,8 +7020,8 @@ A few additional remarks:
   and the [variation selector 16](https://en.wikipedia.org/wiki/Variation_Selectors_(Unicode_block))
   with the code point [FE0F](https://unicode-table.com/en/FE0F/)
   is used to render the preceding character as an emoji rather than as a text symbol.
-  For example, `\u26A0` gives you <span style="font-family: sans-serif;">⚠</span>,
-  whereas `\u26A0\uFE0F` gives you <span style="font-family: sans-serif;">⚠️</span> .
+  For example, `\u26A0` gives you <span class="emoji">⚠</span>,
+  whereas `\u26A0\uFE0F` gives you <span class="emoji">⚠️</span> .
   Please note that such emojification is not supported by all fonts.
 - **Artistic use**: Unicode can also be used to change the appearance of ASCII text.
   For example, you can [flip text upside down](https://unicode-table.com/en/tools/flip/)
@@ -7210,7 +7222,7 @@ So how does IDNA2008 differ from IDNA2003? Let's look at a few examples:
   even without [combining characters](https://en.wikipedia.org/wiki/Combining_character),
   such as skin tones and hair styles.
   For example, [❤](https://unicode-table.com/en/2764/)&nbsp;
-  and <span style="font-family: sans-serif;">[♥️](https://unicode-table.com/en/2665/)</span>&nbsp;
+  and <span class="emoji">[♥️](https://unicode-table.com/en/2665/)</span>&nbsp;
   are two different hearts, where both of them were
   [valid under IDNA2003](https://util.unicode.org/UnicodeJsps/idna.jsp?a=%E2%9D%A4%EF%B8%8F.com%0D%0A%E2%99%A5%EF%B8%8F.com).
 - [**German eszett ß**](https://en.wikipedia.org/wiki/%C3%9F):
@@ -7248,7 +7260,7 @@ Unfortunately, there is [no JavaScript library](https://github.com/mathiasbynens
 to validate [internationalized domain names](#internationalized-domain-names).
 I've approximated the [IDNA2008 rules](https://datatracker.ietf.org/doc/html/rfc5894#section-3.1.3)
 in the [Punycode tool](#punycode-encoding)
-[as follows](https://github.com/KasparEtter/ef1p/blob/main/code/tools/encodings/punycode.tsx):
+[as follows](https://github.com/KasparEtter/ef1p/blob/main/code/tools/encoding/punycode.tsx):
 `/^[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*(?:\.[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(?:-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*)*$/u`.
 
 This regular expression uses [Unicode property escapes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
@@ -8731,7 +8743,7 @@ which should be reason enough to cherish it.
 The only other decentralized messaging service which comes close to email in terms of ubiquity
 is the [Short Message Service (SMS)](https://en.wikipedia.org/wiki/SMS).
 On the other hand, email has become so dysfunctional that many of us would like to leave it behind.
-In this section, we'll look at the issues that plague modern email.
+In this chapter, we'll look at the issues that plague modern email.
 In the [last chapter](#fixes),
 we'll discuss how some of the security-related issues are being addressed.
 
@@ -8971,7 +8983,7 @@ In order to achieve a high delivery rate (also called *good deliverability*), yo
 into the [reputation capital](https://en.wikipedia.org/wiki/Reputation_capital) of another company.
 A whole industry evolved around just this value proposition.
 Such companies are known as [email service providers](https://en.wikipedia.org/wiki/Email_service_provider_(marketing))
-or [email delivery vendors](https://sendgrid.com/docs/glossary/smtp-provider/),
+or [email delivery vendors](https://docs.sendgrid.com/glossary/smtp-provider),
 and they offer a [transactional email service](https://en.wikipedia.org/wiki/Email_marketing#Transactional_emails).
 The downside of this reputation system is that email is no longer really an open service
 if you have to purchase the qualification to send messages from another company.
@@ -9062,7 +9074,7 @@ The recipient of a message often learns the following information about the send
   Thirdly, if you visited the website of an email recipient anonymously or pseudonymously,
   the recipient now knows who this user on their website is.
   To find out whether your outgoing mail server includes your IP address in the messages that you send,
-  send a message to yourself and search for your IP address.
+  send a message to yourself and search for your IP address [in the message headers](#raw-message).
   You can use the following tool with an empty input field to determine your IP address.
   You can also use the tool to [locate the IP address](/internet/#ip-geolocation) of someone who sent you an email.
   The tool uses the geolocation API of [ipinfo.io](https://ipinfo.io/).
@@ -9072,7 +9084,7 @@ The recipient of a message often learns the following information about the send
   or an [overlay network](https://en.wikipedia.org/wiki/Overlay_network) for anonymous communication,
   such as [Tor](https://www.torproject.org/).
   Alternatively, you can use a mailbox provider which values your privacy,
-  such as [ProtonMail](https://protonmail.com/security-details)
+  such as [Proton Mail](https://proton.me/mail/security)
   or [Tutanota](https://tutanota.com/security/#enhanced-privacy-features).
   Sending messages from the [web interface](#webmail) of a mailbox provider usually also helps.
   For example, if you compose an email on [gmail.com](https://gmail.com/),
@@ -9306,9 +9318,9 @@ Here is how you disable remote content in various mail clients
 - [**Thunderbird**](https://support.mozilla.org/en-US/kb/remote-content-in-messages):
   Preferences > Privacy & Security > Mail Content > Allow remote content in messages [disabled by default]
 - **Apple Mail**:
-  - **Mobile**: Settings > Mail > Messages > Load Remote Images [toggle the switch]
-  - [**Desktop**](https://support.apple.com/guide/mail/change-viewing-preferences-cpmlprefview/mac):
-    Preferences > Viewing > Load remote content in messages [remove the tick]
+  - **Mobile**: Settings > Mail > Messages > Privacy Protection > Block All Remote Content
+  - [**Desktop**](https://support.apple.com/guide/mail/change-privacy-settings-mlhlae4a4fe6/15.0/mac/13.0):
+    Preferences > Privacy > Block All Remote Content
 - **Outlook**:
   - [**Web**](https://support.microsoft.com/en-us/office/external-image-protection-in-outlook-com-43c0c17e-8fd1-41c6-93fe-ffe54638e82b):
     View all Outlook settings > General > External images > Always use the Outlook service to load images<br>
@@ -9393,7 +9405,7 @@ a common attack is to send a victim an email which seemingly comes from their ow
 In the message, the attacker claims that they've compromised the victim's computer
 and that they've recorded the victim masturbating to porn.
 The attacker threatens to send the recording to all the victim's contacts unless they receive a payment,
-usually in [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin), within a couple of days.
+usually in [bitcoin](https://en.wikipedia.org/wiki/Bitcoin), within a couple of days.
 This form of [blackmailing](https://en.wikipedia.org/wiki/Blackmail)
 is known as [sextortion](https://en.wikipedia.org/wiki/Sextortion).
 If you receive such an email yourself, how do you know that the attacker's claim is wrong?
@@ -9406,7 +9418,7 @@ and the addresses of some contacts to make presumably the large majority of peop
 Given that this is (usually) not the case, there's no reason to worry.
 Do people fall for this crap? The answer is yes, unfortunately.
 The first time I received such a message was on 13 January 2019.
-The fraudster demanded 356 Euro in Bitcoin to remain silent
+The fraudster demanded 356 [euro](https://en.wikipedia.org/wiki/Euro) in bitcoin to remain silent
 and was stupid enough to provide the
 [same Bitcoin address](https://blockchair.com/bitcoin/address/18Pt4B7Rz7Wf491FGQHPsfDeKRqnkyrMo6) to several victims.
 Since all Bitcoin transactions are public, we know exactly how much money they made:
@@ -9528,7 +9540,7 @@ but you can reduce your risk by sticking to the following principles:
   which has far-reaching or irreversible consequences,
   contact the sender through a different communication channel
   and let them confirm the request before executing it.
-  Obeying orders blindly is dangerous from a security perspective
+  Obeying orders blindly is dangerous from a security perspective,
   and subordinates should be trained and encouraged to question them.
 
 <details markdown="block">
@@ -9742,7 +9754,8 @@ Unfortunately for the attacker, the content preview in the message list still sh
 Moreover, the exploit becomes apparent if the recipient inspects the raw message.
 While the attack isn't perfect, the problem is certainly worrying and should be fixed.
 I reported [this vulnerability](https://bugzilla.mozilla.org/show_bug.cgi?id=1688659)
-to the Thunderbird team on 25 January 2021 and they decided to make the report public without a fix.
+to the Thunderbird team on 25 January 2021,
+and they decided to make the report public without a fix.
 There are some related issues with quoting HTML messages,
 which I'll cover in the [next subsection](#different-appearances).
 
@@ -10371,7 +10384,7 @@ it's an important prerequisite for other techniques, such as [flagging unknown s
 As we saw [earlier](#why-outgoing-mail-servers),
 [email spoofing](https://en.wikipedia.org/wiki/Email_spoofing) is addressed in two steps:
 The incoming mail server of the recipient verifies
-that the other party is authorized to send emails on behalf of the sender's domain
+that the other party is authorized to send emails on behalf of the sender's domain,
 and the outgoing mail server of this domain ensures that the local part of the `From` address
 belongs to the user who submitted the message.
 
@@ -10555,8 +10568,8 @@ The attacker could also redirect the victim's DNS resolver to the name server of
 and provide their own IP address
 [as the name server's address](https://en.wikipedia.org/wiki/DNS_spoofing#Redirect_the_target_domain's_name_server)
 in the additional section of the response.
-This is known as a [name chaining attack](https://datatracker.ietf.org/doc/html/rfc3833#section-2.3)
-and in the absence of [DNSSEC](/internet/#domain-name-system-security-extensions),
+This is known as a [name chaining attack](https://datatracker.ietf.org/doc/html/rfc3833#section-2.3).
+In the absence of [DNSSEC](/internet/#domain-name-system-security-extensions),
 any records in the additional section may not be cached by DNS resolvers.
 (In case you are wondering, [`.example`](https://en.wikipedia.org/wiki/.example)
 is a top-level domain reserved for examples.)
@@ -11053,7 +11066,7 @@ Since DKIM keys can be revoked at any time after a message has been delivered,
 DKIM signatures are typically verified by incoming mail servers, which record the result in the
 [`Authentication-Results` header field](#authentication-results-header-field) for later use.
 While the mail client of the recipient could verify DKIM signatures as well,
-it would have to record the result before the signature expires.
+it would have to record the result before the public key expires.
 Since emails are usually synchronized to new mail clients via [IMAP](#internet-message-access-protocol),
 the DKIM-verifying mail client would have to replace the messages in the user's remote mailbox for archiving.
 As noted [earlier](#confidentiality-and-integrity), Gmail displays the domain which signed a message.
@@ -12950,7 +12963,7 @@ to configure the [`TLSA` domain](#name-checks), and the option
 to provide one or several [`TLSA` records](#tlsa-record-type).
 I covered how to install OpenSSL on macOS in an [earlier box](#install-openssl-on-macos).
 The [above tool](#tool-lookup-tlsa-records) generates the OpenSSL command for you.
-Here is an example with [ProtonMail's](https://en.wikipedia.org/wiki/ProtonMail) `TLSA` records at the time of writing:
+Here is an example with [Proton Mail's](https://en.wikipedia.org/wiki/ProtonMail) `TLSA` records at the time of writing:
 
 <div id="tool-verify-tlsa-record"></div>
 <div id="code-verify-tlsa-record"></div>

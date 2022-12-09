@@ -95,7 +95,7 @@ Each title links to where the respective tool is explained.
 {:.compact}
 
 
-### [Email tracking](/email/#remote-content)
+### [Email tracking](/email/#link-tracking)
 
 <div id="tool-lookup-email-requests"></div>
 
