@@ -68,7 +68,7 @@
     <text class="green" text-anchor="middle">
         <tspan x="154.11" y="18.75">2. Submit</tspan>
     </text>
-    <path class="blue" d="M 102.428,142.75 A 51.058 80 0 0 1 51.37,62.75 L 51.369401,62.740023" marker-end="url(#arrow-blue)" stroke-dasharray="97"></path>
+    <path class="blue" d="M 102.428,142.75 A 51.058 80 0 0 1 51.37,62.75 L 51.369573,62.740013" marker-end="url(#arrow-blue)" stroke-dasharray="97"></path>
     <text class="blue" text-anchor="start">
         <tspan x="72.78" y="109.203">1. Store</tspan>
     </text>

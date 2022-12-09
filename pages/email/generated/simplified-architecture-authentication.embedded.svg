@@ -1,6 +1,6 @@
 <svg id="figure-simplified-architecture-authentication" class="figure" data-name="simplified-architecture-authentication" width="599.148" height="298.25" viewBox="-131.662 -5 599.148 298.25" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg">
 
-    <path class="gray" d="M -77.706,83.813 A 76.456 166.438 0 0 0 -1.25,250.25 L -1.240169,250.251833" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
+    <path class="gray" d="M -77.706,83.813 A 76.456 166.438 0 0 0 -1.25,250.25 L -1.24009,250.251342" marker-end="url(#arrow-gray)" stroke-dasharray="190"></path>
     <text class="gray" text-anchor="end">
         <tspan x="-60.322" y="223.906">User</tspan><tspan x="-60.322" y="245.906">authen-</tspan><tspan x="-60.322" y="267.906">tication</tspan>
     </text>
