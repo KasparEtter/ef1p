@@ -309,4 +309,16 @@ if (document.cookie !== '') {
     clearCookie('cookieconsent_status', false);
 }
 
+// Trigger the processing of ScrollSpy after load.
+// https://github.com/twbs/bootstrap/blob/v4-dev/js/src/scrollspy.js
+// https://github.com/afeld/bootstrap-toc/blob/gh-pages/bootstrap-toc.js
+window.addEventListener('load', () => {
+    // I have no idea why it doesn't work without a timeout.
+    setTimeout(() => {
+        const body = $('body') as any;
+        body.scrollspy('refresh');
+        body.trigger('scroll');
+    }, 200);
+});
+
 console.log('Hi there, are you curious about how this website works? You find all the code at https://github.com/KasparEtter/ef1p. If you have any questions, just ask.');
