@@ -76,7 +76,8 @@ export function getItem<T>(key: string, callback?: Callback<T>, isStale?: Condit
     if (localStorageIsAvailable) {
         const item = parse(localStorage.getItem(key));
         if (item !== null && isStale !== undefined && isStale(item)) {
-            removeItem(key);
+            // Avoid triggering the callback in the current window.
+            localStorage.removeItem(key);
         } else {
             return item;
         }
