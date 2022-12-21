@@ -938,7 +938,7 @@ $$
 \quad \quad \quad B := B \cdot A \\
 \quad \quad \quad n := n - 1 \\
 \quad \quad \} \\
-\quad \quad A := A \cdot A \\
+\quad \quad B := B \cdot B \\
 \quad \quad n := n / 2 \\
 \quad \} \\
 \quad \text{return } B \\
@@ -957,7 +957,7 @@ $$
 \quad \quad \quad B := B + A \\
 \quad \quad \quad n := n - 1 \\
 \quad \quad \} \\
-\quad \quad A := A + A \\
+\quad \quad B := B + B \\
 \quad \quad n := n / 2 \\
 \quad \} \\
 \quad \text{return } B \\
