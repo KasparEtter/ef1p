@@ -6964,14 +6964,14 @@ Since the formulas for $$C_x$$ and $$C_y$$ won't involve $$t$$, we don't have to
 The line through $$A$$ and $$B$$ intersects the elliptic curve
 wherever they have the same $$y$$ value for the same $$x$$ value.
 This means that the $$x$$-coordinate of any intersection point has to fulfill $$(sx + t)^2 = x^3 + ax + b$$,
-which can be rewritten as $$x^3 - s^2x^2 + (a - 2sd)x + b - d^2 = 0$$.
+which can be rewritten as $$x^3 - s^2x^2 + (a - 2st)x + b - t^2 = 0$$.
 Based on the geometric interpretation,
 we know that the solutions of this equation are $$A_x$$, $$B_x$$, and $$C_x$$.
 Since a value $$r$$ is a so-called [root](https://en.wikipedia.org/wiki/Zero_of_a_function)
 of a [polynomial](https://en.wikipedia.org/wiki/Polynomial) $$f(x)$$ [if and only if](#if-and-only-if)
 <!-- --> $$(x - r)$$ divides $$f(x)$$ (we'll discuss this in the article about coding theory,
 see [Wikipedia](https://en.wikipedia.org/wiki/Polynomial#Solving_equations) for now),
-we have $$x^3 \allowbreak \htmlClass{color-pink}{-} \allowbreak \htmlClass{color-pink}{s^2}x^2 + (a - 2sd)x + b - d^2
+we have $$x^3 \allowbreak \htmlClass{color-pink}{-} \allowbreak \htmlClass{color-pink}{s^2}x^2 + (a - 2st)x + b - t^2
 = (x - A_x)(x - B_x)(x - C_x)
 = x^3 + \htmlClass{color-pink}{(-A_x - B_x - C_x)}x^2 + (A_xB_xC_x + A_xC_x + B_xC_x)x - A_xB_xC_x$$.
 Since the [coefficients](https://en.wikipedia.org/wiki/Coefficient)
