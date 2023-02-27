@@ -1,0 +1,20 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# https://www.rfc-editor.org/rfc/rfc9116
+Contact: mailto:security@ef1p.com
+Expires: 2100-01-01T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://explained-from-first-principles.com/.well-known/security.txt
+Encryption: https://explained-from-first-principles.com/assets/keys/security.txt
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEcEQ9NRP3mtklJ2Z/axQ78UcMk2cFAmP81SUACgkQaxQ78UcM
+k2fC7QgAtUnIFa1RV5ZasBUMu5jSm0+lb0WWGeo5tPd1KN2222aF3PRgcfnhde52
+wqdXYTOSteUpSowMd6h9gt7KYRcjy6F+A4OJw9clHyMfi75HAMIiiVSDF0y88LNS
+7BEW2gfZIvPsRkpu3JtwYyFi9dD1pB42T/YyIRuOCpDG+hoR/B1ksvOvkBIl0siZ
+q83SdWHsIgsCg58nxqmvgKMbGYZkyF6qbI7ZyWv2jwJX8NJEAF2sJxo6S3oZWhnm
+OXOT1/6mErzmFoBGP2tyMnDIk5H0yPdMvPF457OjesftFQly254ix42YTmlhSazO
+lWe0NkVWxhqnbYEHWr8boJLwIrUVmg==
+=XL2Z
+-----END PGP SIGNATURE-----

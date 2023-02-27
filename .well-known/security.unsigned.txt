@@ -1,0 +1,6 @@
+# https://www.rfc-editor.org/rfc/rfc9116
+Contact: mailto:security@ef1p.com
+Expires: 2100-01-01T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://explained-from-first-principles.com/.well-known/security.txt
+Encryption: https://explained-from-first-principles.com/assets/keys/security.txt

@@ -62,6 +62,7 @@
         "scss-watch": "watch 'npm run scss-build' styles",
         "scss-watch-dark": "watch 'npm run scss-build-dark' styles",
         "scss-watch-light": "watch 'npm run scss-build-light' styles",
+        "security": "gpg --clearsign -u 0x6B143BF1470C9367 -o .well-known/security.txt .well-known/security.unsigned.txt",
         "serve": "bundle exec jekyll serve",
         "serve-network": "bundle exec jekyll serve --host 0.0.0.0 --port 5000",
         "sort-package": "sort-package-json",
