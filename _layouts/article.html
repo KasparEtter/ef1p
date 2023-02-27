@@ -12,17 +12,73 @@ layout: toc
         first published on {{ page.published | date: site.date_format }}{% if page.modified %}
         and <a href="{{ site.github.repository_url | append: '/commits/main/' | append: page.path }}">last modified</a>
         on {{ page.modified | date: site.date_format }}{% endif %}.
-        {% assign length = page.url | size | minus: 1 %}{% capture article %}{{ page.url | slice: 0, length }}{% endcapture %}
         If you like the article,
         please share it with your friends on <a href="https://twitter.com/{{ site.twitter_handle }}">social media</a>
         or support me with a <a href="/#donate">donation</a>.
-        {% capture pdf %}/pages{{ article }}/generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
-        You can also{% if page.reddit %}
+        {% capture pdf %}/pages{{ page.dir }}generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
+        {% capture url %}https://{{ site.domain }}{{ site.baseurl }}{{ page.url }}{% endcapture %}
+        You can also <a href="#cite-this-article">cite this article</a>,
+        <a id="pdf-download" href="{{ pdf | relative_url }}" download>download it as a PDF</a>,
+        see what people are <a href="https://twitter.com/search?q=https%3A%2F%2F{{ site.domain }}%2F{{ page.name | remove: '.md' }}%2F%20-from%3A{{ site.twitter_handle_of_author }}&f=live">saying about it on Twitter</a>,{% if page.reddit %}
         join the <a href="{{ page.reddit }}">discussion on Reddit</a>,{% endif %}
-        <a id="pdf-download" href="{{ pdf | relative_url }}" download>download the article</a> as a PDF,
-        see what people are <a href="https://twitter.com/search?q=https%3A%2F%2Fexplained-from-first-principles.com%2F{{ page.name | remove: '.md' }}%2F%20-from%3AKasparEtter&f=live">saying about it on Twitter</a>,
-        or <a href="https://translate.google.com/translate?u={{ page.url | absolute_url }}">use Google Translate</a> to read this article in your native language.
+        or <a href="https://translate.google.com/translate?u={{ url }}">use Google Translate</a> to read it in another language.
     </p>
+
+    <details class="d-none d-print-block">
+        <summary id="cite-this-article">
+            Cite this article
+        </summary>
+        <script>
+            const monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const today = new Date();
+        </script>{% assign author = site.author | split: ' ' %}
+        <p>
+            You can cite this article in various <a href="https://en.wikipedia.org/wiki/Citation#Styles">citation styles</a> as follows:
+        </p>
+        <table class="list extra-padding">
+            <tr>
+                <th><a href="https://en.wikipedia.org/wiki/MLA_Handbook">MLA</a>:</th>
+                <td><span class="enable-click-to-copy">{{ author | slice: 1 }}, {{ author | slice: 0 }}. “{{ page.title }} {{ site.title | downcase }}.” <i>{{ site.title }}</i>, {{ page.published | date: '%-e %b. %Y' }}, {{ url }}. Accessed <script>document.write(today.getDate() + ' ' + monthsShort[today.getMonth()] + '. ' + today.getFullYear())</script>.</span></td>
+            </tr>
+            <tr>
+                <th><a href="https://en.wikipedia.org/wiki/The_Chicago_Manual_of_Style">CMOS</a>:</th>
+                <td><span class="enable-click-to-copy">{{ author | slice: 1 }}, {{ author | slice: 0 }}. “{{ page.title }} {{ site.title | downcase }}.” <i>{{ site.title }}</i>, {{ page.published | date: '%B %-e, %Y' }}. Accessed <script>document.write(monthsLong[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear())</script>. {{ url }}.</span></td>
+            </tr>
+            <tr>
+                <th><a href="https://en.wikipedia.org/wiki/APA_style">APA</a>:</th>
+                <td><span class="enable-click-to-copy">{{ author | slice: 1 }}, {{ author | slice: 0 | join: '' | slice: 0 }}. ({{ page.published | date: '%Y, %B %-e' }}). {{ page.title }} {{ site.title | downcase }}. <i>{{ site.title }}</i>. Retrieved <script>document.write(monthsLong[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear())</script>, from {{ url }}</span></td>
+            </tr>
+            <tr>
+                <th><a href="https://en.wikipedia.org/wiki/IEEE_style">IEEE</a>:</th>
+                <td><span class="enable-click-to-copy">{{ author | slice: 0 | join: '' | slice: 0 }}. {{ author | slice: 1 }}, “{{ page.title }} {{ site.title | downcase }},” <i>{{ site.title }}</i>, {{ page.published | date: '%b. %-e, %Y' }}. [Online]. Available: {{ url }}. [Accessed: <script>document.write(monthsShort[today.getMonth()] + '. ' + today.getDate() + ', ' + today.getFullYear())</script>].</span></td>
+            </tr>
+            <tr>
+                <th><a href="https://en.wikipedia.org/wiki/BibTeX">BibTeX</a>:</th>
+                <td>
+<pre class="mb-0">
+<span class="enable-click-to-copy">@misc&#123;{{ author | slice: 1 | join: '' | downcase }}_{{ page.published | date: '%Y' }}_{{ page.title | downcase | replace: ' ', '_' }},
+    title = &#123;{{ page.title }} {{ site.title | downcase }}&#125;,
+    url = &#123;{{ url }}&#125;,
+    journal = &#123;{{ site.title }}&#125;,
+    author = &#123;{{ author | slice: 1 }}, {{ author | slice: 0 }}&#125;,
+    date = &#123;{{ page.published | date: '%Y-%m-%d' }}&#125;,
+    year = &#123;{{ page.published | date: '%Y' }}&#125;,
+    month = &#123;{{ page.published | date: '%b' }}&#125;,
+    day = &#123;{{ page.published | date: '%-e' }}&#125;,{% if page.modified %}
+    edition = &#123;{{ page.modified | date: '%Y-%m-%d' }}&#125;,{% endif %}
+    urldate = &#123;<script>document.write(today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0'))</script>&#125;
+&#125;</span>
+</pre>
+                </td>
+            </tr>
+        </table>
+        <p>
+            If you are worried about the persistence of this website, you can link to the
+            <a href="https://web.archive.org/web/{{ url }}">latest snapshot</a>
+            of the <a href="https://en.wikipedia.org/wiki/Internet_Archive">Internet Archive</a> instead.
+        </p>
+    </details>
 
     <p class="article-disclaimer">
         If you are visiting this website for the first time,

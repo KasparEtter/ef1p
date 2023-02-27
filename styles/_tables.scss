@@ -92,6 +92,16 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   }
 }
 
+.extra-padding {
+  th {
+    padding-right: .2rem;
+  }
+
+  td {
+    padding-left: .2rem;
+  }
+}
+
 .align {
   td,
   th {

@@ -46,13 +46,10 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
         return false;
     }
 
-    if (target.tagName === 'SUMMARY') {
-        (target.parentElement as HTMLDetailsElement).open = true;
-    } else {
-        const details = target.closest('details');
-        if (details !== null && !details.open) {
-            details.open = true;
-        }
+    const details = target.closest('details');
+    if (details !== null) {
+        details.classList.remove('d-none');
+        details.open = true;
     }
 
     let margin = 0;
@@ -234,6 +231,12 @@ anchors.options = {
 };
 anchors.add('h2, h3, h4, h5, h6, summary');
 $('a.anchorjs-link').attr('tabindex', -1);
+
+// Enable click to copy on elements with the corresponding class.
+function copy(event: JQuery.TriggeredEvent): void {
+    copyToClipboardWithAnimation(event.target.innerText, event.target, 'scale125');
+}
+$('.enable-click-to-copy').removeClass('enable-click-to-copy').addClass('click-to-copy').prop('title', 'Click to copy.').on('click', copy);
 
 // Allow the reader to download embedded SVG figures.
 const downloadAsPNG = $('<a>').addClass('dropdown-item').attr('download', '').html('<i class="icon-left fas fa-file-image"></i>Download as a pixel image (PNG)');

@@ -4,12 +4,22 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+.scale125,
 .scale150,
 .scale200,
 .scale400 {
   display: inline-block;
   animation-duration: .2s;
   animation-timing-function: linear;
+}
+
+@keyframes scale125 {
+  from { transform: scale(1); }
+  to { transform: scale(1.25); }
+}
+
+.scale125 {
+  animation-name: scale125;
 }
 
 @keyframes scale150 {
