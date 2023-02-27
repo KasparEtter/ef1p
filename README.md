@@ -110,14 +110,14 @@ install Ruby with Homebrew on macOS:
 brew install ruby
 ```
 
-Add the paths indicated by the Ruby install script to your `~/.bashrc`:
+Add the paths indicated by the Ruby install script to your `~/.zshrc`:
 
 ```bash
-export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.2.0/bin:$PATH"
 ```
 
 Reload your shell for the changes to take effect by opening a new window/tab
-or by [entering](https://stackoverflow.com/questions/2518127/how-do-i-reload-bashrc-without-logging-out-and-back-in) `. ~/.bashrc`.
+or by [entering](https://stackoverflow.com/questions/2518127/how-do-i-reload-bashrc-without-logging-out-and-back-in) `. ~/.zshrc`.
 
 Depending on what shell you use,
 your [configuration file](https://en.wikipedia.org/wiki/Unix_shell#Configuration_files) can be different.
