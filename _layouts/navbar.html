@@ -23,7 +23,10 @@ layout: head
             {% endfor %}
             </ul>
 
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">{% if page.tools %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ page.url | relative_url }}tools/" title="View all tools of this article."><i class="icon-left fas fa-toolbox"></i>Tools</a>
+                </li>{% endif %}
                 <li class="nav-item">
                     <a id="details-expander" class="nav-link" data-toggle="collapse" data-target="#navbar.show" title="Expand all information boxes."><i class="icon-left fas fa-plus-circle"></i>Expand</a>
                     <a id="details-collapser" class="nav-link d-none" data-toggle="collapse" data-target="#navbar.show" title="Collapse all information boxes."><i class="icon-left fas fa-minus-circle"></i>Collapse</a>

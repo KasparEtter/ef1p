@@ -8,6 +8,7 @@ modified: 2021-10-21
 teaser: Learn more about this critical infrastructure, which you likely use for hours every day.
 reddit: https://www.reddit.com/r/ef1p/comments/n161nn/the_internet_explained_from_first_principles/
 icon: network-wired
+tools: true
 math: false
 ---
 

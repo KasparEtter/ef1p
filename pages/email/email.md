@@ -8,6 +8,7 @@ modified: 2022-12-09
 teaser: Modern email is a patchwork of protocols and extensions. Here is one article to understand them all.
 reddit: https://www.reddit.com/r/ef1p/comments/n6ydf2/email_explained_from_first_principles/
 icon: envelope
+tools: true
 math: false
 ---
 

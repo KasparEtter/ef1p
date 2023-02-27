@@ -560,6 +560,7 @@ Articles can have the following variables in their [front matter](https://jekyll
   Omit this variable if the article has not been modified since its publication.
 - `teaser`: A short text that shall be used when the article is shared on social media or indexed by search engines.
 - `icon`: The name of the [Font Awesome](https://fontawesome.com) icon used in the navigation without the `fa-` prefix.
+- `tools`: Set this to `true` if the article has a separate page which includes only the tools.
 - `math`: Set this to `true` if you want to activate KaTeX rendering for the article.
 
 
