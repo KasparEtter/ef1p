@@ -4,7 +4,7 @@ category: Mathematics
 author: Kaspar Etter
 license: CC BY 4.0
 published: 2022-09-17
-modified: 2022-11-23
+modified: 2023-02-27
 teaser: A lot of modern cryptography builds on insights from number theory, which has been studied for centuries.
 reddit: https://www.reddit.com/r/ef1p/comments/xgsco5/number_theory_explained_from_first_principles/
 icon: percentage
@@ -225,22 +225,6 @@ The properties of a linear one-way function.
 </figcaption>
 </figure>
 
-Since
-
-$$
-f(1 + 1) = f(1) \circ f(1)
-$$
-
-and thus
-
-$$
-f(n) = f(\underbrace{1 + … + 1 \mathstrut}_{n \text{ times}})
-= \underbrace{f(1) \circ … \circ f(1)}_{n \text{ times}}\text{,}
-$$
-
-the inputs can be called [scalars](https://en.wikipedia.org/wiki/Scalar_(mathematics))
-because they scale the output of the function by a linear factor.
-
 <details markdown="block">
 <summary markdown="span" id="comparison-with-cryptographic-hash-functions">
 Comparison with cryptographic hash functions
@@ -343,10 +327,10 @@ You can change the notation throughout this article by double-clicking on the co
 As we will see, linear one-way functions are typically constructed
 by [repeating an element](#element-repetitions) from the output set,
 the so-called [generator](#group-generators) $$G$$, the specified number of times.
-Repeated addition is written as multiplication,
+Repeated multiplication is written as [exponentiation](https://en.wikipedia.org/wiki/Exponentiation),
+and repeated addition is written as multiplication,
 where the [multiplication sign](https://en.wikipedia.org/wiki/Multiplication_sign) is usually
-[omitted](https://en.wikipedia.org/wiki/Juxtaposition#Mathematics),
-and repeated multiplication is written as [exponentiation](https://en.wikipedia.org/wiki/Exponentiation):
+[omitted](https://en.wikipedia.org/wiki/Juxtaposition#Mathematics):
 
 <div class="tabbed" data-titles="Generic | Multiplicative | Additive | All" data-default="All">
 
@@ -355,11 +339,11 @@ f(a) = \underbrace{G \circ … \circ G}_{a \text{ times}}
 $$
 
 $$
-f(a) = G^a
+f(a) = \underbrace{G \cdot … \cdot G}_{a \text{ times}} = G^a
 $$
 
 $$
-f(a) = aG
+f(a) = \underbrace{G + … + G}_{a \text{ times}} = aG
 $$
 
 </div>
@@ -434,7 +418,7 @@ $$
 
 </div>
 
-Note that I use the letters $$O$$ and $$I$$ instead of $$0$$ and $$1$$
+Note that I use the letters $$I$$ and $$O$$ instead of $$1$$ and $$0$$
 because elements in the output set do not have to be integers.
 In the case of [elliptic curves](#elliptic-curves),
 for example, $$O$$ is the [point at infinity](#point-at-infinity).
@@ -857,7 +841,7 @@ Reusing intermediate results instead of recomputing them is called
 [common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination)
 in [compiler design](https://en.wikipedia.org/wiki/Compiler).
 It's also the core idea of [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming).
-Let's look at [an example](https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Basic_method):
+Let's look at an example:
 
 <div class="tabbed aligned" data-titles="Multiplicative | Additive | Both" data-default="Multiplicative" markdown="block">
 
