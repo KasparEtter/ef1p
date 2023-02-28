@@ -141,7 +141,7 @@ if (window.history && window.history.replaceState) {
         headings = [];
         $('h2, h3, h4, h5, h6, summary').each((_, element) => {
             const offset = $(element).offset();
-            if (offset) {
+            if (offset && offset.top > 0) {
                 headings.push({ offset: offset.top - 85, element });
             }
         });
