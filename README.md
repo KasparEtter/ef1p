@@ -4,6 +4,7 @@ This repository contains the website
 [explained-from-first-principles.com](https://explained-from-first-principles.com),
 which is built with [Jekyll](https://jekyllrb.com)
 and published with [GitHub Pages](https://pages.github.com).
+Please read [this section](#contributions) before contributing to this project.
 
 
 ## Contents
@@ -935,10 +936,10 @@ Make sure that the [PDF](#pdf) has already been generated before calling the sec
 
 Please [open an issue](https://github.com/KasparEtter/ef1p/issues/new)
 if you found a typographical error, a factual inaccuracy or a logical fallacy.
-Please also let me know if an explanation is difficult to follow.
-You are welcome to suggest interesting topics for me to write about.
-However, unless I explicitly asked for it, I will not accept any pull requests.
-By making a pull request, you transfer the copyright of your contribution without any limitations to [me](#copyright).
+Please also let me know if an explanation or argument is difficult to follow.
+In general, I prefer issues to pull requests.
+By creating a pull request,
+you transfer the copyright of your contribution without any limitations to [me](#copyright).
 
 
 ### Dependencies
