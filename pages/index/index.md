@@ -15,19 +15,15 @@ who want to understand and change the world.
 In order to make you feel at home here as quickly as possible,
 here is what you should know about this blog.
 
-
-## Content
-
-
-### Focus
-
 <figure markdown="block">
 {% include_relative generated/focus.embedded.svg %}
 <figcaption markdown="span">
-This blog gets [to the bottom](https://en.wikipedia.org/wiki/Reductionism)
-of technical concepts and scientific theories.
+This blog explains technical concepts and scientific theories.
 </figcaption>
 </figure>
+
+
+## Content
 
 
 ### Articles
@@ -60,9 +56,19 @@ I write the articles for my past self in the hope they are useful to the present
 Each article is intended to be the first one that you should read about a given topic
 and also the last — unless you want to become a real expert on the subject matter.
 I try to explain all concepts as much as possible from [first principles](https://en.wikipedia.org/wiki/First_principle),
-which means that all your "why" questions should be answered by the end of an article.
-I strive to make the explanations comprehensible with no prior knowledge beyond a high-school education.
-If this is not the case for you, please [let me know](#contact).
+with which I mean the following:
+- [**Reductionist reasoning**](https://en.wikipedia.org/wiki/Reductionism):
+  There is a big difference between understanding *how* something works and understanding *why* something works.
+  The latter is much more interesting as it allows you to predict how a system behaves in novel circumstances.
+- **No prior knowledge required**:
+  I strive to make the explanations comprehensible with no prior knowledge beyond a high-school education.
+  Since education varies a lot by school and country,
+  I link even basic concepts to external sources,
+  such as [Wikipedia](https://en.wikipedia.org/).
+- [**Reasoning transparency**](https://www.openphilanthropy.org/research/reasoning-transparency/):
+  By referencing the sources behind empirical claims and by giving you the full explanation whenever possible,
+  you can form your own opinion without having to trust me.
+  The articles themselves are [minimal-trust investigations](https://www.cold-takes.com/minimal-trust-investigations/).
 
 
 ### Quality
@@ -71,12 +77,10 @@ As is the case for all humans,
 my expertise is limited.
 Given the wide range of topics I cover,
 I cannot be an expert in all of them.
-I try to check empirical facts and study normative statements as well as possible,
-but unlike schools and [Wikipedia](https://en.wikipedia.org/wiki/Main_Page),
+I try to check empirical claims and study normative statements as well as I can,
+but unlike schools and [Wikipedia](https://en.wikipedia.org/),
 the content on this blog is intentionally opinionated.
-If you don't like this,
-then a different website is just a click away.
-I believe that the judgement of theories is just as important as the theories themselves,
+I believe that the judgment of an approach is just as important as the approach itself,
 given the right amount of intellectual humility as opinions can and should evolve with new considerations.
 The problem with learning is that the more you understand,
 the more you understand what you don’t understand.
@@ -84,10 +88,8 @@ While going down the rabbit hole of a topic can be a lot of fun,
 I have to stop my research at some point in order not to paralyze myself.
 Therefore, if I'm mistaken about facts,
 please bring it to [my attention](#contact).
-If you disagree with my conclusions,
-then write a rebuttal.
-If your rebuttal contributes to a civilized debate,
-I will consider adding a link to it.
+If you disagree with my conclusions, write a rebuttal.
+If your rebuttal contributes to a civilized debate, I'll link to it.
 
 
 ### Length
@@ -98,21 +100,23 @@ But as with many things in life,
 the more you put into it,
 the more you get out of it.
 To respect your time,
-I try to write as succinctly as I can,
-which makes the information density really high.
+I write as succinctly as I can,
+which makes the information density of my texts really high.
 However, complex concepts simply require a lot of words to explain them properly.
-If a topic or section does not interest you,
-you should skip it rather than waste your time.
-I put a lot of thought into the structure of the articles
-to make the sections as easy to skim, skip, and digest as possible.
+I put a lot of thought into the structure of each article
+to make it as easy to skim and digest as possible.
+I avoid overarching storylines so that you can read each section independently,
+which allows the articles to be used as [works of reference](https://en.wikipedia.org/wiki/Reference_work).
 
 
 ### License
 
-<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span>
+by <a xmlns:cc="http://creativecommons.org/ns#" href="https://kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a>
+is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 
-### Liability
+### Disclaimer
 
 While I researched the content on this website thoroughly,
 you take or omit actions based on it at your own risk.
@@ -161,7 +165,7 @@ While this can create a lot of entries in your browser history,
 it helps you find more easily where you left off,
 especially on mobile when a page reload is forced upon you.
 If you want to share an article without linking to a particular section,
-make sure to remove everything in the address from the hash onward.
+make sure to remove everything in the address from the [hash (#)](https://en.wikipedia.org/wiki/Number_sign) onward.
 Alternatively, simply scroll to the top of the page before copying the address.
 
 
@@ -227,8 +231,7 @@ when you read the article for the first time.
 
 ### Dark and light mode
 
-If you prefer dark text on a white background,
-you can toggle the style by clicking on the last entry of the navigation bar at the top.
+You can switch from a dark appearance to a light appearance by clicking on the second-last entry in the navigation bar at the top.
 
 
 ### Interactive tools
@@ -252,7 +255,7 @@ by clicking on the pink link in this sentence.
 
 ### Sharing of values
 
-You can share a tool's current set of values with someone else by clicking on the corresponding button.
+You can share a [tool](#interactive-tools)'s current set of values with someone else by clicking on the corresponding button.
 The values are encoded into the [fragment](https://en.wikipedia.org/wiki/URI_fragment) of the copied link.
 This has the advantage that they are not sent to the server when opening the link.
 On the downside, such links don't work for users who disabled [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
@@ -273,8 +276,8 @@ if you export the article yourself.
 By right-clicking a graphic with your mouse
 (or by double-clicking it on a touch device),
 you can download the graphic
-as a pixel image (in the PNG format)
-or as a vector graphic (in the SVG format).
+as a pixel image in the PNG format
+or as a vector graphic in the SVG format.
 You can use the graphics on this blog for anything you want
 as long as you give appropriate credit,
 indicate if you made changes,
@@ -289,20 +292,16 @@ sometimes they're better known than what they stand for.
 Whenever you encounter an acronym on this website,
 you can hover with your mouse over it
 (or click on it on a touch device)
-to get a tooltip with their full name.
-You can try this with PDF, PNG, and SVG.
+to get a [tooltip](https://en.wikipedia.org/wiki/Tooltip) with their full name.
 
 
 ## Transparency
 
-All expenses of this blog in terms of time and money
-have been paid by myself [until now](#donate).
-I pledge to disclose any conflicts of interest,
-whenever they might impact the content on this blog.
-Excluded from this are consulting work and paid seminars
-based on content that has already been published,
-as long as they don't result in modifications
-to this website beyond general improvements.
+I work independently, and I'm supported only by donations from my readers.
+I pledge to disclose all conflicts of interest which might bias the content on this blog.
+All the text on this website is written by me and not by a
+[large language model (LLM)](https://en.wikipedia.org/wiki/Language_model#Notable_language_models),
+such as [ChatGPT](https://openai.com/blog/chatgpt).
 
 
 ## Contact
@@ -334,10 +333,6 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
 
 ## Privacy
 
-- I announce new articles on [Reddit]({{ site.reddit_community }}),
-  [Twitter](https://twitter.com/{{ site.twitter_handle }}),
-  and [Telegram]({{ site.telegram_channel }}).
-  If you don't like these companies, then simply don't use their services.
 - I use [Plausible Analytics](https://plausible.io/) to measure how people interact with this website. Plausible Analytics
   collects [no personal information](https://plausible.io/privacy-focused-web-analytics#no-personal-data-is-collected),
   uses [no cookies](https://plausible.io/privacy-focused-web-analytics#no-cookies-and-other-persistent-identifiers), and
@@ -347,25 +342,29 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
 - This site is hosted with [GitHub Pages](https://pages.github.com),
   which means that [Microsoft](https://news.microsoft.com/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/)
   also learns when and from where this blog is being accessed.
-- Interactive elements in articles may send personal information to other companies as well.
-  If they do, this is explicitly stated in the paragraph before the corresponding input field.
-  Otherwise, all the values you enter are stored only
+- Some [interactive tools](#interactive-tools) send personal information to other companies when you click on them.
+  For the ones that do, this fact is stated in the paragraph before the tool.
+  If nothing is stated there, the values you enter are stored only
   [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
+- I announce new articles on [Reddit]({{ site.reddit_community }}),
+  [Twitter](https://twitter.com/{{ site.twitter_handle }}),
+  and [Telegram]({{ site.telegram_channel }}).
+  If you don't like these companies, then just don't use their services.
 
 
 ## About
 
 My name is [Kaspar Etter](https://kasparetter.com).
-I'm a curious and skeptic person.
+I'm a curious and skeptical person.
 I studied computer science at [ETH](https://ethz.ch/en.html) and live in Zurich, Switzerland.
 
 
 ## FAQ
 
-Here are answers to [frequently asked questions (FAQ)](https://en.wikipedia.org/wiki/FAQ):
+Here are my answers to [frequently asked questions (FAQ)](https://en.wikipedia.org/wiki/FAQ):
 
 
-### Do you also have a mailing list?
+### Do you also have a mailing list? {#mailing-list}
 {:data-toc-text="Mailing list"}
 
 No.
@@ -380,18 +379,16 @@ I intend to use these channels exclusively to announce new content,
 which means that you don't have to worry about noise.
 
 
-### Can't you write shorter articles?
+### Can't you write shorter articles? {#article-length}
 {:data-toc-text="Article length"}
 
 I guess I could,
 but I also believe that length is the [wrong metric](https://en.wikipedia.org/wiki/Attribute_substitution).
-Whether a text is worth reading should be judged by the number of insights per word
-and not by the number of words.
-Your opinion may vary,
-but I think I'm doing pretty well on this metric.
+Whether a text is worth reading should be judged by the number of insights per word and not by the number of words.
+Your opinion may vary, but I think I'm doing pretty well on this second metric.
 
 
-### Why don't you split your long articles into smaller ones?
+### Why don't you split your long articles into smaller ones? {#article-splitting}
 {:data-toc-text="Article splitting"}
 
 In my opinion, scrolling is easier than clicking,
@@ -405,33 +402,33 @@ For now, I'm willing to sacrifice both in favor of making my content as useful a
 but my view on this might change in the future.
 
 
-### Have you considered creating videos about your content?
+### Have you considered creating videos about your content? {#video-format}
 {:data-toc-text="Video format"}
 
-Yes, but I think it's neither a good fit for me nor for my content.
-I see a lot of value in [edutainment](https://en.wikipedia.org/wiki/Educational_entertainment)
-and there are many great channels in this area, which I watch regularly.
-However, written text has many advantages when you truly want to learn something:
+Yes, I have, but I think it's neither a good fit for me nor for my content.
+I like [edutainment](https://en.wikipedia.org/wiki/Educational_entertainment) a lot,
+and there are many great channels on [YouTube](https://www.youtube.com/), which I watch often.
+However, written text has many advantages when you truly want to understand something:
 You can read at your own pace,
-reread paragraphs when necessary,
+reread a paragraph as needed,
 recognize the structure of an argument,
-copy fragments into your notes,
+copy sentences into your notes,
 and search for terms of interest.
 In comparison to videos,
 text is also much easier to make interactive
-and to update after publishing.
+and to update after its publication.
 Last but not least, the [World Wide Web (WWW)](https://en.wikipedia.org/wiki/World_Wide_Web)
-allows me to link to additional explanations and to cite the relevant sources.
+allows me to link to additional explanations and to the sources of my information.
 
 
-### Have you considered publishing your articles as books?
+### Have you considered publishing your articles as books? {#book-format}
 {:data-toc-text="Book format"}
 
 Not really.
 I think that books are an outdated format for most purposes.
 On the one hand, books lack the concept of [hyperlinks](https://en.wikipedia.org/wiki/Hyperlink):
 You cannot easily link into the text and out of it.
-On the other hand, books cannot have interactive elements,
+On the other hand, books cannot have [interactive elements](#interactive-tools),
 which often make learning so much easier.
 Regarding monetization, I'm not a fan of [paywalls](https://en.wikipedia.org/wiki/Paywall).
 I believe that information shall be freely accessible and shareable
@@ -440,7 +437,7 @@ In my opinion, the Web is the ideal publishing platform.
 But we'll see what the future holds.
 
 
-### What software do you use to create the graphics?
+### What software do you use to create the graphics? {#graphics-tool}
 {:data-toc-text="Graphics tool"}
 
 I wrote [my own SVG framework](https://github.com/KasparEtter/ef1p/tree/main/code/svg)
@@ -463,10 +460,34 @@ It is heavily tailored to my needs and my [design language](https://en.wikipedia
 but if there's enough interest, I'm open to splitting the framework into its own repository.
 
 
-### Do you accept guest content on your blog?
+### Why don't you contribute to Wikipedia instead? {#wikipedia-instead}
+{:data-toc-text="Wikipedia instead"}
+
+This is a valid question, which I've asked myself in the past.
+The main reasons for publishing my content on my own website are:
+- **Format/structure**: Both textbooks and encyclopedias have their merit.
+  For learning about a new topic, textbooks are preferable, though,
+  as they provide a [learning path](https://en.wikipedia.org/wiki/Learning_pathway)
+  with a point of entry and linear steps which build on one another.
+  It's much easier to get lost in an encyclopedia as it lacks similar guidance.
+  Since its authors cannot know where a reader is coming from, its articles often assume either too much or too little prior knowledge,
+  which leads to undesirable gaps and repetitions in the learning experience.
+- **Artistic freedom**: By being fully independent, I can make up better terms and concepts, which make it easier to grasp new ideas.
+  A great example for this is the [security layer](/internet/#security-layer) in the [article about the Internet](/internet/),
+  which makes a lot of sense, but which you won't find in the [classic literature](https://en.wikipedia.org/wiki/Internet_protocol_suite).
+  Being independent also allows me to give advice and to state my opinion even on controversial topics.
+- **Software stack**: By building my own publishing platform, I can implement [all ideas that I have](#navigation)
+  and make my articles [interactive](#interactive-tools).
+- **Hassle-free process**: I don't enjoy long discussions and interference with my work, but this fear of mine might well be misplaced.
+- **Proper attribution**: Given the enormous amount of work I put into my articles, I'd like to get something out of it.
+  For now, this is mostly recognition, but I'd like to make a living out of this at some point.
+  You can help me get there by [supporting me financially](#donate).
+
+
+### Do you accept guest content on your blog? {#guest-content}
 {:data-toc-text="Guest content"}
 
-No.
+No; even if you're willing to pay for it.
 There are many open publishing platforms, such as [Medium](https://medium.com/), but this website isn't one of them.
 
 
@@ -476,6 +497,7 @@ There are many open publishing platforms, such as [Medium](https://medium.com/),
 *[GDPR]: General Data Protection Regulation
 *[GUI]: Graphical User Interface
 *[IBAN]: International Bank Account Number
+*[LLM]: Large Language Model
 *[PDF]: Portable Document Format
 *[PNG]: Portable Network Graphics
 *[SEO]: Search Engine Optimization
