@@ -4002,7 +4002,7 @@ a verifier needs to know only the hashes and the positions of the blue nodes.
   when you have zero control over the trajectory of your darts.
   While finding an appropriate nonce requires many computations,
   the recipient has to hash the message just once
-  in oder to verify whether the required work has been done.
+  in order to verify whether the required work has been done.
   The average difficulty of the problem can be adjusted by making the target range bigger or smaller.
   This technique was invented [in 1992](https://dl.acm.org/doi/10.5555/646757.705669)
   as a digital [postage stamp](https://en.wikipedia.org/wiki/Postage_stamp)
