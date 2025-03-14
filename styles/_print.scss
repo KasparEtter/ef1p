@@ -28,6 +28,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   .bordered,
   div.tabbed {
     border: 1px solid #000;
+
+    article > &, header > & {
+      margin-right: 1px;
+    }
   }
 
   .custom-card {

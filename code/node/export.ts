@@ -26,7 +26,7 @@ if (!directory) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    // https://github.com/puppeteer/puppeteer/blob/v3.0.4/docs/api.md#pagegotourl-options
+    // https://pptr.dev/api/puppeteer.page.goto/
     await page.goto(`http://localhost:4000/${directory}/`, { waitUntil: 'load' });
 
     const [title, published, modified] = await page.evaluate(() => {
@@ -57,23 +57,23 @@ if (!directory) {
 
     fs.mkdirSync(`pages/${directory}/generated`, { recursive: true });
 
-    const footerTemplate = `<div style="font-size: 8px; font-family: Lato; width: 100%; margin-bottom: 2mm; text-align: center;">
-    <span style="float: left; margin-left: 9.5mm;">
-        ${title}
-    </span>
-    <span>
-        <span class="pageNumber"></span>
-        /
-        <span class="totalPages"></span>
-    </span>
-    <span style="float: right; margin-right: 9.5mm;">
-        <a href="https://ef1p.com/${directory}/" style="color: black; text-decoration: none;">ef1p.com/${directory}</a> on ${date}
-    </span>
-</div>`;
+    const footerTemplate = `<div style="font-size: 11px; font-family: Lato; width: 100%; margin-bottom: 3mm; text-align: center;">
+        <span style="float: left; margin-left: 12.8mm;">
+            ${title}
+        </span>
+        <span>
+            <span class="pageNumber"></span>
+            /
+            <span class="totalPages"></span>
+        </span>
+        <span style="float: right; margin-right: 12.9mm;">
+            <a href="https://ef1p.com/${directory}/" style="color: black; text-decoration: none;">ef1p.com/${directory}</a> on ${date}
+        </span>
+    </div>`;
 
     const margin = '18mm';
 
-    // https://github.com/puppeteer/puppeteer/blob/v3.0.4/docs/api.md#pagepdfoptions
+    // https://pptr.dev/api/puppeteer.pdfoptions
     await page.pdf({
         path: `pages/${directory}/generated/${date} ${title}.pdf`,
         width: '210mm',

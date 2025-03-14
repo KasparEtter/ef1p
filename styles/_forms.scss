@@ -6,6 +6,13 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 // Achieving https://bootswatch.com/materia/#forms but mostly with variables instead of selectors.
 
+// Unfortunately, this doesn't eliminate the `color-adjust` warning of `autoprefixer` as the CSS rules aren't combined,
+// but at least we still get the same behavior when the CSS property `color-adjust` will actually be no longer supported.
+// https://github.com/postcss/autoprefixer/releases/tag/10.4.8
+.custom-control {
+  print-color-adjust: exact;
+}
+
 .block-form {
   margin-bottom: $paragraph-margin-bottom - $label-margin-bottom;
 

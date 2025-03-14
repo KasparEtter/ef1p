@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { exec } from 'child_process';
 import fs from 'fs';
-import glob from 'glob';
+import { glob } from 'glob';
 
 import { sleep } from '../utility/async';
 
@@ -45,17 +45,13 @@ export interface File {
  * @param fileSuffix The file suffix for globbing including the leading period.
  * @param callback The function to call for each found file.
  */
-export function scan(
+export async function scan(
     inputDirectory: string,
     fileSuffix: string,
     callback: (file: File) => any,
-): void {
-    glob(`pages/*${inputDirectory}*${fileSuffix}`, { nodir: true, nonull: false, strict: true }, (error, paths) => {
-        if (error) {
-            console.error('The globbing failed with the following error:', error);
-            return;
-        }
-
+): Promise<void> {
+    try {
+        const paths = await glob(`pages/*${inputDirectory}*${fileSuffix}`, { nodir: true });
         let files: File[] = paths.map(path => {
             // Works as long no article is called 'graphics' or 'images'.
             const parts = ('./' + path).split(inputDirectory);
@@ -81,7 +77,10 @@ export function scan(
             }
             callback(file);
         });
-    });
+    } catch (error) {
+        console.error('The globbing failed with the following error:', error);
+        return;
+    }
 }
 
 const startSeparator = '\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n\n';
