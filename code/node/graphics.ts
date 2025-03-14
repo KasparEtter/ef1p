@@ -20,7 +20,4 @@ function callback(file: File): void {
     );
 }
 
-// The following environment variable didn't solve the problem:
-// process.env.SVGEXPORT_TIMEOUT = '120'; // in seconds
-
 scan(inputDirectory, fileSuffix, callback);

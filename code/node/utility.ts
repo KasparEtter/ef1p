@@ -96,20 +96,22 @@ let counter = 0;
  * This function wraps the 'exec' function from 'child_process'.
  * It logs the command and only calls the callback if there was no error.
  */
-export async function execute(command: string, callback?: () => any, limit = 5): Promise<void> {
+export async function execute(command: string, callback?: () => any, limit = 8, attempts = 2): Promise<void> {
     if (limit !== undefined) {
         while (counter >= limit) {
-            await sleep(2000);
+            await sleep(200);
         }
     }
     counter++;
     console.log(command);
     exec(command, (error, _, stderr) => {
         counter--;
-        if (error) {
-            logCommandWithError(command, error.message);
-        } else if (stderr) {
-            logCommandWithError(command, stderr);
+        if (error !== null || stderr !== '') {
+            if (attempts > 0) {
+                execute(command, callback, limit, attempts - 1);
+            } else {
+                logCommandWithError(command, error?.message ?? stderr);
+            }
         } else {
             callback?.();
         }
