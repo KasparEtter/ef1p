@@ -4,6 +4,16 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
+$list-padding-left: 20px;
+
+.ml-li {
+  margin-left: $list-padding-left;
+}
+
+.ml-li-li {
+  margin-left: 2 * $list-padding-left;
+}
+
 article {
   overflow-x: hidden;
 
@@ -40,7 +50,7 @@ article {
 
   ol,
   ul {
-    padding-left: 20px;
+    padding-left: $list-padding-left;
 
     p {
       margin-bottom: 0;

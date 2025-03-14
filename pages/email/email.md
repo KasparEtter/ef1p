@@ -1372,7 +1372,7 @@ why outgoing mail servers are used in practice:
     There would be other ways to achieve a similar result without requiring outgoing mail servers,
     but this is how email works.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li-li">
 {% include_relative generated/simplified-architecture-authentication-copy.embedded.svg %}
 <figcaption markdown="span" style="max-width: 760px;">
 The incoming mail server verifies that the outgoing mail server is authorized to send messages from the claimed domain,
@@ -1419,7 +1419,7 @@ There are four different approaches to avoid this double submission:
   The downside of this method is that your copy doesn't include the other `Bcc` recipients.
   Moreover, sent and received messages aren't separated, which may be [desirable](#client-innovation).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/double-submission-bcc.embedded.svg %}
 <figcaption markdown="span">
 The outgoing mail server sends a copy to your inbox.
@@ -1439,7 +1439,7 @@ The outgoing mail server sends a copy to your inbox.
   Since mail clients [remove the `Bcc` field](#bcc-removal) before [submission](#submission-versus-relay),
   [Gmail recovers it](#gmail-bcc-recovery) from the [envelope of the message](#message-versus-envelope).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/double-submission-gmail.embedded.svg %}
 <figcaption markdown="span">
 Gmail automatically stores sent messages.
@@ -1456,7 +1456,7 @@ Gmail automatically stores sent messages.
   Unfortunately, this feature is also not standardized
   and mail clients can therefore not rely on its availability.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/double-submission-courier.embedded.svg %}
 <figcaption markdown="span">
 The Courier IMAP server can deliver emails.
@@ -1477,7 +1477,7 @@ The Courier IMAP server can deliver emails.
   the mail client can upload the message to be sent to the user's mailbox on the incoming mail server
   and then instruct the outgoing mail server to deliver this message.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/double-submission-lemonade.embedded.svg %}
 <figcaption markdown="span" style="max-width: 370px;">
 The lemonade profile enables the outgoing mail server to fetch content for delivery from the incoming mail server.
@@ -2305,7 +2305,7 @@ Another example message with several `Bcc` recipients.
    We already encountered this behavior in the [previous box](#message-versus-envelope).
    As far as I can tell, this is by far the most common behavior in practice.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-all.embedded.svg %}
 <figcaption markdown="span">
 The `Bcc` field is removed from the message for all recipients.
@@ -2317,14 +2317,14 @@ The `Bcc` field is removed from the message for all recipients.
   while the `Bcc` recipients get the original message,
   in which all `Bcc` recipients are listed.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-bob.embedded.svg %}
 <figcaption markdown="span">
 The non-`Bcc` recipients get the redacted message.
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-both.embedded.svg %}
 <figcaption markdown="span">
 The `Bcc` recipients get the original message.
@@ -2337,21 +2337,21 @@ The `Bcc` recipients get the original message.
   Just like the first approach,
   this prevents `Bcc` recipients from learning about any other `Bcc` recipient.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-bob-copy.embedded.svg %}
 <figcaption markdown="span">
 All non-`Bcc` recipients get the same redacted message.
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-carol.embedded.svg %}
 <figcaption markdown="span">
 Carol in `Bcc` gets her own version of the message.
 </figcaption>
 </figure>
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-dave.embedded.svg %}
 <figcaption markdown="span">
 And so does Dave.
@@ -2364,7 +2364,7 @@ And so does Dave.
   Therefore, this is more of a second dimension rather than a fourth option,
   increasing the overall number of `Bcc` possibilities to 3 · 2 = 6.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/message-envelope-bcc-empty.embedded.svg %}
 <figcaption markdown="span">
 An empty `Bcc` field indicates that there were hidden recipients without disclosing them.
@@ -3459,7 +3459,7 @@ can fail to protect sensitive information:
   On the downside, an employee or an attacker who compromised the company's network
   potentially has access to the transmitted information, which is no longer protected by TLS.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/man-in-the-middle-proxy-server.embedded.svg %}
 <figcaption markdown="span" style="max-width: 640px;">
 While the communication between the client and the proxy is protected (indicated by the blue lines),
@@ -3491,7 +3491,7 @@ the communication between the proxy and the server is exposed in the company's p
   the heuristic might be vulnerable to similar attacks,
   especially in the case of [custom domains](#custom-domains).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/man-in-the-middle-wrong-server.embedded.svg %}
 <figcaption markdown="span" style="max-width: 420px;">
 The client is misconfigured and connects directly to the attacker,
@@ -3539,7 +3539,7 @@ who forwards all communication without raising any suspicion.
   This article is not about the ethics of information security and
   [government backdoors](https://en.wikipedia.org/wiki/Backdoor_(computing)).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/man-in-the-middle-right-domain.embedded.svg %}
 <figcaption markdown="span" style="max-width: 560px;">
 The malicious server (in red) has the same name as the legitimate server (in green).
@@ -3587,7 +3587,7 @@ In this article, I always mean the former, though.)
 - **Preimage resistance** (also known as [one-way function](https://en.wikipedia.org/wiki/One-way_function)):
   It's infeasible to find an input which hashes to a given output.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/hash-preimage.embedded.svg %}
 <figcaption markdown="span">
 In these graphics, the given values are displayed in blue and the values to find in green.
@@ -3597,7 +3597,7 @@ In these graphics, the given values are displayed in blue and the values to find
 - **Second-preimage resistance**:
   It's infeasible to find a different input which hashes to the same output as a given input.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/hash-second-preimage.embedded.svg %}
 <figcaption markdown="span">
 Knowing one input may not be useful to find another input which hashes to the same output.
@@ -3608,7 +3608,7 @@ Knowing one input may not be useful to find another input which hashes to the sa
   It's infeasible to find two different inputs which hash to the same output,
   resulting in a [collision](https://en.wikipedia.org/wiki/Collision_(computer_science)).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/hash-collision.embedded.svg %}
 <figcaption markdown="span">
 Due to the [birthday paradox](https://en.wikipedia.org/wiki/Birthday_problem)
@@ -3771,7 +3771,7 @@ of cryptographic hash functions:
   This fingerprint property is also used for [digital signatures](https://en.wikipedia.org/wiki/Digital_signature),
   where you sign the hash of a message rather than the message.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-data-integrity.embedded.svg %}
 <figcaption markdown="span">
 As long as you get the hash from a trusted source,
@@ -3787,7 +3787,7 @@ the delivery of the file can be outsourced to an untrusted third party.
   The advantage of this approach is that an attacker who compromised the database
   cannot log in as the user as they don't know the preimage of the salted hash.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-password-protection.embedded.svg %}
 <figcaption markdown="span">
 A server can reduce the damage of a leaked database by storing individually salted hashes instead of passwords.
@@ -3815,7 +3815,7 @@ A server can reduce the damage of a leaked database by storing individually salt
   Additionally, cryptographic keys typically have a desired length,
   which is another reason for using a key derivation function (KDF).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-key-derivation.embedded.svg %}
 <figcaption markdown="span">
 By hashing an input repeatedly, you can turn an efficient hash function into an inefficient one.
@@ -3848,7 +3848,7 @@ By hashing an input repeatedly, you can turn an efficient hash function into an 
   (The order of `LoginDomain` and `MasterPassword` is important as you might be vulnerable to a
   [length-extension attack](https://en.wikipedia.org/wiki/Length_extension_attack) otherwise, see below.)
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-independent-values.embedded.svg %}
 <figcaption markdown="span">
 Values can easily be derived from a seed (in green)
@@ -3880,7 +3880,7 @@ but they cannot be related to one another (in red).
   Alice and Bob agreed that if their coin flips are the same, then Alice wins. If not, Bob wins.
   If the hash function is secure, neither of them can skew the result in their favor.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-commitment-scheme.embedded.svg %}
 <figcaption markdown="span">
 If `CoinFlipAlice = CoinFlipBob`, Alice wins.
@@ -3937,7 +3937,7 @@ If `CoinFlipAlice ≠ CoinFlipBob`, Bob wins.
   messages which it [authenticated](https://en.wikipedia.org/wiki/Deniable_authentication)
   because the other party could have generated the corresponding MAC as well.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-message-authentication.embedded.svg %}
 <figcaption markdown="span">
 A message authentication code is appended to each message.
@@ -3968,7 +3968,7 @@ A message authentication code is appended to each message.
   for document aggregation,
   and in [Certificate Transparency](https://transparency.dev/verifiable-data-structures/) for auditing.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-proof-of-inclusion.embedded.svg %}
 <figcaption markdown="span">
 In order to verify that the green leaf is included in the root,
@@ -4009,7 +4009,7 @@ a verifier needs to know only the hashes and the positions of the blue nodes.
   but saw widespread usage only with the rise of
   [cryptocurrency mining](https://en.wikipedia.org/wiki/Cryptocurrency#Mining).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/applications-proof-of-work.embedded.svg %}
 <figcaption markdown="span">
 Finding a nonce which makes the hash of the content fall into a certain range requires many attempts.
@@ -4466,7 +4466,7 @@ and improves on CRAM with the following, now mostly familiar techniques:
   There are different ways to bind the inner channel to the outer channel with different tradeoffs.
   We'll cover them in the [next box](#tls-channel-bindings).
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/channel-binding.embedded.svg %}
 <figcaption markdown="span">
 **Mutual authentication** guarantees only that the inner channel (in green) reaches the counterparty.<br>
@@ -7160,7 +7160,7 @@ Since a lot of the confusion comes from the differences between them, we'll look
   of the Stringprep algorithm, which is specified in [RFC 3454](https://datatracker.ietf.org/doc/html/rfc3454).
   Nameprep prepares an arbitrary user input to be encoded with Punycode:
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/idna2003.embedded.svg %}
 <figcaption markdown="span" style="max-width: 510px;">
 
@@ -7187,7 +7187,7 @@ or violates the [rules for bidirectional text](https://datatracker.ietf.org/doc/
   Since the IDNA standard is the same around the globe,
   it cannot consider the local context for character mappings.
 
-<figure markdown="block">
+<figure markdown="block" class="ml-li">
 {% include_relative generated/idna2008.embedded.svg %}
 <figcaption markdown="span">
 How IDNA2008 normalizes user input.
