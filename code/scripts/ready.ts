@@ -92,13 +92,17 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
     return true;
 };
 
-// See https://stackoverflow.com/a/39254773/12917821:
-const scrollToTop = () => $(window).scrollTop(0);
-$(window).on('scroll', scrollToTop);
-window.addEventListener('load', () => {
-    $(window).off('scroll', scrollToTop);
-    scrollToAnchor(window.location.hash, 'load');
-});
+const production = window.location.hostname !== 'localhost';
+
+if (production) {
+    // See https://stackoverflow.com/a/39254773/12917821:
+    const scrollToTop = () => $(window).scrollTop(0);
+    $(window).on('scroll', scrollToTop);
+    window.addEventListener('load', () => {
+        $(window).off('scroll', scrollToTop);
+        scrollToAnchor(window.location.hash, 'load');
+    });
+}
 
 const handleHashChange = (event: JQuery.Event) => {
     if (scrollToAnchor(window.location.hash, 'hash')) {
@@ -106,6 +110,9 @@ const handleHashChange = (event: JQuery.Event) => {
     }
 };
 $(window).on('hashchange', handleHashChange);
+
+const published = document.querySelector('meta[property="og:type"]')?.getAttribute('content') !== 'article'
+    || document.querySelector('meta[property="article:published_time"]') !== null;
 
 const handleLinkClick = (event: JQuery.TriggeredEvent) => {
     const target = event.target.closest('a') as HTMLAnchorElement;
@@ -115,7 +122,14 @@ const handleLinkClick = (event: JQuery.TriggeredEvent) => {
     }
     if (target.classList.contains('anchorjs-link')) {
         event.preventDefault();
-        const address = window.location.origin + window.location.pathname + href;
+        let address = '';
+        if (production) {
+            address += window.location.origin;
+        }
+        if (published) {
+            address += window.location.pathname;
+        }
+        address += href;
         if (copyToClipboardWithAnimation(address, target, 'scale400')) {
             report('Copy link', { Anchor: href });
         }

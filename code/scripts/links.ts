@@ -4,14 +4,19 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-// Open all information boxes.
-// $('details').attr('open', '');
+// This script is included only if jekyll.environment != 'production'.
 
-// Show all tabs.
-// $('.tabbed').addClass('show-all');
-// $('.tabbed').children(':not(:first-child)').addClass('shown');
+// Mark the state of all information boxes and then open them all.
+$('details').each(function() {
+    $(this).find('summary').append('&nbsp;&nbsp;' + ($(this).prop('open') ? '📖' : '📘'));
+});
+$('details').attr('open', '');
 
-function isValid(href: string): boolean {
+// Show all tabs of tabbed areas.
+$('.tabbed').addClass('show-all');
+$('.tabbed').children(':not(:first-child)').addClass('shown');
+
+function isValidTarget(href: string): boolean {
     if (href.startsWith('#')) {
         const parts = href.split('&');
         if (parts.length > 1) {
@@ -33,17 +38,22 @@ function isValid(href: string): boolean {
 for (const element of document.getElementsByTagName('a')) {
     // element.href does not return the raw value.
     const href = element.getAttribute('href');
-    if (href !== null && !isValid(href)) {
-        console.error(`The following element has a broken link '${href}':`, element);
+    if (href !== null && !isValidTarget(href)) {
+        console.error(`The following element has a broken link to '${href}':`, element);
     }
 }
 
-// Check that each ID is used only once on the current page.
+const desiredId = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
+
+// Check that each ID is valid and is used only once on the current page.
 const ids = new Set<string>();
 for (const element of document.querySelectorAll('[id]')) {
     if (ids.has(element.id)) {
         console.error(`The following elements have the same ID '${element.id}':`, document.querySelectorAll('#' + element.id));
     } else {
+        if (!desiredId.test(element.id) && element.tagName !== 'DATALIST') {
+            console.error(`The following element has an undesired ID of '${element.id}':`, element);
+        }
         ids.add(element.id);
     }
 }
