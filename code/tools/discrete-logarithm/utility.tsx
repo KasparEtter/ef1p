@@ -163,6 +163,7 @@ export class DiscreteLogarithms<State extends DiscreteLogarithmState & BasicStat
                             {i === kBinArray.length - 1 ? <ClickToCopy>{K.render(format)}</ClickToCopy> : K.render(format)}
                         </td>
                         <td>{i > 0 ? verb1 + (kBinArray[i] === '1' ? ' and ' + verb2 : '') : ''}</td>
+                        <td>{kBin.substring(0, i + 1)}</td>
                     </tr>);
                 }
 
@@ -176,6 +177,7 @@ export class DiscreteLogarithms<State extends DiscreteLogarithmState & BasicStat
                                 <th className="pl-space pr-space">{abstractEquality}</th>
                                 <th className="pl-space">K</th>
                                 <th>Action</th>
+                                <th>{toolPrefix === 'elliptic-curve' ? 'Coefficient' : 'Exponent'} in binary</th>
                             </tr>
                         </thead>
                         <tbody>

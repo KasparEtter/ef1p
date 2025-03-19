@@ -27,6 +27,13 @@ export interface ClassName {
     readonly className?: string;
 }
 
+export interface MinimalVersion {
+    /**
+     * Declares whether a given tool shall be rendered in a minimal version.
+     */
+    minimal?: boolean;
+}
+
 /**
  * Declares the onClick and onContextMenu attributes to be combined with other properties.
  */

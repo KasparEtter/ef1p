@@ -27,6 +27,7 @@ const modulus: DynamicTextEntry = {
     ...integerGreaterOne,
     label: 'Modulus',
     defaultValue: '12',
+    inputWidth: 288,
 };
 
 interface State {
@@ -35,7 +36,7 @@ interface State {
 }
 
 const entries: DynamicEntries<State> = {
-    integer,
+    integer: { ...integer, inputWidth: 288 },
     modulus,
 };
 

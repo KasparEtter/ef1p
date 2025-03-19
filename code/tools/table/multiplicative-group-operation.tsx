@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import { DynamicBooleanEntry, DynamicEntries } from '../../react/entry';
 import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
+import { MinimalVersion } from '../../react/utility';
 import { VersionedStore } from '../../react/versioned-store';
 
 import { MultiplicationSign } from '../../math/formatting';
@@ -45,24 +46,29 @@ const Input = getInput(store);
 
 /* ------------------------------ Output ------------------------------ */
 
-function RawOutput(state: Readonly<State>): JSX.Element {
+function RawOutput(state: Readonly<State & MinimalVersion>): JSX.Element {
     const modulus = BigInt(state.modulus);
     const group = new MultiplicativeGroup(modulus);
+    const composite = !state.minimal && state.composite;
+    const elements = group.getAllElements(state.minimal || state.coprime, !state.minimal && state.zero ? _zero : one);
     return <Fragment>
-        {state.composite && renderCompositeModuli(modulus)}
+        {composite && renderCompositeModuli(modulus)}
+        {state.minimal && <p className="table-title">
+            {group.render()} = {'{' + elements.map(element => element.toString()).join(', ') + '}'}
+        </p>}
         <OperationTable<MultiplicativeGroupElement>
             symbol={<MultiplicationSign/>}
-            elements={group.getAllElements(state.coprime, state.zero ? _zero : one)}
+            elements={elements}
             operation={(element1: MultiplicativeGroupElement, element2: MultiplicativeGroupElement) => element1.combine(element2)}
-            elementOutput={state.composite ? compositeOutput(modulus) : undefined}
+            elementOutput={composite ? compositeOutput(modulus) : undefined}
             headColor={headColor}
             cellColor={cellColor}
-            tableClass={state.composite ? 'text-center' : 'square-cells'}
+            tableClass={composite ? 'text-center' : 'square-cells'}
         />
     </Fragment>;
 }
 
-const Output = store.injectCurrentState<{}>(RawOutput);
+const Output = store.injectCurrentState<MinimalVersion>(RawOutput);
 
 /* ------------------------------ Tool ------------------------------ */
 
@@ -70,6 +76,14 @@ export const toolTableMultiplicativeGroupOperation: Tool = [
     <Fragment>
         <Input/>
         <Output/>
+    </Fragment>,
+    store,
+];
+
+export const toolTableMultiplicativeGroupOperationMinimal: Tool = [
+    <Fragment>
+        <Input entries={{ modulus }}/>
+        <Output minimal/>
     </Fragment>,
     store,
 ];

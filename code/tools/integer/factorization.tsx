@@ -23,30 +23,30 @@ import { abs, greatestCommonDivisor, halve, isEven, leastCommonMultiple, one, sq
 
 import { createMeteredAnimation, delay, initialIntegerMeteredAnimationOutputState, IntegerMeteredAnimationOutputState, minDelay, SetOutput } from '../utility/animation';
 import { renderFactor } from '../utility/factors';
-import { integerGreaterOne } from '../utility/integer';
+import { integerGreaterOne, integerInputWidth } from '../utility/integer';
 
 /* ------------------------------ Input ------------------------------ */
 
-const integer: DynamicTextEntry<State> = {
+const integer: DynamicTextEntry<InputState> = {
     ...integerGreaterOne,
     defaultValue: '231',
     inputWidth: 245,
 };
 
-const totients: DynamicBooleanEntry<State> = {
+const totients: DynamicBooleanEntry<InputState> = {
     label: 'Totients',
     tooltip: "Whether to calculate Euler's and Carmichael's totient functions as well.",
     defaultValue: false,
     inputType: 'switch',
 };
 
-interface State {
+interface InputState {
     integer: string;
     totients: boolean;
     delay: number;
 }
 
-const entries: DynamicEntries<State> = {
+const entries: DynamicEntries<InputState> = {
     integer,
     totients,
     delay,
@@ -61,12 +61,14 @@ interface SharedOutputState extends IntegerMeteredAnimationOutputState {
     integer?: bigint;
     factors: Factor[];
     totients: boolean;
+    minimal: boolean;
 }
 
 const initialSharedOutputState: SharedOutputState = {
     ...initialIntegerMeteredAnimationOutputState,
     factors: [],
     totients: false,
+    minimal: false,
 }
 
 function renderFactorForEulersTotient(factor: Factor, format: IntegerFormat): ReactNode {
@@ -93,13 +95,13 @@ function renderFactorForCarmichaelsTotient(factor: Factor, format: IntegerFormat
     </Fragment>;
 }
 
-function renderFactorizationTable(state: Readonly<SharedOutputState>): ReactNode {
+function renderFactorizationTable(state: Readonly<SharedOutputState>): ReactElement {
     const array: ReactNode[] = [];
     let euler = <Fragment></Fragment>;
     let carmichael = <Fragment></Fragment>;
     if (!state.finished || state.error !== undefined) {
         array.push('…');
-    } else if (state.totients) {
+    } else if (!state.minimal && state.totients) {
         euler = <Fragment> = <ClickToCopy><b><Integer integer={phi(state.factors)} format={state.format}/></b></ClickToCopy></Fragment>;
         const integers = state.factors.map(factor => (factor.base ** (factor.exponent - (factor.base === two && factor.exponent > two ? two : one))) * (factor.base - one));
         const lambda = integers.reduce((previous, current) => leastCommonMultiple(previous, current), one);
@@ -113,7 +115,7 @@ function renderFactorizationTable(state: Readonly<SharedOutputState>): ReactNode
             <th><Integer integer={state.integer!} format={state.format}/></th>
             <td>= <ClickToCopy>{join(state.factors.map(factor => renderFactor(factor, state.format)).concat(array), <MultiplicationSign/>)}</ClickToCopy></td>
         </tr>
-        {state.totients && <Fragment>
+        {!state.minimal && state.totients && <Fragment>
             <tr>
                 <th>φ(<Integer integer={state.integer!} format={state.format}/>)</th>
                 <td>= {join(state.factors.map(factor => renderFactorForEulersTotient(factor, state.format)).concat(array), <MultiplicationSign/>)}{euler}</td>
@@ -126,7 +128,128 @@ function renderFactorizationTable(state: Readonly<SharedOutputState>): ReactNode
     </table>;
 }
 
-export const [toolIntegerFactorizationTrialDivision, toolIntegerFactorizationPollardsRho] = [(() => {
+/* ------------------------------ Pollard's rho ------------------------------ */
+
+interface Evaluation {
+    a: bigint;
+    b: bigint;
+    gcd: bigint;
+    steps: bigint;
+    sqrt?: bigint;
+    addend: bigint;
+}
+
+interface Result {
+    n: bigint;
+    evaluation?: Evaluation | undefined; // If undefined, n is prime.
+}
+
+interface OutputState extends SharedOutputState {
+    results: Result[];
+}
+
+function render(state: Readonly<OutputState>): ReactElement {
+    return <Fragment>
+        {renderFactorizationTable(state)}
+        {!state.minimal && state.results.length > 0 && <table>
+            <thead>
+                <tr>
+                    <th className="text-right">Input</th>
+                    <th>Greatest common divisor</th>
+                    <th className="text-right">Steps</th>
+                    <th className="text-right cursor-help" title="The square root of the found factor.">Sqrt</th>
+                    <th className="text-right cursor-help" title="The offset in the sequence function.">+</th>
+                </tr>
+            </thead>
+            <tbody>
+                {state.results.map(result => <tr>
+                    <td className="text-right"><Integer integer={result.n} format={state.format}/></td>
+                    {result.evaluation === undefined ? <Fragment>
+                        <td>is prime</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </Fragment> : <Fragment>
+                        <td>
+                            gcd(<Integer integer={result.n} format={state.format}/>, |<Integer integer={result.evaluation.a} format={state.format}/><MinusSign/><Integer integer={result.evaluation.b} format={state.format}/>|) {' '}
+                            = <Integer integer={result.evaluation.gcd} format={state.format} color={result.evaluation.gcd === one ? 'orange' : result.evaluation.gcd === state.integer ? 'red' : 'green'}/>
+                        </td>
+                        <td className="text-right">{<Integer integer={result.evaluation.steps} format={state.format}/>}</td>
+                        <td className="text-right">{result.evaluation.sqrt !== undefined && <Integer integer={result.evaluation.sqrt} format={state.format}/>}</td>
+                        <td className="text-right">{<Integer integer={result.evaluation.addend} format={state.format}/>}</td>
+                    </Fragment>}
+                </tr>)}
+            </tbody>
+        </table>}
+    </Fragment>;
+}
+
+const updateFrequency = BigInt(100_000);
+
+async function run(state: Readonly<InputState>, setOutput: SetOutput<OutputState>, displaySteps: boolean): Promise<void> {
+    const integer = decodeInteger(state.integer);
+    const format = determineIntegerFormat(state.integer);
+    await setOutput(minDelay, { integer, factors: [], totients: state.totients, format });
+    const factors: bigint[] = [];
+    const results: Result[] = [];
+    const delay = displaySteps ? state.delay * 1000 : 0;
+    let n = integer;
+    while (isEven(n)) {
+        n = halve(n);
+        factors.push(two);
+    }
+    if (n === one) {
+        await setOutput(0, { factors: sortAndCombineFactors(factors), results });
+        return;
+    }
+    const queue = [n];
+    let steps = zero;
+    outer: while (queue.length > 0) {
+        const n = queue.pop()!;
+        if (isProbablePrime(n, 64)) {
+            factors.push(n);
+            results.push({ n });
+            await setOutput(delay || minDelay, { steps, factors: sortAndCombineFactors(factors), results });
+        } else {
+            const evaluation: Evaluation = {
+                a: two,
+                b: two,
+                gcd: one,
+                steps: zero,
+                addend: one,
+            };
+            results.push({ n, evaluation });
+            for (let addend = one; addend < n; addend++) {
+                evaluation.a = two;
+                evaluation.b = two;
+                evaluation.gcd = one;
+                evaluation.addend = addend;
+                while (evaluation.gcd === one) {
+                    steps++;
+                    evaluation.steps++;
+                    evaluation.a = f(evaluation.a, n, addend);
+                    evaluation.b = f(f(evaluation.b, n, addend), n, addend);
+                    evaluation.gcd = greatestCommonDivisor(n, abs(evaluation.a - evaluation.b));
+                    if (delay > 0 || evaluation.steps % updateFrequency === zero) {
+                        await setOutput(delay || minDelay, { steps, results });
+                    }
+                }
+                if (evaluation.gcd !== n) {
+                    evaluation.sqrt = sqrt(evaluation.gcd);
+                    queue.push(n / evaluation.gcd, evaluation.gcd);
+                    if (delay === 0) {
+                        await setOutput(minDelay, { steps, results });
+                    }
+                    continue outer;
+                }
+            }
+            await setOutput(0, { steps, results, error: `Failed to factor ${encodeInteger(n)}.` });
+            return;
+        }
+    }
+}
+
+export const [toolIntegerFactorizationTrialDivision, toolIntegerFactorizationPollardsRho, toolIntegerFactorizationMinimal] = [(() => {
 
         /* ------------------------------ Trial division ------------------------------ */
 
@@ -150,7 +273,7 @@ export const [toolIntegerFactorizationTrialDivision, toolIntegerFactorizationPol
 
         const updateFrequency = BigInt(2_500_000);
 
-        async function run(state: Readonly<State>, setOutput: SetOutput<OutputState>): Promise<void> {
+        async function run(state: Readonly<InputState>, setOutput: SetOutput<OutputState>): Promise<void> {
             let leftover = decodeInteger(state.integer);
             const factors: Factor[] = [];
             const format = determineIntegerFormat(state.integer);
@@ -215,125 +338,6 @@ export const [toolIntegerFactorizationTrialDivision, toolIntegerFactorizationPol
 
         /* ------------------------------ Pollard's rho ------------------------------ */
 
-        interface Evaluation {
-            a: bigint;
-            b: bigint;
-            gcd: bigint;
-            steps: bigint;
-            sqrt?: bigint;
-            addend: bigint;
-        }
-
-        interface Result {
-            n: bigint;
-            evaluation?: Evaluation | undefined; // If undefined, n is prime.
-        }
-
-        interface OutputState extends SharedOutputState {
-            results: Result[];
-        }
-
-        function render(state: Readonly<OutputState>): ReactElement {
-            return <Fragment>
-                {renderFactorizationTable(state)}
-                {state.results.length > 0 && <table>
-                    <thead>
-                        <tr>
-                            <th className="text-right">Input</th>
-                            <th>Greatest common divisor</th>
-                            <th className="text-right">Steps</th>
-                            <th className="text-right cursor-help" title="The square root of the found factor.">Sqrt</th>
-                            <th className="text-right cursor-help" title="The offset in the sequence function.">+</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {state.results.map(result => <tr>
-                            <td className="text-right"><Integer integer={result.n} format={state.format}/></td>
-                            {result.evaluation === undefined ? <Fragment>
-                                <td>is prime</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </Fragment> : <Fragment>
-                                <td>
-                                    gcd(<Integer integer={result.n} format={state.format}/>, |<Integer integer={result.evaluation.a} format={state.format}/><MinusSign/><Integer integer={result.evaluation.b} format={state.format}/>|) {' '}
-                                    = <Integer integer={result.evaluation.gcd} format={state.format} color={result.evaluation.gcd === one ? 'orange' : result.evaluation.gcd === state.integer ? 'red' : 'green'}/>
-                                </td>
-                                <td className="text-right">{<Integer integer={result.evaluation.steps} format={state.format}/>}</td>
-                                <td className="text-right">{result.evaluation.sqrt !== undefined && <Integer integer={result.evaluation.sqrt} format={state.format}/>}</td>
-                                <td className="text-right">{<Integer integer={result.evaluation.addend} format={state.format}/>}</td>
-                            </Fragment>}
-                        </tr>)}
-                    </tbody>
-                </table>}
-            </Fragment>;
-        }
-
-        const updateFrequency = BigInt(100_000);
-
-        async function run(state: Readonly<State>, setOutput: SetOutput<OutputState>): Promise<void> {
-            const integer = decodeInteger(state.integer);
-            const format = determineIntegerFormat(state.integer);
-            await setOutput(minDelay, { integer, factors: [], totients: state.totients, format });
-            const factors: bigint[] = [];
-            const results: Result[] = [];
-            const delay = state.delay * 1000;
-            let n = integer;
-            while (isEven(n)) {
-                n = halve(n);
-                factors.push(two);
-            }
-            if (n === one) {
-                await setOutput(0, { factors: sortAndCombineFactors(factors), results });
-                return;
-            }
-            const queue = [n];
-            let steps = zero;
-            outer: while (queue.length > 0) {
-                const n = queue.pop()!;
-                if (isProbablePrime(n, 64)) {
-                    factors.push(n);
-                    results.push({ n });
-                    await setOutput(delay || minDelay, { steps, factors: sortAndCombineFactors(factors), results });
-                } else {
-                    const evaluation: Evaluation = {
-                        a: two,
-                        b: two,
-                        gcd: one,
-                        steps: zero,
-                        addend: one,
-                    };
-                    results.push({ n, evaluation });
-                    for (let addend = one; addend < n; addend++) {
-                        evaluation.a = two;
-                        evaluation.b = two;
-                        evaluation.gcd = one;
-                        evaluation.addend = addend;
-                        while (evaluation.gcd === one) {
-                            steps++;
-                            evaluation.steps++;
-                            evaluation.a = f(evaluation.a, n, addend);
-                            evaluation.b = f(f(evaluation.b, n, addend), n, addend);
-                            evaluation.gcd = greatestCommonDivisor(n, abs(evaluation.a - evaluation.b));
-                            if (delay > 0 || evaluation.steps % updateFrequency === zero) {
-                                await setOutput(delay || minDelay, { steps, results });
-                            }
-                        }
-                        if (evaluation.gcd !== n) {
-                            evaluation.sqrt = sqrt(evaluation.gcd);
-                            queue.push(n / evaluation.gcd, evaluation.gcd);
-                            if (delay === 0) {
-                                await setOutput(minDelay, { steps, results });
-                            }
-                            continue outer;
-                        }
-                    }
-                    await setOutput(0, { steps, results, error: `Failed to factor ${encodeInteger(n)}.` });
-                    return;
-                }
-            }
-        }
-
         const [factorize, Output] = createMeteredAnimation(
             {
                 ...initialSharedOutputState,
@@ -348,9 +352,43 @@ export const [toolIntegerFactorizationTrialDivision, toolIntegerFactorizationPol
             <Fragment>
                 <Input submit={{
                     label: 'Factorize',
-                    tooltip: 'Search for factors of the given integer with trial division.',
+                    tooltip: "Search for factors of the given integer with Pollard's rho algorithm.",
                     onClick: factorize,
                 }}/>
+                <Output/>
+            </Fragment>,
+            store,
+            factorize,
+        ] as Tool;
+
+    })(),
+    (() => {
+
+        /* ------------------------------ Minimal ------------------------------ */
+
+        const [factorize, Output] = createMeteredAnimation(
+            {
+                ...initialSharedOutputState,
+                results: [],
+                minimal: true,
+            },
+            state => state.integer !== undefined,
+            render,
+            run,
+            false,
+        );
+
+        return [
+            <Fragment>
+                <Input entries={{
+                        integer: {...integer, inputWidth: integerInputWidth },
+                    }}
+                    submit={{
+                        label: 'Factorize',
+                        tooltip: 'Search for factors of the given integer.',
+                        onClick: factorize,
+                    }}
+                />
                 <Output/>
             </Fragment>,
             store,

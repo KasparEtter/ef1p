@@ -190,9 +190,9 @@ export function createMeteredAnimation<InputState extends BasicState<InputState>
     initialOutputState: OutputState,
     renderOnlyIf: (state: Readonly<OutputState>) => boolean,
     render: (state: Readonly<OutputState>) => ReactElement,
-    run: (state: Readonly<InputState>, setOutput: SetOutput<OutputState>) => Promise<void>,
+    run: (state: Readonly<InputState>, setOutput: SetOutput<OutputState>, displaySteps: boolean) => Promise<void>,
     displaySteps = true,
-) {
+): [(state: Readonly<InputState>) => any, typeof Component] {
     let paused = 0;
     return createAnimation(
         initialOutputState,
@@ -201,7 +201,7 @@ export function createMeteredAnimation<InputState extends BasicState<InputState>
             <p className="text-center"><Integer integer={state.steps}/> steps in {((performance.now() - state.startTime) / 1000).toFixed(2)} s</p>
             {render(state)}
         </Fragment> : render(state),
-        run,
+        async (state, setOutput) => { await run(state, setOutput, displaySteps); },
         () => ({ startTime: performance.now() } as Partial<OutputState>),
         () => { paused = performance.now(); return {} as Partial<OutputState>; },
         (state: Readonly<OutputState>) => ({ startTime: state.startTime + performance.now() - paused } as Partial<OutputState>),

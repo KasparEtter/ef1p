@@ -43,6 +43,7 @@ declare global {
     var handleToolUpdate: (parts: string[], verifyOnly?: boolean) => boolean;
 }
 
+// Used when creating a PDF export so that the outputs of the tools are shown.
 window.submitAllTools = () => {
     for (const tool of Object.values(tools)) {
         if (tool !== undefined && tool[1] !== undefined) {
