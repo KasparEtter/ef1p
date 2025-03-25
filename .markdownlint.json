@@ -8,6 +8,8 @@
     "first-header-h1": false,
     "first-line-h1": false,
     "line-length": false,
+    "link-fragments": false,
+    "no-alt-text": false,
     "no-bare-urls": false,
     "no-duplicate-heading": {
         "siblings_only": true
@@ -17,12 +19,10 @@
     "no-trailing-punctuation": {
         "punctuation": ",;"
     },
-    "proper-names": {
-        "names": [
-            "Ethereum"
-        ]
-    },
     "single-h1": {
         "front_matter_title": ""
-    }
+    },
+    "table-column-count": false,
+    "table-pipe-style": false,
+    "ul-style": false
 }

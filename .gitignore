@@ -3,7 +3,9 @@
 /.stylelintcache
 /_site
 /assets/styles/dark.css
+/assets/styles/dark.css.map
 /assets/styles/light.css
+/assets/styles/light.css.map
 /node_modules
 /vendor
 /webpack-stats.json
