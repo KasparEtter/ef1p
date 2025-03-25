@@ -7,10 +7,10 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { toPlainEncoding } from '../../utility/encoding';
-import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines } from '../../utility/string';
+import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines, regex } from '../../utility/string';
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
-import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextareaEntry, DynamicTextEntry, Entry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextareaEntry, DynamicTextEntry, Entry, validateByTrial } from '../../react/entry';
 import { getIfCase } from '../../react/if-case';
 import { getIfEntries } from '../../react/if-entries';
 import { Tool } from '../../react/injection';
@@ -19,7 +19,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { VersionedStore } from '../../react/versioned-store';
 
-import { connect, crlf, domainRegex, maxPortNumber, minPortNumber, quiet, usernameRegex } from './esmtp';
+import { connect, crlf, emailAddressRegexString, encodeAddress, encodeDomain, localPartRegexString, maxPortNumber, minPortNumber, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
@@ -40,7 +40,9 @@ const server: DynamicTextEntry<State> = {
     defaultValue: 'sieve.example.org',
     inputType: 'text',
     inputWidth,
-    validateIndependently: input => !domainRegex.test(input) && 'Please enter a domain name in the preferred name syntax.',
+    validateIndependently: validateDomain,
+    validateDependently: validateByTrial(encodeDomain),
+    transform: encodeDomain,
 };
 
 const port: DynamicNumberEntry<State> = {
@@ -53,6 +55,12 @@ const port: DynamicNumberEntry<State> = {
     maxValue: maxPortNumber,
 };
 
+const usernameRegex = regex(`(${emailAddressRegexString}|${localPartRegexString})`);
+
+function encodeUsername(username: string): string {
+    return username.indexOf('@') > 0 ? encodeAddress(username) : username;
+}
+
 const username: DynamicTextEntry<State> = {
     label: 'Username',
     tooltip: 'The username of your account.',
@@ -60,6 +68,8 @@ const username: DynamicTextEntry<State> = {
     inputType: 'text',
     inputWidth,
     validateIndependently: input => !usernameRegex.test(input) && 'Please enter a valid email address or local part.',
+    validateDependently: validateByTrial(encodeUsername),
+    transform: encodeUsername,
 };
 
 const password: DynamicPasswordEntry<State> = {
@@ -231,7 +241,7 @@ const usernameAndPassword: Entry<string, State> = {
     label: 'Argument',
     tooltip: 'base64Encode(NULL + username + NULL + password)',
     defaultValue: '',
-    transform: (_, state) => doubleQuote(toPlainEncoding(state.username, state.password)),
+    transform: (_, state) => doubleQuote(toPlainEncoding(encodeUsername(state.username), state.password)),
 };
 
 /* ------------------------------ List entries ------------------------------ */

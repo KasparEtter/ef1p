@@ -13,7 +13,7 @@ import { Time } from '../../utility/time';
 
 import { Argument } from '../../react/argument';
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
-import { DynamicBooleanEntry, DynamicDateEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextEntry, Entry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicDateEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextEntry, Entry, validateByTrial } from '../../react/entry';
 import { getIfEntries } from '../../react/if-entries';
 import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
@@ -24,7 +24,9 @@ import { VersionedStore } from '../../react/versioned-store';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
-import { connect, crlf, domainRegex, emailAddressRegex, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, maxPortNumber, minPortNumber, openssl, quiet } from './esmtp';
+import { unicodeDomainRegex } from '../encoding/punycode';
+
+import { connect, crlf, emailAddressRegex, encodeAddress, encodeDomain, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -38,7 +40,7 @@ async function updateServer(_: unknown, { address, security }: State): Promise<P
     if (/^example\.(org|com|net)$/i.test(domain)) {
         return { server: 'imap.' + domain };
     } else {
-        const configuration = await findConfigurationFile(domain, [], true);
+        const configuration = await findConfigurationFile(encodeDomain(domain), [], true);
         const imapServers = (configuration?.incomingServers ?? []).filter(server => server.type === 'imap');
         if (imapServers.length > 0) {
             const desiredServer = imapServers.filter(server => server.socket === socketTypeLookup[security]);
@@ -52,7 +54,7 @@ async function updateServer(_: unknown, { address, security }: State): Promise<P
             };
         } else {
             let server = prompt(`Could not find the IMAP server of '${domain}'. Please enter it yourself:`);
-            while (server !== null && !domainRegex.test(server)) {
+            while (server !== null && !unicodeDomainRegex.test(server)) {
                 server = prompt(`Please enter a valid domain name in the preferred name syntax or click on 'Cancel':`, server);
             }
             return { server: server ?? 'server-not-found.' + domain };
@@ -72,6 +74,7 @@ const address: DynamicTextEntry<State> = {
     inputWidth,
     transform: (value, state) => getUsername(state.username, value),
     validateIndependently: input => !emailAddressRegex.test(input) && 'Please enter a single email address.',
+    validateDependently: validateByTrial(encodeAddress),
     updateOtherValuesOnChange: updateServer,
 };
 
@@ -102,7 +105,9 @@ const server: DynamicTextEntry<State> = {
     defaultValue: 'imap.example.org',
     inputType: 'text',
     inputWidth,
-    validateIndependently: input => !domainRegex.test(input) && 'Please enter a domain name in the preferred name syntax.',
+    validateIndependently: validateDomain,
+    validateDependently: validateByTrial(encodeDomain),
+    transform: encodeDomain,
 };
 
 const port: DynamicNumberEntry<State> = {

@@ -6,18 +6,18 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
-import { regex } from '../../utility/string';
+import { nonEmpty, regex } from '../../utility/string';
 
 import { Argument } from '../../react/argument';
 import { CodeBlock } from '../../react/code';
 import { ClickToCopy } from '../../react/copy';
-import { DynamicBooleanEntry, DynamicEntries, DynamicMultipleSelectEntry, DynamicNumberEntry, DynamicRangeEntry, DynamicSingleSelectEntry, DynamicTextEntry, InputError } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicMultipleSelectEntry, DynamicNumberEntry, DynamicRangeEntry, DynamicSingleSelectEntry, DynamicTextEntry, InputError, validateByTrial } from '../../react/entry';
 import { Tool } from '../../react/injection';
 import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { getDefaultState, VersionedStore } from '../../react/versioned-store';
 
-import { emailAddressRegexString } from '../protocol/esmtp';
+import { emailAddressRegexString, encodeDomain } from '../protocol/esmtp';
 
 /* ------------------------------ Input ------------------------------ */
 
@@ -104,18 +104,28 @@ const dkimAlignment: DynamicSingleSelectEntry<DmarcState> & Argument<string, Dma
     skip: skipAlignment,
 };
 
+// Support an optional size limit after an exclamation mark
+// (see https://datatracker.ietf.org/doc/html/rfc7489#section-6.4):
 const dmarcAddressRegexString = `(${emailAddressRegexString}(!\\d+[kmgt]?)?)`;
 export const dmarcAddressRegex = regex(dmarcAddressRegexString);
 
 const dmarcAddressesRegexString = `(${dmarcAddressRegexString}(, *${dmarcAddressRegexString})*)?`;
 export const dmarcAddressesRegex = regex(dmarcAddressesRegexString);
 
-function validateAddresses(value: string): InputError {
+function validateDmarcAddresses(value: string): InputError {
     return !dmarcAddressesRegex.test(value) && 'Please enter one or more email addresses.';
 }
 
-function transformAddresses(value: string): string {
-    return value.split(',').map(address => 'mailto:' + address.trim().split('@').map((value, index) => index === 0 ? value.replace(/!/g, '%21') : value).join('@')).join(',');
+function encodeDmarcAddress(dmarcAddress: string): string {
+    const [localPart, domainWithOptionalSizeLimit] = dmarcAddress.trim().split('@');
+    const [domain, optionalSizeLimit] = domainWithOptionalSizeLimit.split('!');
+    // Encode exclamation marks in the local part of each email address as required by the standard
+    // (see https://datatracker.ietf.org/doc/html/rfc7489#section-6.3):
+    return 'mailto:' + localPart.replace(/!/g, '%21') + '@' + encodeDomain(domain) + (optionalSizeLimit !== undefined ? '!' + optionalSizeLimit : '');
+}
+
+function encodeDmarcAddresses(value: string): string {
+    return value.split(',').filter(nonEmpty).map(encodeDmarcAddress).join(',');
 }
 
 const aggregateReports: DynamicTextEntry<DmarcState> & Argument<string, DmarcState> = {
@@ -126,8 +136,9 @@ const aggregateReports: DynamicTextEntry<DmarcState> & Argument<string, DmarcSta
     inputType: 'text',
     inputWidth,
     placeholder: 'Email address',
-    transform: transformAddresses,
-    validateIndependently: validateAddresses,
+    validateIndependently: validateDmarcAddresses,
+    validateDependently: validateByTrial(encodeDmarcAddresses),
+    transform: encodeDmarcAddresses,
 };
 
 const reportInterval: DynamicNumberEntry<DmarcState> & Argument<number, DmarcState> = {
@@ -151,8 +162,9 @@ const failureReports: DynamicTextEntry<DmarcState> & Argument<string, DmarcState
     inputType: 'text',
     inputWidth,
     placeholder: 'Email address',
-    transform: transformAddresses,
-    validateIndependently: validateAddresses,
+    validateIndependently: validateDmarcAddresses,
+    validateDependently: validateByTrial(encodeDmarcAddresses),
+    transform: encodeDmarcAddresses,
 };
 
 const reportFormat: DynamicMultipleSelectEntry<DmarcState> & Argument<string[], DmarcState> = {

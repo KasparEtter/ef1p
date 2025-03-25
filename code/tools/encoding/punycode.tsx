@@ -6,7 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import punycode from 'punycode/'; // Refers to Node's deprecated library without the trailing slash.
 
-import { countOccurrences } from '../../utility/string';
+import { countOccurrences, regex } from '../../utility/string';
 
 import { DynamicBooleanEntry, DynamicEntries, DynamicTextEntry, validateByTrial } from '../../react/entry';
 import { Tool } from '../../react/injection';
@@ -20,37 +20,45 @@ import { VersionedStore } from '../../react/versioned-store';
 // Unicode categories: https://www.regular-expressions.info/unicode.html
 // See also https://mathiasbynens.be/notes/es-unicode-property-escapes#word
 // and https://github.com/mathiasbynens/regexpu-core for transpiling the property escapes.
-const unicodeDomainRegex = /^([\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*(\.[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*(-+[\p{Letter}\p{Number}][\p{Letter}\p{Mark}\p{Number}\p{Join_Control}]*)*)*\.?)?$/u;
+export const unicodeDomainRegexString = '([\\p{Letter}\\p{Number}][\\p{Letter}\\p{Mark}\\p{Number}\\p{Join_Control}]*(-+[\\p{Letter}\\p{Number}][\\p{Letter}\\p{Mark}\\p{Number}\\p{Join_Control}]*)*(\\.[\\p{Letter}\\p{Number}][\\p{Letter}\\p{Mark}\\p{Number}\\p{Join_Control}]*(-+[\\p{Letter}\\p{Number}][\\p{Letter}\\p{Mark}\\p{Number}\\p{Join_Control}]*)*)*\\.?)?';
+export const unicodeDomainRegex = regex(unicodeDomainRegexString);
 
-function encode(input: string, inputs: Readonly<State>): Partial<State> {
-    if (inputs.domain) {
-        if (!unicodeDomainRegex.test(input)) {
+export function encodePunycode(text: string, domain = true): string {
+    if (domain) {
+        if (!unicodeDomainRegex.test(text)) {
             throw new Error('This is not a valid domain name.');
         } else {
-            const lowercase = input.toLowerCase();
+            const lowercase = text.toLowerCase();
             const normalized = lowercase.normalize('NFKC');
             if (countOccurrences(lowercase, /\./g) !== countOccurrences(normalized, /\./g)) {
-                throw new Error('The normalization of a character includes a dot.');
+                throw new Error('The normalization of a domain character includes a dot.');
             } else {
                 const encoded = punycode.toASCII(normalized);
-                const labels = encoded.split('.');
-                if (labels.some(label => label.length > 63)) {
-                    throw new Error('One of the encoded labels is too long.');
+                if (encoded.split('.').some(label => label.length > 63)) {
+                    throw new Error('One of the encoded domain labels is too long.');
                 }
-                return { encoded };
+                return encoded;
             }
         }
     } else {
-        return { encoded: punycode.encode(input) };
+        return punycode.encode(text);
+    }
+}
+
+function encode(input: string, inputs: Readonly<State>): Partial<State> {
+    return { encoded: encodePunycode(input, inputs.domain) };
+}
+
+export function decodePunycode(text: string, domain = true): string {
+    try {
+        return domain ? punycode.toUnicode(text) : punycode.decode(text);
+    } catch (error) {
+        throw new Error('This is not a valid Punycode encoding.');
     }
 }
 
 function decode(input: string, inputs: Readonly<State>): Partial<State> {
-    try {
-        return { decoded: inputs.domain ? punycode.toUnicode(input) : punycode.decode(input) };
-    } catch (error) {
-        throw new Error('This is not a valid Punycode encoding.');
-    }
+    return { decoded: decodePunycode(input, inputs.domain) };
 }
 
 /* ------------------------------ Input ------------------------------ */

@@ -4,7 +4,7 @@ Work: Explained from First Principles (https://ef1p.com/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 */
 
-import { decodeExtendedParameter, encodeExtendedParameter } from '../../utility/encoding';
+import { decodeExtendedParameters, encodeExtendedParameters } from '../../utility/encoding';
 
 import { DynamicEntries, DynamicTextareaEntry } from '../../react/entry';
 import { Tool } from '../../react/injection';
@@ -23,7 +23,7 @@ const decoded: DynamicTextareaEntry<State> = {
     inputType: 'textarea',
     inputWidth,
     rows,
-    updateOtherInputsOnInput: input => ({ encoded: encodeExtendedParameter(input) }),
+    updateOtherInputsOnInput: input => ({ encoded: encodeExtendedParameters(input) }),
 };
 
 const encoded: DynamicTextareaEntry<State> = {
@@ -33,7 +33,7 @@ const encoded: DynamicTextareaEntry<State> = {
     inputType: 'textarea',
     inputWidth,
     rows,
-    updateOtherInputsOnInput: input => ({ decoded: decodeExtendedParameter(input) }),
+    updateOtherInputsOnInput: input => ({ decoded: decodeExtendedParameters(input) }),
 };
 
 interface State {

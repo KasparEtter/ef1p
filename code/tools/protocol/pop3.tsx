@@ -10,7 +10,7 @@ import { toApopEncoding } from '../../utility/encoding';
 import { Dictionary, reverseLookup } from '../../utility/record';
 
 import { CodeBlock, SystemReply, UserCommand } from '../../react/code';
-import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextEntry, Entry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextEntry, Entry, validateByTrial } from '../../react/entry';
 import { getIfCase } from '../../react/if-case';
 import { getIfEntries } from '../../react/if-entries';
 import { Tool } from '../../react/injection';
@@ -21,7 +21,9 @@ import { VersionedStore } from '../../react/versioned-store';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
-import { connect, crlf, domainRegex, emailAddressRegex, getDomain, getUsername, identifierRegex, implementation, maxPortNumber, minPortNumber, openssl, quiet } from './esmtp';
+import { unicodeDomainRegex } from '../encoding/punycode';
+
+import { connect, crlf, emailAddressRegex, encodeAddress, encodeDomain, encodeIdentifier, getDomain, getUsername, identifierRegex, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Entry updates ------------------------------ */
 
@@ -35,7 +37,7 @@ async function updateServer(_: unknown, { security, address }: State): Promise<P
     if (/^example\.(org|com|net)$/i.test(domain)) {
         return { server: 'pop3.' + domain };
     } else {
-        const configuration = await findConfigurationFile(domain, [], true);
+        const configuration = await findConfigurationFile(encodeDomain(domain), [], true);
         const pop3Servers = (configuration?.incomingServers ?? []).filter(server => server.type === 'pop3');
         if (pop3Servers.length > 0) {
             const desiredServer = pop3Servers.filter(server => server.socket === socketTypeLookup[security]);
@@ -50,7 +52,7 @@ async function updateServer(_: unknown, { security, address }: State): Promise<P
             };
         } else {
             let server = prompt(`Could not find the POP3 server of '${domain}'. Please enter it yourself:`);
-            while (server !== null && !domainRegex.test(server)) {
+            while (server !== null && !unicodeDomainRegex.test(server)) {
                 server = prompt(`Please enter a valid domain name in the preferred name syntax or click on 'Cancel':`, server);
             }
             return { server: server ?? 'server-not-found.' + domain };
@@ -69,6 +71,8 @@ const address: DynamicTextEntry<State> = {
     inputType: 'text',
     inputWidth,
     validateIndependently: input => !emailAddressRegex.test(input) && 'Please enter a single email address.',
+    validateDependently: validateByTrial(encodeAddress),
+    transform: encodeAddress,
     updateOtherValuesOnChange: updateServer,
 };
 
@@ -99,7 +103,9 @@ const server: DynamicTextEntry<State> = {
     defaultValue: 'pop3.example.org',
     inputType: 'text',
     inputWidth,
-    validateIndependently: input => !domainRegex.test(input) && 'Please enter a domain name in the preferred name syntax.',
+    validateIndependently: validateDomain,
+    validateDependently: validateByTrial(encodeDomain),
+    transform: encodeDomain,
 };
 
 const port: DynamicNumberEntry<State> = {
@@ -144,11 +150,13 @@ const challenge: DynamicTextEntry<State> = {
     inputType: 'text',
     inputWidth,
     skip: state => state.credential !== 'hashed',
-    placeholder: ({ address }) => `<unique@${getDomain(address)}>`,
+    placeholder: ({ address }) => `<unique@${encodeDomain(getDomain(address))}>`,
     disable: ({ credential }) => credential !== 'hashed',
     dependencies: 'credential',
     validateIndependently: input => input !== '' && !identifierRegex.test(input) && 'The challenge looks like an email address in angle brackets.',
-    validateDependently: (input, { credential }) => credential === 'hashed' && input === '' && 'Copy the challenge from the server to this field.',
+    validateDependently: (input, inputs) => inputs.credential === 'hashed' && input === '' && 'Copy the challenge from the server to this field.'
+        && validateByTrial(encodeIdentifier)(input, inputs),
+    transform: encodeIdentifier,
 };
 
 const deletion: DynamicBooleanEntry<State> = {
@@ -321,7 +329,7 @@ const apopResponse: Entry<string, State> = {
     label: 'Response',
     tooltip: 'hex(md5(challenge + password))',
     defaultValue: '',
-    transform: (_, state) => toApopEncoding(state.challenge, state.password),
+    transform: (_, state) => toApopEncoding(encodeIdentifier(state.challenge), state.password),
 };
 
 /* ------------------------------ User interface ------------------------------ */

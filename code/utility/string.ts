@@ -32,6 +32,13 @@ export function singleQuote(text: string): string {
     return `'${escapeSingleQuote(text)}'`;
 }
 
+/**
+ * Unescapes a string with backslash escapes, i.e. remove the first backslash but keep the following character.
+ */
+export function unescape(text: string): string {
+    return text.replace(/\\(.)/g, '$1');
+}
+
 export function capitalizeFirstLetter(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -77,8 +84,8 @@ export function normalizeWhitespace(text: string): string {
     return text.replace(/\s+/g, ' ');
 }
 
-export function regex(pattern: string, ignoreCase = true): RegExp {
-    return new RegExp(`^${pattern}$`, ignoreCase ? 'i' : undefined);
+export function regex(pattern: string, flags = 'iu'): RegExp {
+    return new RegExp(`^${pattern}$`, flags);
 }
 
 export function regexIndexOf(text: string, regex: RegExp, position = 0) {
@@ -109,7 +116,7 @@ export function splitOnFirstOccurrence(text: string, delimiter: string): [string
 /**
  * Splits the given string at the given separator unless the separator is within double quotes.
  */
-export function splitOutsideOfDoubleQuotes(text: string, separator: string, unescape = false, trim = false): string[] {
+export function splitOutsideOfDoubleQuotes(text: string, separator: string, unescape = false, trim = true): string[] {
     const result = new Array<string>();
     let current = '';
     let quoted = false;

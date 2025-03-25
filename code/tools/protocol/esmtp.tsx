@@ -7,15 +7,15 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { flatten, unique } from '../../utility/array';
-import { base64Regex, encodeBase64, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
+import { base64Regex, encodeBase64, encodeEncodedWord, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, getNodeCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
 import { normalizeToValue } from '../../utility/normalization';
 import { arrayToRecord, Dictionary, reverseLookup } from '../../utility/record';
-import { getRandomString, nonEmpty, regex, splitOutsideOfDoubleQuotes } from '../../utility/string';
+import { getRandomString, nonEmpty, regex, splitOutsideOfDoubleQuotes, unescape } from '../../utility/string';
 import { KeysOf } from '../../utility/types';
 
 import { Argument } from '../../react/argument';
 import { CodeBlock, DynamicOutput, SystemReply, UserCommand } from '../../react/code';
-import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextareaEntry, DynamicTextEntry, Entry, InputError, isDynamicEntry } from '../../react/entry';
+import { DynamicBooleanEntry, DynamicEntries, DynamicNumberEntry, DynamicPasswordEntry, DynamicSingleSelectEntry, DynamicTextareaEntry, DynamicTextEntry, Entry, InputError, isDynamicEntry, validateByTrial } from '../../react/entry';
 import { getIfCase } from '../../react/if-case';
 import { getIfEntries } from '../../react/if-entries';
 import { Tool } from '../../react/injection';
@@ -29,20 +29,28 @@ import { getReverseLookupDomain, resolveDomainName } from '../../apis/dns-lookup
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 import { getIpInfo } from '../../apis/ip-geolocation';
 
+import { encodePunycode, unicodeDomainRegex, unicodeDomainRegexString } from '../encoding/punycode';
+
 /* ------------------------------ Utility functions ------------------------------ */
+
+function getOptionalDisplayName(addressWithOptionalDisplayName: string): string {
+    const index = addressWithOptionalDisplayName.lastIndexOf('<');
+    return index >= 0 ? addressWithOptionalDisplayName.substring(0, index).trim() : '';
+}
+
+function getAddress(addressWithOptionalDisplayName: string): string {
+    const index = addressWithOptionalDisplayName.lastIndexOf('<');
+    if (index >= 0) {
+        return addressWithOptionalDisplayName.slice(index + 1, -1);
+    } else {
+        return addressWithOptionalDisplayName;
+    }
+}
 
 type AddressField = 'from' | 'to' | 'cc' | 'bcc';
 
 function getAddresses(state: Readonly<State>, field: AddressField): string[] {
-    return splitOutsideOfDoubleQuotes(state[field], ',').filter(nonEmpty).map(addressWithDisplayName => {
-        addressWithDisplayName = addressWithDisplayName.trim();
-        const index = addressWithDisplayName.indexOf('<', addressWithDisplayName.lastIndexOf('"'));
-        if (index >= 0) {
-            return addressWithDisplayName.slice(index + 1, -1);
-        } else {
-            return addressWithDisplayName;
-        }
-    });
+    return splitOutsideOfDoubleQuotes(state[field], ',').filter(nonEmpty).map(getAddress);
 }
 
 function getFromAddress(state: Readonly<State>): string {
@@ -72,7 +80,7 @@ export function getLocalPart(address: string): string {
 
 export function getUsername(username: string, address: string): string {
     switch (username) {
-        case 'full': return address;
+        case 'full': return encodeAddress(address);
         case 'local': return getLocalPart(address);
         default: throw Error(`Unsupported username format '${username}'.`);
     }
@@ -89,6 +97,38 @@ function deriveIdentifier(state: Readonly<State>): string {
     return `<${randomness}@${domain}>`;
 }
 
+// This indirection allows this function to be passed directly to the 'transform' property in the entries below.
+export function encodeDomain(domain: string): string {
+    return encodePunycode(domain);
+}
+
+export function encodeAddress(address: string): string {
+    return getLocalPart(address) + '@' + encodeDomain(getDomain(address));
+}
+
+export function encodeDisplayName(optionalDisplayName: string): string {
+    const charset = getNodeCharset(optionalDisplayName);
+    if (charset === 'ascii') {
+        return optionalDisplayName;
+    } else {
+        return encodeEncodedWord(unescape(optionalDisplayName.slice(1, -1)), charset, true);
+    }
+}
+
+export function encodeAddressWithOptionalDisplayName(addressWithOptionalDisplayName: string): string {
+    const optionalDisplayName = encodeDisplayName(getOptionalDisplayName(addressWithOptionalDisplayName));
+    const address = encodeAddress(getAddress(addressWithOptionalDisplayName));
+    return optionalDisplayName === '' ? address : optionalDisplayName + ' <' + address + '>';
+}
+
+export function encodeAddressList(addressList: string): string {
+    return splitOutsideOfDoubleQuotes(addressList, ',').map(encodeAddressWithOptionalDisplayName).join(', ');
+}
+
+export function encodeIdentifier(identifier: string): string {
+    return '<' + encodeAddress(identifier.slice(1, -1)) + '>';
+}
+
 /* ------------------------------ Entry updates ------------------------------ */
 
 const socketTypeLookup: Dictionary<SocketType> = {
@@ -102,7 +142,7 @@ async function updateServer(_: unknown, { mode, security, domain }: State): Prom
         if (/^example\.(org|com|net)$/i.test(domain)) {
             return { server: 'submission.' + domain };
         } else {
-            const configuration = await findConfigurationFile(domain, [], true);
+            const configuration = await findConfigurationFile(encodeDomain(domain), [], true);
             if (configuration && configuration.outgoingServers.length > 0) {
                 const desiredServer = configuration.outgoingServers.filter(server => server.socket === socketTypeLookup[security]);
                 const server = desiredServer.length > 0 ? desiredServer[0] : configuration.outgoingServers[0];
@@ -116,7 +156,7 @@ async function updateServer(_: unknown, { mode, security, domain }: State): Prom
                 };
             } else {
                 let server = prompt(`Could not find the ${mode === 'submission' ? 'outgoing' : 'incoming'} mail server of '${domain}'. Please enter it yourself:`);
-                while (server !== null && !domainRegex.test(server)) {
+                while (server !== null && !unicodeDomainRegex.test(server)) {
                     server = prompt(`Please enter a valid domain name in the preferred name syntax or click on 'Cancel':`, server);
                 }
                 return { server: server ?? 'server-not-found.' + domain };
@@ -127,7 +167,7 @@ async function updateServer(_: unknown, { mode, security, domain }: State): Prom
             return { server: 'relay.' + domain };
         } else {
             try {
-                const response = await resolveDomainName(domain, 'MX');
+                const response = await resolveDomainName(encodeDomain(domain), 'MX');
                 const records = response.answer.filter(record => record.type === 'MX').map(record => {
                     const parts = record.data.split(' ');
                     if (parts.length !== 2) {
@@ -165,29 +205,31 @@ async function determineClient(): Promise<string> {
 /* ------------------------------ Regular expressions ------------------------------ */
 
 // All the following regular expressions should be used with the case insensitive flag.
-const ip4RegexString = `(\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\])`;
-const domainRegexString = `(([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])`;
-const deviceAddressRegexString = `(${ip4RegexString}|${domainRegexString}|localhost)`;
-const localPartCharacters = `[a-z0-9!#$%&'*+\\/=?^_\`{|}~-]`;
-const localPartRegexString = `(${localPartCharacters}+(\\.${localPartCharacters}+)*)`; // No quoted strings.
-const displayNameRegexString = `((${localPartCharacters}+( *${localPartCharacters}+)*)|"[^"]*")`;
-export const emailAddressRegexString = `(${localPartRegexString}@${domainRegexString})`;
-const emailAddressesRegexString = `(${emailAddressRegexString}(, *${emailAddressRegexString})*)?`;
-const addressWithNameRegexString = `( *(${emailAddressRegexString}|(${displayNameRegexString}? *\\<${emailAddressRegexString}\\>)) *)`;
-const addressesWithNameRegexString = `(${addressWithNameRegexString}(,${addressWithNameRegexString})*)?`;
 
-export const domainRegex = regex(domainRegexString);
+// const domainRegexString = `(([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])`;
+// export const domainRegex = regex(domainRegexString);
+
+const ip4RegexString = `(\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\])`;
+const deviceAddressRegexString = `(${ip4RegexString}|${unicodeDomainRegexString}|localhost)`;
 const deviceAddressRegex = regex(deviceAddressRegexString);
+
+const localPartCharacters = `[a-z0-9!#$%&'*+/=?^_\`{|}~-]`; // https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3
+export const localPartRegexString = `(${localPartCharacters}+(\\.${localPartCharacters}+)*)`; // No quoted strings.
+const displayNameRegexString = `((${localPartCharacters}+( *${localPartCharacters}+)*)|"([^"\\\\]|\\\\.)*")`;
+
+export const emailAddressRegexString = `(${localPartRegexString}@${unicodeDomainRegexString})`;
 export const emailAddressRegex = regex(emailAddressRegexString);
-export const emailAddressesRegex = regex(emailAddressesRegexString);
-export const usernameRegex = regex(`(${emailAddressRegexString}|${localPartRegexString})`);
+
+const addressWithNameRegexString = `( *(${emailAddressRegexString}|(${displayNameRegexString}? *<${emailAddressRegexString}>)) *)`;
 const addressWithNameRegex = regex(addressWithNameRegexString);
+
+const addressesWithNameRegexString = `(${addressWithNameRegexString}(,${addressWithNameRegexString})*)?`;
 const addressesWithNameRegex = regex(addressesWithNameRegexString);
 
-const dateRegexString = `([A-Z][a-z]{2}, \\d{2} [A-Z][a-z]{2} \\d{4} \\d{2}:\\d{2}:\\d{2} (\\+|\\-)\\d{4})`;
+const dateRegexString = `([A-Z][a-z]{2}, \\d{2} [A-Z][a-z]{2} \\d{4} \\d{2}:\\d{2}:\\d{2} [+-]\\d{4})`;
 const dateRegex = regex(dateRegexString);
 
-const identifierRegexString = `(\\<${emailAddressRegexString}\\>)`;
+const identifierRegexString = `(<${emailAddressRegexString}>)`;
 export const identifierRegex = regex(identifierRegexString);
 
 /* ------------------------------ Dynamic entries ------------------------------ */
@@ -247,7 +289,12 @@ const domain: DynamicSingleSelectEntry<State> = {
     selectOptions: inputs => arrayToRecord((inputs.mode === 'submission' ? getAddresses(inputs, 'from') : getRecipientAddresses(inputs)).map(getDomain)),
     disable: ({ mode }) => mode === 'submission',
     updateOtherValuesOnChange: updateServer,
+    transform: encodeDomain,
 };
+
+export function validateDomain(input: string): InputError {
+    return !unicodeDomainRegex.test(input) && 'Please enter a domain name in the preferred name syntax.';
+}
 
 const server: DynamicTextEntry<State> = {
     label: 'Server',
@@ -255,7 +302,9 @@ const server: DynamicTextEntry<State> = {
     defaultValue: 'submission.example.org',
     inputType: 'text',
     inputWidth,
-    validateIndependently: input => !domainRegex.test(input) && 'Please enter a domain name in the preferred name syntax.',
+    validateIndependently: validateDomain,
+    validateDependently: validateByTrial(encodeDomain),
+    transform: encodeDomain,
 };
 
 export const minPortNumber = 1;
@@ -281,11 +330,13 @@ const client: DynamicTextEntry<State> = {
     inputType: 'text',
     inputWidth: inputWidth - 90,
     validateIndependently: input => !deviceAddressRegex.test(input) && 'Please enter a domain name or an IPv4 address in brackets.',
+    validateDependently: validateByTrial(encodeDomain),
     determine: {
         label: 'Determine',
         tooltip: 'Determine the IP or DNS address of your machine.',
         onClick: determineClient,
     },
+    transform: encodeDomain,
 };
 
 const pipelining: DynamicBooleanEntry<State> = {
@@ -350,15 +401,13 @@ const from: DynamicTextEntry<State> & Argument<string, State> = {
     defaultValue: 'Alice <alice@example.org>',
     inputType: 'text',
     inputWidth,
-    validateIndependently: input => !addressWithNameRegex.test(input) && 'Please enter a single address with an optional display name.',
+    validateIndependently: input => !addressWithNameRegex.test(input) && 'Enter a single address, optionally with a display name.',
+    validateDependently: validateByTrial(encodeAddressWithOptionalDisplayName),
+    transform: encodeAddressWithOptionalDisplayName,
 };
 
 function validateRecipientFieldIndependently(input: string): InputError {
-    return !addressesWithNameRegex.test(input) && 'Please enter a comma-separated list of addresses.';
-}
-
-function validateRecipientFieldDependently(_: unknown, inputs: Readonly<State>): InputError {
-    return inputs.to ===  '' && inputs.cc === '' && inputs.bcc === '' && 'At least one recipient has to be provided.';
+    return !addressesWithNameRegex.test(input) && 'Enter a list of addresses. You may have to quote a display name.';
 }
 
 const to: DynamicTextEntry<State> & Argument<string, State> = {
@@ -370,7 +419,9 @@ const to: DynamicTextEntry<State> & Argument<string, State> = {
     inputWidth,
     dependencies: ['cc', 'bcc'],
     validateIndependently: validateRecipientFieldIndependently,
-    validateDependently: validateRecipientFieldDependently,
+    validateDependently: (input, inputs) => inputs.to ===  '' && inputs.cc === '' && inputs.bcc === '' && 'At least one recipient has to be provided.'
+        || validateByTrial(encodeAddressList)(input, inputs),
+    transform: encodeAddressList,
 };
 
 const cc: DynamicTextEntry<State> & Argument<string, State> = {
@@ -380,9 +431,10 @@ const cc: DynamicTextEntry<State> & Argument<string, State> = {
     defaultValue: 'Carol <carol@example.com>',
     inputType: 'text',
     inputWidth,
-    dependencies: ['to', 'bcc'],
+    stayEnabled: true,
     validateIndependently: validateRecipientFieldIndependently,
-    validateDependently: validateRecipientFieldDependently,
+    validateDependently: validateByTrial(encodeAddressList),
+    transform: encodeAddressList,
 };
 
 const bcc: DynamicTextEntry<State> & Argument<string, State> = {
@@ -392,9 +444,10 @@ const bcc: DynamicTextEntry<State> & Argument<string, State> = {
     defaultValue: 'Dave <dave@example.net>',
     inputType: 'text',
     inputWidth,
-    dependencies: ['to', 'cc'],
+    stayEnabled: true,
     validateIndependently: validateRecipientFieldIndependently,
-    validateDependently: validateRecipientFieldDependently,
+    validateDependently: validateByTrial(encodeAddressList),
+    transform: encodeAddressList,
 };
 
 const subject: DynamicTextEntry<State> & Argument<string, State> = {
@@ -431,6 +484,8 @@ const identifier: DynamicTextEntry<State> & Argument<string, State> = {
     dependencies: ['from', 'to', 'bcc', 'subject', 'date', 'content', 'body'],
     validateIndependently: input => !identifierRegex.test(input) && 'Please enter a message ID in the same format as provided.',
     derive: deriveIdentifier,
+    validateDependently: validateByTrial(encodeIdentifier),
+    transform: encodeIdentifier,
 }
 
 const contentOptions = [
@@ -843,7 +898,7 @@ const contentTransferEncoding: Argument<string, State> = {
 /* ------------------------------ User interface ------------------------------ */
 
 function angleAddress(address: string, title: string): JSX.Element {
-    return <DynamicOutput title={title}>&lt;{address}&gt;</DynamicOutput>;
+    return <DynamicOutput title={title}>&lt;{encodeAddress(address)}&gt;</DynamicOutput>;
 }
 
 export const toolProtocolEsmtp: Tool = [

@@ -483,7 +483,7 @@ export function validateIndependently<State extends BasicState<State>>(
 
 export function validateByTrial<Value extends BasicValue, State extends BasicState<State>>(
     handler: (input: Value, inputs: Readonly<State>) => any,
-) {
+): (input: Value, inputs: Readonly<State>) => string | false {
     return (input: Value, inputs: Readonly<State>) => {
         try {
             handler(input, inputs);

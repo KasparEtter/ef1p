@@ -110,10 +110,22 @@ export function getIanaCharset(text: string): string {
 
 /* ------------------------------ Quoted-Printable encoding ------------------------------ */
 
+const encodeForEncodedWord = Array.from('?_\t').map(c => c.charCodeAt(0));
+// See https://datatracker.ietf.org/doc/html/rfc2047#section-5 point 3
+// and https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3
+const encodeForDisplayName = Array.from('#$%&\'^`{|}~()<>[]:;@\\,."').map(c => c.charCodeAt(0));
+const tabAndSpace = Array.from('\t ').map(c => c.charCodeAt(0));
+
+const tab = 9;
+const LF = 10;
+const CR = 13;
+const space = 32;
+const equals = 61;
+
 /**
  * The newlines of the returned string are normalized to CR + LF.
  */
-export function encodeQuotedPrintable(text: string, charset: Charset, encodedWord = false, lineLimit = 73): string {
+export function encodeQuotedPrintable(text: string, charset: Charset, encodedWord = false, displayName = false, lineLimit = 73): string {
     if (encodedWord) {
         lineLimit = 0;
     }
@@ -123,22 +135,19 @@ export function encodeQuotedPrintable(text: string, charset: Charset, encodedWor
     for (let i = 0; i < buffer.length; i++) {
         const charCode = buffer.readUInt8(i);
         let encoding: string;
-        if (charCode > 126 || (charCode < 32 && ![9, 10, 13].includes(charCode))) {
+        if (
+            charCode > 126 || (charCode < 32 && ![tab, LF, CR].includes(charCode)) // Always encode most non-printable characters: https://en.wikipedia.org/wiki/ASCII#Printable_character_table
+            || charCode === equals // Always encode the equals sign
+            || encodedWord && encodeForEncodedWord.includes(charCode)
+            || displayName && encodeForDisplayName.includes(charCode)
+        ) {
             encoding = '=' + toHex(charCode, 2);
-        } else if (charCode === 61) { // =
-            encoding = '=3D';
-        } else if (encodedWord && charCode === 63) { // ?
-            encoding = '=3F';
-        } else if (encodedWord && charCode === 95) { // _
-            encoding = '=5F';
-        } else if (encodedWord && charCode === 9) { // Tab
-            encoding = '=09';
-        } else if (encodedWord && charCode === 32) { // Space
+        } else if (encodedWord && charCode === space) {
             encoding = '_';
         } else {
             encoding = String.fromCharCode(charCode);
         }
-        if (charCode === 13 || charCode === 10) { // CR or LF
+        if (charCode === CR || charCode === LF) {
             lineLength = 0;
         } else {
             lineLength += encoding.length;
@@ -146,23 +155,19 @@ export function encodeQuotedPrintable(text: string, charset: Charset, encodedWor
         // The line length doesn't need to be updated for trailing whitespace.
         if (i === buffer.length - 1) {
             // Encode trailing whitespace before the end of the input.
-            if (!encodedWord && charCode === 9) { // Tab
-                result += '=09';
-            } else if (!encodedWord && charCode === 32) { // Space
-                result += '=20';
+            if (!encodedWord && tabAndSpace.includes(charCode)) {
+                result += '=' + toHex(charCode, 2);
             } else {
                 result += encoding;
             }
         } else {
             const nextCharCode = buffer.readUInt8(i + 1);
             // Encode trailing whitespace before the end of a line.
-            if (!encodedWord && nextCharCode === 13 && charCode === 9) { // Tab
-                result += '=09';
-            } else if (!encodedWord && nextCharCode === 13 && charCode === 32) { // Space
-                result += '=20';
+            if (!encodedWord && nextCharCode === CR && tabAndSpace.includes(charCode)) {
+                result += '=' + toHex(charCode, 2);
             } else {
                 result += encoding;
-                if (lineLimit && lineLength >= lineLimit && nextCharCode !== 13) { // CR
+                if (lineLimit > 0 && lineLength >= lineLimit && nextCharCode !== CR) {
                     result += '=\r\n';
                     lineLength = 0;
                 }
@@ -219,9 +224,9 @@ export function decodeQuotedPrintable(text: string, charset: Charset, encodedWor
 
 /* ------------------------------ Encoded-Word encoding ------------------------------ */
 
-export function encodeEncodedWord(text: string, charset: Charset): string {
+export function encodeEncodedWord(text: string, charset: Charset, displayName = false): string {
     const base64 = encodeBase64(text, charset);
-    const quotedPrintable = encodeQuotedPrintable(text, charset, true);
+    const quotedPrintable = encodeQuotedPrintable(text, charset, true, displayName);
     let encoding;
     let encodedWord;
     if (base64.length < quotedPrintable.length) {
@@ -233,10 +238,13 @@ export function encodeEncodedWord(text: string, charset: Charset): string {
     }
     const result = `=?${charsets[charset]}?${encoding}?${encodedWord}?=`;
     if (result.length > 75) {
-        const index = Math.ceil(result.length / 2);
-        // This might split a character, which is not allowed by the standard.
-        return encodeEncodedWord(text.substring(0, index), charset) + '\r\n '
-             + encodeEncodedWord(text.substring(index), charset);
+        // By converting the text to an array of Unicode characters,
+        // we prevent that a Unicode character is being split,
+        // which is not allowed by the standard.
+        const chars = Array.from(text);
+        const index = Math.ceil(chars.length / 2);
+        return encodeEncodedWord(chars.slice(0, index).join(''), charset, displayName) + '\r\n '
+             + encodeEncodedWord(chars.slice(index).join(''), charset, displayName);
     } else {
         return result;
     }
@@ -314,9 +322,9 @@ function encodeParameterValue(value: string, charset: Charset): string {
     return charsets[charset].toLowerCase() + "''" + result;
 }
 
-export function encodeExtendedParameter(text: string): string {
+export function encodeExtendedParameters(text: string): string {
     let result = '';
-    const parameters = splitOutsideOfDoubleQuotes(text, ';', true, true);
+    const parameters = splitOutsideOfDoubleQuotes(text, ';', true);
     for (const parameter of parameters) {
         if (parameter.length === 0) {
             continue;
@@ -378,10 +386,10 @@ function decodeInitialParameterValue(value: string): [string, Charset] {
     return [decodeOtherParameterValue(getLastElement(parts), charset), charset];
 }
 
-export function decodeExtendedParameter(text: string): string {
+export function decodeExtendedParameters(text: string): string {
     let result = '';
     const continuations: { [key: string]: ({ encoded: boolean, value: string } | undefined)[] } = {};
-    const parameters = splitOutsideOfDoubleQuotes(text, ';', true, true);
+    const parameters = splitOutsideOfDoubleQuotes(text, ';', true);
     for (const parameter of parameters) {
         if (parameter.length === 0) {
             continue;
