@@ -29,7 +29,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   div.tabbed {
     border: 1px solid #000;
 
-    article > &, header > & {
+    article > &,
+    header > & {
       margin-right: 1px;
     }
   }
@@ -202,8 +203,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
   h5,
   h6,
   summary {
-    break-after: avoid;
     break-inside: avoid;
+    break-after: avoid;
   }
 
   figure {

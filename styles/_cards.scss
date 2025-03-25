@@ -70,17 +70,19 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 .custom-card-text {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   height: 48px;
   overflow: hidden;
   text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 @media (min-width: 576px) {
   .custom-card-text {
-    -webkit-line-clamp: 3;
     height: 72px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }
 
