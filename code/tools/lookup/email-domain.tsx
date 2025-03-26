@@ -545,7 +545,7 @@ export function renderQuery(query: Query): JSX.Element {
                 <img src={record.image} style={{ width: 80, height: 80, margin: 0, marginTop: '.75rem' }} title="The SVG image referenced in the 'l' tag of the record."/>
             }
             {record.buttons.length > 0 &&
-                <div style={{ marginTop: '.75rem', marginLeft: '3px' }}>
+                <div className="button-row">
                     {record.buttons.map(button => <button key={getUniqueKey()} type="button" className="btn btn-primary btn-sm mr-2" onClick={button.onClick} title={button.tooltip}>{button.label}</button>)}
                 </div>
             }

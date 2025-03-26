@@ -95,3 +95,18 @@ pre.wrapped {
 .margin-left-to-same + .margin-left-to-same {
   margin-left: 1rem;
 }
+
+.button-row {
+  margin-top: .75rem;
+  margin-left: 3px;
+}
+
+// Hides the content but preserves line breaks for .innerText,
+// which isn't the case when you use 'display: none' or 'visibility: hidden'.
+.hide-while-preserving-line-breaks {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  pointer-events: none;
+  opacity: 0;
+}

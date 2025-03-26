@@ -7,6 +7,8 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { flatten, unique } from '../../utility/array';
+import { getCurrentDate } from '../../utility/date';
+import { download } from '../../utility/download';
 import { base64Regex, encodeBase64, encodeEncodedWord, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, getNodeCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
 import { normalizeToValue } from '../../utility/normalization';
 import { arrayToRecord, Dictionary, reverseLookup } from '../../utility/record';
@@ -901,6 +903,34 @@ function angleAddress(address: string, title: string): JSX.Element {
     return <DynamicOutput title={title}>&lt;{encodeAddress(address)}&gt;</DynamicOutput>;
 }
 
+function downloadMessage() {
+    download(
+        getCurrentDate() + ' ' + document.getElementById('tool-protocol-esmtp-subject')!.innerText + '.eml',
+        document.getElementById('tool-protocol-esmtp-message')!.innerText,
+    );
+}
+
+export const esmtpMessage = <Fragment>
+    <OutputEntries entries={{ from, to, cc, bcc, subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
+    <OutputEntries entries={{ body }}/><br/>
+</Fragment>;
+
+export const esmtpMessageLength = <OutputFunction function={state => {
+    let length = 0;
+    const headers: { [key: string]: Argument<any, State> } = { from, to, cc, bcc, subject, date, identifier, mimeVersion, contentType, contentTransferEncoding };
+    for (const key of Object.keys(headers) as KeysOf<State>) {
+        const entry = headers[key];
+        const value = isDynamicEntry(entry) ? state[key] : normalizeToValue(entry.defaultValue, undefined);
+        const output: string = entry.transform ? entry.transform(value, state) : value.toString();
+        const skipped = entry.skip ? entry.skip(state, value) : !value;
+        if (!skipped) {
+            length += entry.longForm.length + output.length + 3; // SP + CR + LF
+        }
+    }
+    length += encodeQuotedPrintableIfNecessary(state.body).length + 4; // 2 * (CR + LF)
+    return <DynamicOutput title="Length: The length of the message in bytes.">{`{${length}}`}</DynamicOutput>;
+}}/>;
+
 export const toolProtocolEsmtp: Tool = [
     <Fragment>
         <Input newColumnAt={12}/>
@@ -1158,29 +1188,20 @@ export const toolProtocolEsmtp: Tool = [
                 </SystemReply>
             </IfEntries>
         </CodeBlock>
+        <div className="button-row">
+            <div className="hide-while-preserving-line-breaks">
+                <pre id="tool-protocol-esmtp-subject"><OutputFunction function={state => state.subject}/></pre>
+                <pre id="tool-protocol-esmtp-message">{esmtpMessage}</pre>
+            </div>
+            <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={downloadMessage}
+                title="Download the above message as a .eml file to import it into your mail client."
+            >Download message</button>
+        </div>
     </Fragment>,
     store,
 ];
 
 export const toolProtocolEsmtpClient = <Input entries={{ client }} noHistory/>;
-
-export const esmtpMessage = <Fragment>
-    <OutputEntries entries={{ from, to, cc, bcc, subject, date, identifier, mimeVersion, contentType, contentTransferEncoding }} outputSeparator={<br/>}/><br/><br/>
-    <OutputEntries entries={{ body }}/><br/>
-</Fragment>;
-
-export const esmtpMessageLength = <OutputFunction function={state => {
-    let length = 0;
-    const headers: { [key: string]: Argument<any, State> } = { from, to, cc, bcc, subject, date, identifier, mimeVersion, contentType, contentTransferEncoding };
-    for (const key of Object.keys(headers) as KeysOf<State>) {
-        const entry = headers[key];
-        const value = isDynamicEntry(entry) ? state[key] : normalizeToValue(entry.defaultValue, undefined);
-        const output: string = entry.transform ? entry.transform(value, state) : value.toString();
-        const skipped = entry.skip ? entry.skip(state, value) : !value;
-        if (!skipped) {
-            length += entry.longForm.length + output.length + 3; // SP + CR + LF
-        }
-    }
-    length += encodeQuotedPrintableIfNecessary(state.body).length + 4; // 2 * (CR + LF)
-    return <DynamicOutput title="Length: The length of the message in bytes.">{`{${length}}`}</DynamicOutput>;
-}}/>;
