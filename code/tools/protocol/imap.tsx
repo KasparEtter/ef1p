@@ -7,6 +7,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 import { Fragment } from 'react';
 
 import { getFirstElement, getLastElement, sortNumbers, unique } from '../../utility/array';
+import { encodeDomain, unicodeDomainRegex } from '../../utility/domain';
 import { Dictionary, reverseLookup } from '../../utility/record';
 import { doubleQuote } from '../../utility/string';
 import { Time } from '../../utility/time';
@@ -24,9 +25,7 @@ import { VersionedStore } from '../../react/versioned-store';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
-import { unicodeDomainRegex } from '../encoding/punycode';
-
-import { connect, crlf, emailAddressRegex, encodeAddress, encodeDomain, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
+import { connect, crlf, emailAddressRegex, encodeAddress, esmtpMessage, esmtpMessageLength, getDomain, getUsername, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Entry updates ------------------------------ */
 

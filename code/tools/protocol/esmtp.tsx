@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 
 import { flatten, unique } from '../../utility/array';
 import { getCurrentDate } from '../../utility/date';
+import { encodeDomain, unicodeDomainRegex, unicodeDomainRegexString } from '../../utility/domain';
 import { download } from '../../utility/download';
 import { base64Regex, encodeBase64, encodeEncodedWord, encodeEncodedWordIfNecessary, encodeQuotedPrintableIfNecessary, getIanaCharset, getNodeCharset, isInAsciiRange, toCramMd5Encoding, toPlainEncoding } from '../../utility/encoding';
 import { normalizeToValue } from '../../utility/normalization';
@@ -30,8 +31,6 @@ import { VersionedStore } from '../../react/versioned-store';
 import { getReverseLookupDomain, resolveDomainName } from '../../apis/dns-lookup';
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 import { getIpInfo } from '../../apis/ip-geolocation';
-
-import { encodePunycode, unicodeDomainRegex, unicodeDomainRegexString } from '../encoding/punycode';
 
 /* ------------------------------ Utility functions ------------------------------ */
 
@@ -97,11 +96,6 @@ function deriveIdentifier(state: Readonly<State>): string {
     const randomness = getRandomString() + getRandomString();
     const domain = getDomain(getFromAddress(state));
     return `<${randomness}@${domain}>`;
-}
-
-// This indirection allows this function to be passed directly to the 'transform' property in the entries below.
-export function encodeDomain(domain: string): string {
-    return encodePunycode(domain);
 }
 
 export function encodeAddress(address: string): string {
@@ -207,9 +201,6 @@ async function determineClient(): Promise<string> {
 /* ------------------------------ Regular expressions ------------------------------ */
 
 // All the following regular expressions should be used with the case insensitive flag.
-
-// const domainRegexString = `(([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*[a-z][-a-z0-9]{0,61}[a-z0-9])`;
-// export const domainRegex = regex(domainRegexString);
 
 const ip4RegexString = `(\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\])`;
 const deviceAddressRegexString = `(${ip4RegexString}|${unicodeDomainRegexString}|localhost)`;

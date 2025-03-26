@@ -14,6 +14,8 @@ import { getInput } from '../../react/input';
 import { StaticPrompt } from '../../react/prompt';
 import { VersionedStore } from '../../react/versioned-store';
 
+import { validateWebAddress } from '../utility/address';
+
 /* ------------------------------ Input ------------------------------ */
 
 const webAddress: DynamicTextEntry = {
@@ -22,13 +24,7 @@ const webAddress: DynamicTextEntry = {
     defaultValue: 'https://explained-from-first-principles.com/internet/',
     inputType: 'text',
     inputWidth: 450,
-    validateIndependently: input =>
-        // These checks are redundant to the regular expression on the last line of this entry but they provide a more specific error message.
-        input === '' && 'The web address may not be empty.' ||
-        input.includes(' ') && 'The web address may not contain spaces.' ||
-        !input.startsWith('http://') && !input.startsWith('https://') && `The web address has to start with 'http://' or 'https://'.` ||
-        !/^[-a-z0-9_.:/?&=!'()*%]+$/i.test(input) && 'Only the Latin alphabet is currently supported.' ||
-        !/^(http|https):\/\/([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*[a-z][-a-z0-9]{0,61}[a-z0-9](:\d+)?(\/[a-z0-9-_.:/?&=!'()*%]*)?$/i.test(input) && 'The pattern of the web address is invalid.',
+    validateIndependently: validateWebAddress,
 };
 
 interface State {

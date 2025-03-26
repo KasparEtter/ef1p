@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { encodeDomain } from '../../utility/domain';
 import { nonEmpty, regex } from '../../utility/string';
 
 import { Argument } from '../../react/argument';
@@ -17,7 +18,7 @@ import { getInput } from '../../react/input';
 import { getOutputEntries } from '../../react/output-entries';
 import { getDefaultState, VersionedStore } from '../../react/versioned-store';
 
-import { emailAddressRegexString, encodeDomain } from '../protocol/esmtp';
+import { emailAddressRegexString } from '../protocol/esmtp';
 
 /* ------------------------------ Input ------------------------------ */
 

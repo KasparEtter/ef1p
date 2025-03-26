@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { encodeDomain, unicodeDomainRegex } from '../../utility/domain';
 import { toApopEncoding } from '../../utility/encoding';
 import { Dictionary, reverseLookup } from '../../utility/record';
 
@@ -21,9 +22,7 @@ import { VersionedStore } from '../../react/versioned-store';
 
 import { findConfigurationFile, SocketType } from '../../apis/email-configuration';
 
-import { unicodeDomainRegex } from '../encoding/punycode';
-
-import { connect, crlf, emailAddressRegex, encodeAddress, encodeDomain, encodeIdentifier, getDomain, getUsername, identifierRegex, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
+import { connect, crlf, emailAddressRegex, encodeAddress, encodeIdentifier, getDomain, getUsername, identifierRegex, implementation, maxPortNumber, minPortNumber, openssl, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Entry updates ------------------------------ */
 

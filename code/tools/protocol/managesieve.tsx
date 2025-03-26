@@ -6,6 +6,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 import { Fragment } from 'react';
 
+import { encodeDomain } from '../../utility/domain';
 import { toPlainEncoding } from '../../utility/encoding';
 import { doubleQuote, doubleQuoteIfWhitespace, normalizeNewlines, regex } from '../../utility/string';
 
@@ -19,7 +20,7 @@ import { getOutputEntries } from '../../react/output-entries';
 import { StaticPrompt } from '../../react/prompt';
 import { VersionedStore } from '../../react/versioned-store';
 
-import { connect, crlf, emailAddressRegexString, encodeAddress, encodeDomain, localPartRegexString, maxPortNumber, minPortNumber, quiet, validateDomain } from './esmtp';
+import { connect, crlf, emailAddressRegexString, encodeAddress, localPartRegexString, maxPortNumber, minPortNumber, quiet, validateDomain } from './esmtp';
 
 /* ------------------------------ Dynamic entries ------------------------------ */
 
