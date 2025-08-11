@@ -51,6 +51,11 @@ export function toHex(value: number | bigint, minLength = 0, upperCase = true): 
     return hex.padStart(minLength, '0');
 }
 
+export function insertThousandSeparator(integer: number | bigint, separator = "'"): string {
+    // https://stackoverflow.com/a/2901298/12917821
+    return integer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
 export function encodePercent(text: string, form: boolean = true, strict: boolean = true): string {
     let result = encodeURIComponent(text);
     if (strict) {
