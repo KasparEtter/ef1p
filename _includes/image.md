@@ -8,19 +8,19 @@
 {% if include.themed %}
     {% if extension == "jpg" %}
         {% capture srcset-light %}{% for size in sizes %}, {{path}}/generated/{{name}}.light.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset-light | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.light.{{sizes[2]}}.{{extension}}" class="light-theme-only" />
+<img srcset="{{ srcset-light | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.light.{{sizes[2]}}.{{extension}}" class="light-theme-only" alt="" />
         {% capture srcset-dark %}{% for size in sizes %}, {{path}}/generated/{{name}}.dark.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset-dark | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.dark.{{sizes[2]}}.{{extension}}" class="dark-theme-only" />
+<img srcset="{{ srcset-dark | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.dark.{{sizes[2]}}.{{extension}}" class="dark-theme-only" alt="" />
     {% else %}
-<img src="{{path}}/generated/{{name}}.light.{{extension}}" class="light-theme-only" />
-<img src="{{path}}/generated/{{name}}.dark.{{extension}}" class="dark-theme-only" />
+<img src="{{path}}/generated/{{name}}.light.{{extension}}" class="light-theme-only" alt="" />
+<img src="{{path}}/generated/{{name}}.dark.{{extension}}" class="dark-theme-only" alt="" />
     {% endif %}
 {% else %}
     {% if extension == "jpg" %}
         {% capture srcset %}{% for size in sizes %}, {{path}}/generated/{{name}}.{{size}}.{{extension}} {{size}}w{% endfor %}{% endcapture %}
-<img srcset="{{ srcset | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.{{sizes[2]}}.{{extension}}" />
+<img srcset="{{ srcset | remove_first: ', ' }}" sizes="(min-width: 992px) 910px, 100vw" src="{{path}}/generated/{{name}}.{{sizes[2]}}.{{extension}}" alt="" />
     {% else %}
-<img src="{{path}}/generated/{{ include.source }}" />
+<img src="{{path}}/generated/{{ include.source }}" alt="" />
     {% endif %}
 {% endif %}
 </div>
