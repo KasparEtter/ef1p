@@ -8,6 +8,7 @@ domain: explained-from-first-principles.com
 short_domain: ef1p.com
 email: contact@ef1p.com
 author: Kaspar Etter
+author_url: https://kasparetter.com
 lang: en
 permalink: pretty
 date_format: '%-e %B %Y' # http://strftime.net

@@ -15,19 +15,32 @@ layout: navbar
 {% include definitions.svg %}
 {{ content }}
 
-            <footer class="d-print-none">
-                If you like my work, please consider supporting me with a <a href="/#donate">donation</a>
-                so that I can keep publishing articles which are freely available.
-                To be informed about new articles, follow this blog on
-                <a href="{{ site.reddit_community }}">Reddit</a>,
-                <a href="https://x.com/{{ site.xdotcom_handle }}">X.com</a>,
-                or <a href="{{ site.telegram_channel }}">Telegram</a>,
-                or subscribe to its <a href="{% link feed.xml %}">news feed</a>
-                using <a href="https://support.mozilla.org/en-US/kb/how-subscribe-news-feeds-and-blogs">RSS/Atom</a>.
-            </footer>
-            <footer class="d-none d-print-block">
-                The copyright of this article and its graphics belong to {{ page.author | default: site.author }}.
-                You can share this article in any form as long as you give proper attribution.
+            <footer>
+                <p>
+                    If you like my work, please consider supporting me with a <a href="/#donate">donation</a>
+                    so that I can keep publishing articles which are freely available.
+                    To be informed about new articles, follow this blog on
+                    <a href="{{ site.reddit_community }}">Reddit</a>,
+                    <a href="https://x.com/{{ site.xdotcom_handle }}">X.com</a>,
+                    or <a href="{{ site.telegram_channel }}">Telegram</a>,
+                    or subscribe to its <a href="{% link feed.xml %}">news feed</a>
+                    using <a href="https://support.mozilla.org/en-US/kb/how-subscribe-news-feeds-and-blogs">RSS/Atom</a>.
+                </p>
+                <p>
+                    ©
+                    {% assign year_published = page.published | date: '%Y' %}
+                    {% assign year_modified = page.modified | date: '%Y' %}
+                    {% if year_published != nil and year_modified != nil and year_modified != year_published %}
+                        {{ year_published }} – {{ year_modified }}
+                    {% elsif year_published != nil %}
+                        {{ year_published }}
+                    {% else %}
+                        {{ site.time | date: '%Y' }}
+                    {% endif %}
+                    <a href="{{ page.author_url | default: site.author_url }}">{{ page.author | default: site.author }}</a>.
+                    Some rights reserved.
+                    Licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+                </p>
             </footer>
         </article>
     </div>

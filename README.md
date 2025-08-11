@@ -938,6 +938,8 @@ Please [open an issue](https://github.com/KasparEtter/ef1p/issues/new)
 if you found a typographical error, a factual inaccuracy or a logical fallacy.
 Please also let me know if an explanation or argument is difficult to follow.
 In general, I prefer issues to pull requests.
+
+**Important**:
 By creating a pull request,
 you transfer the copyright of your contribution without any limitations to [me](#copyright).
 
