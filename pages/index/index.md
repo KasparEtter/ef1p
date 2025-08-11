@@ -326,8 +326,8 @@ and [PayPal](https://paypal.me/KasparEtter).
 You can also transfer money directly to my bank account
 using [my name](#about) and the IBAN `CH48 0025 7257 6106 9840 Q`.
 If you prefer to stay "anonymous", you can donate some bitcoin to
-`bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep`
-[<i class="fas fa-external-link-alt smaller"></i>](https://blockstream.info/address/bc1q4fsulplawjucrw9sz0swgu6thgk24fn03wttrrcesut2nsq0zwgsepveep).
+`bc1q77r0588a3f0yyp3syr70hpua5ha0n7he2pvypvwh6fv3dqd8ukgs39y8nd`
+[<i class="fas fa-external-link-alt smaller"></i>](https://bitref.com/bc1q77r0588a3f0yyp3syr70hpua5ha0n7he2pvypvwh6fv3dqd8ukgs39y8nd).
 Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) counts.
 
 
