@@ -13,13 +13,13 @@ layout: toc
         and <a href="{{ site.github.repository_url | append: '/commits/main/' | append: page.path }}">last modified</a>
         on {{ page.modified | date: site.date_format }}{% endif %}.
         If you like the article,
-        please share it with your friends on <a href="https://twitter.com/{{ site.twitter_handle }}">social media</a>
+        please share it with your friends on <a href="https://x.com/{{ site.xdotcom_handle }}">social media</a>
         or support me with a <a href="/#donate">donation</a>.
         {% capture pdf %}/pages{{ page.dir }}generated/{{ page.modified | default: page.published }} {{ page.title }} {{ site.title | downcase }}.pdf{% endcapture %}
         {% capture url %}https://{{ site.domain }}{{ site.baseurl }}{{ page.url }}{% endcapture %}
         You can also <a href="#cite-this-article">cite this article</a>,
         <a id="pdf-download" href="{{ pdf | relative_url }}" download>download it as a PDF</a>,
-        see what people are <a href="https://twitter.com/search?q=https%3A%2F%2F{{ site.domain }}%2F{{ page.name | remove: '.md' }}%2F%20-from%3A{{ site.twitter_handle_of_author }}&f=live">saying about it on Twitter</a>,{% if page.reddit %}
+        see what people are <a href="https://x.com/search?q=https%3A%2F%2F{{ site.domain }}%2F{{ page.name | remove: '.md' }}%2F%20-from%3A{{ site.xdotcom_handle_of_author }}&f=live">saying about it on X.com</a>,{% if page.reddit %}
         join the <a href="{{ page.reddit }}">discussion on Reddit</a>,{% endif %}
         or <a href="https://translate.google.com/translate?u={{ url }}">use Google Translate</a> to read it in another language.
     </p>

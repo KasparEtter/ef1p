@@ -568,10 +568,10 @@ Articles can have the following variables in their [front matter](https://jekyll
 ### Preview
 
 You can refresh the cached preview of an article
-on [Twitter](https://cards-dev.twitter.com/validator),
+on [X.com](https://cards-dev.x.com/validator),
 [Facebook](https://developers.facebook.com/tools/debug/),
 and [LinkedIn](https://www.linkedin.com/post-inspector/inspect/).
-In case of Telegram, you need to send the URL to the
+In the case of Telegram, you need to send the URL to the
 [@webpagebot](https://telegram.me/webpagebot).
 
 
@@ -671,7 +671,7 @@ if you want the content of the tag to be parsed explicitly as a block or span le
 
 #### Details element
 
-For example, this is how you can declare a collapsed
+For example, this is how you can declare a
 [details](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) section
 with a [summary](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary),
 where the content is still rendered using Markdown.
