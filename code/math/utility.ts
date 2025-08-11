@@ -190,7 +190,7 @@ export function chineseRemainder(mr1: [bigint, bigint], mr2: [bigint, bigint]): 
  */
 export function getRandomInteger(lower: bigint, upper: bigint): bigint {
     if (upper < lower) {
-        throw new Error(`math/utlity.ts: The upper bound ${upper} may not be smaller than the lower bound ${lower}.`);
+        throw new Error(`math/utility.ts: The upper bound ${upper} may not be smaller than the lower bound ${lower}.`);
     }
     const inclusiveDifference = upper - lower + one;
     const numberOfBytes = Math.ceil(inclusiveDifference.toString(2).length / 8) + 1; // + 1 to reduce the skew of the modulo.
@@ -231,7 +231,7 @@ export function mulberry32(a: number) {
  */
 export function getPseudoRandomInteger(lower: bigint, upper: bigint, prng: () => bigint): bigint {
     if (upper < lower) {
-        throw new Error(`math/utlity.ts: The upper bound ${upper} may not be smaller than the lower bound ${lower}.`);
+        throw new Error(`math/utility.ts: The upper bound ${upper} may not be smaller than the lower bound ${lower}.`);
     }
     const inclusiveDifference = upper - lower + one;
     const numberOfBytes = Math.ceil(inclusiveDifference.toString(2).length / 8) + 1; // + 1 to reduce the skew of the modulo.
