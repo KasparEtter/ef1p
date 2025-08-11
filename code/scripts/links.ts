@@ -8,7 +8,7 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 // Mark the state of all information boxes and then open them all.
 $('details').each(function() {
-    $(this).find('summary').append('&nbsp;&nbsp;' + ($(this).prop('open') ? '📖' : '📘'));
+    $(this).find('summary').addClass($(this).prop('open') ? 'open' : 'closed');
 });
 $('details').attr('open', '');
 
@@ -57,11 +57,3 @@ for (const element of document.querySelectorAll('[id]')) {
         ids.add(element.id);
     }
 }
-
-// Count the number of referenced RFCs in the current article.
-// const set = new Set();
-// $("a[href^='https://datatracker.ietf.org/doc/html/rfc']").each(function() {
-//     set.add((this as HTMLAnchorElement).pathname.substring(10));
-// });
-// console.log(`This article references ${set.size} different RFCs.`);
-// console.log(Array.from(set).sort());

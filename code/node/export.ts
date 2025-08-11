@@ -88,6 +88,7 @@ if (!directory) {
         displayHeaderFooter: true,
         headerTemplate: '<span></span>',
         footerTemplate,
+        outline: true,
         timeout: 1200000,
     });
     await browser.close();

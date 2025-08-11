@@ -20,6 +20,16 @@ License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     }
   }
 
+  summary.open > span:last-of-type::after {
+    margin-left: .2em;
+    content: "📖";
+  }
+
+  summary.closed > span:last-of-type::after {
+    margin-left: .2em;
+    content: "📘";
+  }
+
   h2,
   h3,
   h4,
