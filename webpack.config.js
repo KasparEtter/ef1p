@@ -11,6 +11,7 @@ module.exports = {
     entry: {
         links: './code/scripts/links.ts',
         ready: './code/scripts/ready.ts',
+        rfcs: './code/scripts/rfcs.ts',
         theme: './code/scripts/theme.ts',
 
         index: './pages/index/index.ts',
