@@ -113,7 +113,7 @@ which allows the articles to be used as [works of reference](https://en.wikipedi
 
 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span>
 by <a xmlns:cc="http://creativecommons.org/ns#" href="https://kasparetter.com" property="cc:attributionName" rel="cc:attributionURL">Kaspar Etter</a>
-is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 
 ### Disclaimer
@@ -299,9 +299,11 @@ to get a [tooltip](https://en.wikipedia.org/wiki/Tooltip) with their full name.
 
 I work independently, and I'm supported only by donations from my readers.
 I pledge to disclose all conflicts of interest which might bias the content on this blog.
-All the text on this website is written by me and not by a
+The text on this website is generally written by me and not by a
 [large language model (LLM)](https://en.wikipedia.org/wiki/Language_model#Notable_language_models),
 such as [ChatGPT](https://openai.com/blog/chatgpt).
+I use LLMs heavily for research and coding.
+Occasionally, I also use them for proofreading, which blurs the line a bit.
 
 
 ## Contact
@@ -327,7 +329,7 @@ You can also transfer money directly to my bank account
 using [my name](#about) and the IBAN `CH48 0025 7257 6106 9840 Q`.
 If you prefer to stay "anonymous", you can donate some bitcoin to
 `bc1q77r0588a3f0yyp3syr70hpua5ha0n7he2pvypvwh6fv3dqd8ukgs39y8nd`
-[<i class="fas fa-external-link-alt smaller"></i>](https://bitref.com/bc1q77r0588a3f0yyp3syr70hpua5ha0n7he2pvypvwh6fv3dqd8ukgs39y8nd).
+[<i class="fa-solid fa-up-right-from-square" style="font-size: 60%;" title="See the total amount received so far."></i>](https://bitref.com/bc1q77r0588a3f0yyp3syr70hpua5ha0n7he2pvypvwh6fv3dqd8ukgs39y8nd).
 Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) counts.
 
 
@@ -347,7 +349,7 @@ Every [satoshi](https://en.wikipedia.org/wiki/Bitcoin#Units_and_divisibility) co
   If nothing is stated there, the values you enter are stored only
   [locally in your browser](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
 - I announce new articles on [Reddit]({{ site.reddit_community }}),
-  [Twitter](https://twitter.com/{{ site.twitter_handle }}),
+  [X.com](https://x.com/{{ site.xdotcom_handle }}),
   and [Telegram]({{ site.telegram_channel }}).
   If you don't like these companies, then just don't use their services.
 
@@ -372,7 +374,7 @@ I don't like the pricing models of the major mailing list providers, the double 
 [General Data Protection Regulation (GDPR)](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation),
 and anti-spam regulations requiring me to disclose my physical address,
 so I opted for a [Telegram channel]({{ site.telegram_channel }}) instead.
-You can also activate notifications on this blog's [Twitter profile](https://twitter.com/{{ site.twitter_handle }})
+You can also activate notifications on this blog's [X.com profile](https://x.com/{{ site.xdotcom_handle }})
 or subscribe to its [news feed]({% link feed.xml %})
 using [RSS/Atom](https://support.mozilla.org/en-US/kb/how-subscribe-news-feeds-and-blogs).
 I intend to use these channels exclusively to announce new content,
@@ -498,6 +500,7 @@ There are many open publishing platforms, such as [Medium](https://medium.com/),
 *[GUI]: Graphical User Interface
 *[IBAN]: International Bank Account Number
 *[LLM]: Large Language Model
+*[LLMs]: Large Language Models
 *[PDF]: Portable Document Format
 *[PNG]: Portable Network Graphics
 *[SEO]: Search Engine Optimization
