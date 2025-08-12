@@ -9,7 +9,7 @@ layout: toc
     <p class="article-meta">
         This <a href="{{ site.github.repository_url | append: '/blob/main/' | append: page.path }}">article</a>
         and its <a href="{{ site.github.repository_url | append: '/blob/main/' | append: page.path | replace: '.md', '.tsx' }}">code</a> were
-        first published on {{ page.published | date: site.date_format }}{% if page.modified %}
+        first published on {{ page.published | default: site.time | date: site.date_format }}{% if page.modified %}
         and <a href="{{ site.github.repository_url | append: '/commits/main/' | append: page.path }}">last modified</a>
         on {{ page.modified | date: site.date_format }}{% endif %}.
         If you like the article,
