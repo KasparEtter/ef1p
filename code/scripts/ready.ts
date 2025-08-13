@@ -317,8 +317,8 @@ $('#details-collapser').on('click', () => {
 
 // Track the number of PDF downloads.
 $('#pdf-download').on('click contextmenu', event => {
-    const target = event.target as HTMLAnchorElement;
-    report('Download article', { Version: target.href });
+    const href = (event.target as HTMLAnchorElement).href;
+    report('Download article', { File: href.substring(href.lastIndexOf('/') + 1).replace(/%20/g, ' ') });
 });
 
 // Remove the cookies set by earlier versions of this website.
