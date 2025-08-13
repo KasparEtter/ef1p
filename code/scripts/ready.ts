@@ -50,6 +50,9 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
     if (details !== null) {
         details.classList.remove('d-none');
         details.open = true;
+        if (anchor === '#cite-this-article') {
+            report('Cite article', { Trigger: trigger });
+        }
     }
 
     let margin = 0;
@@ -86,7 +89,10 @@ const scrollToAnchor = (hash: string | null, trigger: 'load' | 'hash' | 'link' |
     }
 
     if (trigger === 'load') {
-        report('Load target', { Anchor: anchor });
+        report('Load target', {
+            Anchor: anchor,
+            interactive: false, // This excludes the event from bounce-rate calculations, see https://plausible.io/docs/custom-event-goals#trigger-custom-events-manually-with-a-javascript-function.
+        });
     }
 
     return true;
