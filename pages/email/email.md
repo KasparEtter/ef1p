@@ -5718,7 +5718,7 @@ you can specify under [which conditions](https://datatracker.ietf.org/doc/html/r
 a [specific action](https://datatracker.ietf.org/doc/html/rfc5228#section-4) shall be applied.
 You can find plenty of examples throughout the RFC as well as
 [here](https://docs.gandi.net/en/gandimail/sieve/sample_filters.html)
-and [here](https://wiki.dovecot.org/Pigeonhole/Sieve/Examples).
+and [here](https://doc.dovecot.org/latest/howto/sieve.html).
 There are just a couple of things you should know to understand them:
 - **Arguments**: Most commands in the Sieve language take arguments.
   Mandatory arguments are determined by their [position](https://datatracker.ietf.org/doc/html/rfc5228#section-2.6.1),
