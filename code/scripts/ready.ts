@@ -272,6 +272,7 @@ if (isTouchDevice) {
     $('figure svg.figure').on('contextmenu', showDownloadMenu);
 }
 
+downloadMenu.on('mousedown', event => event.stopPropagation());
 $(document).on('mousedown', hideDownloadMenu);
 
 // Prevent the following elements from becoming focused when clicked.
