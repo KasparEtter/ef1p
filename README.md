@@ -99,22 +99,23 @@ brew install git
 
 #### Ruby
 
-Install (or upgrade) [Ruby](https://www.ruby-lang.org).
+Install [Ruby](https://www.ruby-lang.org) 3.3.
+This repository specifies the supported Ruby version in `Gemfile`.
 
 
 ##### macOS Ruby
 
 In order to avoid [file permission issues](https://stackoverflow.com/questions/14607193/installing-gem-or-updating-rubygems-fails-with-permissions-error),
-install Ruby with Homebrew on macOS:
+install Ruby 3.3 with Homebrew on macOS:
 
 ```bash
-brew install ruby
+brew install ruby@3.3
 ```
 
 Add the paths indicated by the Ruby install script to your `~/.zshrc`:
 
 ```bash
-export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.2.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
 ```
 
 Reload your shell for the changes to take effect by opening a new window/tab
