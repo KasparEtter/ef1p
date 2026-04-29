@@ -273,6 +273,7 @@ if (isTouchDevice) {
 }
 
 downloadMenu.on('mousedown', event => event.stopPropagation());
+downloadMenu.on('click', hideDownloadMenu);
 $(document).on('mousedown', hideDownloadMenu);
 
 // Prevent the following elements from becoming focused when clicked.
