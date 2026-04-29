@@ -573,6 +573,6 @@
         "/package-lock.json": true,
     },
     "deno.enable": false,
-    "typescript.tsdk": "node_modules/typescript/lib",
     "git.ignoreLimitWarning": true,
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
 }
